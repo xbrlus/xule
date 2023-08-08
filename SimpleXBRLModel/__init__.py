@@ -61,6 +61,9 @@ def sxmCmdUtilityRun(*args, **kwargs):
     pass
     #xsmGetModule()
 
+def dummy(*args, **kwargs):
+    pass
+
 __pluginInfo__ = {
     'name': 'Simple XBRL Model Plugin',
     'version': '0.1',
@@ -72,8 +75,8 @@ __pluginInfo__ = {
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     #'CntlrWinMain.Menu.Tools': sxmMenuTools,
     #'CntlrWinMain.Menu.Validation':sxmValidateMenuTools,
-    #'CntlrCmdLine.Options': sxmCmdOptions,
-    'CntlrCmdLine.Utility.Run': sxmCmdUtilityRun,
+    'CntlrCmdLine.Options': dummy,
+    'CntlrCmdLine.Utility.Run': dummy,
     #'CntlrCmdLine.Xbrl.Loaded': sxmCmdXbrlLoaded,
     #'Validate.Finally': sxmValidate,
     #'TestcaseVariation.Xbrl.Loaded': sxmTestXbrlLoaded,

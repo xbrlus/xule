@@ -39,33 +39,33 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     else:
         parserGroup = parser
     
-    parserGroup.add_option("--xince-location",
+    parserGroup.add_option("--xodel-location",
                             action="store",
                             help=_("Directory where files are create"))
 
-    parserGroup.add_option("--xince-file-type",
+    parserGroup.add_option("--xodel-file-type",
                             action="store",
                             choices=('json', 'xml'),
                             default="json",
                             help=_("type of output. values are 'json', 'xml'"))
 
-    parserGroup.add_option("--xince-show-xule-log",
+    parserGroup.add_option("--xodel-show-xule-log",
                             action="store_true",
                             help=_("Indicates to output the xule log"))
-
+    
 def cmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
     parser = optparse.OptionParser()
 
-    if options.xince_location is not None and options.xule_rule_set is None:
+    if options.xodel_location is not None and options.xule_rule_set is None:
         parser.error("Xince and Xodel requires a xule rule set (--xule-rule-set)")
 
 def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     # Model is create (file loaded) now ready to create an instance
 
-    if options.xince_location is None:
+    if options.xodel_location is None:
         # nothing to do
-        modelXbrl.info("Xince and Xodel plugin is installed but the --xince-location option was not provided. Not creating instances.", "XodelInfo")
+        modelXbrl.info("Xodel plugin is installed but the --xodel-location option was not provided. Not creating a package.", "XodelInfo")
     else:
         process_xodel(cntlr, options, modelXbrl)
 
@@ -74,7 +74,7 @@ __pluginInfo__ = {
     'version': '0.9',
     'description': "Xince and Xodel- Xule Instance and taxonomy creator",
     'copyright': '(c) Copyright 2022 XBRL US Inc., All rights reserved.',
-    'import': ('xule', 'SimpleXBRLModel'),
+    'import': ('xule', 'SimpleXBRLModel', 'serializer'),
     # classes of mount points (rquired)
     'CntlrCmdLine.Options': cmdLineOptionExtender,
     'CntlrCmdLine.Utility.Run': cmdUtilityRun,

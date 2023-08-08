@@ -4,9 +4,11 @@ Reivision number: $Change: 23365 $
 
 from arelle import FileSource
 from arelle import ModelManager
-from arelle import PluginManager
+from arelle.ModelXbrl import ModelXbrl
+from .arelleHelper import *
 from .xodelXuleExtensions import property_to_xodel
 from .XodelVars import get_arelle_model
+from .XodelException import XodelException
 
 import base64
 import collections
@@ -21,7 +23,9 @@ from lxml import etree as et
 import optparse
 import os
 import re
+import string
 import tempfile
+from typing import Dict
 
 # XINCE Constants
 _XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
@@ -144,20 +148,28 @@ _LINK_ALIASES_BY_URI = {'http://www.xbrl.org/2003/arcrole/fact-footnote': 'footn
 _LINK_ALIASES_BY_ALIAS = {v.lower(): k for k, v in _LINK_ALIASES_BY_URI.items()}
 _STANDARD_ROLE_ALIAS = '_'
 
-# Exception
-class XodelException(Exception):
-    pass
+
 
 # Starting point
 def process_xodel(cntlr, options, modelXbrl):
+    # register the controller (cntlr and the default model)
+    global _CNTLR
+    _CNTLR = cntlr
+    global _ARELLE_MODEL
+    _ARELLE_MODEL = modelXbrl
     from .xule.XuleProperties import add_property
     add_property('to-xodel', property_to_xodel, 0, tuple() )
     # Run Xule rules
     log_capture = run_xule(cntlr, options, modelXbrl)
 
     #build taxonomy model
-    tax_model = build_taxonomy_model(log_capture, options, cntlr)
-
+    # buile_taxonomy_model will add the taxonomies to the XodelModelManager
+    build_taxonomy_model(log_capture, options, cntlr, modelXbrl)
+    from . import serializer
+    serializer._OPTIONS = options
+    for name, dts in XodelModelManager.get_all_models().items():
+        dts.set_default_documents(name)
+        serializer.write(dts, os.path.join(options.xodel_location, 'package.zip'), cntlr)
 
     # Find instances and facts
     instances, instance_facts = organize_instances_and_facts(log_capture, cntlr)
@@ -170,7 +182,7 @@ def run_xule(cntlr, options, modelXbrl):
 
     # Create a log handler that will capture the messages when the rules are run.
     log_capture_handler = _logCaptureHandler()
-    if not options.xince_show_xule_log:
+    if not options.xodel_show_xule_log:
         cntlr.logger.removeHandler(cntlr.logHandler)
     cntlr.logger.addHandler(log_capture_handler)
 
@@ -190,7 +202,7 @@ def run_xule(cntlr, options, modelXbrl):
     
     # Remove the handler from the logger. This will stop the capture of messages
     cntlr.logger.removeHandler(log_capture_handler)
-    if not options.xince_show_xule_log:
+    if not options.xodel_show_xule_log:
         cntlr.logger.addHandler(cntlr.logHandler)
 
     return log_capture_handler.captured
@@ -536,7 +548,7 @@ def process_instance(instance_name, taxonomies, facts, cntlr, options):
 
     used_footnotes, fact_footnotes = organize_footnotes(instance_name, facts, cntlr)
 
-    if options.xince_file_type == 'json':
+    if options.xodel_file_type == 'json':
         process_json(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options)
     else:
         process_xml(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options)
@@ -636,7 +648,7 @@ def process_json(instance_name, taxonomies, facts, used_footnotes, fact_footnote
     instance['documentInfo']['namespaces'] = nsmap.used_map_by_prefix
     
     # Write the file
-    output_file_name = os.path.join(options.xince_location, f'{instance_name}.json')
+    output_file_name = os.path.join(options.xodel_location, f'{instance_name}.json')
     with open(output_file_name, 'w') as f:
         json.dump(instance, f, indent=2)
     cntlr.addToLog(f"Writing instance file {output_file_name}", "XinceInfo")
@@ -685,7 +697,7 @@ def process_xml(instance_name, taxonomies, facts, used_footnotes, fact_footnotes
     # Clean up namespaces
     et.cleanup_namespaces(instance, top_nsmap=nsmap.used_map_by_prefix, keep_ns_prefixes=nsmap.used_map_by_prefix)
     # Write the file
-    output_file_name = os.path.join(options.xince_location, f'{instance_name}.xml')
+    output_file_name = os.path.join(options.xodel_location, f'{instance_name}.xml')
     with open(output_file_name, 'wb') as f:
         tree = et.ElementTree(instance)
         tree.write(f, encoding="utf-8", pretty_print=True, xml_declaration=True)
@@ -1609,92 +1621,600 @@ _TYPE_VERIFICATION_FUNCTION = {
 
 
 # XODEL Constants
-_XODAL_OUTPUT_ATTRIBUTES = {
-    'taxonomy-namespace': 'taxonomy',
-    'Taxonomy-import': 'taxonomy',
-    'taxonomy-entry-point': 'taxonomy',
-    'concept': 'concept',
-    'concept-name': 'concept',
-    'concept-data-type': 'concept',
-    'concept-abstract': 'concept',
-    'concept-nillable': 'concept',
-    'concept-period-type': 'concept',
-    'concept-balance-type': 'concept',
-    'concept-substitution-group': 'concept',
-    'concept-attributes': 'concept'
+_CNTLR = None
+_ARELLE_MODEL=None
+
+_STANDARD_LINK_NAMES = {'presentation': '{http://www.xbrl.org/2003/linkbase}presentationLink',
+                        'definition': '{http://www.xbrl.org/2003/linkbase}definitionLink',
+                        'calculation': '{http://www.xbrl.org/2003/linkbase}calculationLink',
+                        'generic': '{http://xbrl.org/2008/generic}link'}
+_STANDARD_ARC_NAME = {'{http://www.xbrl.org/2003/linkbase}presentationLink': '{http://www.xbrl.org/2003/linkbase}presentationArc',
+                        '{http://www.xbrl.org/2003/linkbase}definitionLink': '{http://www.xbrl.org/2003/linkbase}definitionArc',
+                        '{http://www.xbrl.org/2003/linkbase}calculationLink': '{http://www.xbrl.org/2003/linkbase}calculationArc',
+                        '{http://xbrl.org/2008/generic}link': '{http://xbrl.org/2008/generic}arc'}
+
+_STANDARD_EXTENDED_LINK_ROLE = 'http://www.xbrl.org/2003/role/link'
+
+_STANDARD_ARCROLES = {
+    "http://www.xbrl.org/2003/arcrole/concept-label",
+    "http://www.xbrl.org/2003/arcrole/concept-reference",
+    "http://www.xbrl.org/2003/arcrole/fact-footnote",
+    "http://www.xbrl.org/2003/arcrole/parent-child",
+    "http://www.xbrl.org/2003/arcrole/summation-item",
+    "http://www.xbrl.org/2003/arcrole/general-special",
+    "http://www.xbrl.org/2003/arcrole/essence-alias",
+    "http://www.xbrl.org/2003/arcrole/similar-tuples",
+    "http://www.xbrl.org/2003/arcrole/requires-element"
 }
 
-def process_taxonomy(rule_name, log_rec, taxonomy, options, cntlr):
+# output attribute validators
+def string_validator(val):
+    return True
+def object_validator(val):
+    try:
+        get_model_object(val, _CNTLR)
+    except:
+        return False
+    return True
+def qname_validator(val):
+    try:
+        match_clark(val)
+    except:
+        return False
+    return True
+def integer_validator(val):
+    try:
+        int(val)
+    except:
+        return False
+    return True
+def decimal_validator(val):
+    try: 
+        decimal.Decimal(val)
+    except:
+        return False
+    return True
+def list_validator(val):
+    try:
+        py_list = json.loads(val)
+        return isinstance(py_list, list)
+    except:
+        return False
+def boolean_validator(val):
+    return val.lower() in ('true', 'false')
+def white_space_validator(val):
+    return val in ('collapse', 'preserve', 'replace')
+def enumerations_validator(val):
+    try:
+        enum_values = json.loads(val)
+    except:
+        return False
+    if not isinstance(enum_values, list):
+        return False
+    for enum_value in enum_values:
+        if not isinstance(enum_value, str):
+            return False
+    return True
+def period_type_validator(val):
+    return val in ('duration', 'instant')
+def balance_type_validator(val):
+    return val in ('debit', 'credit')
+def attribute_validator(val):
+    # Attributes a dictionary of qnames
+    try:
+        attr_dict = json.loads(val)
+    except:
+        return False
+    if not isinstance(attr_dict, dict):
+        return False
+    for attr_name in attr_dict.keys():
+        if not isinstance(attr_name, str):
+            return False
+        if match_clark(attr_name) is None:
+            return False
+    # Made it to the end, so everything should be good
+    return True
+def relationship_type_validator(val):
+    return qname_validator(val) or val.lower() in ('presentation', 'calculation', 'definition', 'generic')
+
+
+_VALIDATOR_FORMAT_MESSAGE = {
+    qname_validator: 'QName must be formatted in clark notation (is {namespace-uri}local-name). Did you use the .to-xodel property',
+    object_validator: 'Cannot find arelle model object. Did you use the .to-xodel property',
+    list_validator: 'Expecting a list. Lists must be formatted as JSON arrays. Did you use the .to-xodel property', 
+    boolean_validator: 'Boolean values must be either "ture" or "false". Did you use the .to-xodel property',
+    white_space_validator: "Valid values for the type-white-space attribute are 'collapse', 'preserve', 'replace'",
+    enumerations_validator: "type-enumerations must be a JSON list of strings. Did you use the .to-xodel property",
+    period_type_validator: "concept-period-type must be either 'duration' or 'instant'",
+    balance_type_validator: "concept-balance-type must be either 'credit' or 'debit'",
+    attribute_validator: "attributes must be a dictionary keyed by qnames (attribute name)"
+}
+
+_COMPONENT_NAME = 0
+_ATTRIBUTE_VALIDATOR= 1
+_XODEL_OUTPUT_ATTRIBUTES = {
+    'taxonomy-name': (None, string_validator),
+    'taxonomy-namespace': ('taxonomy', string_validator),
+    'Taxonomy-import': ('taxonomy', string_validator),
+    'taxonomy-entry-point': ('taxonomy', string_validator),
+    'type': ('type', object_validator),
+    'type-name': ('type', qname_validator),
+    'type-parent': ('type', object_validator),
+    'type-parent-name': ('type', qname_validator),
+    'type-min-inclusive': ('type', integer_validator),
+    'type-max-inclusive': ('type', integer_validator),
+    'type-min-exclusive': ('type', integer_validator),
+    'type-max-exclusive': ('type', integer_validator),
+    'type-total-digits': ('type', integer_validator),
+    'type-fraction-digits': ('type', integer_validator),
+    'type-length': ('type', integer_validator),
+    'type-min-length': ('type', integer_validator),
+    'type-max-length': ('type', integer_validator),
+    'type-enumerations': ('type', enumerations_validator),
+    'type-white-space': ('type', white_space_validator),
+    'type-pattern': ('type', string_validator),
+    'concept': ('concept', object_validator),
+    'concept-name': ('concept', qname_validator),
+    'concept-data-type': ('concept', qname_validator),
+    'concept-abstract': ('concept', boolean_validator),
+    'concept-nillable': ('concept', boolean_validator),
+    'concept-period-type': ('concept', period_type_validator),
+    'concept-balance-type': ('concept',balance_type_validator),
+    'concept-substitution-group': ('concept', qname_validator),
+    'concept-attributes': ('concept', attribute_validator),
+    'role': ('role', object_validator),
+    'role-uri': ('role', string_validator),
+    'role-definition': ('role', string_validator),
+    'role-used-on': ('role', list_validator),
+    'relationship': ('relationship', object_validator),
+    'relationship-source': ('relationship', qname_validator),
+    'relationship-target': ('relationship', qname_validator),
+    'relationship-order': ('relationship', decimal_validator),
+    'relationship-weight': ('relationships', decimal_validator),
+    'relationship-preferred-label': ('relationship', string_validator),
+    'relationship-linkrole-uri': ('relationship', string_validator),
+    'relationship-type': ('relationship', relationship_type_validator),
+    'relationship-arcrole': ('relationship', string_validator),
+    'relationship-attribute': ('relationship', attribute_validator),
+    'relationship-id': ('relationship', string_validator),
+}
+
+# The _Tree class is used to sort components that are hierarchical so the parents are processed before the children.
+class _TreeException(Exception):
+    pass
+
+class _Tree:
+    # This is tree is just for sorting hierarchical things like type hiearchy and concpet substitution groups
+    def __init__(self):
+        self.nodes = dict()
+        self._children = collections.defaultdict(set)
+        self.parent = dict()
+
+    def add(self, name, parent, node):
+        if name in self.nodes:
+            raise _TreeException(f"Node {name} already exists in the tree")
+        self._children[parent].add(name)
+        self.parent[name] = parent
+        self.nodes[name] = node
+
+    @property
+    def roots(self):
+        # This tree struction is unusally in that every node has a parent, but the parent
+        # may not be in the tree. In this case, the node is a root.
+        return {x for x in self.nodes if self.parent[x] not in self.nodes}
+
+    def children(self, parent):
+        return self._children[parent] 
+
+    def walk(self, nodes=None):
+        # Returns the keys in walking the tree order
+        if nodes is None:
+            parents = self.roots
+        else:
+            parents = nodes
+        result = []
+        for parent in parents:
+            result +=  [parent, ] + [x for x in self.walk(self.children(parent))]
+        return result
+    
+    def walk_nodes(self):
+        return [self.nodes[x] for x in self.walk()]
+
+
+
+def xodel_warning(message):
+    if _CNTLR is not None:
+        _CNTLR.addToLog(message, "XodelWarning")
+
+def process_taxonomy(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # The SXM DTS will already have been created.
     pass
 
-def process_concept(rule_name, log_rec, taxonomy, options, cntlr):
+
+def type_sort(log_infos, cntlr):
+    # Types need to be sorted so that base types are processed before derrived types
+    type_tree = _Tree()
+    for log_info in log_infos:
+        log_rec = log_info[1]
+        # find the type name and the type parent name
+        type_name = None
+        type_parent_name = None
+        if 'type-name' in log_rec.args:
+            type_name = log_rec.args['type-name'] # This should be a clark notation
+        elif 'type' in log_rec.args:
+            type_object = get_model_object(log_rec.args['type'], cntlr)
+            type_name = type_object.qname.clarkNotation
+        if 'type-parent-name' in log_rec.args:
+            type_parent_name = log_rec.args['type-parent-name']
+        elif 'type-parent' in log_rec.args:
+            type_parent_object = get_model_object(log_rec.args['type-parent'], cntlr)
+        elif 'type' in log_rec.args:
+            type_object = get_model_object(log_rec.args['type'], cntlr)
+            if type_object.typeDerivedFrom is not None:
+                type_parent_name = type_object.typeDerivedFrom.qnameDerivedFrom.clarkNotation
+        try:
+            type_tree.add(type_name, type_parent_name, log_info)
+        except _TreeException:
+            raise XodelException(f"Duplicate type found {type_name}")
+
+    return type_tree.walk_nodes()
+
+def process_type(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    '''Create a type. 
     
+       Type type system is limited to types derived from xbrl types and simple types (i.e. for reference parts).'''
+
+    type_name = None
+    parent_name = None
+    min_exclusive = None
+    min_inclusive = None
+    max_exclusive = None
+    max_inclusive = None
+    total_digits = None
+    fraction_digits = None
+    length = None
+    min_length = None
+    max_length = None
+    enumerations = None
+    white_space = None
+    pattern = None
+
+    if 'type' in log_rec.args:
+        # This type will be copied and then any additional output attributes will be applied
+        arelle_type = get_model_object(log_rec.args['type'], _CNTLR)
+        type_info = taxonomy.get_class('Type').extract_properties_from_xml(etree.tostring(arelle_type), get_target_namespace(arelle_type))
+        (type_name, parent_name, min_exclusive, min_inclusive, max_exclusive, max_inclusive, total_digits, fraction_digits, length, min_length, max_length, enumerations, white_space, pattern) = type_info
+
+    type_name_clark = log_rec.args.get('type-name') or type_name
+    type_name = resolve_clark_to_qname(type_name_clark, taxonomy)
+
+    # check if the type is already create. It might have been created as a parent type
+    if taxonomy.get('Type', type_name) is not None:
+        # There is nothing to do, the type is already there
+        return
+
+    if 'type-parent-name' in log_rec.args:
+        type_parent_clark_name = log_rec.args['type-parent-name']
+    elif 'type-parent' in log_rec.args:
+        type_parent_arelle = get_model_object(log_rec.args['type-parent'], _CNTLR)
+        if type_parent_arelle is None:
+            raise XodelException(f"'type-parent' not found in Arelle model'")
+        type_parent_clark_name = type_parent_arelle.qname.clarkNotation
+    else:
+        type_parent_clark_name = parent_name
+
+    if type_parent_clark_name is None:
+        type_parent_name = None
+    else:
+        type_parent_name = resolve_clark_to_qname(type_parent_clark_name, taxonomy)
+    parent_type = taxonomy.get('Type', type_parent_name)
+    if parent_type is None and type_parent_name is not None:
+        parent_type = find_type(taxonomy, type_parent_name, _CNTLR)
+        if parent_type is None:
+            # cannot find the type.
+            raise XodelException(f"Cannot not find definition for a parent type of '{type_parent_name.clark}'")
+    if 'type-min-exclusive' in log_rec.args:
+        min_exclusive = int(log_rec.args['type-min-exclusive'])
+    if 'type-min-inclusive' in log_rec.args:
+        min_inclusive = int(log_rec.args['type-min-inclusive'])
+    if 'type-max-exclusive' in log_rec.args:
+        max_exclusive = int(log_rec.args[ 'type-max-exclusive'])
+    if 'type-max-inclusive' in log_rec.args:
+        max_inclusive = int(log_rec.args[ 'type-max-inclusive'])
+    if 'type-total-digits' in log_rec.args:
+        total_digits = int(log_rec.args[ 'type-total-digits'])
+    if 'type-fraction-digits' in log_rec.args:
+        fraction_digits = int(log_rec.args['type-fraction-digits'])
+    if 'type-length' in log_rec.args:
+        length = int(log_rec.args['type-length'])
+    if 'type-min-length' in log_rec.args:
+        min_length = int(log_rec.args['type-min-length'])
+    if 'type-max-length' in log_rec.args:
+        max_length = int(log_rec.args['type-max-length'])
+    if 'type-enumerations' in log_rec.args:
+        enumerations = json.loads(log_rec.args['type-enumerations'])
+    if 'type-white-space' in log_rec.args:
+        white_space = log_rec.args['type-white-space']
+    if 'type-patern' in log_rec.args:
+        pattern = log_rec.args['type-patern']
+
+        taxonomy.new('Type', type_name, parent_type, min_exclusive=min_exclusive, min_inclusive=min_inclusive,
+                    max_inclusive=max_inclusive, max_exclusive=max_exclusive, total_digits=total_digits,
+                    fraction_digits=fraction_digits, length=length, min_length=min_length, max_length=max_length,
+                    enumerations=enumerations, white_space=white_space, pattern=pattern)
+
+def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    
+    '''
+    concept
+    concept-name
+    concept-data-type
+    concept-abstract
+    concept-nillable
+    concept-period-type
+    concept-balance-type
+    concept-substitution-group
+    concept-attributes
+    '''
+
     # Check if there is a concept that is being copied (output attribute 'concept')
     if 'concept'in log_rec.args:
-        arelle_model_id, concept_id = json.loads(log_rec.args['concept'])
-        arelle_model = get_arelle_model(cntlr, arelle_model_id)
-        base_concept = arelle_model.modelObject(concept_id)
+        arelle_concept = get_model_object(log_rec.args['concept'], cntlr)
+        concept_info = extract_concept_info(arelle_concept, taxonomy)
     else:
-        base_concept = None
+        concept_info = dict()
+    
+    if 'concept-name' in log_rec.args:
+        concept_info['concept-name'] = resolve_clark_to_qname(log_rec.args['concept-name'], taxonomy)
+    if 'concept-data-type' in log_rec.args:
+        concept_info['type-name'] = resolve_clark_to_qname(log_rec.args['concept-data-type'], taxonomy)
+    if 'concept-abstract' in log_rec.args:
+        concept_info['is-abstract'] = json.loads(log_rec.args['concept-abstract'])
+    if 'concept-nillable' in log_rec.args:
+        concept_info['nillable'] = log_rec.args['concept-nillable'].lower()
+    if 'concept-period-type' in log_rec.args:
+        concept_info['period-type'] = log_rec.args['concept-period-type']
+    if 'concept-balance-type' in log_rec.args:
+        concept_info['balance'] = log_rec.args['concept-balance-type']
+    if 'concept-substitution-group' in log_rec.args:
+        concept_info['substitution-group'] = resolve_clark_to_qname(log_rec.args['concept-substitution-group'], taxonomy)
+    if 'concept-attributes' in log_rec.args:
+        concept_info['attributes'].update(json.loads(log_rec.args['concept-attributes']))
 
-    x = 1
+    # Check concept name
+    if 'concept-name' not in concept_info:
+        raise XodelException(f"Cannot create a concept without a name. Need to copy from an existing concept or use the 'concept-name' output")
+    # Check type
+    if 'type-name' not in concept_info:
+        raise XodelException(f"For concept '{concept_info['concept-name'].clark}', type '{concept_info['type-name'].clark}' is not found.")
+    # The type needs to be a SXMType, currently we have a qname
+    concept_type = find_type(taxonomy, concept_info['type-name'], _CNTLR)
+    if concept_type is None:
+            raise XodelException(f"For concept '{concept_info['concept-name'].clark}', do not have the type definition for '{concept_info['type-name'].clark}'")
+    taxonomy.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('abstract'),
+                            concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
+                            concept_info.get('substitution-group-name'), concept_info.get('id'), concept_info.get('attributes'))
 
+
+def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    ''''
+    role
+    role-name
+    role-uri
+    role-definition
+    role-used-on
+    '''
+
+    # Check if there is a role output attribute. This will copy an existing role
+    if 'role' in log_rec.args:
+        arelle_role = get_model_object(log_rec.args['role'], cntlr)
+        role_info = extract_role_info(arelle_role, taxonomy)
+    else:
+        role_info = dict()
+
+    if 'role-uri' in log_rec.args:
+        role_info['uri'] = log_rec.args['role-uri']
+    if 'role-definition' in log_rec.args:
+        role_info['definition'] = log_rec.args['role-definition']
+    if 'role-used-on' in log_rec.args:
+        used_ons = []
+        # This is a list of qnames or one of the standard links
+        for used_on in json.loads(log_rec.args['role-used-on']):
+            if used_on.lower() in _STANDARD_LINK_NAMES:
+                used_ons.append(resolve_clark_to_qname(_STANDARD_LINK_NAMES[used_on.lower()], taxonomy))
+            else:
+                used_ons.append(resolve_clark_to_qname(used_on, taxonomy))
+        role_info['used-on'] = used_ons
+    
+    # a role uri is required
+    if 'uri' not in role_info or len(role_info['uri']) == 0 or role_info['uri'] is None:
+        raise XodelException(f"Duplicate role. Role {role_info['uri']} is already in the taxonomy")
+    if taxonomy.get('Role', role_info['uri']) is None:
+        taxonomy.new('Role', role_info['uri'], role_info.get('definition'), role_info.get('used-on'))
+
+def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    ''''
+    relationship
+    relationship-source
+    relationship-target
+    relationship-order
+    relationship-weight
+    relationship-preferred-label
+    relationship-linkrole-uri
+    relationship-role
+    relationship-arcrole
+    relationship-attribute
+    relationship-id
+    '''
+    # Check if there is a relationship output attribute. This will copy an existing role
+    if 'relationship' in log_rec.args:
+        arelle_rel = get_model_object(log_rec.args['relationship'], cntlr)
+        rel_info = extract_rel_info(arelle_rel, taxonomy)
+    else:
+        rel_info = dict()
+    
+    # get source and target concepts
+    source_concept = taxonomy.get('Concept', rel_info['source'])
+    if source_concept is None:
+        raise XodelException(f"While createing a relationship, concept {rel_info['source'].clark} is not in the taxonomy")
+    
+    target_concept = taxonomy.get('Concept', rel_info['target'])
+    if target_concept is None:
+        raise XodelException(f"While createing a relationship, concept {rel_info['target'].clark} is not in the taxonomy")
+    
+    # Get the extended link element
+    if rel_info['type'] in _STANDARD_LINK_NAMES:
+        link_name = resolve_clark_to_qname(_STANDARD_LINK_NAMES[rel_info['type']], taxonomy)
+    else:
+        link_name = rel_info['type']
+
+    # Get the arc element
+    arc_name = resolve_clark_to_qname(_STANDARD_ARC_NAME.get(link_name.clark), taxonomy)
+    if arc_name is None:
+        raise XodelException(f"Cannot determine the correct arc name for a relationship in {link_name.clark} extended link")
+
+    # Convert the role and arcrole to SXM objects
+    role = taxonomy.get('Role', rel_info['role-uri'])
+    if role is None and rel_info['role-uri'] == _STANDARD_EXTENDED_LINK_ROLE:
+        role = taxonomy.new('Role', _STANDARD_EXTENDED_LINK_ROLE)
+    
+    arcrole = taxonomy.get('Arcrole', rel_info['arcrole'])
+    if arcrole is None:
+        if rel_info['arcrole'] in _STANDARD_ARCROLES:
+            arcrole = taxonomy.new('Arcrole', rel_info['arcrole'], None, None, None)
+        else:
+            raise XodelException(f"Arcrole {rel_info['arcrole']} is not defined in the taxonomy")
+
+    # Need to get or create the SXMNetwork
+    network = taxonomy.get('Network', link_name, arc_name, arcrole, role) or \
+              taxonomy.new('Network', link_name, arc_name, arcrole, role)
+    # Add the relationship
+    taxonomy.new('Relationship', network, source_concept, target_concept, rel_info.get('order', 1),
+                                 rel_info.get('weight'), rel_info.get('preferred-label'), rel_info.get('attribute', dict()))
+
+def get_model_object(object_string, cntlr):
+    arelle_model_id, object_id = json.loads(object_string)
+    arelle_model = get_arelle_model(cntlr, arelle_model_id)
+    return arelle_model.modelObject(object_id)
+
+def no_sort(log_infos, _cntlr):
+    # really - don't do anything - sort order doesn't matter
+    return log_infos
+
+def role_uri_sort(log_infos, cntlr):
+    uris = dict()
+    for log_info in log_infos:
+        if 'role-uri' in log_info[1].args:
+            uri = log_info[1].args['role-uri']
+        elif 'role' in log_info[1].args:
+            model_role = get_model_object(log_info[1].args['role'], cntlr)
+            if model_role is None:
+                raise XodelException(f"Cannot find arelle role")
+            else:
+                uri = model_role.roleURI
+        if uri in uris:
+            raise XodelException(f"Duplicate role {uri}")
+        uris[uri] = log_info
+
+    result = []
+    for key in sorted(uris.keys()):
+        result.append(uris[key])
+    
+    return result
+
+def uri_sort(log_rec):
+    if 'role-uri' in log_rec.args:
+        return log_rec.args['role-uri']
+    elif 'role' in log_rec.args:
+        model_role = get_model_object(log_rec)
 
 # XODAL Processing Order
-_XODAL_COMPONENT_ORDER = collections.OrderedDict({
-    'taxonomy': process_taxonomy,
-    'concept': process_concept,
+_XODEL_COMPONENT_ORDER = collections.OrderedDict({
+    'taxonomy': (process_taxonomy, no_sort),
+    'type': (process_type, type_sort),
+    'concept': (process_concept, no_sort),
+    'role': (process_role, role_uri_sort),
+    'relationship': (process_relationship, no_sort),
 })
 
 
-def build_taxonomy_model(log, options, cntlr):
+def build_taxonomy_model(log, options, cntlr, arelle_model):
 
     # Create the model manager. This will contain all the taxonomies that are created
-    models = ModelManager
+    models = XodelModelManager
 
     # organize the rule results
     results_by_component = collections.defaultdict(list)
     for rule_name, log_recs in log.items():
         for log_rec in log_recs:
             # get the output attributes that are in the log rec - see if they are a xodal output attribute and translate to a taxonomy components
-            tax_components = {_XODAL_OUTPUT_ATTRIBUTES[x] for x in set(log_rec.args.keys()).intersection(_XODAL_OUTPUT_ATTRIBUTES.keys())}
+            tax_components = {_XODEL_OUTPUT_ATTRIBUTES[x][_COMPONENT_NAME] for x in set(log_rec.args.keys()).intersection(_XODEL_OUTPUT_ATTRIBUTES.keys())}
             for tax_component in tax_components:
-                results_by_component[tax_component].append((rule_name, log_rec))
+                if tax_component is not None:
+                    results_by_component[tax_component].append((rule_name, log_rec))
+            # Validate the output attibutes. This is just doing some basic type checking.
+            for arg_name, arg_value in log_rec.args.items():
+                if arg_name in _XODEL_OUTPUT_ATTRIBUTES:
+                    validator = _XODEL_OUTPUT_ATTRIBUTES[arg_name][_ATTRIBUTE_VALIDATOR]
+                    if not validator(arg_value):
+                        attribute_message = _VALIDATOR_FORMAT_MESSAGE.get(validator) or ''
+                        if len(attribute_message) > 0:
+                            attribute_message += ' '
+                        xodel_warning(f"Output Attribute '{arg_name}' is not valid for value '{arg_value[:40]}'. {attribute_message}Found in rule {rule_name}")
 
     # Process the components in order
-    for component, builder in _XODAL_COMPONENT_ORDER.items():
-        for rule_name, log_rec in results_by_component.get(component, tuple()):
+    for component, (builder, sorter) in _XODEL_COMPONENT_ORDER.items():
+        log_recs = results_by_component.get(component, tuple())
+        if len(log_recs) == 0:
+            continue # there is nothing to do
+        for rule_name, log_rec in sorter(log_recs, cntlr):
             if 'taxonomy-name' not in log_rec.args.keys():
                 raise XodelException(f"Rule {rule_name} does not have a 'taxonomy-name' output attribute.")
             if component == 'taxonomy':
-                taxonomy = ModelManager.create_model(log_rec.args['taxonomy-name'])
+                taxonomy = XodelModelManager.create_model(log_rec.args['taxonomy-name'])
+                taxonomy.package_base_file_name = make_filename(log_rec.args['taxonomy-name'])
             else:
-                taxonomy = ModelManager.get_model(log_rec.args['taxonomy-name'])
+                taxonomy = XodelModelManager.get_model(log_rec.args['taxonomy-name'])
             
-            builder(rule_name, log_rec, taxonomy, options, cntlr)
-          
+            builder(rule_name, log_rec, taxonomy, options, cntlr, arelle_model)
 
-class ModelManager:
+def make_filename(filename):
+    filename = ' '.join(filename.split()) # this normalizes the whitespace
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    filename = (c for c in filename if c in valid_chars)
+    return f'{filename}.zip'
+
+def get_target_namespace(node):
+    '''Find the <schema> element and get the target namespace'''
+    root = node.getroottree().getroot()
+    return root.get('targetNamespace')          
+
+class XodelModelManager:
     # This class is just to manage the created taxonomies. It is a class only, never instantiated.
-    _models = dict()
+    _models: Dict[str, ModelXbrl] = dict()
 
     @classmethod
-    def get_model(cls, model_name):
-        if model_name in ModelManager._models:
-            return ModelManager._models[model_name]
+    def get_model(cls: type, model_name: str) -> ModelXbrl:
+        if model_name in XodelModelManager._models:
+            return XodelModelManager._models[model_name]
         else:
             raise XodelException(f"Taxonomy {model_name} has not been created")
     
     @classmethod
-    def create_model(cls, model_name):
-        if model_name in ModelManager._models:
+    def get_all_models(cls: type):
+        return copy.copy(XodelModelManager._models)
+
+    @classmethod
+    def create_model(cls: type, model_name: str) -> ModelXbrl:
+
+        if model_name in XodelModelManager._models:
             raise XodelException(f"Cannot create taxonomy {model_name} because it alreay exists")
         else:
             # Get new model
             from .SimpleXBRLModel import SXM
-            new_model = SXM.SXMDTS()
-            ModelManager._models[model_name] = new_model
+
+            new_model: SXM.SXMDTS = SXM.SXMDTS()
+            XodelModelManager._models[model_name]: SXM.SXMDTS = new_model
             return new_model
 
     

@@ -1,8 +1,11 @@
 import collections
 import copy
 import decimal
+import inspect
 import re
-from weakref import KeyedRef
+import arelle.XbrlConst as xc
+from lxml import etree
+
 
 # Used to map where to save new objects. The key is the name of the SXM object that is being saved.
 _SAVE_LOCATIONS = {
@@ -36,44 +39,30 @@ _SAVE_LOCATIONS = {
                           'key': ('identifier',)}
 }
 
-_STANDARD_ARCROLES = {
-    "http://www.w3.org/1999/xlink/properties/linkbase",
-    "http://www.xbrl.org/2003/arcrole/concept-label",
-    "http://www.xbrl.org/2003/arcrole/concept-reference",
-    "http://www.xbrl.org/2003/arcrole/fact-footnote",
-    "http://www.xbrl.org/2003/arcrole/parent-child",
-    "http://www.xbrl.org/2003/arcrole/summation-item",
-    "http://www.xbrl.org/2003/arcrole/general-special",
-    "http://www.xbrl.org/2003/arcrole/essence-alias",
-    "http://www.xbrl.org/2003/arcrole/similar-tuples",
-    "http://www.xbrl.org/2003/arcrole/requires-element"
+_STANDARD_ARCROLES = { 
+    "http://www.xbrl.org/2003/arcrole/concept-label":"any",
+    "http://www.xbrl.org/2003/arcrole/concept-reference": "any",
+    "http://www.xbrl.org/2003/arcrole/fact-footnote": "any",
+    "http://www.xbrl.org/2003/arcrole/parent-child": "undirected",
+    "http://www.xbrl.org/2003/arcrole/summation-item": "any",
+    "http://www.xbrl.org/2003/arcrole/general-special": "undirected",
+    "http://www.xbrl.org/2003/arcrole/essence-alias": "undirected",
+    "http://www.xbrl.org/2003/arcrole/similar-tuples": "any",
+    "http://www.xbrl.org/2003/arcrole/requires-element": "any",
 }
 
-# _STANDARD_ROLES = {
-#     'http://www.xbrl.org/2003/role/label',
-#     'http://www.xbrl.org/2003/role/terseLabel',
-#     'http://www.xbrl.org/2003/role/verboseLabel',
-#     'http://www.xbrl.org/2003/role/totalLabel',
-#     'http://www.xbrl.org/2003/role/periodStartLabel',
-#     'http://www.xbrl.org/2003/role/periodEndLabel',
-#     'http://www.xbrl.org/2003/role/documentation',
-#     'http://www.xbrl.org/2003/role/definitionGuidance',
-#     'http://www.xbrl.org/2003/role/disclosureGuidance',
-#     'http://www.xbrl.org/2003/role/presentationGuidance',
-#     'http://www.xbrl.org/2003/role/measurementGuidance',
-#     'http://www.xbrl.org/2003/role/commentaryGuidance',
-#     'http://www.xbrl.org/2003/role/exampleGuidance',
-#     'http://www.xbrl.org/2003/role/positiveLabel',
-#     'http://www.xbrl.org/2003/role/positiveTerseLabel',
-#     'http://www.xbrl.org/2003/role/positiveVerboseLabel',
-#     'http://www.xbrl.org/2003/role/negativeLabel',
-#     'http://www.xbrl.org/2003/role/negativeTerseLabel',
-#     'http://www.xbrl.org/2003/role/negativeVerboseLabel',
-#     'http://www.xbrl.org/2003/role/zeroLabel',
-#     'http://www.xbrl.org/2003/role/zeroTerseLabel',
-#     'http://www.xbrl.org/2003/role/zeroVerboseLabel',
-#     'http://www.xbrl.org/2003/role/link'
-# }
+_DIMENSION_ARCROLES = {
+    "http://xbrl.org/int/dim/arcrole/hypercube-dimension": "none",
+    "http://xbrl.org/int/dim/arcrole/dimension-domain": "none",
+    "http://xbrl.org/int/dim/arcrole/domain-member": "undirected",
+    "http://xbrl.org/int/dim/arcrole/all": "undirected",
+    "http://xbrl.org/int/dim/arcrole/notAll": "undirected",
+    "http://xbrl.org/int/dim/arcrole/dimension-default": "none"
+
+}
+
+_DIMENSION_SCHEMA_NAMESPACE = 'http://xbrl.org/2005/xbrldt'
+_DIMENSION_SCHEMA_URL = 'http://www.xbrl.org/2005/xbrldt-2005.xsd'
 
 _STANDARD_ROLES = {'http://www.xbrl.org/2003/role/link':'Standard extended link role',
                 'http://www.xbrl.org/2003/role/label':    'Standard label for a Concept.',
@@ -229,14 +218,13 @@ class _SXMBase:
         return cls.__name__[3:]
 
 class SXMAttributedBase(_SXMBase):
-    '''Án object that has attributes with ditionary values'''
+    '''Án object that has attributes with dictionary values'''
     
     def new(self, class_name, *args, **kwargs):
         '''Create a new Simple XBRL Model object. 
 
         The *args and **kwargs are the arguments for the object being created.
         '''
-
         # If save=True is in the arguments, then the value will be saved in the DTS.
         save = bool(kwargs.get('save', True))
         # remove the "save" argument if it is there
@@ -414,6 +402,7 @@ class _SXMDTSBase(_SXMBase):
 
 class SXMDocument(_SXMDTSBase):
     def __init__(self, dts, document_uri, document_type, target_namespace=None, description=None):
+        _validate_init_arguments()
         super().__init__(dts)
 
         self.uri = document_uri
@@ -578,6 +567,7 @@ class _SXMDefined(_SXMDTSBase):
 
 class SXMQName(_SXMDTSBase):
     def __init__(self, dts, namespace, local_name, prefix=None):
+        _validate_init_arguments()
         super().__init__(dts)
         self._namespace = namespace
         self._local_name = local_name
@@ -638,6 +628,9 @@ class _SXMPackageDTS(_SXMBase):
     # This is done as a separate class just to separate these properties out
     # for organizational purposes
     def __init__(self):
+        _validate_init_arguments()
+
+        self.package_base_file_name = None
         self.identifier = None
         self.default_language = None
         self.name = None
@@ -659,6 +652,7 @@ class _SXMPackageDTS(_SXMBase):
 
 class SXMPackageEntryPoint(_SXMDTSBase):
     def __init__(self, dts, identifier):
+        _validate_init_arguments()
         super().__init__(dts)
         self.identifier = identifier
         self.names = []
@@ -672,6 +666,7 @@ class SXMPackageEntryPoint(_SXMDTSBase):
 class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
 
     def __init__(self):
+        _validate_init_arguments()
         super().__init__()
         self.concepts = dict()
         self.elements = dict()
@@ -715,9 +710,118 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         if remove:
             del_object.dts = None
 
+    def set_default_documents(self, base_name='', base_ns='http://xbrl/'):
+        '''This will assign a default document to every writable component that does not have a document
+        
+        The defaults will be:
+            taxonomy.xsd
+            presentation.xml
+            defintion.xml
+            calculation.xml
+            generic.xml
+            label.xml
+            reference.xml
+        '''
+        if not base_ns.endswith('/'): 
+            base_ns += '/'
+        if self.identifier is None:
+            self.identifier = 'Taxonomy Package'
+        if len(self.rewrites) == 0:
+            self.rewrites['../'] = 'http://xbrl/package/'
+        entry_point_document = self.new('Document', base_name + 'entry-point-taxonomy.xsd', self.DOCUMENT_TYPES.SCHEMA, base_ns + 'entryPoint/taxonomy')
+        
+        entry_point = self.new('PackageEntryPoint', 'Taxonomy Package')
+        entry_point.names.append(('Taxonomy Entry Point', 'en'))
+        entry_point.documents.append(entry_point_document) 
+
+        linkbase_documents = dict()
+        other_documents = set()
+
+        tax_items = (set(self.types.values()) | set(self.concepts.values()) | set(self.elements.values()) | 
+                     set(self.roles.values()) | set(self.arcroles.values()) | set(self.part_elements.values()))
+
+        # Each schema document for concepts, elements and types will be named 'taxonomy' followed by a number
+        # This will separate the different namespaces
+        tax_docs_by_namespace = {x.name.namespace: f"{base_name}-taxonomy.xsd" 
+                                 for x in tax_items 
+                                 if not (type(x) in (SXMRole, SXMArcrole) or
+                                    (x.document is not None and x.document.is_absolute))}
+        
+        # Convert the document name to an acutal document
+        if len(tax_docs_by_namespace) == 1:
+            # There is only one taxonomy schema
+            key = list(tax_docs_by_namespace.keys())[0] # get the key of the only item in the dictionary
+            tax_docs_by_namespace[key] = self.new('Document', 
+                                                  f"{tax_docs_by_namespace[key]}.xsd", 
+                                                  self.DOCUMENT_TYPES.SCHEMA, 
+                                                  key)
+            entry_point_document.add(tax_docs_by_namespace[key], self.DOCUMENT_CONTENT_TYPES.IMPORT)
+        else:
+            # a number to each of the names 
+            for num, (key, doc_name) in enumerate(tax_docs_by_namespace.items()):
+                tax_docs_by_namespace[key] = self.new('Document', 
+                                                  f"{tax_docs_by_namespace[key]}{num}.xsd", 
+                                                  self.DOCUMENT_TYPES.SCHEMA, 
+                                                  key)
+                entry_point_document.add(tax_docs_by_namespace[key], self.DOCUMENT_CONTENT_TYPES.IMPORT)
+        
+        role_doc_name = f"{base_name}-roles.xsd"
+        role_doc_ns = f"{base_ns}roles"
+        arcrole_doc_name = f"{base_name}-arcroles.xsd"
+        arcrole_doc_ns = f"{base_ns}arcroles"
+
+        for tax_item in tax_items:
+            if tax_item.document is None:
+                tax_document = None
+                if isinstance(tax_item, SXMRole):
+                    if tax_item.role_uri not in _STANDARD_ROLES:
+                        tax_document = self.get('Document', role_doc_name) or self.new('Document', role_doc_name, self.DOCUMENT_TYPES.SCHEMA, role_doc_ns)
+                elif isinstance(tax_item, SXMArcrole):
+                    if tax_item.arcrole_uri not in _STANDARD_ARCROLES:
+                        tax_document = self.get('Document', arcrole_doc_name) or self.new('Document', arcrole_doc_name, self.DOCUMENT_TYPES.SCHEMA, arcrole_doc_ns)
+                else:
+                    tax_document = tax_docs_by_namespace[tax_item.name.namespace]
+                if tax_document is not None:
+                    tax_item.document = tax_document
+            else:
+                if tax_item.document.is_relative:
+                    other_documents.add(tax_item.document)
+
+        linkbase_items = set(self.networks.values()) | set(self.cubes)
+        for linkbase_item in linkbase_items:
+            if isinstance(linkbase_item, SXMNetwork):
+                # go through the relationships
+                for rel in linkbase_item.relationships:
+                    if rel.document is None:
+                        # linkbases will divided into separate files base on the type of linkbase
+                        # pre, def, cal, gen, oth (other)
+                        doc_type_name = rel.link_name.local_name[:3].lower()
+                        doc_name = f"{base_name}-{doc_type_name}.xml"
+                        linkbase_document = self.get('Document', doc_name)
+                        if linkbase_document is None:
+                            linkbase_document = self.new('Document', doc_name, self.DOCUMENT_TYPES.LINKBASE)
+                            entry_point_document.add(linkbase_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                        rel.document = linkbase_document
+
+        # The taxonomy.xsd will also be the entry point. Add references to all the other doucments.
+        for other_document in other_documents:
+            if other_document.document_type == self.DOCUMENT_TYPES.SCHEMA:
+                entry_point_document.add(other_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+            elif other_document.document_type == self.DOCUMENT_TYPES.LINKBASE:
+                entry_point_document.add(other_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+            else:
+                entry_point_document.add(other_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+    
+
 class SXMArcrole(_SXMDefined):
 
     def __init__(self, dts, arcrole_uri, cycles_allowed, description, used_ons):
+        # check if this is a standard arcrole
+        if arcrole_uri in _STANDARD_ARCROLES:
+            cycles_allowed = _STANDARD_ARCROLES[arcrole_uri]
+            used_ons = tuple()
+        else:
+            _validate_init_arguments()
         super().__init__(dts)
         self._arcrole_uri = arcrole_uri
         self.description = description
@@ -767,6 +871,11 @@ class SXMArcrole(_SXMDefined):
 
 class SXMRole(_SXMDefined):
     def __init__(self, dts, role_uri, description=None, used_ons=None):
+        if role_uri in _STANDARD_ROLES:
+            used_ons = tuple()
+            description = _STANDARD_ROLES[role_uri]
+        else:
+            _validate_init_arguments()
         super().__init__(dts)
         self._role_uri = role_uri
         self._description = description if not self.is_standard else None
@@ -839,8 +948,10 @@ class SXMRole(_SXMDefined):
 
 class SXMElement(_SXMDefined):
     def __init__(self, dts, name, data_type, abstract, nillable=None, id=None, substitution_group=None, attributes=None):
+        _validate_init_arguments()
         super().__init__(dts)
 
+        # TODO - the substitution group shold always be an element. If a qname is passed, this code should resolve it to the element
         if substitution_group is not None:
             if not (isinstance(substitution_group, SXMElement) or
                     isinstance(substitution_group, SXMQName)):
@@ -935,6 +1046,7 @@ class SXMElement(_SXMDefined):
 
 class SXMTypedDomain(SXMElement):
     def __init__(self, dts, name, data_type, abstract, nillable, id, substitution_group, attributes):
+        _validate_init_arguments()
         super().__init__(dts, name, data_type, abstract, nillable, id, substitution_group, attributes)
 
     def __repr__(self):
@@ -954,18 +1066,128 @@ class SXMTypedDomain(SXMElement):
 
 class SXMType(_SXMDefined):
 
-    def __init__(self, dts, name, parent_type=None, xml_content=None, anonymous_element=None):
+    # The original vesion of the class avoided modeling the types and relied on XML for the definition
+    # of the type. Now this is being modified to properly model types. However, the old style is kept for 
+    # backwards compatability.
+
+    def __init__(self, dts, name=None, parent_type=None, xml_content=None, anonymous_element=None,
+                 xml_content_target_namespace = None,
+                 min_exclusive=None, min_inclusive=None, max_exclusive=None, max_inclusive=None, 
+                 total_digits=None, fraction_digits=None, length=None, min_length=None, max_length=None, 
+                 enumerations=None, white_space=None, pattern=None):
+        _validate_init_arguments()
         super().__init__(dts)
+        # TODO - Handling of anonymous types is not quite correct. The name is used to identify
+        # the type, but anonymous types don't have a name. The user must create a dummy name
+        # and indicate with the anonymous_element that the type is anonymous.
 
-        # the xml_content is None when it is a base xbrli item type or a base xml type. Should consider checking this
+        # Either the xml_content is supplied or the restrictions are supplied, but not both
+        restictions_test = {enumerations is None, min_inclusive is None, max_inclusive is None, min_exclusive is None, 
+                            max_exclusive is None, total_digits is None, fraction_digits is None, length is None, 
+                            min_length is None, max_length is None, white_space is None}
+        if (xml_content is not None and False in restictions_test):
+            raise SXMException("Cannot create a type with both xml content and restrictions passed separately. For type {}".format(name.clark))
+        # if xml_content is supplied then xml_content_target_namespace is required
+        if xml_content is not None and xml_content_target_namespace is None and name is None:
+            raise SXMException("Cannot create a type based on xml content if the target namespace is not also provided. For type {}".format(name.clark))
+        type_info = SXMType.extract_properties_from_xml(xml_content, xml_content_target_namespace)
+        # type_name, base_name, min_exclusive, min_inclusive, max_exclusive, max_inclusive, total_digits, fraction_dictions, length, min_length, max_length, enumerations, white_space, pattern
+        self._name = name or dts.new('QName', xml_content_target_namespace, type_info[0])
+        if parent_type is None and type_info[1] is None:
+            self._base_name = None
+        else:
+            self._base_name = parent_type.name if parent_type is not None else _resolve_clark_to_qname(self.dts, type_info[1])
+        self.min_exclusive = min_exclusive or type_info[2]
+        self.min_inclusive = min_inclusive or type_info[3]
+        self.max_exclusive = max_exclusive or type_info[4]
+        self.max_inclusive = max_inclusive or type_info[5]
+        self.total_digits = total_digits or type_info[6]
+        self.fraction_digits = fraction_digits or type_info[7]
+        self.length = length or type_info[8]
+        self.min_length = min_length or type_info[9]
+        self.max_length = max_length or type_info[10]
+        self.enumerations = enumerations or type_info[11]
+        self.white_space = white_space or type_info[12]
+        self.pattern = pattern or type_info[13]
 
-        self._name = name
-        self.parent_type = parent_type
+        if parent_type is None:
+            if self._base_name is None:
+                self.parent_type = None
+            else:
+                parent_type = dts.get('Type', self._base_name)
+                if parent_type is None:
+                    raise SXMException(f"Parent type '{self._base_name.clark}' for type '{self._name.clark}' is not in the DTS")
+                self.parent_type = dts.get('Type', self._base_name)
+        else:
+            self.parent_type = parent_type
         if self.is_base_xbrl or self.is_base_xml:
             self.content = None
         else:
             self.content = xml_content
         self.anonymous_element = anonymous_element
+
+    @classmethod
+    def extract_properties_from_xml(cls, xml_content, target_namespace):
+        # Extract the restriction attributes from xml_content. Currently
+        # restrictions containing assertions are not supported.
+        # initialize the return values
+        type_name = None
+        base_name = None
+        min_exclusive = None
+        min_inclusive = None
+        max_exclusive = None
+        max_inclusive = None
+        total_digits = None
+        fraction_dictions = None
+        length = None
+        min_length = None
+        max_length = None
+        enumerations = list()
+        white_space = None
+        pattern = list()
+
+        if xml_content is not None:
+            try:
+                type_node = etree.fromstring(xml_content)
+            except etree.XMLSyntaxError:
+                raise SXMException(f"XML content for type {type_name.clark} is not valid xml.")
+        
+            type_name = f'{{{target_namespace}}}{type_node.get("name")}'
+            restriction_node = type_node.find('{http://www.w3.org/2001/XMLSchema}simpleContent/{http://www.w3.org/2001/XMLSchema}restriction')
+            if restriction_node is not None:
+                base_name = _resolve_qname_to_clark(restriction_node.get('base'), restriction_node)
+
+                for child_node in restriction_node:
+                    # These will be one of: (minExclusive | minInclusive | maxExclusive | maxInclusive | totalDigits | fractionDigits |
+                    #                        length | minLength | maxLength | enumeration | whiteSpace | pattern)
+                    # Anything else will be ignored
+                    # TODO - Handle annotation content
+                    if child_node.tag.startswith('{http://www.w3.org/2001/XMLSchema}'):
+                        tag_local_name = child_node.tag.split('}', 1)[1] # This gets the part after the first }
+                        # check for integer values first
+                        if tag_local_name in ('minExclusive', 'minInclusive', 'maxExclusive', 'maxInclusive', 'totalDigits', 'fractionDigits',
+                                              'length', 'minLength', 'maxLength'):
+                            try:
+                                restriction_value = int(child_node.text)
+                            except ValueError:
+                                raise SXMException(f'Cannot convert restriction {child_node.tag} with value {child_node.text} to an intenger. Found on type {type_name}.')
+                            if tag_local_name == 'minExclusive': min_exclusive = restriction_value
+                            elif tag_local_name == 'minInclusive': min_inclusive = restriction_value
+                            elif tag_local_name == 'maxExclusive': max_exclusive = restriction_value
+                            elif tag_local_name == 'maxInclusive': max_inclusive = restriction_value
+                            elif tag_local_name == 'totalDigits': total_digits = restriction_value
+                            elif tag_local_name == 'fractionDigits': fraction_dictions = restriction_value
+                            elif tag_local_name == 'length': length = restriction_value
+                            elif tag_local_name == 'minLength': min_length = restriction_value
+                            elif tag_local_name == 'maxLength': max_length = restriction_value
+                        elif tag_local_name == 'enumeration':
+                            enumerations.append(child_node.get('value'))
+                        elif tag_local_name == 'whiteSpace':
+                            white_space = child_node.text
+                        elif tag_local_name == 'pattern':
+                            pattern.append(child_node.text)
+                       
+        return type_name, base_name, min_exclusive, min_inclusive, max_exclusive, max_inclusive, total_digits, fraction_dictions, length, min_length, max_length, enumerations, white_space, pattern
 
     @property # make this property immutable because it is used for the hash
     def name(self):
@@ -1061,6 +1283,21 @@ class SXMType(_SXMDefined):
         else:
             return self.base_xbrl_type.name.clark in _NUMERIC_XBRL_TYPES
 
+    @property
+    def is_restricted(self):
+        return bool(self.min_exclusive or
+                self.min_inclusive or
+                self.max_exclusive or
+                self.max_inclusive or
+                self.total_digits or
+                self.fraction_digits or
+                self.length or
+                self.min_length or 
+                self.max_length or
+                len(self.enumerations) != 0 or
+                self.white_space or
+                len(self.pattern) != 0)
+
     def remove(self):
         # check if there are any elements using the type or a type derrived from the type
         # and that there are not types derrived from the type
@@ -1068,6 +1305,7 @@ class SXMType(_SXMDefined):
 
 class SXMPartElement(SXMElement):
     def __init__(self, dts, name, data_type, abstract, nillable=None, id=None, substitution_group=None, attributes=None):
+        _validate_init_arguments()
         super().__init__(dts, name, data_type, abstract, nillable, id, substitution_group, attributes)
 
     def __repr__(self):
@@ -1090,14 +1328,23 @@ class SXMPartElement(SXMElement):
         return super().remove and len(self.parts) == 0
     
 class SXMConcept(SXMElement, SXMAttributedBase):
-    def __init__(self, dts, name, data_type, abstract, nillable, period_type, balance_type, substitution_group, id=None, attributes=None, typed_domain=None):
+    def __init__(self, dts: SXMDTS, name: SXMQName, data_type: SXMType, abstract: bool, nillable: bool, period_type: str, 
+                 balance_type: str, substitution_group: SXMQName, id: str = None, attributes: list = None, typed_domain: SXMElement = None):       
+        _validate_init_arguments()
         super().__init__(dts, name, data_type, abstract, nillable, id, substitution_group, attributes)
-        
+
         if not (isinstance(substitution_group, SXMConcept) or
                 isinstance(substitution_group, SXMQName)):
             raise SXMException("Substitution group for concept '{}'is not a concept or a base item or tuple.".format(
                                 name.clark))
-                
+        
+        if period_type is None:
+            raise SXMException(f"For concept '{name.clark}', period type is required")
+        if period_type not in ('instant', 'duration'):
+            raise SXMException(f"For cocnept '{name.clark}', invalid period type '{period_type}'")
+        if balance_type not in ('debit', 'credit', None):
+            raise SXMException(f"For concept '{name.carlk}', invalid balance type '{balance_type}'")
+        
         self.period_type = period_type
         self.balance_type = balance_type
         self.typed_domain = typed_domain
@@ -1170,6 +1417,7 @@ class SXMConcept(SXMElement, SXMAttributedBase):
 
 class SXMResource(_SXMDefined):
     def __init__(self, dts, concept, role, content=None, attributes=None):
+        _validate_init_arguments()
         if not isinstance(role, SXMRole):
             raise SXMException("Trying to add resource with an invalid role. Found {}: {}".format(type(role).__name__, str(role)))
         super().__init__(dts)
@@ -1194,6 +1442,7 @@ class _SXMReferenceBase(SXMResource):
 
 class SXMReference(_SXMReferenceBase):
     def __init__(self, dts, concept, reference_role, parts, attributes=None):
+        _validate_init_arguments()
         # Check that the parts are actual SXMParts
         if any(not isinstance(x, SXMPart) for x in parts):        
             raise SXMException("Trying to add a reference where a part is not a SXMPart")
@@ -1206,6 +1455,7 @@ class SXMReference(_SXMReferenceBase):
 
 class SXMPart(_SXMDefined):
     def __init__(self, dts, part_element, part_content):
+        _validate_init_arguments()
         super().__init__(dts)
         self.part_element = part_element
         self.content = part_content
@@ -1216,6 +1466,7 @@ class SXMPart(_SXMDefined):
 
 class SXMNetwork(_SXMDefined):
     def __init__(self, dts, link_name, arc_name, arcrole, role):
+        _validate_init_arguments()
         if not isinstance(role, SXMRole):
             raise SXMException("Trying to add a network with an invalid role. Found {}: {}".format(type(role).__name__, str(role)))
         if not isinstance(arcrole, SXMArcrole):
@@ -1290,6 +1541,7 @@ class SXMNetwork(_SXMDefined):
 
 class SXMRelationship(_SXMDefined):
     def __init__(self, dts, network, from_concept, to_concept, order, weight=None, preferred_label=None, attributes=None):
+        _validate_init_arguments()
         # Check that the from and to concept are already in the DTS
         if from_concept.name not in dts.concepts:
             raise SXMException("Cannot add relationship for concept '{}' that does not exist in the DTS".format(from_concept.name))
@@ -1391,6 +1643,7 @@ class _SXMCubePart(_SXMDefined):
 class SXMCube(_SXMCubePart):
 
     def __init__(self, dts, role, concept):
+        _validate_init_arguments()
         super().__init__(dts, 'cube', concept, role)
         self._primary_items = list()
         self._dimensions = list() # using list to preserve order
@@ -1493,6 +1746,7 @@ class _SXMCubeTreeNode(_SXMCubePart):
 
 class SXMDimension(_SXMCubeTreeNode):
     def __init__(self, dts, concept, role, typed_domain=None, attributes=None):
+        _validate_init_arguments()
         super().__init__(dts, 'dimension', concept, role, None, attributes)
 
         self.typed_domain = typed_domain
@@ -1546,6 +1800,7 @@ class SXMDimension(_SXMCubeTreeNode):
 
 class SXMPrimary(_SXMCubeTreeNode):
     def __init__(self, dts, concept, role, is_all=True, usable=True, attributes=None):
+        _validate_init_arguments()
         super().__init__(dts, 'primary', concept, role, usable, attributes)
         self.is_all = is_all
 
@@ -1561,6 +1816,7 @@ class SXMPrimary(_SXMCubeTreeNode):
 
 class SXMMember(_SXMCubeTreeNode):
     def __init__(self, dts, concept, role, usable=True, attributes=None):
+        _validate_init_arguments()
         super().__init__(dts, 'member', concept, role, usable, attributes)
 
     def _copy(self, concept=None, role=None, usable=None, attributes=None):
@@ -1615,3 +1871,172 @@ def remove_all_from_list(the_list, the_item):
             the_list.remove(the_item)
     except ValueError:
         pass
+
+def _resolve_qname_to_clark(name, node):
+    '''This method resolves a prefix name in xml to clark notation'''
+    if name is None:
+        return None
+    if ':' in name:
+        prefix, local_name = name.split(':', 1) # split on first occurence
+    else:
+        prefix = None
+        local_name = name
+    nsmap = node.nsmap
+    namespace = nsmap.get(prefix)
+    if namespace is None:
+        raise SXMException(f"QName cannot be resolved for name '{name}'")
+    return f'{{{namespace}}}{local_name}'
+
+def _resolve_name_in_target_to_clark(name, node):
+    '''This method converts a name defined in a schema to a clark notation qname
+       It uses the target namespace'''
+    
+
+def _resolve_clark_to_qname(name, dts):
+    '''Convert a clark notation qname to a SXMQName'''
+    match = re.match('^{([^}]+)}(.*)$', name)
+    if match is None:
+        raise SXMException(f"QName '{name}' is not a valid clark notation")
+    return dts.new('QName', match.group(1), match.group(2))
+
+# _SXM_ARUGMENT_TYPES is used to validate the arguments when a SXM object is created.
+# The key is the name of the argument
+# The value is a tuple. 
+#     0 = A tuple of SXM classes that have this argument
+#     1 = The type that the value of the argument must be. If None, then the type is not checked
+#     2 = If the type is set or list, then this is the type that should be contained in the set or list. If this value is none, 
+#         then no further type checking is done.
+#         If the type is dict, then this is the expected type of the key of the dictionary
+#     3 = If the type is dict, then this the exptected type of the value of the dictionary
+_SXM_ARGUMENT_TYPES= {
+    'abstract': ((SXMConcept, SXMElement, SXMPartElement, SXMTypedDomain), bool),
+    'anonymous_element': ((SXMType, ), None),
+    'arc_name': ((SXMNetwork, ), SXMQName),
+    'arcrole': ((SXMNetwork, ), SXMArcrole),
+    'arcrole_uri': ((SXMArcrole, ), str),
+    'attributes': ((SXMConcept, SXMDimension, SXMElement, SXMMember, SXMPartElement, SXMPrimary, SXMReference, SXMRelationship, SXMResource, SXMTypedDomain), dict, (SXMQName, str), str),
+    'balance_type': ((SXMConcept, ), str),
+    'concept': ((SXMCube, SXMDimension, SXMMember, SXMPrimary, SXMReference, SXMResource), SXMConcept),
+    'content': ((SXMResource, ), str),
+    'cycles_allowed': ((SXMArcrole, ), bool),
+    'data_type': ((SXMConcept, SXMElement, SXMPartElement, SXMTypedDomain), SXMType),
+    'description': ((SXMArcrole, SXMDocument, SXMRole), str),
+    'document_type': ((SXMDocument, ), str),
+    'document_uri': ((SXMDocument, ), str),
+    'enumerations': ((SXMType, ), None),
+    'fraction_digits': ((SXMType, ), None),
+    'from_concept': ((SXMRelationship, ), SXMConcept),
+    'id': ((SXMConcept, SXMElement, SXMPartElement, SXMTypedDomain), str),
+    'identifier': ((SXMPackageEntryPoint, ), None),
+    'is_all': ((SXMPrimary, ), bool),
+    'length': ((SXMType, ), int),
+    'link_name': ((SXMNetwork, ), SXMQName),
+    'local_name': ((SXMQName, ), str),
+    'max_exclusive': ((SXMType, ), None),
+    'max_inclusive': ((SXMType, ), None),
+    'max_length': ((SXMType, ), int),
+    'min_exclusive': ((SXMType, ), None),
+    'min_inclusive': ((SXMType, ), None),
+    'min_length': ((SXMType, ), int),
+    'name': ((SXMConcept, SXMElement, SXMPartElement, SXMType, SXMTypedDomain), SXMQName),
+    'namespace': ((SXMQName, ), str),
+    'network': ((SXMRelationship, ), SXMNetwork),
+    'nillable': ((SXMConcept, SXMElement, SXMPartElement, SXMTypedDomain), bool),
+    'order': ((SXMRelationship, ), None),
+    'parent_type': ((SXMType, ), SXMType),
+    'part_content': ((SXMPart, ), str),
+    'part_element': ((SXMPart, ), SXMElement),
+    'parts': ((SXMReference, ), None),
+    'pattern': ((SXMType, ), list, str),
+    'period_type': ((SXMConcept, ), str),
+    'preferred_label': ((SXMRelationship, ), None),
+    'prefix': ((SXMQName, ), str),
+    'reference_role': ((SXMReference, ), SXMRole),
+    'role': ((SXMCube, SXMDimension, SXMMember, SXMNetwork, SXMPrimary, SXMResource), SXMRole),
+    'role_uri': ((SXMRole, ), str),
+    'substitution_group': ((SXMConcept, SXMElement, SXMPartElement, SXMTypedDomain), None),
+    'target_namespace': ((SXMDocument, ), str),
+    'to_concept': ((SXMRelationship, ), SXMConcept),
+    'total_digits': ((SXMType, ), int),
+    'typed_domain': ((SXMConcept, SXMDimension), SXMElement),
+    'usable': ((SXMMember, SXMPrimary), bool),
+    'used_ons': ((SXMArcrole, SXMRole), None),
+    'weight': ((SXMRelationship, ), None),
+    'white_space': ((SXMType, ), None),
+    'xml_content': ((SXMType, ), str),
+    'xml_content_target_namespace': ((SXMType, ), str),
+}
+
+def _validate_init_arguments():
+
+    calling_frame = inspect.currentframe().f_back
+    calling_class = calling_frame.f_locals.get('self', None).__class__
+    args, _, _, values = inspect.getargvalues(calling_frame)
+    bad_args = []
+    for arg_name in args:
+        if arg_name in _SXM_ARGUMENT_TYPES:
+            if calling_class in _SXM_ARGUMENT_TYPES[arg_name][0]:
+                # Don't bother checking if there isn't a type in the _SXM_ARGuMENT_TYPES or if the value is None
+                if _SXM_ARGUMENT_TYPES[arg_name][1] is not None and values[arg_name] is not None:
+                    if not isinstance(values[arg_name], _SXM_ARGUMENT_TYPES[arg_name][1]):
+                        bad_args.append(f"Argument '{arg_name}' for '{calling_class.__name__}'. Expected {_SXM_ARGUMENT_TYPES[arg_name][1].__name__} but found {type(values[arg_name]).__name__}")
+                    # Check contents for sets and list
+                    if _SXM_ARGUMENT_TYPES[arg_name][1] in (set, list):
+                        # The next item is the type that the set or list must contain.
+                        if _SXM_ARGUMENT_TYPES[arg_name][2] is not None:
+                            for item in values[arg_name]:
+                                if not isinstance(item, _SXM_ARGUMENT_TYPES[arg_name][2]):
+                                    bad_args.append(f"Argument '{arg_name}' for '{calling_class.__name__}'. Expected {_SXM_ARGUMENT_TYPES[arg_name][2].__name__} as the type of the content of the set/list but found {type(values[item]).__name__}")
+                    # Check contents of dictionaries
+                    if _SXM_ARGUMENT_TYPES[arg_name][1] == dict:
+                        if _SXM_ARGUMENT_TYPES[arg_name][2] is not None or _SXM_ARGUMENT_TYPES[arg_name][3] is not None:
+                            for key, val in values[arg_name].items():
+                                # Check the key
+                                if _SXM_ARGUMENT_TYPES[arg_name][2] is not None:
+                                    if isinstance(_SXM_ARGUMENT_TYPES[arg_name][2], tuple):
+                                        arg_types = _SXM_ARGUMENT_TYPES[arg_name][2]
+                                    else:
+                                        arg_types = (_SXM_ARGUMENT_TYPES[arg_name][2],)
+                                    if type(key) not in arg_types:
+                                        bad_args.append(f"Argument '{arg_name}' for '{calling_class.__name__}'. Expected {','.join(tuple(x.__name__ for x in arg_types))} as the type of the key of the dictionary but found {type(key).__name__}")
+                                # Check the value
+                                if _SXM_ARGUMENT_TYPES[arg_name][3] is not None:
+                                    if not isinstance(val, _SXM_ARGUMENT_TYPES[arg_name][3]):
+                                        bad_args.append(f"Argument '{arg_name}' for '{calling_class.__name__}'. Expected {_SXM_ARGUMENT_TYPES[arg_name][3].__name__} as the type of the key of the dictionary but found {type(val).__name__}")
+
+    if len(bad_args) != 0:
+        bad_list = '\n'.join(bad_args)
+        raise SXMException(f"Invalid arguments for \n{bad_list}")
+
+def verify_class_arguments():
+    import inspect
+
+    # Get the current module
+    current_module = inspect.getmodule(inspect.currentframe())
+
+    # Get all the classes defined in the current module
+    classes = inspect.getmembers(current_module, inspect.isclass)
+
+    # Dictionary to store the arguments and corresponding classes
+    arguments_dict = collections.defaultdict(set)
+
+    # Iterate over the classes
+    for class_name, class_obj in classes:
+        # Check if the class has an '__init__' method
+        if '__init__' in class_obj.__dict__ and issubclass(class_obj, _SXMBase) and not class_name.startswith('_'):
+            # Get the '__init__' method
+            init_method = class_obj.__dict__['__init__']
+            
+            # Get the arguments of the '__init__' method
+            init_signature = inspect.signature(init_method)
+            init_parameters = init_signature.parameters
+            
+            # Iterate over the parameters
+            for parameter_name, _ in list(init_parameters.items())[2:]:
+                # Add the parameter to the dictionary
+                arguments_dict[parameter_name].add(class_obj.__name__)
+    
+    for arg_name in sorted(arguments_dict.keys()):
+        class_names = ', '.join(sorted(arguments_dict[arg_name]))
+        print(f"'{arg_name}': (({class_names}), None),")
+    

@@ -20,6 +20,26 @@ _SCHEMA_NAMESPACE = 'http://www.w3.org/2001/XMLSchema'
 _SCHEMA = '{http://www.w3.org/2001/XMLSchema}schema'
 _IMPORT = '{http://www.w3.org/2001/XMLSchema}import'
 _ELEMENT = '{http://www.w3.org/2001/XMLSchema}element'
+_COMPLEX_TYPE = '{http://www.w3.org/2001/XMLSchema}complexType'
+_SIMPLE_TYPE = '{http://www.w3.org/2001/XMLSchema}simpleType'
+_SIMPLE_CONTENT = '{http://www.w3.org/2001/XMLSchema}simpleContent'
+_RESTRICTION = '{http://www.w3.org/2001/XMLSchema}restriction'
+
+_MIN_EXCLUSIVE = '{http://www.w3.org/2001/XMLSchema}minExclusive'
+_MIN_INCLUSIVE  = '{http://www.w3.org/2001/XMLSchema}minInclusive'
+_MAX_EXCLUSIVE = '{http://www.w3.org/2001/XMLSchema}maxExclusive'
+_MAX_INCLUSIVE   = '{http://www.w3.org/2001/XMLSchema}maxInclusive'
+_TOTAL_DIGITS = '{http://www.w3.org/2001/XMLSchema}totalDigits'
+_FRACTION_DIGITS = '{http://www.w3.org/2001/XMLSchema}fractionDigits'
+_LENGTH = '{http://www.w3.org/2001/XMLSchema}length'
+_MIN_LENGTH = '{http://www.w3.org/2001/XMLSchema}minLength'
+_MAX_LENGTH = '{http://www.w3.org/2001/XMLSchema}maxLength'
+_ENUMERATION = '{http://www.w3.org/2001/XMLSchema}enumeration'
+_WHITE_SPACE = '{http://www.w3.org/2001/XMLSchema}whiteSpace'
+_PATTERN = '{http://www.w3.org/2001/XMLSchema}pattern'
+
+
+
 _LINKBASE = '{http://www.xbrl.org/2003/linkbase}linkbase'
 _ROLE_REF = '{http://www.xbrl.org/2003/linkbase}roleRef'
 _ARCROLE_REF = '{http://www.xbrl.org/2003/linkbase}arcroleRef'
@@ -318,9 +338,9 @@ def  cmdUtilityRun(cntlr, options, **kwargs):
 
     new_version = options.serializer_package_version
 
-    # Check if a name is supplied.
-    if options.serializer_package_name is None:
-        parser.error("--serializer-package-name is required. This is the name of the taxonomy package to create.")
+    # # Check if a name is supplied.
+    # if options.serializer_package_name is None:
+    #     parser.error("--serializer-package-name is required. This is the name of the taxonomy package to create.")
 
     # Check if supplied taxonomy package exists
     if options.serializer_package_taxonomy_package is not None:
@@ -362,20 +382,35 @@ def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
     global _OPTIONS
     _OPTIONS = options
     global _PACKAGE_FOLDER
+    if _PACKAGE_FOLDER is None:
+        # There is nothing to do. The serializer was probably called from another plugin
+        # (i.e. Xodel which calls the)
+        return
     _PACKAGE_FOLDER = posixpath.splitext(posixpath.basename(options.serializer_package_name))[0]
 
     for serializer in getSerizlierPlugins(cntlr):
         dts = serializer['serializer.serialize'](model_xbrl, options, _SXM)
-        write(dts, options.serializer_package_name or 'taxonomy_package.zip', cntlr)
+        package_name = None
+        if dts.package_base_file_name is None:
+            # Check if a name is supplied.
+            if options.serializer_package_name is None:
+                parser = optparse.OptionParser()
+                parser.error("--serializer-package-name is required. This is the name of the taxonomy package to create.")
+            package_name = options.serializer_package_name
+        else:
+            package_name = dts.package_base_file_name
+
+        write(dts, package_name or 'taxonomy_package.zip', cntlr)
 
 def write(dts, package_name, cntlr):
 
+    package_folder = _PACKAGE_FOLDER or posixpath.splitext(posixpath.basename(package_name))[0]
     with zipfile.ZipFile(package_name, 'w', compression=zipfile.ZIP_DEFLATED) as z:
         for document in dts.documents.values():
             if document.is_relative:
                 contents = serialize_document(document)
-                z.writestr(posixpath.join(_PACKAGE_FOLDER, document.uri), contents)
-        serialize_package_files(z, dts)
+                z.writestr(posixpath.join(package_folder, document.uri), contents)
+        serialize_package_files(z, dts, package_folder)
     info("Writing package {}".format(package_name))
 
 def verify(document):
@@ -768,7 +803,13 @@ def serialize_schema(document):
     for content in document.contents:
         if isinstance(content, _SXM.SXMType):
             if not content.is_anonymous:
-                type_node, add_namespaces = serialize_xml_content(content, namespaces)
+                # Originally, the content of the SXMType was just xml content. Now, the SXMType
+                # captures it's data in proeperties. But for backward compatibility, xml content is 
+                # still allowed. Check which situation is here.
+                if content.content is None: # The information is in the properties
+                    type_node, add_namespaces = serialize_type(content, namespaces)
+                else:
+                    type_node, add_namespaces = serialize_xml_content(content, namespaces)
                 types.add(type_node)
                 needed_namespaces |= add_namespaces
         elif isinstance(content, _SXM.SXMConcept):
@@ -881,6 +922,61 @@ def serialize_concept(new_concept, namespaces):
 
     return concept_node, needed_namespaces
 
+def serialize_type(new_type, namespaces):
+    # This does not support all the options for XML types. Just trying to get most cases which include types
+    # for XBRL concepts, types for typed domains and types for reference parts. Types for XBRL
+    # concepts are always complex types. Types for typed domains and reference parts are usually
+    # simple types. So the first thing to do is determine if the type is complex or simple.
+    needed_namespaces = set()
+    if new_type.is_xbrl:
+        # This will be a complex type
+        type_node = etree.Element(_COMPLEX_TYPE, None, namespaces.ns_by_prefix)
+    else:
+        # This will be a simple type
+        type_node = etree.Element(_SIMPLE_TYPE, None, namespaces.ns_by_prefix)
+
+    if not new_type.is_anonymous:
+        type_node.set('name', new_type.name.local_name)
+
+    if new_type.is_xbrl:
+        working_node = etree.Element(_SIMPLE_CONTENT, None, namespaces.ns_by_prefix)
+        type_node.append(working_node)
+    else:
+        working_node = type_node
+    
+    if new_type.is_restricted or (new_type.is_xbrl and not new_type.is_base_xbrl):
+        restriction_node = etree.Element(_RESTRICTION,  None, namespaces.ns_by_prefix)
+        working_node.append(restriction_node)
+        restriction_node.set('base', namespaces.get_qname(*new_type.parent_type.name.name_pair))
+        needed_namespaces.add(new_type.parent_type.name.namespace)
+        if new_type.min_exclusive is not None:
+            etree.SubElement(restriction_node, _MIN_EXCLUSIVE, {'value': str(new_type.min_exclusive)}, namespaces.ns_by_prefix)
+        if new_type.min_inclusive is not None:
+            etree.SubElement(restriction_node, _MIN_INCLUSIVE, {'value': str(new_type.min_inclusive)}, namespaces.ns_by_prefix)
+        if new_type.max_exclusive is not None:
+            etree.SubElement(restriction_node, _MAX_EXCLUSIVE, {'value': str(new_type.max_exclusive)}, namespaces.ns_by_prefix)
+        if new_type.max_inclusive is not None:
+            etree.SubElement(restriction_node, _MAX_INCLUSIVE, {'value': str(new_type.max_inclusive)}, namespaces.ns_by_prefix)
+        if new_type.total_digits is not None:
+            etree.SubElement(restriction_node, _TOTAL_DIGITS, {'value': str(new_type.total_digits)}, namespaces.ns_by_prefix)
+        if new_type.fraction_digits is not None:
+            etree.SubElement(restriction_node, _FRACTION_DIGITS, {'value': str(new_type.fraction_digites)}, namespaces.ns_by_prefix)
+        if new_type.length is not None:
+            etree.SubElement(restriction_node, _LENGTH, {'value': str(new_type.length)}, namespaces.ns_by_prefix)
+        if new_type.min_length is not None:
+            etree.SubElement(restriction_node, _MIN_LENGTH, {'value': str(new_type.min_length)}, namespaces.ns_by_prefix)
+        if new_type.max_length is not None:
+            etree.SubElement(restriction_node, _MAX_LENGTH, {'value': str(new_type.max_length)}, namespaces.ns_by_prefix)
+        if new_type.white_space is not None:
+            etree.SubElement(restriction_node, _WHITE_SPACE, {'value': str(new_type.white_space)}, namespaces.ns_by_prefix)
+        for enum in new_type.enumerations or tuple():
+            # TODO - Need to look into handling enumerated values that are qnames. 
+            etree.SubElement(restriction_node, _ENUMERATION, {'value': str(enum)}, namespaces.ns_by_prefix)
+        for pattern in new_type.pattern or tuple():
+            etree.SubElement(restriction_node, _PATTERN, {'value': str(pattern)}, namespaces.ns_by_prefix)
+
+    return type_node, needed_namespaces
+
 def find_needed_namespaces(node):
     '''Find and attributes that reference a namespace that is needed in an xml node or its descendents'''
     namespaces = set()
@@ -966,7 +1062,7 @@ def serialize_import(new_import_document, document, namespaces):
                                     nsmap=namespaces.ns_by_prefix)
     return import_element
 
-def serialize_package_files(zip_file, dts):
+def serialize_package_files(zip_file, dts, package_folder):
     folder_name = 'META-INF'
     # taxonomy_package
     namespaces = _TAXONOMY_PACKAGE_NS.copy()
@@ -1032,7 +1128,7 @@ def serialize_package_files(zip_file, dts):
                 if document.is_absolute:
                     document_uri = document.uri
                 else:
-                    document_start = dts.rewrites.get('../')
+                    document_start = dts.rewrites.get('../') or '../'
                     if document_start is None:
                         document_start = ''
                     document_uri = posixpath.join(document_start, document.uri)
@@ -1047,7 +1143,7 @@ def serialize_package_files(zip_file, dts):
 
     # Write the taxonomy package file
     etree.cleanup_namespaces(package, namespaces.ns_by_prefix, namespaces.ns_by_prefix.keys())
-    taxonomy_package_file_name = '{}/{}/{}'.format(_PACKAGE_FOLDER, folder_name, 'taxonomyPackage.xml')
+    taxonomy_package_file_name = '{}/{}/{}'.format(package_folder, folder_name, 'taxonomyPackage.xml')
     zip_file.writestr(taxonomy_package_file_name, etree.tostring(package, pretty_print=True))
 
     # Catalog file
@@ -1061,7 +1157,7 @@ def serialize_package_files(zip_file, dts):
             catalog_element.append(child_element)
         
         etree.cleanup_namespaces(catalog_element, namespaces.ns_by_prefix, namespaces.ns_by_prefix.keys())
-        taxonomy_package_file_name = '{}/{}/{}'.format(_PACKAGE_FOLDER, folder_name, 'catalog.xml')
+        taxonomy_package_file_name = '{}/{}/{}'.format(package_folder, folder_name, 'catalog.xml')
         zip_file.writestr(taxonomy_package_file_name, etree.tostring(catalog_element, pretty_print=True))
 
 def add_entry_point_detail(entry_point_element, val, detail_name, namespaces, language=None):

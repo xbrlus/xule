@@ -3,6 +3,18 @@ import decimal
 import json
 import numpy
 from .XodelVars import save_arelle_model
+from arelle.ModelObject import ModelObject
+
+class JSONEncoder(json.JSONEncoder):
+
+    # overload method default
+    def default(self, obj):
+
+        # Match all the types you want to handle in your converter
+        if isinstance(obj, decimal.Decimal):
+            return float(obj)
+        # Call the default method for other types
+        return json.JSONEncoder.default(self, obj)
 
 def property_to_xodel(xule_context, object_value, *args, _intermediate=False):
     # _intermediate is used when recursing. The final value will be a string. But if there are collections
@@ -32,21 +44,45 @@ def property_to_xodel(xule_context, object_value, *args, _intermediate=False):
     elif object_value.type == 'dictionary':
         basic = False
         working_val = {property_to_xodel(xule_context, k, _intermediate=True): property_to_xodel(xule_context, v, _intermediate=True) for k, v in object_value.value}
-    elif object_value.type == 'concept':
-        # Need to save the arelle model and the concept
-        save_arelle_model(object_value.value.modelXbrl)
-        working_val = json.dumps((id(object_value.value.modelXbrl), object_value.value.objectId()))
+    elif object_value.type== 'bool':
+        if _intermediate:
+            working_val = object_value.value
+        else:
+            if object_value.value == True:
+                working_val = 'true'
+            else:
+                working_val = 'false'
+    # elif object_value.type == 'concept':
+    #     # Need to save the arelle model and the concept
+    #     save_arelle_model(object_value.value.modelXbrl)
+    #     working_val = json.dumps((id(object_value.value.modelXbrl), object_value.value.objectId()))
     elif object_value.type in ('none', 'unbound'):
-        working_val = '' # empty string for None
+        if _intermediate:
+            working_val = None 
+        else:
+            working_val = '' # empty string for None
     # elif isinstance(object_value.value, decimal.Decimal):
     #     working_val = str(object_value.value)
     elif isinstance(object_value.value, datetime.datetime):
         working_val =  object_value.value.isoformat()
     elif type(object_value.value) in (float, decimal.Decimal):
-        working_val = numpy.format_float_positional(object_value.value, trim='0')
+        if _intermediate:
+            working_val = object_value.value
+        else:
+            working_val = numpy.format_float_positional(object_value.value, trim='0')
         #working_val = str(object_value.value)
     elif type(object_value.value) == int:
-        working_val = str(object_value.value)
+        if _intermediate:
+            working_val = object_value.value
+        else:
+            working_val = str(object_value.value)
+    elif isinstance(object_value.value, ModelObject):
+        # Need to save the arelle model and the concept
+        save_arelle_model(object_value.value.modelXbrl)
+        if _intermediate:
+            working_val = (id(object_value.value.modelXbrl), object_value.value.objectId())
+        else:
+            working_val = json.dumps((id(object_value.value.modelXbrl), object_value.value.objectId()))
     else:
         working_val = object_value.format_value()
 
@@ -55,4 +91,4 @@ def property_to_xodel(xule_context, object_value, *args, _intermediate=False):
     elif basic:
         return xv.XuleValue(xule_context, working_val, 'string')
     else:
-        return xv.XuleValue(xule_context, json.dumps(working_val), 'string')
+        return xv.XuleValue(xule_context, json.dumps(working_val, cls=JSONEncoder), 'string')
