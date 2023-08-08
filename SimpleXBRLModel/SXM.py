@@ -203,6 +203,8 @@ class _SXMBase:
     DOCUMENT_TYPES = _DOCUMENT_TYPES
     DOCUMENT_CONTENT_TYPES = _DOCUMENT_CONTENT_TYPES
     ALLOWED_DOCUMENT_CONTENT = _ALLOWED_DOCUMENT_CONTENT
+    STANDARD_ROLES = _STANDARD_ROLES
+    STANDARD_ARCROLES = _STANDARD_ARCROLES
 
     def __init__(self):
         pass
@@ -679,6 +681,9 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         self.part_elements = dict()
         self.documents = dict()
         self.namespaces = dict()
+
+        self._preload_standard_roles()
+        self._preload_standard_arcroles()
     
     def __contains__(self, value):
         if isinstance(value, tuple) or isinstance(value, list):
@@ -705,6 +710,14 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         for part_element in self.part_elements.values():
             yield part_element
 
+    def _preload_standard_roles(self):
+        for role_uri, description in _STANDARD_ROLES.items():
+            self.new('Role', role_uri, description)
+
+    def _preload_standard_arcroles(self):
+        for arcrole_uri, cycles_allowed in _STANDARD_ARCROLES.items():
+            self.new('Arcrole', arcrole_uri, cycles_allowed)
+
     def remove(self, del_object):
         remove = super().remove(del_object)
         if remove:
@@ -728,7 +741,7 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
             self.identifier = 'Taxonomy Package'
         if len(self.rewrites) == 0:
             self.rewrites['../'] = 'http://xbrl/package/'
-        entry_point_document = self.new('Document', base_name + 'entry-point-taxonomy.xsd', self.DOCUMENT_TYPES.SCHEMA, base_ns + 'entryPoint/taxonomy')
+        entry_point_document = self.new('Document', base_name + '-entry-point-taxonomy.xsd', self.DOCUMENT_TYPES.SCHEMA, base_ns + 'entryPoint/taxonomy')
         
         entry_point = self.new('PackageEntryPoint', 'Taxonomy Package')
         entry_point.names.append(('Taxonomy Entry Point', 'en'))
@@ -815,7 +828,7 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
 
 class SXMArcrole(_SXMDefined):
 
-    def __init__(self, dts, arcrole_uri, cycles_allowed, description, used_ons):
+    def __init__(self, dts, arcrole_uri, cycles_allowed, description=None, used_ons=None):
         # check if this is a standard arcrole
         if arcrole_uri in _STANDARD_ARCROLES:
             cycles_allowed = _STANDARD_ARCROLES[arcrole_uri]

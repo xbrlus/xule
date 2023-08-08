@@ -247,18 +247,18 @@ def extract_rel_info(model_rel, dts):
     relationship-id
     '''
     rel_info = dict()
-    rel_info['source'] = resolve_clark_to_qname(model_rel.fromModelObject.qname.clarkNotation, dts)
-    rel_info['target'] = resolve_clark_to_qname(model_rel.toModelObject.qname.clarkNotation, dts)
+    rel_info['source-name'] = resolve_clark_to_qname(model_rel.fromModelObject.qname.clarkNotation, dts)
+    rel_info['target-name'] = resolve_clark_to_qname(model_rel.toModelObject.qname.clarkNotation, dts)
     if model_rel.orderDecimal is not None:
         rel_info['order'] = model_rel.orderDecimal
     if model_rel.preferredLabel is not None:
         rel_info['preferred-label'] = model_rel.preferredLabel
     if model_rel.weightDecimal is not None:
         rel_info['weight'] = model_rel.weightDecimal
-    rel_info['role-uri'] = model_rel.linkrole
+    rel_info['role'] = model_rel.linkrole
     rel_info['type'] = resolve_clark_to_qname(model_rel.linkQname.clarkNotation, dts)
     rel_info['arcrole'] = model_rel.arcrole
-    rel_info['attriubte'] = {k:v for k, v in model_rel.arcElement.attrib.items()
+    rel_info['attriubtes'] = {k:v for k, v in model_rel.arcElement.attrib.items()
                                if k not in ('order', 'weight', 'preferredLabel',
                                             '{http://www.w3.org/1999/xlink}arcrole',
                                             '{http://www.w3.org/1999/xlink}from',

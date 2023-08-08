@@ -1716,7 +1716,10 @@ def attribute_validator(val):
     return True
 def relationship_type_validator(val):
     return qname_validator(val) or val.lower() in ('presentation', 'calculation', 'definition', 'generic')
-
+def role_validator(val):
+    return True
+def arcrole_validator(val):
+    return True
 
 _VALIDATOR_FORMAT_MESSAGE = {
     qname_validator: 'QName must be formatted in clark notation (is {namespace-uri}local-name). Did you use the .to-xodel property',
@@ -1727,7 +1730,10 @@ _VALIDATOR_FORMAT_MESSAGE = {
     enumerations_validator: "type-enumerations must be a JSON list of strings. Did you use the .to-xodel property",
     period_type_validator: "concept-period-type must be either 'duration' or 'instant'",
     balance_type_validator: "concept-balance-type must be either 'credit' or 'debit'",
-    attribute_validator: "attributes must be a dictionary keyed by qnames (attribute name)"
+    attribute_validator: "attributes must be a dictionary keyed by qnames (attribute name)",
+    relationship_type_validator: "relationship type must be one of 'presentation', 'calculation', 'definition', 'generic' or a qname in clark notation",
+    role_validator: "invalid role",
+    arcrole_validator: "invalid arcrole"
 }
 
 _COMPONENT_NAME = 0
@@ -1767,14 +1773,14 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'role-definition': ('role', string_validator),
     'role-used-on': ('role', list_validator),
     'relationship': ('relationship', object_validator),
-    'relationship-source': ('relationship', qname_validator),
-    'relationship-target': ('relationship', qname_validator),
+    'relationship-source-name': ('relationship', qname_validator),
+    'relationship-target-name': ('relationship', qname_validator),
     'relationship-order': ('relationship', decimal_validator),
     'relationship-weight': ('relationships', decimal_validator),
-    'relationship-preferred-label': ('relationship', string_validator),
-    'relationship-linkrole-uri': ('relationship', string_validator),
+    'relationship-preferred-label': ('relationship', role_validator),
+    'relationship-linkrole-uri': ('relationship', role_validator),
     'relationship-type': ('relationship', relationship_type_validator),
-    'relationship-arcrole': ('relationship', string_validator),
+    'relationship-arcrole': ('relationship', arcrole_validator),
     'relationship-attribute': ('relationship', attribute_validator),
     'relationship-id': ('relationship', string_validator),
 }
@@ -2035,13 +2041,13 @@ def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
 def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     ''''
     relationship
-    relationship-source
-    relationship-target
+    relationship-source-name
+    relationship-target-name
     relationship-order
     relationship-weight
     relationship-preferred-label
-    relationship-linkrole-uri
     relationship-role
+    relationship-type
     relationship-arcrole
     relationship-attribute
     relationship-id
@@ -2053,15 +2059,37 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     else:
         rel_info = dict()
     
+    # overrides from the output attributes
+    if 'relationship-source-name' in log_rec.args:
+        rel_info['source-name'] = resolve_clark_to_qname(log_rec.args['relationship-source-name'], taxonomy)
+    if 'relationship-target-name' in log_rec.args:
+        rel_info['target-name'] = resolve_clark_to_qname(log_rec.args['relationship-target-name'], taxonomy)
+    if 'order' in log_rec.args:
+        rel_info['order'] = decimal.Decimal(log_rec.args['order'])
+    if 'weight'in log_rec.args:
+        rel_info['weight'] = decimal.Decimal(log_rec.args['weight'])
+    if 'relationship-preferred-label' in log_rec.args:
+        rel_info['preferred-label'] = resolve_role_uri(log_rec.args['relationship-preferred-label'], taxonomy)
+    if 'relationship-role' in log_rec.args:
+        rel_info['role'] = resolve_role_uri(log_rec.args['relationship-role'], taxonomy)
+    if 'relationship-arcrole' in log_rec.args:
+        rel_info['arcrole'] = resolve_arcrole_uri(log_rec.args['relationship-arcrole'], taxonomy)
+    if 'relationship-attribute' in log_rec.args:
+        rel_info['attributes'].update(json.loads(log_rec.args['relationship-attributes']))
+    if 'relationship-type' in log_rec.args:
+        rel_info['type'] = log_rec.args['relationship-type']
+
     # get source and target concepts
-    source_concept = taxonomy.get('Concept', rel_info['source'])
+    source_concept = taxonomy.get('Concept', rel_info['source-name'])
     if source_concept is None:
-        raise XodelException(f"While createing a relationship, concept {rel_info['source'].clark} is not in the taxonomy")
+        raise XodelException(f"While createing a relationship, concept {rel_info['source-name'].clark} is not in the taxonomy")
     
-    target_concept = taxonomy.get('Concept', rel_info['target'])
+    target_concept = taxonomy.get('Concept', rel_info['target-name'])
     if target_concept is None:
-        raise XodelException(f"While createing a relationship, concept {rel_info['target'].clark} is not in the taxonomy")
+        raise XodelException(f"While createing a relationship, concept {rel_info['target-name'].clark} is not in the taxonomy")
     
+    if 'type' not in rel_info:
+        raise XodelException('Need the relationship-type to create a relationship')
     # Get the extended link element
     if rel_info['type'] in _STANDARD_LINK_NAMES:
         link_name = resolve_clark_to_qname(_STANDARD_LINK_NAMES[rel_info['type']], taxonomy)
@@ -2074,8 +2102,8 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
         raise XodelException(f"Cannot determine the correct arc name for a relationship in {link_name.clark} extended link")
 
     # Convert the role and arcrole to SXM objects
-    role = taxonomy.get('Role', rel_info['role-uri'])
-    if role is None and rel_info['role-uri'] == _STANDARD_EXTENDED_LINK_ROLE:
+    role = taxonomy.get('Role', rel_info['role'])
+    if role is None and rel_info['role'] == _STANDARD_EXTENDED_LINK_ROLE:
         role = taxonomy.new('Role', _STANDARD_EXTENDED_LINK_ROLE)
     
     arcrole = taxonomy.get('Arcrole', rel_info['arcrole'])
@@ -2090,12 +2118,44 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
               taxonomy.new('Network', link_name, arc_name, arcrole, role)
     # Add the relationship
     taxonomy.new('Relationship', network, source_concept, target_concept, rel_info.get('order', 1),
-                                 rel_info.get('weight'), rel_info.get('preferred-label'), rel_info.get('attribute', dict()))
+                                 rel_info.get('weight'), rel_info.get('preferred-label'), rel_info.get('attributes', dict()))
 
 def get_model_object(object_string, cntlr):
     arelle_model_id, object_id = json.loads(object_string)
     arelle_model = get_arelle_model(cntlr, arelle_model_id)
     return arelle_model.modelObject(object_id)
+
+def resolve_role_uri(role_name, taxonomy):
+    # role_name may be a uri or a short role name. A short role name is the last part of the role uri
+    role = taxonomy.get('Role', role_name)
+    if role is not None:
+        return role.role_uri
+    
+    # If here, then the role was not found in the taxonomy. Check if this is a short role name.
+    matched_role_uris = [x for x in taxonomy.roles.keys() if x.lower().endswith(role_name.lower())]
+    if len(matched_role_uris) == 0:
+        raise XodelException(f"Role {role_name} is not in the taxonomy")
+    elif len(matched_role_uris) == 1:
+        return matched_role_uris[0]
+    else:
+        raise XodelException(f"Role {role_name} is a role short name, but matched to more than one role in the taxonomy."
+                             f" The matched roles are:\n" + '\n'.join(matched_role_uris))
+
+def resolve_arcrole_uri(arcrole_name, taxonomy):
+    # arcrole_name may be a uri or a short arcrole name. A short arcrole name is the last part of the arcrole role uri
+    arcrole = taxonomy.get('Arcrole', arcrole_name)
+    if arcrole is not None:
+        return arcrole.arcrole_uri
+
+    # If here, then the arcrole was not found in the taxonomy. Check if thi is a short arcrole name.
+    matched_arcrole_uris = [x for x in taxonomy.arcroles.keys() if x.lower().endswith(arcrole_name.lower())]
+    if len(matched_arcrole_uris) == 0:
+        raise XodelException(f"Arcrole {arcrole_name} is not in the taxonomy")
+    elif len(matched_arcrole_uris) ==1:
+        return matched_arcrole_uris[0]
+    else:
+        raise XodelException(f"Arcrole {arcrole_name} is a arcrole short name, but matched to more than one arcrole in the taxonomy."
+                             f" The matched arcroles are:\n" + '\n'.join(matched_arcrole_uris))
 
 def no_sort(log_infos, _cntlr):
     # really - don't do anything - sort order doesn't matter
