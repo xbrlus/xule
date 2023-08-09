@@ -1782,7 +1782,15 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'relationship-type': ('relationship', relationship_type_validator),
     'relationship-arcrole': ('relationship', arcrole_validator),
     'relationship-attribute': ('relationship', attribute_validator),
-    'relationship-id': ('relationship', string_validator),
+    #'relationship-id': ('relationship', string_validator),
+    'label': ('label', object_validator),
+    'label-text': ('label', string_validator),
+    'label-lang': ('label', string_validator),
+    'label-role': ('label', role_validator),
+    #'label-name': ('label', string_validator),
+    'label-concept': ('label', qname_validator)
+
+
 }
 
 # The _Tree class is used to sort components that are hierarchical so the parents are processed before the children.
@@ -2052,7 +2060,7 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     relationship-attribute
     relationship-id
     '''
-    # Check if there is a relationship output attribute. This will copy an existing role
+    # Check if there is a relationship output attribute. This will copy an existing relationship
     if 'relationship' in log_rec.args:
         arelle_rel = get_model_object(log_rec.args['relationship'], cntlr)
         rel_info = extract_rel_info(arelle_rel, taxonomy)
@@ -2120,6 +2128,50 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     taxonomy.new('Relationship', network, source_concept, target_concept, rel_info.get('order', 1),
                                  rel_info.get('weight'), rel_info.get('preferred-label'), rel_info.get('attributes', dict()))
 
+def process_label(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    '''
+    label
+    label-text
+    label-lang
+    label-role
+    label-name
+    label-concept-name
+    '''
+    # Check if there is a label output attribute. This will copy an existing label
+    if 'label' in log_rec.args:
+        arelle_label = get_model_object(log_rec.args['label'], cntlr)
+        label_info = extract_label_info(arelle_label, taxonomy)
+    else:
+        label_info = dict()
+
+    if 'label-text' in log_rec.args:
+        label_info['text'] = log_rec.args['label-text']
+    if 'label-lang' in log_rec.args:
+        label_info['lang'] = log_rec.args['label-lang']
+    if 'label-role' in log_rec.args:
+        label_info['role'] = resolve_role_uri(log_rec.args['label-role'], taxonomy)
+    if 'label-concept-name' in log_rec.args:
+        label_info['concept-name'] = resolve_clark_to_qname(log_rec.args['label-concept-name'], taxonomy)
+
+    if label_info.get('lang') in (None, ''):
+        raise XodelException(f"A Language is required for a label (label-lang). Rule: {log_rec.messageCode}")
+    if label_info.get('text') in (None, ''):
+        # should this just skip this label instead of raising an error?
+        raise XodelException(f"There is no content for the label. Rule: {log_rec.messageCode}")
+    if label_info.get('role') is None:
+        raise XodelException(f"There is no role for the label. Rule: {log_rec.messageCode}")
+    if label_info.get('concept-name') is None:
+        raise XodelException(f"There is not concept for the label. Rule: {log_rec.messageCode}")
+
+
+    label_role = taxonomy.get('Role', label_info['role'])
+    label_concept = taxonomy.get('Concept', label_info['concept-name'])
+
+    if label_concept is None:
+        raise XodelException(f"Concept {label_info['concept-name']} does not exist. Cannot create label. Rule: {log_rec.messageCode}")
+    
+    label_concept.add_label(label_role, label_info['lang'], label_info['text'])
+
 def get_model_object(object_string, cntlr):
     arelle_model_id, object_id = json.loads(object_string)
     arelle_model = get_arelle_model(cntlr, arelle_model_id)
@@ -2132,7 +2184,7 @@ def resolve_role_uri(role_name, taxonomy):
         return role.role_uri
     
     # If here, then the role was not found in the taxonomy. Check if this is a short role name.
-    matched_role_uris = [x for x in taxonomy.roles.keys() if x.lower().endswith(role_name.lower())]
+    matched_role_uris = [x for x in taxonomy.roles.keys() if x.lower().endswith(f"/{role_name.lower()}")]
     if len(matched_role_uris) == 0:
         raise XodelException(f"Role {role_name} is not in the taxonomy")
     elif len(matched_role_uris) == 1:
@@ -2148,7 +2200,7 @@ def resolve_arcrole_uri(arcrole_name, taxonomy):
         return arcrole.arcrole_uri
 
     # If here, then the arcrole was not found in the taxonomy. Check if thi is a short arcrole name.
-    matched_arcrole_uris = [x for x in taxonomy.arcroles.keys() if x.lower().endswith(arcrole_name.lower())]
+    matched_arcrole_uris = [x for x in taxonomy.arcroles.keys() if x.lower().endswith(f"/{arcrole_name.lower()}")]
     if len(matched_arcrole_uris) == 0:
         raise XodelException(f"Arcrole {arcrole_name} is not in the taxonomy")
     elif len(matched_arcrole_uris) ==1:
@@ -2195,6 +2247,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'concept': (process_concept, no_sort),
     'role': (process_role, role_uri_sort),
     'relationship': (process_relationship, no_sort),
+    'label': (process_label, no_sort)
 })
 
 

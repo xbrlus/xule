@@ -800,7 +800,7 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                 if tax_item.document.is_relative:
                     other_documents.add(tax_item.document)
 
-        linkbase_items = set(self.networks.values()) | set(self.cubes)
+        linkbase_items = set(self.networks.values()) | set(self.cubes) 
         for linkbase_item in linkbase_items:
             if isinstance(linkbase_item, SXMNetwork):
                 # go through the relationships
@@ -815,6 +815,17 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                             linkbase_document = self.new('Document', doc_name, self.DOCUMENT_TYPES.LINKBASE)
                             entry_point_document.add(linkbase_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
                         rel.document = linkbase_document
+
+        # Asign documents to the labels
+        label_document_name = f"{base_name}-lab.xml"
+        for concept in self.concepts.values():
+            for labels in concept.labels.values():
+                for label in labels:
+                    label_document = self.get('Document', label_document_name)
+                    if label_document is None:
+                        label_document = self.new('Document', label_document_name, self.DOCUMENT_TYPES.LINKBASE)
+                        entry_point_document.add(label_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                    label.document = label_document
 
         # The taxonomy.xsd will also be the entry point. Add references to all the other doucments.
         for other_document in other_documents:

@@ -268,7 +268,10 @@ def extract_rel_info(model_rel, dts):
 
     return rel_info
 
-
+def extract_label_info(model_label, dts):
+    return {'text': model_label.text,
+                  'lang': model_label.xmlLang,
+                  'role': model_label.role}
 
 
 
