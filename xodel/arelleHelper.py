@@ -232,6 +232,17 @@ def extract_role_info(model_role, dts):
 
     return role_info
 
+def extract_arcrole_info(model_arcrole, dts):
+    arcrole_info = {
+        'uri': model_arcrole.arcroleURI,
+        'definition': model_arcrole.definition,
+        'used-on': [resolve_clark_to_qname(x.clarkNotation, dts) for x in model_arcrole.usedOns],
+        'cycles-allowed': model_arcrole.cyclesAllowed
+
+    }
+
+    return arcrole_info
+
 def extract_rel_info(model_rel, dts):
     ''''
     relationship

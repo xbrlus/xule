@@ -1,7 +1,8 @@
 '''
 Reivision number: $Change: 23365 $
 '''
-
+# TODO - clean out the xince stuff
+# TODO - Need to handle xsi:schemaLocation for namespaces that are used. For instance, for the generic linkbase, when it is used, a schemaLocation is needed in the linkbase files. This means that we need to know the location of the schema file. This is not provided. For generic linkbase, xodel can add this, but if custom link elements are used, this would be a problem. Maybe provide a namespace-location output attribute that can be used. It would take a dictionary of namespace uri as the key and the location as the value. 
 from arelle import FileSource
 from arelle import ModelManager
 from arelle.ModelXbrl import ModelXbrl
@@ -1628,12 +1629,17 @@ _STANDARD_LINK_NAMES = {'presentation': '{http://www.xbrl.org/2003/linkbase}pres
                         'definition': '{http://www.xbrl.org/2003/linkbase}definitionLink',
                         'calculation': '{http://www.xbrl.org/2003/linkbase}calculationLink',
                         'generic': '{http://xbrl.org/2008/generic}link'}
-_STANDARD_ARC_NAME = {'{http://www.xbrl.org/2003/linkbase}presentationLink': '{http://www.xbrl.org/2003/linkbase}presentationArc',
+_STANDARD_LINK_ARC_MAP = {'{http://www.xbrl.org/2003/linkbase}presentationLink': '{http://www.xbrl.org/2003/linkbase}presentationArc',
                         '{http://www.xbrl.org/2003/linkbase}definitionLink': '{http://www.xbrl.org/2003/linkbase}definitionArc',
                         '{http://www.xbrl.org/2003/linkbase}calculationLink': '{http://www.xbrl.org/2003/linkbase}calculationArc',
                         '{http://xbrl.org/2008/generic}link': '{http://xbrl.org/2008/generic}arc'}
 
 _STANDARD_EXTENDED_LINK_ROLE = 'http://www.xbrl.org/2003/role/link'
+
+_STANDARD_ARC_NAMES = {'presentation': '{http://www.xbrl.org/2003/linkbase}presentationArc',
+                        'definition': '{http://www.xbrl.org/2003/linkbase}definitionArc',
+                        'calculation': '{http://www.xbrl.org/2003/linkbase}calculationArc',
+                        'generic': '{http://xbrl.org/2008/generic}arc'}
 
 _STANDARD_ARCROLES = {
     "http://www.xbrl.org/2003/arcrole/concept-label",
@@ -1699,6 +1705,8 @@ def period_type_validator(val):
     return val in ('duration', 'instant')
 def balance_type_validator(val):
     return val in ('debit', 'credit')
+def cycles_validator(val):
+    return val in ('any', 'none', 'undirected')
 def attribute_validator(val):
     # Attributes a dictionary of qnames
     try:
@@ -1772,6 +1780,11 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'role-uri': ('role', string_validator),
     'role-definition': ('role', string_validator),
     'role-used-on': ('role', list_validator),
+    'arcrole': ('arcrole', object_validator),
+    'arcrole-uri': ('arcrole', string_validator),
+    'arcrole-definition': ('arcrole', string_validator),
+    'arcrole-used-on': ('arcrole', list_validator),
+    'arcrole-cycles-allowed': ('arcrole', cycles_validator),
     'relationship': ('relationship', object_validator),
     'relationship-source-name': ('relationship', qname_validator),
     'relationship-target-name': ('relationship', qname_validator),
@@ -2011,7 +2024,7 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
 
 
 def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
-    ''''
+    '''
     role
     role-name
     role-uri
@@ -2045,6 +2058,48 @@ def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         raise XodelException(f"Duplicate role. Role {role_info['uri']} is already in the taxonomy")
     if taxonomy.get('Role', role_info['uri']) is None:
         taxonomy.new('Role', role_info['uri'], role_info.get('definition'), role_info.get('used-on'))
+
+def process_arcrole(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    '''
+    arcrole
+    arcrole-name
+    arcrole-uri
+    arcrole-definition
+    arcrole-used-on
+    arcrole-cycles-allowed
+    '''
+
+    # Check if there is a role output attribute. This will copy an existing role
+    if 'arcrole' in log_rec.args:
+        arelle_arcrole = get_model_object(log_rec.args['arcrole'], cntlr)
+        arcrole_info = extract_arcrole_info(arelle_arcrole, taxonomy)
+    else:
+        arcrole_info = dict()
+
+    if 'arcrole-uri' in log_rec.args:
+        arcrole_info['uri'] = log_rec.args['arcrole-uri']
+    if 'arcrole-definition' in log_rec.args:
+        arcrole_info['definition'] = log_rec.args['arcrole-definition']
+    if 'arcrole-used-on' in log_rec.args:
+        used_ons = []
+        # This is a list of qnames or one of the standard links
+        for used_on in json.loads(log_rec.args['arcrole-used-on']):
+            if used_on.lower() in _STANDARD_ARC_NAMES:
+                used_ons.append(resolve_clark_to_qname(_STANDARD_ARC_NAMES[used_on.lower()], taxonomy))
+            else:
+                used_ons.append(resolve_clark_to_qname(used_on, taxonomy))
+        arcrole_info['used-on'] = used_ons
+    if 'arcrole-cycles-allowed' in log_rec.args:
+        arcrole_info['cycles-allowed'] = log_rec.args['arcrole-cycles-allowed']
+    
+    # a role uri is required
+    if 'uri' not in arcrole_info or len(arcrole_info['uri']) == 0 or arcrole_info['uri'] is None:
+        raise XodelException(f"Duplicate arcrole. Arcrole {arcrole_info['uri']} is already in the taxonomy")
+    # cycles allowed is requires
+    if 'cycles-allowed' not in arcrole_info:
+        raise XodelException(f"arcrole-cycles-allowed is required for an arcrole. Arcrole {arcrole_info['uri']}.")
+    if taxonomy.get('Arcrole', arcrole_info['uri']) is None:
+        taxonomy.new('Arcrole', arcrole_info['uri'], arcrole_info.get('cycles-allowed'), arcrole_info.get('definition'), arcrole_info.get('used-on'))
 
 def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     ''''
@@ -2104,8 +2159,13 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     else:
         link_name = rel_info['type']
 
+    # TODO If the arcrole/role is not in the new taxonomy, maybe get it from the
+    # input taxonomy if it is from a document with an absolute address. This would 
+    # simplify the need to create the arcroles and roles. 
+    # Another option is to look for the arcrole/role int he link role registry (llr) and copy it from there.
+
     # Get the arc element
-    arc_name = resolve_clark_to_qname(_STANDARD_ARC_NAME.get(link_name.clark), taxonomy)
+    arc_name = resolve_clark_to_qname(_STANDARD_LINK_ARC_MAP.get(link_name.clark), taxonomy)
     if arc_name is None:
         raise XodelException(f"Cannot determine the correct arc name for a relationship in {link_name.clark} extended link")
 
@@ -2214,18 +2274,24 @@ def no_sort(log_infos, _cntlr):
     return log_infos
 
 def role_uri_sort(log_infos, cntlr):
+    return uri_sort(log_infos, cntlr, 'role-uri', 'roleURI', 'role')
+
+def arcrole_uri_sort(log_infos, cntlr):
+    return uri_sort(log_infos, cntlr, 'arcrole-uri', 'arcroleURI', 'arcrole')
+
+def uri_sort(log_infos, cntlr, uri_key, arelle_uri_property_name, object_key):
     uris = dict()
     for log_info in log_infos:
-        if 'role-uri' in log_info[1].args:
-            uri = log_info[1].args['role-uri']
-        elif 'role' in log_info[1].args:
-            model_role = get_model_object(log_info[1].args['role'], cntlr)
+        if uri_key in log_info[1].args:
+            uri = log_info[1].args[uri_key]
+        elif object_key in log_info[1].args:
+            model_role = get_model_object(log_info[1].args[object_key], cntlr)
             if model_role is None:
-                raise XodelException(f"Cannot find arelle role")
+                raise XodelException(f"Cannot find arelle role/arcrole")
             else:
-                uri = model_role.roleURI
+                uri = model_role.get(arelle_uri_property_name)
         if uri in uris:
-            raise XodelException(f"Duplicate role {uri}")
+            raise XodelException(f"Duplicate role/arcrole {uri}")
         uris[uri] = log_info
 
     result = []
@@ -2234,20 +2300,16 @@ def role_uri_sort(log_infos, cntlr):
     
     return result
 
-def uri_sort(log_rec):
-    if 'role-uri' in log_rec.args:
-        return log_rec.args['role-uri']
-    elif 'role' in log_rec.args:
-        model_role = get_model_object(log_rec)
-
 # XODAL Processing Order
 _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'taxonomy': (process_taxonomy, no_sort),
     'type': (process_type, type_sort),
     'concept': (process_concept, no_sort),
     'role': (process_role, role_uri_sort),
+    'arcrole': (process_arcrole, arcrole_uri_sort),
+    'label': (process_label, no_sort),
     'relationship': (process_relationship, no_sort),
-    'label': (process_label, no_sort)
+    
 })
 
 

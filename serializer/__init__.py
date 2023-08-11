@@ -192,9 +192,12 @@ _STANDARD_NS = NSMap({'xs': {'ns': 'http://www.w3.org/2001/XMLSchema'},
                       'xsi': {'ns': 'http://www.w3.org/2001/XMLSchema-instance'}
                       })
 
-_STANDARD_LINKBASE_NS = NSMap({'link': {'ns': 'http://www.xbrl.org/2003/linkbase', 'location': 'http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd'},
+_STANDARD_LINKBASE_NS = NSMap({'link': {'ns': 'http://www.xbrl.org/2003/linkbase', 
+                                        'location': 'http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd'},
                               'xlink': {'ns': 'http://www.w3.org/1999/xlink'},
-                              'xsi': {'ns': 'http://www.w3.org/2001/XMLSchema-instance'}
+                              'xsi': {'ns': 'http://www.w3.org/2001/XMLSchema-instance'},
+                              'gen': {'ns': 'http://xbrl.org/2008/generic',
+                                      'location': 'http://www.xbrl.org/2008/generic-link.xsd'},
                               })
 
 _TAXONOMY_PACKAGE_NS = NSMap({'tp': {'ns': 'http://xbrl.org/2016/taxonomy-package'}})

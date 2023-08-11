@@ -765,7 +765,7 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
             # There is only one taxonomy schema
             key = list(tax_docs_by_namespace.keys())[0] # get the key of the only item in the dictionary
             tax_docs_by_namespace[key] = self.new('Document', 
-                                                  f"{tax_docs_by_namespace[key]}.xsd", 
+                                                  f"{tax_docs_by_namespace[key]}", 
                                                   self.DOCUMENT_TYPES.SCHEMA, 
                                                   key)
             entry_point_document.add(tax_docs_by_namespace[key], self.DOCUMENT_CONTENT_TYPES.IMPORT)
@@ -788,10 +788,16 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                 tax_document = None
                 if isinstance(tax_item, SXMRole):
                     if tax_item.role_uri not in _STANDARD_ROLES:
-                        tax_document = self.get('Document', role_doc_name) or self.new('Document', role_doc_name, self.DOCUMENT_TYPES.SCHEMA, role_doc_ns)
+                        tax_document = self.get('Document', role_doc_name)
+                        if tax_document is None:
+                            tax_document = self.new('Document', role_doc_name, self.DOCUMENT_TYPES.SCHEMA, role_doc_ns)
+                            entry_point_document.add(tax_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
                 elif isinstance(tax_item, SXMArcrole):
                     if tax_item.arcrole_uri not in _STANDARD_ARCROLES:
-                        tax_document = self.get('Document', arcrole_doc_name) or self.new('Document', arcrole_doc_name, self.DOCUMENT_TYPES.SCHEMA, arcrole_doc_ns)
+                        tax_document = self.get('Document', arcrole_doc_name)
+                        if tax_document is None: 
+                            tax_document = self.new('Document', arcrole_doc_name, self.DOCUMENT_TYPES.SCHEMA, arcrole_doc_ns)
+                            entry_point_document.add(tax_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
                 else:
                     tax_document = tax_docs_by_namespace[tax_item.name.namespace]
                 if tax_document is not None:
@@ -808,7 +814,12 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                     if rel.document is None:
                         # linkbases will divided into separate files base on the type of linkbase
                         # pre, def, cal, gen, oth (other)
-                        doc_type_name = rel.link_name.local_name[:3].lower()
+                        if rel.link_name.namespace == 'http://www.xbrl.org/2003/linkbase':
+                            doc_type_name = rel.link_name.local_name[:3].lower()
+                        elif rel.link_name.clark == '{http://xbrl.org/2008/generic}link':
+                            doc_type_name = 'gen'
+                        else:
+                            doc_type_name = 'oth'
                         doc_name = f"{base_name}-{doc_type_name}.xml"
                         linkbase_document = self.get('Document', doc_name)
                         if linkbase_document is None:
@@ -1942,7 +1953,7 @@ _SXM_ARGUMENT_TYPES= {
     'balance_type': ((SXMConcept, ), str),
     'concept': ((SXMCube, SXMDimension, SXMMember, SXMPrimary, SXMReference, SXMResource), SXMConcept),
     'content': ((SXMResource, ), str),
-    'cycles_allowed': ((SXMArcrole, ), bool),
+    'cycles_allowed': ((SXMArcrole, ), str),
     'data_type': ((SXMConcept, SXMElement, SXMPartElement, SXMTypedDomain), SXMType),
     'description': ((SXMArcrole, SXMDocument, SXMRole), str),
     'document_type': ((SXMDocument, ), str),
