@@ -2134,10 +2134,10 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if 'relationship-target' in log_rec.args:
         # This may be a qname or an arelle concept object
         try:
-            match_clark(log_rec.args['relationship-target']):
+            match_clark(log_rec.args['relationship-target'])
             rel_info['target-name'] = resolve_clark_to_qname(log_rec.args['relationship-target'], taxonomy)
         except XodelNotInClark:
-            rel_info['target-input-object'] = get_model_object(log_rec.args['relationship-target'], taxonomy)
+            rel_info['target-input-object'] = get_model_object(log_rec.args['relationship-target'], cntlr)
     if 'order' in log_rec.args:
         rel_info['order'] = decimal.Decimal(log_rec.args['order'])
     if 'weight'in log_rec.args:
