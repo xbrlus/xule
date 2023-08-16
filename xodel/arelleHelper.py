@@ -5,7 +5,7 @@ from arelle.ModelValue import qname, QName
 import arelle.XbrlConst as xc
 
 from lxml import etree
-from .XodelException import XodelException
+from .XodelException import *
 from .XodelVars import *
 import re
 
@@ -194,8 +194,6 @@ _BASE_NAMESPACES = re.compile(r'^http://(www\.)?((w3)|(xbrl))\.org/')
 
 def extract_element_info(model_element, dts):
 
-
-
     return {'element-name': resolve_clark_to_qname(model_element.qname.clarkNotation, dts),
             'type-name': resolve_clark_to_qname(model_element.typeQname.clarkNotation, dts),
             'is-abstract': model_element.isAbstract,
@@ -203,7 +201,7 @@ def extract_element_info(model_element, dts):
             'id': model_element.id,
             'substitution-group-name': resolve_clark_to_qname(model_element.substitutionGroupQname.clarkNotation, dts),
             'attributes': {k:v for k, v in model_element.attrib.items()
-                               if k not in ('name', 'id', 'type', 'substitutionGroup', 'abstract',
+                               if k not in ('name', 'id', 'type', 'substitutionGroup', 'abstract', 'nillable',
                                             '{http://www.xbrl.org/2003/instance}periodType',
                                             '{http://www.xbrl.org/2003/instance}balance')},
             # Save the namespace map to resolve qname values in attributes
@@ -258,8 +256,8 @@ def extract_rel_info(model_rel, dts):
     relationship-id
     '''
     rel_info = dict()
-    rel_info['source-name'] = resolve_clark_to_qname(model_rel.fromModelObject.qname.clarkNotation, dts)
-    rel_info['target-name'] = resolve_clark_to_qname(model_rel.toModelObject.qname.clarkNotation, dts)
+    rel_info['source-input-object'] = model_rel.fromModelObject
+    rel_info['target-input-object'] = model_rel.toModelObject
     if model_rel.orderDecimal is not None:
         rel_info['order'] = model_rel.orderDecimal
     if model_rel.preferredLabel is not None:
@@ -364,6 +362,29 @@ def new_type_from_arelle(new_model, model_type):
 
     return new_data_type
 
+def new_concept_from_arelle(new_model, model_concept, cntlr):
+    '''
+    This is used to create a concept that is being imported into the new taxonomy. Hence it does
+    not create a new concept in the new taxonomy.
+    '''
+    concept_info = extract_concept_info(model_concept, new_model)
+    new_concept = new_model.get('Concept', concept_info['concept-name'])
+    if new_concept is None:
+        concept_info = extract_concept_info(model_concept, new_model)
+        # The type needs to be a SXMType, currently we have a qname
+        concept_type = find_type(new_model, concept_info['type-name'], cntlr)
+        if concept_type is None:
+                raise XodelException(f"For concept '{concept_info['concept-name'].clark}', do not have the type definition for '{concept_info['type-name'].clark}'")
+        new_concept = new_model.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('abstract'),
+                                concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
+                                concept_info.get('substitution-group-name'), concept_info.get('id'), concept_info.get('attributes'))
+
+        # Assign the document
+        if model_concept.modelDocument.uri.startswith('http:') or model_concept.modelDocument.uri.startswith('https:'):
+            new_concept.document = get_or_make_document(new_model, model_concept.modelDocument.uri, new_model.DOCUMENT_TYPES.SCHEMA, model_concept.modelDocument.targetNamespace)
+
+    return new_concept
+
 def open_file(url, cntlr, as_text=True):
     contents = XodelVars.get(cntlr, f'FILE-{url}')
     if contents is None:
@@ -443,7 +464,7 @@ def resolve_clark_to_qname(name, dts):
 def match_clark(clark):
     match = re.match('^{([^}]+)}(.*)$', clark)
     if match is None:
-        raise XodelException(f"QName '{clark}' is not a valid clark notation")
+        raise XodelNotInClark(f"QName '{clark}' is not a valid clark notation")
     return match
 
 def resolve_qname_to_clark(name, node, is_attribute=False):

@@ -3,13 +3,14 @@ Reivision number: $Change: 23365 $
 '''
 # TODO - clean out the xince stuff
 # TODO - Need to handle xsi:schemaLocation for namespaces that are used. For instance, for the generic linkbase, when it is used, a schemaLocation is needed in the linkbase files. This means that we need to know the location of the schema file. This is not provided. For generic linkbase, xodel can add this, but if custom link elements are used, this would be a problem. Maybe provide a namespace-location output attribute that can be used. It would take a dictionary of namespace uri as the key and the location as the value. 
+# TODO - How to import schemas for things that are not defined in this taxonomy. For example, using reference parts that are defined in another taxonomy. 
 from arelle import FileSource
 from arelle import ModelManager
 from arelle.ModelXbrl import ModelXbrl
 from .arelleHelper import *
 from .xodelXuleExtensions import property_to_xodel
 from .XodelVars import get_arelle_model
-from .XodelException import XodelException
+from .XodelException import *
 
 import base64
 import collections
@@ -2104,8 +2105,8 @@ def process_arcrole(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
 def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     ''''
     relationship
-    relationship-source-name
-    relationship-target-name
+    relationship-source
+    relationship-target
     relationship-order
     relationship-weight
     relationship-preferred-label
@@ -2123,10 +2124,20 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
         rel_info = dict()
     
     # overrides from the output attributes
-    if 'relationship-source-name' in log_rec.args:
-        rel_info['source-name'] = resolve_clark_to_qname(log_rec.args['relationship-source-name'], taxonomy)
-    if 'relationship-target-name' in log_rec.args:
-        rel_info['target-name'] = resolve_clark_to_qname(log_rec.args['relationship-target-name'], taxonomy)
+    if 'relationship-source' in log_rec.args:
+        # This may be a qname or an arelle concept object
+        try:
+            match_clark(log_rec.args['relationship-source'])
+            rel_info['source-name'] = resolve_clark_to_qname(log_rec.args['relationship-source'], taxonomy)
+        except XodelNotInClark:
+            rel_info['source-input-object'] = get_model_object(log_rec.args['relationship-source'], cntlr)
+    if 'relationship-target' in log_rec.args:
+        # This may be a qname or an arelle concept object
+        try:
+            match_clark(log_rec.args['relationship-target']):
+            rel_info['target-name'] = resolve_clark_to_qname(log_rec.args['relationship-target'], taxonomy)
+        except XodelNotInClark:
+            rel_info['target-input-object'] = get_model_object(log_rec.args['relationship-target'], taxonomy)
     if 'order' in log_rec.args:
         rel_info['order'] = decimal.Decimal(log_rec.args['order'])
     if 'weight'in log_rec.args:
@@ -2143,13 +2154,32 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
         rel_info['type'] = log_rec.args['relationship-type']
 
     # get source and target concepts
-    source_concept = taxonomy.get('Concept', rel_info['source-name'])
+    # If there is a source/target name, then that overrides the source/target. Otherwise, there is
+    # a source/target input object, which is an arelle model_concept. In this case, it needs to come
+    # from a schema with an absolute url. That is, the concept is not defined in the taxonomy that
+    # is being created, but in a taxonomy that will be imported. In the SXM, an imported concept 
+    # will still be represented as an SXMConcept. But its document will be the imported schema
+    if 'source-name' not in rel_info and 'source-input-object' not in rel_info:
+        raise XodelException(f"A relationship requires a source concept. Rule: {log_rec.messageCode}")
+    if 'source-name' in rel_info:
+        source_concept = taxonomy.get('Concept', rel_info.get('source-name'))
+    else: # This means there is a source-input-object
+        source_concept = new_concept_from_arelle(taxonomy, rel_info['source-input-object'], _CNTLR)
+
     if source_concept is None:
-        raise XodelException(f"While createing a relationship, concept {rel_info['source-name'].clark} is not in the taxonomy")
+        source_name = rel_info.get('source-name') or rel_info['source-input-object'].qname.clarkNotiation
+        raise XodelException(f"While createing a relationship, concept {source_name} is not in the taxonomy")
     
-    target_concept = taxonomy.get('Concept', rel_info['target-name'])
+    if 'target-name' not in rel_info and 'target-input-object' not in rel_info:
+        raise XodelException(f"A releationship requires a target concept. Rule {log_rec.messageCode}")
+    if 'target-name' in rel_info:
+        target_concept = taxonomy.get('Concept', rel_info.get('target-name'))
+    else: # This means there is a target-input-object
+        target_concept = new_concept_from_arelle(taxonomy, rel_info['target-input-object'], _CNTLR)
+    
     if target_concept is None:
-        raise XodelException(f"While createing a relationship, concept {rel_info['target-name'].clark} is not in the taxonomy")
+        target_name = rel_info.get('target-name') or rel_info['target-input-object'].qname.clarkNotiation
+        raise XodelException(f"While createing a relationship, concept {target_name} is not in the taxonomy")
     
     if 'type' not in rel_info:
         raise XodelException('Need the relationship-type to create a relationship')
