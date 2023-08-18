@@ -125,3 +125,15 @@ output FIL123
  filter list(1,2,3)
         returns
             $item + [@instance = $INSTANCE1 @IncomeLossFromEquityMethodInvestments where $fact < $a]
+
+output FIL124
+/* 3 */
+
+  $source = list(none, 1,2,3,4, none)
+max(filter (filter $source  where $item != 4) where $item != none)
+
+output FIL125
+/* 2 */
+
+  $source = list(none, 1,2,3,4, none)
+max(filter (filter (filter $source  where $item != 3) where $item != 4) where $item != none)

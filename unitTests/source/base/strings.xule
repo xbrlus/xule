@@ -390,7 +390,7 @@ output DTR105
   '(' +  trim(' item ') + ')'
 
 output DTR106
-/* QName' object has no attribute 'lower' */
+/* The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type 'qname' */
 
   '(' + ' item '.trim(both) + ')'
 

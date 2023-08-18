@@ -2,7 +2,7 @@
 output INLIN001
 /*  */
 
-  max(list({@instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure})).footnotes.lang
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-ancestors
 
 output INLIN002
 /*  */
@@ -20,12 +20,12 @@ output INLIN004
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-parent
 
 output INLIN005
-/*  */
+/* viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock */
 
   { @instance=$INSTANCE3 @concept.local-name = 'RelatedPartyTransactionRelationshipDescription'}.inline-parent.concept.name
 
 output INLIN006
-/*  */
+/* list' object has no attribute 'apend' */
 
   {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
 
@@ -35,31 +35,31 @@ output INLIN007
   {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants
 
 output INLIN008
-/*  */
+/* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription) */
 
   {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
 
 output INLIN009
-/*  */
+/* No iteration */
 
   {@instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
 
 output INLIN010
-/*  */
+/* 109 */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-negated == true}).count
 
 output INLIN011
-/*  */
+/* 15 */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-hidden == true}).count
 
 output INLIN012
-/*  */
+/* 6 */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-scale == 6}).count
 
 output INLIN013
-/*  */
+/* 3 */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}).count
