@@ -168,3 +168,9 @@ output FACT034
 /* Property 'is-nil' is not a property of a 'string' */
 
   'hello'.is-nil
+
+
+output FACT035
+/* set(us-gaap:ScheduleOfCollaborativeArrangementsAndNoncollaborativeArrangementTransactionsTable, us-gaap:ScheduleOfSegmentReportingInformationBySegmentTable) */
+
+  max(list([covered @instance = $INSTANCE4])).cubes.cube-concept

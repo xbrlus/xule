@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<link:linkbase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xbrli="http://www.xbrl.org/2003/instance">
+  <link:roleRef roleURI="http://www.abc.com/role/1/BalanceSheet" xlink:type="simple" xlink:href="abc-2019-12-31.xsd#BalanceSheet"/>
+  <link:calculationLink xlink:type="extended" xlink:role="http://www.abc.com/role/1/BalanceSheet">
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_EquityAndLiabilities" xlink:label="EquityAndLiabilities"/>
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_Equity" xlink:label="Equity"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="EquityAndLiabilities" xlink:to="Equity" weight="1.0"/>
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_Liabilities" xlink:label="Liabilities"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="EquityAndLiabilities" xlink:to="Liabilities" order="2.0" weight="1.0"/>
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_Assets" xlink:label="Assets"/>
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_CurrentAssets" xlink:label="CurrentAssets"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="Assets" xlink:to="CurrentAssets" weight="1.0"/>
+    <link:loc xlink:type="locator" xlink:href="abc-2019-12-31.xsd#abc_CarsProducedAndInProduction" xlink:label="CarsProducedAndInProduction"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="CurrentAssets" xlink:to="CarsProducedAndInProduction" weight="1.0"/>
+    <link:loc xlink:type="locator" xlink:href="abc-2019-12-31.xsd#abc_AluminiumAndSteelStocks" xlink:label="AluminiumAndSteelStocks"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="CurrentAssets" xlink:to="AluminiumAndSteelStocks" order="2.0" weight="1.0"/>
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_OtherInventories" xlink:label="OtherInventories"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="CurrentAssets" xlink:to="OtherInventories" order="3.0" weight="1.0"/>
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_OtherCurrentAssets" xlink:label="OtherCurrentAssets"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="CurrentAssets" xlink:to="OtherCurrentAssets" order="4.0" weight="1.0"/>
+    <link:loc xlink:type="locator" xlink:href="https://xbrl.ifrs.org/taxonomy/2022-03-24/full_ifrs/full_ifrs-cor_2022-03-24.xsd#ifrs-full_NoncurrentAssets" xlink:label="NoncurrentAssets"/>
+    <link:calculationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/summation-item" xlink:from="Assets" xlink:to="NoncurrentAssets" order="2.0" weight="1.0"/>
+  </link:calculationLink>
+</link:linkbase>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tp:taxonomyPackage xml:lang="en" xmlns:tp="http://xbrl.org/2016/taxonomy-package" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xbrl.org/2016/taxonomy-package http://www.xbrl.org/2016/taxonomy-package.xsd">
+	<tp:identifier>http://www.abc.com/xbrl/2019</tp:identifier>
+	<tp:name>ABC PLC XBRL Taxonomy 2019</tp:name>
+	<tp:description>Taxonomy for ESEF reporting</tp:description>
+	<tp:version>Final</tp:version>
+	<tp:publisher>ABC</tp:publisher>
+	<tp:publisherURL>http://www.abc.com/</tp:publisherURL>
+	<tp:publisherCountry>DE</tp:publisherCountry>
+	<tp:publicationDate>2020-02-04</tp:publicationDate>  
+	<tp:entryPoints>
+		<tp:entryPoint>
+			<tp:name>ABC PLC XBRL Taxonomy 2019 Entry point</tp:name>
+			<tp:description>Entry point to be used to load ABC PLC XBRL Taxonomy and Annual Report for 2019</tp:description>
+			<tp:entryPointDocument href="http://www.abc.com/xbrl/2019/abc-2019-12-31.xsd"/>
+			<tp:languages>
+				<tp:language>en</tp:language>
+			</tp:languages>
+		</tp:entryPoint>	
+	</tp:entryPoints>	
+</tp:taxonomyPackage>
