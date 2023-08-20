@@ -3,8 +3,11 @@ import copy
 import decimal
 import inspect
 import re
+import urllib.request
+import urllib.error
 import arelle.XbrlConst as xc
 from lxml import etree
+
 
 
 # Used to map where to save new objects. The key is the name of the SXM object that is being saved.
@@ -419,6 +422,10 @@ class SXMDocument(_SXMDTSBase):
         # Keeping track of ids by seed
         self._seeds = collections.defaultdict(lambda: 0)
         self._ids = dict() # keyed by content object value is id. 
+        # The text contents of the document. This is used for absolute documents. These documents are really
+        # imported into the DTS. They are not created by this model. The content is used to determine the 
+        # id of the items in the document, since these ids are already set.
+        self._xml = None
     
     def __repr__(self):
         return 'Document: {}'.format(str(self))
@@ -468,17 +475,38 @@ class SXMDocument(_SXMDTSBase):
     def get_id(self, sxm_object):
         if sxm_object not in self._contents:
             return None
-        
         if sxm_object not in self._ids:
-            self._ids[sxm_object] = self._next_id(getattr(sxm_object, '_seed_id', None) or sxm_object.get_class_name())
+            if self.is_absolute:
+                # The ids are already set. Need to find the sxm_object in the document to get the id
+                # TODO - 
+                if self._xml is None:
+                    # Need to get the actual document
+                    try:
+                        response = urllib.request.urlopen(self.uri)
+                        self._xml = etree.parse(response)
+                    except (urllib.error.HTTPError, urllib.error.URLError):
+                        raise SXMException(f"Cannot open file {self.uri}")
+                    except etree.XMLSyntaxError:
+                        raise SXMException(f"File {self.uri} is not an XML file")
+                id = sxm_object._get_id_from_xml()
+                if id is None:
+                    raise SXMException(f"Cannot find id for {sxm_object} in document {self.uri}")
+                else:
+                    self._ids[sxm_object] = id
+            else:
+                self._ids[sxm_object] = self._next_id(getattr(sxm_object, '_seed_id', None) or sxm_object.get_class_name())
+
         return self._ids[sxm_object]
 
     def add(self, sxm_object, content_type='content'):
 
+        # TODO - This method currently allows adding content that id defined in the document, such as concepts, types, roleTypes, arcroleTypes and imports/linkbase refs. Really. This should be separated into 2 different methods. This would eliminate the need for the content_type argument and also be a bit clearer as these are really 2 different things
+
         if content_type not in _DOCUMENT_CONTENT_TYPES:
             raise SXMException("Invalid content type for adding to a document: {}".format(content_type))
-
+        
         if content_type == self.DOCUMENT_CONTENT_TYPES.CONTENT and isinstance(sxm_object, _SXMDefined):
+            # TODO - Verify for named things that the namespace of the sxm_object matches the target namespace of the document
             self._contents.add(sxm_object)
             sxm_object._document = self
         elif content_type == self.DOCUMENT_CONTENT_TYPES.ARCROLE_REF and isinstance(sxm_object, SXMArcrole):
@@ -493,6 +521,26 @@ class SXMDocument(_SXMDTSBase):
             self._linkbase_refs.add(sxm_object)
         else:
             raise SXMException("Simple XBRL Object '{}' cannot be added to a document as a {}.".format(type(sxm_object).__name__, content_type))
+
+        # if isinstance(sxm_object, SXMArcrole):
+        #     if not sxm_object.is_standard:
+        #         self._arcrole_refs.add(sxm_object)
+        # elif isinstance(sxm_object, SXMRole):
+        #     if not sxm_object.is_standard:
+        #         self._role_refs.add(sxm_object)
+        # elif isinstance(sxm_object, _SXMDefined):
+        #     # TODO - Verify for named things that the namespace of the sxm_object matches the target namespace of the document
+        #     self._contents.add(sxm_object)
+        #     sxm_object._document = self
+        # elif isinstance(sxm_object, SXMDocument):
+        #     if sxm_object.document_type == self.DOCUMENT_TYPES.SCHEMA:
+        #         self._imports.add(sxm_object)
+        #     elif sxm_object.document_type == self.DOCUMENT_TYPES.LINKBASE:
+        #         self._linkbase_refs.add(sxm_object)
+        #     else:
+        #         raise SXMException("Simple XBRL Object '{}' cannot be added to a document.".format(type(sxm_object).__name__))
+        # else:
+        #     raise SXMException("Simple XBRL Object '{}' cannot be added to a document.".format(type(sxm_object).__name__))
     
     def remove_from_document(self, sxm_object, content_type='content'):
 
@@ -747,9 +795,6 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         entry_point.names.append(('Taxonomy Entry Point', 'en'))
         entry_point.documents.append(entry_point_document) 
 
-        linkbase_documents = dict()
-        other_documents = set()
-
         tax_items = (set(self.types.values()) | set(self.concepts.values()) | set(self.elements.values()) | 
                      set(self.roles.values()) | set(self.arcroles.values()) | set(self.part_elements.values()))
 
@@ -838,16 +883,14 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                         entry_point_document.add(label_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
                     label.document = label_document
 
-        # The taxonomy.xsd will also be the entry point. Add references to all the other doucments.
-        for other_document in other_documents:
-            if other_document.document_type == self.DOCUMENT_TYPES.SCHEMA:
-                entry_point_document.add(other_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
-            elif other_document.document_type == self.DOCUMENT_TYPES.LINKBASE:
-                entry_point_document.add(other_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-            else:
-                entry_point_document.add(other_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
-    
-
+        # There may be documents that were not referenced anywhere, so they will not end up in the DTS, So add them to the entry point.
+        referenced_docs = set()
+        for doc in self.documents.values():
+            referenced_docs |=  doc.imports | doc.linkbase_refs
+        for doc in self.documents.values():
+            if doc not in referenced_docs and doc is not entry_point_document:
+                entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+                
 class SXMArcrole(_SXMDefined):
 
     def __init__(self, dts, arcrole_uri, cycles_allowed, description=None, used_ons=None):
@@ -903,6 +946,17 @@ class SXMArcrole(_SXMDefined):
 
     def remove(self):
         return len(self.networks) == 0
+    
+    def _get_id_from_xml(self):
+        if self.document is None or self.document._xml is None:
+            return None
+        
+        node = self.document._xml.find(f'.//link:arcroleType[@arcroleURI="{self.arcrole_uri}"]',
+                                       {'link': 'http://www.xbrl.org/2003/linkbase'})
+        if node is None:
+            return None
+        
+        return node.get('id')
 
 class SXMRole(_SXMDefined):
     def __init__(self, dts, role_uri, description=None, used_ons=None):
@@ -980,6 +1034,17 @@ class SXMRole(_SXMDefined):
 
     def remove(self):
         return len(self.networks) == 0 and len(self.resources) == 0
+
+    def _get_id_from_xml(self):
+        if self.document is None or self.document._xml is None:
+            return None
+        
+        node = self.document._xml.find(f'.//link:roleType[@roleURI="{self.role_uri}"]',
+                                       {'link': 'http://www.xbrl.org/2003/linkbase'})
+        if node is None:
+            return None
+        
+        return node.get('id')
 
 class SXMElement(_SXMDefined):
     def __init__(self, dts, name, data_type, abstract, nillable=None, id=None, substitution_group=None, attributes=None):
@@ -1078,6 +1143,20 @@ class SXMElement(_SXMDefined):
             self.dts.remove(self.type)
         
         return True
+
+    def _get_id_from_xml(self):
+        if self.document is None or self.document._xml is None:
+            return None
+        
+        if self.document._xml.getroot().get('targetNamespace') != self.name.namespace:
+            return None
+        
+        node = self.document._xml.find(f'.//xsd:*[@name="{self.name.local_name}"]',
+                                       {'xsd': 'http://www.w3.org/2001/XMLSchema'})
+        if node is None:
+            return None
+        
+        return node.get('id')
 
 class SXMTypedDomain(SXMElement):
     def __init__(self, dts, name, data_type, abstract, nillable, id, substitution_group, attributes):
@@ -1203,7 +1282,7 @@ class SXMType(_SXMDefined):
                         if tag_local_name in ('minExclusive', 'minInclusive', 'maxExclusive', 'maxInclusive', 'totalDigits', 'fractionDigits',
                                               'length', 'minLength', 'maxLength'):
                             try:
-                                restriction_value = int(child_node.text)
+                                restriction_value = int(child_node.get('value'))
                             except ValueError:
                                 raise SXMException(f'Cannot convert restriction {child_node.tag} with value {child_node.text} to an intenger. Found on type {type_name}.')
                             if tag_local_name == 'minExclusive': min_exclusive = restriction_value
@@ -1338,6 +1417,20 @@ class SXMType(_SXMDefined):
         # and that there are not types derrived from the type
         return len(self.elements(True)) == 0 and len(self.derrived_types()) == 0
 
+    def _get_id_from_xml(self):
+        if self.document is None or self.document._xml is None:
+            return None
+        
+        if self.document._xml.getroot().get('targetNamespace') != self.name.namespace:
+            return None
+        
+        node = self.document._xml.find(f'.//xsd:*[@name="{self.name.local_name}"]',
+                                       {'xsd': 'http://www.w3.org/2001/XMLSchema'})
+        if node is None:
+            return None
+        
+        return node.get('id')
+
 class SXMPartElement(SXMElement):
     def __init__(self, dts, name, data_type, abstract, nillable=None, id=None, substitution_group=None, attributes=None):
         _validate_init_arguments()
@@ -1462,6 +1555,10 @@ class SXMResource(_SXMDefined):
         # Should ensure that role is not in the attributes.
         self.attributes = attributes
 
+    def _get_id_from_xml(self):
+        # TODO - resoure don't usually have ids, but they can. 
+        return None
+
 class _SXMLabelBase(SXMResource):
     def __init__(self, dts, concept, label_role, language, content, attributes=None):
         super().__init__(dts, concept, label_role, content, attributes)
@@ -1499,7 +1596,12 @@ class SXMPart(_SXMDefined):
     def part_name(self):
         return self.part_element.name
 
+    def _get_id_from_xml(self):
+        # TODO - parts don't usually have ids, but they can. 
+        return None
+
 class SXMNetwork(_SXMDefined):
+    # TODO - Consider making SXMNetwork based on _SXMDTSBase instead of _SXMDefined. They are not acutlly instantiate.
     def __init__(self, dts, link_name, arc_name, arcrole, role):
         _validate_init_arguments()
         if not isinstance(role, SXMRole):
@@ -1573,6 +1675,10 @@ class SXMNetwork(_SXMDefined):
         return (len(self._to_relationships) == 0 and
                 len(self._from_relationships) == 0
                 )
+
+    def _get_id_from_xml(self):
+        # TODO - networks aren't not acutally defined
+        return None
 
 class SXMRelationship(_SXMDefined):
     def __init__(self, dts, network, from_concept, to_concept, order, weight=None, preferred_label=None, attributes=None):
@@ -1656,6 +1762,10 @@ class SXMRelationship(_SXMDefined):
     def is_root(self):
         return self.from_concept in self.network.roots
 
+    def _get_id_from_xml(self):
+        # TODO - relationships don't usually have ids, but they can. 
+        return None
+
 class _SXMCubePart(_SXMDefined):
     def __init__(self, dts, dim_type, concept, role):
         super().__init__(dts)
@@ -1713,6 +1823,10 @@ class SXMCube(_SXMCubePart):
 
     def add_dimension_node(self, dimension_node):
         self._dimensions.append(dimension_node)
+
+    def _get_id_from_xml(self):
+        # TODO - cubes don't have ids
+        return None
 
 class _SXMCubeTreeNode(_SXMCubePart):
     def __init__(self, dts, dim_type, concept, role, usable=True, attributes=None):

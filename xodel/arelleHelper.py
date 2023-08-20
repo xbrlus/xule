@@ -215,7 +215,7 @@ def extract_concept_info(model_concept, dts):
     concept_info['balance'] = model_concept.balance
     concept_info['period-type'] = model_concept.periodType
     if model_concept.isTypedDimension:
-        concept_info['typed-domain-name'] = resolve_clark_to_qname(model_concept.TypedDomainElement.qname.clarkNotation, dts)
+        concept_info['typed-domain-name'] = resolve_clark_to_qname(model_concept.typedDomainElement.qname.clarkNotation, dts)
     else:
         concept_info['typed-domain-name'] = None
     
@@ -265,6 +265,12 @@ def extract_rel_info(model_rel, dts):
     if model_rel.weightDecimal is not None:
         rel_info['weight'] = model_rel.weightDecimal
     rel_info['role'] = model_rel.linkrole
+    model_roles = model_rel.modelXbrl.roleTypes.get(model_rel.linkrole, tuple())
+    if len(model_roles) > 0:
+        rel_info['arelle-role'] = model_roles[0]
+    model_arcroles = model_rel.modelXbrl.arcroleTypes.get(model_rel.arcrole, tuple())
+    if len(model_arcroles) > 0:
+        rel_info['arelle-arcrole'] = model_arcroles[0]
     rel_info['type'] = resolve_clark_to_qname(model_rel.linkQname.clarkNotation, dts)
     rel_info['arcrole'] = model_rel.arcrole
     rel_info['attriubtes'] = {k:v for k, v in model_rel.arcElement.attrib.items()
@@ -375,15 +381,49 @@ def new_concept_from_arelle(new_model, model_concept, cntlr):
         concept_type = find_type(new_model, concept_info['type-name'], cntlr)
         if concept_type is None:
                 raise XodelException(f"For concept '{concept_info['concept-name'].clark}', do not have the type definition for '{concept_info['type-name'].clark}'")
+        
+        attributes = {resolve_clark_to_qname(k, new_model): v for k, v in concept_info['attributes'].items()}
         new_concept = new_model.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('abstract'),
                                 concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
-                                concept_info.get('substitution-group-name'), concept_info.get('id'), concept_info.get('attributes'))
+                                concept_info.get('substitution-group-name'), concept_info.get('id'), attributes)
 
         # Assign the document
         if model_concept.modelDocument.uri.startswith('http:') or model_concept.modelDocument.uri.startswith('https:'):
             new_concept.document = get_or_make_document(new_model, model_concept.modelDocument.uri, new_model.DOCUMENT_TYPES.SCHEMA, model_concept.modelDocument.targetNamespace)
 
     return new_concept
+
+def new_role_from_arelle(new_model, model_role, cntlr):
+    '''
+    This is used to create a role that is being imported into the new taxonomy. Hence it does
+    not create a new role in the new taxonomy.
+    '''
+    role_info = extract_role_info(model_role, new_model)
+    new_role = new_model.get('Role', role_info['uri'])
+    if new_role is None:
+        new_role = new_model.new('Role', role_info['uri'], role_info['definition'], role_info['used-on'])
+
+    # Assign document
+    if model_role.modelDocument.uri.startswith('http:') or model_role.modelDocument.uri.startswith('https:'):
+        new_role.document = get_or_make_document(new_model, model_role.modelDocument.uri, new_model.DOCUMENT_TYPES.SCHEMA, model_role.modelDocument.targetNamespace)
+
+    return new_role
+
+def new_arcrole_from_arelle(new_model, model_arcrole, cntlr):
+    '''
+    This is used to create a role that is being imported into the new taxonomy. Hence it does
+    not create a new role in the new taxonomy.
+    '''
+    arcrole_info = extract_arcrole_info(model_arcrole, new_model)
+    new_arcrole = new_model.get('Arcrole', arcrole_info['uri'])
+    if new_arcrole is None:
+        new_arcrole = new_model.new('Role', arcrole_info['uri'], arcrole_info['cycles-allowed'], arcrole_info['definition'], arcrole_info['used-on'])
+
+    # Assign document
+    if model_arcrole.modelDocument.uri.startswith('http:') or model_arcrole.modelDocument.uri.startswith('https:'):
+        new_arcrole.document = get_or_make_document(new_model, model_arcrole.modelDocument.uri, new_model.DOCUMENT_TYPES.SCHEMA, model_arcrole.modelDocument.targetNamespace)
+
+    return new_arcrole
 
 def open_file(url, cntlr, as_text=True):
     contents = XodelVars.get(cntlr, f'FILE-{url}')

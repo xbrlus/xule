@@ -28,6 +28,8 @@ import re
 import string
 import tempfile
 from typing import Dict
+import urllib.request
+import urllib.error
 
 # XINCE Constants
 _XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
@@ -1802,9 +1804,8 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'label-lang': ('label', string_validator),
     'label-role': ('label', role_validator),
     #'label-name': ('label', string_validator),
-    'label-concept': ('label', qname_validator)
-
-
+    'label-concept': ('label', qname_validator),
+    'import-url': ('import', string_validator),
 }
 
 # The _Tree class is used to sort components that are hierarchical so the parents are processed before the children.
@@ -2019,9 +2020,13 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     concept_type = find_type(taxonomy, concept_info['type-name'], _CNTLR)
     if concept_type is None:
             raise XodelException(f"For concept '{concept_info['concept-name'].clark}', do not have the type definition for '{concept_info['type-name'].clark}'")
+    
+    # convert attributes to qnames
+    attributes = {resolve_clark_to_qname(k, taxonomy): v for k, v in concept_info['attributes'].items()}
+
     taxonomy.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('abstract'),
                             concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
-                            concept_info.get('substitution-group-name'), concept_info.get('id'), concept_info.get('attributes'))
+                            concept_info.get('substitution-group-name'), concept_info.get('id'), attributes)
 
 
 def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
@@ -2201,15 +2206,24 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
 
     # Convert the role and arcrole to SXM objects
     role = taxonomy.get('Role', rel_info['role'])
-    if role is None and rel_info['role'] == _STANDARD_EXTENDED_LINK_ROLE:
-        role = taxonomy.new('Role', _STANDARD_EXTENDED_LINK_ROLE)
-    
+    if role is None:
+        if rel_info['role'] == _STANDARD_EXTENDED_LINK_ROLE:
+            role = taxonomy.new('Role', _STANDARD_EXTENDED_LINK_ROLE)
+        elif 'arelle-role' in rel_info: # Try and create the role from arelle.
+            # the arelle_role was populated when the relationship is being copied
+            # from an arelle relationship
+            role = new_role_from_arelle(taxonomy, rel_info['arelle-role'], cntlr)
+    if role is None:
+        raise XodelException(f"Role {rel_info['role']} is not created in the taxonomy, Rule: {log_rec.messageCode}")
+
     arcrole = taxonomy.get('Arcrole', rel_info['arcrole'])
     if arcrole is None:
         if rel_info['arcrole'] in _STANDARD_ARCROLES:
             arcrole = taxonomy.new('Arcrole', rel_info['arcrole'], None, None, None)
-        else:
-            raise XodelException(f"Arcrole {rel_info['arcrole']} is not defined in the taxonomy")
+        elif 'arelle-arcrole' in rel_info:
+            arcrole = new_arcrole_from_arelle(taxonomy, rel_info['arelle-arcrole'], cntlr)
+    if arcrole is None:
+        raise XodelException(f"Arcrole {rel_info['arcrole']} is not defined in the taxonomy")
 
     # Need to get or create the SXMNetwork
     network = taxonomy.get('Network', link_name, arc_name, arcrole, role) or \
@@ -2330,6 +2344,31 @@ def uri_sort(log_infos, cntlr, uri_key, arelle_uri_property_name, object_key):
     
     return result
 
+def process_import(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    if 'import-url' in log_rec.args:
+        doc = taxonomy.get('Document', log_rec.args['import-url'])
+
+        if doc is None:
+            # Open the document to see what it is
+            try:
+                resp = urllib.request.urlopen(log_rec.args['import-url'])
+                root = etree.parse(resp).getroot()
+            except (urllib.error.HTTPError, urllib.error.URLError):
+                raise XodelException(f"Cannot open file {log_rec.args['import-url']}")
+            except etree.XMLSyntaxError:
+                raise XodelException(f"File {log_rec.args['import-url']} is not an XML file")
+            
+            namespace = None
+            if root.tag == '{http://www.w3.org/2001/XMLSchema}schema': 
+                document_type = taxonomy.DOCUMENT_TYPES.SCHEMA
+                namespace = root.get('targetNamespace')
+            elif root.tag == '{http://www.xbrl.org/2003/linkbase}linkbase':
+                document_type = taxonomy.DOCUMENT_TYPES.LINKBASE
+            else:
+                document_type = taxonomy.DOCUMENT_TYPES.OTHER
+            
+            doc = taxonomy.new('Document', log_rec.args['import-url'], document_type, namespace)
+
 # XODAL Processing Order
 _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'taxonomy': (process_taxonomy, no_sort),
@@ -2339,7 +2378,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'arcrole': (process_arcrole, arcrole_uri_sort),
     'label': (process_label, no_sort),
     'relationship': (process_relationship, no_sort),
-    
+    'import': (process_import, no_sort), 
 })
 
 
