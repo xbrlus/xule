@@ -30,7 +30,7 @@ output SM006
   set(1,2,3,4) + set()
 
 output SM007
-/* set(NULL) */
+/* set() */
 
   set() + set()
 
@@ -50,7 +50,7 @@ output SM010
   set(2,3,5) & set(1,2,3,4)
 
 output SM011
-/* set(NULL) */
+/* set() */
 
   set('a','b','c','d') & set('A','B','C','D')
 
@@ -65,7 +65,7 @@ output SM013
   set('a','b','c','d') - set()
 
 output SM014
-/* set(NULL) */
+/* set() */
 
   set() - set('a','b','c','d') 
 

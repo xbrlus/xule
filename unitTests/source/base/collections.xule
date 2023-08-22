@@ -60,7 +60,7 @@ output SET103
   set(none)
 
 output SET104
-/* set(None)  */
+/* set()  */
 
   set()
 

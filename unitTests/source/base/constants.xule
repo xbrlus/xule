@@ -81,8 +81,3 @@
 /* Constant representing an XBRL instance */
 
   constant $INSTANCE3 = instance('https://www.sec.gov/Archives/edgar/data/1742770/000110465923049651/viot-20221231x20f.htm')
-
-/* Constant representing an XBRL instance with a negative hypercube*/
-
-  constant $INSTANCE4 = instance('https://github.com/xbrlus/xule/raw/main/unitTests/examples/ESEF-G3-4-2_3-TC1_valid.zip')
- 

@@ -15,12 +15,12 @@ output LM003
   'n' in list('a','b','c','d')
 
 output LM004
-/* list(123) */
+/* list(1,2,3,none) */
 
   list(1,2,3,none)
 
 output LM005
-/* No iteration */
+/* list(1,2,3) */
 
   list(1,2,3,skip)
 
@@ -30,17 +30,17 @@ output LM006
   list(1,2,3) - list(1,2)
 
 output LM007
-/* Error: Cannot multiply a list */
+/* The left operand of '*' is not numeric, found 'list' */
 
   list(1,2,3) * list(1,2)
 
 output LM008
-/* Error: Cannot do a intersection on a list */
+/* Intersection can only operatate on sets. The left side is a 'list' */
 
   list(2,3,5) & list(1,2,3,4)
 
 output LM009
-/* Error: Cannot deduct a list */
+/* unsupported operand type(s) for -: 'tuple' and 'tuple' */
 
   list() - list('a','b','c','d') 
 

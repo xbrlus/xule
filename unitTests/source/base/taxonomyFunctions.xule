@@ -144,6 +144,16 @@ output LABPROP003
 
   $US-GAAP-2020.concept(Assets).label.lang
 
+output LABPROP004
+/* en-US  */
+
+  list($US-GAAP-2020.concept(Assets).all-labels).join('|')
+
+output REFPROP001
+/* en-US  */
+
+  list($US-GAAP-2020.concept(Assets).all-references).join('|')
+
 output DATAPROP001
 /* xbrli:monetaryItemType */
 
@@ -799,6 +809,6 @@ output TAXPROP124
   $US-GAAP-2020.networks(concept-label).count
 
 output TAXPROP125
-/*  */
+/* 1 */
 
   $US-GAAP-2020.networks(concept-reference).count
