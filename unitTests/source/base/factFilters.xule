@@ -5,7 +5,7 @@ output CFILT101
   set([covered @instance = $INSTANCE1 @Assets]).concept.balance
 
 output CFILT102
-/* Rule: CFILT102 - Property 'balance' is not a property of a 'decimal'. */
+/* [ERROR] [xule:error] rule CFILT102: Rule: CFILT102 - Property 'balance' is not a property of a 'decimal'. */
 
   set([covered @instance = $INSTANCE1  @Assets]).balance
 
@@ -55,12 +55,12 @@ output CFILT111
   $a = $US-GAAP-2020.concepts.to-list;  $a[2].name.local-name
 
 output CFILT112
-/* all - error message missing for index on set. */
+/* [ERROR] [xule:error] rule CFILT112: 'all' */
 
   $a = set([covered @instance = $INSTANCE1 @]);  $a[2].name
 
 output CFILT113
-/* Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'none' */
+/* [ERROR] [xule:error] rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'none' */
 
   $a = taxonomy().concepts.to-set;  $a[2].name
 
@@ -70,7 +70,7 @@ output CFILT114
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.concept.period-type
 
 output CFILT115
-/* Property 'period-type' is not a property of a 'decimal'. */
+/* [ERROR] [xule:error] rule CFILT115: Rule: CFILT115 - Property 'period-type' is not a property of a 'decimal'. */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.period-type
 
@@ -245,7 +245,7 @@ output PFILT103
   list([covered @instance = $INSTANCE1@period = date('2020-12-31')]).count
 
 output PFILT104
-/* Expected period = function, keyword or varaible */
+/* [ERROR] [xule:error] rule PFILT104: Rule: PFILT104 - Function 'cats' not found */
 
   [@period = cats('2020-12-31')]
 
@@ -255,7 +255,7 @@ output NOFILT001
   list(covered @instance = $INSTANCE1).count
 
 output NOFILT002
-/* error */
+/* 1579 */
 
   list({covered @instance = $INSTANCE1 @}).count
 
@@ -295,8 +295,8 @@ output INSFILT005
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true @concept.is-monetary = false}).count
 
 output UNITFILT001
-/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)
-False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+/* {{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)},
+{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)}} */
 
   any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName])))
 
@@ -328,8 +328,8 @@ output UNITFILT004
   '{$rule-value} with alignment {$alignment}'
 
 output UNITFILT005
-/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)
-False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+/* {{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)},
+{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)}} */
 
   any(list([@instance = $INSTANCE1 @concept=Assets @unit @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName])))
 
@@ -362,8 +362,8 @@ output UNITFILT008
   '$rule-value} with alignment {$alignment}'
 
 output UNITFILT009
-/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
-False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+/* {{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)},
+{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)}} */
 
   any(list([@instance = $INSTANCE1 @concept=Assets  @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit @period])))
 
@@ -379,9 +379,9 @@ output UNITFILT010
   '{$rule-value} with alignment {$alignment}'
 
 output UNITFILT011
-/* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-01-01)
-True with alignment dictionary(period=2020-07-01,unit=USD,entity=http://www.sec.gov/CIK=0000831259)
-True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-07-01) */
+/* {{True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-01-01)},
+{True with alignment dictionary(period=2020-07-01,unit=USD,entity=http://www.sec.gov/CIK=0000831259)},
+{True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-07-01)}} */
 
   any(list([@instance = $INSTANCE1 @concept=Assets] > 0 and exists([covered @instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit @period])))
 
@@ -394,7 +394,7 @@ output MULTIIN001
   list(covered @instance in list($INSTANCE1, $INSTANCE2)).count
 
 output MULTIIN002
-/*  */
+/* list(40,230,000,000, 41,099,000,000, 42,144,000,000, 42,144,000,000, 45,436,000,000, 46,917,000,000) */
 
   list([covered @instance in list($INSTANCE1, $INSTANCE2) @concept=Assets]).sort
 
@@ -419,7 +419,7 @@ output CUBEFILT004
   list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}).count
 
 output CUBEFILT005
-/*  */
+/* 1185 */
 
   list({covered @instance = $INSTANCE1 @cube in $NOTES_CUBES}).count
 

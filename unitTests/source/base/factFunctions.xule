@@ -165,6 +165,6 @@ output FACT033
   (first(list([covered @instance = $INSTANCE1 @Assets]))).is-nil
 
 output FACT034
-/* Property 'is-nil' is not a property of a 'string' */
+/* [ERROR] [xule:error] rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'. */
 
   'hello'.is-nil

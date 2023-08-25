@@ -160,7 +160,7 @@ output XU132
   '3' + 3
 
 output XU133
-/* Unsupported operand type(s) for -: 'XuleString' and 'str' */
+/* [ERROR] Unsupported operand type(s) for -: 'XuleString' and 'str' */
 
   '3' - 3
 

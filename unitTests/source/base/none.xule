@@ -75,7 +75,7 @@ output PMN115
   none > 0
 
 output PMN116
-/* argument of type 'NoneType' is not iterabl */
+/* [ERROR] [xule:error] rule PMN116: argument of type 'NoneType' is not iterable */
 
   none in none
 

@@ -15,7 +15,7 @@ output IFEL003
   if none true else false
 
 output IFEL004
-/* none */
+/* None */
 
   if true none else false
 

@@ -36,6 +36,12 @@ curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx
 sed -e "s/\"//g" x6.csv > constants.xule
 rm x6.csv
 
+#customFunctions
+curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=1894503879&single=true&output=csv" --output x6a.csv
+
+sed -e "s/\"//g" x6a.csv > customFunctions.xule
+rm x6a.csv
+
 #dateFunctions
 curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=1944785008&single=true&output=csv" --output x7.csv
 
@@ -200,3 +206,6 @@ python3.9 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbell
 rm /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt
 
 python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/ut-ruleset.zip --logNoRefObjectProperties --logFormat "[%(messageCode)s] %(message)s" >> /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt
+
+
+grep -E -v "(ix11.11.1.2:invalidTransformation|ix11.10.1.2:invalidTransformation|xmlSchema:syntax|html:syntaxError|Activation of plug|Xule version:|Instance Loaded.)" /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt > /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/outputtmp.txt && mv /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/outputtmp.txt /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt

@@ -1,36 +1,36 @@
 /* InlineFunctions */
 output INLIN001
-/*  */
+/* {{list},{list},{list}} */
 
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-ancestors
 
 output INLIN002
-/*  */
+/* skip iteration */
 
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty where $fact.inline-ancestors.length > 0}
 
 output INLIN003
-/*  */
+/* skip iteration */
 
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty  where $fact.inline-parent.length > 0}
 
 output INLIN004
-/*  */
+/* {{none},{none},{none}} */
 
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-parent
 
 output INLIN005
-/* viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock */
+/* {{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock},{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock},{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock}} */
 
   { @instance=$INSTANCE3 @concept.local-name = 'RelatedPartyTransactionRelationshipDescription'}.inline-parent.concept.name
 
 output INLIN006
-/* list' object has no attribute 'apend' */
+/* [ERROR] [xule:error] rule INLIN006: 'list' object has no attribute 'apend' */
 
   {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
 
 output INLIN007
-/*  */
+/* [INFO] Long string of values */
 
   {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants
 
