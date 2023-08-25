@@ -145,14 +145,39 @@ output LABPROP003
   $US-GAAP-2020.concept(Assets).label.lang
 
 output LABPROP004
-/* en-US  */
+/* set((http://www.xbrl.org/2003/role/totalLabel) (en-US) Assets, Total, (http://www.xbrl.org/2003/role/label) (en-US) Assets, (http://www.xbrl.org/2003/role/documentation) (en-US) Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events.) */
 
   list($US-GAAP-2020.concept(Assets).all-labels).join('|')
 
 output REFPROP001
-/* en-US  */
+/* set(list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, ref:Subparagraph, codification-part:URI), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, codification-part:URI), list(cn-part:SourceName, cn-part:TaxonomyVersion, cn-part:ChangeDate, cn-part:ModifiedReferences)) */
 
-  list($US-GAAP-2020.concept(Assets).all-references).join('|')
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.name
+
+output REFPROP002
+/*  */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.part-value
+
+output REFPROP003
+/* set(list(http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31, http://fasb.org/codification-part/2020-01-31, http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31), list(http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.namespace-uri
+
+output REFPROP004
+/* set(list(SourceName, TaxonomyVersion, ChangeDate, ModifiedReferences), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, URI), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, Subparagraph, URI)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.local-name
+
+output REFPROP005
+/* set(list(1, 2, 3, 4, 5, 6, 7), list(1, 2, 3, 4, 5, 6, 7, 8), list(1, 2, 3, 4)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.order
+
+output REFPROP006
+/*  */
+
+filter ($US-GAAP-2020.concept(Assets).all-references) where $item.role.uri == 'http://fasb.org/srt/role/changeNote/changeNote'
 
 output DATAPROP001
 /* xbrli:monetaryItemType */
