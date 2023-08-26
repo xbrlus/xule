@@ -70,7 +70,7 @@ output LIO103
   last-index-of('Hello Mr Stains', 'z')
 
 output LIO104
-/* [ERROR] [xule:error] rule LIO104: Rule: LIO104 - The 'last-index-of' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule LIO104: Rule: LIO104 - The 'last-index-of' function must have at least one argumenrt, found None. */
 
   last-index-of()
 
@@ -225,7 +225,7 @@ output NUM104
   number('')
 
 output NUM105
-/* [ERROR] [xule:error] rule NUM105: Rule: NUM105 - The first argument of function 'number' must be int, float, decimal, fact, found 'none'. */
+/* [ERROR] [xule:error] rule NUM105: Rule: NUM105 - The first argument of function 'number' must be int, float, decimal, fact, found 'None'. */
 
   number(none)
 
@@ -415,7 +415,7 @@ output TRIM103
   '(' +  trim(' item ', 'both') + ')'
 
 output TRIM104
-/* [ERROR] [xule:error] rule TRIM104: Rule: TRIM104 - The argument for property 'trim' must be one of 'left', 'right' or 'both', found 'none' */
+/* [ERROR] [xule:error] rule TRIM104: Rule: TRIM104 - The argument for property 'trim' must be one of 'left', 'right' or 'both', found 'None' */
 
   '(' +  trim(' item ', 'none') + ')'
 

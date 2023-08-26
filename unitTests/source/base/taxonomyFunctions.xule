@@ -195,17 +195,17 @@ output DATAPROP001
   $US-GAAP-2020.concept(Assets).data-type.name
 
 output TAXPROP001
-/* uri: http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
+/* http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
 
   entry-point($US-GAAP-2020)
 
 output TAXPROP002
-/* uri: http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
+/* http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
 
   $US-GAAP-2020.entry-point
 
 output TAXPROP003
-/* [ERROR] [xule:error] rule TAXPROP003: Rule: TAXPROP003 - The 'entry-point' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule TAXPROP003: Rule: TAXPROP003 - The 'entry-point' function must have at least one argumenrt, found None. */
 
   entry-point()
 
@@ -225,7 +225,7 @@ output TAXPROP006
   entry-point-namespace($US-GAAP-2020)
 
 output TAXPROP007
-/* [ERROR] [xule:error] rule TAXPROP007: Rule: TAXPROP007 - The 'entry-point-namespace' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule TAXPROP007: Rule: TAXPROP007 - The 'entry-point-namespace' function must have at least one argumenrt, found None. */
 
   entry-point-namespace()
 
@@ -511,12 +511,12 @@ output TAXPROP060
 output TAXPROP061
 /* list(link:calculationLink, link:definitionLink, link:presentationLink) */
 
-  sum($NETWORK_BS).role.used-on
+  sum($NETWORK_BS).role.used-on.sort
 
 output TAXPROP062
 /* list(link:calculationLink, link:definitionLink, link:presentationLink) */
 
-  role(sum($NETWORK_BS)).used-on
+  role(sum($NETWORK_BS)).used-on.sort
 
 output TAXPROP063
 /* set(us-gaap:StatementOfFinancialPositionAbstract) */

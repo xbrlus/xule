@@ -225,7 +225,7 @@ output DAY002
   day(date('1999-12-31'))
 
 output DAY091
-/* [ERROR] [xule:error] rule DAY091: Rule: DAY091 - The 'day' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule DAY091: Rule: DAY091 - The 'day' function must have at least one argumenrt, found None. */
 
   day()
 
@@ -265,7 +265,7 @@ output FVR002
   forever().end
 
 output FVR003
-/* 36892 */
+/* 0001-01-01' */
 
   forever().start
 
@@ -285,7 +285,7 @@ output MON002
   month(date('1999-12-31'))
 
 output MON091
-/* [ERROR] [xule:error] rule MON091: Rule: MON091 - The 'month' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule MON091: Rule: MON091 - The 'month' function must have at least one argumenrt, found None. */
 
   month()
 
@@ -295,22 +295,22 @@ output MON092
   month('2020-01-02')
 
 output TSP101
-/* 4 */
+/* 4 days, 0:00:00 */
 
   time-span('P4D')
 
 output TSP102
-/* 4 */
+/* 4 days, 0:00:00 */
 
   time-span('P4D')
 
 output TSP104
-/* 428 */
+/* 428 days, 0:00:00 */
 
   time-span('P1Y2M3D')
 
 output TSP105
-/* 28 */
+/* 28 days, 0:00:00 */
 
   time-span('P4W')
 
@@ -355,7 +355,7 @@ output YER002
   year(date('1999-12-31'))
 
 output YER091
-/* [ERROR] [xule:error] rule YER091: Rule: YER091 - The 'year' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule YER091: Rule: YER091 - The 'year' function must have at least one argumenrt, found None. */
 
   year()
 

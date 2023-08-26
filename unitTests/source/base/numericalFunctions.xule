@@ -20,7 +20,7 @@ output DABS104
   set(-1,3,-2,1.0).abs
 
 output DABS105
-/* set(NULL) */
+/* set() */
 
   set().abs
 
@@ -60,7 +60,7 @@ output ABS104
   abs(-1.123)
 
 output ABS105
-/* [ERROR] [xule:error] rule ABS105: Rule: ABS105 - The first argument of function 'abs' must be int, float, decimal, fact, found 'none'. */
+/* [ERROR] [xule:error] rule ABS105: Rule: ABS105 - The first argument of function 'abs' must be int, float, decimal, fact, found 'None'. */
 
   abs(none)
 
@@ -105,7 +105,7 @@ output DAVG108
   list(1.12, 'cat').avg
 
 output DAVG109
-/* [ERROR] [xule:error] rule DAVG109: Rule: DAVG109 - Statistic properties expect nuemric inputs, found 'none'. */
+/* [ERROR] [xule:error] rule DAVG109: Rule: DAVG109 - Statistic properties expect nuemric inputs, found 'None'. */
 
   list(none,none,3).avg
 
@@ -160,7 +160,7 @@ output LOG102
   log10(-1234)
 
 output LOG103
-/* [ERROR] [xule:error] rule LOG103: Rule: LOG103 - The first argument of function 'log10' must be int, float, decimal, found 'none'. */
+/* [ERROR] [xule:error] rule LOG103: Rule: LOG103 - The first argument of function 'log10' must be int, float, decimal, found 'None'. */
 
   log10(none)
 
@@ -325,7 +325,7 @@ output ROUN104
   round(1.03456,2)
 
 output ROUN105
-/* [ERROR] [xule:error] rule ROUN105: Rule: ROUN105 - The first argument of function 'round' must be int, float, decimal, fact, found 'none'. */
+/* [ERROR] [xule:error] rule ROUN105: Rule: ROUN105 - The first argument of function 'round' must be int, float, decimal, fact, found 'None'. */
 
   round(none,3)
 
@@ -375,7 +375,7 @@ output TRUN103
   trunc(102.2345,2)
 
 output TRUN104
-/* [ERROR] [xule:error] rule TRUN104: Rule: TRUN104 - The first argument of function 'trunc' must be int, float, decimal, fact, found 'none'. */
+/* [ERROR] [xule:error] rule TRUN104: Rule: TRUN104 - The first argument of function 'trunc' must be int, float, decimal, fact, found 'None'. */
 
   trunc(none,2)
 

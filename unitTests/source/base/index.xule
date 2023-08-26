@@ -25,7 +25,7 @@ output SLO105
   dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))[0]
 
 output SLO106
-/*  none */
+/*  None */
 
   dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))['kitten']
 
@@ -82,7 +82,7 @@ output DIX021
 output DIX022
 /* a qname */
 
-  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(a)
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(Assets)
 
 output DIX023
 /* a string */
@@ -95,7 +95,7 @@ output DIX024
   dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(0)
 
 output DIX025
-/* none */
+/* None */
 
   dict(list('0', 'zero string'), list(Liabilities, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(Assets)
 

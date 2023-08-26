@@ -35,12 +35,12 @@ output ALL107
   all(false)
 
 output ALL108
-/* [ERROR] [xule:error] rule ALL108: Rule: ALL108 - Property all can only operator on booleans, but found 'none'. */
+/* [ERROR] [xule:error] rule ALL108: Rule: ALL108 - Property all can only operator on booleans, but found 'None'. */
 
   all(list(true, true, none))
 
 output ALL109
-/* [ERROR] [xule:error] rule ALL109: Rule: ALL109 - Property all can only operator on booleans, but found 'none'. */
+/* [ERROR] [xule:error] rule ALL109: Rule: ALL109 - Property all can only operator on booleans, but found 'None'. */
 
   all(list(true, false, none))
 
@@ -95,12 +95,12 @@ output ALL119
   1.all
 
 output ALL120
-/* [ERROR] [xule:error] rule ALL120: Rule: ALL120 - Property all can only operator on booleans, but found 'none'. */
+/* [ERROR] [xule:error] rule ALL120: Rule: ALL120 - Property all can only operator on booleans, but found 'None'. */
 
   all(set(true, true, none))
 
 output ALL121
-/* [ERROR] [xule:error] rule ALL121: Rule: ALL121 - Property all can only operator on booleans, but found 'none'. */
+/* [ERROR] [xule:error] rule ALL121: Rule: ALL121 - Property all can only operator on booleans, but found 'None'. */
 
   all(set(true, false, none))
 
@@ -265,7 +265,7 @@ output COU110
   count(list(covered @instance = $INSTANCE1))
 
 output COU191
-/* [ERROR] [xule:error] rule COU191: Rule: COU191 - The 'count' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule COU191: Rule: COU191 - The 'count' function must have at least one argumenrt, found None. */
 
   count()
 
@@ -370,12 +370,12 @@ output FIRST003
   first(set('a', 1,2,3,4,5))
 
 output FIRST004
-/* none */
+/* None */
 
   first(list())
 
 output FIRST005
-/* none */
+/* None */
 
   first(list(none, 'dog', 'monkey', 'cat'))
 
@@ -395,12 +395,12 @@ output DLA003
   list(1,2,3,4,5, 'z').last
 
 output DLA004
-/* none */
+/* None */
 
   list().last
 
 output DLA005
-/* none */
+/* None */
 
   list('dog', 'monkey', 'cat', none).last
 
@@ -425,12 +425,12 @@ output LAST003
   last(set(1,2,3,4,5, 'z'))
 
 output LAST004
-/* none */
+/* None */
 
   last(list())
 
 output LAST005
-/* none */
+/* None */
 
   last(list('dog', 'monkey', 'cat', none))
 
@@ -637,7 +637,7 @@ output HKY003
   has-key(dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')), Assets)
 
 output HKY004
-/* [ERROR] [xule:error] rule HKY004: Rule: HKY004 - The 'has-key' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule HKY004: Rule: HKY004 - The 'has-key' function must have at least one argumenrt, found None. */
 
   has-key()
 
@@ -717,7 +717,7 @@ output DKEY103
   dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')).keys
 
 output DKEY104
-/* none */
+/* None */
 
   none.keys
 
@@ -747,7 +747,7 @@ output KEY003
   keys(dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')))
 
 output KEY004
-/* [ERROR] [xule:error] rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argumenrt, found None. */
 
   keys()
 
@@ -807,7 +807,7 @@ output VAL003
   values(dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')))
 
 output VAL004
-/* [ERROR] [xule:error] rule VAL004: Rule: VAL004 - The 'values' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule VAL004: Rule: VAL004 - The 'values' function must have at least one argumenrt, found None. */
 
   values()
 
@@ -907,12 +907,12 @@ output MIN107
   min(list())
 
 output MIN108
-/* none */
+/* None */
 
   min(list(none))
 
 output MIN109
-/* none */
+/* None */
 
   min(list(skip))
 
@@ -932,7 +932,7 @@ output PROD103
   prod(list())
 
 output PROD104
-/* [ERROR] [xule:error] rule PROD104: Rule: PROD104 - Statistic properties expect nuemric inputs, found 'none'. */
+/* [ERROR] [xule:error] rule PROD104: Rule: PROD104 - Statistic properties expect nuemric inputs, found 'None'. */
 
   prod(list(none))
 
@@ -942,7 +942,7 @@ output PROD105
   prod(list(skip))
 
 output PROD106
-/* [ERROR] [xule:error] rule PROD106: Rule: PROD106 - Statistic properties expect nuemric inputs, found 'none'. */
+/* [ERROR] [xule:error] rule PROD106: Rule: PROD106 - Statistic properties expect nuemric inputs, found 'None'. */
 
   prod(list(skip, none))
 
@@ -967,22 +967,22 @@ output STDEV102
   stdev(list({covered @instance = $INSTANCE1 @Assets}))
 
 output STDEV103
-/* none */
+/* None */
 
   stdev(list())
 
 output STDEV104
-/* [ERROR] [xule:error] rule STDEV104: Rule: STDEV104 - Statistic properties expect nuemric inputs, found 'none'. */
+/* [ERROR] [xule:error] rule STDEV104: Rule: STDEV104 - Statistic properties expect nuemric inputs, found 'None'. */
 
   stdev(list(none))
 
 output STDEV105
-/* [ERROR] [xule:error] rule STDEV105: Rule: STDEV105 - Statistic properties expect nuemric inputs, found 'none'. */
+/* [ERROR] [xule:error] rule STDEV105: Rule: STDEV105 - Statistic properties expect nuemric inputs, found 'None'. */
 
   stdev(list(none, skip))
 
 output STDEV106
-/* none */
+/* None */
 
   stdev(list(skip))
 
@@ -1012,22 +1012,22 @@ output SUM192
   sum(6)
 
 output SUM193
-/* none */
+/* None */
 
   sum(list(none))
 
 output SUM194
-/* list(none,none) */
+/* list(None,None) */
 
   sum(list(list(none),list(none)))
 
 output SUM195
-/* list(none) */
+/* list(None) */
 
   sum(list(list(),list(none)))
 
 output SUM196
-/* none */
+/* None */
 
   sum(list())
 
@@ -1037,7 +1037,7 @@ output SUM197
   sum(list(set(1,2), set(3,4), set(5,6)))
 
 output SUM198
-/* none */
+/* None */
 
   sum(set())
 
@@ -1077,7 +1077,7 @@ output SUM205
   sum(list(list(1,2,3),list(2,3,4),list(4,5,6)))
 
 output SUM206
-/* none */
+/* None */
 
   sum(list(skip))
 
@@ -1085,3 +1085,13 @@ output RNG001
 /* list(1, 2, 3, 4, 5) */
 
   range(5)
+
+output RNG002
+/* list(4, 5, 6, 7, 8, 9, 10) */
+
+  range(4, 10)
+
+output RNG003
+/* list(4, 6, 8, 10) */
+
+  range(4, 10, 2)

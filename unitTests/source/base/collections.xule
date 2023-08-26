@@ -30,7 +30,7 @@ output LIST006
   list(duration('2016-01-01', '2016-12-31'), date('2016-12-31'))
 
 output LIST007
-/* list(none) */
+/* list(None) */
 
   list(none)
 
@@ -55,7 +55,7 @@ output SET102
   set('a', a, b, 'b')
 
 output SET103
-/* set(none) */
+/* set(None) */
 
   set(none)
 

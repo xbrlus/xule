@@ -15,7 +15,7 @@ output INLIN003
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty  where $fact.inline-parent.length > 0}
 
 output INLIN004
-/* {{none},{none},{none}} */
+/* {{None},{None},{None}} */
 
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-parent
 

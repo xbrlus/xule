@@ -15,7 +15,7 @@ output LM003
   'n' in list('a','b','c','d')
 
 output LM004
-/* list(1,2,3,none) */
+/* list(1,2,3,None) */
 
   list(1,2,3,none)
 
@@ -45,42 +45,42 @@ output LM009
   list() - list('a','b','c','d') 
 
 output LM010
-/*  true */
+/*  True */
 
   'a' in list('a','b','c','d') 
 
 output LM011
-/*  false */
+/*  False */
 
   'n' in list('a','b','c','d') 
 
 output LM012
-/*  false */
+/*  False */
 
   '' in list()
 
 output LM013
-/*  false */
+/*  False */
 
   list(1) in list(1,'b','c')
 
 output LM014
-/*  false */
+/*  False */
 
   'dog' in list('cat')
 
 output LM015
-/*  false */
+/*  False */
 
   'a' not in list('a','b','c','d') 
 
 output LM016
-/*  true */
+/*  True */
 
   'n' not in list('a','b','c','d') 
 
 output LM017
-/*  true */
+/*  True */
 
   '' not in list()
 

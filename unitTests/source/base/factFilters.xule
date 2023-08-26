@@ -25,12 +25,12 @@ output CFILT105
   $a = [covered @instance = $INSTANCE1 @Assets];  set($a.data-type)
 
 output CFILT106
-/* set(none) */
+/* set(None) */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]);  set($a.decimals)
 
 output CFILT107
-/* none */
+/* None */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.decimals
 
@@ -60,7 +60,7 @@ output CFILT112
   $a = set([covered @instance = $INSTANCE1 @]);  $a[2].name
 
 output CFILT113
-/* [ERROR] [xule:error] rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'none' */
+/* [ERROR] [xule:error] rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'None' */
 
   $a = taxonomy().concepts.to-set;  $a[2].name
 
@@ -275,9 +275,9 @@ output INSFILT001
   $INSTANCE1.facts.count
 
 output INSFILT002
-/* -41000000 */
+/* -12771000000 */
 
-  first($INSTANCE1.facts.sort)
+  first(($INSTANCE1.facts).to-list.sort)
 
 output INSFILT003
 /* 1577 */
@@ -290,7 +290,7 @@ output INSFILT004
   (filter ($INSTANCE1.facts.sort) where $item.concept.is-numeric == true and $item.concept.is-monetary != true).count
 
 output INSFILT005
-/* 1577 */
+/* 86 */
 
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true @concept.is-monetary = false}).count
 
@@ -359,7 +359,7 @@ output UNITFILT008
   any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
 
   message
-  '$rule-value} with alignment {$alignment}'
+  '{$rule-value} with alignment {$alignment}'
 
 output UNITFILT009
 /* {{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)},

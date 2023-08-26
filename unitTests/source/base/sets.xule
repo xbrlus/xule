@@ -35,7 +35,7 @@ output SM007
   set() + set()
 
 output SM008
-/* set(1, 2, 3, 4, none) */
+/* set(1, 2, 3, 4, None) */
 
   set(none) + set(1,2,3,4)
 
