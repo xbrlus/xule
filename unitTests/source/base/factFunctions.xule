@@ -127,7 +127,7 @@ output FACT025
 output FACT026
 /* NoneType' object has no attribute 'xuleDimensionDefaults' */
 
-  max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.footnote-role
+  max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.role
 
 output FACT027
 /* NoneType' object has no attribute 'xuleDimensionDefaults' */

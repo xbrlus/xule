@@ -352,7 +352,7 @@ output NAX071
 output NAX072
 /* 94 */
 
-  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network role).values)
+  count(Navigate summation-item descendants role 'http://fasb.org/us-gaap/role/statement/StatementOfOtherComprehensiveIncomeAlternative' taxonomy $US-GAAP-2020  returns by network (role-uri, target-name, role-description).values)
 
 output NAX073
 /* 439 */
