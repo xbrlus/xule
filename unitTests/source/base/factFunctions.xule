@@ -115,7 +115,7 @@ output FACT023
   max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure})).footnotes.role
 
 output FACT024
-/* NoneType' object has no attribute 'xuleDimensionDefaults' */
+/* set(en-US) */
 
   max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.lang
 
@@ -125,17 +125,17 @@ output FACT025
   max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=*})).footnotes.content
 
 output FACT026
-/* NoneType' object has no attribute 'xuleDimensionDefaults' */
+/* set(http://www.xbrl.org/2003/role/footnote - Standard footnote role) */
 
   max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.role
 
 output FACT027
-/* NoneType' object has no attribute 'xuleDimensionDefaults' */
+/* set(http://www.xbrl.org/2003/arcrole/fact-footnote - Footnote relationship) */
 
   max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis =us-gaap-2022:FairValueInputsLevel2Member})).footnotes.arcrole
 
 output FACT028
-/* NoneType' object has no attribute 'xuleDimensionDefaults' */
+/* set(http://www.xbrl.org/2003/arcrole/fact-footnote - Footnote relationship) */
 
   max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.arcrole
 
