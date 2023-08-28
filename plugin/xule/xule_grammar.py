@@ -23,11 +23,11 @@ $Change: 23443 $
 DOCSKIP
 """
 from pyparsing import (Word, CaselessKeyword,
-                 Literal, CaselessLiteral, FollowedBy, opAssoc,
-                 Combine, Optional, nums, Forward, Group, ZeroOrMore,  
-                 ParserElement,  delimitedList, Suppress, Regex, 
-                 OneOrMore, oneOf, cStyleComment, CharsNotIn,
-                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, printables)
+                 Literal, CaselessLiteral, FollowedBy, OpAssoc,
+                 Combine, Opt, nums, Forward, Group, ZeroOrMore,  
+                 ParserElement, delimited_list, Suppress, Regex, 
+                 OneOrMore, one_of, c_style_comment, CharsNotIn,
+                 line_end, White, SkipTo, Empty, string_start, string_end, printables)
 
 INRESULT = False
 
@@ -48,7 +48,7 @@ def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppr
             precedence. Highest precedence is first. Each item in the list is a tuple of:
                 1 - operator expression: parser that is the operator
                 2 - arity: the number of operands. only 1 and 2 are supported
-                3 - associativeness: pyparsing.opAssoc.LEFT or pyparsing.opAssoc.RIGHT. Only left is supported for
+                3 - associativeness: pyparsing.OpAssoc.LEFT or pyparsing.OpAssoc.RIGHT. Only left is supported for
                                         arity of 2 and right for arity of 1.
                 4 - parserAction: parser action for the operation parser that is created.
         lpar: Parenthesized expressions are not supported in this version. This is ignored.
@@ -81,9 +81,9 @@ def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppr
         #check restrictions
         if arity not in (1, 2):
             raise ValueError('This is a modified version of the pyparsing infixNotation helper function. Only arity of 1 or 2 is supported.')
-        if arity == 1 and rightLeftAssoc != opAssoc.RIGHT:
+        if arity == 1 and rightLeftAssoc != OpAssoc.RIGHT:
             raise ValueError('This is a modified version of the pyparsing infixNotation helper function. When arity is 1 only right associative operations are supported.')
-        if arity == 2 and rightLeftAssoc != opAssoc.LEFT:
+        if arity == 2 and rightLeftAssoc != OpAssoc.LEFT:
             raise ValueError('This is a modified version of the pyparsing infixNotation helper function. When arity is 2 only left associative operations are supported.')
 
         if opExpr is None:
@@ -94,7 +94,7 @@ def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppr
         if arity == 1:
 #             # try to avoid LR with this extra test
 #             if not isinstance(opExpr, Optional):
-#                 opExpr = Optional(opExpr)
+#                 opExpr = Opt(opExpr)
             #original - matchExpr = FollowedBy(opExpr.expr + thisExpr) + Group( opExpr + thisExpr )
             if exprName is None:
                 exprName = 'unaryExpr'
@@ -134,8 +134,8 @@ def get_grammar():
     
     ParserElement.enablePackrat()
     
-    #comment = cStyleComment() | (Literal("//") + SkipTo(lineEnd()))
-    comment = cStyleComment | (Literal("//") + SkipTo(lineEnd))
+    #comment = c_style_comment() | (Literal("//") + SkipTo(line_end()))
+    comment = c_style_comment | (Literal("//") + SkipTo(line_end))
     
     #expression forwards
     expr = Forward()
@@ -178,30 +178,30 @@ def get_grammar():
     methodOp = Literal(".")
     
     #operators
-    unaryOp = oneOf('+ -') #+ ~oneOf(nums)
-    multiOp = oneOf('* /')
-    addOp = oneOf('+> -> + - <+> <+ <-> <-')
+    unaryOp = one_of('+ -') #+ ~one_of(nums)
+    multiOp = one_of('* /')
+    addOp = one_of('+> -> + - <+> <+ <-> <-')
     symDiffOp = Literal('^')
     intersectOp = Literal('&') | CaselessKeyword('intersect')
     notOp = CaselessKeyword('not')
     andOp = CaselessKeyword('and')
     orOp = CaselessKeyword('or')
     notInOp = Combine(notOp + White().setParseAction(lambda: ' ') + inOp)
-    compOp = oneOf('== != <= < >= >') | inOp | notInOp
+    compOp = one_of('== != <= < >= >') | inOp | notInOp
     
     #numeric literals
-    sign = oneOf("+ -")
+    sign = one_of("+ -")
     sciNot = Literal("e")
     decimalPoint = CaselessLiteral(".")
     digits = Word(nums)
-    integerPart = Combine(Optional(sign) + digits)
+    integerPart = Combine(Opt(sign) + digits)
     integerLiteral = Group(integerPart.setResultsName("value") +
                       nodeName('integer'))
-    infLiteral = Combine(Optional(sign) + CaselessKeyword("INF"))
-    floatLiteral = Group((Combine(decimalPoint + digits + Optional(sciNot + integerPart)) |
+    infLiteral = Combine(Opt(sign) + CaselessKeyword("INF"))
+    floatLiteral = Group((Combine(decimalPoint + digits + Opt(sciNot + integerPart)) |
                      Combine(integerPart + decimalPoint + 
                              ~CharsNotIn('0123456789') + ~(sciNot + ~integerPart) # This prevents matching a property of a literal number
-                             + Optional(digits, default='0') + Optional(sciNot + integerPart)) |
+                             + Opt(digits, default='0') + Opt(sciNot + integerPart)) |
                      infLiteral).setResultsName("value") +
                     nodeName('float'))
     #string literals
@@ -213,7 +213,7 @@ def get_grammar():
     stringExpr = Suppress(Literal('{')) + blockExpr + Suppress(Literal('}'))
     singleQuoteString = Suppress(Literal("'")) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex("[^\\\\'{]"))).setResultsName('value') + nodeName('baseString'))) + Suppress(Literal("'"))
     doubleQuoteString = Suppress(Literal('"')) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex('[^\\\\"{]'))).setResultsName('value') + nodeName('baseString'))) + Suppress(Literal('"'))
-    stringLiteral = Group((Suppress(Optional(White())) + Group(singleQuoteString | doubleQuoteString).setResultsName('stringList') + Suppress(Optional(White())) + nodeName('string'))).leaveWhitespace()
+    stringLiteral = Group((Suppress(Opt(White())) + Group(singleQuoteString | doubleQuoteString).setResultsName('stringList') + Suppress(Opt(White())) + nodeName('string'))).leaveWhitespace()
 
     #boolean literals
     booleanLiteral = Group((CaselessKeyword("true") | CaselessKeyword("false")).setResultsName("value") + nodeName('boolean'))
@@ -238,8 +238,8 @@ def get_grammar():
     foreverLiteral = Group(Suppress(CaselessKeyword('forever')) + Empty().setParseAction(lambda s, l, t: True).setResultsName('forever') + nodeName('period'))
 
     #direction keywords
-    directionLiteral = ((CaselessKeyword('ancestors').setResultsName('direction') + Optional(digits, -1).setResultsName('depth')) |  
-                        (CaselessKeyword('descendants').setResultsName('direction')  + Optional(digits, -1).setResultsName('depth')) | 
+    directionLiteral = ((CaselessKeyword('ancestors').setResultsName('direction') + Opt(digits, -1).setResultsName('depth')) |  
+                        (CaselessKeyword('descendants').setResultsName('direction')  + Opt(digits, -1).setResultsName('depth')) | 
                         CaselessKeyword('parents').setResultsName('direction') |
                         CaselessKeyword('children').setResultsName('direction') |
                         CaselessKeyword('siblings').setResultsName('direction') | 
@@ -270,7 +270,7 @@ def get_grammar():
                   ).setParseAction(lambda s, l, t: [t[0].replace('\\','')]) #parse action removes the escape backslash character
     prefix = qNameLocalName
 
-    qName = Group(Optional(Combine(prefix + ~White() + Suppress(qNameOp)), default="*").setResultsName("prefix") + 
+    qName = Group(Opt(Combine(prefix + ~White() + Suppress(qNameOp)), default="*").setResultsName("prefix") + 
                   ~White() 
                   + qNameLocalName.setResultsName("localName")
                   + nodeName('qname'))
@@ -291,13 +291,13 @@ def get_grammar():
 
     properties = Group(OneOrMore(Group(Suppress(propertyOp) +
                                        simpleName.setResultsName('propertyName') +
-                                       Optional(Group(Suppress(lParen) +
-                                                Optional(delimitedList(blockExpr)) +
+                                       Opt(Group(Suppress(lParen) +
+                                                Opt(delimited_list(blockExpr)) +
                                                 Suppress(rParen)
                                                 ).setResultsName('propertyArgs')
                                                 
                                                 ) +
-                                       Optional(tagOp + tagName)
+                                       Opt(tagOp + tagName)
                                        + nodeName('property')
                                  ))
                        ).setResultsName('properties')
@@ -320,12 +320,12 @@ def get_grammar():
                               )
     
     aspectName = ((aspectNameLiteral.setResultsName('aspectName') +
-                    Optional(
+                    Opt(
                              #properties.setResultsName('aspectProperties'))
                          Suppress(propertyOp) +
                          ncName.setResultsName('propertyName') +
-                         Optional(Group(Suppress(lParen) +
-                                        Optional(delimitedList(blockExpr)) +
+                         Opt(Group(Suppress(lParen) +
+                                        Opt(delimited_list(blockExpr)) +
                                         Suppress(rParen)
                                         ).setResultsName('propertyArgs')
                          )                        
@@ -339,23 +339,23 @@ def get_grammar():
     
     aspectFilter = (aspectStart + 
                     aspectName +
-                             Optional(aspectOp.setResultsName('aspectOperator') + 
+                             Opt(aspectOp.setResultsName('aspectOperator') + 
                                       (Literal('*').setResultsName('wildcard') |
                                        blockExpr.setResultsName('aspectExpr')
                                       )
                                       ) +
-                             Optional(Suppress(asOp) + Suppress(varIndicator) + ~White()+ simpleName.setResultsName('alias'))
+                             Opt(Suppress(asOp) + Suppress(varIndicator) + ~White()+ simpleName.setResultsName('alias'))
                              
                     + nodeName('aspectFilter'))
     
-    factsetInner =  ((Optional(excludeNils | includeNils) &
-                    Optional(coveredDims) +
-                    Optional(covered)) + 
+    factsetInner =  ((Opt(excludeNils | includeNils) &
+                    Opt(coveredDims) +
+                    Opt(covered)) + 
 #                   (ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') ) +
-                    Optional((Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).setResultsName('aspectFilters'))) +
-#                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
-                    Optional(~ where + blockExpr.setResultsName('innerExpr') ) +
-                    Optional(whereClause)
+                    Opt((Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).setResultsName('aspectFilters'))) +
+#                     Opt((whereClause) | blockExpr.setResultsName('innerExpr')
+                    Opt(~ where + blockExpr.setResultsName('innerExpr') ) +
+                    Opt(whereClause)
                     )
                     
     
@@ -373,19 +373,19 @@ def get_grammar():
                       Suppress(rSquare) +
                       Empty().setParseAction(lambda s, l, t: 'closed').setResultsName('factsetType')
                       ) |
-                      (Optional(excludeNils | includeNils) +
-                      Optional(nilDefault) +
-                      Optional(covered) +
+                      (Opt(excludeNils | includeNils) +
+                      Opt(nilDefault) +
+                      Opt(covered) +
                       (Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) + #This is a factset without enclosing brackets
                       Empty().setParseAction(lambda s, l, t: 'open').setResultsName('factsetType') +
-                      Optional(whereClause))
+                      Opt(whereClause))
                 ) +
                 nodeName('factset')        
             )
     
     returnComponents = (Group(simpleName).setResultsName('returnComponents') |
                         (Suppress('(') +
-                         Group(delimitedList(simpleName + ~Literal(':') | blockExpr)).setResultsName('returnComponents') +
+                         Group(delimited_list(simpleName + ~Literal(':') | blockExpr)).setResultsName('returnComponents') +
                          Suppress(')'))
                         )
     
@@ -394,29 +394,29 @@ def get_grammar():
                        # The dimension and arcrole need the FollowedBy() look ahead. I'm not sure why, but it is because these are optional and the direction is reuired.
                        # Without the FollowedBy() look ahead, 'navigate self' fails because the parser thinks 'navigate' is a qname and then does not know what to 
                        # do with 'self'.
-                       Optional(CaselessKeyword('dimensions').setParseAction(lambda: True).setResultsName('dimensional') + (FollowedBy(blockExpr | directionLiteral) )) +
-                       Optional(blockExpr.setResultsName('arcrole') + FollowedBy(directionLiteral)) +  
+                       Opt(CaselessKeyword('dimensions').setParseAction(lambda: True).setResultsName('dimensional') + (FollowedBy(blockExpr | directionLiteral) )) +
+                       Opt(blockExpr.setResultsName('arcrole') + FollowedBy(directionLiteral)) +  
                        directionLiteral +
-                       Optional(Group(CaselessKeyword('include') + CaselessKeyword('start')).setParseAction(lambda: True).setResultsName('includeStart')) +
-                       Optional(Suppress(CaselessKeyword('from')) + blockExpr.setResultsName('from')) +
-                       Optional(Suppress(CaselessKeyword('to')) + blockExpr.setResultsName('to')) +
-                       Optional(Suppress(Group(CaselessKeyword('stop') + CaselessKeyword('when'))) + blockExpr.setResultsName('stopExpr')) +
-                       Optional(Suppress(CaselessKeyword('role')) + blockExpr.setResultsName('role')) +
-                       Optional(Suppress(CaselessKeyword('drs-role')) + blockExpr.setResultsName('drsRole')) +
-                       Optional(Suppress(CaselessKeyword('linkbase')) + blockExpr.setResultsName('linkbase')) +
-                       Optional(Suppress(CaselessKeyword('cube')) + blockExpr.setResultsName('cube')) +
-                       Optional(Suppress(CaselessKeyword('taxonomy')) + blockExpr.setResultsName('taxonomy')) +
-                       Optional(whereClause) +
-                       Optional(Group(
+                       Opt(Group(CaselessKeyword('include') + CaselessKeyword('start')).setParseAction(lambda: True).setResultsName('includeStart')) +
+                       Opt(Suppress(CaselessKeyword('from')) + blockExpr.setResultsName('from')) +
+                       Opt(Suppress(CaselessKeyword('to')) + blockExpr.setResultsName('to')) +
+                       Opt(Suppress(Group(CaselessKeyword('stop') + CaselessKeyword('when'))) + blockExpr.setResultsName('stopExpr')) +
+                       Opt(Suppress(CaselessKeyword('role')) + blockExpr.setResultsName('role')) +
+                       Opt(Suppress(CaselessKeyword('drs-role')) + blockExpr.setResultsName('drsRole')) +
+                       Opt(Suppress(CaselessKeyword('linkbase')) + blockExpr.setResultsName('linkbase')) +
+                       Opt(Suppress(CaselessKeyword('cube')) + blockExpr.setResultsName('cube')) +
+                       Opt(Suppress(CaselessKeyword('taxonomy')) + blockExpr.setResultsName('taxonomy')) +
+                       Opt(whereClause) +
+                       Opt(Group(
                                       Suppress(CaselessKeyword('returns')) +
-                                      Optional(Group(CaselessKeyword('by') + CaselessKeyword('network')).setParseAction(lambda: True).setResultsName('byNetwork')) +                                    
-                                      Optional(
+                                      Opt(Group(CaselessKeyword('by') + CaselessKeyword('network')).setParseAction(lambda: True).setResultsName('byNetwork')) +                                    
+                                      Opt(
                                              CaselessKeyword('list') |
                                              CaselessKeyword('set') 
                                              ).setResultsName('returnType') +
-                                      Optional(CaselessKeyword('paths').setParseAction(lambda: True).setResultsName('paths')) +
-                                      Optional(returnComponents +
-                                               Optional(Suppress(CaselessKeyword('as')) + CaselessKeyword('dictionary').setResultsName('returnComponentType'))) +
+                                      Opt(CaselessKeyword('paths').setParseAction(lambda: True).setResultsName('paths')) +
+                                      Opt(returnComponents +
+                                               Opt(Suppress(CaselessKeyword('as')) + CaselessKeyword('dictionary').setResultsName('returnComponentType'))) +
                                       nodeName('returnExpr')
                                 ).setResultsName('return')
                         ) +
@@ -426,15 +426,15 @@ def get_grammar():
     filter = Group(
                    Suppress(CaselessKeyword('filter')) +
                    blockExpr.setResultsName('expr') + 
-                   Optional(whereClause) +
-                   Optional(returnsClause) +
+                   Opt(whereClause) +
+                   Opt(returnsClause) +
                    nodeName('filter')
                    )
     #function reference
     funcRef = Group(simpleName.setResultsName("functionName") + ~White() +
                     Suppress(lParen) + 
-                    Group(Optional(delimitedList(blockExpr)  +
-                                   Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
+                    Group(Opt(delimited_list(blockExpr)  +
+                                   Opt(Suppress(commaOp)) #This allows a trailing comma for lists and sets
                                    )).setResultsName("functionArgs") + 
                 Suppress(rParen) +
                 nodeName('functionReference')) 
@@ -454,7 +454,7 @@ def get_grammar():
                    
                    blockExpr.setResultsName("thenExpr") +
                    # this will flatten nested if conditions 
-                   Optional(elseIfExpr) +
+                   Opt(elseIfExpr) +
                    Suppress(elseOp) + 
                    blockExpr.setResultsName("elseExpr") +
                    nodeName('ifExpr')
@@ -485,8 +485,8 @@ def get_grammar():
     
     listLiteral =  Group( 
                         Suppress(lParen) +
-                        Group(Optional(delimitedList(blockExpr) +
-                                       Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
+                        Group(Opt(delimited_list(blockExpr) +
+                                       Opt(Suppress(commaOp)) #This allows a trailing comma for lists and sets
                                        )).setResultsName("functionArgs") + 
                         Suppress(rParen) +
                         nodeName('functionReference') +
@@ -495,15 +495,15 @@ def get_grammar():
                        )
     
     #dictExpr = Group(Suppress(CaselessKeyword('dict')) +
-    #                 Group(delimitedList(Group(blockExpr.setResultsName('key') + Literal('=') + blockExpr.setResultsName('value') + nodeName('item')))).setResultsName('items') +
+    #                 Group(delimited_list(Group(blockExpr.setResultsName('key') + Literal('=') + blockExpr.setResultsName('value') + nodeName('item')))).setResultsName('items') +
     #                 nodeName('dictExpr'))
     #
     #listExpr = Group(Suppress(CaselessKeyword('list')) +
-    #                 Group(delimitedList(blockExpr)).setResultsName('items') +
+    #                 Group(delimited_list(blockExpr)).setResultsName('items') +
     #                 nodeName('listExpr'))
     #
     #setExpr = Group(Suppress(CaselessKeyword('set')) +
-    #                Group(delimitedList(blockExpr)).setResultsName('items') +
+    #                Group(delimited_list(blockExpr)).setResultsName('items') +
     #                nodeName('setExpr'))
     
     atom = (
@@ -564,24 +564,24 @@ def get_grammar():
                          nodeName('propertyExpr')) | indexExpr
      
     expr << buildPrecedenceExpressions(propertyExpr,
-                          [(unaryOp, 1, opAssoc.RIGHT, None, 'unaryExpr'),
-                           (multiOp, 2, opAssoc.LEFT, None, 'multExpr'),
-                           (addOp, 2, opAssoc.LEFT, None, 'addExpr'),
-                           (intersectOp, 2, opAssoc.LEFT, None, 'intersectExpr'),
-                           (symDiffOp, 2, opAssoc.LEFT, None, 'symetricDifferenceExpr'),
-                           (compOp, 2, opAssoc.LEFT, None, 'compExpr'),
-                           (notOp, 1, opAssoc.RIGHT, None, 'notExpr'),
-                           (andOp, 2, opAssoc.LEFT, None, 'andExpr'),
-                           (orOp, 2, opAssoc.LEFT, None, 'orExpr')
+                          [(unaryOp, 1, OpAssoc.RIGHT, None, 'unaryExpr'),
+                           (multiOp, 2, OpAssoc.LEFT, None, 'multExpr'),
+                           (addOp, 2, OpAssoc.LEFT, None, 'addExpr'),
+                           (intersectOp, 2, OpAssoc.LEFT, None, 'intersectExpr'),
+                           (symDiffOp, 2, OpAssoc.LEFT, None, 'symetricDifferenceExpr'),
+                           (compOp, 2, OpAssoc.LEFT, None, 'compExpr'),
+                           (notOp, 1, OpAssoc.RIGHT, None, 'notExpr'),
+                           (andOp, 2, OpAssoc.LEFT, None, 'andExpr'),
+                           (orOp, 2, OpAssoc.LEFT, None, 'orExpr')
                           ])
 
     varDeclaration = (
                            Suppress(varIndicator) + ~White() +
                            simpleName.setResultsName('varName') +   
-                           Optional(tagOp +
-                                    Optional(tagName)) + 
+                           Opt(tagOp +
+                                    Opt(tagName)) + 
                            Suppress('=') +
-                           blockExpr.setResultsName('body') + Optional(Suppress(';')) +
+                           blockExpr.setResultsName('body') + Opt(Suppress(';')) +
                            nodeName('varDeclaration')
                            )
 
@@ -659,7 +659,7 @@ def get_grammar():
     assertDeclaration = (
                               Suppress(assertKeyword) +
                               ncName.setResultsName('ruleName') +
-                              Optional(CaselessKeyword('satisfied') | CaselessKeyword('unsatisfied'), default='satisfied').setResultsName('satisfactionType') +
+                              Opt(CaselessKeyword('satisfied') | CaselessKeyword('unsatisfied'), default='satisfied').setResultsName('satisfactionType') +
                               blockExpr.setResultsName('body') +
                               ZeroOrMore(ruleResult).setResultsName('results') +
                               nodeName('assertion')
@@ -677,8 +677,8 @@ def get_grammar():
                   Suppress(constantKeyword) +
                   Suppress(varIndicator) + ~ White() +
                   simpleName.setResultsName("constantName") + 
-                  Optional(tagOp +
-                           Optional(tagName)) + 
+                  Opt(tagOp +
+                           Opt(tagName)) + 
                   Suppress(assignOp) + 
                   expr.setResultsName("body") +
                   nodeName('constantDeclaration')
@@ -696,10 +696,10 @@ def get_grammar():
         Suppress(functionKeyword) + 
         simpleName.setResultsName("functionName") + ~White() +
         Suppress(lParen) + 
-        Group(Optional(delimitedList(Group(Suppress(varIndicator) + ~White() + simpleName.setResultsName('argName') + nodeName('functionArg') + 
-                                           Optional(tagOp +
-                                                    Optional(tagName)))) +
-                       Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
+        Group(Opt(delimited_list(Group(Suppress(varIndicator) + ~White() + simpleName.setResultsName('argName') + nodeName('functionArg') + 
+                                           Opt(tagOp +
+                                                    Opt(tagName)))) +
+                       Opt(Suppress(commaOp)) #This allows a trailing comma for lists and sets
         )).setResultsName("functionArgs") + 
         Suppress(rParen) +
         blockExpr.setResultsName("body") +
@@ -710,7 +710,7 @@ def get_grammar():
             Suppress(versionKeyword) + Word(printables).setResultsName('version') + nodeName('versionDeclaration')
     )
 
-    xuleFile = (stringStart +
+    xuleFile = (string_start +
                 ZeroOrMore(Group(ruleNameSeparator |
                                  ruleNamePrefix |
                                  namespaceGroupDeclaration | 
@@ -721,9 +721,9 @@ def get_grammar():
                                  versionDeclaration |
                                  assertDeclaration |
                                  outputDeclaration)) +
-                stringEnd).setResultsName('xuleDoc').ignore(comment)
+                string_end).setResultsName('xuleDoc').ignore(comment)
     #xuleFile = Group(ZeroOrMore(factset)).setResultsName('xuleDoc')
     
-    #xuleFile = (stringStart + Optional(header) + ZeroOrMore(packageBody) + stringEnd).setResultsName("xule").ignore(comment)
+    #xuleFile = (string_start + Opt(header) + ZeroOrMore(packageBody) + string_end).setResultsName("xule").ignore(comment)
     
     return xuleFile
