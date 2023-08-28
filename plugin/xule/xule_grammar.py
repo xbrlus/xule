@@ -213,7 +213,7 @@ def get_grammar():
     stringExpr = Suppress(Literal('{')) + blockExpr + Suppress(Literal('}'))
     singleQuoteString = Suppress(Literal("'")) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex("[^\\\\'{]"))).setResultsName('value') + nodeName('baseString'))) + Suppress(Literal("'"))
     doubleQuoteString = Suppress(Literal('"')) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex('[^\\\\"{]'))).setResultsName('value') + nodeName('baseString'))) + Suppress(Literal('"'))
-    stringLiteral = Group((Group(singleQuoteString | doubleQuoteString).setResultsName('stringList') + nodeName('string'))).leaveWhitespace()
+    stringLiteral = Group((Suppress(Optional(White())) + Group(singleQuoteString | doubleQuoteString).setResultsName('stringList') + Suppress(Optional(White())) + nodeName('string'))).leaveWhitespace()
 
     #boolean literals
     booleanLiteral = Group((CaselessKeyword("true") | CaselessKeyword("false")).setResultsName("value") + nodeName('boolean'))
