@@ -22,12 +22,12 @@ limitations under the License.
 $Change: 23443 $
 DOCSKIP
 """
-from pyparsing import (Word, Keyword,  CaselessKeyword, ParseResults, infixNotation,
+from pyparsing import (Word, CaselessKeyword,
                  Literal, CaselessLiteral, FollowedBy, opAssoc,
                  Combine, Optional, nums, Forward, Group, ZeroOrMore,  
                  ParserElement,  delimitedList, Suppress, Regex, 
-                 QuotedString, OneOrMore, oneOf, cStyleComment, CharsNotIn,
-                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables, removeQuotes)
+                 OneOrMore, oneOf, cStyleComment, CharsNotIn,
+                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, printables)
 
 INRESULT = False
 

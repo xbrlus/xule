@@ -22,7 +22,7 @@ limitations under the License.
 $Change: 23280 $
 DOCSKIP
 """
-from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException, ParserElement
+from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException
 from . import XuleRuleSet as xrs
 from . import XuleRuleSetBuilder as xrsb
 from .xule_grammar import get_grammar
