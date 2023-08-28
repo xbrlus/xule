@@ -440,7 +440,7 @@ def get_grammar():
                 nodeName('functionReference')) 
 
     #if expression
-    elseIfExpr = (ZeroOrMore(Group(Suppress(elseOp + ifOp) + 
+    elseIfExpr = (OneOrMore(Group(Suppress(elseOp + ifOp) + 
                                     blockExpr.setResultsName("condition") +
                                     blockExpr.setResultsName("thenExpr") +
                                     nodeName('elseIf')
@@ -454,7 +454,7 @@ def get_grammar():
                    
                    blockExpr.setResultsName("thenExpr") +
                    # this will flatten nested if conditions 
-                   elseIfExpr +
+                   Optional(elseIfExpr) +
                    Suppress(elseOp) + 
                    blockExpr.setResultsName("elseExpr") +
                    nodeName('ifExpr')
