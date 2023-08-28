@@ -77,7 +77,7 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
 
             returns = []
             def threaded_parse():
-                returns.append(xuleGrammar.parseFile(full_file_name).asDict())
+                returns.append(xuleGrammar.parse_file(full_file_name).as_dict())
 
             t = threading.Thread(target=threaded_parse)
             t.start()
@@ -90,7 +90,7 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
             fixForPyParsing(parseRes)
 
 
-            #parseRes = xuleGrammar.parseFile(full_file_name).asDict()
+            #parseRes = xuleGrammar.parse_file(full_file_name).as_dict()
             end_time = datetime.datetime.today()
             print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
             ast_start = datetime.datetime.today()
