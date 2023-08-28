@@ -27,7 +27,8 @@ from pyparsing import (Word, Keyword,  CaselessKeyword, ParseResults, infixNotat
                  Combine, Optional, nums, Forward, Group, ZeroOrMore,  
                  ParserElement,  delimitedList, Suppress, Regex, 
                  QuotedString, OneOrMore, oneOf, cStyleComment, CharsNotIn,
-                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables, removeQuotes)
+                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables, removeQuotes,
+                 Or)
 
 INRESULT = False
 
@@ -128,7 +129,7 @@ def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppr
 def nodeName(name):
     return Empty().setParseAction(lambda: name).setResultsName('exprName')
 
-def get_grammar():
+def get_grammar(only_output_attr_declarations=False, extra_output_attributes=[]):
     """Return the XULE grammar"""
     global INRESULT
     
@@ -651,8 +652,10 @@ def get_grammar():
                          nodeName('ruleNameSeparator')
                          )
     
+    default_output_attributes = ['message', 'severity', 'rule-suffix', 'rule-focus']
+    total_output_attributes = default_output_attributes + extra_output_attributes
     ruleResult = Group( ~declarationKeywords +
-                         (CaselessKeyword('message') | CaselessKeyword('severity') | CaselessKeyword('rule-suffix') | CaselessKeyword('rule-focus') | simpleName).setResultsName('resultName') + Empty().setParseAction(in_result) +
+                         (Or(CaselessKeyword(x) for x in total_output_attributes) | simpleName).setResultsName('resultName') + Empty().setParseAction(in_result) +
                          expr.setResultsName('resultExpr').setParseAction(out_result).setFailAction(out_result) + nodeName('result')
                     )
 
@@ -710,6 +713,12 @@ def get_grammar():
             Suppress(versionKeyword) + Word(printables).setResultsName('version') + nodeName('versionDeclaration')
     )
 
+    xuleFile_outAttrDeclarations = (stringStart +
+            ZeroOrMore(
+                Group(  outputAttributeDeclaration | SkipTo(outputAttributeDeclaration, include=True) | (SkipTo(stringEnd, include=True).setResultsName('text') + nodeName('otherText')) ) 
+            ) +
+            stringEnd).setResultsName('xuleDoc').ignore(comment)
+
     xuleFile = (stringStart +
                 ZeroOrMore(Group(ruleNameSeparator |
                                  ruleNamePrefix |
@@ -726,4 +735,7 @@ def get_grammar():
     
     #xuleFile = (stringStart + Optional(header) + ZeroOrMore(packageBody) + stringEnd).setResultsName("xule").ignore(comment)
     
-    return xuleFile
+    if only_output_attr_declarations:
+        return xuleFile_outAttrDeclarations
+    else:
+        return xuleFile
