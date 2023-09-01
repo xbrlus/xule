@@ -22,7 +22,7 @@ limitations under the License.
 $Change$
 DOCSKIP
 """
-from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException, ParserElement
+from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException
 from . import XuleRuleSet as xrs
 from . import XuleRuleSetBuilder as xrsb
 from .xule_grammar import get_grammar
@@ -78,12 +78,13 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
 
             returns = []
             def threaded_parse():
-                returns.append(xuleGrammar.parseFile(full_file_name).asDict())
+                returns.append(xuleGrammar.parse_file(full_file_name).as_dict())
 
             t = threading.Thread(target=threaded_parse)
             t.start()
             t.join()
             parseRes = returns[0]
+
 
             # Write the parse results as a josn file
             if hasattr(_options, 'xule_compile_save_pyparsing_result_location') and _options.xule_compile_save_pyparsing_result_location is not None:
