@@ -14,3 +14,6 @@ python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC
 /Applications/Arelle.app/Contents/MacOS/arelleCmdLine --plugins "xule|xule/xulecat" 
 
 /Applications/Arelle.app/Contents/MacOS/arelleCmdLine --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/base  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/ut-ruleset.zip --xule-max-recurse-depth=2500
+
+
+/Applications/Arelle.app/Contents/MacOS/arelleCmdLine --plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/ut-ruleset.zip --logNoRefObjectProperties --logFormat "[%(messageCode)s] %(message)s" >> /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt
