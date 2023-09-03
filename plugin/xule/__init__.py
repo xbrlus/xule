@@ -7,7 +7,7 @@ This is the package init file.
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23570 $
+$Change: 23587 $
 DOCSKIP
 """
 from .XuleProcessor import process_xule
@@ -440,6 +440,10 @@ def xuleCmdOptions(parser):
                               default="pickle",
                               help=_("Determines how the compiled rules are stored. Options are 'pickle', 'json'."))
     
+        parserGroup.add_option("--xule-compile-save-pyparsing-result-location",
+                               action="store",
+                               help=_("This will save the result from pyparsing as a json file. This is the raw parse results before post parsing. Used for debugging purpsoses."))
+
     parserGroup.add_option("--xule-rule-set",
                       action="store",
                       dest="xule_rule_set",

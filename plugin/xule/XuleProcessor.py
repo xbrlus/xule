@@ -7,7 +7,7 @@ The XuleProcessor module is the main module for processing a rule set against an
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23570 $
+$Change: 23596 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -2592,6 +2592,10 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                     # Also fix for period aspect
                     elif index_key[TYPE] == 'explicit_dimension':
                         # Get the dimension concept to see if it is explicit or typed.
+                        # With namespace groups, there may be more than one dimension concept
+                        if isinstance(aspect_info[ASPECT], tuple):
+                            # this is a namespace group qname for the dimension. This is not supported
+                            raise XuleProcessingError(_(f"The prefix {aspect_info[ASPECT][0].value} is a namespace-group prefix. Namespace-group prefixes cannot be used for dimension aspects of a factset. Full namespace-group name is {aspect_info[ASPECT][0].value}:{aspect_info[ASPECT][1]}."))
                         model_dimension = model.qnameConcepts.get(aspect_info[ASPECT])
                         if model_dimension is None:
                                 raise XuleProcessingError(_(f"Cannot find dimension concept for {aspect_info[ASPECT].clarkNotation} while processing a factset"), xule_context)
@@ -4690,7 +4694,7 @@ def process_factset_aspects(factset, xule_context):
                 raise XuleProcessingError(_(
                     "The factset specifies the concept aspect as both @{0} and @concept={0}. Only one method should be used".format(
                         aspect_name.value)), xule_context)
-            aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'builtin', aspect_name.value, xule_context)
+            aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'builtin', aspect_name.value, models, xule_context)
             if aspect_info is not None:
                 aspect_dictionary[aspect_info] = aspect_value
         elif aspect_name.type in ('qname', 'groupQname'):
@@ -4728,7 +4732,7 @@ def process_factset_aspects(factset, xule_context):
                 add_aspect_var(aspect_vars, 'explicit_dimension', aspect_name.value, aspect_var_name,
                                aspect_filter['node_id'], xule_context)
                 aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'explicit_dimension', aspect_name.value,
-                                                                xule_context)
+                                                               models, xule_context)
                 if aspect_info is not None:
                     aspect_dictionary[aspect_info] = aspect_value
             else:
@@ -4799,7 +4803,7 @@ def aspect_in_filters(aspect_type, aspect_name, filters):
     # This will only hit if the aspect was not found in the filters.
     return False
 
-def process_aspect_expr(aspect_filter, aspect_type, aspect_name, xule_context):
+def process_aspect_expr(aspect_filter, aspect_type, aspect_name, models, xule_context):
     """Process the expression on the right side of an aspect filter.
     
     This looks at the aspectExpr for the aspect filter (if there is on). This will return a 2 item tuple of the aspect_info key and 
@@ -4836,15 +4840,31 @@ def process_aspect_expr(aspect_filter, aspect_type, aspect_name, xule_context):
         if 'aspectExpr' in aspect_filter:
             aspect_value = evaluate(aspect_filter['aspectExpr'], xule_context)
             if aspect_type == 'explicit_dimension':
-                aspect_value = fix_for_default_member(aspect_name, aspect_value, xule_context)
+                aspect_value = fix_for_default_member(aspect_name, aspect_value, models, xule_context)
         else:
             aspect_value = None # There is nothing to filter, but the aspect info will be used for handling alignment
 
     return (aspect_info, aspect_value)
 
-def fix_for_default_member(dim, aspect_value, xule_context):
+def fix_for_default_member(dim, aspect_value, models, xule_context):
     ''' If the member for an explicit dimension is the default member, change the value to none'''
-    default_name = XuleDimensionCube.dimension_defaults_by_name(xule_context.model).get(dim)
+    # There may be multiple models if @instance is used with a list of instances. So Check each model.
+    # If there are are different defaults, this is a semantic problem and raise an error.
+
+    default_names = set()
+    for model in models:
+        next_name = XuleDimensionCube.dimension_defaults_by_name(model).get(dim)
+        if next_name is not None:
+            default_names.add(next_name)
+    if len(default_names) == 1:
+        default_name = default_names.pop() # this just get the item out of the set
+    elif len(default_names) ==0:
+        default_name = None # there is no default for the dimension
+    else: # there was more than 1 default for the dimension. This is a problem
+        raise XuleProcessingError(_(f"Found different dimension defaults for {dim.clarkNotation}. This happens when there is a factset "
+                                    f"with an @instance with multiple instances and the defaults are different in the different instances. "
+                                    f"The default memebers are: {', '.join(default_names)}"))
+
     if default_name is None:
         return aspect_value
     new_values = list()

@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23584 $
+$Change: 23594 $
 DOCSKIP
 """
 
@@ -1361,14 +1361,31 @@ def property_cube(xule_context, object_value, *args):
 def property_cubes(xule_context, object_value, *args):
     """This returns all the cubes in a taxonomy.
     """
-    cubes = set()
-    cubes_shadow = set()
-    for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value):
-        cube = xv.XuleDimensionCube(object_value.value, *cube_base)
-        cubes.add(xv.XuleValue(xule_context, cube, 'cube'))
-        cubes_shadow.add(cube)
+    if object_value.is_fact:
+        arelle_model = object_value.fact.modelXbrl
+    else:
+        arelle_model = object_value.value
 
-    return xv.XuleValue(xule_context, frozenset(cubes), 'set', shadow_collection=frozenset(cubes_shadow))
+    # Get the cubes of the taxonomy
+    cubes = [xv.XuleDimensionCube(arelle_model, *cube_base)
+             for cube_base in xv.XuleDimensionCube.base_dimension_sets(arelle_model)]
+
+    result_cubes = set()
+    result_cubes_shadow = set()
+
+    for cube in cubes:
+        keep = False # this will be used to indicate if the cube should be returned 
+        if object_value.type == 'taxonomy':
+            keep = True
+        else: # this is a fact
+            if object_value.fact in cube.facts:
+                keep = True
+
+        if keep:
+            result_cubes.add(xv.XuleValue(xule_context, cube, 'cube'))
+            result_cubes_shadow.add(cube)
+
+    return xv.XuleValue(xule_context, frozenset(result_cubes), 'set', shadow_collection=frozenset(result_cubes_shadow))
 
 def property_drs_role(xule_context, object_value, *args):
     return xv.XuleValue(xule_context,  object_value.value.drs_role, 'role')
@@ -1611,6 +1628,8 @@ def property_trim(xule_context, object_value, *args):
     if len(args) == 0:
         side = 'both'
     else:
+        if args[0].type != 'string':
+            raise XuleProcessingError(_("The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type '%s'" % args[0].type), xule_context)
         if args[0].value.lower() in ('left', 'right', 'both'):
             side = args[0].value.lower()
         else:
@@ -2549,7 +2568,7 @@ PROPERTIES = {
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
               'cube': (property_cube, 2, ('taxonomy',), False),
-              'cubes': (property_cubes, 0, ('taxonomy',), False),
+              'cubes': (property_cubes, 0, ('taxonomy','fact'), False),
               'drs-role': (property_drs_role, 0, ('cube',), False),
               'cube-concept': (property_cube_concept, 0, ('cube',), False),
               'primary-concepts': (property_primary_concepts, 0, ('cube',), False),
