@@ -1493,7 +1493,7 @@ def property_log10(xule_context, object_value, *args):
     if object_value.value == 0:
         return xv.XuleValue(xule_context, float('-inf'), 'float')
     elif object_value.value < 0:
-        return xv.XuleValue(xule_context, float('nan'), 'float')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
         return xv.XuleValue(xule_context, math.log10(object_value.value), 'float')
  
@@ -2007,8 +2007,10 @@ def property_stats(xule_context, object_value, stat_function, *args):
         if next_value.type not in ('int', 'float', 'decimal'):
             raise XuleProcessingError(_("Statistic properties expect nuemric inputs, found '{}'.".format(next_value.type)), xule_context)
         values.append(next_value.value)
-    
     stat_calc_value = stat_function(values)
+    if numpy.isnan(stat_calc_value):
+        return xv.XuleValue(xule_context, None, 'none')
+    
     stat_value = xv.XuleValue(xule_context, stat_calc_value, 'float')
     stat_value.tags = object_value.tags
     stat_value.facts = object_value.facts
