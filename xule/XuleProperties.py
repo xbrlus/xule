@@ -32,6 +32,7 @@ from arelle.ModelInstanceObject import ModelInlineFact, ModelFact
 from arelle.ModelDtsObject import ModelResource
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
+from aniso8601 import parse_duration
 from lxml import etree
 import collections
 import datetime
@@ -821,8 +822,10 @@ def property_end(xule_context, object_value, *args):
 def property_days(xule_context, object_value, *args):
     if object_value.type == 'instant':
         return xv.XuleValue(xule_context, 0, 'int')
-    else:
+    elif object_value.type == 'duration':
         return xv.XuleValue(xule_context, (object_value.value[1] - object_value.value[0]).days, 'int')
+    else: # this is a time-period
+        return xv.XuleValue(xule_context, object_value.value.days, 'int')
 
 def property_numerator(xule_context, object_value, *args):
     # A unit is a tuple of numerator, denominator
@@ -2251,7 +2254,17 @@ def property_facts(xule_context, object_value, *args):
     
     return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
 
+def property_time_span(xule_context, object_value, *args):
 
+
+    if object_value.type == 'string':
+        try:
+            return xv.XuleValue(xule_context, parse_duration(object_value.value.upper()), 'time-period')
+        except:
+            raise XuleProcessingError(_("Could not convert '%s' into a time-period." % object_value.value), xule_context)
+    else: # duration
+        return xv.XuleValue(xule_context, object_value.value[1] - object_value.value[0], 'time-period')
+    
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
         raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
@@ -2476,7 +2489,7 @@ PROPERTIES = {
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
-              'days': (property_days, 0, ('instant', 'duration'), False),
+              'days': (property_days, 0, ('instant', 'duration', 'time-period'), False),
               'numerator': (property_numerator, 0, ('unit', ), False),
               'denominator': (property_denominator, 0, ('unit',), False),
               'attribute': (property_attribute, 1, ('concept', 'relationship', 'role'), False),
@@ -2583,6 +2596,7 @@ PROPERTIES = {
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
+              'time-span': (property_time_span, 0, ('string', 'duration'), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),

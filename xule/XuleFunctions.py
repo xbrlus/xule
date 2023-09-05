@@ -126,16 +126,16 @@ def func_uri(xule_context, *args):
     else:
         raise XuleProcessingError(_("The 'uri' function requires a string argument, found '%s'." % arg.type), xule_context) 
 
-def func_time_span(xule_context, *args):
-    arg = args[0]
+# def func_time_span(xule_context, *args):
+#     arg = args[0]
     
-    if arg.type != 'string':
-        raise XuleProcessingError(_("Function 'time-span' expects a string, fount '%s'." % arg.type), xule_context)
+#     if arg.type != 'string':
+#         raise XuleProcessingError(_("Function 'time-span' expects a string, fount '%s'." % arg.type), xule_context)
     
-    try:
-        return xv.XuleValue(xule_context, parse_duration(arg.value.upper()), 'time-period')
-    except:
-        raise XuleProcessingError(_("Could not convert '%s' into a time-period." % arg.value), xule_context)
+#     try:
+#         return xv.XuleValue(xule_context, parse_duration(arg.value.upper()), 'time-period')
+#     except:
+#         raise XuleProcessingError(_("Could not convert '%s' into a time-period." % arg.value), xule_context)
 
 def func_schema_type(xule_context, *args):
     arg = args[0]
@@ -1185,7 +1185,7 @@ def built_in_functions():
              'entity': ('regular', func_entity, 2, False, 'single'),
              'qname': ('regular', func_qname, 2, True, 'single'),
              'uri': ('regular', func_uri, 1, False, 'single'),
-             'time-span': ('regular', func_time_span, 1, False, 'single'),
+             #'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
              'num-to-string': ('regular', func_num_to_string, 1, False, 'single'),
              'mod': ('regular', func_mod, 2, False, 'single'),
