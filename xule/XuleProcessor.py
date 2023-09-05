@@ -3769,8 +3769,8 @@ def nav_decorate_component_role(rel, direction, component_name, xule_context):
 
 def get_role(relationship, xule_context):
     role_uri = relationship.linkrole
-    if role_uri in xule_context.model.roleTypes:
-        return xule_context.model.roleTypes[role_uri][0]
+    if role_uri in relationship.modelXbrl.roleTypes:
+        return relationship.modelXbrl.roleTypes[role_uri][0]
     else:
         return XuleRole(role_uri)
 
@@ -3794,8 +3794,8 @@ def nav_decorate_component_arcrole(rel, direction, component_name, xule_context)
 
 def get_arcrole(relationship, xule_context):
     arcrole_uri = relationship.arcrole
-    if arcrole_uri in xule_context.model.arcroleTypes:
-        return xule_context.model.arcroleTypes[arcrole_uri][0]
+    if arcrole_uri in relationship.modelXbrl.arcroleTypes:
+        return relationship.modelXbrl.arcroleTypes[arcrole_uri][0]
     else:
         return XuleArcrole(arcrole_uri)
 
@@ -5393,7 +5393,7 @@ def format_fact_dimensions(xule_context, xule_fact):
 
 
 def format_fact_label(xule_context, fact):
-    label = property_label(xule_context, fact)
+    label = XuleProperties.property_label(xule_context, fact)
     if label.type in ('unbound', 'none'):
         return "missing"
     else:
