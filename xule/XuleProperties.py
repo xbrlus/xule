@@ -334,8 +334,11 @@ def property_sort(xule_context, object_value, *args):
         sorted_list = sorted(object_value.value, key=lambda x: x.sort_value, reverse=reverse)
         return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
     except TypeError:
-        # items are not sortable
-        return XuleFunctions.agg_list(xule_context, object_value.value)
+        # items are not sortable. Try converting to a string for sorting.
+        sorted_list = sorted(object_value.value, key=lambda x: x.format_value(), reverse=reverse)
+        return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
+
+    #return XuleFunctions.agg_list(xule_context, object_value.value)
 
 def property_keys(xule_context, object_value, *args):
     if len(args) == 1:
@@ -2245,6 +2248,7 @@ def property_facts(xule_context, object_value, *args):
         shadow.append(item.value)
     
     return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
+
 
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
