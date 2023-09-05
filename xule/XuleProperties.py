@@ -373,7 +373,10 @@ def property_values(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, tuple(vals), 'list', shadow_collection=tuple(vals_shadow))
 
 def property_has_key(xule_context, object_value, *args):
-    key = args[0].value
+    if args[0].type in ('set', 'list'):
+        key = args[0].shadow_collection
+    else:
+        key = args[0].value
     return xv.XuleValue(xule_context, key in dict(object_value.shadow_collection), 'bool')
 
 def property_networks(xule_context, object_value, *args):
