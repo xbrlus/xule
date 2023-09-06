@@ -155,3 +155,25 @@ output SM029
  {set(lang, 45,436,000,000)}} */
 
   set('lang',  $CONSTANT_ASSETS)
+
+output SM030
+/* True */
+
+  $A = set(a,b,c); 
+$B = set(a,b,c,d,e);
+$A.is-subset($B)
+
+output SM031
+/* True */
+
+  set().is-subset(set('a','b'))
+
+output SM032
+/* True */
+
+  set().is-subset(set())
+
+output SM033
+/* False */
+
+  set('d').is-subset(set('a','b'))
