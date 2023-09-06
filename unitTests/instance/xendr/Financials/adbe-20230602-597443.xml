@@ -1,0 +1,1124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:xusss="https://taxonomies.xbrl.us/standardized-statements" xmlns:dei="http://xbrl.sec.gov/dei/2023">
+  <link:schemaRef xlink:href="https://taxonomies.xbrl.us/standardized-statements/xusss.xsd" xlink:type="simple"/>
+  <link:schemaRef xlink:href="https://xbrl.sec.gov/dei/2023/dei-2023.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-03</xbrli:startDate>
+      <xbrli:endDate>2023-06-02</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-25</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-02</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-02</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c4">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2021-12-04</xbrli:startDate>
+      <xbrli:endDate>2022-06-03</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c5">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-03-02</xbrli:startDate>
+      <xbrli:endDate>2023-06-02</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c6">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-03-03</xbrli:startDate>
+      <xbrli:endDate>2022-06-03</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c7">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-05</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c8">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000796343</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-06-05</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd1">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <dei:DocumentFiscalPeriodFocus id="f" contextRef="c">Q2</dei:DocumentFiscalPeriodFocus>
+  <dei:TradingSymbol id="f1" contextRef="c">ADBE</dei:TradingSymbol>
+  <dei:EntityIncorporationStateCountryCode id="f2" contextRef="c">DE</dei:EntityIncorporationStateCountryCode>
+  <dei:EntityRegistrantName id="f3" contextRef="c">ADOBE INC.</dei:EntityRegistrantName>
+  <dei:EntityCentralIndexKey id="f4" contextRef="c">0000796343</dei:EntityCentralIndexKey>
+  <dei:EntityCommonStockSharesOutstanding id="f5" decimals="-5" contextRef="c1" unitRef="shares">455800000.0</dei:EntityCommonStockSharesOutstanding>
+  <dei:DocumentType id="f6" contextRef="c">10-Q</dei:DocumentType>
+  <dei:DocumentFiscalYearFocus id="f7" contextRef="c">2023</dei:DocumentFiscalYearFocus>
+  <dei:DocumentPeriodEndDate id="f8" contextRef="c">2023-06-02</dei:DocumentPeriodEndDate>
+  <xusss:EntityPrimarySicNumber id="f9" contextRef="c">2834</xusss:EntityPrimarySicNumber>
+  <xusss:FilingAccessionIdentifier id="f10" contextRef="c">0000796343-23-000153</xusss:FilingAccessionIdentifier>
+  <xusss:FilingURL id="f11" contextRef="c">http://www.sec.gov/Archives/edgar/data/796343/000079634323000153/adbe-20230602.htm</xusss:FilingURL>
+  <xusss:FilingDate id="f12" contextRef="c">2022-03-30</xusss:FilingDate>
+  <xusss:AccruedLiabilitiesCurrent id="f13" decimals="-6" contextRef="c2" unitRef="usd">2334000000.0</xusss:AccruedLiabilitiesCurrent>
+  <xusss:AccruedLiabilitiesCurrent id="f14" decimals="-6" contextRef="c3" unitRef="usd">1865000000.0</xusss:AccruedLiabilitiesCurrent>
+  <xusss:AccountsPayableCurrent id="f15" decimals="-6" contextRef="c2" unitRef="usd">346000000.0</xusss:AccountsPayableCurrent>
+  <xusss:AccountsPayableCurrent id="f16" decimals="-6" contextRef="c3" unitRef="usd">379000000.0</xusss:AccountsPayableCurrent>
+  <xusss:PropertyPlantAndEquipmentNetOfAccumulatedDepreciationAndLeases id="f17" decimals="-6" contextRef="c2" unitRef="usd">2032000000.0</xusss:PropertyPlantAndEquipmentNetOfAccumulatedDepreciationAndLeases>
+  <xusss:PropertyPlantAndEquipmentNetOfAccumulatedDepreciationAndLeases id="f18" decimals="-6" contextRef="c3" unitRef="usd">1908000000.0</xusss:PropertyPlantAndEquipmentNetOfAccumulatedDepreciationAndLeases>
+  <xusss:LiabilitiesAndEquity id="f19" decimals="-6" contextRef="c2" unitRef="usd">27838000000.0</xusss:LiabilitiesAndEquity>
+  <xusss:LiabilitiesAndEquity id="f20" decimals="-6" contextRef="c3" unitRef="usd">27165000000.0</xusss:LiabilitiesAndEquity>
+  <xusss:LongTermDebtNoncurrent id="f21" decimals="-6" contextRef="c2" unitRef="usd">3631000000.0</xusss:LongTermDebtNoncurrent>
+  <xusss:LongTermDebtNoncurrent id="f22" decimals="-6" contextRef="c3" unitRef="usd">3629000000.0</xusss:LongTermDebtNoncurrent>
+  <xusss:OtherAssetsNoncurrent id="f23" decimals="-6" contextRef="c2" unitRef="usd">1125000000.0</xusss:OtherAssetsNoncurrent>
+  <xusss:OtherAssetsNoncurrent id="f24" decimals="-6" contextRef="c3" unitRef="usd">841000000.0</xusss:OtherAssetsNoncurrent>
+  <xusss:OtherLiabilitiesNoncurrent id="f25" decimals="-6" contextRef="c2" unitRef="usd">826000000.0</xusss:OtherLiabilitiesNoncurrent>
+  <xusss:OtherLiabilitiesNoncurrent id="f26" decimals="-6" contextRef="c3" unitRef="usd">823000000.0</xusss:OtherLiabilitiesNoncurrent>
+  <xusss:OperatingLeaseRightOfUseAsset id="f27" decimals="-6" contextRef="c2" unitRef="usd">389000000.0</xusss:OperatingLeaseRightOfUseAsset>
+  <xusss:Goodwill id="f28" decimals="-6" contextRef="c2" unitRef="usd">12796000000.0</xusss:Goodwill>
+  <xusss:DeferredIncomeTaxAssetsNet id="f29" decimals="-6" contextRef="c2" unitRef="usd">964000000.0</xusss:DeferredIncomeTaxAssetsNet>
+  <xusss:DerivativeInstrumentsAndHedgesLiabilitiesNoncurrent id="f30" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedgesLiabilitiesNoncurrent>
+  <xusss:LiabilitiesNoncurrent id="f31" decimals="-6" contextRef="c2" unitRef="usd">4981000000.0</xusss:LiabilitiesNoncurrent>
+  <xusss:LongtermLiabilitiesUnclassified id="f32" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:LongtermLiabilitiesUnclassified>
+  <xusss:IntangibleAssetsExcludingGoodwill id="f33" decimals="-6" contextRef="c2" unitRef="usd">1258000000.0</xusss:IntangibleAssetsExcludingGoodwill>
+  <xusss:Liabilities id="f34" decimals="-6" contextRef="c2" unitRef="usd">13000000000.0</xusss:Liabilities>
+  <xusss:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests id="f35" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests>
+  <xusss:AssetsNoncurrent id="f36" decimals="-6" contextRef="c2" unitRef="usd">18564000000.0</xusss:AssetsNoncurrent>
+  <xusss:FinanceLeaseLiabilityCurrent id="f37" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:FinanceLeaseLiabilityCurrent>
+  <xusss:GeneralPartnersCapitalAccount id="f38" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:GeneralPartnersCapitalAccount>
+  <xusss:AccountsReceivableNetCurrent id="f39" decimals="-6" contextRef="c2" unitRef="usd">1685000000.0</xusss:AccountsReceivableNetCurrent>
+  <xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationNoncurrent id="f40" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationNoncurrent>
+  <xusss:DerivativeInstrumentsAndHedgesLiabilitiesCurrent id="f41" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedgesLiabilitiesCurrent>
+  <xusss:NoncontrollingInterest id="f42" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:NoncontrollingInterest>
+  <xusss:CashAndCashEquivalentsAtCarryingValue id="f43" decimals="-6" contextRef="c2" unitRef="usd">5456000000.0</xusss:CashAndCashEquivalentsAtCarryingValue>
+  <xusss:InventoryNet id="f44" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:InventoryNet>
+  <xusss:OtherAssetsCurrent id="f45" decimals="-6" contextRef="c2" unitRef="usd">988000000.0</xusss:OtherAssetsCurrent>
+  <xusss:DerivativeInstrumentsAndHedges id="f46" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedges>
+  <xusss:LiabilitiesBalanceFlag id="f47" contextRef="c2">true</xusss:LiabilitiesBalanceFlag>
+  <xusss:CommonStockValue id="f48" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:CommonStockValue>
+  <xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent id="f49" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent>
+  <xusss:PrepaidExpenseCurrent id="f50" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:PrepaidExpenseCurrent>
+  <xusss:DeferredCompensationEquity id="f51" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:DeferredCompensationEquity>
+  <xusss:InvestmentsInAffiliatesSubsidiariesAssociatesAndJointVentures id="f52" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:InvestmentsInAffiliatesSubsidiariesAssociatesAndJointVentures>
+  <xusss:AssetsOfDisposalGroupIncludingDiscontinuedOperationCurrent id="f53" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:AssetsOfDisposalGroupIncludingDiscontinuedOperationCurrent>
+  <xusss:DerivativeInstrumentsAndHedgesNoncurrent id="f54" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedgesNoncurrent>
+  <xusss:UnclassifiedNoncurrentAssets id="f55" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:UnclassifiedNoncurrentAssets>
+  <xusss:AssetsCurrent id="f56" decimals="-6" contextRef="c2" unitRef="usd">9274000000.0</xusss:AssetsCurrent>
+  <xusss:NotesAndLoansReceivableNetCurrent id="f57" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:NotesAndLoansReceivableNetCurrent>
+  <xusss:RetainedEarningsAccumulatedDeficit id="f58" decimals="-6" contextRef="c2" unitRef="usd">30609000000.0</xusss:RetainedEarningsAccumulatedDeficit>
+  <xusss:DeferredRevenueCurrent id="f59" decimals="-6" contextRef="c2" unitRef="usd">5265000000.0</xusss:DeferredRevenueCurrent>
+  <xusss:LiabilitiesCurrent id="f60" decimals="-6" contextRef="c2" unitRef="usd">8019000000.0</xusss:LiabilitiesCurrent>
+  <xusss:AdditionalPaidInCapital id="f61" decimals="-6" contextRef="c2" unitRef="usd">10717000000.0</xusss:AdditionalPaidInCapital>
+  <xusss:OperatingLeaseLiabilityNoncurrent id="f62" decimals="-6" contextRef="c2" unitRef="usd">408000000.0</xusss:OperatingLeaseLiabilityNoncurrent>
+  <xusss:OperatingLeaseLiabilityCurrent id="f63" decimals="-6" contextRef="c2" unitRef="usd">74000000.0</xusss:OperatingLeaseLiabilityCurrent>
+  <xusss:TreasuryStock id="f64" decimals="-6" contextRef="c2" unitRef="usd">26191000000.0</xusss:TreasuryStock>
+  <xusss:LimitedPartnersCapitalAccount id="f65" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:LimitedPartnersCapitalAccount>
+  <xusss:EquityBalanceFlag id="f66" contextRef="c2">true</xusss:EquityBalanceFlag>
+  <xusss:NotesAndLoansReceivableNetNoncurrent id="f67" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:NotesAndLoansReceivableNetNoncurrent>
+  <xusss:ShortTermInvestments id="f68" decimals="-6" contextRef="c2" unitRef="usd">1145000000.0</xusss:ShortTermInvestments>
+  <xusss:AssetsBalanceFlag id="f69" contextRef="c2">true</xusss:AssetsBalanceFlag>
+  <xusss:LongTermInvestments id="f70" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:LongTermInvestments>
+  <xusss:Equity id="f71" decimals="-6" contextRef="c2" unitRef="usd">14838000000.0</xusss:Equity>
+  <xusss:PensionAndOtherPostretirementAndPostemploymentBenefitPlansLiabilitiesNoncurrent id="f72" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:PensionAndOtherPostretirementAndPostemploymentBenefitPlansLiabilitiesNoncurrent>
+  <xusss:DisposalGroupIncludingDiscontinuedOperationAssetsNoncurrent id="f73" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:DisposalGroupIncludingDiscontinuedOperationAssetsNoncurrent>
+  <xusss:AccumulatedOtherComprehensiveIncomeLoss id="f74" decimals="-6" contextRef="c2" unitRef="usd">-297000000.0</xusss:AccumulatedOtherComprehensiveIncomeLoss>
+  <xusss:FinanceLeaseLiabilityNoncurrent id="f75" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:FinanceLeaseLiabilityNoncurrent>
+  <xusss:DeferredIncomeTaxesAndOtherTaxLiabilitiesNoncurrent id="f76" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:DeferredIncomeTaxesAndOtherTaxLiabilitiesNoncurrent>
+  <xusss:PreferredStockValue id="f77" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:PreferredStockValue>
+  <xusss:DeferredRevenueNoncurrent id="f78" decimals="-6" contextRef="c2" unitRef="usd">116000000.0</xusss:DeferredRevenueNoncurrent>
+  <xusss:FinanceLeaseRightOfUseAsset id="f79" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:FinanceLeaseRightOfUseAsset>
+  <xusss:AssetRetirementObligationsNoncurrent id="f80" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:AssetRetirementObligationsNoncurrent>
+  <xusss:OtherEquity id="f81" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:OtherEquity>
+  <xusss:Assets id="f82" decimals="-6" contextRef="c2" unitRef="usd">27838000000.0</xusss:Assets>
+  <xusss:AssetsHeldForSaleNotPartOfDisposalGroupCurrent id="f83" decimals="-6" contextRef="c2" unitRef="usd">0.0</xusss:AssetsHeldForSaleNotPartOfDisposalGroupCurrent>
+  <xusss:AccountsReceivableNetCurrent id="f84" decimals="-6" contextRef="c3" unitRef="usd">2065000000.0</xusss:AccountsReceivableNetCurrent>
+  <xusss:NotesAndLoansReceivableNetNoncurrent id="f85" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:NotesAndLoansReceivableNetNoncurrent>
+  <xusss:FinanceLeaseLiabilityNoncurrent id="f86" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:FinanceLeaseLiabilityNoncurrent>
+  <xusss:Equity id="f87" decimals="-6" contextRef="c3" unitRef="usd">14051000000.0</xusss:Equity>
+  <xusss:InventoryNet id="f88" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:InventoryNet>
+  <xusss:AssetRetirementObligationsNoncurrent id="f89" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:AssetRetirementObligationsNoncurrent>
+  <xusss:ShortTermInvestments id="f90" decimals="-6" contextRef="c3" unitRef="usd">1860000000.0</xusss:ShortTermInvestments>
+  <xusss:GeneralPartnersCapitalAccount id="f91" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:GeneralPartnersCapitalAccount>
+  <xusss:AdditionalPaidInCapital id="f92" decimals="-6" contextRef="c3" unitRef="usd">9868000000.0</xusss:AdditionalPaidInCapital>
+  <xusss:LiabilitiesBalanceFlag id="f93" contextRef="c3">true</xusss:LiabilitiesBalanceFlag>
+  <xusss:DisposalGroupIncludingDiscontinuedOperationAssetsNoncurrent id="f94" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:DisposalGroupIncludingDiscontinuedOperationAssetsNoncurrent>
+  <xusss:NotesAndLoansReceivableNetCurrent id="f95" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:NotesAndLoansReceivableNetCurrent>
+  <xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationNoncurrent id="f96" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationNoncurrent>
+  <xusss:PensionAndOtherPostretirementAndPostemploymentBenefitPlansLiabilitiesNoncurrent id="f97" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:PensionAndOtherPostretirementAndPostemploymentBenefitPlansLiabilitiesNoncurrent>
+  <xusss:InvestmentsInAffiliatesSubsidiariesAssociatesAndJointVentures id="f98" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:InvestmentsInAffiliatesSubsidiariesAssociatesAndJointVentures>
+  <xusss:DeferredCompensationEquity id="f99" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:DeferredCompensationEquity>
+  <xusss:LongtermLiabilitiesUnclassified id="f100" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:LongtermLiabilitiesUnclassified>
+  <xusss:AssetsCurrent id="f101" decimals="-6" contextRef="c3" unitRef="usd">8996000000.0</xusss:AssetsCurrent>
+  <xusss:UnclassifiedNoncurrentAssets id="f102" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:UnclassifiedNoncurrentAssets>
+  <xusss:LiabilitiesCurrent id="f103" decimals="-6" contextRef="c3" unitRef="usd">8128000000.0</xusss:LiabilitiesCurrent>
+  <xusss:DeferredRevenueCurrent id="f104" decimals="-6" contextRef="c3" unitRef="usd">5297000000.0</xusss:DeferredRevenueCurrent>
+  <xusss:PreferredStockValue id="f105" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:PreferredStockValue>
+  <xusss:OperatingLeaseLiabilityCurrent id="f106" decimals="-6" contextRef="c3" unitRef="usd">87000000.0</xusss:OperatingLeaseLiabilityCurrent>
+  <xusss:AssetsHeldForSaleNotPartOfDisposalGroupCurrent id="f107" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:AssetsHeldForSaleNotPartOfDisposalGroupCurrent>
+  <xusss:DerivativeInstrumentsAndHedgesLiabilitiesNoncurrent id="f108" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedgesLiabilitiesNoncurrent>
+  <xusss:Liabilities id="f109" decimals="-6" contextRef="c3" unitRef="usd">13114000000.0</xusss:Liabilities>
+  <xusss:DerivativeInstrumentsAndHedgesNoncurrent id="f110" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedgesNoncurrent>
+  <xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent id="f111" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent>
+  <xusss:DerivativeInstrumentsAndHedges id="f112" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedges>
+  <xusss:OtherEquity id="f113" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:OtherEquity>
+  <xusss:DeferredIncomeTaxesAndOtherTaxLiabilitiesNoncurrent id="f114" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:DeferredIncomeTaxesAndOtherTaxLiabilitiesNoncurrent>
+  <xusss:PrepaidExpenseCurrent id="f115" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:PrepaidExpenseCurrent>
+  <xusss:NoncontrollingInterest id="f116" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:NoncontrollingInterest>
+  <xusss:TreasuryStock id="f117" decimals="-6" contextRef="c3" unitRef="usd">23843000000.0</xusss:TreasuryStock>
+  <xusss:IntangibleAssetsExcludingGoodwill id="f118" decimals="-6" contextRef="c3" unitRef="usd">1449000000.0</xusss:IntangibleAssetsExcludingGoodwill>
+  <xusss:LimitedPartnersCapitalAccount id="f119" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:LimitedPartnersCapitalAccount>
+  <xusss:AssetsOfDisposalGroupIncludingDiscontinuedOperationCurrent id="f120" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:AssetsOfDisposalGroupIncludingDiscontinuedOperationCurrent>
+  <xusss:CommonStockValue id="f121" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:CommonStockValue>
+  <xusss:FinanceLeaseRightOfUseAsset id="f122" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:FinanceLeaseRightOfUseAsset>
+  <xusss:OtherAssetsCurrent id="f123" decimals="-6" contextRef="c3" unitRef="usd">835000000.0</xusss:OtherAssetsCurrent>
+  <xusss:AccumulatedOtherComprehensiveIncomeLoss id="f124" decimals="-6" contextRef="c3" unitRef="usd">-293000000.0</xusss:AccumulatedOtherComprehensiveIncomeLoss>
+  <xusss:Assets id="f125" decimals="-6" contextRef="c3" unitRef="usd">27165000000.0</xusss:Assets>
+  <xusss:RetainedEarningsAccumulatedDeficit id="f126" decimals="-6" contextRef="c3" unitRef="usd">28319000000.0</xusss:RetainedEarningsAccumulatedDeficit>
+  <xusss:LongTermInvestments id="f127" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:LongTermInvestments>
+  <xusss:OperatingLeaseLiabilityNoncurrent id="f128" decimals="-6" contextRef="c3" unitRef="usd">417000000.0</xusss:OperatingLeaseLiabilityNoncurrent>
+  <xusss:DerivativeInstrumentsAndHedgesLiabilitiesCurrent id="f129" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:DerivativeInstrumentsAndHedgesLiabilitiesCurrent>
+  <xusss:FinanceLeaseLiabilityCurrent id="f130" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:FinanceLeaseLiabilityCurrent>
+  <xusss:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests id="f131" decimals="-6" contextRef="c3" unitRef="usd">0.0</xusss:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests>
+  <xusss:DeferredRevenueNoncurrent id="f132" decimals="-6" contextRef="c3" unitRef="usd">117000000.0</xusss:DeferredRevenueNoncurrent>
+  <xusss:LiabilitiesNoncurrent id="f133" decimals="-6" contextRef="c3" unitRef="usd">4986000000.0</xusss:LiabilitiesNoncurrent>
+  <xusss:AssetsBalanceFlag id="f134" contextRef="c3">true</xusss:AssetsBalanceFlag>
+  <xusss:DeferredIncomeTaxAssetsNet id="f135" decimals="-6" contextRef="c3" unitRef="usd">777000000.0</xusss:DeferredIncomeTaxAssetsNet>
+  <xusss:OperatingLeaseRightOfUseAsset id="f136" decimals="-6" contextRef="c3" unitRef="usd">407000000.0</xusss:OperatingLeaseRightOfUseAsset>
+  <xusss:AssetsNoncurrent id="f137" decimals="-6" contextRef="c3" unitRef="usd">18169000000.0</xusss:AssetsNoncurrent>
+  <xusss:EquityBalanceFlag id="f138" contextRef="c3">true</xusss:EquityBalanceFlag>
+  <xusss:CashAndCashEquivalentsAtCarryingValue id="f139" decimals="-6" contextRef="c3" unitRef="usd">4236000000.0</xusss:CashAndCashEquivalentsAtCarryingValue>
+  <xusss:Goodwill id="f140" decimals="-6" contextRef="c3" unitRef="usd">12787000000.0</xusss:Goodwill>
+  <xusss:ImpairmentCashFlows id="f141" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:ImpairmentCashFlows>
+  <xusss:PaymentsToAcquireInvestments id="f142" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:PaymentsToAcquireInvestments>
+  <xusss:EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsIncludingDisposalGroupAndDiscontinuedOperations id="f143" decimals="-6" contextRef="c" unitRef="usd">4000000.0</xusss:EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsIncludingDisposalGroupAndDiscontinuedOperations>
+  <xusss:InvestingCashFlowsBalanceFlag id="f144" contextRef="c">true</xusss:InvestingCashFlowsBalanceFlag>
+  <xusss:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations id="f145" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations>
+  <xusss:PaymentsOfDividends id="f146" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:PaymentsOfDividends>
+  <xusss:IncreaseDecreaseInAccruedTaxesPayable id="f147" decimals="-6" contextRef="c" unitRef="usd">421000000.0</xusss:IncreaseDecreaseInAccruedTaxesPayable>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect id="f148" decimals="-6" contextRef="c" unitRef="usd">1220000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect>
+  <xusss:IncreaseDecreaseInReceivables id="f149" decimals="-6" contextRef="c" unitRef="usd">385000000.0</xusss:IncreaseDecreaseInReceivables>
+  <xusss:PaymentsForRepurchaseOfConvertiblePreferredStock id="f150" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:PaymentsForRepurchaseOfConvertiblePreferredStock>
+  <xusss:PaymentsForOtherAcquisitions id="f151" decimals="-6" contextRef="c" unitRef="usd">-34000000.0</xusss:PaymentsForOtherAcquisitions>
+  <xusss:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities id="f152" decimals="-6" contextRef="c" unitRef="usd">-65000000.0</xusss:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities>
+  <xusss:DepreciationAndAmortization id="f153" decimals="-6" contextRef="c" unitRef="usd">432000000.0</xusss:DepreciationAndAmortization>
+  <xusss:DirectCashPayments id="f154" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:DirectCashPayments>
+  <xusss:OperatingCashFlowsBalanceFlag id="f155" contextRef="c">true</xusss:OperatingCashFlowsBalanceFlag>
+  <xusss:ProceedsFromIssuanceOrSaleOfEquity id="f156" decimals="-6" contextRef="c" unitRef="usd">70000000.0</xusss:ProceedsFromIssuanceOrSaleOfEquity>
+  <xusss:NetCashProvidedByUsedInFinancingActivities id="f157" decimals="-6" contextRef="c" unitRef="usd">-3094000000.0</xusss:NetCashProvidedByUsedInFinancingActivities>
+  <xusss:ProceedsFromPaymentsForOtherFinancingActivities id="f158" decimals="-6" contextRef="c" unitRef="usd">-264000000.0</xusss:ProceedsFromPaymentsForOtherFinancingActivities>
+  <xusss:ProfitLoss id="f159" decimals="-6" contextRef="c" unitRef="usd">2542000000.0</xusss:ProfitLoss>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f160" decimals="-6" contextRef="c" unitRef="usd">1216000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect>
+  <xusss:ProceedsFromOtherDivestitures id="f161" decimals="-6" contextRef="c" unitRef="usd">734000000.0</xusss:ProceedsFromOtherDivestitures>
+  <xusss:OtherNonCashItemsUsedToReconcileNetIncome id="f162" decimals="-6" contextRef="c" unitRef="usd">676000000.0</xusss:OtherNonCashItemsUsedToReconcileNetIncome>
+  <xusss:PaymentsToAcquireProductiveAssets id="f163" decimals="-6" contextRef="c" unitRef="usd">-222000000.0</xusss:PaymentsToAcquireProductiveAssets>
+  <xusss:ProceedsFromSaleOfProductiveAsset id="f164" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:ProceedsFromSaleOfProductiveAsset>
+  <xusss:OtherOperatingActivitiesCashFlowStatement id="f165" decimals="-6" contextRef="c" unitRef="usd">-559000000.0</xusss:OtherOperatingActivitiesCashFlowStatement>
+  <xusss:RepaymentsOfDebt id="f166" decimals="-6" contextRef="c" unitRef="usd">-500000000.0</xusss:RepaymentsOfDebt>
+  <xusss:NetCashProvidedByUsedInInvestingActivities id="f167" decimals="-6" contextRef="c" unitRef="usd">478000000.0</xusss:NetCashProvidedByUsedInInvestingActivities>
+  <xusss:RepaymentsForPurchaseOfEquity id="f168" decimals="-6" contextRef="c" unitRef="usd">-2400000000.0</xusss:RepaymentsForPurchaseOfEquity>
+  <xusss:PaymentsToAcquireBusinessesAndInterestInAffiliates id="f169" decimals="-6" contextRef="c" unitRef="usd">-0.0</xusss:PaymentsToAcquireBusinessesAndInterestInAffiliates>
+  <xusss:NetCashProvidedByUsedInOperatingActivities id="f170" decimals="-6" contextRef="c" unitRef="usd">3832000000.0</xusss:NetCashProvidedByUsedInOperatingActivities>
+  <xusss:ProceedsFromIssuanceOfDebt id="f171" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:ProceedsFromIssuanceOfDebt>
+  <xusss:FinancingCashFlowsBalanceFlag id="f172" contextRef="c">true</xusss:FinancingCashFlowsBalanceFlag>
+  <xusss:RepaymentsForPurchaseOfEquity id="f173" decimals="-6" contextRef="c4" unitRef="usd">-3600000000.0</xusss:RepaymentsForPurchaseOfEquity>
+  <xusss:FinancingCashFlowsBalanceFlag id="f174" contextRef="c4">true</xusss:FinancingCashFlowsBalanceFlag>
+  <xusss:RepaymentsOfDebt id="f175" decimals="-6" contextRef="c4" unitRef="usd">-0.0</xusss:RepaymentsOfDebt>
+  <xusss:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities id="f176" decimals="-6" contextRef="c4" unitRef="usd">-127000000.0</xusss:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities>
+  <xusss:PaymentsForOtherAcquisitions id="f177" decimals="-6" contextRef="c4" unitRef="usd">-554000000.0</xusss:PaymentsForOtherAcquisitions>
+  <xusss:NetCashProvidedByUsedInFinancingActivities id="f178" decimals="-6" contextRef="c4" unitRef="usd">-3854000000.0</xusss:NetCashProvidedByUsedInFinancingActivities>
+  <xusss:NetCashProvidedByUsedInInvestingActivities id="f179" decimals="-6" contextRef="c4" unitRef="usd">-398000000.0</xusss:NetCashProvidedByUsedInInvestingActivities>
+  <xusss:ProceedsFromOtherDivestitures id="f180" decimals="-6" contextRef="c4" unitRef="usd">508000000.0</xusss:ProceedsFromOtherDivestitures>
+  <xusss:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations id="f181" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations>
+  <xusss:IncreaseDecreaseInAccruedTaxesPayable id="f182" decimals="-6" contextRef="c4" unitRef="usd">-20000000.0</xusss:IncreaseDecreaseInAccruedTaxesPayable>
+  <xusss:OperatingCashFlowsBalanceFlag id="f183" contextRef="c4">true</xusss:OperatingCashFlowsBalanceFlag>
+  <xusss:ProceedsFromIssuanceOfDebt id="f184" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:ProceedsFromIssuanceOfDebt>
+  <xusss:PaymentsOfDividends id="f185" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:PaymentsOfDividends>
+  <xusss:OtherOperatingActivitiesCashFlowStatement id="f186" decimals="-6" contextRef="c4" unitRef="usd">-100000000.0</xusss:OtherOperatingActivitiesCashFlowStatement>
+  <xusss:InvestingCashFlowsBalanceFlag id="f187" contextRef="c4">true</xusss:InvestingCashFlowsBalanceFlag>
+  <xusss:ProceedsFromPaymentsForOtherFinancingActivities id="f188" decimals="-6" contextRef="c4" unitRef="usd">-345000000.0</xusss:ProceedsFromPaymentsForOtherFinancingActivities>
+  <xusss:ProfitLoss id="f189" decimals="-6" contextRef="c4" unitRef="usd">2444000000.0</xusss:ProfitLoss>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect id="f190" decimals="-6" contextRef="c4" unitRef="usd">-479000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect>
+  <xusss:ImpairmentCashFlows id="f191" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:ImpairmentCashFlows>
+  <xusss:OtherNonCashItemsUsedToReconcileNetIncome id="f192" decimals="-6" contextRef="c4" unitRef="usd">900000000.0</xusss:OtherNonCashItemsUsedToReconcileNetIncome>
+  <xusss:PaymentsToAcquireBusinessesAndInterestInAffiliates id="f193" decimals="-6" contextRef="c4" unitRef="usd">-126000000.0</xusss:PaymentsToAcquireBusinessesAndInterestInAffiliates>
+  <xusss:PaymentsForRepurchaseOfConvertiblePreferredStock id="f194" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:PaymentsForRepurchaseOfConvertiblePreferredStock>
+  <xusss:ProceedsFromIssuanceOrSaleOfEquity id="f195" decimals="-6" contextRef="c4" unitRef="usd">91000000.0</xusss:ProceedsFromIssuanceOrSaleOfEquity>
+  <xusss:PaymentsToAcquireInvestments id="f196" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:PaymentsToAcquireInvestments>
+  <xusss:ProceedsFromSaleOfProductiveAsset id="f197" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:ProceedsFromSaleOfProductiveAsset>
+  <xusss:IncreaseDecreaseInReceivables id="f198" decimals="-6" contextRef="c4" unitRef="usd">287000000.0</xusss:IncreaseDecreaseInReceivables>
+  <xusss:PaymentsToAcquireProductiveAssets id="f199" decimals="-6" contextRef="c4" unitRef="usd">-226000000.0</xusss:PaymentsToAcquireProductiveAssets>
+  <xusss:EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsIncludingDisposalGroupAndDiscontinuedOperations id="f200" decimals="-6" contextRef="c4" unitRef="usd">-36000000.0</xusss:EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsIncludingDisposalGroupAndDiscontinuedOperations>
+  <xusss:DirectCashPayments id="f201" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:DirectCashPayments>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f202" decimals="-6" contextRef="c4" unitRef="usd">-443000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect>
+  <xusss:DepreciationAndAmortization id="f203" decimals="-6" contextRef="c4" unitRef="usd">425000000.0</xusss:DepreciationAndAmortization>
+  <xusss:NetCashProvidedByUsedInOperatingActivities id="f204" decimals="-6" contextRef="c4" unitRef="usd">3809000000.0</xusss:NetCashProvidedByUsedInOperatingActivities>
+  <xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments id="f205" decimals="-6" contextRef="c5" unitRef="usd">1650000000.0</xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments>
+  <xusss:NonoperatingIncome id="f206" decimals="-6" contextRef="c5" unitRef="usd">52000000.0</xusss:NonoperatingIncome>
+  <xusss:NetIncomeLoss id="f207" decimals="-6" contextRef="c5" unitRef="usd">1295000000.0</xusss:NetIncomeLoss>
+  <xusss:IncomeLossFromEquityMethodInvestments id="f208" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:IncomeLossFromEquityMethodInvestments>
+  <xusss:Revenues id="f209" decimals="-6" contextRef="c5" unitRef="usd">4816000000.0</xusss:Revenues>
+  <xusss:ResearchAndDevelopmentExpense id="f210" decimals="-6" contextRef="c5" unitRef="usd">876000000.0</xusss:ResearchAndDevelopmentExpense>
+  <xusss:GainLossOnDispositionOfAssets id="f211" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:GainLossOnDispositionOfAssets>
+  <xusss:OperatingExpenses id="f212" decimals="-6" contextRef="c5" unitRef="usd">2620000000.0</xusss:OperatingExpenses>
+  <xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent id="f213" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent>
+  <xusss:OtherOperatingExpenses id="f214" decimals="-6" contextRef="c5" unitRef="usd">42000000.0</xusss:OtherOperatingExpenses>
+  <xusss:OtherNonoperatingExpense id="f215" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:OtherNonoperatingExpense>
+  <xusss:Amortization id="f216" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:Amortization>
+  <xusss:IncomeTaxExpenseBenefit id="f217" decimals="-6" contextRef="c5" unitRef="usd">355000000.0</xusss:IncomeTaxExpenseBenefit>
+  <xusss:Impairment id="f218" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:Impairment>
+  <xusss:NetIncomeLossAttributableToNoncontrollingInterest id="f219" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:NetIncomeLossAttributableToNoncontrollingInterest>
+  <xusss:NonoperatingExpense id="f220" decimals="-6" contextRef="c5" unitRef="usd">26000000.0</xusss:NonoperatingExpense>
+  <xusss:InterestAndDebtExpense id="f221" decimals="-6" contextRef="c5" unitRef="usd">26000000.0</xusss:InterestAndDebtExpense>
+  <xusss:IncomeStatementBalanceFlag id="f222" contextRef="c5">true</xusss:IncomeStatementBalanceFlag>
+  <xusss:CostOfRevenues id="f223" decimals="-6" contextRef="c5" unitRef="usd">572000000.0</xusss:CostOfRevenues>
+  <xusss:Depreciation id="f224" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:Depreciation>
+  <xusss:PreferredStockDividendsAndOtherAdjustments id="f225" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:PreferredStockDividendsAndOtherAdjustments>
+  <xusss:SellingGeneralAndAdministrativeExpense id="f226" decimals="-6" contextRef="c5" unitRef="usd">1702000000.0</xusss:SellingGeneralAndAdministrativeExpense>
+  <xusss:RestructuringExpenses id="f227" decimals="-6" contextRef="c5" unitRef="usd">0.0</xusss:RestructuringExpenses>
+  <xusss:OtherNonoperatingExpense id="f228" decimals="-6" contextRef="c6" unitRef="usd">9000000.0</xusss:OtherNonoperatingExpense>
+  <xusss:NetIncomeLoss id="f229" decimals="-6" contextRef="c6" unitRef="usd">1178000000.0</xusss:NetIncomeLoss>
+  <xusss:CostOfRevenues id="f230" decimals="-6" contextRef="c6" unitRef="usd">539000000.0</xusss:CostOfRevenues>
+  <xusss:OperatingExpenses id="f231" decimals="-6" contextRef="c6" unitRef="usd">2318000000.0</xusss:OperatingExpenses>
+  <xusss:SellingGeneralAndAdministrativeExpense id="f232" decimals="-6" contextRef="c6" unitRef="usd">1538000000.0</xusss:SellingGeneralAndAdministrativeExpense>
+  <xusss:Depreciation id="f233" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:Depreciation>
+  <xusss:InterestAndDebtExpense id="f234" decimals="-6" contextRef="c6" unitRef="usd">28000000.0</xusss:InterestAndDebtExpense>
+  <xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments id="f235" decimals="-6" contextRef="c6" unitRef="usd">1492000000.0</xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments>
+  <xusss:NetIncomeLossAttributableToNoncontrollingInterest id="f236" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:NetIncomeLossAttributableToNoncontrollingInterest>
+  <xusss:RestructuringExpenses id="f237" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:RestructuringExpenses>
+  <xusss:PreferredStockDividendsAndOtherAdjustments id="f238" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:PreferredStockDividendsAndOtherAdjustments>
+  <xusss:IncomeTaxExpenseBenefit id="f239" decimals="-6" contextRef="c6" unitRef="usd">314000000.0</xusss:IncomeTaxExpenseBenefit>
+  <xusss:NonoperatingExpense id="f240" decimals="-6" contextRef="c6" unitRef="usd">37000000.0</xusss:NonoperatingExpense>
+  <xusss:ResearchAndDevelopmentExpense id="f241" decimals="-6" contextRef="c6" unitRef="usd">738000000.0</xusss:ResearchAndDevelopmentExpense>
+  <xusss:Impairment id="f242" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:Impairment>
+  <xusss:Revenues id="f243" decimals="-6" contextRef="c6" unitRef="usd">4386000000.0</xusss:Revenues>
+  <xusss:IncomeStatementBalanceFlag id="f244" contextRef="c6">true</xusss:IncomeStatementBalanceFlag>
+  <xusss:NonoperatingIncome id="f245" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:NonoperatingIncome>
+  <xusss:OtherOperatingExpenses id="f246" decimals="-6" contextRef="c6" unitRef="usd">42000000.0</xusss:OtherOperatingExpenses>
+  <xusss:GainLossOnDispositionOfAssets id="f247" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:GainLossOnDispositionOfAssets>
+  <xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent id="f248" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent>
+  <xusss:IncomeLossFromEquityMethodInvestments id="f249" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:IncomeLossFromEquityMethodInvestments>
+  <xusss:Amortization id="f250" decimals="-6" contextRef="c6" unitRef="usd">0.0</xusss:Amortization>
+  <xusss:Impairment id="f251" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:Impairment>
+  <xusss:Amortization id="f252" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:Amortization>
+  <xusss:GainLossOnDispositionOfAssets id="f253" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:GainLossOnDispositionOfAssets>
+  <xusss:IncomeStatementBalanceFlag id="f254" contextRef="c4">true</xusss:IncomeStatementBalanceFlag>
+  <xusss:PreferredStockDividendsAndOtherAdjustments id="f255" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:PreferredStockDividendsAndOtherAdjustments>
+  <xusss:OtherNonoperatingExpense id="f256" decimals="-6" contextRef="c4" unitRef="usd">18000000.0</xusss:OtherNonoperatingExpense>
+  <xusss:NonoperatingIncome id="f257" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:NonoperatingIncome>
+  <xusss:NetIncomeLoss id="f258" decimals="-6" contextRef="c4" unitRef="usd">2444000000.0</xusss:NetIncomeLoss>
+  <xusss:CostOfRevenues id="f259" decimals="-6" contextRef="c4" unitRef="usd">1051000000.0</xusss:CostOfRevenues>
+  <xusss:OtherOperatingExpenses id="f260" decimals="-6" contextRef="c4" unitRef="usd">84000000.0</xusss:OtherOperatingExpenses>
+  <xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent id="f261" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent>
+  <xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments id="f262" decimals="-6" contextRef="c4" unitRef="usd">3035000000.0</xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments>
+  <xusss:OperatingExpenses id="f263" decimals="-6" contextRef="c4" unitRef="usd">4488000000.0</xusss:OperatingExpenses>
+  <xusss:InterestAndDebtExpense id="f264" decimals="-6" contextRef="c4" unitRef="usd">56000000.0</xusss:InterestAndDebtExpense>
+  <xusss:Depreciation id="f265" decimals="-6" contextRef="c4" unitRef="usd">425000000.0</xusss:Depreciation>
+  <xusss:NetIncomeLossAttributableToNoncontrollingInterest id="f266" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:NetIncomeLossAttributableToNoncontrollingInterest>
+  <xusss:SellingGeneralAndAdministrativeExpense id="f267" decimals="-6" contextRef="c4" unitRef="usd">2540000000.0</xusss:SellingGeneralAndAdministrativeExpense>
+  <xusss:IncomeLossFromEquityMethodInvestments id="f268" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:IncomeLossFromEquityMethodInvestments>
+  <xusss:Revenues id="f269" decimals="-6" contextRef="c4" unitRef="usd">8648000000.0</xusss:Revenues>
+  <xusss:RestructuringExpenses id="f270" decimals="-6" contextRef="c4" unitRef="usd">0.0</xusss:RestructuringExpenses>
+  <xusss:IncomeTaxExpenseBenefit id="f271" decimals="-6" contextRef="c4" unitRef="usd">591000000.0</xusss:IncomeTaxExpenseBenefit>
+  <xusss:ResearchAndDevelopmentExpense id="f272" decimals="-6" contextRef="c4" unitRef="usd">1439000000.0</xusss:ResearchAndDevelopmentExpense>
+  <xusss:NonoperatingExpense id="f273" decimals="-6" contextRef="c4" unitRef="usd">74000000.0</xusss:NonoperatingExpense>
+  <xusss:GainLossOnDispositionOfAssets id="f274" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:GainLossOnDispositionOfAssets>
+  <xusss:NonoperatingIncome id="f275" decimals="-6" contextRef="c" unitRef="usd">96000000.0</xusss:NonoperatingIncome>
+  <xusss:ResearchAndDevelopmentExpense id="f276" decimals="-6" contextRef="c" unitRef="usd">1703000000.0</xusss:ResearchAndDevelopmentExpense>
+  <xusss:IncomeLossFromEquityMethodInvestments id="f277" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:IncomeLossFromEquityMethodInvestments>
+  <xusss:NetIncomeLossAttributableToNoncontrollingInterest id="f278" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:NetIncomeLossAttributableToNoncontrollingInterest>
+  <xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments id="f279" decimals="-6" contextRef="c" unitRef="usd">3248000000.0</xusss:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments>
+  <xusss:OperatingExpenses id="f280" decimals="-6" contextRef="c" unitRef="usd">5121000000.0</xusss:OperatingExpenses>
+  <xusss:PreferredStockDividendsAndOtherAdjustments id="f281" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:PreferredStockDividendsAndOtherAdjustments>
+  <xusss:IncomeTaxExpenseBenefit id="f282" decimals="-6" contextRef="c" unitRef="usd">706000000.0</xusss:IncomeTaxExpenseBenefit>
+  <xusss:SellingGeneralAndAdministrativeExpense id="f283" decimals="-6" contextRef="c" unitRef="usd">2902000000.0</xusss:SellingGeneralAndAdministrativeExpense>
+  <xusss:Revenues id="f284" decimals="-6" contextRef="c" unitRef="usd">9471000000.0</xusss:Revenues>
+  <xusss:RestructuringExpenses id="f285" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:RestructuringExpenses>
+  <xusss:OtherOperatingExpenses id="f286" decimals="-6" contextRef="c" unitRef="usd">84000000.0</xusss:OtherOperatingExpenses>
+  <xusss:Impairment id="f287" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:Impairment>
+  <xusss:OtherNonoperatingExpense id="f288" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:OtherNonoperatingExpense>
+  <xusss:NetIncomeLoss id="f289" decimals="-6" contextRef="c" unitRef="usd">2542000000.0</xusss:NetIncomeLoss>
+  <xusss:Amortization id="f290" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:Amortization>
+  <xusss:IncomeStatementBalanceFlag id="f291" contextRef="c">true</xusss:IncomeStatementBalanceFlag>
+  <xusss:CostOfRevenues id="f292" decimals="-6" contextRef="c" unitRef="usd">1140000000.0</xusss:CostOfRevenues>
+  <xusss:NonoperatingExpense id="f293" decimals="-6" contextRef="c" unitRef="usd">58000000.0</xusss:NonoperatingExpense>
+  <xusss:Depreciation id="f294" decimals="-6" contextRef="c" unitRef="usd">432000000.0</xusss:Depreciation>
+  <xusss:InterestAndDebtExpense id="f295" decimals="-6" contextRef="c" unitRef="usd">58000000.0</xusss:InterestAndDebtExpense>
+  <xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent id="f296" decimals="-6" contextRef="c" unitRef="usd">0.0</xusss:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToParent>
+  <xusss:WeightedAverageNumberOfDilutedSharesOutstanding id="f297" decimals="-5" contextRef="c" unitRef="shares">459100000.0</xusss:WeightedAverageNumberOfDilutedSharesOutstanding>
+  <xusss:WeightedAverageNumberOfSharesOutstandingBasic id="f298" decimals="-5" contextRef="c" unitRef="shares">458400000.0</xusss:WeightedAverageNumberOfSharesOutstandingBasic>
+  <xusss:EarningsPerShareDiluted id="f299" decimals="2" contextRef="c6" unitRef="usd1">2.49</xusss:EarningsPerShareDiluted>
+  <xusss:EarningsPerShareBasic id="f300" decimals="2" contextRef="c5" unitRef="usd1">2.83</xusss:EarningsPerShareBasic>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f301" decimals="-6" contextRef="c7" unitRef="usd">3844000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <xusss:WeightedAverageNumberOfSharesOutstandingBasic id="f302" decimals="-5" contextRef="c6" unitRef="shares">472100000.0</xusss:WeightedAverageNumberOfSharesOutstandingBasic>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f303" decimals="-6" contextRef="c8" unitRef="usd">3365000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <xusss:EarningsPerShareDiluted id="f304" decimals="2" contextRef="c4" unitRef="usd1">5.15</xusss:EarningsPerShareDiluted>
+  <xusss:EarningsPerShareDiluted id="f305" decimals="2" contextRef="c5" unitRef="usd1">2.82</xusss:EarningsPerShareDiluted>
+  <xusss:EarningsPerShareBasic id="f306" decimals="2" contextRef="c6" unitRef="usd1">2.5</xusss:EarningsPerShareBasic>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f307" decimals="-6" contextRef="c2" unitRef="usd">5456000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <xusss:EarningsPerShareDiluted id="f308" decimals="2" contextRef="c" unitRef="usd1">5.54</xusss:EarningsPerShareDiluted>
+  <xusss:WeightedAverageNumberOfDilutedSharesOutstanding id="f309" decimals="-5" contextRef="c5" unitRef="shares">458700000.0</xusss:WeightedAverageNumberOfDilutedSharesOutstanding>
+  <xusss:EarningsPerShareBasic id="f310" decimals="2" contextRef="c4" unitRef="usd1">5.17</xusss:EarningsPerShareBasic>
+  <xusss:EarningsPerShareBasic id="f311" decimals="2" contextRef="c" unitRef="usd1">5.55</xusss:EarningsPerShareBasic>
+  <xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f312" decimals="-6" contextRef="c3" unitRef="usd">4236000000.0</xusss:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <xusss:WeightedAverageNumberOfDilutedSharesOutstanding id="f313" decimals="-5" contextRef="c6" unitRef="shares">473300000.0</xusss:WeightedAverageNumberOfDilutedSharesOutstanding>
+  <xusss:WeightedAverageNumberOfSharesOutstandingBasic id="f314" decimals="-5" contextRef="c5" unitRef="shares">457800000.0</xusss:WeightedAverageNumberOfSharesOutstandingBasic>
+  <xusss:WeightedAverageNumberOfDilutedSharesOutstanding id="f315" decimals="-5" contextRef="c4" unitRef="shares">474300000.0</xusss:WeightedAverageNumberOfDilutedSharesOutstanding>
+  <xusss:WeightedAverageNumberOfSharesOutstandingBasic id="f316" decimals="-5" contextRef="c4" unitRef="shares">472300000.0</xusss:WeightedAverageNumberOfSharesOutstandingBasic>
+  <link:footnoteLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
+    <link:loc xlink:type="locator" xlink:label="f13_lab" xlink:href="#f13"/>
+    <link:footnote xlink:type="resource" xlink:label="fn_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-64":{"value" : "548000000", "dimensions": {"concept": "AccruedIncomeTaxesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-58":{"value" : "1786000000", "dimensions": {"concept": "AccruedLiabilitiesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f13_lab" xlink:to="fn_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f14_lab" xlink:href="#f14"/>
+    <link:footnote xlink:type="resource" xlink:label="fn1_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-65":{"value" : "75000000", "dimensions": {"concept": "AccruedIncomeTaxesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-59":{"value" : "1790000000", "dimensions": {"concept": "AccruedLiabilitiesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f14_lab" xlink:to="fn1_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f15_lab" xlink:href="#f15"/>
+    <link:footnote xlink:type="resource" xlink:label="fn2_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-56":{"value" : "346000000", "dimensions": {"concept": "AccountsPayableCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f15_lab" xlink:to="fn2_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f16_lab" xlink:href="#f16"/>
+    <link:footnote xlink:type="resource" xlink:label="fn3_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-57":{"value" : "379000000", "dimensions": {"concept": "AccountsPayableCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f16_lab" xlink:to="fn3_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f17_lab" xlink:href="#f17"/>
+    <link:footnote xlink:type="resource" xlink:label="fn4_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-42":{"value" : "2032000000", "dimensions": {"concept": "PropertyPlantAndEquipmentNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f17_lab" xlink:to="fn4_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f18_lab" xlink:href="#f18"/>
+    <link:footnote xlink:type="resource" xlink:label="fn5_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-43":{"value" : "1908000000", "dimensions": {"concept": "PropertyPlantAndEquipmentNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f18_lab" xlink:to="fn5_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f21_lab" xlink:href="#f21"/>
+    <link:footnote xlink:type="resource" xlink:label="fn6_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-70":{"value" : "3631000000", "dimensions": {"concept": "LongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}; concept : LeasesInLongTermDebtAdjustments, value : 0</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f21_lab" xlink:to="fn6_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f22_lab" xlink:href="#f22"/>
+    <link:footnote xlink:type="resource" xlink:label="fn7_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-1061":{"value" : "3629000000", "dimensions": {"concept": "LongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}; concept : LeasesInLongTermDebtAdjustments, value : 0</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f22_lab" xlink:to="fn7_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f23_lab" xlink:href="#f23"/>
+    <link:footnote xlink:type="resource" xlink:label="fn8_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-52":{"value" : "1125000000", "dimensions": {"concept": "OtherAssetsNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, concept : LeaseAdjustments, value : 0</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f23_lab" xlink:to="fn8_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f24_lab" xlink:href="#f24"/>
+    <link:footnote xlink:type="resource" xlink:label="fn9_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-53":{"value" : "841000000", "dimensions": {"concept": "OtherAssetsNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, concept : LeaseAdjustments, value : 0</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f24_lab" xlink:to="fn9_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f25_lab" xlink:href="#f25"/>
+    <link:footnote xlink:type="resource" xlink:label="fn10_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-78":{"value" : "347000000", "dimensions": {"concept": "OtherLiabilitiesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-74":{"value" : "479000000", "dimensions": {"concept": "AccruedIncomeTaxesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}; concept : LeasesInOtherLiabilitiesNoncurrentAdjustment, value : 0</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f25_lab" xlink:to="fn10_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f26_lab" xlink:href="#f26"/>
+    <link:footnote xlink:type="resource" xlink:label="fn11_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-79":{"value" : "293000000", "dimensions": {"concept": "OtherLiabilitiesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-75":{"value" : "530000000", "dimensions": {"concept": "AccruedIncomeTaxesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}; concept : LeasesInOtherLiabilitiesNoncurrentAdjustment, value : 0</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f26_lab" xlink:to="fn11_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f27_lab" xlink:href="#f27"/>
+    <link:footnote xlink:type="resource" xlink:label="fn12_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-44":{"value" : "389000000", "dimensions": {"concept": "OperatingLeaseRightOfUseAsset","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f27_lab" xlink:to="fn12_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f28_lab" xlink:href="#f28"/>
+    <link:footnote xlink:type="resource" xlink:label="fn13_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-46":{"value" : "12796000000", "dimensions": {"concept": "Goodwill","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f28_lab" xlink:to="fn13_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f29_lab" xlink:href="#f29"/>
+    <link:footnote xlink:type="resource" xlink:label="fn14_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-50":{"value" : "964000000", "dimensions": {"concept": "DeferredIncomeTaxAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f29_lab" xlink:to="fn14_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f30_lab" xlink:href="#f30"/>
+    <link:footnote xlink:type="resource" xlink:label="fn15_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US"></link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f30_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f31_lab" xlink:href="#f31"/>
+    <link:footnote xlink:type="resource" xlink:label="fn16_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-74":{"value" : "479000000", "dimensions": {"concept": "AccruedIncomeTaxesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-76":{"value" : "408000000", "dimensions": {"concept": "OperatingLeaseLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-70":{"value" : "3631000000", "dimensions": {"concept": "LongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-78":{"value" : "347000000", "dimensions": {"concept": "OtherLiabilitiesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-72":{"value" : "116000000", "dimensions": {"concept": "ContractWithCustomerLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f31_lab" xlink:to="fn16_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f32_lab" xlink:href="#f32"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f32_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f33_lab" xlink:href="#f33"/>
+    <link:footnote xlink:type="resource" xlink:label="fn17_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-48":{"value" : "1258000000", "dimensions": {"concept": "OtherIntangibleAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f33_lab" xlink:to="fn17_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f34_lab" xlink:href="#f34"/>
+    <link:footnote xlink:type="resource" xlink:label="fn18_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-74":{"value" : "479000000", "dimensions": {"concept": "AccruedIncomeTaxesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-76":{"value" : "408000000", "dimensions": {"concept": "OperatingLeaseLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-70":{"value" : "3631000000", "dimensions": {"concept": "LongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-78":{"value" : "347000000", "dimensions": {"concept": "OtherLiabilitiesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-72":{"value" : "116000000", "dimensions": {"concept": "ContractWithCustomerLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-60":{"value" : "0", "dimensions": {"concept": "DebtCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-62":{"value" : "5265000000", "dimensions": {"concept": "ContractWithCustomerLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-56":{"value" : "346000000", "dimensions": {"concept": "AccountsPayableCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-66":{"value" : "74000000", "dimensions": {"concept": "OperatingLeaseLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-64":{"value" : "548000000", "dimensions": {"concept": "AccruedIncomeTaxesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-58":{"value" : "1786000000", "dimensions": {"concept": "AccruedLiabilitiesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f34_lab" xlink:to="fn18_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f35_lab" xlink:href="#f35"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f35_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f36_lab" xlink:href="#f36"/>
+    <link:footnote xlink:type="resource" xlink:label="fn19_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-44":{"value" : "389000000", "dimensions": {"concept": "OperatingLeaseRightOfUseAsset","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-52":{"value" : "1125000000", "dimensions": {"concept": "OtherAssetsNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-42":{"value" : "2032000000", "dimensions": {"concept": "PropertyPlantAndEquipmentNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-50":{"value" : "964000000", "dimensions": {"concept": "DeferredIncomeTaxAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-48":{"value" : "1258000000", "dimensions": {"concept": "OtherIntangibleAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-46":{"value" : "12796000000", "dimensions": {"concept": "Goodwill","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f36_lab" xlink:to="fn19_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f37_lab" xlink:href="#f37"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f37_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f38_lab" xlink:href="#f38"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f38_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f39_lab" xlink:href="#f39"/>
+    <link:footnote xlink:type="resource" xlink:label="fn20_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-36":{"value" : "1685000000", "dimensions": {"concept": "AccountsReceivableNetCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f39_lab" xlink:to="fn20_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f40_lab" xlink:href="#f40"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f40_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f41_lab" xlink:href="#f41"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f41_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f42_lab" xlink:href="#f42"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f42_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f43_lab" xlink:href="#f43"/>
+    <link:footnote xlink:type="resource" xlink:label="fn21_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-30":{"value" : "5456000000", "dimensions": {"concept": "CashAndCashEquivalentsAtCarryingValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f43_lab" xlink:to="fn21_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f44_lab" xlink:href="#f44"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f44_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f45_lab" xlink:href="#f45"/>
+    <link:footnote xlink:type="resource" xlink:label="fn22_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-38":{"value" : "988000000", "dimensions": {"concept": "PrepaidExpenseAndOtherAssetsCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f45_lab" xlink:to="fn22_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f46_lab" xlink:href="#f46"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f46_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f47_lab" xlink:href="#f47"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f47_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f48_lab" xlink:href="#f48"/>
+    <link:footnote xlink:type="resource" xlink:label="fn23_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-98":{"value" : "0", "dimensions": {"concept": "CommonStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f48_lab" xlink:to="fn23_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f49_lab" xlink:href="#f49"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f49_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f50_lab" xlink:href="#f50"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f50_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f51_lab" xlink:href="#f51"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f51_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f52_lab" xlink:href="#f52"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f52_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f53_lab" xlink:href="#f53"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f53_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f54_lab" xlink:href="#f54"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f54_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f55_lab" xlink:href="#f55"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f55_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f56_lab" xlink:href="#f56"/>
+    <link:footnote xlink:type="resource" xlink:label="fn24_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-32":{"value" : "1145000000", "dimensions": {"concept": "ShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-30":{"value" : "5456000000", "dimensions": {"concept": "CashAndCashEquivalentsAtCarryingValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-36":{"value" : "1685000000", "dimensions": {"concept": "AccountsReceivableNetCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-38":{"value" : "988000000", "dimensions": {"concept": "PrepaidExpenseAndOtherAssetsCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f56_lab" xlink:to="fn24_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f57_lab" xlink:href="#f57"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f57_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f58_lab" xlink:href="#f58"/>
+    <link:footnote xlink:type="resource" xlink:label="fn25_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-102":{"value" : "30609000000", "dimensions": {"concept": "RetainedEarningsAccumulatedDeficit","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f58_lab" xlink:to="fn25_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f59_lab" xlink:href="#f59"/>
+    <link:footnote xlink:type="resource" xlink:label="fn26_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-62":{"value" : "5265000000", "dimensions": {"concept": "ContractWithCustomerLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f59_lab" xlink:to="fn26_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f60_lab" xlink:href="#f60"/>
+    <link:footnote xlink:type="resource" xlink:label="fn27_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-60":{"value" : "0", "dimensions": {"concept": "DebtCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-62":{"value" : "5265000000", "dimensions": {"concept": "ContractWithCustomerLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-56":{"value" : "346000000", "dimensions": {"concept": "AccountsPayableCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-66":{"value" : "74000000", "dimensions": {"concept": "OperatingLeaseLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-64":{"value" : "548000000", "dimensions": {"concept": "AccruedIncomeTaxesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-58":{"value" : "1786000000", "dimensions": {"concept": "AccruedLiabilitiesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f60_lab" xlink:to="fn27_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f61_lab" xlink:href="#f61"/>
+    <link:footnote xlink:type="resource" xlink:label="fn28_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-100":{"value" : "10717000000", "dimensions": {"concept": "AdditionalPaidInCapital","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f61_lab" xlink:to="fn28_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f62_lab" xlink:href="#f62"/>
+    <link:footnote xlink:type="resource" xlink:label="fn29_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-76":{"value" : "408000000", "dimensions": {"concept": "OperatingLeaseLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f62_lab" xlink:to="fn29_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f63_lab" xlink:href="#f63"/>
+    <link:footnote xlink:type="resource" xlink:label="fn30_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-66":{"value" : "74000000", "dimensions": {"concept": "OperatingLeaseLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f63_lab" xlink:to="fn30_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f64_lab" xlink:href="#f64"/>
+    <link:footnote xlink:type="resource" xlink:label="fn31_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-108":{"value" : "26191000000", "dimensions": {"concept": "TreasuryStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f64_lab" xlink:to="fn31_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f65_lab" xlink:href="#f65"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f65_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f66_lab" xlink:href="#f66"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f66_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f67_lab" xlink:href="#f67"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f67_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f68_lab" xlink:href="#f68"/>
+    <link:footnote xlink:type="resource" xlink:label="fn32_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-32":{"value" : "1145000000", "dimensions": {"concept": "ShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f68_lab" xlink:to="fn32_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f69_lab" xlink:href="#f69"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f69_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f70_lab" xlink:href="#f70"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f70_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f71_lab" xlink:href="#f71"/>
+    <link:footnote xlink:type="resource" xlink:label="fn33_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-108":{"value" : "26191000000", "dimensions": {"concept": "TreasuryStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-102":{"value" : "30609000000", "dimensions": {"concept": "RetainedEarningsAccumulatedDeficit","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-98":{"value" : "0", "dimensions": {"concept": "CommonStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-981":{"value" : "-297000000", "dimensions": {"concept": "AccumulatedOtherComprehensiveIncomeLossNetOfTax","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-88":{"value" : "0", "dimensions": {"concept": "PreferredStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-100":{"value" : "10717000000", "dimensions": {"concept": "AdditionalPaidInCapital","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f71_lab" xlink:to="fn33_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f72_lab" xlink:href="#f72"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f72_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f73_lab" xlink:href="#f73"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f73_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f74_lab" xlink:href="#f74"/>
+    <link:footnote xlink:type="resource" xlink:label="fn34_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-981":{"value" : "-297000000", "dimensions": {"concept": "AccumulatedOtherComprehensiveIncomeLossNetOfTax","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f74_lab" xlink:to="fn34_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f75_lab" xlink:href="#f75"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f75_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f76_lab" xlink:href="#f76"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f76_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f77_lab" xlink:href="#f77"/>
+    <link:footnote xlink:type="resource" xlink:label="fn35_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-88":{"value" : "0", "dimensions": {"concept": "PreferredStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f77_lab" xlink:to="fn35_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f78_lab" xlink:href="#f78"/>
+    <link:footnote xlink:type="resource" xlink:label="fn36_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-72":{"value" : "116000000", "dimensions": {"concept": "ContractWithCustomerLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f78_lab" xlink:to="fn36_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f79_lab" xlink:href="#f79"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f79_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f80_lab" xlink:href="#f80"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f80_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f81_lab" xlink:href="#f81"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f81_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f82_lab" xlink:href="#f82"/>
+    <link:footnote xlink:type="resource" xlink:label="fn37_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-44":{"value" : "389000000", "dimensions": {"concept": "OperatingLeaseRightOfUseAsset","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-52":{"value" : "1125000000", "dimensions": {"concept": "OtherAssetsNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-42":{"value" : "2032000000", "dimensions": {"concept": "PropertyPlantAndEquipmentNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-50":{"value" : "964000000", "dimensions": {"concept": "DeferredIncomeTaxAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-48":{"value" : "1258000000", "dimensions": {"concept": "OtherIntangibleAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-46":{"value" : "12796000000", "dimensions": {"concept": "Goodwill","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-32":{"value" : "1145000000", "dimensions": {"concept": "ShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-30":{"value" : "5456000000", "dimensions": {"concept": "CashAndCashEquivalentsAtCarryingValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-36":{"value" : "1685000000", "dimensions": {"concept": "AccountsReceivableNetCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-38":{"value" : "988000000", "dimensions": {"concept": "PrepaidExpenseAndOtherAssetsCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f82_lab" xlink:to="fn37_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f83_lab" xlink:href="#f83"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f83_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f84_lab" xlink:href="#f84"/>
+    <link:footnote xlink:type="resource" xlink:label="fn38_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-37":{"value" : "2065000000", "dimensions": {"concept": "AccountsReceivableNetCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f84_lab" xlink:to="fn38_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f85_lab" xlink:href="#f85"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f85_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f86_lab" xlink:href="#f86"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f86_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f87_lab" xlink:href="#f87"/>
+    <link:footnote xlink:type="resource" xlink:label="fn39_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-109":{"value" : "23843000000", "dimensions": {"concept": "TreasuryStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-103":{"value" : "28319000000", "dimensions": {"concept": "RetainedEarningsAccumulatedDeficit","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-99":{"value" : "0", "dimensions": {"concept": "CommonStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-978":{"value" : "-293000000", "dimensions": {"concept": "AccumulatedOtherComprehensiveIncomeLossNetOfTax","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-89":{"value" : "0", "dimensions": {"concept": "PreferredStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-101":{"value" : "9868000000", "dimensions": {"concept": "AdditionalPaidInCapital","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f87_lab" xlink:to="fn39_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f88_lab" xlink:href="#f88"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f88_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f89_lab" xlink:href="#f89"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f89_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f90_lab" xlink:href="#f90"/>
+    <link:footnote xlink:type="resource" xlink:label="fn40_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-33":{"value" : "1860000000", "dimensions": {"concept": "ShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f90_lab" xlink:to="fn40_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f91_lab" xlink:href="#f91"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f91_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f92_lab" xlink:href="#f92"/>
+    <link:footnote xlink:type="resource" xlink:label="fn41_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-101":{"value" : "9868000000", "dimensions": {"concept": "AdditionalPaidInCapital","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f92_lab" xlink:to="fn41_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f93_lab" xlink:href="#f93"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f93_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f94_lab" xlink:href="#f94"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f94_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f95_lab" xlink:href="#f95"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f95_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f96_lab" xlink:href="#f96"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f96_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f97_lab" xlink:href="#f97"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f97_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f98_lab" xlink:href="#f98"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f98_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f99_lab" xlink:href="#f99"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f99_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f100_lab" xlink:href="#f100"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f100_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f101_lab" xlink:href="#f101"/>
+    <link:footnote xlink:type="resource" xlink:label="fn42_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-33":{"value" : "1860000000", "dimensions": {"concept": "ShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-31":{"value" : "4236000000", "dimensions": {"concept": "CashAndCashEquivalentsAtCarryingValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-37":{"value" : "2065000000", "dimensions": {"concept": "AccountsReceivableNetCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-39":{"value" : "835000000", "dimensions": {"concept": "PrepaidExpenseAndOtherAssetsCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f101_lab" xlink:to="fn42_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f102_lab" xlink:href="#f102"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f102_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f103_lab" xlink:href="#f103"/>
+    <link:footnote xlink:type="resource" xlink:label="fn43_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-61":{"value" : "500000000", "dimensions": {"concept": "DebtCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-63":{"value" : "5297000000", "dimensions": {"concept": "ContractWithCustomerLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-57":{"value" : "379000000", "dimensions": {"concept": "AccountsPayableCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-67":{"value" : "87000000", "dimensions": {"concept": "OperatingLeaseLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-65":{"value" : "75000000", "dimensions": {"concept": "AccruedIncomeTaxesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-59":{"value" : "1790000000", "dimensions": {"concept": "AccruedLiabilitiesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f103_lab" xlink:to="fn43_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f104_lab" xlink:href="#f104"/>
+    <link:footnote xlink:type="resource" xlink:label="fn44_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-63":{"value" : "5297000000", "dimensions": {"concept": "ContractWithCustomerLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f104_lab" xlink:to="fn44_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f105_lab" xlink:href="#f105"/>
+    <link:footnote xlink:type="resource" xlink:label="fn45_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-89":{"value" : "0", "dimensions": {"concept": "PreferredStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f105_lab" xlink:to="fn45_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f106_lab" xlink:href="#f106"/>
+    <link:footnote xlink:type="resource" xlink:label="fn46_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-67":{"value" : "87000000", "dimensions": {"concept": "OperatingLeaseLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f106_lab" xlink:to="fn46_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f107_lab" xlink:href="#f107"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f107_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f108_lab" xlink:href="#f108"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f108_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f109_lab" xlink:href="#f109"/>
+    <link:footnote xlink:type="resource" xlink:label="fn47_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-75":{"value" : "530000000", "dimensions": {"concept": "AccruedIncomeTaxesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-77":{"value" : "417000000", "dimensions": {"concept": "OperatingLeaseLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-1061":{"value" : "3629000000", "dimensions": {"concept": "LongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-79":{"value" : "293000000", "dimensions": {"concept": "OtherLiabilitiesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-73":{"value" : "117000000", "dimensions": {"concept": "ContractWithCustomerLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-61":{"value" : "500000000", "dimensions": {"concept": "DebtCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-63":{"value" : "5297000000", "dimensions": {"concept": "ContractWithCustomerLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-57":{"value" : "379000000", "dimensions": {"concept": "AccountsPayableCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-67":{"value" : "87000000", "dimensions": {"concept": "OperatingLeaseLiabilityCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-65":{"value" : "75000000", "dimensions": {"concept": "AccruedIncomeTaxesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-59":{"value" : "1790000000", "dimensions": {"concept": "AccruedLiabilitiesCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f109_lab" xlink:to="fn47_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f110_lab" xlink:href="#f110"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f110_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f111_lab" xlink:href="#f111"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f111_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f112_lab" xlink:href="#f112"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f112_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f113_lab" xlink:href="#f113"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f113_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f114_lab" xlink:href="#f114"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f114_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f115_lab" xlink:href="#f115"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f115_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f116_lab" xlink:href="#f116"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f116_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f117_lab" xlink:href="#f117"/>
+    <link:footnote xlink:type="resource" xlink:label="fn48_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-109":{"value" : "23843000000", "dimensions": {"concept": "TreasuryStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f117_lab" xlink:to="fn48_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f118_lab" xlink:href="#f118"/>
+    <link:footnote xlink:type="resource" xlink:label="fn49_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-49":{"value" : "1449000000", "dimensions": {"concept": "OtherIntangibleAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f118_lab" xlink:to="fn49_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f119_lab" xlink:href="#f119"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f119_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f120_lab" xlink:href="#f120"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f120_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f121_lab" xlink:href="#f121"/>
+    <link:footnote xlink:type="resource" xlink:label="fn50_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-99":{"value" : "0", "dimensions": {"concept": "CommonStockValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f121_lab" xlink:to="fn50_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f122_lab" xlink:href="#f122"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f122_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f123_lab" xlink:href="#f123"/>
+    <link:footnote xlink:type="resource" xlink:label="fn51_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-39":{"value" : "835000000", "dimensions": {"concept": "PrepaidExpenseAndOtherAssetsCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f123_lab" xlink:to="fn51_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f124_lab" xlink:href="#f124"/>
+    <link:footnote xlink:type="resource" xlink:label="fn52_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-978":{"value" : "-293000000", "dimensions": {"concept": "AccumulatedOtherComprehensiveIncomeLossNetOfTax","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f124_lab" xlink:to="fn52_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f125_lab" xlink:href="#f125"/>
+    <link:footnote xlink:type="resource" xlink:label="fn53_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-45":{"value" : "407000000", "dimensions": {"concept": "OperatingLeaseRightOfUseAsset","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-53":{"value" : "841000000", "dimensions": {"concept": "OtherAssetsNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-43":{"value" : "1908000000", "dimensions": {"concept": "PropertyPlantAndEquipmentNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-51":{"value" : "777000000", "dimensions": {"concept": "DeferredIncomeTaxAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-49":{"value" : "1449000000", "dimensions": {"concept": "OtherIntangibleAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-47":{"value" : "12787000000", "dimensions": {"concept": "Goodwill","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-33":{"value" : "1860000000", "dimensions": {"concept": "ShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-31":{"value" : "4236000000", "dimensions": {"concept": "CashAndCashEquivalentsAtCarryingValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-37":{"value" : "2065000000", "dimensions": {"concept": "AccountsReceivableNetCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-39":{"value" : "835000000", "dimensions": {"concept": "PrepaidExpenseAndOtherAssetsCurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f125_lab" xlink:to="fn53_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f126_lab" xlink:href="#f126"/>
+    <link:footnote xlink:type="resource" xlink:label="fn54_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-103":{"value" : "28319000000", "dimensions": {"concept": "RetainedEarningsAccumulatedDeficit","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f126_lab" xlink:to="fn54_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f127_lab" xlink:href="#f127"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f127_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f128_lab" xlink:href="#f128"/>
+    <link:footnote xlink:type="resource" xlink:label="fn55_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-77":{"value" : "417000000", "dimensions": {"concept": "OperatingLeaseLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f128_lab" xlink:to="fn55_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f129_lab" xlink:href="#f129"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f129_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f130_lab" xlink:href="#f130"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f130_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f131_lab" xlink:href="#f131"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f131_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f132_lab" xlink:href="#f132"/>
+    <link:footnote xlink:type="resource" xlink:label="fn56_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-73":{"value" : "117000000", "dimensions": {"concept": "ContractWithCustomerLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f132_lab" xlink:to="fn56_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f133_lab" xlink:href="#f133"/>
+    <link:footnote xlink:type="resource" xlink:label="fn57_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-75":{"value" : "530000000", "dimensions": {"concept": "AccruedIncomeTaxesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-77":{"value" : "417000000", "dimensions": {"concept": "OperatingLeaseLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-1061":{"value" : "3629000000", "dimensions": {"concept": "LongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-79":{"value" : "293000000", "dimensions": {"concept": "OtherLiabilitiesNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-73":{"value" : "117000000", "dimensions": {"concept": "ContractWithCustomerLiabilityNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f133_lab" xlink:to="fn57_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f134_lab" xlink:href="#f134"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f134_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f135_lab" xlink:href="#f135"/>
+    <link:footnote xlink:type="resource" xlink:label="fn58_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-51":{"value" : "777000000", "dimensions": {"concept": "DeferredIncomeTaxAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f135_lab" xlink:to="fn58_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f136_lab" xlink:href="#f136"/>
+    <link:footnote xlink:type="resource" xlink:label="fn59_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-45":{"value" : "407000000", "dimensions": {"concept": "OperatingLeaseRightOfUseAsset","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f136_lab" xlink:to="fn59_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f137_lab" xlink:href="#f137"/>
+    <link:footnote xlink:type="resource" xlink:label="fn60_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-45":{"value" : "407000000", "dimensions": {"concept": "OperatingLeaseRightOfUseAsset","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-53":{"value" : "841000000", "dimensions": {"concept": "OtherAssetsNoncurrent","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-43":{"value" : "1908000000", "dimensions": {"concept": "PropertyPlantAndEquipmentNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-51":{"value" : "777000000", "dimensions": {"concept": "DeferredIncomeTaxAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-49":{"value" : "1449000000", "dimensions": {"concept": "OtherIntangibleAssetsNet","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}, "f-47":{"value" : "12787000000", "dimensions": {"concept": "Goodwill","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f137_lab" xlink:to="fn60_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f138_lab" xlink:href="#f138"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f138_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f139_lab" xlink:href="#f139"/>
+    <link:footnote xlink:type="resource" xlink:label="fn61_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-31":{"value" : "4236000000", "dimensions": {"concept": "CashAndCashEquivalentsAtCarryingValue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f139_lab" xlink:to="fn61_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f140_lab" xlink:href="#f140"/>
+    <link:footnote xlink:type="resource" xlink:label="fn62_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-47":{"value" : "12787000000", "dimensions": {"concept": "Goodwill","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f140_lab" xlink:to="fn62_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f141_lab" xlink:href="#f141"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f141_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f142_lab" xlink:href="#f142"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f142_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f143_lab" xlink:href="#f143"/>
+    <link:footnote xlink:type="resource" xlink:label="fn63_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-436":{"value" : "4000000", "dimensions": {"concept": "EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f143_lab" xlink:to="fn63_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f144_lab" xlink:href="#f144"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f144_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f145_lab" xlink:href="#f145"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f145_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f146_lab" xlink:href="#f146"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f146_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f147_lab" xlink:href="#f147"/>
+    <link:footnote xlink:type="resource" xlink:label="fn64_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-402":{"value" : "421000000", "dimensions": {"concept": "IncreaseDecreaseInAccruedIncomeTaxesPayable","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f147_lab" xlink:to="fn64_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f148_lab" xlink:href="#f148"/>
+    <link:footnote xlink:type="resource" xlink:label="fn65_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-438":{"value" : "1220000000", "dimensions": {"concept": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f148_lab" xlink:to="fn65_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f149_lab" xlink:href="#f149"/>
+    <link:footnote xlink:type="resource" xlink:label="fn66_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-394":{"value" : "-385000000", "dimensions": {"concept": "IncreaseDecreaseInReceivables","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f149_lab" xlink:to="fn66_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f150_lab" xlink:href="#f150"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f150_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f151_lab" xlink:href="#f151"/>
+    <link:footnote xlink:type="resource" xlink:label="fn67_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-408":{"value" : "0", "dimensions": {"concept": "PaymentsToAcquireShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-418":{"value" : "34000000", "dimensions": {"concept": "PaymentsToAcquireLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f151_lab" xlink:to="fn67_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f152_lab" xlink:href="#f152"/>
+    <link:footnote xlink:type="resource" xlink:label="fn68_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-400":{"value" : "-36000000", "dimensions": {"concept": "IncreaseDecreaseInAccruedLiabilities","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-398":{"value" : "-29000000", "dimensions": {"concept": "IncreaseDecreaseInAccountsPayable","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f152_lab" xlink:to="fn68_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f153_lab" xlink:href="#f153"/>
+    <link:footnote xlink:type="resource" xlink:label="fn69_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-382":{"value" : "432000000", "dimensions": {"concept": "DepreciationDepletionAndAmortization","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f153_lab" xlink:to="fn69_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f154_lab" xlink:href="#f154"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f154_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f155_lab" xlink:href="#f155"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f155_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f156_lab" xlink:href="#f156"/>
+    <link:footnote xlink:type="resource" xlink:label="fn70_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-426":{"value" : "70000000", "dimensions": {"concept": "ProceedsFromSaleOfTreasuryStock","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f156_lab" xlink:to="fn70_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f157_lab" xlink:href="#f157"/>
+    <link:footnote xlink:type="resource" xlink:label="fn71_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-434":{"value" : "-3094000000", "dimensions": {"concept": "NetCashProvidedByUsedInFinancingActivities","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f157_lab" xlink:to="fn71_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f158_lab" xlink:href="#f158"/>
+    <link:footnote xlink:type="resource" xlink:label="fn72_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-432":{"value" : "3000000", "dimensions": {"concept": "ProceedsFromPaymentsForOtherFinancingActivities","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-428":{"value" : "267000000", "dimensions": {"concept": "CostOfIssuanceOfTreasuryStock","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f158_lab" xlink:to="fn72_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f159_lab" xlink:href="#f159"/>
+    <link:footnote xlink:type="resource" xlink:label="fn73_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-380":{"value" : "2542000000", "dimensions": {"concept": "NetIncomeLoss","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f159_lab" xlink:to="fn73_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f160_lab" xlink:href="#f160"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f160_lab" xlink:to="fn65_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f161_lab" xlink:href="#f161"/>
+    <link:footnote xlink:type="resource" xlink:label="fn74_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-412":{"value" : "195000000", "dimensions": {"concept": "ProceedsFromSaleOfShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-410":{"value" : "538000000", "dimensions": {"concept": "ProceedsFromMaturitiesPrepaymentsAndCallsOfShorttermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-420":{"value" : "1000000", "dimensions": {"concept": "ProceedsFromSaleOfLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f161_lab" xlink:to="fn74_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f162_lab" xlink:href="#f162"/>
+    <link:footnote xlink:type="resource" xlink:label="fn75_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-388":{"value" : "-168000000", "dimensions": {"concept": "DeferredIncomeTaxesAndTaxCredits","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-392":{"value" : "3000000", "dimensions": {"concept": "OtherNoncashIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-390":{"value" : "2000000", "dimensions": {"concept": "UnrealizedGainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-384":{"value" : "849000000", "dimensions": {"concept": "ShareBasedCompensation","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f162_lab" xlink:to="fn75_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f163_lab" xlink:href="#f163"/>
+    <link:footnote xlink:type="resource" xlink:label="fn76_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-416":{"value" : "222000000", "dimensions": {"concept": "PaymentsToAcquirePropertyPlantAndEquipment","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f163_lab" xlink:to="fn76_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f164_lab" xlink:href="#f164"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f164_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f165_lab" xlink:href="#f165"/>
+    <link:footnote xlink:type="resource" xlink:label="fn77_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-386":{"value" : "36000000", "dimensions": {"concept": "IncreaseDecreaseInOperatingLeaseRightOfUseAssets","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-404":{"value" : "-33000000", "dimensions": {"concept": "IncreaseDecreaseInDeferredRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-396":{"value" : "562000000", "dimensions": {"concept": "IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f165_lab" xlink:to="fn77_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f166_lab" xlink:href="#f166"/>
+    <link:footnote xlink:type="resource" xlink:label="fn78_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-430":{"value" : "500000000", "dimensions": {"concept": "RepaymentsOfLongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f166_lab" xlink:to="fn78_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f167_lab" xlink:href="#f167"/>
+    <link:footnote xlink:type="resource" xlink:label="fn79_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-414":{"value" : "0", "dimensions": {"concept": "PaymentsToAcquireBusinessesNetOfCashAcquired","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-408":{"value" : "0", "dimensions": {"concept": "PaymentsToAcquireShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-416":{"value" : "222000000", "dimensions": {"concept": "PaymentsToAcquirePropertyPlantAndEquipment","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-420":{"value" : "1000000", "dimensions": {"concept": "ProceedsFromSaleOfLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-412":{"value" : "195000000", "dimensions": {"concept": "ProceedsFromSaleOfShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-418":{"value" : "34000000", "dimensions": {"concept": "PaymentsToAcquireLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-410":{"value" : "538000000", "dimensions": {"concept": "ProceedsFromMaturitiesPrepaymentsAndCallsOfShorttermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f167_lab" xlink:to="fn79_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f168_lab" xlink:href="#f168"/>
+    <link:footnote xlink:type="resource" xlink:label="fn80_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-424":{"value" : "2400000000", "dimensions": {"concept": "PaymentsForRepurchaseOfCommonStock","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f168_lab" xlink:to="fn80_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f169_lab" xlink:href="#f169"/>
+    <link:footnote xlink:type="resource" xlink:label="fn81_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-414":{"value" : "0", "dimensions": {"concept": "PaymentsToAcquireBusinessesNetOfCashAcquired","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f169_lab" xlink:to="fn81_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f170_lab" xlink:href="#f170"/>
+    <link:footnote xlink:type="resource" xlink:label="fn82_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-406":{"value" : "3832000000", "dimensions": {"concept": "NetCashProvidedByUsedInOperatingActivities","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f170_lab" xlink:to="fn82_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f171_lab" xlink:href="#f171"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f171_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f172_lab" xlink:href="#f172"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f172_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f173_lab" xlink:href="#f173"/>
+    <link:footnote xlink:type="resource" xlink:label="fn83_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-425":{"value" : "3600000000", "dimensions": {"concept": "PaymentsForRepurchaseOfCommonStock","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f173_lab" xlink:to="fn83_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f174_lab" xlink:href="#f174"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f174_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f175_lab" xlink:href="#f175"/>
+    <link:footnote xlink:type="resource" xlink:label="fn84_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-431":{"value" : "0", "dimensions": {"concept": "RepaymentsOfLongTermDebt","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f175_lab" xlink:to="fn84_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f176_lab" xlink:href="#f176"/>
+    <link:footnote xlink:type="resource" xlink:label="fn85_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-401":{"value" : "-187000000", "dimensions": {"concept": "IncreaseDecreaseInAccruedLiabilities","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-399":{"value" : "60000000", "dimensions": {"concept": "IncreaseDecreaseInAccountsPayable","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f176_lab" xlink:to="fn85_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f177_lab" xlink:href="#f177"/>
+    <link:footnote xlink:type="resource" xlink:label="fn86_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-409":{"value" : "524000000", "dimensions": {"concept": "PaymentsToAcquireShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-419":{"value" : "30000000", "dimensions": {"concept": "PaymentsToAcquireLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f177_lab" xlink:to="fn86_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f178_lab" xlink:href="#f178"/>
+    <link:footnote xlink:type="resource" xlink:label="fn87_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-435":{"value" : "-3854000000", "dimensions": {"concept": "NetCashProvidedByUsedInFinancingActivities","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f178_lab" xlink:to="fn87_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f179_lab" xlink:href="#f179"/>
+    <link:footnote xlink:type="resource" xlink:label="fn88_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-415":{"value" : "126000000", "dimensions": {"concept": "PaymentsToAcquireBusinessesNetOfCashAcquired","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-409":{"value" : "524000000", "dimensions": {"concept": "PaymentsToAcquireShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-417":{"value" : "226000000", "dimensions": {"concept": "PaymentsToAcquirePropertyPlantAndEquipment","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-421":{"value" : "0", "dimensions": {"concept": "ProceedsFromSaleOfLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-413":{"value" : "159000000", "dimensions": {"concept": "ProceedsFromSaleOfShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-419":{"value" : "30000000", "dimensions": {"concept": "PaymentsToAcquireLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-411":{"value" : "349000000", "dimensions": {"concept": "ProceedsFromMaturitiesPrepaymentsAndCallsOfShorttermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f179_lab" xlink:to="fn88_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f180_lab" xlink:href="#f180"/>
+    <link:footnote xlink:type="resource" xlink:label="fn89_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-413":{"value" : "159000000", "dimensions": {"concept": "ProceedsFromSaleOfShortTermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-411":{"value" : "349000000", "dimensions": {"concept": "ProceedsFromMaturitiesPrepaymentsAndCallsOfShorttermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-421":{"value" : "0", "dimensions": {"concept": "ProceedsFromSaleOfLongtermInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f180_lab" xlink:to="fn89_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f181_lab" xlink:href="#f181"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f181_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f182_lab" xlink:href="#f182"/>
+    <link:footnote xlink:type="resource" xlink:label="fn90_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-403":{"value" : "-20000000", "dimensions": {"concept": "IncreaseDecreaseInAccruedIncomeTaxesPayable","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f182_lab" xlink:to="fn90_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f183_lab" xlink:href="#f183"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f183_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f184_lab" xlink:href="#f184"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f184_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f185_lab" xlink:href="#f185"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f185_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f186_lab" xlink:href="#f186"/>
+    <link:footnote xlink:type="resource" xlink:label="fn91_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-387":{"value" : "42000000", "dimensions": {"concept": "IncreaseDecreaseInOperatingLeaseRightOfUseAssets","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-405":{"value" : "-2000000", "dimensions": {"concept": "IncreaseDecreaseInDeferredRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-397":{"value" : "140000000", "dimensions": {"concept": "IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f186_lab" xlink:to="fn91_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f187_lab" xlink:href="#f187"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f187_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f188_lab" xlink:href="#f188"/>
+    <link:footnote xlink:type="resource" xlink:label="fn92_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-433":{"value" : "22000000", "dimensions": {"concept": "ProceedsFromPaymentsForOtherFinancingActivities","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-429":{"value" : "367000000", "dimensions": {"concept": "CostOfIssuanceOfTreasuryStock","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f188_lab" xlink:to="fn92_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f189_lab" xlink:href="#f189"/>
+    <link:footnote xlink:type="resource" xlink:label="fn93_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-358":{"value" : "2444000000", "dimensions": {"concept": "NetIncomeLoss","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f189_lab" xlink:to="fn93_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f190_lab" xlink:href="#f190"/>
+    <link:footnote xlink:type="resource" xlink:label="fn94_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-439":{"value" : "-479000000", "dimensions": {"concept": "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f190_lab" xlink:to="fn94_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f191_lab" xlink:href="#f191"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f191_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f192_lab" xlink:href="#f192"/>
+    <link:footnote xlink:type="resource" xlink:label="fn95_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-389":{"value" : "197000000", "dimensions": {"concept": "DeferredIncomeTaxesAndTaxCredits","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-393":{"value" : "-2000000", "dimensions": {"concept": "OtherNoncashIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-391":{"value" : "-27000000", "dimensions": {"concept": "UnrealizedGainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-385":{"value" : "674000000", "dimensions": {"concept": "ShareBasedCompensation","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f192_lab" xlink:to="fn95_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f193_lab" xlink:href="#f193"/>
+    <link:footnote xlink:type="resource" xlink:label="fn96_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-415":{"value" : "126000000", "dimensions": {"concept": "PaymentsToAcquireBusinessesNetOfCashAcquired","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f193_lab" xlink:to="fn96_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f194_lab" xlink:href="#f194"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f194_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f195_lab" xlink:href="#f195"/>
+    <link:footnote xlink:type="resource" xlink:label="fn97_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-427":{"value" : "91000000", "dimensions": {"concept": "ProceedsFromSaleOfTreasuryStock","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f195_lab" xlink:to="fn97_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f196_lab" xlink:href="#f196"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f196_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f197_lab" xlink:href="#f197"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f197_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f198_lab" xlink:href="#f198"/>
+    <link:footnote xlink:type="resource" xlink:label="fn98_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-395":{"value" : "-287000000", "dimensions": {"concept": "IncreaseDecreaseInReceivables","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f198_lab" xlink:to="fn98_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f199_lab" xlink:href="#f199"/>
+    <link:footnote xlink:type="resource" xlink:label="fn99_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-417":{"value" : "226000000", "dimensions": {"concept": "PaymentsToAcquirePropertyPlantAndEquipment","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f199_lab" xlink:to="fn99_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f200_lab" xlink:href="#f200"/>
+    <link:footnote xlink:type="resource" xlink:label="fn100_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-437":{"value" : "-36000000", "dimensions": {"concept": "EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f200_lab" xlink:to="fn100_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f201_lab" xlink:href="#f201"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f201_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f202_lab" xlink:href="#f202"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f202_lab" xlink:to="fn94_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f203_lab" xlink:href="#f203"/>
+    <link:footnote xlink:type="resource" xlink:label="fn101_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-383":{"value" : "425000000", "dimensions": {"concept": "DepreciationDepletionAndAmortization","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f203_lab" xlink:to="fn101_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f204_lab" xlink:href="#f204"/>
+    <link:footnote xlink:type="resource" xlink:label="fn102_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-407":{"value" : "3809000000", "dimensions": {"concept": "NetCashProvidedByUsedInOperatingActivities","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f204_lab" xlink:to="fn102_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f205_lab" xlink:href="#f205"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f205_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f206_lab" xlink:href="#f206"/>
+    <link:footnote xlink:type="resource" xlink:label="fn103_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-178":{"value" : "5000000", "dimensions": {"concept": "GainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-182":{"value" : "47000000", "dimensions": {"concept": "OtherNonoperatingIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f206_lab" xlink:to="fn103_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f207_lab" xlink:href="#f207"/>
+    <link:footnote xlink:type="resource" xlink:label="fn104_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-1003":{"value" : "1295000000", "dimensions": {"concept": "NetIncomeLoss","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f207_lab" xlink:to="fn104_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f208_lab" xlink:href="#f208"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f208_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f209_lab" xlink:href="#f209"/>
+    <link:footnote xlink:type="resource" xlink:label="fn105_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-122":{"value" : "169000000", "dimensions": {"concept": "ServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-559":{"value" : "4517000000", "dimensions": {"concept": "SubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-118":{"value" : "130000000", "dimensions": {"concept": "ProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f209_lab" xlink:to="fn105_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f210_lab" xlink:href="#f210"/>
+    <link:footnote xlink:type="resource" xlink:label="fn106_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-150":{"value" : "876000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f210_lab" xlink:to="fn106_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f211_lab" xlink:href="#f211"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f211_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f212_lab" xlink:href="#f212"/>
+    <link:footnote xlink:type="resource" xlink:label="fn107_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-158":{"value" : "357000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-154":{"value" : "1345000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-150":{"value" : "876000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-162":{"value" : "42000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f212_lab" xlink:to="fn107_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f213_lab" xlink:href="#f213"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f213_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f214_lab" xlink:href="#f214"/>
+    <link:footnote xlink:type="resource" xlink:label="fn108_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-162":{"value" : "42000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f214_lab" xlink:to="fn108_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f215_lab" xlink:href="#f215"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f215_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f216_lab" xlink:href="#f216"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f216_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f217_lab" xlink:href="#f217"/>
+    <link:footnote xlink:type="resource" xlink:label="fn109_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-194":{"value" : "355000000", "dimensions": {"concept": "IncomeTaxExpenseBenefit","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f217_lab" xlink:to="fn109_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f218_lab" xlink:href="#f218"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f218_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f219_lab" xlink:href="#f219"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f219_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f220_lab" xlink:href="#f220"/>
+    <link:footnote xlink:type="resource" xlink:label="fn110_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-174":{"value" : "26000000", "dimensions": {"concept": "InterestExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f220_lab" xlink:to="fn110_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f221_lab" xlink:href="#f221"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f221_lab" xlink:to="fn110_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f222_lab" xlink:href="#f222"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f222_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f223_lab" xlink:href="#f223"/>
+    <link:footnote xlink:type="resource" xlink:label="fn111_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-130":{"value" : "436000000", "dimensions": {"concept": "CostOfSubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-138":{"value" : "128000000", "dimensions": {"concept": "CostOfServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-134":{"value" : "8000000", "dimensions": {"concept": "CostofProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f223_lab" xlink:to="fn111_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f224_lab" xlink:href="#f224"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f224_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f225_lab" xlink:href="#f225"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f225_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f226_lab" xlink:href="#f226"/>
+    <link:footnote xlink:type="resource" xlink:label="fn112_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-158":{"value" : "357000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-154":{"value" : "1345000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2023-03-04T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f226_lab" xlink:to="fn112_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f227_lab" xlink:href="#f227"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f227_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f228_lab" xlink:href="#f228"/>
+    <link:footnote xlink:type="resource" xlink:label="fn113_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-183":{"value" : "-1000000", "dimensions": {"concept": "OtherNonoperatingIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-179":{"value" : "-8000000", "dimensions": {"concept": "GainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f228_lab" xlink:to="fn113_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f229_lab" xlink:href="#f229"/>
+    <link:footnote xlink:type="resource" xlink:label="fn114_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-296":{"value" : "1178000000", "dimensions": {"concept": "NetIncomeLoss","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f229_lab" xlink:to="fn114_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f230_lab" xlink:href="#f230"/>
+    <link:footnote xlink:type="resource" xlink:label="fn115_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-131":{"value" : "410000000", "dimensions": {"concept": "CostOfSubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-139":{"value" : "120000000", "dimensions": {"concept": "CostOfServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-135":{"value" : "9000000", "dimensions": {"concept": "CostofProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f230_lab" xlink:to="fn115_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f231_lab" xlink:href="#f231"/>
+    <link:footnote xlink:type="resource" xlink:label="fn116_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-159":{"value" : "291000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-155":{"value" : "1247000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-151":{"value" : "738000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-163":{"value" : "42000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f231_lab" xlink:to="fn116_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f232_lab" xlink:href="#f232"/>
+    <link:footnote xlink:type="resource" xlink:label="fn117_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-159":{"value" : "291000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-155":{"value" : "1247000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f232_lab" xlink:to="fn117_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f233_lab" xlink:href="#f233"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f233_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f234_lab" xlink:href="#f234"/>
+    <link:footnote xlink:type="resource" xlink:label="fn118_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-175":{"value" : "28000000", "dimensions": {"concept": "InterestExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f234_lab" xlink:to="fn118_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f235_lab" xlink:href="#f235"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f235_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f236_lab" xlink:href="#f236"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f236_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f237_lab" xlink:href="#f237"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f237_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f238_lab" xlink:href="#f238"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f238_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f239_lab" xlink:href="#f239"/>
+    <link:footnote xlink:type="resource" xlink:label="fn119_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-195":{"value" : "314000000", "dimensions": {"concept": "IncomeTaxExpenseBenefit","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f239_lab" xlink:to="fn119_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f240_lab" xlink:href="#f240"/>
+    <link:footnote xlink:type="resource" xlink:label="fn120_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-175":{"value" : "28000000", "dimensions": {"concept": "InterestExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-179":{"value" : "-8000000", "dimensions": {"concept": "GainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-183":{"value" : "-1000000", "dimensions": {"concept": "OtherNonoperatingIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f240_lab" xlink:to="fn120_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f241_lab" xlink:href="#f241"/>
+    <link:footnote xlink:type="resource" xlink:label="fn121_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-151":{"value" : "738000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f241_lab" xlink:to="fn121_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f242_lab" xlink:href="#f242"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f242_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f243_lab" xlink:href="#f243"/>
+    <link:footnote xlink:type="resource" xlink:label="fn122_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-123":{"value" : "170000000", "dimensions": {"concept": "ServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-115":{"value" : "4070000000", "dimensions": {"concept": "SubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-119":{"value" : "146000000", "dimensions": {"concept": "ProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f243_lab" xlink:to="fn122_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f244_lab" xlink:href="#f244"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f244_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f245_lab" xlink:href="#f245"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f245_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f246_lab" xlink:href="#f246"/>
+    <link:footnote xlink:type="resource" xlink:label="fn123_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-163":{"value" : "42000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-03-05T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f246_lab" xlink:to="fn123_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f247_lab" xlink:href="#f247"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f247_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f248_lab" xlink:href="#f248"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f248_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f249_lab" xlink:href="#f249"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f249_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f250_lab" xlink:href="#f250"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f250_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f251_lab" xlink:href="#f251"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f251_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f252_lab" xlink:href="#f252"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f252_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f253_lab" xlink:href="#f253"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f253_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f254_lab" xlink:href="#f254"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f254_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f255_lab" xlink:href="#f255"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f255_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f256_lab" xlink:href="#f256"/>
+    <link:footnote xlink:type="resource" xlink:label="fn124_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-181":{"value" : "-17000000", "dimensions": {"concept": "GainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-185":{"value" : "-1000000", "dimensions": {"concept": "OtherNonoperatingIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f256_lab" xlink:to="fn124_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f257_lab" xlink:href="#f257"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f257_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f258_lab" xlink:href="#f258"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f258_lab" xlink:to="fn93_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f259_lab" xlink:href="#f259"/>
+    <link:footnote xlink:type="resource" xlink:label="fn125_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-133":{"value" : "803000000", "dimensions": {"concept": "CostOfSubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-141":{"value" : "229000000", "dimensions": {"concept": "CostOfServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-137":{"value" : "19000000", "dimensions": {"concept": "CostofProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f259_lab" xlink:to="fn125_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f260_lab" xlink:href="#f260"/>
+    <link:footnote xlink:type="resource" xlink:label="fn126_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-165":{"value" : "84000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f260_lab" xlink:to="fn126_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f261_lab" xlink:href="#f261"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f261_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f262_lab" xlink:href="#f262"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f262_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f263_lab" xlink:href="#f263"/>
+    <link:footnote xlink:type="resource" xlink:label="fn127_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-161":{"value" : "560000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-157":{"value" : "2405000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-153":{"value" : "1439000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-165":{"value" : "84000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f263_lab" xlink:to="fn127_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f264_lab" xlink:href="#f264"/>
+    <link:footnote xlink:type="resource" xlink:label="fn128_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-177":{"value" : "56000000", "dimensions": {"concept": "InterestExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f264_lab" xlink:to="fn128_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f265_lab" xlink:href="#f265"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f265_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f266_lab" xlink:href="#f266"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f266_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f267_lab" xlink:href="#f267"/>
+    <link:footnote xlink:type="resource" xlink:label="fn129_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-161":{"value" : "560000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-157":{"value" : "2405000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f267_lab" xlink:to="fn129_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f268_lab" xlink:href="#f268"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f268_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f269_lab" xlink:href="#f269"/>
+    <link:footnote xlink:type="resource" xlink:label="fn130_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-125":{"value" : "329000000", "dimensions": {"concept": "ServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-117":{"value" : "8028000000", "dimensions": {"concept": "SubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-121":{"value" : "291000000", "dimensions": {"concept": "ProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f269_lab" xlink:to="fn130_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f270_lab" xlink:href="#f270"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f270_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f271_lab" xlink:href="#f271"/>
+    <link:footnote xlink:type="resource" xlink:label="fn131_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-197":{"value" : "591000000", "dimensions": {"concept": "IncomeTaxExpenseBenefit","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f271_lab" xlink:to="fn131_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f272_lab" xlink:href="#f272"/>
+    <link:footnote xlink:type="resource" xlink:label="fn132_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-153":{"value" : "1439000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f272_lab" xlink:to="fn132_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f273_lab" xlink:href="#f273"/>
+    <link:footnote xlink:type="resource" xlink:label="fn133_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-177":{"value" : "56000000", "dimensions": {"concept": "InterestExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-181":{"value" : "-17000000", "dimensions": {"concept": "GainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}, "f-185":{"value" : "-1000000", "dimensions": {"concept": "OtherNonoperatingIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2021-12-04T00:00:00/2022-06-04T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f273_lab" xlink:to="fn133_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f274_lab" xlink:href="#f274"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f274_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f275_lab" xlink:href="#f275"/>
+    <link:footnote xlink:type="resource" xlink:label="fn134_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-180":{"value" : "6000000", "dimensions": {"concept": "GainLossOnInvestments","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-184":{"value" : "90000000", "dimensions": {"concept": "OtherNonoperatingIncomeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f275_lab" xlink:to="fn134_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f276_lab" xlink:href="#f276"/>
+    <link:footnote xlink:type="resource" xlink:label="fn135_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-152":{"value" : "1703000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f276_lab" xlink:to="fn135_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f277_lab" xlink:href="#f277"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f277_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f278_lab" xlink:href="#f278"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f278_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f279_lab" xlink:href="#f279"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f279_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f280_lab" xlink:href="#f280"/>
+    <link:footnote xlink:type="resource" xlink:label="fn136_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-160":{"value" : "688000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-156":{"value" : "2646000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-152":{"value" : "1703000000", "dimensions": {"concept": "ResearchAndDevelopmentExpenseSoftwareExcludingAcquiredInProcessCost","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-164":{"value" : "84000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f280_lab" xlink:to="fn136_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f281_lab" xlink:href="#f281"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f281_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f282_lab" xlink:href="#f282"/>
+    <link:footnote xlink:type="resource" xlink:label="fn137_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-196":{"value" : "706000000", "dimensions": {"concept": "IncomeTaxExpenseBenefit","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f282_lab" xlink:to="fn137_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f283_lab" xlink:href="#f283"/>
+    <link:footnote xlink:type="resource" xlink:label="fn138_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-160":{"value" : "688000000", "dimensions": {"concept": "GeneralAndAdministrativeExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-156":{"value" : "2646000000", "dimensions": {"concept": "SellingAndMarketingExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f283_lab" xlink:to="fn138_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f284_lab" xlink:href="#f284"/>
+    <link:footnote xlink:type="resource" xlink:label="fn139_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-124":{"value" : "331000000", "dimensions": {"concept": "ServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-116":{"value" : "8890000000", "dimensions": {"concept": "SubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-120":{"value" : "250000000", "dimensions": {"concept": "ProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f284_lab" xlink:to="fn139_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f285_lab" xlink:href="#f285"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f285_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f286_lab" xlink:href="#f286"/>
+    <link:footnote xlink:type="resource" xlink:label="fn140_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-164":{"value" : "84000000", "dimensions": {"concept": "OperatingExpensesAmortizationOfPurchasedIntangibles","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f286_lab" xlink:to="fn140_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f287_lab" xlink:href="#f287"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f287_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f288_lab" xlink:href="#f288"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f288_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f289_lab" xlink:href="#f289"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f289_lab" xlink:to="fn73_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f290_lab" xlink:href="#f290"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f290_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f291_lab" xlink:href="#f291"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f291_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f292_lab" xlink:href="#f292"/>
+    <link:footnote xlink:type="resource" xlink:label="fn141_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-132":{"value" : "870000000", "dimensions": {"concept": "CostOfSubscriptionRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-140":{"value" : "254000000", "dimensions": {"concept": "CostOfServicesAndOtherRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}, "f-136":{"value" : "16000000", "dimensions": {"concept": "CostofProductRevenue","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f292_lab" xlink:to="fn141_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f293_lab" xlink:href="#f293"/>
+    <link:footnote xlink:type="resource" xlink:label="fn142_lab" xlink:role="http://www.xbrl.org/2003/role/footnote" xml:lang="en-US">"f-176":{"value" : "58000000", "dimensions": {"concept": "InterestExpense","entity": "http://www.sec.gov/CIK:0000796343","period": "2022-12-03T00:00:00/2023-06-03T00:00:00","unit": "iso4217:USD"}}</link:footnote>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f293_lab" xlink:to="fn142_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f294_lab" xlink:href="#f294"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f294_lab" xlink:to="fn15_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f295_lab" xlink:href="#f295"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f295_lab" xlink:to="fn142_lab"/>
+    <link:loc xlink:type="locator" xlink:label="f296_lab" xlink:href="#f296"/>
+    <link:footnoteArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/fact-footnote" xlink:from="f296_lab" xlink:to="fn15_lab"/>
+  </link:footnoteLink>
+</xbrli:xbrl>

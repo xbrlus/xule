@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dei="http://xbrl.sec.gov/dei/2019-01-31" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:negated="http://www.xbrl.org/2009/role/negated" xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric" xmlns:num="http://www.xbrl.org/dtr/type/numeric" xmlns:ref="http://www.xbrl.org/2006/ref" xmlns:srt="http://fasb.org/srt/2019-01-31" xmlns:us-gaap="http://fasb.org/us-gaap/2019-01-31" xmlns:us-roles="http://fasb.org/us-roles/2019-01-31" xmlns:us-types="http://fasb.org/us-types/2019-01-31" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrlus="https://xbrl.us//20181231" xmlns:xl="http://www.xbrl.org/2003/XLink" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" blockDefault="" elementFormDefault="qualified" finalDefault="" targetNamespace="https://xbrl.us//20181231">
+   <xsd:annotation>
+      <xsd:appinfo>
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="xbrlus-20181231_pre.xml" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:type="simple"/>
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="xbrlus-20181231_cal.xml" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:type="simple"/>
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="xbrlus-20181231_def.xml" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:type="simple"/>
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="xbrlus-20181231_lab.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:type="simple"/>
+      <link:roleType id="Information" roleURI="https://xbrl.us//role/Information">
+            <link:definition>001 - Document - Information</link:definition>
+            <link:usedOn>link:presentationLink</link:usedOn>
+            <link:usedOn>link:definitionLink</link:usedOn>
+            <link:usedOn>link:calculationLink</link:usedOn>
+         </link:roleType>
+      <link:roleType id="BalanceSheet" roleURI="https://xbrl.us//role/BalanceSheet">
+            <link:definition>002 - Statement - Balance Sheet</link:definition>
+            <link:usedOn>link:presentationLink</link:usedOn>
+            <link:usedOn>link:definitionLink</link:usedOn>
+            <link:usedOn>link:calculationLink</link:usedOn>
+         </link:roleType>
+      <link:roleType id="IncomeStatement" roleURI="https://xbrl.us//role/IncomeStatement">
+            <link:definition>003 - Statement - Income Statement</link:definition>
+            <link:usedOn>link:presentationLink</link:usedOn>
+            <link:usedOn>link:definitionLink</link:usedOn>
+            <link:usedOn>link:calculationLink</link:usedOn>
+         </link:roleType>
+    <link:roleType id="cashFlowStatement" roleURI="https://xbrl.us/role/CashFlowStatement">
+            <definition xmlns="http://www.xbrl.org/2003/linkbase">004 - Statement - Cash Flows</definition>
+            <link:usedOn>link:calculationLink</link:usedOn>
+            <link:usedOn>link:definitionLink</link:usedOn>
+            <link:usedOn>link:presentationLink</link:usedOn>
+         </link:roleType><link:roleType id="accountingPolicies" roleURI="https://xbrl.us/role/AccountingPolicies">
+            <definition xmlns="http://www.xbrl.org/2003/linkbase">008 - Disclosure - Accounting Policies</definition>
+            <link:usedOn>link:definitionLink</link:usedOn>
+            <link:usedOn>link:presentationLink</link:usedOn>
+         </link:roleType><link:roleType id="notes" roleURI="https://xbrl.us//role/Notes">
+            <definition xmlns="http://www.xbrl.org/2003/linkbase">009 - Disclosure - Notes to the Financial Statements</definition>
+            <link:usedOn>link:calculationLink</link:usedOn>
+            <link:usedOn>link:definitionLink</link:usedOn>
+            <link:usedOn>link:presentationLink</link:usedOn>
+         </link:roleType></xsd:appinfo>
+   </xsd:annotation>
+   <xsd:import namespace="http://fasb.org/us-roles/2019-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2019/elts/us-roles-2019-01-31.xsd"/>
+   <xsd:import namespace="http://fasb.org/srt/2019-01-31" schemaLocation="http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd"/>
+   <xsd:import namespace="http://fasb.org/us-types/2019-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2019/elts/us-types-2019-01-31.xsd"/>
+   <xsd:import namespace="http://xbrl.sec.gov/dei/2019-01-31" schemaLocation="https://xbrl.sec.gov/dei/2019/dei-2019-01-31.xsd"/>
+   <xsd:import namespace="http://fasb.org/us-gaap/2019-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2019/elts/us-gaap-2019-01-31.xsd"/>
+   <xsd:import namespace="http://www.xbrl.org/2003/XLink" schemaLocation="http://www.xbrl.org/2003/xl-2003-12-31.xsd"/>
+   <xsd:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.xbrl.org/2003/xlink-2003-12-31.xsd"/>
+   <xsd:import namespace="http://xbrl.org/2005/xbrldt" schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd"/>
+   <xsd:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
+   <xsd:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+   <xsd:import namespace="http://www.xbrl.org/dtr/type/non-numeric" schemaLocation="http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd"/>
+   <xsd:import namespace="http://www.xbrl.org/dtr/type/numeric" schemaLocation="http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd"/>
+   <xsd:import namespace="http://www.xbrl.org/2009/role/negated" schemaLocation="http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd"/>
+   <xsd:import namespace="http://www.xbrl.org/2006/ref" schemaLocation="http://www.xbrl.org/2006/ref-2006-02-27.xsd"/>
+   <xsd:element abstract="false" id="xbrlus_MembershipDuesDeferred" name="MembershipDuesDeferred" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant"/>
+   <xsd:element abstract="false" id="xbrlus_LiabilitiesAndNetAssets" name="LiabilitiesAndNetAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant"/>
+   <xsd:element abstract="false" id="xbrlus_DonatedRent" name="DonatedRent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_CDQDues" name="CDQDues" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_TaxonomyDevelopment" name="TaxonomyDevelopment" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_DeferredRevenueOther" name="DeferredRevenueOther" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant"/>
+   <xsd:element abstract="true" id="xbrlus_CenterForDataQualityDuesMember" name="CenterForDataQualityDuesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="true" id="xbrlus_DonatedRentMember" name="DonatedRentMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="true" id="xbrlus_MiscellaneousMember" name="MiscellaneousMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="true" id="xbrlus_TaxonomyDevelopmentContractsMember" name="TaxonomyDevelopmentContractsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_ComputerServicesExpense" name="ComputerServicesExpense" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_FiscalYear" name="FiscalYear" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_ReceiptOfNonCashContributions" name="ReceiptOfNonCashContributions" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_IncreaseDecreaseDueToXBRLInternational" name="IncreaseDecreaseDueToXBRLInternational" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_IncreaseDecreaseInDeferredMembershipDues" name="IncreaseDecreaseInDeferredMembershipDues" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_IncreaseDecreaseInDeferredSECFilerFees" name="IncreaseDecreaseInDeferredSECFilerFees" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_IncreaseDecreaseInDeferredCenterForDataQualityDues" name="IncreaseDecreaseInDeferredCenterForDataQualityDues" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_DueToXBRLInternationalPolicyTextBlock" name="DueToXBRLInternationalPolicyTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_NetAssetsPolicyTextBlock" name="NetAssetsPolicyTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_AdoptionOfRecentAccountingPronouncementPolicyTextBlock" name="AdoptionOfRecentAccountingPronouncementPolicyTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="false" id="xbrlus_LiquidityPolicyTextBlock" name="LiquidityPolicyTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration"/>
+   <xsd:element abstract="true" id="xbrlus_DescriptionOfOrganizationAbstract" name="DescriptionOfOrganizationAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:periodType="duration"/>
+</xsd:schema>
