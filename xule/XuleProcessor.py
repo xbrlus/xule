@@ -4105,7 +4105,7 @@ def property_as_function(xule_context, function_ref):
     # Check that there is at least one argument. This is the property object
     if len(function_ref['functionArgs']) == 0:
         raise XuleProcessingError(
-            _("The '{}' function must have at least one argumenrt, found none.".format(function_ref['functionName'])),
+            _("The '{}' function must have at least one argument, found none.".format(function_ref['functionName'])),
             xule_context)
 
     # Check that the first argument is the right type

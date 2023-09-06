@@ -2011,7 +2011,7 @@ def property_stats(xule_context, object_value, stat_function, *args):
     values = list()
     for next_value in object_value.value:
         if next_value.type not in ('int', 'float', 'decimal'):
-            raise XuleProcessingError(_("Statistic properties expect nuemric inputs, found '{}'.".format(next_value.type)), xule_context)
+            raise XuleProcessingError(_("Statistic properties expect numeric inputs, found '{}'.".format(next_value.type)), xule_context)
         values.append(next_value.value)
     stat_calc_value = stat_function(values)
     if math.isnan(stat_calc_value):
