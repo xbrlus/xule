@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23594 $
+$Change: 23612 $
 DOCSKIP
 """
 
@@ -32,6 +32,7 @@ from arelle.ModelInstanceObject import ModelInlineFact, ModelFact
 from arelle.ModelDtsObject import ModelResource
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
+from aniso8601 import parse_duration
 from lxml import etree
 import collections
 import datetime
@@ -334,8 +335,11 @@ def property_sort(xule_context, object_value, *args):
         sorted_list = sorted(object_value.value, key=lambda x: x.sort_value, reverse=reverse)
         return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
     except TypeError:
-        # items are not sortable
-        return XuleFunctions.agg_list(xule_context, object_value.value)
+        # items are not sortable. Try converting to a string for sorting.
+        sorted_list = sorted(object_value.value, key=lambda x: x.format_value(), reverse=reverse)
+        return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
+
+    #return XuleFunctions.agg_list(xule_context, object_value.value)
 
 def property_keys(xule_context, object_value, *args):
     if len(args) == 1:
@@ -369,7 +373,10 @@ def property_values(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, tuple(vals), 'list', shadow_collection=tuple(vals_shadow))
 
 def property_has_key(xule_context, object_value, *args):
-    key = args[0].value
+    if args[0].type in ('set', 'list'):
+        key = args[0].shadow_collection
+    else:
+        key = args[0].value
     return xv.XuleValue(xule_context, key in dict(object_value.shadow_collection), 'bool')
 
 def property_networks(xule_context, object_value, *args):
@@ -818,8 +825,10 @@ def property_end(xule_context, object_value, *args):
 def property_days(xule_context, object_value, *args):
     if object_value.type == 'instant':
         return xv.XuleValue(xule_context, 0, 'int')
-    else:
+    elif object_value.type == 'duration':
         return xv.XuleValue(xule_context, (object_value.value[1] - object_value.value[0]).days, 'int')
+    else: # this is a time-period
+        return xv.XuleValue(xule_context, object_value.value.days, 'int')
 
 def property_numerator(xule_context, object_value, *args):
     # A unit is a tuple of numerator, denominator
@@ -1490,7 +1499,7 @@ def property_log10(xule_context, object_value, *args):
     if object_value.value == 0:
         return xv.XuleValue(xule_context, float('-inf'), 'float')
     elif object_value.value < 0:
-        return xv.XuleValue(xule_context, float('nan'), 'float')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
         return xv.XuleValue(xule_context, math.log10(object_value.value), 'float')
  
@@ -2002,10 +2011,12 @@ def property_stats(xule_context, object_value, stat_function, *args):
     values = list()
     for next_value in object_value.value:
         if next_value.type not in ('int', 'float', 'decimal'):
-            raise XuleProcessingError(_("Statistic properties expect nuemric inputs, found '{}'.".format(next_value.type)), xule_context)
+            raise XuleProcessingError(_("Statistic properties expect numeric inputs, found '{}'.".format(next_value.type)), xule_context)
         values.append(next_value.value)
-    
     stat_calc_value = stat_function(values)
+    if math.isnan(stat_calc_value):
+        return xv.XuleValue(xule_context, None, 'none')
+    
     stat_value = xv.XuleValue(xule_context, stat_calc_value, 'float')
     stat_value.tags = object_value.tags
     stat_value.facts = object_value.facts
@@ -2246,6 +2257,17 @@ def property_facts(xule_context, object_value, *args):
     
     return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
 
+def property_time_span(xule_context, object_value, *args):
+
+
+    if object_value.type == 'string':
+        try:
+            return xv.XuleValue(xule_context, parse_duration(object_value.value.upper()), 'time-period')
+        except:
+            raise XuleProcessingError(_("Could not convert '%s' into a time-period." % object_value.value), xule_context)
+    else: # duration
+        return xv.XuleValue(xule_context, object_value.value[1] - object_value.value[0], 'time-period')
+    
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
         raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
@@ -2470,7 +2492,7 @@ PROPERTIES = {
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
-              'days': (property_days, 0, ('instant', 'duration'), False),
+              'days': (property_days, 0, ('instant', 'duration', 'time-period'), False),
               'numerator': (property_numerator, 0, ('unit', ), False),
               'denominator': (property_denominator, 0, ('unit',), False),
               'attribute': (property_attribute, 1, ('concept', 'relationship', 'role'), False),
@@ -2577,6 +2599,7 @@ PROPERTIES = {
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
+              'time-span': (property_time_span, 0, ('string', 'duration'), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),

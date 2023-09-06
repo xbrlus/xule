@@ -7,7 +7,7 @@ The XuleProcessor module is the main module for processing a rule set against an
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23596 $
+$Change: 23612 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -3769,8 +3769,8 @@ def nav_decorate_component_role(rel, direction, component_name, xule_context):
 
 def get_role(relationship, xule_context):
     role_uri = relationship.linkrole
-    if role_uri in xule_context.model.roleTypes:
-        return xule_context.model.roleTypes[role_uri][0]
+    if role_uri in relationship.modelXbrl.roleTypes:
+        return relationship.modelXbrl.roleTypes[role_uri][0]
     else:
         return XuleRole(role_uri)
 
@@ -3794,8 +3794,8 @@ def nav_decorate_component_arcrole(rel, direction, component_name, xule_context)
 
 def get_arcrole(relationship, xule_context):
     arcrole_uri = relationship.arcrole
-    if arcrole_uri in xule_context.model.arcroleTypes:
-        return xule_context.model.arcroleTypes[arcrole_uri][0]
+    if arcrole_uri in relationship.modelXbrl.arcroleTypes:
+        return relationship.modelXbrl.arcroleTypes[arcrole_uri][0]
     else:
         return XuleArcrole(arcrole_uri)
 
@@ -4105,7 +4105,7 @@ def property_as_function(xule_context, function_ref):
     # Check that there is at least one argument. This is the property object
     if len(function_ref['functionArgs']) == 0:
         raise XuleProcessingError(
-            _("The '{}' function must have at least one argumenrt, found none.".format(function_ref['functionName'])),
+            _("The '{}' function must have at least one argument, found none.".format(function_ref['functionName'])),
             xule_context)
 
     # Check that the first argument is the right type
@@ -5393,7 +5393,7 @@ def format_fact_dimensions(xule_context, xule_fact):
 
 
 def format_fact_label(xule_context, fact):
-    label = property_label(xule_context, fact)
+    label = XuleProperties.property_label(xule_context, fact)
     if label.type in ('unbound', 'none'):
         return "missing"
     else:
