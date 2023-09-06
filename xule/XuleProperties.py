@@ -2014,7 +2014,7 @@ def property_stats(xule_context, object_value, stat_function, *args):
             raise XuleProcessingError(_("Statistic properties expect nuemric inputs, found '{}'.".format(next_value.type)), xule_context)
         values.append(next_value.value)
     stat_calc_value = stat_function(values)
-    if numpy.isnan(stat_calc_value):
+    if math.isnan(stat_calc_value):
         return xv.XuleValue(xule_context, None, 'none')
     
     stat_value = xv.XuleValue(xule_context, stat_calc_value, 'float')
