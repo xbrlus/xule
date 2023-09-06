@@ -315,7 +315,7 @@ output TSP105
   time-span('P4W')
 
 output TSP106
-/* 30 */
+/* [ERROR][xule:error] rule TSP106: Rule: TSP106 - Could not convert 'P4W2D' into a time-period. */
 
   time-span('P4W2D')
 
@@ -343,6 +343,11 @@ output TSP194
 /* [ERROR] [xule:error] rule TSP194: Rule: TSP194 - Could not convert '-P4D' into a time-period. */
 
   time-span('-P4D')
+
+output TSP195
+/* 89 days, 0:00:00 */
+
+  duration('2022-01-01', '2022-03-31').time-span
 
 output YER001
 /* 2021 */

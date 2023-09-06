@@ -577,7 +577,7 @@ output TJSON101
 to-json($A)
 
 output DHK001
-/*  true */
+/* True */
 
   dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).has-key('a')
 
@@ -607,7 +607,7 @@ output DHK093
   dict(list('a', 'apple')).has-key(list('a'))
 
 output DHK094
-/*  true */
+/* True */
 
   dict(list(list('a', 'b'), 'apple')).has-key(list('a', 'b'))
 
@@ -617,7 +617,7 @@ output DHK095
   list('a', 'b').has-key('a')
 
 output DHK096
-/*  true */
+/* True */
 
   dict(list(set('a', 'b'), 'apple')).has-key(set('a', 'b'))
 
@@ -652,7 +652,7 @@ output HKY006
   has-key(dict(list('a', 'apple')), list('a'))
 
 output HKY007
-/* False */
+/* True */
 
   has-key(dict(list(list('a', 'b'), 'apple')), list('a', 'b'))
 

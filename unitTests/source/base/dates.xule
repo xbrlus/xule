@@ -90,7 +90,7 @@ output DO117
   time-span('P4D') * 2
 
 output DO118
-/* [ERROR] [xule:error] rule DO118: 'datetime.timedelta' object is not subscriptable */
+/* 8 */
 
   time-span('P4D').days * 2
 

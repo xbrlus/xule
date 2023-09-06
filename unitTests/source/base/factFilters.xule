@@ -275,7 +275,7 @@ output INSFILT001
   $INSTANCE1.facts.count
 
 output INSFILT002
-/* -12771000000 */
+/* -602 */
 
   first(($INSTANCE1.facts).to-list.sort)
 
