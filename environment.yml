@@ -9,7 +9,7 @@ dependencies:
   - holidays==0.11.1
   - tabulate
   - numpy==1.22.0
-  - pyparsing==3.0.9
+  - pyparsing==3.1.1
   - pip
   - pip:
-    - Arelle-release==2.4.2
+    - Arelle-release==2.13.5
