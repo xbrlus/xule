@@ -63,3 +63,8 @@ output INLIN013
 /* 3 */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}).count
+
+output INLIN014
+/*  */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}.inline-display-value)

@@ -640,7 +640,7 @@ output NAX129
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns relationship
 
 output NAX130
-/* [ERROR] [xule:error] rule NAX130: 'NoneType' object has no attribute 'roleTypes' */
+/* list(http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect - 152200 - Statement - Statement of Cash Flows, http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect - 152200 - Statement - Statement of Cash Flows) */
 
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns role
 
@@ -650,12 +650,12 @@ output NAX131
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns role-uri
 
 output NAX132
-/* [ERROR] [xule:error] rule NAX132: 'NoneType' object has no attribute 'roleTypes' */
+/* list(152200 - Statement - Statement of Cash Flows, 152200 - Statement - Statement of Cash Flows) */
 
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns role-description
 
 output NAX133
-/* [ERROR] [xule:error] rule NAX133: 'NoneType' object has no attribute 'arcroleTypes' */
+/* list(http://www.xbrl.org/2003/arcrole/summation-item - Summation/item relationship, http://www.xbrl.org/2003/arcrole/summation-item - Summation/item relationship) */
 
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole
 
@@ -665,12 +665,12 @@ output NAX134
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole-uri
 
 output NAX135
-/* [ERROR] [xule:error] rule NAX135: 'NoneType' object has no attribute 'arcroleTypes' */
+/* list(Summation/item relationship, Summation/item relationship) */
 
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole-description
 
 output NAX136
-/* [ERROR] [xule:error] rule NAX135: 'NoneType' object has no attribute 'arcroleTypes' */
+/* list(any, any) */
 
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole-cycles-allowed
 

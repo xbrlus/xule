@@ -177,3 +177,100 @@ output SM033
 /* False */
 
   set('d').is-subset(set('a','b'))
+
+output SM034
+/* True */
+
+  $A = set(a,b,c); 
+$B = set(a,b,c,d,e);
+$B.is-superset($B)
+
+output SM035
+/* True */
+
+  $A = set(a,b,c); 
+$B = set(a,b,c,d,e);
+$B.is-superset($A)
+
+output SM036
+/* False */
+
+  $A = set(a,b,c); 
+$B = set(a,b,c,d,e);
+$A.is-superset($B)
+
+output SM037
+/* True */
+
+  set().is-superset(set())
+
+output SM038
+/* False */
+
+  set().is-superset(set('d'))
+
+output SM039
+/* True */
+
+  set('d').is-superset(set('d'))
+
+output SM040
+/* True */
+
+  set('d').is-superset(set())
+
+output SM041
+/* set(a, e, b, c, d) */
+
+  $A = set(a,b,c); 
+$B = set(c,d,e);
+$A.union($B)
+
+output SM042
+/* set() */
+
+  $A = set(); 
+$B = set();
+$A.union($B)
+
+output SM043
+/* set(2,3) */
+
+  set(2,3,5) intersect set(1,2,3,4)
+
+output SM044
+/* set() */
+
+  set('a','b','c','d') intersect set('A','B','C','D')
+
+output SM045
+/* set() */
+
+  set('a','b','c','d').intersect(set('A','B','C','D'))
+
+output SM046
+/* set(2,3) */
+
+  set(2,3,5).intersect(set(1,2,3,4))
+
+output SM047
+/* set(b, c) */
+
+  set('a','b','c','d').difference(set('a', 'd'))
+
+output SM048
+/* set(a, b, c, d) */
+
+  set('a','b','c','d').difference(set())
+
+output SM049
+/* set() */
+
+  set().difference(set('a','b','c','d'))
+
+output SM050
+/* set(EarningsPerShareBasic, BankLoans, Assets, DebtAndCapitalLeaseObligations) */
+
+  $A = set(Assets,BankLoans,Capital); 
+ $B = set(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic);
+ $A ^ $B

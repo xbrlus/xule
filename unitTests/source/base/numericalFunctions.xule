@@ -85,7 +85,7 @@ output DAVG104
   list(0.12, 1.12).avg
 
 output DAVG105
-/*  nan */
+/* None */
 
   list().avg
 
@@ -145,7 +145,7 @@ output DLOG101
   100.log10
 
 output DLOG102
-/*  nan */
+/*  None */
 
   -1234.log10
 
@@ -155,7 +155,7 @@ output LOG101
   log10(100)
 
 output LOG102
-/*  nan */
+/*  None */
 
   log10(-1234)
 
