@@ -107,21 +107,33 @@ output FIL120
 filter $source where $item != none
 
 output FIL121
-/* 3 iterations */
+/* {{list(240,000,000,000)},{list(240,000,000,000)},{list(240,000,000,000)}} */
 
   $source = list(1,2,240000000000)
 filter $source where $item > [@instance = $INSTANCE1 @Assets]
 
 output FIL122
-/*  */
+/* [ERROR] [xule:error] rule FIL122: '>' not supported between instances of 'int' and 'frozenset' */
 
   $source = list(1,2,240000000000)
 filter $source where $item > filter set([covered @instance = $INSTANCE1 @Assets])
 
 output FIL123
-/* 4 iterations */
+/* {{list(6,000,001, 6,000,002, 6,000,003)},{list(3,000,001, 3,000,002, 3,000,003)},{list(6,000,001, 6,000,002, 6,000,003)},{list(4,000,001, 4,000,002, 4,000,003)}} */
 
    $a = [@instance = $INSTANCE1 @IncomeTaxExpenseBenefit]
  filter list(1,2,3)
         returns
             $item + [@instance = $INSTANCE1 @IncomeLossFromEquityMethodInvestments where $fact < $a]
+
+output FIL124
+/* 3 */
+
+  $source = list(none, 1,2,3,4, none)
+max(filter (filter $source  where $item != 4) where $item != none)
+
+output FIL125
+/* 2 */
+
+  $source = list(none, 1,2,3,4, none)
+max(filter (filter (filter $source  where $item != 3) where $item != 4) where $item != none)

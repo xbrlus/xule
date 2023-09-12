@@ -85,87 +85,32 @@ output CONPROP017
   $US-GAAP-2020.concept(Assets).period-type
 
 output CONPROP018
-/* list(http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 810
-        codification-part:SubTopic: 10
-        ref:Section: 50
-        ref:Paragraph: 3
-        ref:Subparagraph: (bb)
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=121559654&amp;loc=d3e5710-111685
-, http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 280
-        codification-part:SubTopic: 10
-        ref:Section: 50
-        ref:Paragraph: 30
-        ref:Subparagraph: (c)
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8906-108599
-, http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 825
-        codification-part:SubTopic: 10
-        ref:Section: 50
-        ref:Paragraph: 28
-        ref:Subparagraph: (f)
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=75031198&amp;loc=d3e14064-108612
-, http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 323
-        codification-part:SubTopic: 10
-        ref:Section: 50
-        ref:Paragraph: 3
-        ref:Subparagraph: (c)
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=114001798&amp;loc=d3e33918-111571
-, http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 235
-        codification-part:SubTopic: 10
-        ref:Section: S99
-        ref:Paragraph: 1
-        ref:Subparagraph: (SX 210.4-08(g)(1)(ii))
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120395691&amp;loc=d3e23780-122690
-, http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 280
-        codification-part:SubTopic: 10
-        ref:Section: 50
-        ref:Paragraph: 22
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8736-108599
-, http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 280
-        codification-part:SubTopic: 10
-        ref:Section: 50
-        ref:Paragraph: 32
-        ref:Subparagraph: (d)
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8933-108599
-, http://www.xbrl.org/2003/role/disclosureRef
-        ref:Publisher: FASB
-        ref:Name: Accounting Standards Codification
-        codification-part:Topic: 810
-        codification-part:SubTopic: 10
-        ref:Section: 45
-        ref:Paragraph: 25
-        ref:Subparagraph: (a)
-        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=116870748&amp;loc=SL6758485-165988 */
+/* ref:Paragraph - 1
+ref:Paragraph - 22
+ref:Paragraph - 25
+ref:Paragraph - 28
+ref:Paragraph - 3
+ref:Paragraph - 3
+ref:Paragraph - 30
+ref:Paragraph - 32 */
 
-  $US-GAAP-2020.concept(Assets).references.to-list.sort
+  $con = $US-GAAP-2020.concept(Assets)
+   list(for ($ref in $con.references('http://www.xbrl.org/2003/role/disclosureRef'))
+    for ($p in $ref.parts)
+              if $p.name.local-name == 'Paragraph'
+                   $p.name.string +  ' - ' + $p.part-value + '\n'
+              else
+                    skip
+    ).sort.join('')
+
 
 output CONPROP019
-/* Property 'relationships' is not a property of a 'concept' */
+/* [ERROR] [xule:error] rule CONPROP019: Rule: CONPROP019 - Property 'relationships' is not a property of a 'concept'. */
 
   $US-GAAP-2020.concept(Assets).relationships
 
 output CONPROP020
-/* source-relationships' is not a valid property. */
+/* [ERROR] [xule:error] rule CONPROP020: Rule: CONPROP020 - 'source-relationships' is not a valid property. */
 
   $US-GAAP-2020.concept(Assets).source-relationships
 
@@ -175,12 +120,12 @@ output CONPROP021
   $US-GAAP-2020.concept(Assets).substitution
 
 output CONPROP022
-/* target-relationships' is not a valid property. */
+/* [ERROR] [xule:error] rule CONPROP022: Rule: CONPROP022 - 'target-relationships' is not a valid property. */
 
   $US-GAAP-2020.concept(Assets).target-relationships
 
 output CONPROP023
-/*  */
+/* [ERROR] [xule:error] rule CONPROP023: Rule: CONPROP023 - The argument for the 'attribute' property must be a qname, found 'string' */
 
   $US-GAAP-2020.concept(Assets).attribute('abc') 
 
@@ -199,33 +144,78 @@ output LABPROP003
 
   $US-GAAP-2020.concept(Assets).label.lang
 
+output LABPROP004
+/* set((http://www.xbrl.org/2003/role/totalLabel) (en-US) Assets, Total, (http://www.xbrl.org/2003/role/label) (en-US) Assets, (http://www.xbrl.org/2003/role/documentation) (en-US) Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events.) */
+
+  list($US-GAAP-2020.concept(Assets).all-labels).join('|')
+
+output REFPROP001
+/* set(list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, ref:Subparagraph, codification-part:URI), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, codification-part:URI), list(cn-part:SourceName, cn-part:TaxonomyVersion, cn-part:ChangeDate, cn-part:ModifiedReferences)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.name
+
+output REFPROP002
+/* set(list(FASB, Accounting Standards Codification, 810, 10, 50, 3, (bb), http://asc.fasb.org/extlink&oid=121559654&loc=d3e5710-111685), list(VIEs:Taxonomy Technical Improvement, 2020, 2019-12, true), list(FASB, Accounting Standards Codification, 280, 10, 50, 22, http://asc.fasb.org/extlink&oid=120311839&loc=d3e8736-108599), list(FASB, Accounting Standards Codification, 825, 10, 50, 28, (f), http://asc.fasb.org/extlink&oid=75031198&loc=d3e14064-108612), list(FASB, Accounting Standards Codification, 810, 10, 45, 25, (a), http://asc.fasb.org/extlink&oid=116870748&loc=SL6758485-165988), list(Reference Project, 2018, 2017-11, true), list(FASB, Accounting Standards Codification, 942, 210, S99, 1, (SX 210.9-03(11)), http://asc.fasb.org/extlink&oid=120398452&loc=d3e534808-122878), list(FASB, Accounting Standards Codification, 280, 10, 50, 32, (d), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8933-108599), list(FASB, Accounting Standards Codification, 944, 210, S99, 1, (SX 210.7-03(a)(12)), http://asc.fasb.org/extlink&oid=120400017&loc=d3e572229-122910), list(FASB, Accounting Standards Codification, 323, 10, 50, 3, (c), http://asc.fasb.org/extlink&oid=114001798&loc=d3e33918-111571), list(FASB, Accounting Standards Codification, 280, 10, 50, 30, (c), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8906-108599), list(FASB, Accounting Standards Codification, 235, 10, S99, 1, (SX 210.4-08(g)(1)(ii)), http://asc.fasb.org/extlink&oid=120395691&loc=d3e23780-122690)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.part-value
+
+output REFPROP003
+/* set(list(http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31, http://fasb.org/codification-part/2020-01-31, http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31), list(http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.namespace-uri
+
+output REFPROP004
+/* set(list(SourceName, TaxonomyVersion, ChangeDate, ModifiedReferences), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, URI), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, Subparagraph, URI)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.local-name
+
+output REFPROP005
+/* set(list(1, 2, 3, 4, 5, 6, 7), list(1, 2, 3, 4, 5, 6, 7, 8), list(1, 2, 3, 4)) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.parts.order
+
+output REFPROP006
+/* set(http://fasb.org/srt/role/changeNote/changeNote
+        cn-part:SourceName: Reference Project
+        cn-part:TaxonomyVersion: 2018
+        cn-part:ChangeDate: 2017-11
+        cn-part:ModifiedReferences: true
+, http://fasb.org/srt/role/changeNote/changeNote
+        cn-part:SourceName: VIEs:Taxonomy Technical Improvement
+        cn-part:TaxonomyVersion: 2020
+        cn-part:ChangeDate: 2019-12
+        cn-part:ModifiedReferences: true
+) */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) where $item.role.uri == 'http://fasb.org/srt/role/changeNote/changeNote'
+
 output DATAPROP001
 /* xbrli:monetaryItemType */
 
   $US-GAAP-2020.concept(Assets).data-type.name
 
 output TAXPROP001
-/* uri: http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
+/* http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
 
   entry-point($US-GAAP-2020)
 
 output TAXPROP002
-/* uri: http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
+/* http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
 
   $US-GAAP-2020.entry-point
 
 output TAXPROP003
-/* The 'entry-point' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule TAXPROP003: Rule: TAXPROP003 - The 'entry-point' function must have at least one argumenrt, found None. */
 
   entry-point()
 
 output TAXPROP004
-/* The first argument of function 'entry-point' must be taxonomy, found 'string' */
+/* [ERROR] [xule:error] rule TAXPROP004: Rule: TAXPROP004 - The first argument of function 'entry-point' must be taxonomy, found 'string'. */
 
   entry-point('ferc')
 
 output TAXPROP005
-/* Error: Item '.entry-point' requires single element */
+/* [ERROR] [xule:error] rule TAXPROP005: Rule: TAXPROP005 - Property 'entry-point' is not a property of a 'string'. */
 
   'cat'.entry-point
 
@@ -235,12 +225,12 @@ output TAXPROP006
   entry-point-namespace($US-GAAP-2020)
 
 output TAXPROP007
-/* The 'entry-point-namespace' function must have at least one argumenrt, found none. */
+/* [ERROR] [xule:error] rule TAXPROP007: Rule: TAXPROP007 - The 'entry-point-namespace' function must have at least one argumenrt, found None. */
 
   entry-point-namespace()
 
 output TAXPROP008
-/* The first argument of function 'entry-point-namespace' must be taxonomy, found 'string'. */
+/* [ERROR] [xule:error] rule TAXPROP008: Rule: TAXPROP008 - The first argument of function 'entry-point-namespace' must be taxonomy, found 'string'. */
 
   entry-point-namespace('US-GAAP-2020')
 
@@ -250,7 +240,7 @@ output TAXPROP009
   $US-GAAP-2020.entry-point-namespace
 
 output TAXPROP010
-/* Property 'cube' must have 2 arguments. Found 1. */
+/* [ERROR] [xule:error] rule TAXPROP010: Rule: TAXPROP010 - Property 'cube' must have 2 arguments. Found 1. */
 
   $US-GAAP-2020.cube(StatementTable)
 
@@ -275,14 +265,14 @@ output TAXPROP014
   drs-role($CUBE).uri
 
 output TAXPROP015
-/*  */
+/* set(us-gaap:FinancialInstrumentAxis) */
 
-  $CUBE.dimensions
+  $CUBE.dimensions.concept
 
 output TAXPROP016
-/*  */
+/* set(us-gaap:FinancialInstrumentAxis) */
 
-  dimensions($CUBE)
+  dimensions($CUBE).concept
 
 output TAXPROP017
 /* 6 */
@@ -295,7 +285,7 @@ output TAXPROP018
   primary-concepts($CUBE).length
 
 output TAXPROP019
-/* closed' is not a valid property */
+/* [ERROR] [xule:error] rule TAXPROP019: Rule: TAXPROP019 - 'closed' is not a valid property. */
 
   $CUBE.closed
 
@@ -387,7 +377,7 @@ output TAXPROP035
   dimensions-typed($US-GAAP-2020).length
 
 output TAXPROP036
-/* The first argument of function 'dimensions-typed' must be fact, cube, taxonomy, found 'string'. */
+/* [ERROR] [xule:error] rule TAXPROP036: Rule: TAXPROP036 - The first argument of function 'dimensions-typed' must be fact, cube, taxonomy, found 'string'. */
 
   dimensions-typed('US-GAAP-2020')
 
@@ -449,7 +439,7 @@ output TAXPROP046
   concept-names(sum($NETWORK_BS)).length
 
 output TAXPROP047
-/* The first argument of function 'concept-names' must be taxonomy, network, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP047: Rule: TAXPROP047 - The first argument of function 'concept-names' must be taxonomy, network, found 'set'. */
 
   concept-names($NETWORK_BS).length
 
@@ -464,7 +454,7 @@ output TAXPROP049
   concepts(sum($NETWORK_BS)).length
 
 output TAXPROP050
-/* The first argument of function 'concepts' must be taxonomy, network, found 'set' */
+/* [ERROR] [xule:error] rule TAXPROP050: Rule: TAXPROP050 - The first argument of function 'concepts' must be taxonomy, network, found 'set'. */
 
   concepts($NETWORK_BS).length
 
@@ -521,12 +511,12 @@ output TAXPROP060
 output TAXPROP061
 /* list(link:calculationLink, link:definitionLink, link:presentationLink) */
 
-  sum($NETWORK_BS).role.used-on
+  sum($NETWORK_BS).role.used-on.sort
 
 output TAXPROP062
 /* list(link:calculationLink, link:definitionLink, link:presentationLink) */
 
-  role(sum($NETWORK_BS)).used-on
+  role(sum($NETWORK_BS)).used-on.sort
 
 output TAXPROP063
 /* set(us-gaap:StatementOfFinancialPositionAbstract) */
@@ -554,7 +544,7 @@ output TAXPROP067
   sum($PRES_RELATIONSHIP).source
 
 output TAXPROP068
-/* The first argument of function 'source' must be relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP068: Rule: TAXPROP068 - The first argument of function 'source' must be relationship, found 'set'. */
 
   source($PRES_RELATIONSHIP)
 
@@ -574,7 +564,7 @@ output TAXPROP071
   sum($PRES_RELATIONSHIP).source-name
 
 output TAXPROP072
-/* The first argument of function 'source-name' must be relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP072: Rule: TAXPROP072 - The first argument of function 'source-name' must be relationship, found 'set'. */
 
   source-name($PRES_RELATIONSHIP)
 
@@ -594,7 +584,7 @@ output TAXPROP075
   sum($PRES_RELATIONSHIP).target
 
 output TAXPROP076
-/* The first argument of function 'target' must be relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP076: Rule: TAXPROP076 - The first argument of function 'target' must be relationship, found 'set'. */
 
   target($PRES_RELATIONSHIP)
 
@@ -614,7 +604,7 @@ output TAXPROP079
   sum($PRES_RELATIONSHIP).target-name
 
 output TAXPROP080
-/* The first argument of function 'target-name' must be relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP080: Rule: TAXPROP080 - The first argument of function 'target-name' must be relationship, found 'set'. */
 
   target-name($PRES_RELATIONSHIP)
 
@@ -634,7 +624,7 @@ output TAXPROP083
   sum($PRES_RELATIONSHIP).order
 
 output TAXPROP084
-/* The first argument of function 'order' must be relationship, reference-part, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP084: Rule: TAXPROP084 - The first argument of function 'order' must be relationship, reference-part, found 'set'. */
 
   order($PRES_RELATIONSHIP)
 
@@ -654,7 +644,7 @@ output TAXPROP087
   sum($PRES_RELATIONSHIP).preferred-label
 
 output TAXPROP088
-/* The first argument of function 'preferred-label' must be relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP088: Rule: TAXPROP088 - The first argument of function 'preferred-label' must be relationship, found 'set'. */
 
   preferred-label($PRES_RELATIONSHIP)
 
@@ -674,7 +664,7 @@ output TAXPROP091
   sum($PRES_RELATIONSHIP).role
 
 output TAXPROP092
-/* The first argument of function 'role' must be network, label, footnote, reference, relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP092: Rule: TAXPROP092 - The first argument of function 'role' must be network, label, footnote, reference, relationship, found 'set'. */
 
   role($PRES_RELATIONSHIP)
 
@@ -694,7 +684,7 @@ output TAXPROP095
   sum($PRES_RELATIONSHIP).arcrole
 
 output TAXPROP096
-/* The first argument of function 'arcrole' must be network, relationship, footnote, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP096: Rule: TAXPROP096 - The first argument of function 'arcrole' must be network, relationship, footnote, found 'set'. */
 
   arcrole($PRES_RELATIONSHIP)
 
@@ -714,7 +704,7 @@ output TAXPROP099
   sum($PRES_RELATIONSHIP).arcrole-uri
 
 output TAXPROP100
-/* The first argument of function 'arcrole-uri' must be network, relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP100: Rule: TAXPROP100 - The first argument of function 'arcrole-uri' must be network, relationship, found 'set'. */
 
   arcrole-uri($PRES_RELATIONSHIP)
 
@@ -734,7 +724,7 @@ output TAXPROP103
   sum($PRES_RELATIONSHIP).arcrole-description
 
 output TAXPROP104
-/* The first argument of function 'arcrole-description' must be network, relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP104: Rule: TAXPROP104 - The first argument of function 'arcrole-description' must be network, relationship, found 'set'. */
 
   arcrole-description($PRES_RELATIONSHIP)
 
@@ -754,7 +744,7 @@ output TAXPROP107
   sum($PRES_RELATIONSHIP).link-name
 
 output TAXPROP108
-/* The first argument of function 'link-name' must be relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP108: Rule: TAXPROP108 - The first argument of function 'link-name' must be relationship, found 'set'. */
 
   link-name($PRES_RELATIONSHIP)
 
@@ -774,7 +764,7 @@ output TAXPROP111
   sum($PRES_RELATIONSHIP).arc-name
 
 output TAXPROP112
-/* The first argument of function 'arc-name' must be relationship, found 'set'. */
+/* [ERROR] [xule:error] rule TAXPROP112: Rule: TAXPROP112 - The first argument of function 'arc-name' must be relationship, found 'set'. */
 
   arc-name($PRES_RELATIONSHIP)
 
@@ -814,7 +804,7 @@ output TAXPROP116
   sum($PRES_RELATIONSHIP).network.role.description
 
 output TAXPROP117
-/* The first argument of function 'network' must be relationship, found 'set' */
+/* [ERROR] [xule:error] rule TAXPROP117: Rule: TAXPROP117 - The first argument of function 'network' must be relationship, found 'set'. */
 
   network($PRES_RELATIONSHIP)
 
@@ -834,6 +824,26 @@ output TAXPROP120
   $INSTANCE1.taxonomy.dimensions.length
 
 output TAXPROP121
-/* The taxonomy() function takes a string or uri, found instance. */
+/* [ERROR] [xule:error] rule TAXPROP121: Rule: TAXPROP121 - The taxonomy() function takes a string or uri, found instance. */
 
   taxonomy($INSTANCE1).dimensions.length
+
+output TAXPROP122
+/* 2478 */
+
+  $US-GAAP-2020.networks.count
+
+output TAXPROP123
+/* 15 */
+
+  $US-GAAP-2020.networks.arcrole.count
+
+output TAXPROP124
+/* 1 */
+
+  $US-GAAP-2020.networks(concept-label).count
+
+output TAXPROP125
+/* 1 */
+
+  $US-GAAP-2020.networks(concept-reference).count

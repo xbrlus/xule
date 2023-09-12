@@ -140,12 +140,12 @@ output XU128
   none - 2.345
 
 output XU129
-/* none */
+/* skip iteration */
 
   none - none
 
 output XU130
-/* none */
+/* skip iteration */
 
   none + none
 
@@ -160,36 +160,36 @@ output XU132
   '3' + 3
 
 output XU133
-/* Unsupported operand type(s) for -: 'XuleString' and 'str' */
+/* [ERROR] [xule:error] rule XU133: unsupported operand type(s) for -: 'XuleString' and 'str' */
 
   '3' - 3
 
 output XU134
-/*  true */
+/*  True */
 
   1 < 2
 
 output XU135
-/*  false */
+/*  False */
 
   2 < 1
 
 output XU136
-/*  true */
+/*  True */
 
   1.1 < 2.2
 
 output XU137
-/*  false */
+/*  False */
 
   2.2 < 1.1
 
 output XU138
-/*  true */
+/*  True */
 
   'a' < 'b'
 
 output XU139
-/*  false */
+/*  False */
 
   'b' < 'a'

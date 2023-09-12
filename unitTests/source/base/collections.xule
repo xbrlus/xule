@@ -30,7 +30,7 @@ output LIST006
   list(duration('2016-01-01', '2016-12-31'), date('2016-12-31'))
 
 output LIST007
-/* list(none) */
+/* list(None) */
 
   list(none)
 
@@ -44,6 +44,16 @@ output LIST009
 
   list(Assets, Land,Cash, AccountsReceivable)
 
+output LIST010
+/* False */
+
+  list('a','b','c') == list('b','c','a')
+
+output LIST011
+/* True */
+
+  list('a','b','c') == set('a','b','c')
+
 output SET101
 /* set(4, 1, 2, 3)  */
 
@@ -55,12 +65,12 @@ output SET102
   set('a', a, b, 'b')
 
 output SET103
-/* set(none) */
+/* set(None) */
 
   set(none)
 
 output SET104
-/* set(None)  */
+/* set()  */
 
   set()
 
@@ -68,3 +78,39 @@ output SET105
 /* set() */
 
   set(skip)
+
+output SET106
+/* True */
+
+  set('a','b','c') == set('b','c','a')
+
+output SET107
+/* False */
+
+  set('a','b','c') == set('b','c','d')
+
+output SET108
+/* True */
+
+  set('a','b','c') == set('b','c','a','a')
+
+output DICT001
+/* True */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$A == $B
+
+output DICT002
+/* True */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','CMember'));
+$B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$A == $B
+
+output DICT003
+/* False */
+
+  $A = dict(list('CAxis','AMember'), list('BAxis','CMember'));
+$B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$A == $B

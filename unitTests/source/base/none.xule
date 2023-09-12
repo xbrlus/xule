@@ -60,22 +60,22 @@ output PMN112
   none == 0
 
 output PMN113
-/* none */
+/* None */
 
   none > none
 
 output PMN114
-/* none */
+/* None */
 
   none > -1
 
 output PMN115
-/* none */
+/* None */
 
   none > 0
 
 output PMN116
-/* argument of type 'NoneType' is not iterabl */
+/* [ERROR] [xule:error] rule PMN116: argument of type 'NoneType' is not iterable */
 
   none in none
 
@@ -85,12 +85,12 @@ output PMN117
   none in list(none)
 
 output PMN118
-/* none */
+/* None */
 
   none.string
 
 output PMN119
-/* none */
+/* None */
 
   none.decimals
 

@@ -15,109 +15,109 @@ output LM003
   'n' in list('a','b','c','d')
 
 output LM004
-/* list(123) */
+/* list(1,2,3,None) */
 
   list(1,2,3,none)
 
 output LM005
-/* No iteration */
+/* list(1,2,3) */
 
   list(1,2,3,skip)
 
 output LM006
-/* Cannot deduct a list */
+/* [ERROR] [xule:error] rule LM006: unsupported operand type(s) for -: 'tuple' and 'tuple' */
 
   list(1,2,3) - list(1,2)
 
 output LM007
-/* Error: Cannot multiply a list */
+/* [ERROR] [xule:error] rule LM007: Rule: LM007 - The left operand of '*' is not numeric, found 'list' */
 
   list(1,2,3) * list(1,2)
 
 output LM008
-/* Error: Cannot do a intersection on a list */
+/* [ERROR] [xule:error] rule LM008: Rule: LM008 - Intersection can only operatate on sets. The left side is a 'list'. */
 
   list(2,3,5) & list(1,2,3,4)
 
 output LM009
-/* Error: Cannot deduct a list */
+/* [ERROR] [xule:error] rule LM009: unsupported operand type(s) for -: 'tuple' and 'tuple' */
 
   list() - list('a','b','c','d') 
 
 output LM010
-/*  true */
+/*  True */
 
   'a' in list('a','b','c','d') 
 
 output LM011
-/*  false */
+/*  False */
 
   'n' in list('a','b','c','d') 
 
 output LM012
-/*  false */
+/*  False */
 
   '' in list()
 
 output LM013
-/*  false */
+/*  False */
 
   list(1) in list(1,'b','c')
 
 output LM014
-/*  false */
+/*  False */
 
   'dog' in list('cat')
 
 output LM015
-/*  false */
+/*  False */
 
   'a' not in list('a','b','c','d') 
 
 output LM016
-/*  true */
+/*  True */
 
   'n' not in list('a','b','c','d') 
 
 output LM017
-/*  true */
+/*  True */
 
   '' not in list()
 
 output LM018
-/*  list(40,230,000,000)
- list(42,144,000,000)
- list(45,436,000,000) */
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
 
   list([@instance = $INSTANCE1 @Assets])
 
 output LM019
-/*  list(lang, 40,230,000,000)
- list(lang, 42,144,000,000)
- list(lang, 45,436,000,000) */
+/*  {{list(lang, 40,230,000,000)},
+ {list(lang, 42,144,000,000)},
+ {list(lang, 45,436,000,000)}} */
 
   list('lang',[@instance = $INSTANCE1 @Assets])
 
 output LM020
-/*  list(lang, 40,230,000,000)
- list(lang, 42,144,000,000)
- list(lang, 45,436,000,000) */
+/*  {{list(lang, 40,230,000,000)},
+ {list(lang, 42,144,000,000)},
+ {list(lang, 45,436,000,000)}} */
 
   $x = [@instance = $INSTANCE1 @Assets]
 
 list('lang',  $x)
 
 output LM021
-/*  list(lang, 40,230,000,000)
- list(lang, 42,144,000,000)
- list(lang, 45,436,000,000) */
+/*  {{list(lang, 40,230,000,000)},
+ {list(lang, 42,144,000,000)},
+ {list(lang, 45,436,000,000)}} */
 
   list('lang',  $CONSTANT_ASSETS)
 
 output LM022
-/*  list(lang, list(40,230,000,000))
- list(lang, list(42,144,000,000))
- list(lang, list(45,436,000,000)) */
+/*  {{list(lang, list(40,230,000,000))},
+ {list(lang, list(42,144,000,000))},
+ {list(lang, list(45,436,000,000))}} */
 
   $x = filter list([@instance = $INSTANCE1 @Assets]) returns $item
   list('lang',  $x)

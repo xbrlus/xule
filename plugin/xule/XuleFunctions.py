@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - present XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23570 $
+$Change: 23609 $
 DOCSKIP
 """
 
@@ -126,16 +126,16 @@ def func_uri(xule_context, *args):
     else:
         raise XuleProcessingError(_("The 'uri' function requires a string argument, found '%s'." % arg.type), xule_context) 
 
-def func_time_span(xule_context, *args):
-    arg = args[0]
+# def func_time_span(xule_context, *args):
+#     arg = args[0]
     
-    if arg.type != 'string':
-        raise XuleProcessingError(_("Function 'time-span' expects a string, fount '%s'." % arg.type), xule_context)
+#     if arg.type != 'string':
+#         raise XuleProcessingError(_("Function 'time-span' expects a string, fount '%s'." % arg.type), xule_context)
     
-    try:
-        return xv.XuleValue(xule_context, parse_duration(arg.value.upper()), 'time-period')
-    except:
-        raise XuleProcessingError(_("Could not convert '%s' into a time-period." % arg.value), xule_context)
+#     try:
+#         return xv.XuleValue(xule_context, parse_duration(arg.value.upper()), 'time-period')
+#     except:
+#         raise XuleProcessingError(_("Could not convert '%s' into a time-period." % arg.value), xule_context)
 
 def func_schema_type(xule_context, *args):
     arg = args[0]
@@ -1185,7 +1185,7 @@ def built_in_functions():
              'entity': ('regular', func_entity, 2, False, 'single'),
              'qname': ('regular', func_qname, 2, True, 'single'),
              'uri': ('regular', func_uri, 1, False, 'single'),
-             'time-span': ('regular', func_time_span, 1, False, 'single'),
+             #'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
              'num-to-string': ('regular', func_num_to_string, 1, False, 'single'),
              'mod': ('regular', func_mod, 2, False, 'single'),

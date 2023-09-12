@@ -2,12 +2,12 @@
 output DCO101
 /* True */
 
-  'http://some/role/for/cashflow/'.contains(cashflow)
+  'http://some/role/for/cashflow/'.contains('cashflow')
 
 output DCO102
 /* False */
 
-  'http://some/role/for/cashflow/'.contains(cashflows)
+  'http://some/role/for/cashflow/'.contains('cashflows')
 
 output CON101
 /* True */
@@ -30,12 +30,12 @@ output DIO102
   'Hello Mr Stains-o-there'.index-of('o')
 
 output DIO191
-/* Property 'index-of' must have 1 arguments. Found 0. */
+/* [ERROR] [xule:error] rule DIO191: Rule: DIO191 - Property 'index-of' must have 1 arguments. Found 0. */
 
   'Hello Mr Stains-o-there'.index-of
 
 output DIO192
-/* Property 'index-of' must have 1 arguments. Found 0 */
+/* [ERROR] [xule:error] rule DIO192: Rule: DIO192 - Property 'index-of' must have 1 arguments. Found 0. */
 
   'Hello Mr Stains-o-there'.index-of()
 
@@ -70,22 +70,22 @@ output LIO103
   last-index-of('Hello Mr Stains', 'z')
 
 output LIO104
-/* Incorrect number of parameters for 'last-index-of()' */
+/* [ERROR] [xule:error] rule LIO104: Rule: LIO104 - The 'last-index-of' function must have at least one argumenrt, found None. */
 
   last-index-of()
 
 output LIO105
-/* Incorrect number of parameters for 'last-index-of()' */
+/* [ERROR] [xule:error] rule LIO105: Rule: LIO105 - Property 'last-index-of' must have 1 arguments. Found 0. */
 
   last-index-of('Hello Mr Stains')
 
 output LIO106
-/* Incorrect number of parameters for 'last-index-of()' */
+/* [ERROR] [xule:error] rule LIO106: Rule: LIO106 - Property 'last-index-of' must have 1 arguments. Found 2. */
 
   last-index-of('Hello Mr Stains', 'o', 'o')
 
 output LIO107
-/* Parameter 1 must be string for 'last-index-of()' */
+/* [ERROR] [xule:error] rule LIO107: Rule: LIO107 - The first argument of function 'last-index-of' must be string, uri, found 'list'. */
 
   last-index-of(list('Hello Mr Stains'), 'o')
 
@@ -145,7 +145,7 @@ output LOW102
   lower-case('')
 
 output LOW103
-/* 123,000 */
+/* 123000 */
 
   lower-case('123,000')
 
@@ -195,12 +195,12 @@ output DNU116
   set().number
 
 output DNU191
-/* Cannot convert 'z67' to a number  */
+/* [ERROR] [xule:error] rule DNU191: Rule: DNU191 - Cannot convert 'z67' to a number */
 
   'z67'.number
 
 output DNU192
-/* Cannot convert '' to a number */
+/* [ERROR] [xule:error] rule DNU192: Rule: DNU192 - Cannot convert '' to a number */
 
   ''.number
 
@@ -220,12 +220,12 @@ output NUM103
   number('-22')
 
 output NUM104
-/* Cannot convert '' to a number */
+/* [ERROR] [xule:error] rule NUM104: Rule: NUM104 - Cannot convert '' to a number */
 
   number('')
 
 output NUM105
-/* The first argument of function 'number' must be int, float, decimal, fact, found 'none'. */
+/* [ERROR] [xule:error] rule NUM105: Rule: NUM105 - The first argument of function 'number' must be int, float, decimal, fact, found 'None'. */
 
   number(none)
 
@@ -295,17 +295,17 @@ output DSP104
   list('cat','dog','mouse','bat').split('a')
 
 output DSP191
-/* The separator argument for property 'string' must be a 'string', found 'int' */
+/* [ERROR] [xule:error] rule DSP191: Rule: DSP191 - The separator argument for property 'string' must be a 'string', found 'int' */
 
   'The quick fox jumped over the lazy dogs back'.split(3)
 
 output DSP192
-/* int' object has no attribute 'split'  */
+/* [ERROR] [xule:error] rule DSP192: 'int' object has no attribute 'split' */
 
   2.split('.')
 
 output DSP193
-/* Property 'split' is not a property of a 'qname' */
+/* [ERROR] [xule:error] rule DSP193: Rule: DSP193 - Property 'split' is not a property of a 'qname'. */
 
   katteringram.split('r')
 
@@ -390,7 +390,7 @@ output DTR105
   '(' +  trim(' item ') + ')'
 
 output DTR106
-/* QName' object has no attribute 'lower' */
+/* [ERROR] [xule:error] rule DTR106: Rule: DTR106 - The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type 'qname' */
 
   '(' + ' item '.trim(both) + ')'
 
@@ -415,7 +415,7 @@ output TRIM103
   '(' +  trim(' item ', 'both') + ')'
 
 output TRIM104
-/* The argument for property 'trim' must be one of 'left', 'right' or 'both', found 'none' */
+/* [ERROR] [xule:error] rule TRIM104: Rule: TRIM104 - The argument for property 'trim' must be one of 'left', 'right' or 'both', found 'None' */
 
   '(' +  trim(' item ', 'none') + ')'
 

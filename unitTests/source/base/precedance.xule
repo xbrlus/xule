@@ -1,16 +1,16 @@
 /* Precedence */
 output XU200
-/* integer: 7 */
+/* 7 */
 
   2 + 10 / 2
 
 output XU201
-/* integer: 6 */
+/* 6 */
 
   (2 + 10) / 2
 
 output XU202
-/* integer: 12 */
+/* 12 */
 
   2 + 5 * 2
 

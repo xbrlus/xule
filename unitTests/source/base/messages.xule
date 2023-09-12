@@ -8,7 +8,9 @@ message
 '{if $myValue == 3 'pass - ' else 'fail - '} The value is {$myValue}'
 
 output MESS002
-/* pass -  The value of Assets is 42,144,000,000; pass -  The value of Assets is 40,230,000,000; pass -  The value of Assets is 45,436,000,000 */
+/* {{pass -  The value of Assets is 42,144,000,000},
+{pass -  The value of Assets is 40,230,000,000},
+{pass -  The value of Assets is 45,436,000,000}} */
 
   $x = [@instance = $INSTANCE1 @concept = Assets where $fact > 1000];
 $x > 0
@@ -16,9 +18,9 @@ message
 '{if $x > 1000 'pass - ' else 'fail - '} The value of Assets is {$x}'
 
 output MESS003
-/* The value of us-gaap:Assets is None or 42,144,000,000.; 
-The value of us-gaap:Assets is None or 40,230,000,000.; 
-The value of us-gaap:Assets is None or 45,436,000,000. */
+/* {{The value of us-gaap:Assets is None or 42,144,000,000},
+{The value of us-gaap:Assets is None or 40,230,000,000},
+{The value of us-gaap:Assets is None or 45,436,000,000}} */
 
   $myValue = [@instance = $INSTANCE1 @concept = Assets where $fact > 0];
 $myValue > 0
@@ -40,7 +42,13 @@ Attribute Tests
 {$myValue.period}'
 
 output MESS005
-/*  */
+/* {The value of Assets is 65,620,000,000. 
+The components are us-gaap:Assets with a value of 42,144,000,000 and us-gaap:Liabilities with a value of 23,476,000,000
+
+Attribute Tests
+
+f1 decimals:-6
+f2 decimals:-6} */
 
   $myValue = [@instance = $INSTANCE1 @concept = Assets where $fact > 0]#f1 + [@instance = $INSTANCE1 @concept = Liabilities where $fact > 0]#f2;
 $myValue > 0
@@ -92,7 +100,7 @@ message
 '{if $x > 2 'pass - ' else 'fail - '} The value of value list equals {$valuesList} for {$x}.  The value of $x should only be 7 or 8.'
 
 output MESS009
-/* 7;8;7;8 */
+/* {{7},{8},{7},{8}} */
 
   $valuesList = list(for $x in list(1,2)
                         $report = for $x in list(7,8)

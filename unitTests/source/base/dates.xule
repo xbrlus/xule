@@ -10,7 +10,7 @@ output DO101
   date('2022-02-02T12:00:00') + time-span('PT12H')
 
 output DO102
-/* Incompatabile operands time-period + instant */
+/* [ERROR] [xule:error] rule DO102: Rule: DO102 - Incompatabile operands time-period + instant. */
 
   time-span('P4D') + date('2020-01-01')
 
@@ -20,27 +20,27 @@ output DO103
   date('2020-01-01') - time-span('P4D')
 
 output DO104
-/* Incompatabile operands time-period - instant. */
+/* [ERROR] [xule:error] rule DO104: Rule: DO104 - Incompatabile operands time-period - instant. */
 
   time-span('P4D') - date('2020-01-01')
 
 output DO105
-/* datetime.timedelta' object has no attribute 'strftime' */
+/* [ERROR] [xule:error] rule DO105: 'datetime.timedelta' object has no attribute 'strftime' */
 
   date('2022-01-01') - date('2020-01-01')
 
 output DO106
-/* datetime.timedelta' object has no attribute 'strftime' */
+/* [ERROR] [xule:error] rule DO106: 'datetime.timedelta' object has no attribute 'strftime' */
 
   date('2020-01-01') - date('2022-01-01')
 
 output DO107
-/*  Left side of a + operation cannot be duration */
+/* [ERROR] [xule:error] rule DO107: Rule: DO107 - Left side of a + operation cannot be duration. */
 
   duration('2022-01-01', '2022-03-31') + time-span('P1Y')
 
 output DO108
-/*  Left side of a + operation cannot be duration */
+/* [ERROR] [xule:error] rule DO108: Rule: DO108 - Left side of a - operation cannot be duration. */
 
   duration('2022-01-01', '2022-03-31') - time-span('P1Y')
 
@@ -80,17 +80,17 @@ output DO115
   time-span('P4D') - time-span('P3D')
 
 output DO116
-/*  Left side of a - operation cannot be duration. */
+/* [ERROR] [xule:error] rule DO116: Rule: DO116 - Left side of a - operation cannot be duration. */
 
   duration('2022-01-01', '2022-03-31') - duration('2022-02-01', '2022-03-31')
 
 output DO117
-/* The left operand of '*' is not numeric, found 'time-period' */
+/* [ERROR] [xule:error] rule DO117: Rule: DO117 - The left operand of '*' is not numeric, found 'time-period' */
 
   time-span('P4D') * 2
 
 output DO118
-/* datetime.timedelta' object is not subscriptable */
+/* 8 */
 
   time-span('P4D').days * 2
 
