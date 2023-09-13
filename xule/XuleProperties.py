@@ -2235,7 +2235,7 @@ def property_namespaces(xule_context, object_value, *args):
 
 def property_namespace_map(xule_context, object_value, *args):
     nsmap = object_value.fact.nsmap
-    result = {xv.XuleValue(xule_context, prefix, 'stirng'): xv.XuleValue(xule_context, uri, 'uri') for prefix, uri in nsmap.items()}
+    result = {xv.XuleValue(xule_context, prefix, 'string'): xv.XuleValue(xule_context, uri, 'uri') for prefix, uri in nsmap.items()}
     return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
 def property_taxonomy(xule_context, object_value, *args):
