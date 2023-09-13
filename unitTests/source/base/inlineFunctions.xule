@@ -65,6 +65,6 @@ output INLIN013
   list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}).count
 
 output INLIN014
-/*  */
+/* list(September 2021, September 2023, January 2015) */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}.inline-display-value)

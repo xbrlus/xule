@@ -250,9 +250,19 @@ output DUR092
   duration('2022-01-aa', '2022-03-31')
 
 output DUR093
-/* [ERROR] Dates out of order for 'duration()' */
+/* No iteration as is a non existent duration */
 
   duration('2022-03-31', '2022-01-01')
+
+output DUR094
+/* 2022-03-31 to 2022-03-31 */
+
+  duration('2022-03-31T00:00:00', '2022-03-31T00:00:00')
+
+output DUR095
+/* 0 */
+
+  duration('2022-03-31T00:00:00', '2022-03-31T00:00:00').days
 
 output FVR001
 /* forever */

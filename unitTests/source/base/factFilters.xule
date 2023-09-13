@@ -229,6 +229,11 @@ output CFILT146
 
   list({covered @instance = $INSTANCE1 @concept not in list(Assets, Land, Cash, AccountsReceivable)}).count
 
+output CFILT147
+/* 84 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance != *]).count
+
 output PFILT101
 /* 205 */
 
@@ -427,3 +432,28 @@ output CUBEFILT006
 /* 14 */
 
   list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).count
+
+output DIMFILT001
+/* 3785000000 */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis}))
+
+output DIMFILT002
+/* None */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis !=*}))
+
+output DIMFILT003
+/* None */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis = none}))
+
+output DIMFILT004
+/* 3785000000 */
+
+  max(list([covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis ]))
+
+output DIMFILT005
+/* 3785000000 */
+
+  max(list([covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis = *]))

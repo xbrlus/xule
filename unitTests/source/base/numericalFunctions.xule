@@ -388,3 +388,23 @@ output TRUN106
 /* 100 */
 
   trunc(100.23456)
+
+output DEC001
+/* 20 */
+
+  20.decimal
+
+output DEC002
+/* 20.34 (rounded 4d) */
+
+  20.34.decimal
+
+output INT001
+/* 20 */
+
+  20.2.int
+
+output INT002
+/* -32 */
+
+  -32.1.int

@@ -129,6 +129,11 @@ output CONPROP023
 
   $US-GAAP-2020.concept(Assets).attribute('abc') 
 
+output CONPROP024
+/* {http://fasb.org/us-gaap/2020-01-31}Assets */
+
+  $US-GAAP-2020.concept(Assets).clark
+
 output LABPROP001
 /* http://www.xbrl.org/2003/role/label */
 
@@ -148,6 +153,11 @@ output LABPROP004
 /* set((http://www.xbrl.org/2003/role/totalLabel) (en-US) Assets, Total, (http://www.xbrl.org/2003/role/label) (en-US) Assets, (http://www.xbrl.org/2003/role/documentation) (en-US) Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events.) */
 
   list($US-GAAP-2020.concept(Assets).all-labels).join('|')
+
+output LABPROP005
+/* (http://www.xbrl.org/2003/role/label) (en-US) Assets */
+
+  $US-GAAP-2020.concept(Assets).label
 
 output REFPROP001
 /* set(list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, ref:Subparagraph, codification-part:URI), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, codification-part:URI), list(cn-part:SourceName, cn-part:TaxonomyVersion, cn-part:ChangeDate, cn-part:ModifiedReferences)) */
@@ -189,10 +199,35 @@ output REFPROP006
 
   filter ($US-GAAP-2020.concept(Assets).all-references) where $item.role.uri == 'http://fasb.org/srt/role/changeNote/changeNote'
 
+output REFPROP007
+/*  */
+
+  filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.part-by-name(ref:Publisher).part-value
+
 output DATAPROP001
 /* xbrli:monetaryItemType */
 
   $US-GAAP-2020.concept(Assets).data-type.name
+
+output DOCUMENT001
+/* https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd */
+
+  $US-GAAP-2020.document-location
+
+output DOCUMENT002
+/*  https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/fcx-20210630.htm */
+
+  $INSTANCE1.document-location
+
+output DOCUMENT003
+/* None */
+
+  $FORM_13F.document-location
+
+output DOCUMENT004
+/* http://xbrl.fasb.org/srt/2020/elts/srt-2020-01-31.xsd */
+
+  $US-GAAP-2020.concept(srt:StatementGeographicalAxis).document-location
 
 output TAXPROP001
 /* http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
@@ -847,3 +882,28 @@ output TAXPROP125
 /* 1 */
 
   $US-GAAP-2020.networks(concept-reference).count
+
+output TAXPROP126
+/* none */
+
+  $PRES_RELATIONSHIP.weight
+
+output TAXPROP127
+/* 104000 - Statement - Statement of Financial Position, Classified */
+
+  sum($NETWORK_BS).role-description
+
+output TAXPROP128
+/*  */
+
+  $US-GAAP-2020.concept(Assets).label.role-description
+
+output TAXPROP129
+/*  */
+
+  sum($NETWORK_BS).role-uri
+
+output TAXPROP130
+/*  */
+
+  $US-GAAP-2020.concept(Assets).label.role-uri
