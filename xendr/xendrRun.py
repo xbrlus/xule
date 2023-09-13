@@ -1465,6 +1465,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
     '''Format the fact to a string value'''
 
     new_fact_id = None
+    scale = None
     try:
         if xule_expression_node is None:
             format = None
@@ -1552,8 +1553,10 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         
             ix_node.set('format', format_inline)
 
-        if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
-            ix_node.set('scale', xule_expression_node.get('scale'))
+        # if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
+        #     ix_node.set('scale', xule_expression_node.get('scale'))
+        if scale is not None:
+            ix_node.set('scale', scale)
 
         # this is the node that will be returned.
         return_node = ix_node
