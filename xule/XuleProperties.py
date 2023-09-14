@@ -2258,8 +2258,6 @@ def property_facts(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
 
 def property_time_span(xule_context, object_value, *args):
-
-
     if object_value.type == 'string':
         try:
             return xv.XuleValue(xule_context, parse_duration(object_value.value.upper()), 'time-period')
@@ -2267,7 +2265,16 @@ def property_time_span(xule_context, object_value, *args):
             raise XuleProcessingError(_("Could not convert '%s' into a time-period." % object_value.value), xule_context)
     else: # duration
         return xv.XuleValue(xule_context, object_value.value[1] - object_value.value[0], 'time-period')
-    
+
+def property_date(xule_context, object_value, *args):
+
+    if object_value.type == 'instant':
+        return object_value
+    elif object_value.type == 'string':
+        return xv.XuleValue(xule_context, xv.iso_to_date(xule_context, object_value.value), 'instant')
+    else:
+        raise XuleProcessingError(_("Property 'date' requires a string or an instant argument, found '%s'" % object_value.type), xule_context)
+
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
         raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
@@ -2600,6 +2607,7 @@ PROPERTIES = {
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
               'time-span': (property_time_span, 0, ('string', 'duration'), False),
+              'date': (property_date, 0, ('string', 'instant'), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),

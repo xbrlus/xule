@@ -37,6 +37,7 @@ import random
 from lxml import etree as et
 from .XuleRunTime import XuleProcessingError
 from . import XuleValue as xv
+from . import XuleProperties as xp
 from . import XuleRollForward as xrf
 from . import XuleInstanceFunctions as xif
 from . import XuleUtility as xu
@@ -50,22 +51,22 @@ def func_missing(xule_context, *args):
     #return xv.XuleValue(xule_context, args[0].type in ('unbound', 'none'), 'bool')
     return xv.XuleValue(xule_context, args[0].type == 'unbound', 'bool')
 
-def func_date(xule_context, *args):
-    arg = args[0]
+# def func_date(xule_context, *args):
+#     arg = args[0]
 
-    if arg.type == 'instant':
-        return arg
-    elif arg.type == 'string':
-        return xv.XuleValue(xule_context, xv.iso_to_date(xule_context, arg.value), 'instant')
-    else:
-        raise XuleProcessingError(_("function 'date' requires a string argument, found '%s'" % arg.type), xule_context)
+#     if arg.type == 'instant':
+#         return arg
+#     elif arg.type == 'string':
+#         return xv.XuleValue(xule_context, xv.iso_to_date(xule_context, arg.value), 'instant')
+#     else:
+#         raise XuleProcessingError(_("function 'date' requires a string argument, found '%s'" % arg.type), xule_context)
 
 def func_duration(xule_context, *args):
     start = args[0]
     end = args[1]
     
-    start_instant = func_date(xule_context, start)
-    end_instant = func_date(xule_context, end)
+    start_instant = xp.property_date(xule_context, start)
+    end_instant = xp.property_date(xule_context, end)
     
     if end_instant.value < start_instant.value:
         return xv.XuleValue(xule_context, None, 'unbound')
@@ -1178,7 +1179,7 @@ def built_in_functions():
              'exists': ('regular', func_exists, 1, True, 'single'),
              'missing': ('regular', func_missing, 1, True, 'single'),
              #'instant': ('regular', func_instant, 1, False, 'single'),
-             'date': ('regular', func_date, 1, False, 'single'),
+             #'date': ('regular', func_date, 1, False, 'single'),
              'duration': ('regular', func_duration, 2, False, 'single'),
              'forever': ('regular', func_forever, 0, False, 'single'),
              'unit': ('regular', func_unit, -2, False, 'single'),
