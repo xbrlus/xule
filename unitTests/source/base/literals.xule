@@ -33,3 +33,13 @@ output XU007
 /* cat */
 
   cat
+
+output XU008
+/* False */
+
+  False
+
+output XU009
+/* True */
+
+  True

@@ -121,15 +121,19 @@ xmlns:dei="http://xbrl.sec.gov/dei/2023"
                         
                         <td class="fs-statement monetary_items">
                                 <xendr:replace>
-                                    <xendr:expression class="hide" name="BSLineItems" scale="6" format="ixt4:num-dot-decimal" fact="true" part="4">$rowl[3]</xendr:expression>
+                                    <xendr:expression class="hide" name="BSLineItems" scale="6"  fact="true" part="4">$rowl[3]</xendr:expression>
                                     <xendr:class location="parent">"gray-out"</xendr:class>
                                     <xendr:class location="parent">if $rowl[5] == "http://www.xbrl.org/2003/role/totalLabel" "total-row" else ""</xendr:class>
+                                    <xendr:format name="BSLineItems">if $rowl[3].is-numeric "ixt4:num-dot-decimal" else none</xendr:format>
+                                    
                             </xendr:replace>        
                         </td> 
                       
                         <td class="fs-statement monetary_items">
-                                <xendr:replace><xendr:expression class="hide" name="BSLineItems" scale="6"  format="ixt4:num-dot-decimal" fact="true" part="5">$rowl[4]</xendr:expression>
+                                <xendr:replace><xendr:expression class="hide" name="BSLineItems" fact="true" part="5">$rowl[4]</xendr:expression>
                                 <xendr:class location="parent">if $rowl[5] == "http://www.xbrl.org/2003/role/totalLabel" "total-row" else ""</xendr:class>
+                                <xendr:format>if $rowl[4].is-numeric "ixt4:num-dot-decimal" else none</xendr:format>
+                                <xendr:scale name="BSLineItems">if $rowl[4].is-numeric "6" else none</xendr:scale>
                                 
                             </xendr:replace>       
                         </td>                          

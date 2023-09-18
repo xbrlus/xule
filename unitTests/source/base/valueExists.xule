@@ -58,3 +58,13 @@ output VE112
 /* No Iteration */
 
   first-value(skip,none,none)
+
+output VE113
+/*  */
+
+  first-value(skip,none,'1')
+
+output VE114
+/*  */
+
+  first-value(none,none,'1')

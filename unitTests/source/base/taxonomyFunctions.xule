@@ -200,7 +200,7 @@ output REFPROP006
   filter ($US-GAAP-2020.concept(Assets).all-references) where $item.role.uri == 'http://fasb.org/srt/role/changeNote/changeNote'
 
 output REFPROP007
-/*  */
+/* set(FASB, None) */
 
   filter ($US-GAAP-2020.concept(Assets).all-references) returns $item.part-by-name(ref:Publisher).part-value
 
@@ -215,7 +215,7 @@ output DOCUMENT001
   $US-GAAP-2020.document-location
 
 output DOCUMENT002
-/*  https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/fcx-20210630.htm */
+/* https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/fcx-20210630.htm */
 
   $INSTANCE1.document-location
 
@@ -894,16 +894,16 @@ output TAXPROP127
   sum($NETWORK_BS).role-description
 
 output TAXPROP128
-/*  */
+/* Standard label for a Concept. */
 
   $US-GAAP-2020.concept(Assets).label.role-description
 
 output TAXPROP129
-/*  */
+/* http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified */
 
   sum($NETWORK_BS).role-uri
 
 output TAXPROP130
-/*  */
+/* http://www.xbrl.org/2003/role/label */
 
   $US-GAAP-2020.concept(Assets).label.role-uri

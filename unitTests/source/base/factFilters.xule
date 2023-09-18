@@ -254,6 +254,36 @@ output PFILT104
 
   [@period = cats('2020-12-31')]
 
+output PFILT105
+/* 1 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = forever}).count
+
+output PFILT106
+/* 1 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = none}).count
+
+output PFILT107
+/* 1 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period != *}).count
+
+output PFILT108
+/* 2254 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = *}).count
+
+output PFILT109
+/* 2254 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period}).count
+
+output PFILT110
+/* list(124,800,000) */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = forever})
+
 output NOFILT001
 /* 1579 */
 
@@ -392,6 +422,26 @@ output UNITFILT011
 
   message
   '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT012
+/* 44 */
+
+  list({covered @instance = $INSTANCE1  @unit = none}).count
+
+output UNITFILT013
+/* 1535 */
+
+  list({covered @instance = $INSTANCE1  @unit != none}).count
+
+output UNITFILT014
+/* 1579 */
+
+  list({covered @instance = $INSTANCE1  @unit}).count
+
+output UNITFILT015
+/* 1535 */
+
+  list({covered @instance = $INSTANCE1  @unit = *}).count
 
 output MULTIIN001
 /* 3215 */

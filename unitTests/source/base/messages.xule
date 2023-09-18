@@ -28,7 +28,7 @@ message
 'The value of {$myValue.concept.name} is {$fact} or {$myValue}.'
 
 output MESS004
-/*  */
+/* The value of us-gaap:Assets is 45,436,000,000. */
 
   $myValue = [@instance = $INSTANCE1 @concept = Assets where $fact > 0];
 $myValue > 0

@@ -184,6 +184,11 @@ output DAT004
 
   date('2024-02-29')
 
+output DAT005
+/* [ERROR] [xule:error] rule DAT005: Rule: DAT005 - 'date' is not a valid property. */
+
+  '2024-02-29'.date
+
 output DAT090
 /* [ERROR] [xule:error] rule DAT090: Rule: DAT090 - Error converting date: '2022-02-32' */
 

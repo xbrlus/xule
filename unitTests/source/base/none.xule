@@ -94,6 +94,11 @@ output PMN119
 
   none.decimals
 
+output PMN124
+/* None */
+
+  none.decimal
+
 output PMN120
 /* skip iteration */
 

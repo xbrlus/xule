@@ -170,12 +170,12 @@ output FACT034
   'hello'.is-nil
 
 output FACT035
-/*  */
+/* set(set(srt:ProductOrServiceAxis)) */
 
   set({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*}.dimensions.keys.name)
 
 output FACT036
-/*  */
+/* set(list(fcx:MolybdenumMember), list(us-gaap:GoldMember), list(fcx:RefinedCopperProductsMember), list(fcx:PurchasedCopperMember), list(fcx:CopperCathodeMember), list(fcx:CopperInConcentratesMember), list(fcx:OtherProductsOrServicesMember)) */
 
   set({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*}.dimensions.values.name)
 
@@ -208,3 +208,8 @@ output FACT042
 /* 831259 */
 
   max(list([covered @instance = $INSTANCE1 @Assets])).entity.id
+
+output FACT043
+/* set(828,867,000) */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact
