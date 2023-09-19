@@ -4178,18 +4178,24 @@ def regular_function(xule_context, function_ref, function_info):
 
     function_args = []
     for function_arg in function_ref['functionArgs']:
-        # for i in range(len(function_ref.functionArgs)):
-        if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
-            try:
-                arg = evaluate(function_arg, xule_context)
-            except XuleIterationStop as xis:
-                arg = xis.stop_value
+        if function_info[FUNCTION_POST_EVALUATE_ARGS]:
+            # the function arguments will be evaluated by the function instead of pre-evaluated here
+            function_args.append(function_arg)
         else:
-            arg = evaluate(function_arg, xule_context)
+            if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
+                try:
+                    arg = evaluate(function_arg, xule_context)
+                except XuleIterationStop as xis:
+                    arg = xis.stop_value
+            else:
+                arg = evaluate(function_arg, xule_context)
 
-        function_args.append(arg)
+            function_args.append(arg)
 
-    return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+    if function_info[FUNCTION_POST_EVALUATE_ARGS]:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args, evaluate_function=evaluate, iteration_stop=XuleIterationStop)
+    else:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
 
 
 def user_defined_function(xule_context, function_ref):
@@ -4612,6 +4618,7 @@ FUNCTION_DEFAULT_TYPE = 4
 # non aggregate only
 FUNCTION_ALLOW_UNBOUND_ARGS = 3
 FUNCTION_RESULT_NUMBER = 4
+FUNCTION_POST_EVALUATE_ARGS = 5
 
 
 def built_in_functions():
