@@ -4178,7 +4178,7 @@ def regular_function(xule_context, function_ref, function_info):
 
     function_args = []
     for function_arg in function_ref['functionArgs']:
-        if function_info[FUNCTION_POST_EVALUATE_ARGS]:
+        if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
             # the function arguments will be evaluated by the function instead of pre-evaluated here
             function_args.append(function_arg)
         else:
@@ -4192,7 +4192,7 @@ def regular_function(xule_context, function_ref, function_info):
 
             function_args.append(arg)
 
-    if function_info[FUNCTION_POST_EVALUATE_ARGS]:
+    if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
         return function_info[FUNCTION_EVALUATOR](xule_context, *function_args, evaluate_function=evaluate, iteration_stop=XuleIterationStop)
     else:
         return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
