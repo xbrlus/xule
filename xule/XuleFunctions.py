@@ -983,6 +983,13 @@ def func_first_value(xule_context, *args, evaluate_function, iteration_stop):
     # If here, either there were no arguments, or they were all none
     return xv.XuleValue(xule_context, None, 'unbound')
 
+def func_first_value_or_none(xule_context, *args, evaluate_function, iteration_stop):
+    result = func_first_value(xule_context, *args, evaluate_function=evaluate_function, iteration_stop=iteration_stop)
+    if result.type == 'unbound':
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        return result
+
 def func_range(xule_context, *args):
     """Return a list of numbers.
 
@@ -1212,6 +1219,7 @@ def built_in_functions():
              'xml-data-flat': ('regular', func_xml_data_flat, -5, False, 'single', False),
              'excel-data': ('regular', func_excel_data, -5, False, 'single', False),
              'first-value': ('regular', func_first_value, None, True, 'single', True),
+             'first-value-or-none': ('regular', func_first_value_or_none, None, True, 'single', True),
              'range': ('regular', func_range, -3, False, 'single', False),
              'difference': ('regular', func_difference, 2, False, 'single', False),
              'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single', False),
