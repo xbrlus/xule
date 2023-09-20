@@ -978,7 +978,12 @@ def func_first_value(xule_context, *args, evaluate_function, iteration_stop):
         else:
             arg = evaluate_function(function_arg, xule_context)
 
-        if arg.value is not None:
+        if arg.type in ('list', 'set', 'dictionary'): 
+            # This is a collection, so only if there are values in the collection should we take it
+            return_value = len(arg.value) > 0
+        else:
+            return_value = arg.value is not None
+        if return_value:
             return arg.clone()
     # If here, either there were no arguments, or they were all none
     return xv.XuleValue(xule_context, None, 'unbound')
