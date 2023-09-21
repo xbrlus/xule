@@ -105,7 +105,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         fact_index_end = datetime.datetime.today()
         global_context.message_queue.print("Index build time %s." % (fact_index_end - fact_index_start))
 
-    # Determine is constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
+    # Determine if constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
     # environment.
     if getattr(global_context.options, "xule_precalc_constants", False):
         constant_start = datetime.datetime.today()
@@ -5160,8 +5160,14 @@ def result_file(rule_ast, xule_value, xule_context):
         raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
 
     # Write the file
+    if file_location.value in xule_context.global_context.output_files:
+        open_mode = 'a'
+    else:
+        open_mode = 'w'
+        xule_context.global_context.output_files.add(file_location.value)
+
     try:
-        with open(file_location.value, 'w') as ofile:
+        with open(file_location.value, open_mode) as ofile:
             ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
     except FileNotFoundError:
         raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
