@@ -35,8 +35,10 @@ from arelle.ModelValue import QName, qname
 from aniso8601 import parse_duration
 from lxml import etree
 import collections
+import csv
 import datetime
 import decimal
+import io
 import json
 import math
 import numpy
@@ -195,6 +197,37 @@ def property_to_json(xule_context, object_value, *args):
     
     unfrozen = unfreeze_shadow(object_value, True)
     return xv.XuleValue(xule_context, json.dumps(unfrozen, cls=xule_json_encoder), 'string')
+
+def property_to_csv(xule_context, object_value, *args):
+    if len(args) > 0:
+        if args[0].type != 'string':
+            raise XuleProcessingError(_(f"Expecting a string as the separator type for .to-csv but found {args[0].type}"), xule_context)
+        if len(args[0].value) != 1:
+            raise XuleProcessingError(_(f"The separator for the .to-csv property must be a single character, found '{args[0].value}'"), xule_context)
+        separator = args[0].value
+    else:
+        separator = ','
+    
+    if len(object_value.value) == 0:
+        return xv.XuleValue(xule_context, '', 'string')
+    
+
+    with io.StringIO() as csv_buffer:
+        csv_writer = csv.writer(csv_buffer, delimiter=separator)
+        if object_value.value[0].type == 'list':
+            # This is a list of lists, so there are multiple rows
+            for row in object_value.shadow_collection:
+                csv_writer.writerow(row)
+        else:
+            # This is a single row
+            csv_writer.writerow(object_value.shadow_collection)
+
+        csv_string = csv_buffer.getvalue()
+
+    
+    return xv.XuleValue(xule_context, csv_string, 'string')
+
+
 
 def unfreeze_shadow(cur_val, for_json=False):
     if cur_val.type == 'list':
@@ -2468,6 +2501,7 @@ PROPERTIES = {
               'is-subset': (property_is_subset, 1, ('set',), False),
               'is-superset': (property_is_superset, 1, ('set',), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False), 
+              'to-csv': (property_to_csv, -1, ('list',), False), 
               'to-xince': (property_to_xince, 0, (), False),          
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, -1, ('list', 'set'), False),
