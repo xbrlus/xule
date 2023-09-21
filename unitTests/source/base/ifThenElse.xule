@@ -10,7 +10,7 @@ output IFEL002
   if false 1 else if true 'hello' else 3
 
 output IFEL003
-/* No iteration */
+/* skip */
 
   if none true else false
 

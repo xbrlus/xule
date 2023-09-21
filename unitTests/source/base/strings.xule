@@ -229,6 +229,31 @@ output NUM105
 
   number(none)
 
+output NUM106
+/* inf */
+
+  inf / 7
+
+output NUM107
+/* inf */
+
+  inf + inf
+
+output NUM108
+/* inf */
+
+  inf * 7
+
+output NUM109
+/* nan */
+
+  inf - inf
+
+output NUM110
+/* nan */
+
+  inf / inf
+
 output REGEX001
 /* dictionary(groups=list(),end=5,match-count=1,match=de,start=4) */
 

@@ -20,7 +20,7 @@ output PMN104
   'hello' + none
 
 output PMN105
-/* skip iteration */
+/* skip */
 
   none + none
 
@@ -35,7 +35,7 @@ output PMN107
   none - 'hello'
 
 output PMN108
-/* skip iteration */
+/* skip */
 
   none - none
 
@@ -100,7 +100,7 @@ output PMN124
   none.decimal
 
 output PMN120
-/* skip iteration */
+/* skip */
 
   none + skip
 
@@ -110,11 +110,21 @@ output PMN121
   none -1
 
 output PMN122
-/* skip iteration */
+/* skip */
 
   7 / none
 
 output PMN123
-/* skip iteration */
+/* skip */
 
   7 * none
+
+output PMN125
+/* True */
+
+  none <= none
+
+output PMN126
+/* True */
+
+  none >= none

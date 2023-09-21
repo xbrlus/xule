@@ -42,7 +42,7 @@ output LIST008
 output LIST009
 /* list(Assets, Land,Cash, AccountsReceivable) */
 
-  list(Assets, Land,Cash, AccountsReceivable)
+  list(Assets, Land,Cash, Liabilities)
 
 output LIST010
 /* False */
@@ -54,6 +54,36 @@ output LIST011
 
   list('a','b','c') == set('a','b','c')
 
+output LIST012
+/* list() */
+
+  list([covered @instance = $INSTANCE1 @AssetsAbstract])
+
+output LIST013
+/* list() */
+
+  first(list([covered @instance = $INSTANCE1 @AssetsAbstract]))
+
+output LIST014
+/* skip */
+
+  list([@instance = $INSTANCE1 @AssetsAbstract])
+
+output LIST015
+/* list() */
+
+  first-value(list([covered @instance = $INSTANCE1 @AssetsAbstract]),none)
+
+output LIST016
+/* list() */
+
+  first-value(list([covered @instance = $INSTANCE1 @AssetsAbstract]))
+
+output LIST017
+/* skip */
+
+  first-value(first(list([covered @instance = $INSTANCE1 @AssetsAbstract])))
+
 output SET101
 /* set(4, 1, 2, 3)  */
 
@@ -62,7 +92,7 @@ output SET101
 output SET102
 /* set(b, b, a, a) */
 
-  set('a', a, b, 'b')
+  set('a', Assets, Liabilities, 'b')
 
 output SET103
 /* set(None) */

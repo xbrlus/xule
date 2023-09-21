@@ -220,14 +220,14 @@ output CFILT144
   list({covered @instance = $INSTANCE1 @concept.base-type = xbrli:stringItemType @concept.data-type != us-types:zoneStatusItemType}).count
 
 output CFILT145
-/* 26 */
+/* 29 */
 
-  list({covered @instance = $INSTANCE1 @concept in list(Assets, Land, Cash, AccountsReceivable)}).count
+  list({covered @instance = $INSTANCE1 @concept in list(Assets, Land, Cash, Liabilities)}).count
 
 output CFILT146
-/* 1553 */
+/* 1550 */
 
-  list({covered @instance = $INSTANCE1 @concept not in list(Assets, Land, Cash, AccountsReceivable)}).count
+  list({covered @instance = $INSTANCE1 @concept not in list(Assets, Land, Cash, Liabilities)}).count
 
 output CFILT147
 /* 84 */
