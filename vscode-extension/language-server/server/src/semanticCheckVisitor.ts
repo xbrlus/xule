@@ -614,7 +614,7 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "taxonomy": new FunctionInfo({ min: 0, max: 1 }),
     "text": new FunctionInfo(1),
     "time-span": new FunctionInfo(1),
-    "to-csv": new FunctionInfo(2),
+    "to-csv": new FunctionInfo({ min: 1, max: 2 }),
     "to-dict": new FunctionInfo(1),
     "to-json": new FunctionInfo(1),
     "to-list": new FunctionInfo(1),
@@ -775,7 +775,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "taxonomy": new PropertyInfo(0),
     "text": new PropertyInfo(0),
     "time-span": new PropertyInfo(0),
-    "to-csv": new PropertyInfo(1),
+    "to-csv": new PropertyInfo({ min: 0, max: 1 }),
     "to-dict": new PropertyInfo(0),
     "to-json": new PropertyInfo(0),
     "to-list": new PropertyInfo(0),
@@ -804,5 +804,5 @@ export const dimensions = {
 }
 
 export const wellKnownOutputAttributes = [
-    "message", "rule-suffix", "rule-focus", "severity"
+    "message", "rule-suffix", "rule-focus", "severity", "file-location", "file-content"
 ];

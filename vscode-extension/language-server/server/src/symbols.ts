@@ -204,6 +204,8 @@ export const wellKnownVariables = {
 	"hypercube-dimension": {},
 	"parent-child": {},
 	"summation-item": {},
+	"concept-label": {},
+	"concept-reference": {},
 };
 for(let name in wellKnownVariables) {
 	let info = wellKnownVariables[name];
