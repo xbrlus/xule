@@ -1090,8 +1090,10 @@ def evaluate_output_rule(output_rule, xule_context):
             if xule_value.type != 'unbound' and not (
                     xule_context.iteration_table.current_alignment is None and xule_context.aligned_result_only):
                 # Determine if a message should be sent
-
                 xule_context.iter_message_count += 1
+                # produce file output
+                result_file(output_rule, xule_value, xule_context)
+
                 messages = dict()
                 # Process each of the results in the rule. The Results are the messages that are produced.
                 for rule_result in output_rule.get('results', list()):
@@ -5126,7 +5128,44 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
     return trace_info
 
+def result_file(rule_ast, xule_value, xule_context):
 
+    file_content = None
+    file_location = None
+
+    for result_ast in rule_ast.get('results', tuple()):
+        if result_ast.get('resultName') in ('file-content', 'file-location'):
+            try:
+                message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
+                message_context.tags['rule-value'] = xule_value
+                message_context.tags['alignment'] = func_alignment(xule_context)
+                message_context.result_alignment = func_alignment(xule_context)
+                saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache', False)
+                xule_context.global_context.options.xule_no_cache = True
+                result = evaluate(result_ast['resultExpr'], message_context)
+                if result_ast.get('resultName') == 'file-content':
+                    file_content = result
+                else: # this is file-location
+                    file_location = result
+            finally:
+                xule_context.global_context.options.xule_no_cache = saved_no_cache
+
+    if file_content is None or file_location is None:
+        return # there is nothing to do. 
+
+    if file_location.type != 'string':
+        raise XuleProcessingError(_(f"The file-location needs to be a string, but it is a {file_location.type}"), xule_context)
+
+    if file_content.type not in ('none', 'string'):
+        raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
+
+    # Write the file
+    try:
+        with open(file_location.value, 'w') as ofile:
+            ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
+    except FileNotFoundError:
+        raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
+    
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     # validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
