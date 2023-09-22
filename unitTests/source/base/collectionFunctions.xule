@@ -576,6 +576,68 @@ output TJSON101
   $A = dict(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
 to-json($A)
 
+output TJSON102
+/* {Assets: 200, Capital: 30, BankLoans: 100} */
+
+  $A = dict(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
+to-json($A)
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TJSON102.json'
+file-content $A.to-json
+
+output TCSV100
+/*  BankLoans,100
+Assets,200
+Capital,30 */
+
+  $A = list(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
+to-csv($A,',')
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
+file-content $A.to-csv(',')
+
+output TCSV101
+/* Liabilities,100
+AssetsCurremt,200
+AssetsNoncurrent,30 */
+
+  $A = list(list('Liabilities', 100),list('AssetsCurremt', 200),list('AssetsNoncurrent', 30)); 
+to-csv($A,',')
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
+file-content $A.to-csv(',')
+
+output TCSV102
+/* list(list(1, 2, 3, 4), list(ab, cd, ef), list(1.2, 3.1)) */
+
+   list(list(1,2,3,4),
+         list('ab','cd','ef'),
+         list(1.2,3.1))
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV102.csv'
+
+output TCSV103
+/* 1x2x3x4
+abxcdxef
+1.2x3.1 */
+
+   list(list(1,2,3,4),
+         list('ab','cd','ef'),
+         list(1.2,3.1)).to-csv('x')
+
+output TCSV104
+/* ab,
+c,1,lmnop,yes */
+
+  list('ab,\nc', 1, 'lmnop', 'yes').to-csv
+
+output TCSV105
+/* Liabilities,100
+AssetsCurrent,200
+AssetsNoncurrent,30 */
+
+  $A = list(list(Liabilities, 100),list(AssetsCurrent, 200),list(AssetsNoncurrent, 30)); 
+$A.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV105.csv'
+file-content $rule-value
+
 output DHK001
 /* True */
 
@@ -589,7 +651,7 @@ output DHK002
 output DHK003
 /*  false */
 
-  dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).has-key(a)
+  dict(list('Assets', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).has-key(Assets)
 
 output DHK091
 /* [ERROR] [xule:error] rule DHK091: Rule: DHK091 - Property 'has-key' must have 1 arguments. Found 0. */

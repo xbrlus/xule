@@ -274,3 +274,8 @@ output SM050
   $A = set(Assets,BankLoans,Capital); 
  $B = set(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic);
  $A ^ $B
+
+output SM051
+/* set(list(BankLoans, Assets, Capital), list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic), list(Assets, BankLoans, Capital)) */
+
+  set(list(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic),list(Assets,BankLoans,Capital),list(Assets,BankLoans,Capital),list(BankLoans,Assets,Capital))

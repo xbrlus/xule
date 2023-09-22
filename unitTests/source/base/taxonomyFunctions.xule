@@ -907,3 +907,8 @@ output TAXPROP130
 /* http://www.xbrl.org/2003/role/label */
 
   $US-GAAP-2020.concept(Assets).label.role-uri
+
+output TAXPROP131
+/* Assets */
+
+  qname($US-GAAP-2020.concept(Assets).namespace-uri,'Assets')

@@ -86,3 +86,13 @@
 /* Constant representing an XBRL instance */
 
   constant $INSTANCE3 = instance('https://www.sec.gov/Archives/edgar/data/1742770/000110465923049651/viot-20221231x20f.htm')
+
+
+/* output-attribute file content to allow production of csv and json */
+
+  output-attribute file-content
+
+
+/* output-attribute file location to allow production of csv and json */
+
+  output-attribute file-location
