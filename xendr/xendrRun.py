@@ -1189,7 +1189,9 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     add_normal_function_to_xule(XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME, xxf.get_footnotes_from_fact_ids, 1)
     add_normal_function_to_xule(XENDR_OBJECT_ID_XULE_FUNCTION_NAME, xxf.get_internal_model_id, 1)
     add_normal_function_to_xule(XENDR_FORMAT_FOOTNOTE, xxf.format_footnote_info, 1)
-
+    from .xule.XuleProperties import add_property as add_property_to_xule
+    add_property_to_xule('xendr-fact-id', xxf.property_xendr_model_object, 0, ('fact',))
+  
     template_number = 0
     used_ids = initialize_used_ids(modelXbrl)
     processed_facts = set() # track which facts have been outputed

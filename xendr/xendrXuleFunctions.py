@@ -7,7 +7,9 @@ Reivision number: $Change: $
 '''
 from arelle.ModelInstanceObject import ModelFact
 from arelle.ModelInstanceObject import ModelResource
+from arelle import ModelObject
 import json
+from .xendrCommon import XendrException
 
 def get_footnotes_from_fact_ids(xule_context, *args):
     from .xule import XuleValue as xv
@@ -72,4 +74,19 @@ def format_footnote_info(xule_context, *args):
                      'fact': args[0].value[xv.FOOTNOTE_FACT].objectId(),
                      'arcrole': args[0].value[xv.FOOTNOTE_ARCROLE]}
     return xv.XuleValue(xule_context, json.dumps(footnote_info), 'string')
-    
+
+def property_xendr_model_object(xule_context, object_value, *args):
+    # Need to save the arelle model
+    if not isinstance(object_value.value, ModelObject):
+        raise XendrException(f"Cannot save {object_value.type} as an internal object")
+
+    cntrl = object_value.value.cntlr
+
+    x = 1
+
+
+    # save_arelle_model(object_value.value.modelXbrl)
+    # if _intermediate:
+    #     working_val = (id(object_value.value.modelXbrl), object_value.value.objectId())
+    # else:
+    #     working_val = json.dumps((id(object_value.value.modelXbrl), object_value.value.objectId()))
