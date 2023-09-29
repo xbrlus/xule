@@ -19,9 +19,9 @@ from .xendrCommon import (XendrException, clean_entities, get_file_or_url,
                           XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME, XENDR_OBJECT_ID_XULE_FUNCTION_NAME,
                           XENDR_FORMAT_FOOTNOTE)
 from . import xendrXuleFunctions as xxf
+from . import XendrVars as xv
 import datetime
 import decimal
-import calendar
 import collections
 import io
 import json
@@ -99,7 +99,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     for rule_name, sub_info in non_repeating + repeating:
         substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
                                                 modelXbrl, main_html, repeating_nodes, xule_node_locations,
-                                                context_ids, unit_ids, footnotes, template_number, used_ids, processed_facts, processed_footnotes)
+                                                context_ids, unit_ids, footnotes, template_number, used_ids, processed_facts, processed_footnotes, cntlr=cntlr)
     # Process the footnotes
     # if the default footnote page option was selected
     if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
@@ -157,7 +157,7 @@ def sort_by_ancestors(key):
 def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, template,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
                     footnotes, template_number, used_ids, processed_facts, processed_footnotes,
-                    all_result_part=None, refs=None, template_nsmap=None, footnote_style=None, footnote_fact_sub_nodes=None):
+                    all_result_part=None, refs=None, template_nsmap=None, footnote_style=None, footnote_fact_sub_nodes=None, cntlr=None):
     # Determine if this is a repeating rule.
     new_nodes = []
     attribute_nodes = []
@@ -263,7 +263,8 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                 substitute_rule(rule_name, sub, line_number_subs, json_result['value'], new_tree,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
                     footnotes, template_number, used_ids, processed_facts, processed_footnotes,
-                    all_result_part or json_rule_result, refs or rule_result.refs, template_nsmap=template_nsmap)
+                    all_result_part or json_rule_result, refs or rule_result.refs, template_nsmap=template_nsmap,
+                    cntlr=cntlr)
                 continue
 
             classes_from_result = get_classes(json_result)
@@ -283,23 +284,28 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             current_footnote_ids = []
             parent_classes = []
             if is_actual_fact(json_result, modelXbrl):
-                rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
-                if rule_focus_index is not None:
-                    #use_refs = refs or rule_result.refs
-                    use_facts = [modelXbrl.modelObject(x['objectId']) for x in refs or rule_result.refs]
-                    # Check if the number of facts in the rule result matches the number of fact in used_refs (rule focus)
-                    if isinstance(json_rule_result, list):
-                        result_fact_count = count_facts_in_result(all_result_part or json_rule_result)
-                        if result_fact_count != len(use_facts):
-                            list_facts = "\n".join([f"{x.concept.qname.localName}: {x.sValue}" for x in use_facts])
-                            modelXbrl.warning("RenderError", "Mismatch between the number of facts returned in the rule result and the number of "
-                                                    "facts in the rule focus. This is likely due to duplicate facts. The facts on the row "
-                                                    "in question are:\n{}".format(list_facts))
-                            break
+                # get modelFact
+                if json_result['fact'] is not None:
+                    model_fact = get_model_object(json_result['fact'], cntlr)
 
-                    #fact_object_index = use_refs[rule_focus_index]['objectId']
-                    #model_fact = modelXbrl.modelObject(fact_object_index)
-                    model_fact = use_facts[rule_focus_index]
+
+                # rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
+                # if rule_focus_index is not None:
+                #     #use_refs = refs or rule_result.refs
+                #     use_facts = [modelXbrl.modelObject(x['objectId']) for x in refs or rule_result.refs]
+                #     # Check if the number of facts in the rule result matches the number of fact in used_refs (rule focus)
+                #     if isinstance(json_rule_result, list):
+                #         result_fact_count = count_facts_in_result(all_result_part or json_rule_result)
+                #         if result_fact_count != len(use_facts):
+                #             list_facts = "\n".join([f"{x.concept.qname.localName}: {x.sValue}" for x in use_facts])
+                #             modelXbrl.warning("RenderError", "Mismatch between the number of facts returned in the rule result and the number of "
+                #                                     "facts in the rule focus. This is likely due to duplicate facts. The facts on the row "
+                #                                     "in question are:\n{}".format(list_facts))
+                #             break
+
+                #     #fact_object_index = use_refs[rule_focus_index]['objectId']
+                #     #model_fact = modelXbrl.modelObject(fact_object_index)
+                #     model_fact = use_facts[rule_focus_index]
 
                     processed_facts.add(model_fact)
                     expression_node = get_node_by_pos(template, sub['expression-node'])
@@ -434,20 +440,25 @@ def is_actual_fact(json_result, model_xbrl):
     else:
         return False
 
-def get_rule_focus_index(json_all_results, current_result):
+# def get_rule_focus_index(json_all_results, current_result):
     
-    if current_result['is-fact'].lower() == 'false':
-        # If the current result isn't really a fact, then there is no rule focus to get
-        return None
+#     if current_result['is-fact'].lower() == 'false':
+#         # If the current result isn't really a fact, then there is no rule focus to get
+#         return None
 
-    if isinstance(json_all_results, list):
-        rule_focus_index, _x = traverse_for_facts(json_all_results, current_result)
-    else:
-        # The results is really just a single dictionary of one results. Just check if the fact is there
-        if current_result['is-fact'].lower() == 'true':
-            rule_focus_index = 0
+#     if isinstance(json_all_results, list):
+#         rule_focus_index, _x = traverse_for_facts(json_all_results, current_result)
+#     else:
+#         # The results is really just a single dictionary of one results. Just check if the fact is there
+#         if current_result['is-fact'].lower() == 'true':
+#             rule_focus_index = 0
 
-    return rule_focus_index if rule_focus_index >= 0 else None  
+#     return rule_focus_index if rule_focus_index >= 0 else None  
+
+def get_model_object(object_string, cntlr):
+    arelle_model_id, object_id = json.loads(object_string)
+    arelle_model = xv.get_arelle_model(cntlr, arelle_model_id)
+    return arelle_model.modelObject(object_id)
 
 def count_facts_in_result(json_all_results):
     if isinstance(json_all_results, list):
@@ -783,7 +794,7 @@ def process_footnotes(rule_meta_data, template, footnote_rules, footnote_facts, 
         substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
                         modelXbrl, main_html, repeating_nodes, xule_node_locations,
                         context_ids, unit_ids, footnotes, template_number, used_ids, processed_facts, processed_footnotes,
-                        footnote_style=footnote_style, footnote_fact_sub_nodes=fact_sub_nodes)
+                        footnote_style=footnote_style, footnote_fact_sub_nodes=fact_sub_nodes,cntlr=cntlr)
 
 def get_footnote_lang(footnote_info, modelXbrl):
     footnote_model = modelXbrl.modelObject(footnote_info['content'])
@@ -1190,7 +1201,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     add_normal_function_to_xule(XENDR_OBJECT_ID_XULE_FUNCTION_NAME, xxf.get_internal_model_id, 1)
     add_normal_function_to_xule(XENDR_FORMAT_FOOTNOTE, xxf.format_footnote_info, 1)
     from .xule.XuleProperties import add_property as add_property_to_xule
-    add_property_to_xule('xendr-fact-id', xxf.property_xendr_model_object, 0, ('fact',))
+    add_property_to_xule('xendr-object-id', xxf.property_xendr_model_object, 0, ('fact',))
   
     template_number = 0
     used_ids = initialize_used_ids(modelXbrl)

@@ -480,11 +480,11 @@ def format_rule_result_text_part(expression_text, part, value_number, type, extr
     if type == 'f':
         # if inside:
         #     # Inside expressions have an extra component to capture the fact. This is used to build the rule focus.
-            output_dictionary['fact'] = f"{expression_text}.xendr_object_id"       
+            output_dictionary['fact'] = f"{expression_text}.xendr-object-id"       
     # Extra expressions (i.e. class, format, scale)
     for extra_name, extra_expression in extra_expressions.items():
         if extra_name == 'fact':
-            # rename this so it doesn't conflict with the name 'fact' for inside expression. Sell code a few lines up.
+            # rename this so it doesn't conflict with the name 'fact' for inside expression. See code a few lines up.
             extra_name = 'dynamic-fact'
         if isinstance(extra_expression, list):
             output_extra_expressions = "list({})".format(','.join(extra_expression)) if len(extra_expression) > 0 else None
@@ -730,14 +730,19 @@ def add_child_rules(parent_name, hierarchy, next_part_number, next_text_number,n
                                 node_pos)
 
             inside_list_text = ', '.join(["{}".format(expression) for expression in child_rule_info['result_parts'] + next_parts])
-            inside_variable_text = '${inside_name}-val = list({prelim_text}\nlist({value_text}));'.format(
-                                        inside_name=child_name,
+
+            inside_value_text = 'list({prelim_text}\nlist({value_text}))'.format(
                                         prelim_text=child_rule_info['preliminary_rule_text'],
                                         value_text=inside_list_text)
-            inside_value_text = f'''
-{inside_variable_text}
-${child_name}-val
-'''
+
+#             inside_variable_text = '${inside_name}-val = list({prelim_text}\nlist({value_text}));'.format(
+#                                         inside_name=child_name,
+#                                         prelim_text=child_rule_info['preliminary_rule_text'],
+#                                         value_text=inside_list_text)
+#             inside_value_text = f'''
+# {inside_variable_text}
+# ${child_name}-val
+# '''
             
 #             inside_value_text = \
 # '''
