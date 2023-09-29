@@ -444,6 +444,16 @@ output TRIM104
 
   '(' +  trim(' item ', 'none') + ')'
 
+output SUMSTRING101
+/* [ERROR] [xule:error] rule SUMSTRING101: Rule: SUMSTRING101 - The first argument of function 'sum' must be set, list, found 'string'. */
+
+  sum('hello')
+
+output COUNTSTRING101
+/* [ERROR] [xule:error] rule COUNTSTRING101: Rule: COUNTSTRING101 - The first argument of function 'count' must be set, list, found 'string'. */
+
+  count('hello')
+
 output DUC101
 /* ABC1 */
 
