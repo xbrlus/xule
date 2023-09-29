@@ -471,12 +471,20 @@ def format_rule_result_text_part(expression_text, part, value_number, type, extr
     output_dictionary = collections.OrderedDict()
     output_dictionary['type'] = "'{}'".format(type)
     
-
     if part is None:
-        output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-0).string else (none)#rv-0).string'.format(exp=expression_text)
+        value_variable_name = '$rv-0'
     else:
+        value_variable_name = f'$rv-{part}'
         output_dictionary['part'] = part
-        output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=value_number)
+    
+    output_dictionary['value'] = f'first-value-or-none({value_variable_name}).string'
+
+    # if part is None:
+    #     output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-0).string else (none)#rv-0).string'.format(exp=expression_text)
+    # else:
+    #     output_dictionary['part'] = part
+    #     output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=value_number)
+
     if type == 'f':
         # if inside:
         #     # Inside expressions have an extra component to capture the fact. This is used to build the rule focus.
@@ -494,7 +502,9 @@ def format_rule_result_text_part(expression_text, part, value_number, type, extr
             output_dictionary[extra_name] = output_extra_expressions
     
     output_items = ("list('{key}', {val})".format(key=k, val=v) for k, v in output_dictionary.items())
-    output_string = "dict({})".format(', '.join(output_items))
+    # output_string = "dict({})".format(', '.join(output_items))
+    new_line = '\n'
+    output_string = f"{value_variable_name} = {expression_text};{new_line}dict({', '.join(output_items)})"
 
     return output_string
 
