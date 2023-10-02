@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1F/F1 - 015/278</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+
+</head>
+
+<body class="xbrl">
+    <div id="ScheduleOtherRegulatoryLiabilitiesAbstract"></div>
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br />
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace><br/>
+                
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="true" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br />
+                <p></p>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br />
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td colspan="7" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleOtherRegulatoryLiabilitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                PART XV: OTHER REGULATORY LIABILITIES (Account 254)
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="7">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleOtherRegulatoryLiabilitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report below the particulars (details) called for concerning other regulatory liabilities, including rate order docket  number, if applicable.</li>
+                            <li>Minor items (5% of the Balance in Account 254 at end of period, or amounts less than $100,000 which ever is less),  may be grouped by classes.</li>
+                            <li>>For Regulatory Liabilities being amortized, show period of amortization.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="2">DEBITS</td>
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line line-number" width="2%">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings">
+                    <xendr:expression class="hide" name="ColumnHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleOtherRegulatoryLiabilitiesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "278 - Schedule - Other Regulatory Liabilities (Account 254)") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center"><xendr:replace>
+                    <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                    <xendr:template-display>
+                            Description and Purpose of Other Regulatory Liabilities
+                    </xendr:template-display>
+                </xendr:replace>
+            </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="OtherRegulatoryLiabilities">
+            <xendr:expression class="hide" name="OtherRegulatoryLiabilities">// adding a comment
+
+                $data2 = list(for $i in range(40)
+                list($i,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:OtherRegulatoryLiabilityAxis=*})) > 0
+
+
+                list({covered @ferc:OtherRegulatoryLiabilityAxis=* {list(
+                    
+                if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                else
+                    0,
+                if list({@ferc:DescriptionAndPurposeOfOtherRegulatoryLiabilities @unit @period=$currentDuration}).length > 0
+                    first(list({@ferc:DescriptionAndPurposeOfOtherRegulatoryLiabilities @unit @period=$currentDuration}))
+                else
+                    none,
+                if list({@ferc:OtherRegulatoryLiabilities @unit @period=$prior3MYInstant}).length > 0
+                    first(list({@ferc:OtherRegulatoryLiabilities @unit @period=$prior3MYInstant}))
+                else
+                    none,
+                if list({@ferc:OtherRegulatoryLiabilitiesDescriptionOfCreditedAccountNumberForDebitAdjustment @unit @period=$current3MYDuration}).length > 0
+                    first(list({@ferc:OtherRegulatoryLiabilitiesDescriptionOfCreditedAccountNumberForDebitAdjustment @unit @period=$current3MYDuration}))
+                else
+                    none,
+                if list({@ferc:DecreaseInOtherRegulatoryLiabilities @unit @period=$current3MYDuration}).length > 0
+                    first(list({@ferc:DecreaseInOtherRegulatoryLiabilities @unit @period=$current3MYDuration}))
+                else
+                    none,
+                if list({@ferc:IncreaseInOtherRegulatoryLiabilities @unit @period=$current3MYDuration}).length > 0
+                    first(list({@ferc:IncreaseInOtherRegulatoryLiabilities @unit @period=$current3MYDuration}))
+                else
+                    none,
+                if list({@ferc:OtherRegulatoryLiabilities @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:OtherRegulatoryLiabilities @unit @period=$currentInstant}))
+                else
+                    none
+
+                )}})
+                else $data2;
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none)
+                    skip
+                else 
+                    $x
+                );
+
+               for $row in $uniqueData.sort        
+
+
+            </xendr:expression>
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="OtherRegulatoryLiabilities"/>
+                <xendr:template-display>1</xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="OtherRegulatoryLiabilities" fact="true" part="2">
+                        $row[2]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    Deferred Income Taxes
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="OtherRegulatoryLiabilities" fact="true"
+                        format="ixt4:num-dot-decimal" part="3">$row[3]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $7,048,773
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number">
+                    <xendr:replace>
+                        <xendr:expression class="hide" name="OtherRegulatoryLiabilities" fact="true" part="4">
+                            $row[4]</xendr:expression>
+                    </xendr:replace>
+                    <xendr:template-display>
+                        410
+                    </xendr:template-display>
+                </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="OtherRegulatoryLiabilities" fact="true"
+                        format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $4,802,727
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="OtherRegulatoryLiabilities" fact="true"
+                        format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $27,501,590
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="OtherRegulatoryLiabilities" fact="true"
+                        format="ixt4:num-dot-decimal" part="7">$row[7]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $813,349,910
+                </xendr:template-display>
+            </td>
+        </tr>
+        <tr>
+            <!-- Line 41: TOTAL -->
+            <td class="xbrl line-number">41</td>
+            <td class="xbrl description_items">
+                            TOTAL
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:OtherRegulatoryLiabilities @period = $priorInstant]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $805,531,884
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="gray-out xbrl">
+                    <!-- Line 41 Column (c) DEBITS Account Credited-->
+                </td>
+            <td class="xbrl numeric_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                            @concept=ferc:DecreaseInOtherRegulatoryLiabilities @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                            $0
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl numeric_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                            @concept=ferc:IncreaseInOtherRegulatoryLiabilities @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                            $0
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:OtherRegulatoryLiabilities @period = $currentInstant]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $1,017,539
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <div class="schedule-footer">
+        <div>FERC FORM No.
+            <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                                <xendr:template-display> 1-F </xendr:template-display>
+                        </xendr:replace>
+                        <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleOtherRegulatoryLiabilitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                            ED 1-05
+                        </xendr:template-display>
+                </xendr:replace>         
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleOtherRegulatoryLiabilitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        20
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+</body>
+
+</html>

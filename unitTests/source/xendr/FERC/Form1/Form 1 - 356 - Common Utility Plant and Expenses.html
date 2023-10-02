@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 356</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+  
+</head>
+
+<body class="xbrl" id="ScheduleCommonUtilityPlantAndExpensesAbstract">
+    <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                        <xule:template-display>Name of Respondent:</xule:template-display>
+                    </xule:replace><br/>
+                    
+                    <xule:replace>
+                        <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xule:expression>
+                        <xule:template-display>Name of Respondent:</xule:template-display>
+                    </xule:replace>
+                </td>
+                <td class="xbrl">
+                    <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                        <xule:template-display>This report is:</xule:template-display>
+                    </xule:replace><br/>
+                        
+                        (1) 
+                    <xule:replace>
+                            <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]>
+                            </xule:expression>  
+                        <xule:template-display>
+                                <input type="checkbox"/> An Original
+                        </xule:template-display>
+                    </xule:replace><br/>
+                    
+                        (2)
+                    <xule:replace>
+                            <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                </xule:expression> 
+                            <xule:template-display>
+                                    <input type="checkbox" checked = "checked"/> A Resubmission
+                            </xule:template-display>
+                    </xule:replace> 
+                </td>
+                <td class="xbrl"><xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>Date of Report:</xule:template-display>
+                    </xule:replace><br/>
+                    
+                        <xule:replace>
+                            <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xule:expression>
+                            <xule:template-display>04/26/2019</xule:template-display>
+                    </xule:replace>
+                </td>
+                <td class="xbrl"><xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>Year/Period of Report:</xule:template-display>
+                    </xule:replace><br/>
+                    
+                    End of: <xule:replace>
+                        <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xule:expression>
+                        <xule:template-display>2018</xule:template-display>
+                    </xule:replace>
+                    <span>/</span>
+                    <xule:replace>
+                        <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xule:expression>
+                        <xule:template-display>Q4</xule:template-display>
+                    </xule:replace>
+                </td>
+            </tr>
+        </table>
+        <table class="xbrl" width="100%">
+            <tr class="sch-title">
+                <td class="xbrl" colspan="5">
+                    <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:ScheduleCommonUtilityPlantAndExpensesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                                </xule:expression>
+                                <xule:template-display>
+                                    COMMON UTILITY PLANT AND EXPENSES
+                                </xule:template-display>
+                        </xule:replace>
+                </td>
+            </tr>
+            <tr>
+                <td class="instruction xbrl" colspan="5">
+                    <xule:replace>
+                        <xule:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleCommonUtilityPlantAndExpensesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                        </xule:expression>
+                        <xule:template-display>
+                            <ol>
+                                <li>Describe the property carried in the utility's accounts as common utility plant and show the book cost of such plant at end of year classified by accounts as provided by Plant Instruction 13, Common Utility Plant, of the Uniform System of Accounts. Also show the allocation of such plant costs to the respective departments using the common utility plant and explain the basis of allocation used, giving the allocation factors.</li>
+                                <li>Furnish the accumulated provisions for depreciation and amortization at end of year, showing the amounts and classifications of such accumulated provisions, and amounts allocated to utility departments using the Common utility plant to which such accumulated provisions relate, including explanation of basis of allocation and factors used.</li>
+                                <li>Give for the year the expenses of operation, maintenance, rents, depreciation, and amortization for common utility plant classified by accounts as provided by the Uniform System of Accounts. Show the allocation of such expenses to the departments using the common utility plant to which such expenses are related. Explain the basis of allocation used and give the factors of allocation.</li>
+                                <li>Give date of approval by the Commission for use of the common utility plant classification and reference to order of the Commission or other authorization.</li>
+                                </ol>
+                        </xule:template-display>
+                    </xule:replace>
+                </td>
+            </tr>
+            <tr>
+                <td class="xbrl">
+                        <xule:replace>
+                                <xule:expression class="hide" html="true" fact="true">[@concept=ferc:CommonUtilityPlantAndExpensesDescriptionTextBlock @period=$currentDuration]
+                                </xule:expression>
+                                <xule:template-display>
+                                        See Notes to Financial Statements, Note 2, 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+            </tr>
+            
+                                
+        </table>
+        <p></p>
+        <div class="schedule-footer">
+
+            <div>FERC FORM NO. 
+                    <xule:replace>
+                            <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                    
+                                                            </xule:expression>
+                            <xule:template-display>1</xule:template-display>
+                    </xule:replace>
+                    <span> </span>
+                    <xule:replace>
+                            <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleCommonUtilityPlantAndExpensesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                            </xule:expression>
+                            <xule:template-display>
+                                    (ED. 12-87)
+                            </xule:template-display>
+                    </xule:replace>
+                                
+            </div>
+            <div class="center-text">Page 
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleCommonUtilityPlantAndExpensesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                            </xule:expression>
+                            <xule:template-display>
+                            356
+                            </xule:template-display>
+                    </xule:replace>
+            </div> 
+        </div>
+        </body>
+        </html>

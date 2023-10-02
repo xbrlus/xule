@@ -1,0 +1,482 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1 - 304-446</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+</head>
+
+<body class="xbrl" id="ScheduleSalesOfElectricityByRateSchedulesAbstract449">
+    <xendr:showif>if length(set({covered @ferc:ProvisionForRateRefundsAxis=*}.dimension(ferc:ProvisionForRateRefundsAxis))) > 0
+            true
+        else
+            $data = navigate parent-child descendants from ferc:ProvisionForRateRefundsAbstract returns list (target-name);
+            if list([covered @concept in $data]).length > 0
+                true
+            else
+                false
+     </xendr:showif>
+    
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace><br/>
+                
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+               
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="7">
+                <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleSalesOfElectricityByRateSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                               SALES OF ELECTRICITY BY RATE SCHEDULES
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="7">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleSalesOfElectricityByRateSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report below for each rate schedule in effect during the year the MWH of electricity sold, revenue, average number of customer, average Kwh per customer, and average revenue per Kwh, excluding date for Sales for Resale which is reported on Pages 310-311.</li>
+                            <li>Provide a subheading and total for each prescribed operating revenue account in the sequence followed in "Electric Operating Revenues," Page 300-301.  If the sales under any rate schedule are classified in more than one revenue account, List the rate schedule and sales data under each applicable revenue account subheading.</li>
+                            <li>Where the same customers are served under more than one rate schedule in the same revenue account classification (such as a general residential schedule and an off peak water heating schedule), the entries in column (d) for the special schedule should denote the duplication in number of reported customers.</li>
+                            <li>The average number of customers should be the number of bills rendered during the year divided by the number of billing periods during the year (12 if all billings are made monthly).</li>
+                            <li>For any rate schedule having a fuel adjustment clause state in a footnote the estimated additional revenue billed pursuant thereto.</li>
+                            <li>Report amount of unbilled revenue as of end of year for each applicable revenue account subheading.</li>
+                            </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ColumnHeadings">
+                    <xendr:expression class="hide" name="ColumnHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleSalesOfElectricityByRateSchedulesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "304 - Schedule - Sales of Electricity by Rate Schedules") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center"><xendr:replace>
+                    <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                    <xendr:template-display>
+                            Number and Title of Rate Schedule
+                    </xendr:template-display>
+                </xendr:replace>
+            </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="SalesOfElectricityByRateSchedule">
+            <xendr:expression class="hide" name="SalesOfElectricityByRateSchedule">// adding a comment
+
+                $data2 = list(for $i in range(40)
+                list($i,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:ProvisionForRateRefundsAxis=*})) > 0
+
+                list({covered @ferc:ProvisionForRateRefundsAxis=*  {list(
+                        if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                            first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                        else
+                            0,
+                        if list({@ferc:DescriptionOfNumberAndTitleOfRateSchedule @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:DescriptionOfNumberAndTitleOfRateSchedule @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:MegawattHoursSoldProvisionForRateRefundsBilled @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:MegawattHoursSoldProvisionForRateRefundsBilled @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:ProvisionForRateRefundsBilled @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProvisionForRateRefundsBilled @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:AverageNumberOfCustomersPerMonthProvisionForRateRefundsBilled @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:AverageNumberOfCustomersPerMonthProvisionForRateRefundsBilled @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:KilowattHoursOfSalesPerCustomerProvisionForRateRefundsBilled @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:KilowattHoursOfSalesPerCustomerProvisionForRateRefundsBilled @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:RevenuePerKilowattHourSoldProvisionForRateRefundsBilled @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:RevenuePerKilowattHourSoldProvisionForRateRefundsBilled @unit @period=$currentDuration}))
+                        else 
+                            none
+                            )}})
+                else $data2;
+
+                 $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none)
+                    skip
+                else 
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+                               
+
+
+            </xendr:expression>
+
+            <td class="xbrl line-number">
+                <xendr:lineNumber class="hide" name="SalesOfElectricityByRateSchedule">
+                    <xendr:startNumber>1</xendr:startNumber>
+                </xendr:lineNumber>
+                <xendr:template-display>1</xendr:template-display>
+            </td>
+            
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesOfElectricityByRateSchedule" fact="true" part="2">
+                        $row[2]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    RB
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesOfElectricityByRateSchedule" fact="true"
+                        format="ixt4:num-dot-decimal" part="3">$row[3]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    3,456
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesOfElectricityByRateSchedule" fact="true"
+                        format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $55,036,001
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesOfElectricityByRateSchedule" fact="true" format="ixt4:num-dot-decimal" part="5">
+                        $row[5]</xendr:expression>
+
+                </xendr:replace> 
+                <xendr:template-display>
+                    12,476,888
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesOfElectricityByRateSchedule" fact="true"
+                        format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    3,281,566
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesOfElectricityByRateSchedule" fact="true"
+                        format="ixt4:num-dot-decimal" part="7">$row[7]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $91
+                </xendr:template-display>
+            </td>
+        </tr>
+        <!-- Line 41 for Total -->
+        <tr>
+            <td class="xbrl line-number">41</td>
+            <td class="xbrl description_items">
+                    TOTAL Billed Provision For Rate Refunds
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:MegawattHoursSoldProvisionForRateRefundsBilled @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        765,989
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:ProvisionForRateRefundsBilled @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $55,036,326
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:AverageNumberOfCustomersPerMonthProvisionForRateRefundsBilled @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        3,281
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:KilowattHoursOfSalesPerCustomerProvisionForRateRefundsBilled @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        9,162,981
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                            @concept=ferc:RevenuePerKilowattHourSoldProvisionForRateRefundsBilled @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                            $967
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+        </tr>
+        <tr>
+                <td class="xbrl line-number">42</td>
+                <td class="xbrl description_items">
+                        TOTAL Unbilled Rev. (See Instr. 6)
+                </td>
+                <td class="xbrl numeric_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                            @concept=ferc:MegawattHoursSoldProvisionForRateRefundsUnbilled @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                            765,989
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl numeric_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                            @concept=ferc:ProvisionForRateRefundsUnbilled @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                            $55,036,326
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl numeric_items">
+                    
+                </td>
+                <td class="xbrl numeric_items">
+                    
+                </td>
+                <td class="xbrl numeric_items">
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                                @concept=ferc:RevenuePerKilowattHourSoldProvisionForRateRefundsUnbilled @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                $297
+                            </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+            </tr>
+            <tr>
+                    <td class="xbrl line-number">43</td>
+                    <td class="xbrl description_items">
+                            TOTAL
+                    </td>
+                    <td class="xbrl numeric_items">
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                                @concept=ferc:MegawattHoursSoldProvisionForRateRefunds @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                165,381
+                            </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl numeric_items">
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                                @concept=ferc:ProvisionForRateRefunds @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                $88,236,226
+                            </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl numeric_items">
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                                @concept=ferc:AverageNumberOfCustomersPerMonthProvisionForRateRefunds @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                1,766
+                            </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl numeric_items">
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                                @concept=ferc:KilowattHoursOfSalesPerCustomerProvisionForRateRefunds @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                10,245,988
+                            </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl numeric_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                                    @concept=ferc:RevenuePerKilowattHourSoldProvisionForRateRefunds @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                    $9,837
+                                </xendr:template-display>
+                            </xendr:replace>
+                        </td>
+                </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleSalesOfElectricityByRateSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (ED. 12-95)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleSalesOfElectricityByRateSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        304
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

@@ -104,9 +104,14 @@ output INFO0020
 output INFO0021
 /* reference */
 
-  $US-GAAP-2020.concept(Assets).references._type
+  first($US-GAAP-2020.concept(Assets).references)._type
 
 output INFO0022
+/* qname */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator._type
+
+output INFO0023
 /* INFO0012.v1 */
 
   rule-name()

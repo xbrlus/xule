@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+>
+<head>
+    <title>Template - F1 - 102</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+</head>
+<body class="xbrl" id="ScheduleControlOverRespondentAbstract">
+        <table class="schedule-header xbrl" width="100%">
+                <tr>
+                        <td class="xbrl">
+                                <xendr:replace>
+                                    <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                                </xendr:replace><br/>
+                                
+                                <xendr:replace>
+                                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                                </xendr:replace>
+                        </td>
+                        <td class="xbrl">
+                                <xendr:replace>
+                                    <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                                    <xendr:template-display>This report is:</xendr:template-display>
+                                </xendr:replace><br/>
+                                   
+                                    (1) 
+                                        <xendr:replace>
+                                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                                </xendr:expression>  
+                                            <xendr:template-display>
+                                                    <input type="checkbox"/> An Original
+                                            </xendr:template-display>
+                                        </xendr:replace><br/>
+                                        
+                                    (2)
+                                        <xendr:replace>
+                                                <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                                    </xendr:expression> 
+                                                <xendr:template-display>
+                                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                                </xendr:template-display>
+                                        </xendr:replace> 
+                        </td>
+                        <td class="xbrl"><xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                                <xendr:template-display>Date of Report:</xendr:template-display>
+                                </xendr:replace><br/>
+                                
+                                    <xendr:replace>
+                                        <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                                        <xendr:template-display>04/26/2019</xendr:template-display>
+                                </xendr:replace>
+                        </td>
+                        <td class="xbrl"><xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                                <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                                </xendr:replace><br/>
+                                
+                                End of: <xendr:replace>
+                                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                                    <xendr:template-display>2018</xendr:template-display>
+                                </xendr:replace>
+                                <span>/</span>
+                                <xendr:replace>
+                                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                                    <xendr:template-display>Q4</xendr:template-display>
+                                </xendr:replace>
+                        </td>
+                </tr>
+        </table>
+        <table width="100%" class="xbrl">
+
+                <tr class="sch-title">
+                        <td colspan="5" class="xbrl">
+                                <xendr:replace>
+                                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleControlOverRespondentAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                                        </xendr:expression>
+                                        <xendr:template-display>
+                                            Gas Property And Capacity Leased From Others
+                                        </xendr:template-display>
+                                </xendr:replace>
+                        </td>
+                </tr>
+                <tr>
+                        <td class="combinedField xbrl" colspan="1">
+                                <xendr:replace>
+                                        <xendr:expression class="hide">taxonomy().concept(ferc:ControlOverRespondentTextBlock).label("http://ferc.gov/form/2020-01-01/roles/label/F1ControlOverRespondent").text
+                                        </xendr:expression>
+                                        <xendr:template-display>
+                                                        1. If any corporation, business trust, or similar organization or a combination of such organizations jointly held
+                                                        control over the repondent at the end of the year, state name of controlling corporation or organization, manner in
+                                                        which control was held, and extent of control. If control was in a holding company organization, show the chain
+                                                        of ownership or control to the main parent company or organization. If control was held by a trustee(s), state
+                                                        name of trustee(s), name of beneficiary or beneficiearies for whom trust was maintained, and purpose of the trust.
+                                        </xendr:template-display>
+                                 </xendr:replace>
+                        </td>
+                </tr>
+                <tr>
+                        <td class="xbrl">
+                        </td>
+                </tr>
+                <tr>
+                        <td class="xbrl">
+                                <xendr:replace>
+                                        <xendr:expression class="hide" html="true" fact="true">first(list([@concept=ferc:ControlOverRespondentTextBlock @period=$currentDuration]))             
+                                        </xendr:expression>
+                                        <xendr:template-display>
+                                                Kentucky - Gas and Electric
+                                        </xendr:template-display>
+                                </xendr:replace>  
+                        </td>
+                </tr>
+        </table>
+        <p></p>
+        <div class="schedule-footer">
+                <div>FERC FORM No. 
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>1/3-Q</xendr:template-display>
+                        </xendr:replace>
+                        <span> </span>
+                        <xendr:replace>
+                                <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleControlOverRespondentAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        (12-96)
+                                </xendr:template-display>
+                        </xendr:replace>             
+                </div>
+                <div class="center-text">Page 
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleControlOverRespondentAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                212
+                                </xendr:template-display>
+                        </xendr:replace>
+                </div> 
+        </div>
+</body>
+</html>

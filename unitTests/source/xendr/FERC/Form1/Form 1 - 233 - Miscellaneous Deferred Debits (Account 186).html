@@ -1,0 +1,476 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1 - 233</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+
+</head>
+
+<body class="xbrl" id="ScheduleMiscellaneousDeferredDebitsAbstract">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace><br/>
+                
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>This report is:</xule:template-display>
+                </xule:replace><br/>
+                
+                (1)
+                <xule:replace>
+                    <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xule:expression>
+                    <xule:template-display>
+                        <input type="checkbox" /> An Original
+                    </xule:template-display>
+                </xule:replace><br/>
+                
+                (2)
+                <xule:replace>
+                    <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xule:expression>
+                    <xule:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Date of Report:</xule:template-display>
+                </xule:replace><br/>
+                
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>04/26/2019</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Year/Period of Report:</xule:template-display>
+                </xule:replace><br/>
+                
+                End of: <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>2018</xule:template-display>
+                </xule:replace>
+                <span>/</span>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>Q4</xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td colspan="7" class="xbrl">
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleMiscellaneousDeferredDebitsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xule:expression>
+                            <xule:template-display>
+                                    Gas Property And Capacity Leased From Others
+                            </xule:template-display>
+                    </xule:replace>
+                </td>
+            </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="7">
+                <xule:replace>
+                    <xule:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleMiscellaneousDeferredDebitsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xule:expression>
+                    <xule:template-display>
+                        <ol>
+                            <li>Report below the particulars (details) called for concerning miscellaneous deferred
+                                debits.</li>
+                            <li>For any deferred debit being amortized, show period of amortization in column (a)</li>
+                            <li>Minor item (1% of the Balance at End of Year for Account 186 or amounts less than
+                                $100,000, whichever is less) may be grouped by classes.</li>
+                        </ol>
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="2">CREDITS</td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xule:repeat="ColumnHeadings">
+                <xule:expression class="hide" name="ColumnHeadings">
+                        $headings = filter (taxonomy().concept(ferc:ScheduleMiscellaneousDeferredDebitsAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "233 - Schedule - Miscellaneous Deferred Debits (Account 186)") 
+
+                        $headings = list(for $ref in $headings 
+                        list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                        $heading_dict = dict(for $row in $headings
+                                list("("+$row[1]+")",$row[2])
+                        );
+                        for $row in $heading_dict.keys.sort
+                </xule:expression>
+                <div style="text-align: center"><xule:replace>
+                <xule:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row]</xule:expression>
+                <xule:template-display>
+                    Description of Item
+                </xule:template-display>
+                </xule:replace>
+                </div>
+                <div style="text-align: center"><xule:replace>
+                        <xule:expression class="hide" name="ColumnHeadings" part="2">$row</xule:expression>
+                        <xule:template-display>
+                            (a)
+                        </xule:template-display>
+                </xule:replace></div>
+            </td>
+        </tr>
+
+        <tr class="schedule-row" xule:repeat="MiscellaneousDeferredDebits">
+            <xule:expression class="hide" name="MiscellaneousDeferredDebits">// adding a comment
+
+                $data2 = list(for $i in range(46)
+                list($i,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:MiscellaneousDeferredDebitsAxis=*})) > 0
+
+
+                list({covered @ferc:MiscellaneousDeferredDebitsAxis=* {list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:DescriptionOfMiscellaneousDeferredDebits @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DescriptionOfMiscellaneousDeferredDebits @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:MiscellaneousDeferredDebitsExcludingMiscellaneousWorkInProgress @unit @period=$priorInstant}).length > 0
+                        first(list({@ferc:MiscellaneousDeferredDebitsExcludingMiscellaneousWorkInProgress @unit @period=$priorInstant}))
+                    else
+                        none,
+                    if list({@ferc:IncreaseInMiscellaneousDeferredExpense @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:IncreaseInMiscellaneousDeferredExpense @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:DecreaseInMiscellaneousDeferredExpenseAccountCharged @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DecreaseInMiscellaneousDeferredExpenseAccountCharged @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:DecreaseInMiscellaneousDeferredExpense @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DecreaseInMiscellaneousDeferredExpense @unit @period=$currentDuration}))
+                    else 
+                        none,
+                    if list({@ferc:MiscellaneousDeferredDebitsExcludingMiscellaneousWorkInProgress @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:MiscellaneousDeferredDebitsExcludingMiscellaneousWorkInProgress @unit @period=$currentInstant}))
+                    else 
+                        none
+
+                    )}})
+                    else $data2;
+
+                    $uniqueData = list(for $x in  $data
+                        if $x == list(0,none,none,none,none,none,none)
+                            skip
+                        else 
+                            $x
+                        );
+    
+                    for $row in $uniqueData.sort      
+
+            </xule:expression>
+            <td class="xbrl line-number">
+                <xule:lineNumber name="MiscellaneousDeferredDebits" />
+                <xule:template-display>1</xule:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="MiscellaneousDeferredDebits" fact="true" part="2">
+                        $row[2]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    Assigned Deferred Income Taxes
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="MiscellaneousDeferredDebits" fact="true"
+                        format="ixt4:num-dot-decimal" part="3">$row[3]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $794,048,773
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="MiscellaneousDeferredDebits" fact="true"
+                        format="ixt4:num-dot-decimal" part="4">$row[4]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $46,802,727
+                </xule:template-display>
+            </td>
+            <td class="xbrl account-number">
+                <xule:replace>
+                    <xule:expression class="hide" name="MiscellaneousDeferredDebits" fact="true" part="5">
+                        $row[5]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    410
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="MiscellaneousDeferredDebits" fact="true"
+                        format="ixt4:num-dot-decimal" part="6">$row[6]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $27,501,590
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="MiscellaneousDeferredDebits" fact="true"
+                        format="ixt4:num-dot-decimal" part="7">$row[7]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $813,349,910
+                </xule:template-display>
+            </td>
+        </tr>
+        <tr>
+            <!-- Line 47: Miscellaneous Working in Progress -->
+            <td class="xbrl line-number">47</td>
+            <td class="xbrl description_items">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:MiscellaneousWorkInProgress).label("http://www.xbrl.org/2003/role/label").text
+                    </xule:expression>
+                    <div>
+                        <xule:template-display>
+                            Miscellaneous Work in Progress
+                        </xule:template-display>
+                    </div>
+                </xule:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:MiscellaneousWorkInProgress @period = $priorInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $0
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="gray-out xbrl">
+                <!-- Line 47 Column (c) Credits Account Charged -->
+            </td>
+            <td class="gray-out xbrl">
+                <!-- Line 47 Column (d) Debits -->
+            </td>
+            <td class="gray-out xbrl">
+                <!-- Line 47 Column (e) Credits Amount -->
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:MiscellaneousWorkInProgress @period = $currentInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $0
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr>
+            <!-- Line 48: Deferred Regulatory Commission Expense -->
+            <td class="xbrl line-number">48</td>
+            <td class="xbrl description_items">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:DeferredRegulatoryCommissionExpense).label("http://ferc.gov/form/2020-01-01/roles/label/F1MiscellaneousDeferredDebits").text
+                    </xule:expression>
+                    <div>
+                        <xule:template-display>
+                            Deferred Regulatroy Comm. Expenses (See pages 350 - 351)
+                        </xule:template-display>
+                    </div>
+                </xule:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:DeferredRegulatoryCommissionExpense @period = $priorInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $0
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:IncreaseInDeferredRegulatoryCommissionExpense @period = $currentDuration]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $0
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl account-number">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">first(list([covered
+                        @concept=ferc:DecreaseInDeferredRegulatoryCommissionExpenseAccountCharged @period =
+                        $currentDuration]))
+                    </xule:expression>
+                    <xule:template-display>
+                        999
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:DecreaseInDeferredRegulatoryCommissionExpense @period = $currentDuration]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $0
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:DeferredRegulatoryCommissionExpense @period = $currentInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $0
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr>
+            <!-- Line 49: Total -->
+            <td class="xbrl line-number">49</td>
+            <td class="xbrl description_items">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:MiscellaneousDeferredDebits).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xule:expression>
+                    <div>
+                        <xule:template-display>
+                            TOTAL
+                        </xule:template-display>
+                    </div>
+                </xule:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:MiscellaneousDeferredDebits @period = $priorInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $805,531,884
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="gray-out xbrl">
+                <!-- Line 49 Column (c) Debits -->
+            </td>
+            <td class="gray-out xbrl">
+                <!-- Line 49 Column (d) Credits Account Charged -->
+            </td>
+            <td class="gray-out xbrl">
+                <!-- Line 49 Column (e) Credits Amount -->
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:MiscellaneousDeferredDebits @period = $currentInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $1,017,539,747
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+        <div>FERC FORM No. 
+                <xule:replace>
+                        <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xule:expression>
+                        <xule:template-display>2/3-Q</xule:template-display>
+                </xule:replace>
+                <span> </span>
+                <xule:replace>
+                        <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleMiscellaneousDeferredDebitsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xule:expression>
+                        <xule:template-display>
+                        02-04
+                        </xule:template-display>
+                </xule:replace>            
+        </div>
+        <div class="center-text">Page 
+                <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:ScheduleMiscellaneousDeferredDebitsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xule:expression>
+                        <xule:template-display>
+                        1
+                        </xule:template-display>
+                </xule:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

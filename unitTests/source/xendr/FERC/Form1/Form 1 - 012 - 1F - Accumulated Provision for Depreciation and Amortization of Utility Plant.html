@@ -1,0 +1,405 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" 
+    xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1F - 012</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+</head>
+
+<body class="xbrl">
+    <div id="ScheduleAccumulatedProvisionForDepreciationAndAmortizationOfUtilityPlantAbstract"></div>
+    <xendr:showif>
+            if first(list([covered @ferc:AccumulatedProvisionForDepreciationAndAmortizationOfUtilityPlantMajorNonmajor])) == "Major"
+                false
+            else
+                true
+    </xendr:showif>
+    <table class="ident-table xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br />
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br />
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br />
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td colspan="7" class="xbrl">
+                    <xendr:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationAndAmortizationOfUtilityPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                            </xule:expression>
+                            <xule:template-display>
+                                PART XII: ACCUMULATED PROVISION FOR DEPRECIATION AND AMORTIZATION OF UTILITY PLANT
+                            </xule:template-display>
+                    </xule:replace>
+                </td>
+    </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xule:repeat="ISHeadings">
+                    <xule:expression class="hide" name="ISHeadings">
+                            /** THIS CODE EXCLUDES ELEMENT NAMES AS THERE ARE NO ELEMENT SPECIFIC COLUMNS  **/
+                            $headings = filter (taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationAndAmortizationOfUtilityPlantAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "F1F - 012 - Schedule - Accumulated Provision for Depreciation and Amortization of Utility Plant") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xule:expression>
+                    <div style="text-align: center"><xule:replace>
+                    <xule:expression class="hide" name="ISHeadings" part="1">$heading_dict[$row]</xule:expression>
+                    <xule:template-display>
+                        Title  of Account
+                    </xule:template-display>
+                </xule:replace>
+            </div>
+                <div style="text-align: center"><xule:replace>
+                        <xule:expression class="hide" name="ISHeadings" part="2">$row</xule:expression>
+                        <xule:template-display>
+                            (a)
+                        </xule:template-display>
+                    </xule:replace></div>
+            </td>
+        </tr>
+        <!--<tr class="col-heading-row">
+            <td class="col-heading xbrl"></td>
+            <td class="col-heading xbrl">
+                Name of Utility Department
+                <div>(a)</div>
+            </td>
+            <td class="col-heading xbrl">
+                Balance at Beginning of Year
+                <div>(b)</div>
+            </td>
+            <td class="col-heading xbrl">
+                Depreciation and Amortization Accruals for Year
+            <div>(c)</div>
+        </td>
+            <td class="col-heading xbrl">
+                Net Charges for Plant Retired During Year
+            <div>(d)</div>
+        </td>
+        <td class="col-heading xbrl">
+            Other Items debit or Credit (Explain in Footnote)
+        <div>(e)</div>
+    </td>
+    <td class="col-heading xbrl">
+        Balance at End of Year
+    <div>(f)</div>
+</td>  
+        </tr>-->
+        
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                ELECTRIC (110)
+       </td>
+
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:UtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $priorInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $11,859,030
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:AccruedDepreciationandAmortization @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $54,224,053
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:NetChargesForRetiredPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $83,226,981
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:OtherUtilityPlantChanges @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $96,317,355
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">first(list([covered
+                        @concept=ferc:UtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentInstant]))
+                    </xule:expression>
+                    <xule:template-display>
+                        $96,317,355
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl">2</td>
+
+            <td class="xbrl">
+                     Other Utility Department (119) (Specify):
+            </td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+        </tr> 
+       
+        
+        <tr class="schedule-row" xule:repeat="IsoOrRtoSettlements">
+            <xule:expression class="hide" name="IsoOrRtoSettlements">// adding a comment
+
+                $data2 = list(for $i in range(3,7)
+                list($i,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:AccumulatedProvisionForDepreciationAxis=*})) > 0
+
+                list({covered @ferc:AccumulatedProvisionForDepreciationAxis=* {list(
+
+                if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                else
+                    0,
+                if list({@ferc:PlantName @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}).length>0
+                    first(list({@ferc:PlantName @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}))
+                else
+                    none,
+                if list({@ferc:UtilityPlant @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$priorInstant}).length>0
+                    first(list({@ferc:UtilityPlant @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$priorInstant}))
+                else
+                    none,
+                if list({@ferc:AccruedDepreciationandAmortization @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}).length>0
+                    first(list({@ferc:AccruedDepreciationandAmortization @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}))
+                else
+                    none,
+                if list({@ferc:NetChargesForRetiredPlant @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}).length>0
+                    first(list({@ferc:NetChargesForRetiredPlant @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}))
+                else
+                    none,
+                if list({@ferc:OtherUtilityPlantChanges @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}).length>0
+                    first(list({@ferc:OtherUtilityPlantChanges @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentDuration}))
+                else
+                    none,
+                if list({@ferc:UtilityPlant @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentInstant}).length>0
+                    first(list({@ferc:UtilityPlant @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @unit @period=$currentInstant}))
+                else
+                    none
+
+                )}})
+                else $data2;
+
+                $uniqueData = list(for $x in  $data
+                        if $x == list(0,none,none,none,none,none,none)
+                            skip
+                        else 
+                            $x
+                        );
+    
+                for $row in $uniqueData.sort  
+
+
+            </xule:expression>
+
+            <td class="xbrl line-number">
+                <xule:lineNumber class="hide" name="IsoOrRtoSettlements">
+                    <xule:startNumber>3</xule:startNumber>
+                </xule:lineNumber>
+             </td>
+            
+            <td class="xbrl description_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="IsoOrRtoSettlements" fact="true" part="2">$row[2]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    Various
+                </xule:template-display>
+            </td>
+            
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="IsoOrRtoSettlements" fact="true" format="ixt4:num-dot-decimal" part="3">$row[3]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $7,951
+                </xule:template-display>
+            </td>
+            
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="IsoOrRtoSettlements" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $27,416
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="IsoOrRtoSettlements" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $52,892
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="IsoOrRtoSettlements" fact="true" format="ixt4:num-dot-decimal" part="6">$row[6]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $69,971
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="IsoOrRtoSettlements" fact="true" format="ixt4:num-dot-decimal" part="7">$row[7]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $69,971
+                </xule:template-display>
+            </td>
+        
+        </tr>
+    
+        
+    </table>
+    <br/>
+
+<div class="schedule-footer">
+    <div>FERC FORM No.
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xule:expression>
+                    <xule:template-display>1-F</xule:template-display>
+            </xule:replace>
+            <span> </span> 
+            <xule:replace>
+                    <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationAndAmortizationOfUtilityPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                    </xule:expression>
+                    <xule:template-display>
+                        ED 12-93
+                    </xule:template-display>
+            </xule:replace>
+                        
+    </div>
+    <div class="center-text">Page 
+            <xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationAndAmortizationOfUtilityPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                    </xule:expression>
+                    <xule:template-display>
+                    19
+                    </xule:template-display>
+            </xule:replace>
+    </div> 
+
+</div>
+</body>
+
+</html>

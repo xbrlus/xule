@@ -247,7 +247,7 @@ output PFILT102
 output PFILT103
 /* 50 */
 
-  list([covered @instance = $INSTANCE1@period = date('2020-12-31')]).count
+  list([covered @instance = $INSTANCE1 @period = date('2020-12-31')]).count
 
 output PFILT104
 /* [ERROR] [xule:error] rule PFILT104: Rule: PFILT104 - Function 'cats' not found */
@@ -283,6 +283,31 @@ output PFILT110
 /* list(124,800,000) */
 
   list({covered @instance = $FOREVER_INSTANCE @period = forever})
+
+output PFILT111
+/* [ERROR] [xule:error] rule PFILT111: Rule: PFILT111 - Factset aspect property 'year' is not a valid property of aspect 'period'. */
+
+  list([covered @instance = $INSTANCE1 @period.year = '2020']).count
+
+output PFILT112
+/* [ERROR] [xule:error] rule PFILT112: Rule: PFILT112 - Factset aspect property 'end.year' is not a valid property of aspect 'period'. */
+
+  list([covered @instance = $INSTANCE1 @period.end.year = '2020']).count
+
+output PFILT113
+/* 50 */
+
+  list([covered @instance = $INSTANCE1 @period.end = date('2020-12-31')]).count
+
+output PFILT114
+/* [ERROR] [xule:error] rule PFILT114: Rule: PFILT114 - Property 'end' is not a property of a 'decimal'. */
+
+  list([covered @instance = $INSTANCE1 where $fact.end.year == '2020']).count
+
+output PFILT115
+/* 133 */
+
+  list([covered @instance = $INSTANCE1 where $fact.period.end.year == '2020']).count
 
 output NOFILT001
 /* 1579 */
@@ -341,7 +366,7 @@ output UNITFILT001
 output UNITFILT002
 /* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
 
   message
   '{$rule-value} with alignment {$alignment}'
@@ -349,7 +374,7 @@ output UNITFILT002
 output UNITFILT003
 /* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period=*])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period=*])))
 
   message
   '{$rule-value} with alignment {$alignment}'
@@ -357,7 +382,7 @@ output UNITFILT003
 output UNITFILT004
 /* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit=* @period=*])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit=* @period=*])))
   
   message
   '{$rule-value} with alignment {$alignment}'
@@ -391,7 +416,7 @@ output UNITFILT007
 output UNITFILT008
 /* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
 
   message
   '{$rule-value} with alignment {$alignment}'
@@ -442,6 +467,26 @@ output UNITFILT015
 /* 1535 */
 
   list({covered @instance = $INSTANCE1  @unit = *}).count
+
+output UNITFILT016
+/* 1449 */
+
+  list({covered @instance = $INSTANCE1  @unit = unit(iso4217:USD)}).count
+
+output UNITFILT017
+/* 1535 */
+
+  list({covered @instance = $INSTANCE1  where $fact.unit.numerator == unit(iso4217:USD)}).count
+
+output UNITFILT018
+/* 1535 */
+
+  list({covered @instance = $INSTANCE1  where $fact.unit.denominator == none}).count
+
+output UNITFILT019
+/* 1535 */
+
+  list({covered @instance = $INSTANCE1  where ($fact.unit.denominator == none and $fact.unit.numerator == unit(iso4217:USD))}).count
 
 output MULTIIN001
 /* 3215 */

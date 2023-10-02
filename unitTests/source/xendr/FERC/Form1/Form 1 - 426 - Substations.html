@@ -1,0 +1,509 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 426</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+
+</head>
+
+<body class="xbrl" id="ScheduleSubstationsAbstract">
+        <table class="schedule-header xbrl" width="100%">
+                <tr>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>This report is:</xendr:template-display>
+                        </xendr:replace><br/>
+                            
+                            (1) 
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                                        </xendr:expression>  
+                                    <xendr:template-display>
+                                            <input type="checkbox"/> An Original
+                                    </xendr:template-display>
+                                </xendr:replace><br/>
+                                
+                            (2)
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                            </xendr:expression> 
+                                        <xendr:template-display>
+                                                <input type="checkbox" checked = "checked"/> A Resubmission
+                                        </xendr:template-display>
+                                </xendr:replace> 
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Date of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                            <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                                <xendr:template-display>04/26/2019</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                        End of: <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>2018</xendr:template-display>
+                        </xendr:replace>
+                        <span>/</span>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Q4</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                </tr>
+            </table>
+    <table class="xbrl">
+
+        <tr class="sch-title">
+            <td class="xbrl" colspan="13"><xendr:replace>
+                <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleSubstationsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                </xendr:expression>
+                <xendr:template-display>
+                    SUBSTATIONS
+                </xendr:template-display>
+            </xendr:replace>
+           
+        </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="13">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleSubstationsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    <ol>
+                        <li>Report below the information called for concerning substations of the respondent as of the end of the year.</li>
+                        <li>Substations which serve only one industrial or street railway customer should not be listed below.</li>
+                        <li>Substations with capacities of Less than 10 MVa except those serving customers with energy for resale, may be grouped according to functional character, but the number of such substations must be shown.</li>
+                        <li>Indicate in column (b) the functional character of each substation, designating whether transmission or distribution and whether attended or unattended.  At the end of the page, summarize according to function the capacities reported for the individual stations in column (f).</li>
+                        <li>Show in columns (I), (j), and (k) special equipment such as rotary converters, rectifiers, condensers, etc.  and auxiliary equipment for increasing capacity.</li>
+                        <li>Designate substations or major items of equipment leased from others, jointly owned with others, or operated otherwise than by reason of sole ownership by the respondent.  For any substation or equipment operated under lease, give name of lessor, date and period of lease, and annual rent.  For any substation or equipment operated other than by reason of sole ownership or lease, give name of co-owner or other party, explain basis of sharing expenses or other accounting between the parties, and state amounts and accounts affected in respondent's books of account.  Specify in each case whether lessor, co-owner, or other party is an associated company.</li>
+                    </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="2">Character of Substation</td>
+            <td class="xbrl center-text" colspan="3">VOLTAGE (In MVa) </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="3">Conversion Apparatus and Special Equipment</td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings">
+                <xendr:expression class="hide" name="ColumnHeadings">
+                    $headings = filter (taxonomy().concept(ferc:ScheduleSubstationsAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "426 - Schedule - Substations") 
+
+                    $heading = list(for $ref in $headings 
+                    list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+
+                    $heading_dict = dict(for $row in $heading
+                            list("("+$row[1]+")",list($row[2],
+                                if $row[3] == none
+                                    ""
+                                else
+                                    taxonomy().concept(to-qname($row[3]))))
+                    );
+                    for $row in $heading_dict.keys.sort
+            </xendr:expression>
+
+            <div style="text-align: center">
+                <div class="tooltip">
+                        <div class="tooltiptext">
+                                <xendr:replace>
+                                        <xendr:expression class="hide" name="ColumnHeadings" part="3">$heading_dict[$row][2].name.local-name</xendr:expression>
+                                    </xendr:replace>
+                        </div>    
+                    <xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row][1]</xendr:expression>
+                        <xendr:template-display>
+                            Name and Location of Substation
+                        </xendr:template-display>
+                    </xendr:replace>
+                </div>
+            </div>
+        <div style="text-align: center"><xendr:replace>
+                <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                <xendr:template-display>
+                    (a)
+                </xendr:template-display>
+            </xendr:replace></div>
+    </td>
+        </tr>
+        
+        <tr class="schedule-row" xendr:repeat="Substations">
+                <xendr:expression class="hide" name="Substations">// adding a comment
+                 
+                $data2 =   list(for $i in range(40)
+                                list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:SubstationsAxis=*})) > 0  
+                
+                        $substations = set({covered @ferc:SubstationsAxis=*}.dimension(ferc:SubstationsAxis));
+               
+                list(for $x in $substations
+                    list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:SubstationsAxis = $x}))
+                    else
+                        0,
+                    if list({@ferc:SubstationNameAndLocation @unit  @period=$currentDuration @ferc:SubstationsAxis = $x}).length > 0 
+                        first(list({@ferc:SubstationNameAndLocation @unit  @period=$currentDuration @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:SubstationCharacterDescription @unit @period=$currentDuration @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:SubstationCharacterDescription @unit @period=$currentDuration @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:SubstationCharacterAttendedOrUnattended @unit @period=$currentDuration @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:SubstationCharacterAttendedOrUnattended @unit @period=$currentDuration @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:PrimaryVoltageLevel @unit @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:PrimaryVoltageLevel @unit @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:SecondaryVoltageLevel @unit @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:SecondaryVoltageLevel @unit  @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:TertiaryVoltageLevel @unit  @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0 
+                        first(list({@ferc:TertiaryVoltageLevel @unit  @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:SubstationInServiceCapacity @unit @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0 
+                        first(list({@ferc:SubstationInServiceCapacity @unit @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:NumberOfTransformersInService @unit  @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:NumberOfTransformersInService @unit @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:NumberOfSpareTransformers @unit  @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:NumberOfSpareTransformers @unit  @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:ConversionApparatusAndSpecialEquipmentType @unit @period=$currentDuration @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:ConversionApparatusAndSpecialEquipmentType @unit @period=$currentDuration @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:NumberOfConversionApparatusAndSpecialEquipmentUnits @unit @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:NumberOfConversionApparatusAndSpecialEquipmentUnits @unit @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:CapacityOfConversionApparatusAndSpecialEquipment @unit @period=$currentInstant @ferc:SubstationsAxis = $x}).length > 0
+                        first(list({@ferc:CapacityOfConversionApparatusAndSpecialEquipment @unit @period=$currentInstant @ferc:SubstationsAxis = $x})) 
+                    else 
+                        none
+                    
+                    ))
+                    else $data2;
+                
+                $uniqueData = list(for $y in  $data
+                if $y == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else 
+                    $y
+                );
+
+                for $row in $uniqueData.sort   
+
+                </xendr:expression>
+                <td class="xbrl line-number"><xendr:lineNumber name="Substations"/>
+                    <xendr:template-display>1</xendr:template-display>
+                </td> 
+               <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="Substations" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        Northland
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            Distribution
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" part="3">$row[4]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            Distribution
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" format="ixt4:num-dot-decimal" part="4">$row[5]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            115.00
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" format="ixt4:num-dot-decimal" part="5">$row[6]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            12.00
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" format="ixt4:num-dot-decimal" part="6">$row[7]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            20
+                    </xendr:template-display>
+                </td>  
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" part="7">$row[8]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            25
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" part="8">$row[9]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            4
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" format="ixt4:num-dot-decimal" part="9">$row[10]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            8
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" part="10">$row[11]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            Type
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" format="ixt4:num-dot-decimal" part="11">$row[12]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            2
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Substations" fact="true" format="ixt4:num-dot-decimal" part="11">$row[13]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            1,000
+                    </xendr:template-display>
+                </td>
+              
+
+            </tr>
+
+            <tr class="schedule-row" xendr:repeat="SubstationsTotal">
+                <xendr:expression class="hide" name="SubstationsTotal">// adding a comment
+                 
+                
+                $data = if count(list({covered @ferc:SubstationByFunctionalCharacterAxis=*})) > 0  
+                
+                        $substations = set({covered @ferc:SubstationByFunctionalCharacterAxis=*}.dimension(ferc:SubstationByFunctionalCharacterAxis));
+               
+                list(for $x in $substations
+                    list(
+                    if list({@ferc:SubstationNameAndLocation @unit  @period=$currentDuration @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0 
+                        first(list({@ferc:SubstationNameAndLocation @unit  @period=$currentDuration @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        "Total" + $x.local-name,
+                    if list({@ferc:PrimaryVoltageLevel @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0
+                        first(list({@ferc:PrimaryVoltageLevel @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:SecondaryVoltageLevel @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0
+                        first(list({@ferc:SecondaryVoltageLevel @unit  @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:TertiaryVoltageLevel @unit  @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0 
+                        first(list({@ferc:TertiaryVoltageLevel @unit  @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:SubstationInServiceCapacity @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0 
+                        first(list({@ferc:SubstationInServiceCapacity @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:NumberOfTransformersInService @unit  @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0
+                        first(list({@ferc:NumberOfTransformersInService @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:NumberOfSpareTransformers @unit  @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0
+                        first(list({@ferc:NumberOfSpareTransformers @unit  @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:NumberOfConversionApparatusAndSpecialEquipmentUnits @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0
+                        first(list({@ferc:NumberOfConversionApparatusAndSpecialEquipmentUnits @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none,
+                    if list({@ferc:CapacityOfConversionApparatusAndSpecialEquipment @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x}).length > 0
+                        first(list({@ferc:CapacityOfConversionApparatusAndSpecialEquipment @unit @period=$currentInstant @ferc:SubstationByFunctionalCharacterAxis = $x})) 
+                    else 
+                        none
+                    
+                    ))
+                    else skip
+
+            $dataTotal = 
+                        list(
+                            list(
+                                if exists([@ferc:SubstationNameAndLocation @unit  @period=$currentDuration]) 
+                                first(list([@ferc:SubstationNameAndLocation @unit  @period=$currentDuration])) 
+                            else 
+                                "Total",
+                            if exists([@ferc:PrimaryVoltageLevel @unit @period=$currentInstant])
+                                first(list([@ferc:PrimaryVoltageLevel @unit @period=$currentInstant])) 
+                            else 
+                                none,
+                            if exists([@ferc:SecondaryVoltageLevel @unit @period=$currentInstant])
+                                first(list([@ferc:SecondaryVoltageLevel @unit  @period=$currentInstant])) 
+                            else 
+                                none,
+                            if exists([@ferc:TertiaryVoltageLevel @unit  @period=$currentInstant]) 
+                                first(list([@ferc:TertiaryVoltageLevel @unit  @period=$currentInstant])) 
+                            else 
+                                none,
+                            if exists([@ferc:SubstationInServiceCapacity @unit @period=$currentInstant]) 
+                                first(list([@ferc:SubstationInServiceCapacity @unit @period=$currentInstant])) 
+                            else 
+                                none,
+                            if exists([@ferc:NumberOfTransformersInService @unit  @period=$currentInstant])
+                                first(list([@ferc:NumberOfTransformersInService @unit @period=$currentInstant])) 
+                            else 
+                                none,
+                            if exists([@ferc:NumberOfSpareTransformers @unit  @period=$currentInstant])
+                                first(list([@ferc:NumberOfSpareTransformers @unit  @period=$currentInstant])) 
+                            else 
+                                none,
+                            if exists([@ferc:NumberOfConversionApparatusAndSpecialEquipmentUnits @unit @period=$currentInstant])
+                                first(list([@ferc:NumberOfConversionApparatusAndSpecialEquipmentUnits @unit @period=$currentInstant])) 
+                            else 
+                                none,
+                            if exists([@ferc:CapacityOfConversionApparatusAndSpecialEquipment @unit @period=$currentInstant])
+                                first(list([@ferc:CapacityOfConversionApparatusAndSpecialEquipment @unit @period=$currentInstant])) 
+                            else 
+                                none
+                            ))
+                
+
+                for $row in ($data.sort + $dataTotal)
+
+                </xendr:expression>
+                <td class="xbrl line-number">
+                    <xendr:lineNumber name="SubstationsTotal">
+                        <xendr:startNumber name="SubstationsTotal">
+                            set({covered @ferc:SubstationsAxis=*}.dimension(ferc:SubstationsAxis)).length + 1
+                        </xendr:startNumber>
+                    </xendr:lineNumber>
+                </td> 
+               <td class="xbrl description_items"><xendr:replace>
+                   <xendr:expression  class="hide"  name="SubstationsTotal" part="2">$row[1]</xendr:expression>
+                   <xendr:fact  class="hide">if $row[1].is-fact "true" else "false"</xendr:fact>
+            
+                </xendr:replace>
+                    <xendr:template-display>
+                        Northland
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"></td>
+                <td class="xbrl description_items"></td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="4">$row[2]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            115.00
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="5">$row[3]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            12.00
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="6">$row[4]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            20
+                    </xendr:template-display>
+                </td>  
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="7">$row[5]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            25
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="8">$row[6]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            4
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="9">$row[7]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            8
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"> </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="11">$row[8]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            2
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="SubstationsTotal" fact="true" format="ixt4:num-dot-decimal" part="11">$row[9]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            1,000
+                    </xendr:template-display>
+                </td>
+              
+
+            </tr>
+        
+           
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleSubstationsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (ED. 12-96)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleSubstationsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        426
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

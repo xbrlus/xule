@@ -1,0 +1,638 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 261</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+</head>
+
+<body class="xbrl" id="ScheduleReconciliationOfReportedNetIncomeWithTaxableIncomeForFederalIncomeTaxesAbstract">
+        <table class="schedule-header xbrl" width="100%">
+                <tr>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace><br/>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>This report is:</xendr:template-display>
+                        </xendr:replace>
+                            <br/>
+                            (1) 
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                                        </xendr:expression>  
+                                    <xendr:template-display>
+                                            <input type="checkbox"/> An Original
+                                    </xendr:template-display>
+                                </xendr:replace>
+                                <br/>
+                            (2)
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                            </xendr:expression> 
+                                        <xendr:template-display>
+                                                <input type="checkbox" checked = "checked"/> A Resubmission
+                                        </xendr:template-display>
+                                </xendr:replace> 
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Date of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                            <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                                <xendr:template-display>04/26/2019</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                        End of: <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>2018</xendr:template-display>
+                        </xendr:replace>
+                        <span>/</span>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Q4</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                </tr>
+            </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="3">
+                <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleReconciliationOfReportedNetIncomeWithTaxableIncomeForFederalIncomeTaxesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                               RECONCILIATION OF REPORTED NET INCOME WITH TAXABLE INCOME FOR FEDERAL INCOME TAXES
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="3">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleReconciliationOfReportedNetIncomeWithTaxableIncomeForFederalIncomeTaxesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            <ol>
+                                    <li>Report the reconciliation of reported net income for the year with taxable income used in computing Federal income tax accruals and show computation of such tax accruals.  Include in the reconciliation, as far as practicable, the same detail as furnished on Schedule M-1 of the tax return for the year.  Submit a reconciliation even though there is no taxable income for the year.  Indicate clearly the nature of each reconciling amount.</li>
+                                    <li>If the utility is a member of a group which files a consolidated Federal tax return, reconcile reported net income with taxable net income as if a separate return were to be field, indicating, however, intercompany amounts to be eliminated in such a consolidated return.  State names of group member, tax assigned to each group member, and basis of allocation, assignment, or sharing of the consolidated tax among the group members.</li>
+                                    <li>A substitute page, designed to meet a particular need of a company, may be used as Long as the data is consistent and meets the requirements of the above instructions.  For electronic reporting purposes complete Line 27 and provide the substitute Page in the context of a footnote.</li>
+                                    </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+                <td class="col-heading xbrl line-number">Line No.</td>
+                <td class="col-heading xbrl" xendr:repeat="Headings">
+                        <xendr:expression class="hide" name="Headings">
+                                $headings = filter (taxonomy().concept(ferc:ScheduleReconciliationOfReportedNetIncomeWithTaxableIncomeForFederalIncomeTaxesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "261 - Schedule - Reconciliation of Reported Net Income with Taxable Income for Federal Income Taxes" and  $item.part-by-name(ferc-part:ValueType).part-value == "Column") 
+    
+                                $headings = list(for $ref in $headings 
+                                list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+    
+                                $heading_dict = dict(for $row in $headings
+                                        list("("+$row[1]+")",$row[2])
+                                );
+                                for $row in $heading_dict.keys.sort
+                        </xendr:expression>
+                        <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="Headings" part="1">$heading_dict[$row]</xendr:expression>
+                        <xendr:template-display>
+                           Particulars (Details)
+                        </xendr:template-display>
+                    </xendr:replace>
+                </div>
+                    <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="Headings" part="2">$row</xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                        </xendr:replace></div>
+                </td>
+            </tr>
+       <!-- Line: Net Income for the Year -->
+       <tr class="schedule-row" >
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:NetIncomeLoss).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                    </xendr:expression>
+                    <div>   
+                        <xendr:template-display>
+                            Net Income for the Year
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:NetIncomeLoss @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $104,207 
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+        </tr>
+        <!-- Line: Reconciling Items for the Year -->
+        <tr class="schedule-row" >
+            <td class="xbrl line-number">2</td>
+            <td class="xbrl description_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:ReconcilingItemsForThePeriodAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                        </xendr:expression>
+                        <div>   
+                            <xendr:template-display>
+                                Reconciling Items for the Year
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                </td>
+            <td class="xbrl gray-out"></td>  
+        </tr>
+         <!-- Line: Reconciling Items for the Year -->
+         <tr class="schedule-row" >
+                <td class="xbrl line-number">3</td>
+                <td class="xbrl"></td>
+                <td class="xbrl gray-out"></td>  
+        </tr>
+
+
+    <!-- Line: Taxable Income Not Reported on Books -->
+
+        <!-- Line 4:  Taxable Income Not Reported on Books -->
+        <tr class="schedule-row" >
+            <td class="xbrl line-number">4</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:TaxableIncomeNotReportedOnBooks).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                    </xendr:expression>
+                    <div>   
+                        <xendr:template-display>
+                                Taxable Income Not Reported on Books
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>  
+        </tr>
+        <!-- Line 5-8:  Taxable Income Not Reported on Books -->
+        <tr class="schedule-row" xendr:repeat="TaxableIncomeLineItems">
+                <xendr:expression class="hide" name="TaxableIncomeLineItems">// adding a comment
+                 
+                $data2 =   list(for $i in range(4)
+                                list($i,none,none)
+                );
+
+                $data = if count(list([covered @ferc:TaxableIncomeNotReportedOnBooksAxis=*])) > 0  
+                
+                    list({covered @ferc:TaxableIncomeNotReportedOnBooksAxis=*  {list(
+
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:TaxableIncomeNotReportedOnBooksDescription @unit  @period=$currentDuration}).length > 0 
+                        first(list({@ferc:TaxableIncomeNotReportedOnBooksDescription @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:TaxableIncomeNotReportedOnBooks @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:TaxableIncomeNotReportedOnBooks @unit @period=$currentDuration})) 
+                    else 
+                        none
+
+                    )}})
+                    else $data2;
+                
+               $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none)
+                    skip
+                else 
+                    $x
+                );
+
+                for $row in $uniqueData.sort            
+
+                </xendr:expression>
+                <td class="xbrl line-number"><xendr:lineNumber name="TaxableIncomeLineItems"><xendr:startNumber>5</xendr:startNumber></xendr:lineNumber>
+                    <xendr:template-display>5</xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide" fact="true" name="TaxableIncomeLineItems" part="2">$row[2]</xendr:expression>
+                    <xendr:class>
+                        if $row[2].is-fact ""
+                            else "sch-title"
+                    </xendr:class>
+                </xendr:replace>
+
+                    <xendr:template-display>
+                        Taxable Income Not Reported on Books                   
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="TaxableIncomeLineItems" part="4">$row[3]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $100,000 
+                    </xendr:template-display>
+                </td>
+            </tr> 
+        <!-- Line 8: TOTAL for Taxable Income Not Reported on Books -->
+        
+
+    <!-- Line 9: Deductions Recorded on Books Not Deducted for Return -->
+        <tr class="schedule-row" >
+            <td class="xbrl line-number">9</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:DeductionsRecordedOnBooksNotDeductedForReturnAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                    </xendr:expression>
+                    <div>   
+                        <xendr:template-display>
+                                Deductions Recorded on Books Not Deducted for Return
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>  
+        </tr>
+    <!-- Line 10-13: Details of Deductions Recorded on Books Not Deducted for Return -->
+    <tr class="schedule-row" xendr:repeat="TaxableIncomeLineItems2">
+            <xendr:expression class="hide" name="TaxableIncomeLineItems2">// adding a comment
+             
+            $data2 =   list(for $i in range(4)
+                            list($i,none,none)
+            );
+
+            $data = if count(list([covered @ferc:DeductionsRecordedOnBooksNotDeductedForReturnAxis=*])) > 0  
+            
+                list({covered @ferc:DeductionsRecordedOnBooksNotDeductedForReturnAxis=*  {list(
+
+                if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                else
+                    0,
+                if list({@ferc:DeductionsRecordedOnBooksNotDeductedForReturnDescription @unit  @period=$currentDuration}).length > 0 
+                    first(list({@ferc:DeductionsRecordedOnBooksNotDeductedForReturnDescription @unit @period=$currentDuration})) 
+                else 
+                    none,
+                if list({@ferc:DeductionsRecordedOnBooksNotDeductedForReturn @unit @period=$currentDuration}).length > 0
+                    first(list({@ferc:DeductionsRecordedOnBooksNotDeductedForReturn @unit @period=$currentDuration})) 
+                else 
+                    none
+
+                )}})
+                else $data2;
+            
+                $uniqueData = list(for $x in  $data
+                        if $x == list(0,none,none)
+                            skip
+                        else 
+                            $x
+                        );
+
+                for $row in $uniqueData.sort                  
+
+            </xendr:expression>
+            <td class="xbrl line-number"><xendr:lineNumber name="TaxableIncomeLineItems2"><xendr:startNumber>10</xendr:startNumber></xendr:lineNumber>
+                <xendr:template-display>10</xendr:template-display>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide" fact="true" name="TaxableIncomeLineItems2" part="2">$row[2]</xendr:expression>
+                <xendr:class>
+                    if $row[2].is-fact ""
+                        else "sch-title"
+                </xendr:class>
+            </xendr:replace>
+
+                <xendr:template-display>
+                        Deductions Recorded on Books Not Deducted for Return                  
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="TaxableIncomeLineItems2" part="4">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $100,000 
+                </xendr:template-display>
+            </td>
+        </tr> 
+    <!-- Line 13: TOTAL  -->
+    
+
+    <!-- Income Recorded on Books Not Included in Return -->
+    <!-- Line 14 -->
+    <tr class="schedule-row" >
+        <td class="xbrl line-number">14</td>
+        <td class="xbrl description_items">
+            <xendr:replace>
+                <xendr:expression class="hide">
+                    taxonomy().concept(ferc:IncomeRecordedOnBooksNotIncludedInReturnAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                </xendr:expression>
+                <div>   
+                    <xendr:template-display>
+                            Taxable Income Not Reported on Books
+                    </xendr:template-display>
+                </div>
+            </xendr:replace>
+        </td>
+        <td class="xbrl gray-out"></td>  
+    </tr>
+    <!-- Line 15-18:  Income Recorded on Books Not Included in Return -->
+    <tr class="schedule-row" xendr:repeat="TaxableIncomeLineItems3">
+        <xendr:expression class="hide" name="TaxableIncomeLineItems3">// adding a comment
+            
+        $data2 =   list(for $i in range(4)
+                        list($i,none,none)
+        );
+
+        $data = if count(list([covered @ferc:IncomeRecordedOnBooksNotIncludedInReturnAxis=*])) > 0  
+        
+            list({covered @ferc:IncomeRecordedOnBooksNotIncludedInReturnAxis=*  {list(
+
+            if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+            else
+                0,
+            if list({@ferc:IncomeRecordedOnBooksNotIncludedInReturnDescription @unit  @period=$currentDuration}).length > 0 
+                first(list({@ferc:IncomeRecordedOnBooksNotIncludedInReturnDescription @unit @period=$currentDuration}))
+            else 
+                none,
+            if list({@ferc:IncomeRecordedOnBooksNotIncludedInReturn @unit @period=$currentDuration}).length > 0
+                first(list({@ferc:IncomeRecordedOnBooksNotIncludedInReturn @unit @period=$currentDuration})) 
+            else 
+                none
+
+            )}})
+            else $data2;
+        
+        $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none)
+                    skip
+                else 
+                    $x
+                );
+
+                for $row in $uniqueData.sort       
+
+        </xendr:expression>
+        <td class="xbrl line-number"><xendr:lineNumber name="TaxableIncomeLineItems3"><xendr:startNumber>15</xendr:startNumber></xendr:lineNumber>
+            <xendr:template-display>15</xendr:template-display>
+        </td>
+        <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide" fact="true"  name="TaxableIncomeLineItems3" part="2">$row[2]</xendr:expression>
+            <xendr:class>
+                if $row[2].is-fact ""
+                    else "sch-title"
+            </xendr:class>
+        </xendr:replace>
+
+            <xendr:template-display>
+                    Income Recorded on Books Not Included in Return                 
+            </xendr:template-display>
+        </td>
+        <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="TaxableIncomeLineItems3" part="4">$row[3]</xendr:expression></xendr:replace>
+            <xendr:template-display>
+                $100,000 
+            </xendr:template-display>
+        </td>
+    </tr> 
+        <!-- Line 18: TOTAL for Income Recorded on Books Not Included in Return  -->
+        
+
+    <!-- Line 19-26: Deductions on Return Not Charged Against Book Income -->
+    <!-- Line 19 -->
+    <tr class="schedule-row">
+        <td class="xbrl line-number">19</td>
+        <td class="xbrl description_items">
+            <xendr:replace>
+                <xendr:expression class="hide">
+                    taxonomy().concept(ferc:DeductionsOnReturnNotChargedAgainstBookIncomeAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                </xendr:expression>
+                <div>   
+                    <xendr:template-display>
+                            Deductions on Return Not Charged Against Book Income
+                    </xendr:template-display>
+                </div>
+            </xendr:replace>
+        </td>
+        <td class="xbrl gray-out"></td>  
+    </tr>
+    <!-- Line 20-26  -->
+    <tr class="schedule-row" xendr:repeat="TaxableIncomeLineItems4">
+            <xendr:expression class="hide" name="TaxableIncomeLineItems4">// adding a comment
+                
+            $data2 =   list(for $i in range(7)
+                            list($i,none,none)
+            );
+
+            $data = if count(list([covered @ferc:DeductionsOnReturnNotChargedAgainstBookIncomeAxis=*])) > 0  
+            
+                list({covered @ferc:DeductionsOnReturnNotChargedAgainstBookIncomeAxis=*  {list(
+
+                if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                else
+                    0,
+                if list({@ferc:DeductionsOnReturnNotChargedAgainstBookIncomeDescription @unit  @period=$currentDuration}).length > 0 
+                    first(list({@ferc:DeductionsOnReturnNotChargedAgainstBookIncomeDescription @unit @period=$currentDuration})) 
+                else 
+                    none,
+                if list({@ferc:DeductionsOnReturnNotChargedAgainstBookIncome @unit @period=$currentDuration}).length > 0
+                    first(list({@ferc:DeductionsOnReturnNotChargedAgainstBookIncome @unit @period=$currentDuration})) 
+                else 
+                    none
+
+                )}})
+                else $data2;
+            
+            $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none)
+                    skip
+                else 
+                    $x
+                );
+
+                for $row in $uniqueData.sort                    
+
+            </xendr:expression>
+            <td class="xbrl line-number"><xendr:lineNumber name="TaxableIncomeLineItems4"><xendr:startNumber>20</xendr:startNumber></xendr:lineNumber>
+                <xendr:template-display>20</xendr:template-display>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide" fact="true" name="TaxableIncomeLineItems4" part="2">$row[2]</xendr:expression>
+                <xendr:class>
+                    if $row[2].is-fact ""
+                        else "sch-title"
+                </xendr:class>
+            </xendr:replace>
+
+                <xendr:template-display>
+                        Deductions on Return Not Charged Against Book Income                  
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="TaxableIncomeLineItems4" part="4">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $100,000 
+                </xendr:template-display>
+            </td>
+        </tr> 
+    <!-- Line 26: TOTAL for Deductions on Return Not Charged Against Book Income  -->
+        
+    <!-- Line 27: Federal Tax Net Income  -->
+        <tr class="schedule-row">
+                <td class="xbrl line-number">27</td>
+                <td class="xbrl description_items">
+                        <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:FederalTaxNetIncome).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                        </xendr:expression>
+                        <div>
+                            <xendr:template-display>
+                                TOTAL
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                                max(list([covered @concept=ferc:FederalTaxNetIncome @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $144,154,078
+                            </xendr:template-display>
+                    </xendr:replace> 
+                </td>
+            </tr>
+    <!-- Line 28: Computation of Tax -->
+        <tr class="schedule-row" >
+                <td class="xbrl line-number">28</td>
+                <td class="xbrl description_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:ShowComputationOfTaxAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ReconOfNIWithTaxIncome").text
+                        </xendr:expression>
+                        <div>   
+                            <xendr:template-display>
+                                    Show Computation of Tax:
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"></td>  
+            </tr>
+    <!-- Line 29-44: Details of Computation of Tax -->
+        <tr class="schedule-row" xendr:repeat="TaxableIncomeLineItems5">
+                <xendr:expression class="hide" name="TaxableIncomeLineItems5">// adding a comment
+                    
+                $data2 =   list(for $i in range(16)
+                                list($i,none,none)
+                );
+    
+                $data = if count(list([covered @ferc:ReconciliationOfNetIncomeWithTaxableIncomeForFederalIncomeTaxesAxis=*])) > 0  
+                
+                    list({covered @ferc:ReconciliationOfNetIncomeWithTaxableIncomeForFederalIncomeTaxesAxis=*  {list(
+
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:ComputationOfTaxDescription @unit  @period=$currentDuration}).length > 0 
+                        first(list({@ferc:ComputationOfTaxDescription @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:ComputationOfTax @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:ComputationOfTax @unit @period=$currentDuration})) 
+                    else 
+                        none
+
+                    )}})
+                    else $data2;
+                
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none)
+                    skip
+                else 
+                    $x
+                );
+
+                for $row in $uniqueData.sort              
+    
+                </xendr:expression>
+                <td class="xbrl line-number"><xendr:lineNumber name="TaxableIncomeLineItems5"><xendr:startNumber>29</xendr:startNumber></xendr:lineNumber>
+                    <xendr:template-display>29</xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide" fact="true" name="TaxableIncomeLineItems5" part="2">$row[2]</xendr:expression>
+                    <xendr:class>
+                        if $row[2].is-fact ""
+                            else "sch-title"
+                    </xendr:class>
+                </xendr:replace>
+    
+                    <xendr:template-display>
+                            Computation of Tax                  
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="TaxableIncomeLineItems5" part="4">$row[3]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $100,000 
+                    </xendr:template-display>
+                </td>
+            </tr> 
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleReconciliationOfReportedNetIncomeWithTaxableIncomeForFederalIncomeTaxesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (ED. 12-96)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleReconciliationOfReportedNetIncomeWithTaxableIncomeForFederalIncomeTaxesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        261
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

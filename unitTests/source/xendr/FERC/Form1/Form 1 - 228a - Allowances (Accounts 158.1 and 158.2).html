@@ -1,0 +1,909 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 228a</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+  
+</head>
+
+<body class="xbrl" id="ScheduleAllowanceInventoryAbstract">
+    <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>This report is:</xendr:template-display>
+                    </xendr:replace><br/>
+                        
+                        (1) 
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]>
+                            </xendr:expression>  
+                        <xendr:template-display>
+                                <input type="checkbox"/> An Original
+                        </xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                        (2)
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                </xendr:expression> 
+                            <xendr:template-display>
+                                    <input type="checkbox" checked = "checked"/> A Resubmission
+                            </xendr:template-display>
+                    </xendr:replace> 
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>04/26/2019</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    End of: <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>2018</xendr:template-display>
+                    </xendr:replace>
+                    <span>/</span>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Q4</xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+        </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td colspan="14" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleAllowanceInventoryAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    Gas Property And Capacity Leased From Others
+                            </xendr:template-display>
+                    </xendr:replace>
+                    
+                </td>
+            </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="14">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleAllowanceInventoryAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report below the particulars (details) called for concerning allowances.</li>
+                            <li>Report all acquisitions of allowances at cost.</li>
+                            <li>Report allowances in accordance with a weighted average cost allocation method and other accounting as prescribed by General Instruction No. 21 in the Uniform System of Accounts.</li>
+                            <li>Report the allowances transactions by the period they are first eligible for use:  the current year’s allowances in columns (b)-(c), allowances for the three succeeding years in columns (d)-(i), starting with the following year, and allowances for the remaining succeeding years in columns (j)-(k).</li>
+                            <li>Report on line 4 the Environmental Protection Agency (EPA) issued allowances.  Report withheld portions Lines 36-40.</li>
+                            <li>Report on Lines 5 allowances returned by the EPA.  Report on Line 39 the EPA’s sales of the withheld allowances.  Report on Lines 43-46 the net sales proceeds and gains/losses resulting from the EPA’s sale or auction of the withheld allowances.</li>
+                            <li>Report on Lines 8-14 the names of vendors/transferors of allowances acquire and identify associated companies (See "associated company" under "Definitions" in the Uniform System of Accounts).</li>
+                            <li>Report on Lines 22 - 27 the name of purchasers/ transferees of allowances disposed of and identify associated companies.</li>
+                            <li>Report the net costs and benefits of hedging transactions on a separate line under purchases/transfers and sales/transfers.</li>
+                            <li>Report on Lines 32-35 and 43-46 the net sales proceeds and gains or losses from allowance sales.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="2">Current Year</td>
+            <td class="xbrl center-text" colspan="2">Year One</td>
+            <td class="xbrl center-text" colspan="2">Year Two</td>
+            <td class="xbrl center-text" colspan="2">Year Three</td>
+            <td class="xbrl center-text" colspan="2">Future Years</td>
+            <td class="xbrl center-text" colspan="2">Totals</td>
+        </tr> 
+        <tr class="col-heading-row">
+            <td class="col-heading xbrl-no-top-line line-number">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings">
+                    <xendr:expression class="hide" name="ColumnHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleAllowanceInventoryAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "228a - Schedule - Allowances (Accounts 158.1 and 158.2)") 
+    
+                            $heading = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+    
+                            $heading_dict = dict(for $row in $heading
+                                    list("("+$row[1]+")",list($row[2],
+                                            if $row[3] == none
+                                                    $row[3]
+                                                else
+                                                    taxonomy().concept(to-qname($row[3]))))
+                            );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center">
+                        <div class="tooltip">
+                                <div class="tooltiptext">
+                                        <xendr:replace>
+                                                <xendr:expression class="hide" name="ColumnHeadings" part="3">$heading_dict[$row][2].name.local-name</xendr:expression>
+                                            </xendr:replace>
+                                </div>    
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row][1]</xendr:expression>
+                                <xendr:template-display>
+                                    Nature of Payment
+                                </xendr:template-display>
+                            </xendr:replace>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                    </xendr:replace></div>
+                </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="AllowanceInventryLineItems">
+            <xendr:expression class="hide" name="AllowanceInventryLineItems">// adding a comment
+               
+            /** THIS WHOLE SCHEDULE IS HANDLED BY ONE RULE **/
+
+            /** STEP 1: Set up axis as a loop to go through so elements defined only once  **/
+            /** Identify elements to use from the taxonomy  **/
+            
+            /** Step 1: **/
+            /** Get list of periods **/
+
+            $periodSub= navigate parent-child descendants from ferc:AllowanceInventoryTimePeriodDomain role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleAllowances"  returns list (target-name);
+            
+            /** Add item to list for total of all periods with a value of none **/
+           $periods = $periodSub  + list(none);
+
+            $Emmission = ferc:SulfurDioxideMember;
+
+            /** Line Variables   **/
+        
+            /**  Row 1     **/
+            $openingBalanceValues = sum(list(for $x in $periods 
+                                            
+                                        $values = list(if exists({covered @ferc:AllowanceInventoryNumber @unit=* @period=$priorInstant @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission }) 
+                                                            first(list({covered @ferc:AllowanceInventoryNumber @unit=* @period=$priorInstant  @ferc:AllowanceInventoryTimePeriodAxis=$x @ferc:EmissionTypeAxis = $Emmission })) 
+                                                        else 
+                                                            none,
+                                                        if exists({covered @ferc:AllowanceInventory @unit=* @period=$priorInstant  @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission }) 
+                                                            first(list({covered @ferc:AllowanceInventory @unit=* @period=$priorInstant @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission })) 
+                                                        else 
+                                                            none);
+                                                $values 
+            ));
+
+            $openingBalance = list(1,false,"Balance-Beginning of Year") + $openingBalanceValues;
+
+
+            $issuedValues = sum(list(for $p in $periods 
+                                    
+                                    $values2 = list(if exists({covered @ferc:AllowancesIssuedLessWithheldAllowancesNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                    first(list({covered @ferc:AllowancesIssuedLessWithheldAllowancesNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                else 
+                                                    none,
+                                                if exists({covered @ferc:AllowancesIssuedLessWithheldAllowances @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                    first(list({covered @ferc:AllowancesIssuedLessWithheldAllowances @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                else 
+                                                    none);
+                                    $values2
+            ));
+
+            $issued = list(4,false,"Issued (Less Withheld Allow)") + $issuedValues;
+
+
+            /**  Row 5   **/
+            $returnedValues = sum(list(for $p in $periods 
+                                    
+                                    $values3 = list(if exists({covered @ferc:AllowancesReturnedByEnvironmentalProtectionAgencyNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                    first(list({covered @ferc:AllowancesReturnedByEnvironmentalProtectionAgencyNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                else 
+                                                    none,
+                                                if exists({covered @ferc:AllowancesReturnedByEnvironmentalProtectionAgency @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                    first(list({covered @ferc:AllowancesReturnedByEnvironmentalProtectionAgency @unit=* @period=$currentDuration @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                else 
+                                                    none);
+                                    $values3
+            ));
+
+            $returned = list(5,false,"Returned by EPA") + $returnedValues;
+            
+            /** Row 8 **/  
+            
+            $number_of_Rows_with_facts = count(set({covered @ferc:AllowancesInventoryAxis=*  @ferc:EmissionTypeAxis = $Emmission}.dimension(ferc:AllowancesInventoryAxis)));
+
+            $data2 =   list(for $i in range(7 - min(list(7,$number_of_Rows_with_facts)))
+                            list($i + 100000,false,none,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+           
+            
+            $data = if count(list({covered @ferc:AllowancesInventoryAxis=*  @ferc:EmissionTypeAxis = $Emmission})) > 0           
+                        $allowances = set({covered @ferc:AllowancesInventoryAxis=*  @ferc:EmissionTypeAxis = $Emmission}.dimension(ferc:AllowancesInventoryAxis));
+   
+                        list(for $x in $allowances
+                            sum(list(list(
+                                if list({covered @ferc:OrderNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}).length > 0
+                                    first(list({covered @ferc:OrderNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}))
+                                else
+                                    0,
+                                    false,
+                                if exists({covered @ferc:AllowancesInventoryPurchasesTransfersDescription @unit @ferc:EmissionTypeAxis= $Emmission  @period=$currentDuration @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}) 
+                                    first(list({covered @ferc:AllowancesInventoryPurchasesTransfersDescription @unit @ferc:EmissionTypeAxis= $Emmission  @period=$currentDuration @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none})) 
+                                else 
+                                    none),
+                                sum(list(for $p in $periods 
+                                        $values4 = list(if exists({covered @ferc:AllowancesInventoryPurchasesTransfersNumber @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})
+                                                            first(list({covered @ferc:AllowancesInventoryPurchasesTransfersNumber @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                        else 
+                                                            none,
+                                                        if exists({covered @ferc:AllowancesInventoryPurchasesTransfers @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})
+                                                                first(list({covered @ferc:AllowancesInventoryPurchasesTransfers @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesInventoryAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                        else 
+                                                            none);
+                                        $values4
+
+                                )))))  + $data2 
+                    else 
+                    $data2 
+            
+            $uniqueTransferData = list(for $x in  $data
+            if $x == list(0,false,none,none,none,none,none,none,none,none,none,none,none,none,none)
+                skip
+            else 
+                $x
+            );
+
+            $TPN =  $uniqueTransferData.sort
+
+            $TPNRow = list(for $i in range($TPN.length)
+                        /** If i is greater than 7 we don't have enough rows so use 14.1, 14.2 etc. **/
+                        list(7 + if $i > 7 ("7." + ($i - 7).string).number else $i, false) +  list($TPN[$i][3]) + list($TPN[$i][4]) + list($TPN[$i][5]) + list($TPN[$i][6]) + list($TPN[$i][7]) + list($TPN[$i][8]) + list($TPN[$i][9]) + list($TPN[$i][10]) + list($TPN[$i][11]) + list($TPN[$i][12]) + list($TPN[$i][13]) + list($TPN[$i][14]) + list($TPN[$i][15])
+            )
+           $TransferData = $TPNRow; 
+
+            /** Row 15 **/
+            $totalPurchaseTransfersValue = sum(list(for $p in $periods 
+                                    
+                                        $values5 = list(if exists([covered @ferc:AllowancesInventoryPurchasesTransfersNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                            first(list([covered @ferc:AllowancesInventoryPurchasesTransfersNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                        else 
+                                                            none,
+                                                        if exists([covered @ferc:AllowancesInventoryPurchasesTransfers @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                            first(list([covered @ferc:AllowancesInventoryPurchasesTransfers @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                        else 
+                                                            none);
+                                         $values5
+            ));
+
+            $totalPurchaseTransfers = list(15, false, "Total") + $totalPurchaseTransfersValue;
+
+            /** Row 18 **/
+
+            $chargesValue = sum(list(for $p in $periods      
+                                        $values6 = list(if exists({covered @ferc:ChargesToAllowancesInventoryNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                            first(list({covered @ferc:ChargesToAllowancesInventoryNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                        else 
+                                                            none,
+                                                        if exists({covered @ferc:ChargesToAllowancesInventory @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                                first(list({covered @ferc:ChargesToAllowancesInventory @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                        else 
+                                                            none);
+                                        $values6
+                                    )   
+                                );
+
+            $charges = list(18, false, "Charges to Account 509") + $chargesValue;
+
+            /** Row 20 **/
+
+            $otherValue = sum(list(for $p in $periods 
+                                    
+                                        $values7 = list(if exists([covered  @ferc:AllowancesRelinquishedOtherNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                            first(list([covered @ferc:AllowancesRelinquishedOtherNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                        else 
+                                                            none,
+                                                        if exists([covered @ferc:AllowancesRelinquishedOther @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                            first(list([covered @ferc:AllowancesRelinquishedOther @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                        else 
+                                                            none);
+                                        $values7
+                                    )
+                                );
+
+            $other = list(20 , false, "Allowances Used") + $otherValue;
+
+            /** Row20 ** Sub **/
+            $number_of_Rows_with_Other_facts = count(set({covered @ferc:AllowancesRelinquishedAxis=* @ferc:EmissionTypeAxis = $Emmission}.dimension(ferc:AllowancesRelinquishedAxis)));
+
+            $Otherdata2 =   list(for $i in range(1 - min(list(1,$number_of_Rows_with_Other_facts)))
+                            list($i + 100000,false,none,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+                            
+            $otherSubValue = if count(list({covered @ferc:AllowancesRelinquishedAxis=*  @ferc:EmissionTypeAxis = $Emmission})) > 0           
+                                    $allowances3 = set({covered @ferc:AllowancesRelinquishedAxis=*  @ferc:EmissionTypeAxis = $Emmission}.dimension(ferc:AllowancesRelinquishedAxis));
+
+                                    list(for $x in $allowances3
+                                        sum(list(list(
+                                            if list({covered @ferc:OrderNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}).length > 0
+                                                first(list({covered @ferc:OrderNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}))
+                                            else
+                                                0,
+                                                false,
+                                            if exists({covered @ferc:AllowancesRelinquishedOtherDescription @unit @ferc:EmissionTypeAxis= $Emmission  @period=$currentDuration @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}) 
+                                                first(list({covered @ferc:AllowancesRelinquishedOtherDescription @unit @ferc:EmissionTypeAxis= $Emmission  @period=$currentDuration @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none})) 
+                                            else 
+                                                none) ,
+                                            sum(list(for $p in $periods 
+                                                    $values99 = list(if exists({covered @ferc:AllowancesRelinquishedOtherNumber @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})
+                                                                        first(list({covered @ferc:AllowancesRelinquishedOtherNumber @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                                    else 
+                                                                        none,
+                                                                    if exists({covered @ferc:AllowancesRelinquishedOther @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})
+                                                                            first(list({covered @ferc:AllowancesRelinquishedOther @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesRelinquishedAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                                    else 
+                                                                        none);
+                                                    $values99
+
+                                            )
+                                            )
+                                            ))) + $Otherdata2 
+                                else 
+                                    $Otherdata2  ;
+           
+             $uniqueOthData = list(for $x in  $otherSubValue
+                                    if $x == list(0,false,none,none,none,none,none,none,none,none,none,none,none,none,none)
+                                        skip
+                                    else 
+                                        $x
+                                    );
+                                    
+            $OPN =  $uniqueOthData.sort
+
+            $OPNRow = list(for $i in range($number_of_Rows_with_Other_facts)
+                                list("20." + string($i), false) +  list($OPN[$i][3]) + list($OPN[$i][4]) + list($OPN[$i][5]) + list($OPN[$i][6]) + list($OPN[$i][7]) + list($OPN[$i][8]) + list($OPN[$i][9]) + list($OPN[$i][10]) + list($OPN[$i][11]) + list($OPN[$i][12]) + list($OPN[$i][13]) + list($OPN[$i][14]) + list($OPN[$i][15])
+                            )
+            $OthDataProc = $OPNRow; 
+               
+            
+            
+             /** Row 21 **/ 
+
+            $number_of_Rows_with_COS_facts = count(set({covered @ferc:AllowancesCostOfSalesAxis=*  @ferc:EmissionTypeAxis = $Emmission}.dimension(ferc:AllowancesCostOfSalesAxis)));
+
+            $COSdata2 =   list(for $i in range(6 - min(list(6,$number_of_Rows_with_COS_facts)) )
+                            list($i + 100000,false,none,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+
+            $COSdata = if count(list({covered @ferc:AllowancesCostOfSalesAxis=*  @ferc:EmissionTypeAxis = $Emmission})) > 0           
+                        $allowances2 = set({covered @ferc:AllowancesCostOfSalesAxis=*  @ferc:EmissionTypeAxis = $Emmission}.dimension(ferc:AllowancesCostOfSalesAxis));
+   
+                        list(for $x in $allowances2
+                            sum(list(list(
+                                if list({covered @ferc:OrderNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}).length > 0
+                                    first(list({covered @ferc:OrderNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis=$Emmission @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}))
+                                else
+                                    0,
+                                    false,
+                                if exists({covered @ferc:AllowancesInventoryCostOfSalesTransfersDescription @unit @ferc:EmissionTypeAxis= $Emmission  @period=$currentDuration @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none}) 
+                                    first(list({covered @ferc:AllowancesInventoryCostOfSalesTransfersDescription @unit @ferc:EmissionTypeAxis= $Emmission  @period=$currentDuration @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = none})) 
+                                else 
+                                    none) ,
+                                sum(list(for $p in $periods 
+                                        $values4 = list(if exists({covered @ferc:AllowancesInventorySalesTransfersNumber @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})
+                                                            first(list({covered @ferc:AllowancesInventorySalesTransfersNumber @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                        else 
+                                                            none,
+                                                        if exists({covered @ferc:AllowancesInventorySalesTransfers @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})
+                                                                first(list({covered @ferc:AllowancesInventorySalesTransfers @ferc:EmissionTypeAxis= $Emmission   @unit @period=$currentDuration @ferc:AllowancesCostOfSalesAxis=$x @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                        else 
+                                                            none);
+                                        $values4
+
+                                )
+                                )
+                                ))) + $COSdata2
+                    else 
+                        $COSdata2 ;
+            
+        $uniqueCOSData = list(for $x in  $COSdata
+                        if $x == list(0,false,none,none,none,none,none,none,none,none,none,none,none,none,none)
+                            skip
+                        else 
+                            $x
+                        );
+                        
+
+        $CPN =  $uniqueCOSData.sort
+
+        $CPNRow = list(for $i in range($CPN.length)
+                        /** If i is greater than 6 we don't have enough rows so use 27.1, 27.2 etc. **/
+                        list(21 + if $i > 6 ("6." + ($i - 6).string).number else $i, false) +  list($CPN[$i][3]) + list($CPN[$i][4]) + list($CPN[$i][5]) + list($CPN[$i][6]) + list($CPN[$i][7]) + list($CPN[$i][8]) + list($CPN[$i][9]) + list($CPN[$i][10]) + list($CPN[$i][11]) + list($CPN[$i][12]) + list($CPN[$i][13]) + list($CPN[$i][14]) + list($CPN[$i][15])
+                                    )
+        $COSDataProc = $CPNRow; 
+        
+
+        /** Row 28 **/
+                                     
+        $totalSalesValue = sum(list(for $p in $periods 
+                                    
+                                $values8 = list(if exists([covered @ferc:AllowancesInventorySalesTransfersNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                    first(list([covered @ferc:AllowancesInventorySalesTransfersNumber @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                else 
+                                                    none,
+                                                if exists([covered @ferc:AllowancesInventorySalesTransfers @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                    first(list([covered @ferc:AllowancesInventorySalesTransfers @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                else 
+                                                    none);
+                                $values8
+                                    )
+                            );
+
+        $totalSales = list(28, false, "Total") + $totalSalesValue;
+
+
+        /**  Row 29     **/
+        $closingBalanceValues = sum(list(for $p in $periods 
+                                $values9= list(if exists({covered @ferc:AllowanceInventoryNumber @unit=* @period=$currentInstant @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                    first(list({covered @ferc:AllowanceInventoryNumber @unit=* @period=$currentInstant @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                else 
+                                                    none,
+                                                if exists({covered @ferc:AllowanceInventory @unit=* @period=$currentInstant @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                    first(list({covered @ferc:AllowanceInventory @unit=* @period=$currentInstant @ferc:EmissionTypeAxis = $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                else 
+                                                    none);
+                                $values9
+                                    )
+                            );       
+        
+        $closingBalance = list(29,false,"Balance-End of Year") + $closingBalanceValues;
+        
+        /** Row 32 -36  **/
+        
+        $numberItems32To36 = list(ferc:NetSalesProceedsFromAllowanceInventorySalesAssociatedCompanyNumber, ferc:NetSalesProceedsFromAllowanceInventorySalesOtherNumber, ferc:GainsFromAllowanceInventorySalesNumber, ferc:LossesFromAllowanceInventorySalesNumber);
+        $valueItems32To36  = list(ferc:NetSalesProceedsFromAllowanceInventorySalesAssociatedCompany, ferc:NetSalesProceedsFromAllowanceInventorySalesOther, ferc:GainsFromAllowanceInventorySales, ferc:LossesFromAllowanceInventorySales); 
+        
+        $labels32To36  = list(taxonomy().concept(ferc:NetSalesProceedsFromAllowanceInventorySalesAssociatedCompanyAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text, 
+                                taxonomy().concept(ferc:NetSalesProceedsFromAllowanceInventorySalesOtherAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text,
+                                taxonomy().concept(ferc:GainsFromAllowanceInventorySalesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text,
+                                taxonomy().concept(ferc:LossesFromAllowanceInventorySalesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text);
+        
+      
+        $Rows32To36 = list(for $i in range(4)
+                            list(31 + $i,"false",$labels32To36[$i]) +
+                            sum(list(for $p in $periods 
+                                    
+                                    $values32To36 = list(if exists({covered @concept = $numberItems32To36[$i] @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                        first(list({covered @concept = $numberItems32To36[$i] @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                    else 
+                                                        none,
+                                                    if exists({covered @concept = $valueItems32To36[$i]  @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p}) 
+                                                        first(list({covered @concept = $valueItems32To36[$i]  @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p})) 
+                                                    else 
+                                                        none);
+                                    $values32To36
+                                )
+                            )
+                            );
+
+       
+      
+           
+
+            $grey-line = list(none,none,none,none,none,none,none,none,none,none,none,none)
+
+            $Schedule = (list($openingBalance) +
+                        list(list(2,true,"") + $grey-line) +
+                        list(list(3,true,"Acquired During Year:") + $grey-line) +
+                        list($issued) +
+                        list($returned) +
+                        list(list(6,true,"") + $grey-line) +
+                        list(list(7,true,"") + $grey-line) +
+                        $TransferData +
+                        list($totalPurchaseTransfers) +
+                        list(list(16,true,"") + $grey-line) +
+                        list(list(17,true,"Relinquished During Year:") + $grey-line)  +
+                        list($charges) +
+                        list(list(19,true,"Other:") + $grey-line) +
+                        list($other) +
+                        $OthDataProc + 
+                        list(list(21,true,"Cost of Sales/Transfers:") + $grey-line) +
+                        $COSDataProc +
+                        list($totalSales) +
+                        list($closingBalance) +
+                        list(list(30,true,"") + $grey-line) +
+                        list(list(31,true,"Sales:") + $grey-line)  +
+                        $Rows32To36 
+                        );
+                        
+
+                        
+
+
+            for $row in $Schedule
+
+
+            </xendr:expression>
+            <td class="xbrl line-number"><xendr:replace><xendr:expression  class="hide"  name="AllowanceInventryLineItems" part="1">$row[1]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Human Resources Co
+                </xendr:template-display>
+            </td>
+            
+       <td class="xbrl description_items"><xendr:replace>
+           <xendr:expression  class="hide"  name="AllowanceInventryLineItems" part="2">$row[3]</xendr:expression>
+           <xendr:fact  class="hide">if $row[3].is-fact "true" else "false"</xendr:fact>
+        </xendr:replace>
+                <xendr:template-display>
+                        Human Resources Co
+                </xendr:template-display>
+            </td>
+
+          <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" format="ixt4:num-dot-decimal" part="3">$row[4]</xendr:expression>
+            <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+        </xendr:replace>
+                <xendr:template-display>
+                        123
+                </xendr:template-display>
+            </td>
+              <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" part="4" format="ixt4:num-dot-decimal" >$row[5]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True  "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" part="6" format="ixt4:num-dot-decimal" >$row[6]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" format="ixt4:num-dot-decimal" part="7" >$row[7]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" part="8" format="ixt4:num-dot-decimal" >$row[8]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" format="ixt4:num-dot-decimal" part="9" >$row[9]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+         <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" part="10" format="ixt4:num-dot-decimal" >$row[10]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" format="ixt4:num-dot-decimal" part="11" >$row[11]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" part="12" format="ixt4:num-dot-decimal" >$row[12]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td> 
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" format="ixt4:num-dot-decimal" part="13" >$row[13]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" part="14" format="ixt4:num-dot-decimal" >$row[14]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>      
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems" fact="true" part="15" format="ixt4:num-dot-decimal" >$row[15]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>           
+        </tr> 
+
+        <tr class="schedule-row" xendr:repeat="AllowanceInventryLineItems2">
+            <xendr:expression class="hide" name="AllowanceInventryLineItems2">// adding a comment
+                /** Step 1: **/
+            /** Get list of periods **/
+
+            $periodSub= navigate parent-child descendants from ferc:AllowanceInventoryTimePeriodDomain role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleAllowances"  returns list (target-name);
+            
+            /** Add item to list for total of all periods with a value of none **/
+           $periods = $periodSub  + list(none);
+
+            $Emmission = ferc:SulfurDioxideMember;
+
+            $openingBalanceValues2 = sum(list(for $x in $periods 
+                                            
+            $values14 = list(if exists([covered @ferc:AllowancesWithheldNumber @unit=* @period=$priorInstant @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission ]) 
+                                first(list([covered @ferc:AllowancesWithheldNumber @unit=* @period=$priorInstant  @ferc:AllowanceInventoryTimePeriodAxis=$x @ferc:EmissionTypeAxis = $Emmission ])) 
+                            else 
+                                none,
+                            if exists([covered @ferc:AllowancesWithheld @unit=* @period=$priorInstant  @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission ]) 
+                                first(list([covered @ferc:AllowancesWithheld @unit=* @period=$priorInstant @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission ])) 
+                            else 
+                                none);
+            $values14
+    ));
+            
+
+        $openingBalance2 = list(36,false,"Balance-Beginning of Year") + $openingBalanceValues2;
+            
+        $numberItems37To39 = list(ferc:AllowancesWithheldByEnvironmentalProtectionAgencyNumber, ferc:AllowancesWithheldReturnedByEnvironmentalProtectionAgencyNumber, ferc:AllowancesWithheldCostOfSalesNumber);
+        $valueItems37To39 = list(ferc:AllowancesWithheldByEnvironmentalProtectionAgency, ferc:AllowancesWithheldReturnedByEnvironmentalProtectionAgency, ferc:AllowancesWithheldCostOfSales); 
+        $labels37To39 = list(taxonomy().concept(ferc:AllowancesWithheldByEnvironmentalProtectionAgencyAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text, 
+                                taxonomy().concept(ferc:AllowancesWithheldReturnedByEnvironmentalProtectionAgencyAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text,       
+                                taxonomy().concept(ferc:AllowancesWithheldCostOfSalesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text);
+                                
+
+        $withheldRows = list(for $i in range(3)
+                            list(36 + $i,"false",$labels37To39[$i]) +
+                            sum(list(for $p in $periods 
+                                    
+                                    $values15 = list(if exists([covered @concept = $numberItems37To39[$i] @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                        first(list([covered @concept = $numberItems37To39[$i] @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                    else 
+                                                        none,
+                                                    if exists([covered @concept = $valueItems37To39[$i]  @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                                        first(list([covered @concept = $valueItems37To39[$i]  @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                                    else 
+                                                        none);
+                                    $values15
+                            )
+                            )
+                        );
+
+        /** Row 40 **/
+        $closingBalanceValues2 = sum(list(for $x in $periods 
+                                            
+                        $values14 = list(if exists([covered @ferc:AllowancesWithheldNumber @unit=* @period=$currentInstant @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission ]) 
+                                            first(list([covered @ferc:AllowancesWithheldNumber @unit=* @period=$currentInstant  @ferc:AllowanceInventoryTimePeriodAxis=$x @ferc:EmissionTypeAxis = $Emmission ])) 
+                                        else 
+                                            none,
+                                        if exists([covered @ferc:AllowancesWithheld @unit=* @period=$currentInstant  @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission ]) 
+                                            first(list([covered @ferc:AllowancesWithheld @unit=* @period=$currentInstant @ferc:AllowanceInventoryTimePeriodAxis=$x  @ferc:EmissionTypeAxis = $Emmission ])) 
+                                        else 
+                                            none);
+                        $values14
+                ));
+
+        $closingBalance2 = list(40,false,"Balance-End of Year") + $closingBalanceValues2;
+
+
+        $numberItems43To46 = list(ferc:AllowancesWithheldNetSalesProceedsFromAllowanceSalesAssociatedCompanyNumber, ferc:AllowancesWithheldNetSalesProceedsFromAllowanceSalesOtherNumber, ferc:AllowancesWithheldGainsFromAllowanceSalesNumber, ferc:AllowancesWithheldLossesFromAllowanceSalesNumber);
+        $valueItems43To46  = list(ferc:AllowancesWithheldNetSalesProceedsFromAllowanceSalesAssociatedCompany, ferc:AllowancesWithheldNetSalesProceedsFromAllowanceSalesOther, ferc:AllowancesWithheldGainsFromAllowanceSales, ferc:AllowancesWithheldLossesFromAllowanceSales); 
+        
+        $labels43To46  = list(taxonomy().concept(ferc:AllowancesWithheldNetSalesProceedsFromAllowanceSalesAssociatedCompanyAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text, 
+                            taxonomy().concept(ferc:AllowancesWithheldNetSalesProceedsFromAllowanceSalesOtherAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text,
+                            taxonomy().concept(ferc:AllowancesWithheldGainsFromAllowanceSalesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text,
+                            taxonomy().concept(ferc:AllowancesWithheldLossesFromAllowanceSalesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Allowances").text);
+
+
+        $Rows43To46 = list(for $i in range(4)
+        list(42 + $i,"false",$labels43To46[$i]) +
+        sum(list(for $p in $periods 
+                
+                $values16 = list(if exists([covered @concept = $numberItems43To46[$i] @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                    first(list([covered @concept = $numberItems43To46[$i] @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                else 
+                                    none,
+                                if exists([covered @concept = $valueItems43To46[$i]  @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p]) 
+                                    first(list([covered @concept = $valueItems43To46[$i]  @unit=* @period=$currentDuration @ferc:EmissionTypeAxis= $Emmission  @ferc:AllowanceInventoryTimePeriodAxis = $p])) 
+                                else 
+                                    none);
+                $values16
+            )
+        )
+        );
+
+            $grey-line = list(none,none,none,none,none,none,none,none,none,none,none,none)
+
+            $Schedule = (
+                        list(list("",true,"Allowances Withheld (Acct 158.2)") + $grey-line) +
+                        list($openingBalance2) +
+                        $withheldRows +
+                        list($closingBalance2) +
+                        list(list(41,true,"") + $grey-line) +
+                        list(list(42,true,"Sales") + $grey-line) +
+                        $Rows43To46);
+
+                        
+
+
+            for $row in $Schedule
+
+
+            </xendr:expression>
+           
+            <td class="xbrl line-number"><xendr:replace><xendr:expression  class="hide"  name="AllowanceInventryLineItems2" part="1">$row[1]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Human Resources Co
+                </xendr:template-display>
+            </td>
+        <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="AllowanceInventryLineItems2" part="2">$row[3]</xendr:expression>
+            <xendr:fact  class="hide">if $row[3].is-fact "true" else "false"</xendr:fact>
+        </xendr:replace>
+                <xendr:template-display>
+                        Human Resources Co
+                </xendr:template-display>
+            </td>
+
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" format="ixt4:num-dot-decimal" part="3">$row[4]</xendr:expression>
+            <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+        </xendr:replace>
+                <xendr:template-display>
+                        123
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" part="4" format="ixt4:num-dot-decimal" >$row[5]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" part="6" format="ixt4:num-dot-decimal" >$row[6]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" format="ixt4:num-dot-decimal" part="7" >$row[7]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" part="8" format="ixt4:num-dot-decimal" >$row[8]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" format="ixt4:num-dot-decimal" part="9" >$row[9]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" part="10" format="ixt4:num-dot-decimal" >$row[10]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" format="ixt4:num-dot-decimal" part="11" >$row[11]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" part="12" format="ixt4:num-dot-decimal" >$row[12]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td> 
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" format="ixt4:num-dot-decimal" part="13" >$row[13]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" part="14" format="ixt4:num-dot-decimal" >$row[14]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>      
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="AllowanceInventryLineItems2" fact="true" part="15" format="ixt4:num-dot-decimal" >$row[15]</xendr:expression>
+                <xendr:class location="parent">if $row[2] == True "gray-out" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                        $200,000
+                </xendr:template-display>
+            </td>             
+        </tr> 
+        
+        
+    </table>
+<p></p>
+<div class="schedule-footer">
+    <div>FERC FORM No. 
+            <xendr:replace>
+                    <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                    <xendr:template-display>2/3-Q</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                    <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleAllowanceInventoryAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                    02-04
+                    </xendr:template-display>
+            </xendr:replace>            
+    </div>
+    <div class="center-text">Page 
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleAllowanceInventoryAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    1
+                    </xendr:template-display>
+            </xendr:replace>
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:SulfurDioxideMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1Page").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    a
+                    </xendr:template-display>
+            </xendr:replace>
+    </div> 
+</div>
+</body>
+</html>

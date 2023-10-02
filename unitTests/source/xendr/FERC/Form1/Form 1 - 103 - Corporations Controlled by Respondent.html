@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 103</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+   
+</head>
+
+<body class="xbrl" id="ScheduleCorporationsControlledByRespondentAbstract">
+    <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                        <xule:template-display>Name of Respondent:</xule:template-display>
+                    </xule:replace><br/>
+                    
+                    <xule:replace>
+                        <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xule:expression>
+                        <xule:template-display>Name of Respondent:</xule:template-display>
+                    </xule:replace>
+                </td>
+                <td class="xbrl">
+                    <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                        <xule:template-display>This report is:</xule:template-display>
+                    </xule:replace><br/>
+                        
+                        (1) 
+                            <xule:replace>
+                                    <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]>
+                                    </xule:expression>  
+                                <xule:template-display>
+                                        <input type="checkbox"/> An Original
+                                </xule:template-display>
+                            </xule:replace><br/>
+                            
+                        (2)
+                            <xule:replace>
+                                    <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                        </xule:expression> 
+                                    <xule:template-display>
+                                            <input type="checkbox" checked = "checked"/> A Resubmission
+                                    </xule:template-display>
+                            </xule:replace> 
+                </td>
+                <td class="xbrl"><xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>Date of Report:</xule:template-display>
+                    </xule:replace><br/>
+                    
+                        <xule:replace>
+                            <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xule:expression>
+                            <xule:template-display>04/26/2019</xule:template-display>
+                    </xule:replace>
+                </td>
+                <td class="xbrl"><xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>Year/Period of Report:</xule:template-display>
+                    </xule:replace><br/>
+                   
+                    End of: <xule:replace>
+                        <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xule:expression>
+                        <xule:template-display>2018</xule:template-display>
+                    </xule:replace>
+                    <span>/</span>
+                    <xule:replace>
+                        <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xule:expression>
+                        <xule:template-display>Q4</xule:template-display>
+                    </xule:replace>
+                </td>
+            </tr>
+        </table>
+    <table class="xbrl">
+
+        <tr class="sch-title">
+            <td colspan="5" class="xbrl">
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleCorporationsControlledByRespondentAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xule:expression>
+                            <xule:template-display>
+                                    Gas Property And Capacity Leased From Others
+                            </xule:template-display>
+                    </xule:replace>
+                </td>
+    </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="5">
+                <xule:replace>
+                    <xule:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleCorporationsControlledByRespondentAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xule:expression>
+                    <xule:template-display>
+                    <ol>
+                        <li>Report below the names of all corporations, business trusts, and similar organizations, controlled directly or indirectly by respondent at any time during the year. If control ceased prior to end of year, give particulars (details) in a footnote.</li>
+                        <li>If control was by other means than a direct holding of voting rights, state in a footnote the manner in which control was held, naming any intermediaries involved.</li>
+                        <li>If control was held jointly with one or more other interests, state the fact in a footnote and name the other interests.</li>
+                       
+                    </ol>
+                    <br/>
+                        ---------------------------<br/>
+                        DEFINITIONS<br/>
+                        ---------------------------<br/>
+                    <br/>
+                    <ol>
+                        <li>See the Uniform System of Accounts for a definition of control.</li>
+                        <li>Direct control is that which is exercised without interposition of an intermediary.</li>
+                        <li>Indirect control is that which is exercised by the interposition of an intermediary that exercises direct control.</li>
+                        <li>Joint control is that in which neither interest can effectively control or direct action without the consent of the other, as where the voting control is equally divided between two holders, or each party holds a veto power over the other. Joint control may exist by mutual
+agreement or understanding between two or more parties who together have control within the meaning of the definition of control in the Uniform System of Accounts, regardless of the relative voting rights of each party.</li>
+                    </ol>
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xule:repeat="ColumnHeadings">
+                    <xule:expression class="hide" name="ColumnHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleCorporationsControlledByRespondentAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "103 - Schedule - Corporations Controlled by Respondent") 
+
+                            $heading = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+    
+                            $heading_dict = dict(for $row in $heading
+                                    list("("+$row[1]+")",list($row[2],
+                                        if $row[3] == none
+                                            ""
+                                        else
+                                            taxonomy().concept(to-qname($row[3]))))
+                            );
+                            for $row in $heading_dict.keys.sort
+                    </xule:expression>
+    
+                    <div style="text-align: center">
+                        <div class="tooltip">
+                                <div class="tooltiptext">
+                                        <xule:replace>
+                                                <xule:expression class="hide" name="ColumnHeadings" part="3">$heading_dict[$row][2].name.local-name</xule:expression>
+                                            </xule:replace>
+                                </div>    
+                            <xule:replace>
+                                <xule:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row][1]</xule:expression>
+                                <xule:template-display>
+                                    Nature of Payment
+                                </xule:template-display>
+                            </xule:replace>
+                        </div>
+                    </div>
+                <div style="text-align: center"><xule:replace>
+                        <xule:expression class="hide" name="ColumnHeadings" part="2">$row</xule:expression>
+                        <xule:template-display>
+                            (a)
+                        </xule:template-display>
+                    </xule:replace></div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xule:repeat="ControlledByRespondent">
+            <xule:expression class="hide" name="ControlledByRespondent">// adding a comment
+               
+
+                
+            $data2 =   list(for $i in range(27)
+                            list($i,none,none,none,none)
+            );
+            
+            $data = if count(list({covered @ferc:CorporationsControlledByRespondentAxis=*})) > 0 
+            
+                list( {covered @ferc:CorporationsControlledByRespondentAxis=*  {list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:NameOfCompanyControlledByRespondent @unit @period=$currentDuration}).length > 0   
+                    first(list({@ferc:NameOfCompanyControlledByRespondent @unit @period=$currentDuration}))
+                        else none,
+                   
+                    if list({@ferc:CompanyControlledByRespondentKindOfBusinessDescription @unit @period=$currentDuration}).length > 0 
+                    first(list({@ferc:CompanyControlledByRespondentKindOfBusinessDescription @unit @period=$currentDuration}))
+                        else none,
+                    if list({@ferc:VotingStockOwnedByRespondentPercentage @unit @period=$currentInstant}).length > 0 
+                    first(list({@ferc:VotingStockOwnedByRespondentPercentage @unit @period=$currentInstant}))
+                        else none,
+                    if list({@ferc:FootnoteReferences @unit @period=$currentDuration}).length > 0 
+                    first(list({@ferc:FootnoteReferences @unit @period=$currentDuration}))
+                        else none,
+                    )}})
+                    else $data2;
+                    
+                    $uniqueData = list(for $x in  $data
+                    if $x == list(0,none,none,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+    
+                    
+                    for $row in $uniqueData.sort
+                                  
+    
+                  
+            </xule:expression>
+            <td class="xbrl line-number"><xule:lineNumber name="ControlledByRespondent"/>
+                <xule:template-display>1</xule:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xule:replace><xule:expression  class="hide"  name="ControlledByRespondent" fact="true" part="2">$row[2]</xule:expression></xule:replace>
+                <xule:template-display>
+                        ABC Company Inc.
+                </xule:template-display>
+            </td>
+            
+            <td class="xbrl description_items"><xule:replace><xule:expression class="hide"  name="ControlledByRespondent" fact="true" part="3">$row[3]</xule:expression></xule:replace>
+                <xule:template-display>
+                        Energy Retailer
+                </xule:template-display>
+            </td>
+            <td class="xbrl percent_items"><xule:replace><xule:expression class="hide"  name="ControlledByRespondent" fact="true" format="ixt4:num-dot-decimal" scale="-2" part="4">$row[4]</xule:expression></xule:replace>
+                <xule:template-display>
+                        100%
+                </xule:template-display>
+            </td>
+            <td class="xbrl description_items"><xule:replace><xule:expression class="hide"  name="ControlledByRespondent" fact="true" part="5">$row[5]</xule:expression></xule:replace>
+                <xule:template-display>
+                        Footnote Ref Data
+                </xule:template-display>
+            </td>
+        </tr> 
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM No. 
+                <xule:replace>
+                        <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                       </xule:expression>
+                        <xule:template-display>1/3-Q</xule:template-display>
+                </xule:replace>
+                <span> </span>
+                <xule:replace>
+                        <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleCorporationsControlledByRespondentAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xule:expression>
+                        <xule:template-display>
+                                (12-96)
+                        </xule:template-display>
+                </xule:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:ScheduleCorporationsControlledByRespondentAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xule:expression>
+                        <xule:template-display>
+                        212
+                        </xule:template-display>
+                </xule:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

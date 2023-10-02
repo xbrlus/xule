@@ -210,6 +210,11 @@ output FACT042
   max(list([covered @instance = $INSTANCE1 @Assets])).entity.id
 
 output FACT043
+/* [ERROR] [xule:error] rule FACT043: Rule: FACT043 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'. */
+
+  count(list([covered @instance = $INSTANCE1 @Assets @unit.numerator = unit(iso4217:USD)]))
+
+output FACT044
 /* set(828,867,000) */
 
   max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact

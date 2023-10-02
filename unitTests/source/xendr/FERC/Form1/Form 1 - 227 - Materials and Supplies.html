@@ -1,0 +1,994 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1 - 227</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+
+</head>
+
+<body class="xbrl" id="ScheduleMaterialsAndSuppliesAbstract">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace><br/>
+                
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td colspan="5" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleMaterialsAndSuppliesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    Gas Property And Capacity Leased From Others
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="5">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleMaterialsAndSuppliesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>For Account 154, report the amount of plant materials and operating supplies under the
+                                primary functional classifications as indicated in column (a); estimates of amounts by
+                                function are acceptable. In column (d), designate the department or departments which
+                                use the class of material.</li>
+                            <li>Give an explanation of important inventory adjustments during the year (in a footnote)
+                                showing general classes of material and supplies and the various accounts (operating
+                                expenses, clearing accounts, plant, etc.) affected debited or credited. Show separately
+                                debit or credits to stores expense clearing, if applicable.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ColumnHeadeings">
+                <xendr:expression class="hide" name="ColumnHeadeings">
+                        $headings = filter (taxonomy().concept(ferc:ScheduleMaterialsAndSuppliesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "227 - Schedule - Materials and Supplies") 
+
+                        $headings = list(for $ref in $headings 
+                        list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                        $heading_dict = dict(for $row in $headings
+                                list("("+$row[1]+")",$row[2])
+                        );
+                        for $row in $heading_dict.keys.sort
+                </xendr:expression>
+                <div style="text-align: center"><xendr:replace>
+                <xendr:expression class="hide" name="ColumnHeadeings" part="1">$heading_dict[$row]</xendr:expression>
+                <xendr:template-display>
+                    Account
+                </xendr:template-display>
+                </xendr:replace>
+                </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadeings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                </xendr:replace></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:FuelStock).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Fuel Stock (Account 151)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:FuelStock @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:FuelStock @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $341,876,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:FuelStockDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">2</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:FuelStockExpensesUndistributed).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Fuel Stock Expenses Undistributed (Account 152)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:FuelStockExpensesUndistributed @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $1,792
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:FuelStockExpensesUndistributed @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $34,149,217
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:FuelStockExpensesUndistributedDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">3</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:Residuals).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Residuals and Extracted Products (Account 153)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:Residuals @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $43,792
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:Residuals @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $987,149,217
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:ResidualsAndExtractedProductsDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric &amp;Gas
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">4</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:PlantMaterialsAndOperatingSuppliesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Plant Materials and Operating Supplies (Account 154)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">5</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:PlantMaterialsAndOperatingSuppliesConstruction).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Assigned to - Construction (Estimated)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesConstruction @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $922,792
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesConstruction @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $987,149,217
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesConstructionDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric &amp;Gas
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">6</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OperationsAndMaintenanceAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1RollforwardHeader").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Assigned to - Operations and Maintenance
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">7</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:PlantMaterialsAndOperatingSuppliesProductionPlant).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Production Plant (Estimated)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesProductionPlant @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $886,950
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesProductionPlant @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $2,979,493
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesProductionPlantDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">8</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:PlantMaterialsAndOperatingSuppliesTransmissionPlant).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Transmission Plant (Estimated)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesTransmissionPlant @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $26,381
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesTransmissionPlant @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $8,441,223
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesTransmissionPlantDepartmentsUsingMaterial  @period = $currentDuration]
+                       
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric &amp; Gas
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">9</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:PlantMaterialsAndOperatingSuppliesDistributionPlant).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Distribution Plant (Estimated)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesDistributionPlant @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $75,390
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesDistributionPlant @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $8,231,093
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesDistributionPlantDepartmentsUsingMaterial  @period = $currentDuration]
+                       
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric &amp; Gas
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">10</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:PlantMaterialsAndOperatingSuppliesRegionalTransmissionAndMarketOperationPlant).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Regional Transmission and Market Operation Plant (Estimated)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesRegionalTransmissionAndMarketOperationPlant @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $42,393
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesRegionalTransmissionAndMarketOperationPlant @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $5,881,037
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:PlantMaterialsAndOperatingSuppliesRegionalTransmissionAndMarketOperationPlantDepartmentsUsingMaterial  @period = $currentDuration]
+                       
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric &amp; Gas
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+        <td class="xbrl line-number">11</td>
+        <td class="xbrl description_items">
+            <xendr:replace>
+                <xendr:expression class="hide">
+                    taxonomy().concept(ferc:PlantMaterialsAndOperatingSuppliesOther).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                </xendr:expression>
+                <xendr:template-display>
+                    Assigned to - Other (provide details in footnote)
+                </xendr:template-display>
+            </xendr:replace>
+        </td>
+        <td class="xbrl monetary_items">
+            <xendr:replace>
+                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                    [@ferc:PlantMaterialsAndOperatingSuppliesOther @period = $priorInstant]
+                    
+                </xendr:expression>
+                <xendr:template-display>
+                    $992,768
+                </xendr:template-display>
+            </xendr:replace>
+        </td>
+        <td class="xbrl monetary_items">
+            <xendr:replace>
+                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                    [@ferc:PlantMaterialsAndOperatingSuppliesOther @period = $currentInstant]
+                    
+                </xendr:expression>
+                <xendr:template-display>
+                    $6,001,113
+                </xendr:template-display>
+            </xendr:replace>
+        </td>
+        <td class="xbrl description_items">
+            <xendr:replace>
+                <xendr:expression class="hide" fact="true">
+                    [@ferc:PlantMaterialsAndOperatingSuppliesOtherDepartmentsUsingMaterial @period = $currentDuration]
+                    
+                </xendr:expression>
+                <xendr:template-display>
+                    Gas
+                </xendr:template-display>
+            </xendr:replace>
+        </td>
+        </tr>
+        <tr>
+        <td class="xbrl line-number">12</td>
+        <td class="xbrl description_items">
+            <xendr:replace>
+                <xendr:expression class="hide">
+                    taxonomy().concept(ferc:PlantMaterialsAndOperatingSupplies).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                </xendr:expression>
+                <xendr:template-display>
+                    TOTAL Account 154 (Enter Total of lines 5 thru 11)
+                </xendr:template-display>
+            </xendr:replace>
+        </td>
+        <td class="xbrl monetary_items">
+            <xendr:replace>
+                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                    [@ferc:PlantMaterialsAndOperatingSupplies @period = $priorInstant]
+                    
+                </xendr:expression>
+                <xendr:template-display>
+                    $5,432,121
+                </xendr:template-display>
+            </xendr:replace>
+        </td>
+        <td class="xbrl monetary_items">
+            <xendr:replace>
+                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                    [@ferc:PlantMaterialsAndOperatingSupplies @period = $currentInstant]
+                    
+                </xendr:expression>
+                <xendr:template-display>
+                    $2,902,768,123
+                </xendr:template-display>
+            </xendr:replace>
+        </td>
+        <td class="xbrl gray-out"></td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">13</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:Merchandise).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Merchandise (Account 155)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:Merchandise @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $333,143
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:Merchandise @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $2,122,099
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:MerchandiseDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric &amp;Gas
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">14</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OtherMaterialsAndSupplies).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Other Materials and Supplies (Account 156)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:OtherMaterialsAndSupplies @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $310,623
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:OtherMaterialsAndSupplies  @period = $currentInstant]
+                       
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $5,555,555
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:OtherMaterialsAndSuppliesDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric &amp; Gas
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">15</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:NuclearMaterialsHeldForSale).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Nuclear Materials Held for Sale (Account 157) (Not applic to Gas Util)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:NuclearMaterialsHeldForSale @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $300,301
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:NuclearMaterialsHeldForSale @period = $currentInstant]
+                       
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $1,111,111
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:NuclearMaterialsHeldForSaleDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">16</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:StoresExpenseUndistributed).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Stores Expense Undistributed (Account 163)
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:StoresExpenseUndistributed @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $229,444
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:StoresExpenseUndistributed @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $99,344
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:StoresExpenseUndistributedDepartmentsUsingMaterial @period = $currentDuration]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Electric
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+
+        <tr class="schedule-row" xendr:repeat="MatsAndSuppsOtherClasses">
+            <xendr:expression class="hide" name="MatsAndSuppsOtherClasses">// adding a comment
+
+                $data2 = list(for $i in range(17,19)
+                list($i,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:MaterialsAndSuppliesOtherClassesAxis=*})) > 0
+
+                list({covered @ferc:MaterialsAndSuppliesOtherClassesAxis=* {list(
+
+                if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                else
+                    0,
+                if list({@ferc:DescriptionOfMaterialsAndSuppliesOtherClasses @unit @period=$currentDuration}).length > 0
+                    first(list({@ferc:DescriptionOfMaterialsAndSuppliesOtherClasses @unit @period=$currentDuration}))
+                else
+                    none,
+                if list({@ferc:MaterialsAndSuppliesOtherClasses @unit @period=$priorInstant}).length > 0
+                    first(list({@ferc:MaterialsAndSuppliesOtherClasses @unit @period=$priorInstant}))
+                else
+                    none,
+                if list({@ferc:MaterialsAndSuppliesOtherClasses @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:MaterialsAndSuppliesOtherClasses @unit @period=$currentInstant}))
+                else
+                    none,
+                if list({@ferc:MaterialsAndSuppliesOtherClassesDepartmentsUsingMaterial @unit @period=$currentDuration}).length > 0
+                    first(list({@ferc:MaterialsAndSuppliesOtherClassesDepartmentsUsingMaterial @unit @period=$currentDuration}))
+                else
+                    none
+
+                )}})
+                else $data2;
+
+                $uniqueData = list(for $x in  $data
+                    if $x == list(0,none,none,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+
+                for $row in $uniqueData.sort    
+
+
+            </xendr:expression>
+
+            <td class="xbrl line-number">
+                <xendr:lineNumber class="hide" name="MatsAndSuppsOtherClasses">
+                    <xendr:startNumber>17</xendr:startNumber>
+                </xendr:lineNumber>
+             </td>
+            
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="MatsAndSuppsOtherClasses" fact="true" part="2">$row[2]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    Various
+                </xendr:template-display>
+            </td>
+            
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="MatsAndSuppsOtherClasses" fact="true" format="ixt4:num-dot-decimal" part="3">$row[3]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $7,951
+                </xendr:template-display>
+            </td>
+            
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="MatsAndSuppsOtherClasses" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $27,416
+                </xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="MatsAndSuppsOtherClasses" fact="true" part="5">$row[5]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    Department A
+                </xendr:template-display>
+            </td>
+       
+        </tr>
+
+        <tr>
+            <td class="xbrl line-number">20</td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:MaterialsAndOperatingSupplies).label("http://ferc.gov/form/2020-01-01/roles/label/F1MaterialsAndSupplies").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        TOTAL Materials and Supplies
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:MaterialsAndOperatingSupplies @period = $priorInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $34,224,999,111
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:MaterialsAndOperatingSupplies @period = $currentInstant]
+                        
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $99,344,119,333
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+        <div>FERC FORM No. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                        <xendr:template-display>2/3-Q</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleMaterialsAndSuppliesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                        02-04
+                        </xendr:template-display>
+                </xendr:replace>            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleMaterialsAndSuppliesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        1
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

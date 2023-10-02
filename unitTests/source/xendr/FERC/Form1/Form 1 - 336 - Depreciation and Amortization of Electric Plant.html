@@ -1,0 +1,1035 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ixt-sec="http://www.sec.gov/inlineXBRL/transformation/2015-08-31"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1 - 336</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+   
+</head>
+
+<body class="xbrl" id="ScheduleDepreciationDepletionAndAmortizationAbstract">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace><br/>
+               
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="7">
+                <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleDepreciationDepletionAndAmortizationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                DEPRECIATION AND AMORTIZATION OF ELECTRIC PLANT (Account 403, 404, 405)
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="7">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleDepreciationDepletionAndAmortizationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report in section A for the year the amounts for : (b) Depreciation Expense (Account 403; (c) Depreciation Expense for Asset Retirement Costs (Account 403.1; (d) Amortization of Limited-Term Electric Plant (Account 404); and (e) Amortization of Other Electric Plant (Account 405).</li>
+                            <li>Report in Section 8 the rates used to compute amortization charges for electric plant (Accounts 404 and 405). State the basis used to compute charges and whether any changes have been made in the basis or rates used from the preceding report year.</li>
+                            <li>Report all available information called for in Section C every fifth year beginning with report year 1971, reporting annually only changes to columns (c) through (g) from the complete report of the preceding year.<br>Unless composite depreciation accounting for total depreciable plant is followed, list numerically in column (a) each plant subaccount, account or functional classification, as appropriate, to which a rate is applied. Identify at the bottom of Section C the type of plant included in any sub-account used.</br><br>In column (b) report all depreciable plant balances to which rates are applied showing subtotals by functional Classifications and showing composite total. Indicate at the bottom of section C the manner in which column balances are obtained. If average balances, state the method of averaging used.</br><br>For columns (c), (d), and (e) report available information for each plant subaccount, account or functional classification Listed in column (a). If plant mortality studies are prepared to assist in estimating average service Lives, show in column (f) the type mortality curve selected as most appropriate for the account and in column (g), if available, the weighted average remaining life of surviving plant. If composite depreciation accounting is used, report available information called for in columns (b) through (g) on this basis.</br></li>
+                            <li>If provisions for depreciation were made during the year in addition to depreciation provided by application of reported rates, state at the bottom of section C the amounts and nature of the provisions and the plant items to which related.</li>
+                       </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="6"> A. Summary of Depreciation and Amortization Charges</td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings">
+                <xendr:expression class="hide" name="ColumnHeadings">
+                    $headings = filter (taxonomy().concept(ferc:ScheduleDepreciationDepletionAndAmortizationAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "336 - Schedule - Summary of Depreciation and Amortization Charges - Section A") 
+
+                    $heading = list(for $ref in $headings 
+                    list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+
+                    $heading_dict = dict(for $row in $heading
+                            list("("+$row[1]+")",list($row[2],
+                                if $row[3] == none
+                                    ""
+                                else
+                                    taxonomy().concept(to-qname($row[3]))))
+                    );
+                    for $row in $heading_dict.keys.sort
+            </xendr:expression>
+
+            <div style="text-align: center">
+                <div class="tooltip">
+                        <div class="tooltiptext">
+                                <xendr:replace>
+                                        <xendr:expression class="hide" name="ColumnHeadings" part="3">$heading_dict[$row][2].name.local-name</xendr:expression>
+                                    </xendr:replace>
+                        </div>    
+                    <xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row][1]</xendr:expression>
+                        <xendr:template-display>
+                            Functional Classification
+                        </xendr:template-display>
+                    </xendr:replace>
+                </div>
+            </div>
+        <div style="text-align: center"><xendr:replace>
+                <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                <xendr:template-display>
+                    (a)
+                </xendr:template-display>
+            </xendr:replace></div>
+    </td>
+        </tr>
+        
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:IntangiblePlantMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                                Intangible Plant
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:IntangiblePlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:IntangiblePlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:IntangiblePlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:IntangiblePlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:IntangiblePlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>            
+        </tr>
+        <tr>
+            <td class="xbrl line-number">2</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SteamProductionPlantMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Steam Production Plant
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:SteamProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:SteamProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:SteamProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:SteamProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:SteamProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>            
+        </tr>
+        <tr>
+            <td class="xbrl line-number">3</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:NuclearProductionPlantMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Nuclear Production Plant
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:NuclearProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:NuclearProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:NuclearProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:NuclearProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:NuclearProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>            
+        </tr>
+        <tr>
+            <td class="xbrl line-number">4</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:HydraulicProductionPlantConventionalMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Hydraulic Production Plant-Conventional
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantConventionalMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantConventionalMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantConventionalMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantConventionalMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantConventionalMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>            
+        </tr>
+        <tr>
+            <td class="xbrl line-number">5</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:HydraulicProductionPlantPumpedStorageMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Hydraulic Production Plant-Pumped Storage
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantPumpedStorageMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantPumpedStorageMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantPumpedStorageMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantPumpedStorageMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:HydraulicProductionPlantPumpedStorageMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td> 
+        </tr>
+       <tr>
+            <td class="xbrl line-number">6</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OtherProductionPlantMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Other Production Plant
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:OtherProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:OtherProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:OtherProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:OtherProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:OtherProductionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td> 
+        </tr>
+        <tr>
+            <td class="xbrl line-number">7</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:TransmissionPlantMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Transmission Plant
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:TransmissionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:TransmissionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:TransmissionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:TransmissionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:TransmissionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td> 
+        </tr>
+        <tr>
+            <td class="xbrl line-number">8</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:DistributionPlantMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Distribution Plant
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:DistributionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:DistributionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:DistributionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:DistributionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:DistributionPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td> 
+        </tr>
+       <tr>
+            <td class="xbrl line-number">9</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RegionalTransmissionAndMarketOperationMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Regional Transmission and Market Operation
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:RegionalTransmissionAndMarketOperationMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:RegionalTransmissionAndMarketOperationMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:RegionalTransmissionAndMarketOperationMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:RegionalTransmissionAndMarketOperationMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:RegionalTransmissionAndMarketOperationMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td> 
+        </tr>
+        <tr>
+            <td class="xbrl line-number">10</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:GeneralPlantMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                                General Plant
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:GeneralPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:GeneralPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:GeneralPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:GeneralPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:GeneralPlantMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td> 
+        </tr>
+        <tr>
+            <td class="xbrl line-number">11</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:CommonPlantElectricMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1DepreciationAndAmortizationOfElectricPlant").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        Common Plant-Electric
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:CommonPlantElectricMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:CommonPlantElectricMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfLimitedTermPlantOrProperty
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:CommonPlantElectricMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AmortizationOfOtherElectricPlant
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:CommonPlantElectricMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:DepreciationAndAmortization
+                        @period = $currentDuration @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:FunctionalClassificationAxis=ferc:CommonPlantElectricMember]
+                    </xendr:expression>
+                </xendr:replace>
+            </td> 
+        </tr>
+        
+        <tr>
+            <td class="xbrl line-number">12</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:DepreciationAndAmortization).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            TOTAL
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                            max(list([covered @concept=ferc:DepreciationExpenseExcludingAmortizationOfAcquisitionAdjustments @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $144,154,078
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                            max(list([covered @concept=ferc:DepreciationExpenseForAssetRetirementCostsExcludingAmortizationgOfAcquisitionAdjustments @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $144,154,071
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                            max(list([covered @concept=ferc:AmortizationOfLimitedTermPlantOrProperty @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $144,154,072
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                            max(list([covered @concept=ferc:AmortizationOfOtherElectricPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $144,154,073
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                            max(list([covered @concept=ferc:DepreciationAndAmortization @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $144,154,074
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+
+           
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">    
+        <tr class="col-heading-row">
+            <td class="col-heading-row center-text" colspan="7">
+                    B. Basis for Amortization Charges
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        [@ferc:BasisAmortizationCharges @period = $currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        The depreciable plant base for electric plant is $999,999,999. This is the capitalized cost of plant licensing, software, and other intangible assets. This includes fully amortized assets not yet retired. Intangible plant is amortized over 10 years while plant licensing is amortized over the remaining life of the asset. 
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">    
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="8">C. Factors Used in Estimating Depreciation Charges</td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line line-number">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings2">
+                <xendr:expression class="hide" name="ColumnHeadings2">
+                    $headings = filter (taxonomy().concept(ferc:ScheduleFactorsUsedInEstimatingDepreciationChargesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "336 - Schedule - Factors Used in Estimating Depreciation Charges - Section C") 
+
+                    $heading = list(for $ref in $headings 
+                    list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+
+                    $heading_dict = dict(for $row in $heading
+                            list("("+$row[1]+")",list($row[2],
+                                if $row[3] == none
+                                    ""
+                                else
+                                    taxonomy().concept(to-qname($row[3]))))
+                    );
+                    for $row in $heading_dict.keys.sort
+            </xendr:expression>
+
+            <div style="text-align: center">
+                <div class="tooltip">
+                        <div class="tooltiptext">
+                                <xendr:replace>
+                                        <xendr:expression class="hide" name="ColumnHeadings2" part="3">$heading_dict[$row][2].name.local-name</xendr:expression>
+                                    </xendr:replace>
+                        </div>    
+                    <xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings2" part="1">$heading_dict[$row][1]</xendr:expression>
+                        <xendr:template-display>
+                            Account No.
+                        </xendr:template-display>
+                    </xendr:replace>
+                </div>
+            </div>
+        <div style="text-align: center"><xendr:replace>
+                <xendr:expression class="hide" name="ColumnHeadings2" part="2">$row</xendr:expression>
+                <xendr:template-display>
+                    (a)
+                </xendr:template-display>
+            </xendr:replace></div>
+    </td>
+        </tr>
+                
+                    <tr class="schedule-row" xendr:repeat="DepreciationAndAmortizationOfElectricPlant">
+                            <xendr:expression class="hide" name="DepreciationAndAmortizationOfElectricPlant">// adding a comment
+                                
+                            $data2 =   list(for $i in range(13,50)
+                                            list($i,none,none,none,none,none,none,none)
+                            );
+            
+                            $data = if count(list({covered @ferc:EstimatedDepreciationChargesFactorsAxis=*})) > 0  
+                            
+                           
+                                list({covered @ferc:EstimatedDepreciationChargesFactorsAxis=*  {list(
+                                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                                    else
+                                        0,
+                                    if list({@ferc:AccountNumberFactorsUsedInEstimatingDepreciationCharges @unit @period=$currentDuration}).length > 0
+                                        first(list({@ferc:AccountNumberFactorsUsedInEstimatingDepreciationCharges @unit @period=$currentDuration}))
+                                    else
+                                        none,
+                                    if list({@ferc:DepreciablePlantBase @unit @period=$currentDuration}).length > 0
+                                        first(list({@ferc:DepreciablePlantBase @unit @period=$currentDuration}))
+                                    else
+                                        none,
+                                    if list({@ferc:UtilityPlantEstimatedAverageServiceLife @unit @period=$currentDuration}).length > 0
+                                        first(list({@ferc:UtilityPlantEstimatedAverageServiceLife @unit @period=$currentDuration}))
+                                    else
+                                        none,
+                                    if list({@ferc:UtilityPlantNetSalvageValuePercentage @unit @period=$currentDuration}).length > 0
+                                        first(list({@ferc:UtilityPlantNetSalvageValuePercentage @unit @period=$currentDuration}))
+                                    else 
+                                        none,
+                                    if list({@ferc:UtilityPlantAppliedDepreciationRate @unit @period=$currentDuration}).length > 0
+                                        first(list({@ferc:UtilityPlantAppliedDepreciationRate @unit @period=$currentDuration}))
+                                    else 
+                                        none,
+                                    if list({@ferc:MortalityCurveType @unit @period=$currentDuration}).length > 0
+                                        first(list({@ferc:MortalityCurveType @unit @period=$currentDuration}))
+                                    else 
+                                        none,
+                                    if list({@ferc:UtilityPlantWeightedAverageRemainingLife @unit @period=$currentDuration}).length > 0
+                                        first(list({@ferc:UtilityPlantWeightedAverageRemainingLife @unit @period=$currentDuration}))
+                                    else 
+                                        none
+
+                                )}})
+                                else $data2;
+                            
+                                $uniqueData = list(for $x in $data
+                                    if $x == list(0,none,none,none,none,none,none,none)
+                                        skip
+                                    else 
+                                        $x
+                                    );
+
+                                for $row in $uniqueData.sort         
+            
+            
+                            </xendr:expression>
+                            <td class="xbrl">
+                                <xendr:lineNumber name="DepreciationAndAmortizationOfElectricPlant">
+                                    <xendr:startNumber>12</xendr:startNumber>
+                                </xendr:lineNumber>
+                            </td>
+                            <td class="xbrl account-number"><xendr:replace><xendr:expression  class="hide"  name="DepreciationAndAmortizationOfElectricPlant" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    344
+                                </xendr:template-display>
+                            </td>
+                            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="DepreciationAndAmortizationOfElectricPlant" fact="true" scale="3" format="ixt4:num-dot-decimal" part="3">$row[3]</xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    $679,676
+                                </xendr:template-display>
+                            </td>
+                            <td class="xbrl duration_items"><xendr:replace><xendr:expression class="hide"  name="DepreciationAndAmortizationOfElectricPlant" fact="true"  format="ixt-sec:durwordsen" part="4">$row[4]</xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    30
+                                </xendr:template-display>
+                            </td>
+                            <td class="xbrl percent_items"><xendr:replace><xendr:expression class="hide"  name="DepreciationAndAmortizationOfElectricPlant" fact="true" scale="-2" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    10
+                                </xendr:template-display>
+                            </td>
+                            <td class="xbrl percent_items"><xendr:replace><xendr:expression class="hide"  name="DepreciationAndAmortizationOfElectricPlant" fact="true" scale="-2" format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    2.44
+                                </xendr:template-display>
+                            </td>  
+                            <td class="xbrl"><xendr:replace><xendr:expression class="hide"  name="DepreciationAndAmortizationOfElectricPlant" fact="true" part="7">$row[7]</xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    SQ
+                                </xendr:template-display>
+                            </td>
+                            <td class="xbrl duration_items"><xendr:replace><xendr:expression class="hide"  name="DepreciationAndAmortizationOfElectricPlant" fact="true" format="ixt-sec:durwordsen"  part="8">$row[8]</xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    8
+                                </xendr:template-display>
+                            </td>  
+                        </tr>
+                    </table>
+    
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleDepreciationDepletionAndAmortizationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (REV. 12-03)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleDepreciationDepletionAndAmortizationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        336
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

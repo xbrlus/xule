@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1/F3Q - 400a</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl" id="ScheduleMonthlyIsoOrRtoTransmissionSystemPeakLoadAbstract">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br/>
+               
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                    <br/>
+                    (1) 
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xendr:expression>  
+                            <xendr:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xendr:template-display>
+                        </xendr:replace>
+                        <br/>
+                    (2)
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xendr:expression> 
+                                <xendr:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xendr:template-display>
+                        </xendr:replace> 
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br/>
+               
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+            
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="11">
+                <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleMonthlyIsoOrRtoTransmissionSystemPeakLoadAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Schedule").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                MONTHLY ISO/RTO TRANSMISSION SYSTEM PEAK LOAD
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="11">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleMonthlyIsoOrRtoTransmissionSystemPeakLoadAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report the monthly peak load on the respondent's transmission system. If the Respondent has two or more power systems which are not physically integrated, furnish the required information for each non-integrated system.</li>
+                            <li>Report on Column (b) by month the transmission system's peak load.</li>
+                            <li>Report on Column (c) and (d) the specified information for each monthly transmission - system peak load reported on Column (b).</li>
+                            <li>Report on Columns (e) through (i) by month the system’s transmission usage by classification. Amounts reported as Through and Out Service in Column (g) are to be excluded from those amounts reported in Columns (e) and (f).</li>
+                            <li>Amounts reported in Column (j) for Total Usage is the sum of Columns (h) and (i).</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ISORTOPeakLoadHeadings">
+                    <xendr:expression class="hide" name="ISORTOPeakLoadHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleMonthlyIsoOrRtoTransmissionSystemPeakLoadAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "400a - Schedule - Monthly ISO-RTO Transmission System Peak Load") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center"><xendr:replace>
+                    <xendr:expression class="hide" name="ISORTOPeakLoadHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                    <xendr:template-display>
+                            Month
+                    </xendr:template-display>
+                </xendr:replace>
+            </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ISORTOPeakLoadHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="ISORTOPeakLoadLineItems">
+            <xendr:expression class="hide" name="ISORTOPeakLoadLineItems">// adding a comment
+                $data2 = navigate parent-child descendants from ferc:MonthlyIsoOrRtoTransmissionSystemPeakLoadLineItems role
+                "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleMonthlyISORTOTransmissionSystemPeakLoad" where $relationship.target.name != ferc:NameOfSystem returns list (target-name);
+
+                $systemsList = set({covered @concept in $data2 @ferc:NameOfTransmissionSystemAxis = *}.dimensions-typed().values);
+                $systemsUnique1 = sum($systemsList).to-list;
+                $systemsUnique = if $systemsUnique1 == none
+                            list("Enter System")
+                else
+                    $systemsUnique1
+
+            $members = navigate parent-child descendants from ferc:MonthDomain  role
+            "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleMonthlyISORTOTransmissionSystemPeakLoad" returns list (target-name, preferred-label, order);
+
+            $data = navigate parent-child descendants from ferc:MonthlyIsoOrRtoTransmissionSystemPeakLoadLineItems role
+                    "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleMonthlyISORTOTransmissionSystemPeakLoad" where $relationship.target.name != ferc:NameOfSystem returns list (target, preferred-label, order);
+           
+
+            $allSystems = list(for $system in $systemsUnique.sort
+                $monthlyOutput = list(
+                                
+                                for $row in $members
+                                    $concept=taxonomy().concept($row[1]);
+                                    $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "400a - Schedule - Monthly ISO-RTO Transmission System Peak Load" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+                                $rowID = if ($row_num.part-by-name(ferc-part:Row)).length > 0
+                                            ($row_num.part-by-name(ferc-part:Row))[1].part-value
+                                        else    
+                                            "";
+
+                                    $abstractLabel = list($rowID.number, $concept.label($row[2].role.uri).text);
+                                    
+                                    
+                                    $dataRow1 = list(for $y in $data
+                                                    if list([covered @concept = $y[1].name @ferc:NameOfTransmissionSystemAxis = $system @ferc:MonthAxis = $row[1] @unit @period = $currentDuration]).length > 0
+                                                        first(list([covered @concept = $y[1].name @ferc:NameOfTransmissionSystemAxis = $system @ferc:MonthAxis = $row[1] @unit @period = $currentDuration]))
+                                                    else
+                                                        none);                                   
+                                    
+                                    $abstractLabel + $dataRow1
+
+                                    ); 
+
+            $total = list(list(17,taxonomy().concept(ferc:MonthDomain).label("http://ferc.gov/form/2020-01-01/roles/label/F1MonthlyISO-RTOTransmissionPeakLoad").text) + list(for $t in $data
+                            if list([covered @concept = $t[1].name @ferc:NameOfTransmissionSystemAxis = $system @unit @period = $currentDuration]).length > 0
+                                                    first(list([covered @concept = $t[1].name @ferc:NameOfTransmissionSystemAxis = $system @unit @period = $currentDuration]))
+                            else
+                                none
+
+
+            ));
+
+            list(list(0,"NAME OF SYSTEM: " + $system.string,none,none,none,none,none,none,none,none,none)) +  $monthlyOutput + $total
+            );
+
+
+        for $system in $allSystems
+            for $rowl in $system.sort
+                           
+
+            </xendr:expression>
+            <td class="xbrl line-number"><xendr:replace><xendr:expression  class="hide"  name="ISORTOPeakLoadLineItems" part="3">if $rowl[1] == 0 none else $rowl[1]</xendr:expression>
+               <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class> 
+            </xendr:replace>
+                <xendr:template-display>
+                    1                    
+                </xendr:template-display>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="ISORTOPeakLoadLineItems" part="2">$rowl[2]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    January                    
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="ISORTOPeakLoadLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$rowl[3]</xendr:expression>
+                   
+                    <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+        </xendr:replace>
+                <xendr:template-display>
+                    300,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="5">$rowl[4]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    7
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="6">$rowl[5]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    1300
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="7">$rowl[6]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    13,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="8">$rowl[7]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    14,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="9">$rowl[8]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    15,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="10">$rowl[9]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    16,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="11">$rowl[10]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    17,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  fact="true" name="ISORTOPeakLoadLineItems" format="ixt4:num-dot-decimal" part="12">$rowl[11]</xendr:expression>
+                <xendr:class name="ISORTOPeakLoadLineItems" location="parent">if $rowl[1] == 0 "data-heading" else ""</xendr:class>
+            </xendr:replace>
+                <xendr:template-display>
+                    18,000,000
+                </xendr:template-display>
+            </td> 
+        </tr> 
+
+
+
+
+
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleMonthlyIsoOrRtoTransmissionSystemPeakLoadAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (NEW. 07-04)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleMonthlyIsoOrRtoTransmissionSystemPeakLoadAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        400a
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - Information on Formula Rates A</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl" id="ScheduleInformationOnFormulaRatesAAbstract">
+        <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace><br/>
+                    <p></p>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>This report is:</xendr:template-display>
+                    </xendr:replace>
+                        <br></br>
+                        (1) 
+                            <xendr:replace>
+                                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]>
+                                    </xendr:expression>  
+                                <xendr:template-display>
+                                        <input type="checkbox"/> An Original
+                                </xendr:template-display>
+                            </xendr:replace>
+                            <br></br>
+                        (2)
+                            <xendr:replace>
+                                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                        </xendr:expression> 
+                                    <xendr:template-display>
+                                            <input type="checkbox" checked = "checked"/> A Resubmission
+                                    </xendr:template-display>
+                            </xendr:replace> 
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    <p></p>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>04/26/2019</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    <p></p>
+                    End of: <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>2018</xendr:template-display>
+                    </xendr:replace>
+                    <span>/</span>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Q4</xendr:template-display>
+                    </xendr:replace>
+                     </td>
+                 </tr>
+            </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="6"><xendr:replace>
+                <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleInformationOnFormulaRatesAAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                </xendr:expression>
+                <xendr:template-display>
+                    INFORMATION ON FORMULA RATES <p></p>FERC Rate Schedule/Tariff Number FERC Proceeding
+                </xendr:template-display>
+            </xendr:replace>
+            </td>
+        </tr>
+
+        <tr class="instruction xbrl">
+                <td class="xbrl" colspan="3">
+                        <xendr:replace>
+                                <xendr:expression class="hide">
+                                    taxonomy().concept(ferc:AnnualFilingsContainingInputsToFormulaRates).label("http://ferc.gov/form/2020-01-01/roles/label/F1FormulaRates").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                    Does the respondent file with the Commission annual (or more frequent) filings containing the inputs to the formula rate(s)?
+                                </xendr:template-display>
+                            </xendr:replace>
+                    
+                </td>
+                <td class="xbrl" colspan="3">
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:AnnualFilingsContainingInputsToFormulaRates}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> Yes']]> else if [@concept=ferc:AnnualFilingsContainingInputsToFormulaRates] == true<![CDATA[
+                                '<span class="checkbox">&#9745;</span> Yes']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> Yes']]>
+                                </xendr:expression>  
+                                
+                                <xendr:template-display>
+                                        <input type="checkbox"/> Yes
+                                </xendr:template-display>
+                            </xendr:replace>
+                            <p></p>
+                            <xendr:replace>
+                                <!-- If data is missing automatically check No.-->
+                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:AnnualFilingsContainingInputsToFormulaRates}) <![CDATA[
+                                '<span class="checkbox">&#9745;</span> No (Checked by default - Not explicitly defined)']]> else if [@concept=ferc:AnnualFilingsContainingInputsToFormulaRates] == false<![CDATA[
+                                '<span class="checkbox">&#9745;</span> No']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> No']]>
+                                    </xendr:expression> 
+                                    <xendr:template-display>
+                                            <input type="checkbox" checked = "checked"/> No
+                                    </xendr:template-display>
+                            </xendr:replace> 
+                </td>
+            </tr>
+         <tr>
+                <td class="instruction xbrl" colspan="6">
+                   <xendr:replace>
+                        <xendr:expression html="true" class="hide">taxonomy().concept(ferc:ScheduleInformationOnFormulaRatesAAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        <ol>
+                                <li>If yes, provide a listing of such filings as contained on the Commission's eLibrary website.</li>
+                                </ol>
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr> 
+            <tr class="col-heading-row">     
+                <td class="col-heading xbrl line-number">Line No.</td>
+                <td class="col-heading xbrl" xendr:repeat="ColumnHeadings">
+                        <xendr:expression class="hide" name="ColumnHeadings">
+                                $headings = filter (taxonomy().concept(ferc:ScheduleInformationOnFormulaRatesAAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "106a - Schedule - Information on Formula Rates") 
+    
+                                $heading = list(for $ref in $headings 
+                                list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+        
+                                $heading_dict = dict(for $row in $heading
+                                        list("("+$row[1]+")",list($row[2],
+                                            if $row[3] == none
+                                                $row[3]
+                                            else
+                                                taxonomy().concept(to-qname($row[3]))))
+                                );
+                                for $row in $heading_dict.keys.sort
+                        </xendr:expression>
+        
+                        <div style="text-align: center">
+                            <div class="tooltip">
+                                    <div class="tooltiptext">
+                                            <xendr:replace>
+                                                    <xendr:expression class="hide" name="ColumnHeadings" part="3">$heading_dict[$row][2].name.local-name</xendr:expression>
+                                                </xendr:replace>
+                                    </div>    
+                                <xendr:replace>
+                                    <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row][1]</xendr:expression>
+                                    <xendr:template-display>
+                                        FERC Rate Schedule or Tariff Number
+                                    </xendr:template-display>
+                                </xendr:replace>
+                            </div>
+                        </div>
+                    <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                        </xendr:replace></div>
+                </td>
+            </tr> 
+
+        <tr class="schedule-row" xendr:repeat="formula">
+                        <xendr:expression class="hide" name="formula">// adding a comment
+                            
+                        $data2 =   list(for $i in range(46)
+
+                        list($i,none,none,none,none,none));
+        
+                                    $data = if count(list({covered @ferc:RateScheduleAxis=*}))  > 0
+                                    
+                                    list( {covered @ferc:RateScheduleAxis=*  {list(
+                                        if list({@ferc:OrderNumber @unit=* @period = $currentDuration}).length > 0
+                                            first(list({@ferc:OrderNumber @unit=* @period = $currentDuration}))
+                                        else
+                                            0,
+                                          
+                                        if list({@ferc:AccessionNumber @unit @period = $currentDuration}).length > 0 
+                                            first(list({@ferc:AccessionNumber @unit @period = $currentDuration})) 
+                                        else 
+                                            none,
+                                        if list({@ferc:DocumentDate @unit @period = $currentDuration}).length > 0 
+                                            first(list({@ferc:DocumentDate @unit @period = $currentDuration})) 
+                                        else 
+                                            none,
+                                        if list({@ferc:DocketNumber @unit @period = $currentDuration}).length > 0 
+                                            first(list({@ferc:DocketNumber @unit @period = $currentDuration})) 
+                                        else 
+                                            none,
+                                        if list({@ferc:DescriptionOfFiling @unit @period = $currentDuration}).length > 0 
+                                            first(list({@ferc:DescriptionOfFiling @unit @period = $currentDuration})) 
+                                        else 
+                                            none,
+                                        if list({@ferc:RateScheduleTariffNumber @unit @period = $currentDuration}).length > 0 
+                                            first(list({@ferc:RateScheduleTariffNumber @unit @period = $currentDuration})) 
+                                        else 
+                                            none
+
+                                        )}})
+
+                            else $data2;
+                                                  
+                       
+                            $uniqueData = list(for $x in  $data
+                    if $x == list(0, none,none,none,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+
+                    for $row in $uniqueData.sort          
+                        
+                        
+
+        
+                        </xendr:expression>
+                        <td class="xbrl line-number">
+                                <xendr:lineNumber name="formula"/>
+                                <xendr:template-display>1</xendr:template-display>
+                        </td>
+                        <td class="xbrl account-number"><xendr:replace><xendr:expression  class="hide"  name="formula" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                            <xendr:template-display>
+                                    20120515-5244
+                            </xendr:template-display>
+                        </td>
+                        <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="formula" fact="true" part="3" format="ixt4:date-month-day-year">$row[3]</xendr:expression></xendr:replace>
+                            <xendr:template-display>
+                                    05/15/2012
+                            </xendr:template-display>
+                        </td>
+                        <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="formula" fact="true" part="4">$row[4]</xendr:expression></xendr:replace>
+                            <xendr:template-display>
+                                    ER12-91-000
+                            </xendr:template-display>
+                        </td>
+                        <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="formula" fact="true" part="5">$row[5]</xendr:expression></xendr:replace>
+                            <xendr:template-display>
+                                    Formula Rate Annual Update
+                            </xendr:template-display>
+                        </td>
+                        <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="formula" fact="true" part="6">$row[6]</xendr:expression></xendr:replace>
+                            <xendr:template-display>
+                                    PJM OATT, Attachment H-22A
+                            </xendr:template-display>
+                        </td>
+                        
+                          
+        </tr> 
+    </table> 
+<p></p>
+
+<div class="schedule-footer">
+
+    <div>FERC FORM NO. 
+            <xendr:replace>
+                    <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                            
+                                                    </xendr:expression>
+                    <xendr:template-display>1</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                    <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleInformationOnFormulaRatesAAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                            (NEW. 12-12)
+                    </xendr:template-display>
+            </xendr:replace>
+                        
+    </div>
+    <div class="center-text">Page 
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleInformationOnFormulaRatesAAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    106a
+                    </xendr:template-display>
+            </xendr:replace>
+    </div> 
+    </div>
+</body>
+
+</html>
