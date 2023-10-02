@@ -277,7 +277,7 @@ def build_constants(options, template_tree):
     constants = []
     # Constants are found in a specified file (xendr-constants.xule is the default) or in the <xule:global> element
     # The default constant file is eliminated. Now if the xendr-constants option is not used there is no default
-    constant_file_name = getattr(options, 'xendr_constants')
+    constant_file_name = getattr(options, 'xendr_global')
     constants = []
     if constant_file_name is not None:
         try:
