@@ -29,15 +29,6 @@ from pyparsing import (Word, CaselessKeyword,
                  OneOrMore, one_of, c_style_comment, CharsNotIn,
                  line_end, White, SkipTo, Empty, string_start, string_end, printables)
 
-INRESULT = False
-
-def in_result():
-    global INRESULT
-    INRESULT = True
-
-def out_result(*args):
-    global INRESULT
-    INRESULT = False
 
 def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')')):
     """Simplified and modified version of pyparsing infix_notation helper function
@@ -130,10 +121,19 @@ def nodeName(name):
 
 def get_grammar():
     """Return the XULE grammar"""
-    global INRESULT
-    
+
     ParserElement.enable_packrat()
-    
+
+    in_result_val = False
+
+    def in_result():
+        nonlocal in_result_val
+        in_result_val = True
+
+    def out_result(*args):
+        nonlocal in_result_val
+        in_result_val = False
+
     #comment = c_style_comment() | (Literal("//") + SkipTo(line_end()))
     comment = c_style_comment | (Literal("//") + SkipTo(line_end))
     
@@ -287,7 +287,7 @@ def get_grammar():
     returns = CaselessKeyword('returns')
 
     #variable reference
-    varRef = Group(Suppress(varIndicator) + simpleName.set_results_name('varName') + Empty().set_parse_action(lambda: 'tagRef' if INRESULT else 'varRef').set_results_name('exprName'))
+    varRef = Group(Suppress(varIndicator) + simpleName.set_results_name('varName') + Empty().set_parse_action(lambda: 'tagRef' if in_result_val else 'varRef').set_results_name('exprName'))
 
     properties = Group(OneOrMore(Group(Suppress(propertyOp) +
                                        simpleName.set_results_name('propertyName') +
