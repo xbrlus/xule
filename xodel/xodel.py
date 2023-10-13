@@ -1695,10 +1695,10 @@ def string_or_list_of_strings_validator(val):
         string_or_list = json.loads(val)
     except:
         return True # This is just a plain string. But because it does not have enclosing quotes in the string, it fails the json load
-    if isinstance(string_or_list, string):
+    if isinstance(string_or_list, str):
         return True
     if isinstance(string_or_list, list):
-        return all((isinstance(x, string)) for x in string_or_list)
+        return all((isinstance(x, str)) for x in string_or_list)
     else:
         return False
 def boolean_validator(val):
@@ -1918,7 +1918,7 @@ def process_document(rule_name, log_rec, taxonomy, options, cntlr, arelle_mode):
             raise XodelException(f"Cannot create a schema document without a namespace (document-namespace). Document: {uri}")
         doc = taxonomy.new('Document', uri, doc_type, doc_ns)
 
-def process_document_import(rule_name, log_rec, taxonomy, options, cntlr, arelle_mode):
+def process_document_import(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # This will add imports based on the document-import and document-imported-in
     if 'document-uri' not in log_rec.args:
         raise XodelException(f"A document-import or document-imported-in must have a documument-uri. Rule: {rule_name}")
@@ -1933,7 +1933,7 @@ def process_document_import(rule_name, log_rec, taxonomy, options, cntlr, arelle
         except:
             document_import = [log_rec.args['document-import'],]
         for sub_doc_uri in document_import:
-            sub_doc = taxonomy.get('Document', sub_doc_uri)
+            sub_doc = taxonomy.get('Document', sub_doc_uri) or get_import_document(sub_doc_uri, taxonomy, cntlr, arelle_model, rule_name)
             if sub_doc is None:
                 raise XodelException(f"Document {sub_doc_uri} cannot be found. Rule {rule_name}")
             if sub_doc.document_type == taxonomy.DOCUMENT_TYPES.SCHEMA:
@@ -1955,6 +1955,20 @@ def process_document_import(rule_name, log_rec, taxonomy, options, cntlr, arelle
                 parent_doc.add(doc, taxonomy.DOCUMENT_CONTENT_TYPES.IMPORT)
             else:
                 parent_doc.add(doc, taxonomy.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+
+def get_import_document(url, taxonomy, cntlr, current_arelle_model, rule_name):
+    doc = taxonomy.get('Document', url)
+    if doc is not None:
+        return doc
+    
+    # Otherwise create the document - don't need to load it, since it will be used for an import
+    if url.lower().endswith('.xsd'):
+        arelle_model = find_arelle_model(url, cntlr, current_arelle_model)
+        if arelle_model is None:
+            raise XodelException(f"Not able to load {url}. Rule: {rule_name}")
+        return taxonomy.new('Document', url, taxonomy.DOCUMENT_TYPES.SCHEMA, arelle_model.modelDocument.targetNamespace)
+    else: # its a linkbase
+        return taxonomy.new('Document', url, taxonomy.DOCUMENT_TYPES.LINKBASE)
 
 def process_document_entry_point(rule_name, log_rec, taxonomy, options, cntlr, arelle_mode):
     # This will create an entry point in the taxonomy package

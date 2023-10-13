@@ -611,20 +611,25 @@ def open_arelle_model(cntlr, uri):
         XodelVars.set(cntlr, f'XBRL-FILE-{uri}', arelle_model)
         return arelle_model
 
+def find_arelle_model(url, cntlr, current_arelle_model):
+    # Get or create the arelle_model for the url
+    arelle_model = None
+    if url == current_arelle_model.modelDocument.uri:
+        arelle_model = current_arelle_model
+    else:
+        # check if the document is already open
+        for arelle_model in get_arelle_models(cntlr):
+            if url == arelle_model.modelDocument.uri:
+                break
+        else: # document not found
+            # Open the document in a new arelle model
+            arelle_model = open_arelle_model(cntlr, url)
+
+    return arelle_model
+
 def add_taxonomy_from_arelle(url, sxm_dts, cntlr, current_arelle_model):
         # Get or create the arelle_model for the url
-        arelle_model = None
-        if url == current_arelle_model.modelDocument.uri:
-            arelle_model = current_arelle_model
-        else:
-            # check if the document is already open
-            for arelle_model in get_arelle_models(cntlr):
-                if url == arelle_model.modelDocument.uri:
-                    break
-            else: # document not found
-                # Open the document in a new arelle model
-                arelle_model = open_arelle_model(cntlr, url)
-    
+        arelle_model = find_arelle_model(url, cntlr, current_arelle_model)
         if arelle_model is None:
             raise XodelException(f"Cannot create model for {url}")
         # Convert Arelle Model to SXM
@@ -651,7 +656,7 @@ def add_taxonomy_from_arelle(url, sxm_dts, cntlr, current_arelle_model):
         add_arcroles(sxm_dts, arelle_model)
 
         x = 1
-        sxm_dts.close_external_documents()        
+        sxm_dts.close_external_documents()      
 
 def add_documents_from_arelle(sxm_dts, arelle_model):
     doc_type_map = {Type.SCHEMA: sxm_dts.DOCUMENT_TYPES.SCHEMA,
