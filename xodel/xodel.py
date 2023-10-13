@@ -1764,14 +1764,17 @@ _ATTRIBUTE_VALIDATOR= 1
 _XODEL_OUTPUT_ATTRIBUTES = {
     'package-name': (None, string_validator),
     'package-namespace': ('taxonomy', string_validator),
+    'package-url': ('taxonomy', string_validator),
     # 'taxonomy-import': ('taxonomy', string_validator),
     # 'taxonomy-entry-point': ('taxonomy', string_validator),
     'document-uri': ('document', string_validator),
     'document-namespace': ('document', string_validator),
     'document-import': ('document-import', string_or_list_of_strings_validator),
     'document-imported-in': ('document-import', string_or_list_of_strings_validator),
-    'document-package-entry-point': ('entry-point', boolean_validator),
-    'document-package-entry-point-description': ('entry-point', string_validator),
+    'document-package-entry-point': ('document-entry-point', boolean_validator),
+    'document-package-entry-point-language': ('document-entry-point', string_validator),
+    'document-package-entry-point-name': ('document-entry-point', string_validator),
+    'document-package-entry-point-description': ('document-entry-point', string_validator),
     'type': ('type', object_validator),
     'type-name': ('type', qname_validator),
     'type-parent': ('type', object_validator),
@@ -1876,8 +1879,16 @@ def xodel_warning(message):
 
 def process_taxonomy(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # The SXM DTS will already have been created.
-    pass
-
+    if 'package-url' in log_rec.args:
+        url = log_rec.args['package-url']
+        if not url.endswith('/'): 
+            url += '/'
+        if taxonomy.rewrites.get('../') is None:
+            taxonomy.rewrites['../'] = url
+        else:
+            if url != taxonomy.rewrites['../']:
+                raise XodelException(f"A taxonomy package can only have 1 package-url value. Found values {taxonomy.rewrites['../']} and url. Rule {rule_name}")
+    
 def process_document(rule_name, log_rec, taxonomy, options, cntlr, arelle_mode):
     uri = log_rec.args.get('document-uri')
     if uri is None:
@@ -1949,10 +1960,29 @@ def process_document_entry_point(rule_name, log_rec, taxonomy, options, cntlr, a
     # Make sure there is a document identified for the entry point.
     if 'document-uri' not in log_rec.args:
         raise XodelException(f"A n entry-point must have a documument-uri. Rule: {rule_name}")
-    doc = taxonomy.get('Document', log_rec.args['document-uri'])
+    doc_uri = log_rec.args['document-uri']
+    doc = taxonomy.get('Document', doc_uri)
     if doc is None:
-        raise XodelException(f"Document {log_rec.args['document-uri']} does not exist. Rule {rule_name}")
+        raise XodelException(f"Document {doc_uri} does not exist. Rule {rule_name}")
 
+    create_entry_point = json.loads(log_rec.args.get('document-package-entry-point', 'null').lower())
+    if not create_entry_point:
+        return # There is nothing to do
+
+    entry_point = taxonomy.get('PackageEntryPoint', doc_uri)
+    if entry_point is None:
+        entry_point = taxonomy.new('PackageEntryPoint', doc_uri)
+        entry_point.documents.append(doc)
+
+    lang = log_rec.args.get('document-package-entry-point-language', '')
+    name = log_rec.args.get('document-package-entry-point-name')
+    desc = log_rec.args.get('document-package-entry-point-description')
+    
+    if name is not None:
+        entry_point.names.append((name, lang))
+    if desc is not None:
+        entry_point.description = desc
+        entry_point.description_language = lang
 
 
 def type_sort(log_infos, cntlr):
@@ -2521,7 +2551,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'taxonomy': (process_taxonomy, no_sort),
     'document': (process_document, document_sort),
     'document-import': (process_document_import, no_sort),
-    'entry-point': (process_document_entry_point, no_sort),
+    'document-entry-point': (process_document_entry_point, no_sort),
     'import2': (process_import2, no_sort),
     'type': (process_type, type_sort),
     'concept': (process_concept, no_sort),

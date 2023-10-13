@@ -917,16 +917,24 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
             self.identifier = 'Taxonomy Package'
         if len(self.rewrites) == 0:
             self.rewrites['../'] = 'http://xbrl/package/'
-        entry_point_document = self.new('Document', base_name + '-entry-point-taxonomy.xsd', self.DOCUMENT_TYPES.SCHEMA, base_ns + 'entryPoint/taxonomy')
-        
-        other_documents = set()
 
-        entry_point = self.new('PackageEntryPoint', 'Taxonomy Package')
-        entry_point.names.append(('Taxonomy Entry Point', 'en'))
-        entry_point.documents.append(entry_point_document) 
+
+        # Only add an entry point if there are none
+        default_entry_point = len(self.entry_points) == 0
+
+        if default_entry_point:
+            entry_point_document = self.new('Document', base_name + '-entry-point-taxonomy.xsd', self.DOCUMENT_TYPES.SCHEMA, base_ns + 'entryPoint/taxonomy')
+            
+            entry_point = self.new('PackageEntryPoint', 'Taxonomy Package')
+            entry_point.names.append(('Taxonomy Entry Point', 'en'))
+            entry_point.documents.append(entry_point_document) 
+
+        other_documents = set()
 
         tax_items = (set(self.types.values()) | set(self.concepts.values()) | set(self.elements.values()) | 
                      set(self.roles.values()) | set(self.arcroles.values()) | set(self.part_elements.values()))
+
+        linkbase_items = set(self.networks.values()) | set(self.cubes)
 
         # Each schema document for concepts, elements and types will be named 'taxonomy' followed by a number
         # This will separate the different namespaces
@@ -944,7 +952,8 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                                                   f"{tax_docs_by_namespace[key]}", 
                                                   self.DOCUMENT_TYPES.SCHEMA, 
                                                   key)
-            entry_point_document.add(tax_docs_by_namespace[key], self.DOCUMENT_CONTENT_TYPES.IMPORT)
+            if default_entry_point:
+                entry_point_document.add(tax_docs_by_namespace[key], self.DOCUMENT_CONTENT_TYPES.IMPORT)
         else:
             # a number to each of the names 
             for num, (key, doc_name) in enumerate(tax_docs_by_namespace.items()):
@@ -952,7 +961,8 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                                                   f"{tax_docs_by_namespace[key]}{num}.xsd", 
                                                   self.DOCUMENT_TYPES.SCHEMA, 
                                                   key)
-                entry_point_document.add(tax_docs_by_namespace[key], self.DOCUMENT_CONTENT_TYPES.IMPORT)
+                if default_entry_point:
+                    entry_point_document.add(tax_docs_by_namespace[key], self.DOCUMENT_CONTENT_TYPES.IMPORT)
         
         role_doc_name = f"{base_name}-roles.xsd"
         role_doc_ns = f"{base_ns}roles"
@@ -967,13 +977,15 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                         tax_document = self.get('Document', role_doc_name)
                         if tax_document is None:
                             tax_document = self.new('Document', role_doc_name, self.DOCUMENT_TYPES.SCHEMA, role_doc_ns)
-                            entry_point_document.add(tax_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+                            if default_entry_point:
+                                entry_point_document.add(tax_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
                 elif isinstance(tax_item, SXMArcrole):
                     if tax_item.arcrole_uri not in _STANDARD_ARCROLES:
                         tax_document = self.get('Document', arcrole_doc_name)
                         if tax_document is None: 
                             tax_document = self.new('Document', arcrole_doc_name, self.DOCUMENT_TYPES.SCHEMA, arcrole_doc_ns)
-                            entry_point_document.add(tax_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+                            if default_entry_point:
+                                entry_point_document.add(tax_document, self.DOCUMENT_CONTENT_TYPES.IMPORT)
                 else:
                     tax_document = tax_docs_by_namespace[tax_item.name.namespace]
                 if tax_document is not None:
@@ -982,7 +994,7 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                 if tax_item.document.is_relative:
                     other_documents.add(tax_item.document)
 
-        linkbase_items = set(self.networks.values()) | set(self.cubes) 
+        # Linkbases 
         for linkbase_item in linkbase_items:
             if isinstance(linkbase_item, SXMNetwork):
                 # go through the relationships
@@ -1000,7 +1012,8 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                         linkbase_document = self.get('Document', doc_name)
                         if linkbase_document is None:
                             linkbase_document = self.new('Document', doc_name, self.DOCUMENT_TYPES.LINKBASE)
-                            entry_point_document.add(linkbase_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                            if default_entry_point:
+                                entry_point_document.add(linkbase_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
                         rel.document = linkbase_document
 
         # Asign documents to the labels
@@ -1012,21 +1025,23 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                         label_document = self.get('Document', label_document_name)
                         if label_document is None:
                             label_document = self.new('Document', label_document_name, self.DOCUMENT_TYPES.LINKBASE)
-                            entry_point_document.add(label_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                            if default_entry_point:
+                                entry_point_document.add(label_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
                         label.document = label_document
 
         # There may be documents that were not referenced anywhere, so they will not end up in the DTS, So add them to the entry point.
-        referenced_docs = set()
-        for doc in self.documents.values():
-            referenced_docs |=  doc.imports | doc.linkbase_refs
-        for doc in self.documents.values():
-            if doc not in referenced_docs and doc is not entry_point_document:
-                if doc.document_type == self.DOCUMENT_TYPES.SCHEMA:
-                    entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.IMPORT)
-                elif doc.document_type == self.DOCUMENT_TYPES.LINKBASE:
-                    entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-                else:
-                    raise SXMException(f"Unknown document type for {doc.uri}")
+        if default_entry_point:
+            referenced_docs = set()
+            for doc in self.documents.values():
+                referenced_docs |=  doc.imports | doc.linkbase_refs
+            for doc in self.documents.values():
+                if doc not in referenced_docs and doc is not entry_point_document:
+                    if doc.document_type == self.DOCUMENT_TYPES.SCHEMA:
+                        entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+                    elif doc.document_type == self.DOCUMENT_TYPES.LINKBASE:
+                        entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                    else:
+                        raise SXMException(f"Unknown document type for {doc.uri}")
                 
 class SXMArcrole(_SXMDefined):
 
