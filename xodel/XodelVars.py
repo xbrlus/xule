@@ -25,3 +25,7 @@ def save_arelle_model(model):
 def get_arelle_model(cntlr, model_id):
     arelle_models = XodelVars.get(cntlr, 'arelle-models') or XodelVars.set(cntlr, 'arelle-models', dict())
     return arelle_models.get(model_id)
+
+def get_arelle_models(cntlr):
+    arelle_models = XodelVars.get(cntlr, 'arelle-models') or XodelVars.set(cntlr, 'arelle-models', dict())
+    return arelle_models.values()

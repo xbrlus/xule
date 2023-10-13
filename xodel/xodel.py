@@ -8,8 +8,8 @@ from arelle import FileSource
 from arelle import ModelManager
 from arelle.ModelXbrl import ModelXbrl
 from .arelleHelper import *
-from .xodelXuleExtensions import property_to_xodel
-from .XodelVars import get_arelle_model
+from .xodelXuleExtensions import property_to_xodel, property_reprefix
+from .XodelVars import *
 from .XodelException import *
 
 import base64
@@ -163,6 +163,7 @@ def process_xodel(cntlr, options, modelXbrl):
     _ARELLE_MODEL = modelXbrl
     from .xule.XuleProperties import add_property
     add_property('to-xodel', property_to_xodel, 0, tuple() )
+    add_property('reprefix', property_reprefix, -1, ('qname', ))
     # Run Xule rules
     log_capture = run_xule(cntlr, options, modelXbrl)
 
@@ -173,7 +174,7 @@ def process_xodel(cntlr, options, modelXbrl):
     serializer._OPTIONS = options
     for name, dts in XodelModelManager.get_all_models().items():
         dts.set_default_documents(name)
-        serializer.write(dts, os.path.join(options.xodel_location, 'package.zip'), cntlr)
+        serializer.write(dts, os.path.join(options.xodel_location, f'{name}.zip'), cntlr)
 
     # Find instances and facts
     instances, instance_facts = organize_instances_and_facts(log_capture, cntlr)
@@ -1689,10 +1690,21 @@ def list_validator(val):
         return isinstance(py_list, list)
     except:
         return False
+def string_or_list_of_strings_validator(val):
+    try:
+        string_or_list = json.loads(val)
+    except:
+        return True # This is just a plain string. But because it does not have enclosing quotes in the string, it fails the json load
+    if isinstance(string_or_list, string):
+        return True
+    if isinstance(string_or_list, list):
+        return all((isinstance(x, string)) for x in string_or_list)
+    else:
+        return False
 def boolean_validator(val):
     return val.lower() in ('true', 'false')
 def white_space_validator(val):
-    return val in ('collapse', 'preserve', 'replace')
+    return val.lower() in ('collapse', 'preserve', 'replace')
 def enumerations_validator(val):
     try:
         enum_values = json.loads(val)
@@ -1705,11 +1717,11 @@ def enumerations_validator(val):
             return False
     return True
 def period_type_validator(val):
-    return val in ('duration', 'instant')
+    return val.lower() in ('duration', 'instant')
 def balance_type_validator(val):
-    return val in ('debit', 'credit')
+    return val.lower() in ('debit', 'credit', 'none')
 def cycles_validator(val):
-    return val in ('any', 'none', 'undirected')
+    return val.lower() in ('any', 'none', 'undirected')
 def attribute_validator(val):
     # Attributes a dictionary of qnames
     try:
@@ -1750,10 +1762,16 @@ _VALIDATOR_FORMAT_MESSAGE = {
 _COMPONENT_NAME = 0
 _ATTRIBUTE_VALIDATOR= 1
 _XODEL_OUTPUT_ATTRIBUTES = {
-    'taxonomy-name': (None, string_validator),
-    'taxonomy-namespace': ('taxonomy', string_validator),
-    'Taxonomy-import': ('taxonomy', string_validator),
-    'taxonomy-entry-point': ('taxonomy', string_validator),
+    'package-name': (None, string_validator),
+    'package-namespace': ('taxonomy', string_validator),
+    # 'taxonomy-import': ('taxonomy', string_validator),
+    # 'taxonomy-entry-point': ('taxonomy', string_validator),
+    'document-uri': ('document', string_validator),
+    'document-namespace': ('document', string_validator),
+    'document-import': ('document-import', string_or_list_of_strings_validator),
+    'document-imported-in': ('document-import', string_or_list_of_strings_validator),
+    'document-package-entry-point': ('entry-point', boolean_validator),
+    'document-package-entry-point-description': ('entry-point', string_validator),
     'type': ('type', object_validator),
     'type-name': ('type', qname_validator),
     'type-parent': ('type', object_validator),
@@ -1776,7 +1794,7 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'concept-abstract': ('concept', boolean_validator),
     'concept-nillable': ('concept', boolean_validator),
     'concept-period-type': ('concept', period_type_validator),
-    'concept-balance-type': ('concept',balance_type_validator),
+    'concept-balance-type': ('concept', balance_type_validator),
     'concept-substitution-group': ('concept', qname_validator),
     'concept-attributes': ('concept', attribute_validator),
     'role': ('role', object_validator),
@@ -1806,6 +1824,7 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     #'label-name': ('label', string_validator),
     'label-concept': ('label', qname_validator),
     'import-url': ('import', string_validator),
+    'import2-url': ('import2', string_validator),
 }
 
 # The _Tree class is used to sort components that are hierarchical so the parents are processed before the children.
@@ -1858,6 +1877,82 @@ def xodel_warning(message):
 def process_taxonomy(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # The SXM DTS will already have been created.
     pass
+
+def process_document(rule_name, log_rec, taxonomy, options, cntlr, arelle_mode):
+    uri = log_rec.args.get('document-uri')
+    if uri is None:
+        # There is nothing to do, the document is not identified.
+        if any([x.startswith('document-') for x in log_rec.args.keys()]):
+            # there are other document-xxxxxxx args. 
+            xodel_warning(f"Found document-xxxxxxx outputs for rule {rule_name} but there is no document-uri.")
+        return
+  
+    uri = log_rec.args['document-uri']
+    # document type
+    if uri.lower().endswith('.xsd'):
+        doc_type = taxonomy.DOCUMENT_TYPES.SCHEMA
+    elif uri.lower().endswith('.xml'):
+        doc_type = taxonomy.DOCUMENT_TYPES.LINKBASE
+    else:
+        doc_type = taxonomy.DOCUMENT_TYPES.OTHER
+    # namespace
+    doc_ns = log_rec.args.get('document-namespace')
+
+    # get the document
+    doc = taxonomy.get('Document', uri)
+    if doc is None:
+        if doc_type == taxonomy.DOCUMENT_TYPES.SCHEMA and doc_ns is None:
+            raise XodelException(f"Cannot create a schema document without a namespace (document-namespace). Document: {uri}")
+        doc = taxonomy.new('Document', uri, doc_type, doc_ns)
+
+def process_document_import(rule_name, log_rec, taxonomy, options, cntlr, arelle_mode):
+    # This will add imports based on the document-import and document-imported-in
+    if 'document-uri' not in log_rec.args:
+        raise XodelException(f"A document-import or document-imported-in must have a documument-uri. Rule: {rule_name}")
+    doc = taxonomy.get('Document', log_rec.args['document-uri'])
+    if doc is None:
+        raise XodelException(f"Document {log_rec.args['document-uri']} does not exist. Rule {rule_name}")
+    
+    # document-import
+    if 'document-import' in log_rec.args:
+        try:
+            document_import = json.loads(log_rec.args['document-import'])
+        except:
+            document_import = [log_rec.args['document-import'],]
+        for sub_doc_uri in document_import:
+            sub_doc = taxonomy.get('Document', sub_doc_uri)
+            if sub_doc is None:
+                raise XodelException(f"Document {sub_doc_uri} cannot be found. Rule {rule_name}")
+            if sub_doc.document_type == taxonomy.DOCUMENT_TYPES.SCHEMA:
+                doc.add(sub_doc, taxonomy.DOCUMENT_CONTENT_TYPES.IMPORT)
+            else:
+                doc.add(sub_doc, taxonomy.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+    
+    # document-imported-in
+    if 'document-imported-in' in log_rec.args:
+        try:
+            document_imported_into = json.loads(log_rec.args['document-imported-in'])
+        except:
+            document_imported_into = [log_rec.args['document-imported-in'],]
+        for parent_doc_uri in document_imported_into:
+            parent_doc = taxonomy.get('Document', parent_doc_uri)
+            if parent_doc is None:
+                raise XodelException(f"Document {parent_doc_uri} cannot be found. Rule {rule_name}")
+            if doc.document_type == taxonomy.DOCUMENT_TYPES.SCHEMA:
+                parent_doc.add(doc, taxonomy.DOCUMENT_CONTENT_TYPES.IMPORT)
+            else:
+                parent_doc.add(doc, taxonomy.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+
+def process_document_entry_point(rule_name, log_rec, taxonomy, options, cntlr, arelle_mode):
+    # This will create an entry point in the taxonomy package
+
+    # Make sure there is a document identified for the entry point.
+    if 'document-uri' not in log_rec.args:
+        raise XodelException(f"A n entry-point must have a documument-uri. Rule: {rule_name}")
+    doc = taxonomy.get('Document', log_rec.args['document-uri'])
+    if doc is None:
+        raise XodelException(f"Document {log_rec.args['document-uri']} does not exist. Rule {rule_name}")
+
 
 
 def type_sort(log_infos, cntlr):
@@ -1914,6 +2009,8 @@ def process_type(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         type_info = taxonomy.get_class('Type').extract_properties_from_xml(etree.tostring(arelle_type), get_target_namespace(arelle_type))
         (type_name, parent_name, min_exclusive, min_inclusive, max_exclusive, max_inclusive, total_digits, fraction_digits, length, min_length, max_length, enumerations, white_space, pattern) = type_info
 
+    # TODO - This can get a little weird if you are copying a base xbrli type and giving it a new name. The base xbrli types don't have all the components to produce a proper type. 
+
     type_name_clark = log_rec.args.get('type-name') or type_name
     type_name = resolve_clark_to_qname(type_name_clark, taxonomy)
 
@@ -1967,10 +2064,10 @@ def process_type(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     if 'type-patern' in log_rec.args:
         pattern = log_rec.args['type-patern']
 
-        taxonomy.new('Type', type_name, parent_type, min_exclusive=min_exclusive, min_inclusive=min_inclusive,
-                    max_inclusive=max_inclusive, max_exclusive=max_exclusive, total_digits=total_digits,
-                    fraction_digits=fraction_digits, length=length, min_length=min_length, max_length=max_length,
-                    enumerations=enumerations, white_space=white_space, pattern=pattern)
+    return taxonomy.new('Type', type_name, parent_type, min_exclusive=min_exclusive, min_inclusive=min_inclusive,
+                max_inclusive=max_inclusive, max_exclusive=max_exclusive, total_digits=total_digits,
+                fraction_digits=fraction_digits, length=length, min_length=min_length, max_length=max_length,
+                enumerations=enumerations, white_space=white_space, pattern=pattern)
 
 def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     
@@ -2004,7 +2101,14 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     if 'concept-period-type' in log_rec.args:
         concept_info['period-type'] = log_rec.args['concept-period-type']
     if 'concept-balance-type' in log_rec.args:
-        concept_info['balance'] = log_rec.args['concept-balance-type']
+        if log_rec.args['concept-balance-type'].lower() == 'none':
+            try:
+                del concept_info['balance']
+            except KeyError:
+                # don't worry if there isn't a balance-type
+                pass
+        else:
+            concept_info['balance'] = log_rec.args['concept-balance-type'].lower()
     if 'concept-substitution-group' in log_rec.args:
         concept_info['substitution-group'] = resolve_clark_to_qname(log_rec.args['concept-substitution-group'], taxonomy)
     if 'concept-attributes' in log_rec.args:
@@ -2024,7 +2128,7 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # convert attributes to qnames
     attributes = {resolve_clark_to_qname(k, taxonomy): v for k, v in concept_info['attributes'].items()}
 
-    taxonomy.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('abstract'),
+    return taxonomy.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('abstract'),
                             concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
                             concept_info.get('substitution-group-name'), concept_info.get('id'), attributes)
 
@@ -2062,9 +2166,10 @@ def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # a role uri is required
     if 'uri' not in role_info or len(role_info['uri']) == 0 or role_info['uri'] is None:
         raise XodelException(f"Duplicate role. Role {role_info['uri']} is already in the taxonomy")
-    if taxonomy.get('Role', role_info['uri']) is None:
+    
+    return taxonomy.get('Role', role_info['uri']) or \
         taxonomy.new('Role', role_info['uri'], role_info.get('definition'), role_info.get('used-on'))
-
+    
 def process_arcrole(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     '''
     arcrole
@@ -2104,7 +2209,8 @@ def process_arcrole(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # cycles allowed is requires
     if 'cycles-allowed' not in arcrole_info:
         raise XodelException(f"arcrole-cycles-allowed is required for an arcrole. Arcrole {arcrole_info['uri']}.")
-    if taxonomy.get('Arcrole', arcrole_info['uri']) is None:
+    
+    return taxonomy.get('Arcrole', arcrole_info['uri']) or \
         taxonomy.new('Arcrole', arcrole_info['uri'], arcrole_info.get('cycles-allowed'), arcrole_info.get('definition'), arcrole_info.get('used-on'))
 
 def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
@@ -2169,7 +2275,7 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if 'source-name' in rel_info:
         source_concept = taxonomy.get('Concept', rel_info.get('source-name'))
     else: # This means there is a source-input-object
-        source_concept = new_concept_from_arelle(taxonomy, rel_info['source-input-object'], _CNTLR)
+        source_concept = new_concept_from_arelle(taxonomy, rel_info['source-input-object'])
 
     if source_concept is None:
         source_name = rel_info.get('source-name') or rel_info['source-input-object'].qname.clarkNotiation
@@ -2180,7 +2286,7 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if 'target-name' in rel_info:
         target_concept = taxonomy.get('Concept', rel_info.get('target-name'))
     else: # This means there is a target-input-object
-        target_concept = new_concept_from_arelle(taxonomy, rel_info['target-input-object'], _CNTLR)
+        target_concept = new_concept_from_arelle(taxonomy, rel_info['target-input-object'])
     
     if target_concept is None:
         target_name = rel_info.get('target-name') or rel_info['target-input-object'].qname.clarkNotiation
@@ -2229,7 +2335,7 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     network = taxonomy.get('Network', link_name, arc_name, arcrole, role) or \
               taxonomy.new('Network', link_name, arc_name, arcrole, role)
     # Add the relationship
-    taxonomy.new('Relationship', network, source_concept, target_concept, rel_info.get('order', 1),
+    return taxonomy.new('Relationship', network, source_concept, target_concept, rel_info.get('order', 1),
                                  rel_info.get('weight'), rel_info.get('preferred-label'), rel_info.get('attributes', dict()))
 
 def process_label(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
@@ -2274,7 +2380,7 @@ def process_label(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     if label_concept is None:
         raise XodelException(f"Concept {label_info['concept-name']} does not exist. Cannot create label. Rule: {log_rec.messageCode}")
     
-    label_concept.add_label(label_role, label_info['lang'], label_info['text'])
+    return label_concept.add_label(label_role, label_info['lang'], label_info['text'])
 
 def get_model_object(object_string, cntlr):
     arelle_model_id, object_id = json.loads(object_string)
@@ -2344,6 +2450,35 @@ def uri_sort(log_infos, cntlr, uri_key, arelle_uri_property_name, object_key):
     
     return result
 
+def document_sort(log_infos, cntlr):
+    docs = collections.defaultdict(list)
+    for rule_name, log_rec in log_infos:
+        if 'document-uri' not in log_rec.args:
+            raise XodelException(f"A rule with document information must include a document-uri. Rule {rule_name}")
+
+        docs[log_rec.args['document-uri']].append((rule_name, log_rec))
+    
+    result = list()
+
+    for uri in sorted(docs.keys()):
+        namespace = None
+        namespace_recs = list()
+        non_namespace_recs = list()
+        # divide the log recs between ones witb namespaces and ones with out. When returning the log recs the namespaced ones will be first so when a document is first created it will include the namespace.
+        for log_info in docs[uri]:
+            if 'document-namespace' in log_info[1].args:
+                if namespace is not None and namespace != log_info[1].args['document-namespace']:
+                    raise XodelException(f"Document {uri} has conficting namespaces: {namespace} and {log_info[1].args['document-namespacde']}")
+
+                namespace = log_info[1].args['document-namespace']
+                namespace_recs.append(log_info)
+            else:
+                non_namespace_recs.append(log_info)
+        result.extend(namespace_recs)
+        result.extend(non_namespace_recs)
+
+    return result
+
 def process_import(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     if 'import-url' in log_rec.args:
         doc = taxonomy.get('Document', log_rec.args['import-url'])
@@ -2369,9 +2504,25 @@ def process_import(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
             
             doc = taxonomy.new('Document', log_rec.args['import-url'], document_type, namespace)
 
+def process_import2(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    if 'import2-url' in log_rec.args:
+        add_taxonomy_from_arelle(log_rec.args['import2-url'], taxonomy, cntlr, arelle_model)
+
+def set_document(rule_name, log_rec, sxm_object):
+    uri = log_rec.args.get('document-uri')
+    if uri is None:
+        return
+    
+    doc = sxm_object.dts.get('Document', uri)
+    sxm_object.document = doc
+
 # XODAL Processing Order
 _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'taxonomy': (process_taxonomy, no_sort),
+    'document': (process_document, document_sort),
+    'document-import': (process_document_import, no_sort),
+    'entry-point': (process_document_entry_point, no_sort),
+    'import2': (process_import2, no_sort),
     'type': (process_type, type_sort),
     'concept': (process_concept, no_sort),
     'role': (process_role, role_uri_sort),
@@ -2379,6 +2530,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'label': (process_label, no_sort),
     'relationship': (process_relationship, no_sort),
     'import': (process_import, no_sort), 
+
 })
 
 
@@ -2412,15 +2564,17 @@ def build_taxonomy_model(log, options, cntlr, arelle_model):
         if len(log_recs) == 0:
             continue # there is nothing to do
         for rule_name, log_rec in sorter(log_recs, cntlr):
-            if 'taxonomy-name' not in log_rec.args.keys():
-                raise XodelException(f"Rule {rule_name} does not have a 'taxonomy-name' output attribute.")
+            if 'package-name' not in log_rec.args.keys():
+                raise XodelException(f"Rule {rule_name} does not have a 'package-name' output attribute.")
             if component == 'taxonomy':
-                taxonomy = XodelModelManager.create_model(log_rec.args['taxonomy-name'])
-                taxonomy.package_base_file_name = make_filename(log_rec.args['taxonomy-name'])
+                taxonomy = XodelModelManager.create_model(log_rec.args['package-name'])
+                taxonomy.package_base_file_name = make_filename(log_rec.args['package-name'])
             else:
-                taxonomy = XodelModelManager.get_model(log_rec.args['taxonomy-name'])
+                taxonomy = XodelModelManager.get_model(log_rec.args['package-name'])
             
-            builder(rule_name, log_rec, taxonomy, options, cntlr, arelle_model)
+            new_component = builder(rule_name, log_rec, taxonomy, options, cntlr, arelle_model)
+            if new_component is not None:  # This will be none for taxonomy, document, entry-point
+                set_document(rule_name, log_rec, new_component)
 
 def make_filename(filename):
     filename = ' '.join(filename.split()) # this normalizes the whitespace

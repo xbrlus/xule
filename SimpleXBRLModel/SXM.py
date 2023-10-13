@@ -7,6 +7,7 @@ import urllib.request
 import urllib.error
 import arelle.XbrlConst as xc
 from lxml import etree
+from typing import List, Union, Dict
 
 
 
@@ -116,6 +117,94 @@ The latter categories do not reference documentation but are indicated in the li
                 'http://www.xbrl.org/2003/role/exampleRef':'Reference to documentation that illustrates by example the application of the Concept that assists in determining appropriate usage.',
                 'http://www.xbrl.org/2003/role/footnote':'Standard footnote role'
 }
+_STANDARD_XBRL_TYPES = {
+    ('{http://www.xbrl.org/2003/instance}decimalItemType', '{http://www.w3.org/2001/XMLSchema}decimal'),
+    ('{http://www.xbrl.org/2003/instance}floatItemType', '{http://www.w3.org/2001/XMLSchema}float'),
+    ('{http://www.xbrl.org/2003/instance}doubleItemType', '{http://www.w3.org/2001/XMLSchema}double'),
+    ('{http://www.xbrl.org/2003/instance}integerItemType', '{http://www.w3.org/2001/XMLSchema}integer'),
+    ('{http://www.xbrl.org/2003/instance}nonPositiveIntegerItemType', '{http://www.w3.org/2001/XMLSchema}nonPositiveInteger'),
+    ('{http://www.xbrl.org/2003/instance}negativeIntegerItemType', '{http://www.w3.org/2001/XMLSchema}negativeInteger'),
+    ('{http://www.xbrl.org/2003/instance}longItemType', '{http://www.w3.org/2001/XMLSchema}long'),
+    ('{http://www.xbrl.org/2003/instance}intItemType', '{http://www.w3.org/2001/XMLSchema}int'),
+    ('{http://www.xbrl.org/2003/instance}shortItemType', '{http://www.w3.org/2001/XMLSchema}short'),
+    ('{http://www.xbrl.org/2003/instance}byteItemType', '{http://www.w3.org/2001/XMLSchema}byte'),
+    ('{http://www.xbrl.org/2003/instance}nonNegativeIntegerItemType', '{http://www.w3.org/2001/XMLSchema}nonNegativeInteger'),
+    ('{http://www.xbrl.org/2003/instance}unsignedLongItemType', '{http://www.w3.org/2001/XMLSchema}unsignedLong'),
+    ('{http://www.xbrl.org/2003/instance}unsignedIntItemType', '{http://www.w3.org/2001/XMLSchema}unsignedInt'),
+    ('{http://www.xbrl.org/2003/instance}unsignedShortItemType', '{http://www.w3.org/2001/XMLSchema}unsignedShort'),
+    ('{http://www.xbrl.org/2003/instance}unsignedByteItemType', '{http://www.w3.org/2001/XMLSchema}unsignedByte'),
+    ('{http://www.xbrl.org/2003/instance}positiveIntegerItemType', '{http://www.w3.org/2001/XMLSchema}positiveInteger'),
+    ('{http://www.xbrl.org/2003/instance}monetaryItemType', '{http://www.w3.org/2001/XMLSchema}xbrli:monetary'),
+    ('{http://www.xbrl.org/2003/instance}sharesItemType', '{http://www.w3.org/2001/XMLSchema}xbrli:shares'),
+    ('{http://www.xbrl.org/2003/instance}pureItemType', '{http://www.w3.org/2001/XMLSchema}xbrli:pure'),
+    ('{http://www.xbrl.org/2003/instance}fractionItemType', '{http://www.w3.org/2001/XMLSchema}complex type with the numerator being a decimal and the denominator being a non-zero, decimal (xbrli:nonZeroDecimal)'),
+    ('{http://www.xbrl.org/2003/instance}stringItemType', '{http://www.w3.org/2001/XMLSchema}string'),
+    ('{http://www.xbrl.org/2003/instance}booleanItemType', '{http://www.w3.org/2001/XMLSchema}Boolean'),
+    ('{http://www.xbrl.org/2003/instance}hexBinaryItemType', '{http://www.w3.org/2001/XMLSchema}hexBinary'),
+    ('{http://www.xbrl.org/2003/instance}base64BinaryItemType', '{http://www.w3.org/2001/XMLSchema}base64Binary'),
+    ('{http://www.xbrl.org/2003/instance}anyURIItemType', '{http://www.w3.org/2001/XMLSchema}anyURI'),
+    ('{http://www.xbrl.org/2003/instance}QNameItemType', '{http://www.w3.org/2001/XMLSchema}QName'),
+    ('{http://www.xbrl.org/2003/instance}durationItemType', '{http://www.w3.org/2001/XMLSchema}duration'),
+    ('{http://www.xbrl.org/2003/instance}dateTimeItemType', '{http://www.w3.org/2001/XMLSchema}xbrli:dateUnion (union of date and dateTime)'),
+    ('{http://www.xbrl.org/2003/instance}timeItemType', '{http://www.w3.org/2001/XMLSchema}time'),
+    ('{http://www.xbrl.org/2003/instance}dateItemType', '{http://www.w3.org/2001/XMLSchema}date'),
+    ('{http://www.xbrl.org/2003/instance}gYearMonthItemType', '{http://www.w3.org/2001/XMLSchema}gYearMonth'),
+    ('{http://www.xbrl.org/2003/instance}gYearItemType', '{http://www.w3.org/2001/XMLSchema}gYear'),
+    ('{http://www.xbrl.org/2003/instance}gMonthDayItemType', '{http://www.w3.org/2001/XMLSchema}gMonthDay'),
+    ('{http://www.xbrl.org/2003/instance}gDayItemType', '{http://www.w3.org/2001/XMLSchema}gDay'),
+    ('{http://www.xbrl.org/2003/instance}gMonthItemType', '{http://www.w3.org/2001/XMLSchema}gMonth'),
+    ('{http://www.xbrl.org/2003/instance}The following non-numeric types are all based on the XML Schema built-in types that are derived by restriction (and/or list) from string.', '{http://www.w3.org/2001/XMLSchema}'),
+    ('{http://www.xbrl.org/2003/instance}normalizedStringItemType', '{http://www.w3.org/2001/XMLSchema}normalizedString'),
+    ('{http://www.xbrl.org/2003/instance}tokenItemType', '{http://www.w3.org/2001/XMLSchema}token'),
+    ('{http://www.xbrl.org/2003/instance}languageItemType', '{http://www.w3.org/2001/XMLSchema}language'),
+    ('{http://www.xbrl.org/2003/instance}NameItemType', '{http://www.w3.org/2001/XMLSchema}Name'),
+    ('{http://www.xbrl.org/2003/instance}NCNameItemType', '{http://www.w3.org/2001/XMLSchema}'),
+}
+_STANDARD_XML_TYPES = {
+    '{http://www.w3.org/2001/XMLSchema}string',
+    '{http://www.w3.org/2001/XMLSchema}boolean',
+    '{http://www.w3.org/2001/XMLSchema}decimal',
+    '{http://www.w3.org/2001/XMLSchema}float',
+    '{http://www.w3.org/2001/XMLSchema}double',
+    '{http://www.w3.org/2001/XMLSchema}duration',
+    '{http://www.w3.org/2001/XMLSchema}dateTime',
+    '{http://www.w3.org/2001/XMLSchema}time',
+    '{http://www.w3.org/2001/XMLSchema}date',
+    '{http://www.w3.org/2001/XMLSchema}gYearMonth',
+    '{http://www.w3.org/2001/XMLSchema}gYear',
+    '{http://www.w3.org/2001/XMLSchema}gMonthDay',
+    '{http://www.w3.org/2001/XMLSchema}gDay',
+    '{http://www.w3.org/2001/XMLSchema}gMonth',
+    '{http://www.w3.org/2001/XMLSchema}hexBinary',
+    '{http://www.w3.org/2001/XMLSchema}base64Binary',
+    '{http://www.w3.org/2001/XMLSchema}anyURI',
+    '{http://www.w3.org/2001/XMLSchema}QName',
+    '{http://www.w3.org/2001/XMLSchema}NOTATION',
+    '{http://www.w3.org/2001/XMLSchema}normalizedString',
+    '{http://www.w3.org/2001/XMLSchema}token',
+    '{http://www.w3.org/2001/XMLSchema}language',
+    '{http://www.w3.org/2001/XMLSchema}NMTOKEN',
+    '{http://www.w3.org/2001/XMLSchema}NMTOKENS',
+    '{http://www.w3.org/2001/XMLSchema}Name',
+    '{http://www.w3.org/2001/XMLSchema}NCName',
+    '{http://www.w3.org/2001/XMLSchema}ID',
+    '{http://www.w3.org/2001/XMLSchema}IDREF',
+    '{http://www.w3.org/2001/XMLSchema}IDREFS',
+    '{http://www.w3.org/2001/XMLSchema}ENTITY',
+    '{http://www.w3.org/2001/XMLSchema}ENTITIES',
+    '{http://www.w3.org/2001/XMLSchema}integer',
+    '{http://www.w3.org/2001/XMLSchema}nonPositiveInteger',
+    '{http://www.w3.org/2001/XMLSchema}negativeInteger',
+    '{http://www.w3.org/2001/XMLSchema}long',
+    '{http://www.w3.org/2001/XMLSchema}int',
+    '{http://www.w3.org/2001/XMLSchema}short',
+    '{http://www.w3.org/2001/XMLSchema}byte',
+    '{http://www.w3.org/2001/XMLSchema}nonNegativeInteger',
+    '{http://www.w3.org/2001/XMLSchema}unsignedLong',
+    '{http://www.w3.org/2001/XMLSchema}unsignedShort',
+    '{http://www.w3.org/2001/XMLSchema}unsignedByte',
+    '{http://www.w3.org/2001/XMLSchema}positiveInteger',
+}
 
 _DOCUMENT_TYPES = collections.namedtuple('DocumentTypes',
                                         ('SCHEMA', 'LINKBASE', 'OTHER'))('taxonomy-schema',
@@ -148,6 +237,12 @@ _ALLOWED_DOCUMENT_CONTENT = {
     'Member': {_DOCUMENT_TYPES.LINKBASE}, 
     'Relationship': {_DOCUMENT_TYPES.LINKBASE}, 
 }
+
+_NAMESPACE_COMPONENTS = {'Concept',
+                         'Element',
+                         'TypedDomain',
+                         'Type',
+                         'PartElement'}
 
 _TYPED_DOMAIN_REF_ATTRIBUTE = '{http://xbrl.org/2005/xbrldt}typedDomainRef'
 _PERIOD_ATTRIBUTE = '{http://www.xbrl.org/2003/instance}periodType'
@@ -208,6 +303,7 @@ class _SXMBase:
     ALLOWED_DOCUMENT_CONTENT = _ALLOWED_DOCUMENT_CONTENT
     STANDARD_ROLES = _STANDARD_ROLES
     STANDARD_ARCROLES = _STANDARD_ARCROLES
+    NAMESPACE_COMPONENTS = _NAMESPACE_COMPONENTS
 
     def __init__(self):
         pass
@@ -221,6 +317,10 @@ class _SXMBase:
     @classmethod
     def get_class_name(cls):
         return cls.__name__[3:]
+
+    @property
+    def sxm_type(self):
+        return type(self).__name__[3:]
 
 class SXMAttributedBase(_SXMBase):
     '''Án object that has attributes with dictionary values'''
@@ -406,7 +506,7 @@ class _SXMDTSBase(_SXMBase):
         return self.dts.copy(self, **kwargs)
 
 class SXMDocument(_SXMDTSBase):
-    def __init__(self, dts, document_uri, document_type, target_namespace=None, description=None):
+    def __init__(self, dts, document_uri, document_type, target_namespace=None, description=None, xml_document_content=None):
         _validate_init_arguments()
         super().__init__(dts)
 
@@ -425,7 +525,8 @@ class SXMDocument(_SXMDTSBase):
         # The text contents of the document. This is used for absolute documents. These documents are really
         # imported into the DTS. They are not created by this model. The content is used to determine the 
         # id of the items in the document, since these ids are already set.
-        self._xml = None
+        self._xml = xml_document_content
+        self._is_open = True
     
     def __repr__(self):
         return 'Document: {}'.format(str(self))
@@ -472,6 +573,17 @@ class SXMDocument(_SXMDTSBase):
     def linkbase_refs(self):
         return frozenset(self._linkbase_refs)
 
+    @property
+    def open(self) -> bool:
+        return self._is_open
+    
+    @property
+    def closed(self) -> bool:
+        return not self._is_open
+    
+    def close(self):
+        self._is_open = False
+
     def get_id(self, sxm_object):
         if sxm_object not in self._contents:
             return None
@@ -500,7 +612,7 @@ class SXMDocument(_SXMDTSBase):
 
     def add(self, sxm_object, content_type='content'):
 
-        # TODO - This method currently allows adding content that id defined in the document, such as concepts, types, roleTypes, arcroleTypes and imports/linkbase refs. Really. This should be separated into 2 different methods. This would eliminate the need for the content_type argument and also be a bit clearer as these are really 2 different things
+        # TODO - This method currently allows adding content that is defined in the document, such as concepts, types, roleTypes, arcroleTypes and imports/linkbase refs. Really. This should be separated into 2 different methods. This would eliminate the need for the content_type argument and also be a bit clearer as these are really 2 different things
 
         if content_type not in _DOCUMENT_CONTENT_TYPES:
             raise SXMException("Invalid content type for adding to a document: {}".format(content_type))
@@ -718,20 +830,21 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
     def __init__(self):
         _validate_init_arguments()
         super().__init__()
-        self.concepts = dict()
-        self.elements = dict()
+        self.concepts: Dict[SXMQName, SXMConcept] = dict()
+        self.elements: Dict[SXMQName, SXMElement] = dict()
         self.networks = dict()
-        self.arcroles = dict()
-        self.roles = dict()
-        self.types = dict()
+        self.arcroles: Dict[str, SXMArcrole] = dict()
+        self.roles: Dict[str, SXMRole] = dict()
+        self.types: Dict[SXMQName, SXMType] = dict()
         self.cubes = dict()
         self.typed_domains = dict()
-        self.part_elements = dict()
-        self.documents = dict()
+        self.part_elements: Dict[SXMQName, SXMElement] = dict()
+        self.documents:  Dict[str, SXMDocument]= dict()
         self.namespaces = dict()
 
         self._preload_standard_roles()
         self._preload_standard_arcroles()
+        self._preload_standard_types()
     
     def __contains__(self, value):
         if isinstance(value, tuple) or isinstance(value, list):
@@ -766,10 +879,25 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         for arcrole_uri, cycles_allowed in _STANDARD_ARCROLES.items():
             self.new('Arcrole', arcrole_uri, cycles_allowed)
 
+    def _preload_standard_types(self):
+        xml_type_document = self.new('Document', 'http://www.w3.org/2001/XMLSchema',_DOCUMENT_TYPES.SCHEMA, 'http://www.w3.org/2001/XMLSchema')
+        xbrl_schema_document = self.new('Document','http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd', _DOCUMENT_TYPES.SCHEMA, 'http://www.xbrl.org/2003/instance')
+        for type_name in _STANDARD_XML_TYPES:
+            new_type = self.new('Type', _resolve_clark_to_qname(type_name, self))
+            new_type.document = xml_type_document
+        for type_name, parent_name in _STANDARD_XBRL_TYPES:
+            new_type = self.new('Type', _resolve_clark_to_qname(type_name, self), parent_type=self.get('Type', _resolve_clark_to_qname(parent_name, self)))
+            new_type.document = xbrl_schema_document
+
     def remove(self, del_object):
         remove = super().remove(del_object)
         if remove:
             del_object.dts = None
+
+    def close_external_documents(self):
+        for doc in self.documents.values():
+            if doc.is_absolute:
+                doc.close()
 
     def set_default_documents(self, base_name='', base_ns='http://xbrl/'):
         '''This will assign a default document to every writable component that does not have a document
@@ -791,6 +919,8 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
             self.rewrites['../'] = 'http://xbrl/package/'
         entry_point_document = self.new('Document', base_name + '-entry-point-taxonomy.xsd', self.DOCUMENT_TYPES.SCHEMA, base_ns + 'entryPoint/taxonomy')
         
+        other_documents = set()
+
         entry_point = self.new('PackageEntryPoint', 'Taxonomy Package')
         entry_point.names.append(('Taxonomy Entry Point', 'en'))
         entry_point.documents.append(entry_point_document) 
@@ -803,6 +933,7 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         tax_docs_by_namespace = {x.name.namespace: f"{base_name}-taxonomy.xsd" 
                                  for x in tax_items 
                                  if not (type(x) in (SXMRole, SXMArcrole) or
+                                    x.document is not None or
                                     (x.document is not None and x.document.is_absolute))}
         
         # Convert the document name to an acutal document
@@ -877,11 +1008,12 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         for concept in self.concepts.values():
             for labels in concept.labels.values():
                 for label in labels:
-                    label_document = self.get('Document', label_document_name)
-                    if label_document is None:
-                        label_document = self.new('Document', label_document_name, self.DOCUMENT_TYPES.LINKBASE)
-                        entry_point_document.add(label_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-                    label.document = label_document
+                    if label.document is None:
+                        label_document = self.get('Document', label_document_name)
+                        if label_document is None:
+                            label_document = self.new('Document', label_document_name, self.DOCUMENT_TYPES.LINKBASE)
+                            entry_point_document.add(label_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                        label.document = label_document
 
         # There may be documents that were not referenced anywhere, so they will not end up in the DTS, So add them to the entry point.
         referenced_docs = set()
@@ -889,11 +1021,22 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
             referenced_docs |=  doc.imports | doc.linkbase_refs
         for doc in self.documents.values():
             if doc not in referenced_docs and doc is not entry_point_document:
-                entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+                if doc.document_type == self.DOCUMENT_TYPES.SCHEMA:
+                    entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.IMPORT)
+                elif doc.document_type == self.DOCUMENT_TYPES.LINKBASE:
+                    entry_point_document.add(doc, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                else:
+                    raise SXMException(f"Unknown document type for {doc.uri}")
                 
 class SXMArcrole(_SXMDefined):
 
-    def __init__(self, dts, arcrole_uri, cycles_allowed, description=None, used_ons=None):
+    def __init__(self, 
+                 dts: SXMDTS, 
+                 arcrole_uri: str, 
+                 cycles_allowed: str, 
+                 description: str=None, 
+                 used_ons: List[Union[str, SXMQName]]=None,
+                 id: str=None):
         # check if this is a standard arcrole
         if arcrole_uri in _STANDARD_ARCROLES:
             cycles_allowed = _STANDARD_ARCROLES[arcrole_uri]
@@ -905,6 +1048,7 @@ class SXMArcrole(_SXMDefined):
         self.description = description
         self.used_ons = used_ons
         self.cycles_allowed = cycles_allowed
+        self._original_seed_id = id
     
     def _copy(self, arcrole_uri=None, cycles_allowed=None, description=None, used_ons=None):
         return self.__class__(self.dts, 
@@ -919,7 +1063,7 @@ class SXMArcrole(_SXMDefined):
 
     @property
     def _seed_id(self):
-        return self._arcrole_uri.split('/')[-1]
+        return self._original_seed_id or self._arcrole_uri.split('/')[-1]
 
     def __repr__(self):
         return 'Arcrole: {}'.format(str(self))
@@ -959,7 +1103,11 @@ class SXMArcrole(_SXMDefined):
         return node.get('id')
 
 class SXMRole(_SXMDefined):
-    def __init__(self, dts, role_uri, description=None, used_ons=None):
+    def __init__(self, dts: SXMDTS, 
+                 role_uri: str, 
+                 description: str=None, 
+                 used_ons: List[Union[str,SXMQName]]=None,
+                 id: str=None):
         if role_uri in _STANDARD_ROLES:
             used_ons = tuple()
             description = _STANDARD_ROLES[role_uri]
@@ -969,6 +1117,7 @@ class SXMRole(_SXMDefined):
         self._role_uri = role_uri
         self._description = description if not self.is_standard else None
         self.used_ons = used_ons or set()
+        self._original_seed_id = id
 
     def _copy(self, role_uri=None, description=None, used_ons=None):
         return self.__class__(self.dts, 
@@ -982,7 +1131,7 @@ class SXMRole(_SXMDefined):
 
     @property
     def _seed_id(self):
-        return self._role_uri.split('/')[-1]
+        return self._original_seed_id or self._role_uri.split('/')[-1]
 
     @property
     def description(self):
@@ -1137,12 +1286,23 @@ class SXMElement(_SXMDefined):
                     return [self.substitution_group,] + element.ancestor_substitution_groups
             raise SXMException("Cannot find substituion group element '{}'".format(self.substitution_group.name.clark))
 
+    @property
+    def typed_dimension_concepts(self):
+        results = set()
+        for concept in self.dts.concepts.values():
+            if concept.typed_domain is self:
+                results.add(concept)
+        return results
+
     def remove(self):
-        if self.type.is_anonymous:
-            self.type.anonymous = None
-            self.dts.remove(self.type)
-        
-        return True
+        if len(self.typed_dimension_concepts) == 0:
+            if self.type.is_anonymous:
+                self.type.anonymous = None
+                self.dts.remove(self.type)
+            
+            return True
+        else:
+            return False
 
     def _get_id_from_xml(self):
         if self.document is None or self.document._xml is None:
@@ -1159,6 +1319,7 @@ class SXMElement(_SXMDefined):
         return node.get('id')
 
 class SXMTypedDomain(SXMElement):
+    # This should be deprecated. TypedDomains are really just SXMElements. 
     def __init__(self, dts, name, data_type, abstract, nillable, id, substitution_group, attributes):
         _validate_init_arguments()
         super().__init__(dts, name, data_type, abstract, nillable, id, substitution_group, attributes)
@@ -1168,15 +1329,11 @@ class SXMTypedDomain(SXMElement):
 
     @property
     def concepts(self):
-        results = set()
-        for concept in self.dts.concepts.values():
-            if concept.typed_domain is self:
-                results.add(concept)
-        return results
+        return self.typed_dimension_concepts()
 
     def remove(self):
         # Its removeable as long there are no concepts using it
-        return len(self.concepts) == 0
+        return super().remove()
 
 class SXMType(_SXMDefined):
 
@@ -1471,7 +1628,7 @@ class SXMConcept(SXMElement, SXMAttributedBase):
         if period_type not in ('instant', 'duration'):
             raise SXMException(f"For cocnept '{name.clark}', invalid period type '{period_type}'")
         if balance_type not in ('debit', 'credit', None):
-            raise SXMException(f"For concept '{name.carlk}', invalid balance type '{balance_type}'")
+            raise SXMException(f"For concept '{name.clark}', invalid balance type '{balance_type}'")
         
         self.period_type = period_type
         self.balance_type = balance_type
@@ -2113,6 +2270,7 @@ _SXM_ARGUMENT_TYPES= {
     'weight': ((SXMRelationship, ), None),
     'white_space': ((SXMType, ), None),
     'xml_content': ((SXMType, ), str),
+    'xml_document_content': ((SXMDocument, ), etree._ElementTree), 
     'xml_content_target_namespace': ((SXMType, ), str),
 }
 

@@ -422,7 +422,7 @@ def verify(document):
     has_errors = False
     if document.document_type == document.DOCUMENT_TYPES.LINKBASE:
         for schema_import in document._imports:
-            warning("Import {} is not allowed in a linkbase".format(schema_import.document_uri))
+            warning("Import {} is not allowed in a linkbase".format(schema_import.uri))
             has_errors = True
     if document.document_type == document.DOCUMENT_TYPES.SCHEMA:
         if document.target_namespace is None:
@@ -436,6 +436,13 @@ def verify(document):
         except KeyError:
             warning("Component of type {} is not allowed in a {} document".format(content.get_class_name(), document.document_type))
             has_errors = True
+
+        if document.document_type == document.DOCUMENT_TYPES.SCHEMA:
+            # verify that the content item has the right namespace
+            if content.sxm_type in document.NAMESPACE_COMPONENTS:
+                if content.name.namespace != document.target_namespace:
+                    warning(f"Component has namespace {content.name.namespace} which does not match the target namespace {document.target_namespace} for document {document.uri}")
+                    has_errors = True
 
     return not has_errors
 

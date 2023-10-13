@@ -4,6 +4,7 @@ import json
 import numpy
 from .XodelVars import save_arelle_model
 from arelle.ModelObject import ModelObject
+from arelle.ModelValue import QName
 
 class JSONEncoder(json.JSONEncoder):
 
@@ -92,3 +93,23 @@ def property_to_xodel(xule_context, object_value, *args, _intermediate=False):
         return xv.XuleValue(xule_context, working_val, 'string')
     else:
         return xv.XuleValue(xule_context, json.dumps(working_val, cls=JSONEncoder), 'string')
+    
+def property_reprefix(xule_context, object_value, *args):
+    '''
+    This property will generate a new qname by applying the prefix that is passed. The prefix will match a prefix in the rule set
+    '''
+    from .xule.XuleRunTime import XuleProcessingError
+    from .xule import XuleValue as xv
+
+    if len(args) == 0:
+        prefix = '*' # this is the default prefix
+    else:
+        if args[0].type != 'string':
+            raise XuleProcessingError(_(f"Property .reprefix request a string argumnet, found {args[0].type}"), xule_context)
+        prefix = args[0].value
+    
+    namespace = xule_context.rule_set.getNamespaceUri(prefix)
+
+    new_qname = QName(prefix if prefix != '*' else None, namespace, object_value.value.localName)
+
+    return xv.XuleValue(xule_context, new_qname, 'qname')

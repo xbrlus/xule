@@ -1,5 +1,6 @@
 
 from arelle import FileSource
+from arelle.ModelDocument import Type
 from arelle.ModelDtsObject import ModelConcept, ModelType
 from arelle.ModelValue import qname, QName
 import arelle.XbrlConst as xc
@@ -8,7 +9,7 @@ from lxml import etree
 from .XodelException import *
 from .XodelVars import *
 import re
-
+import inspect
 
 _DTR_LOCATION = 'https://www.xbrl.org/dtr/dtr.xml'
 
@@ -194,12 +195,18 @@ _BASE_NAMESPACES = re.compile(r'^http://(www\.)?((w3)|(xbrl))\.org/')
 
 def extract_element_info(model_element, dts):
 
+    # Substitution group is optional for non concept elements (ie typed domains)
+    if model_element.substitutionGroupQname is None:
+        substitutuion_group = None
+    else:
+        substitutuion_group = resolve_clark_to_qname(model_element.substitutionGroupQname.clarkNotation, dts)
+
     return {'element-name': resolve_clark_to_qname(model_element.qname.clarkNotation, dts),
             'type-name': resolve_clark_to_qname(model_element.typeQname.clarkNotation, dts),
             'is-abstract': model_element.isAbstract,
             'nillable': model_element.isNillable,
             'id': model_element.id,
-            'substitution-group-name': resolve_clark_to_qname(model_element.substitutionGroupQname.clarkNotation, dts),
+            'substitution-group-name': substitutuion_group,
             'attributes': {k:v for k, v in model_element.attrib.items()
                                if k not in ('name', 'id', 'type', 'substitutionGroup', 'abstract', 'nillable',
                                             '{http://www.xbrl.org/2003/instance}periodType',
@@ -225,18 +232,37 @@ def extract_role_info(model_role, dts):
     role_info = {
         'uri': model_role.roleURI,
         'definition': model_role.definition,
-        'used-on': [resolve_clark_to_qname(x.clarkNotation, dts) for x in model_role.usedOns]
+        'used-on': [resolve_clark_to_qname(x.clarkNotation, dts) for x in model_role.usedOns],
+        'id': model_role.id
     }
 
     return role_info
 
 def extract_arcrole_info(model_arcrole, dts):
+
+    if None in model_arcrole.usedOns:
+        # there is something wrong in arelle and it did not resolved the usedOns correctly. So resolve them manually.
+        used_on_qnames = []
+        for used_on in model_arcrole.xpath('link:usedOn', namespaces={'link': 'http://www.xbrl.org/2003/linkbase'}):
+            if ':' in used_on.text:
+                prefix, local_name = used_on.text.split(':', 1)
+            else:
+                prefix = None
+                local_name = used_on.text
+            if prefix not in model_arcrole.nsmap:
+                raise XodelException(f"Cannot resolve the usedOn for arcrole {model_arcrole.arcroleUri}")
+            used_on_qname = dts.new('QName', model_arcrole.nsmap.get(prefix), local_name, prefix)
+            used_on_qnames.append(used_on_qname)
+    else:
+        used_on_qnames = [resolve_clark_to_qname(x.clarkNotation, dts) for x in model_arcrole.usedOns]
+
+
     arcrole_info = {
         'uri': model_arcrole.arcroleURI,
         'definition': model_arcrole.definition,
-        'used-on': [resolve_clark_to_qname(x.clarkNotation, dts) for x in model_arcrole.usedOns],
-        'cycles-allowed': model_arcrole.cyclesAllowed
-
+        'used-on': used_on_qnames,
+        'cycles-allowed': model_arcrole.cyclesAllowed,
+        'id': model_arcrole.id
     }
 
     return arcrole_info
@@ -288,12 +314,6 @@ def extract_label_info(model_label, dts):
                   'lang': model_label.xmlLang,
                   'role': model_label.role}
 
-
-
-
-
-
-
 def sxm_qname_to_arelle_qname(sxm_qname):
     return qname(sxm_qname.namespace, sxm_qname.local_name)
 
@@ -342,19 +362,31 @@ def new_type_from_arelle(new_model, model_type):
     # model_type may be an arelle ModelType or a qname. If it is a qname it is a base xbrl type
     if model_type is None:
         return None
+    if model_type.qname.namespaceURI in ('http://www.xbrl.org/2003/linkbase',
+                                         'http://www.xbrl.org/2003/XLink',
+                                         'http://www.w3.org/1999/xlink'):
+        return None
     if isinstance(model_type, QName):
         new_type_qname = resolve_clark_to_qname(model_type.clarkNotation, new_model)
     else:
         new_type_qname = resolve_clark_to_qname(model_type.qname.clarkNotation, new_model)
+    
+    # Check if the document for the concept is in the sxm model.
+    if get_document_from_arelle(new_model, model_type.modelDocument.uri) is None:
+        # Load the doucment into the new model.
+        add_taxonomy_from_arelle(model_type.modelDocument.uri, new_model, model_type.modelXbrl.modelManager.cntlr, model_type.modelXbrl)
+    
+    
     if new_model.get('Type', new_type_qname) is not None:
         return new_model.get('Type', new_type_qname)
 
-    if model_type.qname.namespaceURI == 'http://www.xbrl.org/2003/instance':
+    if model_type.qname.namespaceURI in ('http://www.xbrl.org/2003/instance',
+                                         'http://www.w3.org/2001/XMLSchema'):
         # This is base XML type.
         type_parent = None
         type_content = None
     else:
-        if model_type.typeDerivedFrom is not None:
+        if model_type.typeDerivedFrom is not None and model_type.typeDerivedFrom != [None, None]:
             type_parent = new_model.get('Type', model_type.typeDerivedFrom.qname) or new_type_from_arelle(new_model, model_type.typeDerivedFrom)
         else:
             type_parent = None
@@ -368,17 +400,27 @@ def new_type_from_arelle(new_model, model_type):
 
     return new_data_type
 
-def new_concept_from_arelle(new_model, model_concept, cntlr):
+def new_concept_from_arelle(new_model, model_concept):
     '''
     This is used to create a concept that is being imported into the new taxonomy. Hence it does
     not create a new concept in the new taxonomy.
     '''
+
+    # Check if the document for the concept is in the sxm model.
+    if get_document_from_arelle(new_model, model_concept.modelDocument.uri) is None:
+        # Load the doucment into the new model.
+        add_taxonomy_from_arelle(model_concept.modelDocument.uri, new_model, model_concept.modelXbrl.modelManager.cntlr, model_concept.modelXbrl)
+
     concept_info = extract_concept_info(model_concept, new_model)
     new_concept = new_model.get('Concept', concept_info['concept-name'])
     if new_concept is None:
-        concept_info = extract_concept_info(model_concept, new_model)
+        # We should only be here when the add_taxonomy_from_arelle is processing. Otherwise, 
+        # the document should already be loaded with all the concepts loaded.
+        if not is_function_in_call_stack(add_taxonomy_from_arelle):
+            raise XodelException(f"Internal Error: Trying to copy concept {model_concept.qname.clarkNotation} and the document should alreay be in the new model, but it is not")
+
         # The type needs to be a SXMType, currently we have a qname
-        concept_type = find_type(new_model, concept_info['type-name'], cntlr)
+        concept_type = find_type(new_model, concept_info['type-name'], model_concept.modelXbrl.modelManager.cntlr)
         if concept_type is None:
                 raise XodelException(f"For concept '{concept_info['concept-name'].clark}', do not have the type definition for '{concept_info['type-name'].clark}'")
         
@@ -392,6 +434,32 @@ def new_concept_from_arelle(new_model, model_concept, cntlr):
             new_concept.document = get_or_make_document(new_model, model_concept.modelDocument.uri, new_model.DOCUMENT_TYPES.SCHEMA, model_concept.modelDocument.targetNamespace)
 
     return new_concept
+
+def new_element_from_arelle(new_model, model_element):
+    '''
+    This is used to create a concept that is being imported into the new taxonomy. Hence it does
+    not create a new concept in the new taxonomy.
+    '''
+    element_info = extract_element_info(model_element, new_model)
+    new_element = new_model.get('Element', element_info['element-name'])
+    if new_element is None:
+        # The type needs to be a SXMType, currently we have a qname
+        element_type = find_type(new_model, element_info['type-name'], model_element.modelXbrl.modelManager.cntlr)
+        if element_type is None:
+                raise XodelException(f"For element '{element_info['element-name'].clark}', do not have the type definition for '{element_info['type-name'].clark}'")
+        
+        attributes = {resolve_clark_to_qname(k, new_model): v for k, v in element_info['attributes'].items()}
+        new_element = new_model.new('Element', element_info.get('element-name'), element_type, element_info.get('abstract'),
+                                element_info.get('nillable'), 
+                                element_info.get('id'),
+                                element_info.get('substitution-group-name'),
+                                attributes)
+
+        # Assign the document
+        if model_element.modelDocument.uri.startswith('http:') or model_element.modelDocument.uri.startswith('https:'):
+            new_element.document = get_or_make_document(new_model, model_element.modelDocument.uri, new_model.DOCUMENT_TYPES.SCHEMA, model_element.modelDocument.targetNamespace)
+
+    return new_element
 
 def new_role_from_arelle(new_model, model_role, cntlr):
     '''
@@ -417,7 +485,7 @@ def new_arcrole_from_arelle(new_model, model_arcrole, cntlr):
     arcrole_info = extract_arcrole_info(model_arcrole, new_model)
     new_arcrole = new_model.get('Arcrole', arcrole_info['uri'])
     if new_arcrole is None:
-        new_arcrole = new_model.new('Role', arcrole_info['uri'], arcrole_info['cycles-allowed'], arcrole_info['definition'], arcrole_info['used-on'])
+        new_arcrole = new_model.new('Arcrole', arcrole_info['uri'], arcrole_info['cycles-allowed'], arcrole_info['definition'], arcrole_info['used-on'])
 
     # Assign document
     if model_arcrole.modelDocument.uri.startswith('http:') or model_arcrole.modelDocument.uri.startswith('https:'):
@@ -481,12 +549,22 @@ def new_type_from_dtr(new_model, type_qname, cntlr):
         return new_type_from_arelle(new_model, arelle_type)
 
 def new_type_from_xbrli(new_model, type_qname, cntlr):
-    pass
+    # TODO - I'm not sure what to do. I think this should never happen as the xbrli types are preloaded in the sxm model.
+    x = 1
 
-def get_or_make_document(model, uri, doc_type, namespace=None):
-    if model.get('Document', uri) is None:
-        model.new('Document', uri, doc_type, namespace)
-    return model.get('Document', uri)
+def get_document_from_arelle(model, arelle_uri):
+        # check the uri if it is an absolute file path. This is problematic when creating the package. So fix it by removing the starting slash to make it relative
+    if arelle_uri[0] in ('/', '\\'):
+        arelle_uri = arelle_uri[1:]
+    return model.get('Document', arelle_uri)
+
+def get_or_make_document(model, arelle_uri, doc_type, namespace=None, content=None):
+    # check the uri if it is an absolute file path. This is problematic when creating the package. So fix it by removing the starting slash to make it relative
+    if arelle_uri[0] in ('/', '\\'):
+        arelle_uri = arelle_uri[1:]
+    if model.get('Document', arelle_uri) is None:
+        model.new('Document', arelle_uri, doc_type, namespace, None, content)
+    return model.get('Document', arelle_uri)
 
 def type_from_dtr(namespace, name, cntlr):
     try:
@@ -524,3 +602,116 @@ def resolve_qname_to_clark(name, node, is_attribute=False):
         if namespace is None:
             raise XodelException(f"QName cannot be resolved for name '{name}'")
         return f'{{{namespace}}}{local_name}'
+    
+def open_arelle_model(cntlr, uri):
+        document_file_source = FileSource.openFileSource(uri, cntlr)            
+        arelle_model = cntlr.modelManager.load(document_file_source)
+        if len(arelle_model.errors) > 0:
+            raise XodelException(f'Errors opening XBRL file {uri}')
+        XodelVars.set(cntlr, f'XBRL-FILE-{uri}', arelle_model)
+        return arelle_model
+
+def add_taxonomy_from_arelle(url, sxm_dts, cntlr, current_arelle_model):
+        # Get or create the arelle_model for the url
+        arelle_model = None
+        if url == current_arelle_model.modelDocument.uri:
+            arelle_model = current_arelle_model
+        else:
+            # check if the document is already open
+            for arelle_model in get_arelle_models(cntlr):
+                if url == arelle_model.modelDocument.uri:
+                    break
+            else: # document not found
+                # Open the document in a new arelle model
+                arelle_model = open_arelle_model(cntlr, url)
+    
+        if arelle_model is None:
+            raise XodelException(f"Cannot create model for {url}")
+        # Convert Arelle Model to SXM
+
+        '''
+        Documents
+        Types
+        Elements
+        Part Elements
+        Roles
+        Arcroles
+        Typed Domains
+        Concepts
+        Labels
+        References
+        Networks/Relationships
+        Cubes
+        '''
+
+        add_documents_from_arelle(sxm_dts, arelle_model)
+        add_types_from_arelle(sxm_dts, arelle_model)
+        add_concepts_and_elements(sxm_dts, arelle_model)
+        add_roles(sxm_dts, arelle_model)
+        add_arcroles(sxm_dts, arelle_model)
+
+        x = 1
+        sxm_dts.close_external_documents()        
+
+def add_documents_from_arelle(sxm_dts, arelle_model):
+    doc_type_map = {Type.SCHEMA: sxm_dts.DOCUMENT_TYPES.SCHEMA,
+                    Type.LINKBASE: sxm_dts.DOCUMENT_TYPES.LINKBASE}
+    for model_doc in arelle_model.urlDocs.values():
+        if model_doc.uri in ('http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd', 
+                             'http://www.xbrl.org/2003/xl-2003-12-31.xsd',
+                             'http://www.xbrl.org/2003/xlink-2003-12-31.xsd'):
+            continue
+        if model_doc.uri not in sxm_dts.documents:
+            get_or_make_document(sxm_dts,
+                                 model_doc.uri, 
+                                 doc_type_map.get(model_doc.type, sxm_dts.DOCUMENT_TYPES.OTHER),
+                                 model_doc.targetNamespace,
+                                 model_doc.xmlDocument)
+
+def add_types_from_arelle(sxm_dts, arelle_model):
+    for arelle_type in arelle_model.qnameTypes.values():
+        new_type = new_type_from_arelle(sxm_dts, arelle_type)
+        if new_type is not None and new_type.document is None:
+            new_type.document = get_document_from_arelle(sxm_dts, arelle_type.modelDocument.uri)
+
+def add_concepts_and_elements(sxm_dts, arelle_model):
+    for item in arelle_model.qnameConcepts.values():
+        # In Arelle, item may be an item or any kind of xml element.
+        if item.qname.namespaceURI in ('http://www.xbrl.org/2003/instance', 
+                             'http://www.xbrl.org/2003/linkbase',
+                             'http://www.xbrl.org/2003/XLink'):
+            continue
+        if item.isItem:
+            new_item = new_concept_from_arelle(sxm_dts, item)
+        else:
+            new_item = new_element_from_arelle(sxm_dts, item)
+
+        if new_item.document is None:
+            new_item.document = get_document_from_arelle(sxm_dts, item.modelDocument.uri)
+
+def add_roles(sxm_dts, arelle_model):
+
+    for model_role in arelle_model.roleTypes.values():
+        model_role = model_role[0] # Arelle will list multiple roles for the same role uri if it is defined in mulitple documents, but we only care about the first one.
+        new_role = new_role_from_arelle(sxm_dts, model_role, arelle_model.modelManager.cntlr)
+
+        if new_role.document is None:
+            new_role.document = get_document_from_arelle(sxm_dts, model_role.modelDocument.uri)
+
+def add_arcroles(sxm_dts, arelle_model):
+
+    for model_arcrole in arelle_model.arcroleTypes.values():
+        model_arcrole = model_arcrole[0] # Arelle will list multiple arcroles for the same role uri if it is defined in mulitple documents, but we only care about the first one.
+        new_arcrole = new_arcrole_from_arelle(sxm_dts, model_arcrole, arelle_model.modelManager.cntlr)
+
+        if new_arcrole.document is None:
+            new_arcrole.document = get_document_from_arelle(sxm_dts, model_arcrole.modelDocument.uri)
+
+
+
+
+
+def is_function_in_call_stack(target_function):
+
+    stack_function_names = [x.function for x in inspect.stack()]
+    return target_function.__name__ in stack_function_names
