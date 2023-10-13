@@ -1793,6 +1793,8 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'type-pattern': ('type', string_validator),
     'concept': ('concept', object_validator),
     'concept-name': ('concept', qname_validator),
+    'concept-local-name': ('concept', string_validator),
+    'concept-namespace': ('concept', string_validator),
     'concept-data-type': ('concept', qname_validator),
     'concept-abstract': ('concept', boolean_validator),
     'concept-nillable': ('concept', boolean_validator),
@@ -2122,6 +2124,17 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     
     if 'concept-name' in log_rec.args:
         concept_info['concept-name'] = resolve_clark_to_qname(log_rec.args['concept-name'], taxonomy)
+    
+    if 'concept-namespace' in log_rec.args and 'concept-local-name' in log_rec.args:
+        concept_info['concept-name'] = taxonomy.new('QName', log_rec.args['concept-namespace'], log_rec.args['concept-local-name'])
+    else:
+        if 'concept-namespace' in log_rec.args:
+            if 'concept-name' in concept_info:
+                concept_info['concept-name'] = taxonomy.new('QName', log_rec.args['concept-namespace'], concept_info['concept-name'].local_name)
+        if 'concept-local-name' in log_rec.args:
+            if 'concept-name' in 'concept_info':
+                concept_info['concept-name'] = taxonomy.new('QName', concept_info['concept-name'].namespace, log_rec.args['concept-local-name'])
+
     if 'concept-data-type' in log_rec.args:
         concept_info['type-name'] = resolve_clark_to_qname(log_rec.args['concept-data-type'], taxonomy)
     if 'concept-abstract' in log_rec.args:
