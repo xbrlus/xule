@@ -474,17 +474,17 @@ output UNITFILT016
   list({covered @instance = $INSTANCE1  @unit = unit(iso4217:USD)}).count
 
 output UNITFILT017
-/* 1535 */
+/* 1471 */
 
   list({covered @instance = $INSTANCE1  where $fact.unit.numerator == unit(iso4217:USD)}).count
 
 output UNITFILT018
-/* 1535 */
+/* 44 */
 
   list({covered @instance = $INSTANCE1  where $fact.unit.denominator == none}).count
 
 output UNITFILT019
-/* 1535 */
+/* 0 */
 
   list({covered @instance = $INSTANCE1  where ($fact.unit.denominator == none and $fact.unit.numerator == unit(iso4217:USD))}).count
 

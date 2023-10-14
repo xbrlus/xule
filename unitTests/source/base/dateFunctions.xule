@@ -219,6 +219,21 @@ output DAT095
 
   date('2020-01-02')
 
+output DAT096
+/* TRUE */
+
+  date('2020-01-02') == date('2020-01-02')
+
+output DAT097
+/* TRUE */
+
+  date('2020-01-03') > date('2020-01-02')
+
+output DAT098
+/* TRUE */
+
+  date('2020-01-03') < date('2020-01-07')
+
 output DAY001
 /* 2 */
 
@@ -269,6 +284,36 @@ output DUR095
 
   duration('2022-03-31T00:00:00', '2022-03-31T00:00:00').days
 
+output DUR096
+/* [ERROR] [xule:error] rule DUR096: Rule: DUR096 - Property 'contains' is not a property of a 'duration'. */
+
+  duration('2022-01-01', '2022-03-31').contains(duration('2022-03-01', '2022-06-30'))
+
+output DUR097
+/* [ERROR] [xule:error] rule DUR097: argument of type 'XulePeriodComp' is not iterable */
+
+  duration('2022-03-01', '2022-06-30') in duration('2022-01-01', '2022-03-31')
+
+output DUR098
+/* FALSE */
+
+  duration('2022-03-01', '2022-06-30') == duration('2022-01-01', '2022-03-31')
+
+output DUR099
+/* TRUE */
+
+  duration('2022-03-01', '2022-06-30') < duration('2022-07-01', '2022-12-31')
+
+output DUR100
+/* FALSE */
+
+  duration('2022-03-01', '2022-06-30') > duration('2022-07-01', '2022-12-31')
+
+output DUR101
+/* TRUE */
+
+  duration('2022-03-01', '2022-06-30') < duration('2022-05-01', '2022-12-31')
+
 output FVR001
 /* forever */
 
@@ -288,6 +333,16 @@ output FVR004
 /* forever */
 
   forever
+
+output FVR005
+/* [ERROR] [xule:error] rule FVR005: Rule: FVR005 - Property 'date' requires a string or an instant argument, found 'duration' */
+
+  duration('2022-03-31', forever)
+
+output FVR006
+/* [ERROR] [xule:error] rule FVR006: Rule: FVR006 - Property 'date' requires a string or an instant argument, found 'none' */
+
+  duration('2022-03-31', none)
 
 output MON001
 /* 12 */

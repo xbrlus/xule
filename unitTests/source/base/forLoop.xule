@@ -17,3 +17,17 @@ output FORL103
 list(for $i in range($mylist.length)
                     $mylist[$i]
                 )
+
+output FORL104
+/* [ERROR] [xule:error] rule FORL104: Rule: FORL104 - For loop requires a set or list, found 'string'. */
+
+  list(for $i in 'hello'
+                    $i
+                )
+
+output FORL105
+/* [ERROR] [xule:error] rule FORL105: Rule: FORL105 - For loop requires a set or list, found 'qname'. */
+
+  list(for $i in Assets
+                    $i
+                )
