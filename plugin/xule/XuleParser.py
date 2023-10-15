@@ -119,17 +119,17 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
     return parse_errors
 
 def fixForPyParsing(parseRes):
-        if isinstance(parseRes, dict):
-            if isinstance(parseRes.get('expr'), list):
-                if len(parseRes['expr']) == 1:
-                    parseRes['expr'] = parseRes['expr'][0]
-                else:
-                    raise xrs.XuleRuleSetError("Unable to parse rules. Using a version of PyParsing later than 2.3.0 and cannot correct parse result\n")
-            for child in parseRes.values():
-                fixForPyParsing(child)
-        elif isinstance(parseRes, list) or isinstance(parseRes, set): # I don't think there will ever be a set, but this won't hurt.
-            for child in parseRes:
-                fixForPyParsing(child)
+    if isinstance(parseRes, dict):
+        if isinstance(parseRes.get('expr'), list):
+            if len(parseRes['expr']) == 1:
+                parseRes['expr'] = parseRes['expr'][0]
+            else:
+                raise xrs.XuleRuleSetError("Unable to parse rules. Using a version of PyParsing later than 2.3.0 and cannot correct parse result\n")
+        for child in parseRes.values():
+            fixForPyParsing(child)
+    elif isinstance(parseRes, list) or isinstance(parseRes, set): # I don't think there will ever be a set, but this won't hurt.
+        for child in parseRes:
+            fixForPyParsing(child)
 
 def parseRules(files, dest, compile_type, max_recurse_depth=None):
 
