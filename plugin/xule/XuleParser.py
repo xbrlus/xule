@@ -56,63 +56,51 @@ def add_location(src, loc, toks):
     
     return toks
 
-def parseFile(dir, fileName, xuleGrammar, ruleSet):
+def parseFile(fullFileName, fileHash, xuleGrammar, ruleSet):
     parse_errors = []
     try:
-        full_file_name = os.path.join(dir, fileName)
-        with open(full_file_name, 'rb') as xule_file:
-            buffer = None
-            file_hash_contents = hashlib.sha256()
-            while buffer != b'':
-                buffer = xule_file.read(4096)
-                file_hash_contents.update(buffer)
-            file_hash = file_hash_contents.hexdigest()
+        start_time = datetime.datetime.today()
+        print("%s: parse start" % datetime.datetime.isoformat(start_time))
 
-        #check if the file has changed
-        if ruleSet.getFileHash(fileName) == file_hash and not ruleSet.recompile_all:
-            #The file has not changed.
-            ruleSet.markFileKeep(fileName)
-        else:
-            start_time = datetime.datetime.today()
-            print("%s: parse start" % datetime.datetime.isoformat(start_time))
+        fileName = os.path.basename(fullFileName)
 
-            returns = []
-            def threaded_parse():
-                returns.append(xuleGrammar.parse_file(full_file_name).as_dict())
+        returns = []
+        def threaded_parse():
+            returns.append(xuleGrammar.parse_file(fullFileName).as_dict())
 
-            t = threading.Thread(target=threaded_parse)
-            t.start()
-            t.join()
-            parseRes = returns[0]
+        t = threading.Thread(target=threaded_parse)
+        t.start()
+        t.join()
+        parseRes = returns[0]
 
 
-            # Write the parse results as a josn file
-            if hasattr(_options, 'xule_compile_save_pyparsing_result_location') and _options.xule_compile_save_pyparsing_result_location is not None:
-                from pathlib import Path
-                pyparsing_result_file_name = f'{os.path.join(_options.xule_compile_save_pyparsing_result_location, fileName)}.pyparsed.json'
-                Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
-                with open(pyparsing_result_file_name, 'w') as py_write:
-                    py_write.write(json.dumps(parseRes, indent=2))
+        # Write the parse results as a josn file
+        if hasattr(_options, 'xule_compile_save_pyparsing_result_location') and _options.xule_compile_save_pyparsing_result_location is not None:
+            from pathlib import Path
+            pyparsing_result_file_name = f'{os.path.join(_options.xule_compile_save_pyparsing_result_location, fileName)}.pyparsed.json'
+            Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
+            with open(pyparsing_result_file_name, 'w') as py_write:
+                py_write.write(json.dumps(parseRes, indent=2))
 
-            # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0 
-            # the parse creates an extra layer in the hiearachy of the parse result for tagged, indexed and property
-            # expressions. 
-            fixForPyParsing(parseRes)
+        # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0
+        # the parse creates an extra layer in the hiearachy of the parse result for tagged, indexed and property
+        # expressions.
+        fixForPyParsing(parseRes)
 
-            end_time = datetime.datetime.today()
-            print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
-            ast_start = datetime.datetime.today()
-            print("%s: ast start" % datetime.datetime.isoformat(ast_start))
-            ruleSet.add(parseRes, os.path.getmtime(full_file_name), fileName, file_hash)
-            ast_end = datetime.datetime.today()
-            print("%s: ast end. Took %s" %(datetime.datetime.isoformat(ast_end), ast_end - ast_start))
+        end_time = datetime.datetime.today()
+        print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
+        ast_start = datetime.datetime.today()
+        print("%s: ast start" % datetime.datetime.isoformat(ast_start))
+        ruleSet.add(parseRes, os.path.getmtime(fullFileName), fileName, fileHash)
+        ast_end = datetime.datetime.today()
+        print("%s: ast end. Took %s" %(datetime.datetime.isoformat(ast_end), ast_end - ast_start))
         
         
     except (ParseException, ParseSyntaxException) as err:
         error_message = ("Parse error in %s \n" 
             "line: %i col: %i position: %i\n"
             "%s\n"
-            "%s\n" % (full_file_name, err.lineno, err.col, err.loc, err.msg, err.line))
+            "%s\n" % (fullFileName, err.lineno, err.col, err.loc, err.msg, err.line))
         parse_errors.append(error_message)
         print(error_message)
     
@@ -160,7 +148,13 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
         processFile = ruleFile.strip()
         if os.path.isfile(processFile):
             root = os.path.dirname(processFile)
-            parse_errors += parseFile(root, os.path.basename(processFile), xuleGrammar, ruleSet)
+            fileName = os.path.basename(processFile)
+            fullFileName = os.path.join(root, fileName)
+            fileHash = getFileHash(fullFileName)
+            if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(fullFileName):
+                parse_errors += parseFile(fullFileName, fileHash, xuleGrammar, ruleSet)
+            else:
+                ruleSet.markFileKeep(fileName)
 
         elif os.path.isdir(processFile):
             #Remove an ending slash if there is one
@@ -168,11 +162,16 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
             for root, dirs, files in os.walk(ruleFile.strip()):
                 for name in sorted(files):
                     if os.path.splitext(name)[1] == ".xule":
-                        print("Processing: %s" % os.path.basename(name))
                         relpath = os.path.relpath(root, processFile)
                         if relpath == '.': 
                             relpath = ''
-                        parse_errors += parseFile(processFile, os.path.join(relpath,name), xuleGrammar, ruleSet)            
+                        relativeFileName = os.path.join(relpath, name)
+                        fullFileName = os.path.join(processFile, relativeFileName)
+                        fileHash = getFileHash(fullFileName)
+                        if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(fullFileName):
+                            parse_errors += parseFile(fullFileName, fileHash, xuleGrammar, ruleSet)
+                        else:
+                            ruleSet.markFileKeep(relativeFileName)
         else:
             print("Not a file or directory: %s" % processFile)
     
@@ -193,3 +192,11 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
     parse_end = datetime.datetime.today()
     print("%s: Parsing finished. Took %s" %(datetime.datetime.isoformat(parse_end), parse_end - parse_start))
 
+def getFileHash(fullFileName):
+    with open(fullFileName, 'rb') as xule_file:
+        buffer = None
+        file_hash_contents = hashlib.sha256()
+        while buffer != b'':
+            buffer = xule_file.read(4096)
+            file_hash_contents.update(buffer)
+        return file_hash_contents.hexdigest()
