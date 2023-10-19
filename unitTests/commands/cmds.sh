@@ -17,3 +17,11 @@ python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC
 
 
 /Applications/Arelle.app/Contents/MacOS/arelleCmdLine --plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/ut-ruleset.zip --logNoRefObjectProperties --logFormat "[%(messageCode)s] %(message)s" >> /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt
+
+
+#xodel
+python3.9 ~/arelle/Arelle-master/arellecmdline.py  --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel  --plugins 'xule|xodel' --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/xodel-ruleset.zip --xule-max-recurse-depth=2500
+
+python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xodel|serializer' -f https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/xodel-ruleset.zip --logNoRefObjectProperties  --xule-run-only create_base_taxonomy,create_extension_concepts,create_extension_labels,create_presentation_role,create_presentation --xodel-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output'
+
+python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' -f "https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm"  -v --xule-time .005 --xule-debug --noCertificateCheck   --logFile  /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/unit.xml --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/xodel-ruleset.zip --xule-run-only units_xml --xule-crash

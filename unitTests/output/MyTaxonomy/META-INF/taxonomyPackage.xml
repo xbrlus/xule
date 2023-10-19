@@ -1,0 +1,10 @@
+<tp:taxonomyPackage xmlns:tp="http://xbrl.org/2016/taxonomy-package">
+  <tp:identifier>Taxonomy Package</tp:identifier>
+  <tp:entryPoints>
+    <tp:entryPoint>
+      <tp:name xml:lang="en">Main</tp:name>
+      <tp:description xml:lang="en">main entry point</tp:description>
+      <tp:entryPointDocument href="https://taxonomies.xbrl.us/xodel/MyTaxonomy/abc.xsd"></tp:entryPointDocument>
+    </tp:entryPoint>
+  </tp:entryPoints>
+</tp:taxonomyPackage>

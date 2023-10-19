@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Validate EFM successful, version 1.21.1. - validate/EFM </message>
+ <ref href="validate/EFM"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1. - inlineXbrlDocumentSet </message>
+ <ref href="inlineXbrlDocumentSet"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Validate EFM successful, version 1.21.1. - validate/EFM </message>
+ <ref href="validate/EFM"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1. - inlineXbrlDocumentSet </message>
+ <ref href="inlineXbrlDocumentSet"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 158.97 secs at 2023-10-18T16:46:59 - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+<entry code="exception:XuleProcessingError" level="error">
+ <message instance="_IXDS" error="Rule: None - In function xml-data-flat(), xpath failed. File: /Users/campbellpryde/Documents/GitHub/unit-type-registry/schema/20...">[exception:XuleProcessingError] Instance validation exception: Rule: None - In function xml-data-flat(), xpath failed. File: /Users/campbellpryde/Documents/GitHub/unit-type-registry/schema/2017-07-12/utr.xml, XPath: utr:unit, instance: _IXDS - IXDS exc-20230630.htm 
+Traceback (most recent call last):
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleFunctions.py&quot;, line 925, in func_xml_data_flat
+    nodes = xml.xpath(locator_xpath.value, namespaces=nsmap)
+  File &quot;src/lxml/etree.pyx&quot;, line 2296, in lxml.etree._ElementTree.xpath
+  File &quot;src/lxml/xpath.pxi&quot;, line 357, in lxml.etree.XPathDocumentEvaluator.__call__
+  File &quot;src/lxml/xpath.pxi&quot;, line 225, in lxml.etree._XPathEvaluatorBase._handle_result
+lxml.etree.XPathEvalError: Undefined namespace prefix
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/Validate.py&quot;, line 110, in validate
+    self.instValidator.validate(self.modelXbrl, self.modelXbrl.modelManager.formulaOptions.typedParameters(self.modelXbrl.prefixedNamespaces))
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/ValidateXbrl.py&quot;, line 523, in validate
+    pluginXbrlMethod(self)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/__init__.py&quot;, line 990, in xuleValidate
+    runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/__init__.py&quot;, line 925, in runXule
+    used_taxonomies = process_xule(rule_set,
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 118, in process_xule
+    evaluate_rule_set(global_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 200, in evaluate_rule_set
+    evaluate(rule, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1076, in evaluate_output_rule
+    xule_value = evaluate(output_rule['body'], xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1466, in evaluate_var_ref
+    var_value = calc_var(var_info, var_ref, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1515, in calc_var
+    var_value = evaluate(var_info['expr'], xule_context, override_table_id=const_ref['table_id'])
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1605, in evaluate_constant_assign
+    calc_constant(const_info, const_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1549, in calc_constant
+    const_value = evaluate(const_info['expr']['body'], const_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 4084, in evaluate_function_ref
+    return regular_function(xule_context, function_ref, function_info)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 4200, in regular_function
+    return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleFunctions.py&quot;, line 927, in func_xml_data_flat
+    raise XuleProcessingError(_(f&quot;In function xml-data-flat(), xpath failed. File: {file_url.value}, XPath: {locator_xpath.value}&quot;), xule_context)
+xule.XuleRunTime.XuleProcessingError: Rule: None - In function xml-data-flat(), xpath failed. File: /Users/campbellpryde/Documents/GitHub/unit-type-registry/schema/2017-07-12/utr.xml, XPath: utr:unit</message>
+ <ref href="IXDS exc-20230630.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.45 secs - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Validate EFM successful, version 1.21.1. - validate/EFM </message>
+ <ref href="validate/EFM"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1. - inlineXbrlDocumentSet </message>
+ <ref href="inlineXbrlDocumentSet"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="xmlSchema:syntax" level="error">
+ <message fileName="blin20230331_10q.htm" error="Specification mandates value for attribute defer" line="5" column="188">[xmlSchema:syntax] Specification mandates value for attribute defer, blin20230331_10q.htm, line 5, column 188 - ../../../../../../../blin20230331_10q.htm , https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm"/>
+ 
+ <ref href="../../../../../../../blin20230331_10q.htm"/></entry>
+<entry code="html:syntaxError" level="error">
+ <message element="Html" error="Element script does not carry attribute type line 5, Element noscript content does not follow the DTD, expecting (p | h1 | h2 | ...">[html:syntaxError] Html error Element script does not carry attribute type line 5, Element noscript content does not follow the DTD, expecting (p | h1 | h2 | h3 | h4 | h5 | h6 | div | ul | ol | dl | pre | hr | blockquote | address | fieldset | table | form | noscript | ins | del | script | ix:footnote | ix:nonNumeric | ix:fraction | ix:numerator | ix:denominator | ix:nonFraction | ix:continuation | ix:exclude)*, got (img) line 7516, Element img does not carry attribute alt line 7516 - https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm 5, 7516</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm#element(/1/1/3)" sourceLine="5">
+  <property name="QName" value="script"/>
+ </ref>
+ 
+ <ref href="https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm#element(/1/2/448)" sourceLine="7516">
+  <property name="QName" value="noscript"/>
+ </ref>
+ 
+ <ref href="https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm#element(/1/2/448/1)" sourceLine="7516">
+  <property name="QName" value="img"/>
+  <property name="src" value="https://www.sec.gov/akam/13/pixel_71c3b381?a=dD0xODc0ZDU0MWU3OTUzYzRlMzdiMjBhODFkYTI0ZmJmN2RmYzBhOTNhJmpzPW9mZg=="/>
+  <property name="style" value="visibility: hidden; position: absolute; left: -999px; top: -999px;"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 587.66 secs at 2023-10-18T16:43:34 - https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm"/></entry>
+<entry code="exception:XuleProcessingError" level="error">
+ <message instance="blin20230331_10q.htm" error="Rule: None - In function xml-data-flat(), xpath failed. File: /Users/campbellpryde/Documents/GitHub/unit-type-registry/schema/20...">[exception:XuleProcessingError] Instance validation exception: Rule: None - In function xml-data-flat(), xpath failed. File: /Users/campbellpryde/Documents/GitHub/unit-type-registry/schema/2017-07-12/utr.xml, XPath: utr:unit, instance: blin20230331_10q.htm - https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm 
+Traceback (most recent call last):
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleFunctions.py&quot;, line 925, in func_xml_data_flat
+    nodes = xml.xpath(locator_xpath.value, namespaces=nsmap)
+  File &quot;src/lxml/etree.pyx&quot;, line 2296, in lxml.etree._ElementTree.xpath
+  File &quot;src/lxml/xpath.pxi&quot;, line 357, in lxml.etree.XPathDocumentEvaluator.__call__
+  File &quot;src/lxml/xpath.pxi&quot;, line 225, in lxml.etree._XPathEvaluatorBase._handle_result
+lxml.etree.XPathEvalError: Undefined namespace prefix
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/Validate.py&quot;, line 110, in validate
+    self.instValidator.validate(self.modelXbrl, self.modelXbrl.modelManager.formulaOptions.typedParameters(self.modelXbrl.prefixedNamespaces))
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/ValidateXbrl.py&quot;, line 523, in validate
+    pluginXbrlMethod(self)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/__init__.py&quot;, line 990, in xuleValidate
+    runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/__init__.py&quot;, line 925, in runXule
+    used_taxonomies = process_xule(rule_set,
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 118, in process_xule
+    evaluate_rule_set(global_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 200, in evaluate_rule_set
+    evaluate(rule, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1076, in evaluate_output_rule
+    xule_value = evaluate(output_rule['body'], xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1466, in evaluate_var_ref
+    var_value = calc_var(var_info, var_ref, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1515, in calc_var
+    var_value = evaluate(var_info['expr'], xule_context, override_table_id=const_ref['table_id'])
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1605, in evaluate_constant_assign
+    calc_constant(const_info, const_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 1549, in calc_constant
+    const_value = evaluate(const_info['expr']['body'], const_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 710, in evaluate
+    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 4084, in evaluate_function_ref
+    return regular_function(xule_context, function_ref, function_info)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleProcessor.py&quot;, line 4200, in regular_function
+    return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+  File &quot;/Users/campbellpryde/Arelle/Arelle-master/arelle/plugin/xule/XuleFunctions.py&quot;, line 927, in func_xml_data_flat
+    raise XuleProcessingError(_(f&quot;In function xml-data-flat(), xpath failed. File: {file_url.value}, XPath: {locator_xpath.value}&quot;), xule_context)
+xule.XuleRunTime.XuleProcessingError: Rule: None - In function xml-data-flat(), xpath failed. File: /Users/campbellpryde/Documents/GitHub/unit-type-registry/schema/2017-07-12/utr.xml, XPath: utr:unit</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.56 secs - https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1378590/000143774923014646/blin20230331_10q.htm"/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Validate EFM successful, version 1.21.1. - validate/EFM </message>
+ <ref href="validate/EFM"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1. - inlineXbrlDocumentSet </message>
+ <ref href="inlineXbrlDocumentSet"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.52 secs at 2023-10-18T17:00:08 - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4492627824">[units_xml] list() - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.28 secs - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Validate EFM successful, version 1.21.1. - validate/EFM </message>
+ <ref href="validate/EFM"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1. - inlineXbrlDocumentSet </message>
+ <ref href="inlineXbrlDocumentSet"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.50 secs at 2023-10-18T12:27:06 - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4308266864">[units_xml] list() - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.42 secs - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Validate EFM successful, version 1.21.1. - validate/EFM </message>
+ <ref href="validate/EFM"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1. - inlineXbrlDocumentSet </message>
+ <ref href="inlineXbrlDocumentSet"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.50 secs at 2023-10-18T12:28:22 - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4483534704">[units_xml] list(list(acre, Acre, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, a, Acre, Customary, REC, 2012-10-31), list(sqft, Square Foot, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, ft², Square Foot, Customary, REC, 2012-10-31), list(sqmi, Square Mile, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, mi², Square Miles, Customary, REC, 2012-10-31), list(sqyd, Square Yard, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, yd², Square Yard, Customary, REC, 2012-10-31), list(Boe, Barrel of Oil Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Boe, Barrel of Oil Equivalent, Customary, REC, 2012-10-31), list(Btu, British Thermal Unit, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, BTU, British Thermal Unit, Customary, REC, 2012-10-31), list(ft_lb, Foot-Pound, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, ft-lb, Foot-Pound Force, Customary, REC, 2012-10-31), list(MBoe, Thousand Barrels of Oil Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MBoe, Thousand Barrels of Oil Equivalent, Customary, REC, 2012-10-31), list(Mcfe, Thousand Cubic Foot Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Mcfe, Thousand Cubic Foot Equivalent, Customary, REC, 2012-10-31), list(MMBoe, Millions of Barrels of Oil Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MMBoe, Millions of Barrels of Oil Equivalent, Customary, REC, 2012-10-31), list(MMBTU, Millions of BTU, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MMBTU, Millions of BTU, Customary, REC, 2012-10-31), list(ft, Foot, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, ft, Twelve Inches, Customary, REC, 2012-10-31), list(in, Inch, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, in, Inch, Customary, REC, 2012-10-31), list(mi, Mile, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, mi, 5280 Feet, Customary, REC, 2012-10-31), list(nmi, Nautical Mile, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, nmi, 1.15078 Miles (One Minute of Arc Latitude), Customary, REC, 2012-10-31), list(yd, Yard, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, yd, Three Feet, Customary, REC, 2012-10-31), list(lb, Pound, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, lb, Pound of Mass, as Used in Commerce        (http://en.wikipedia.org/wiki/Pound_(mass)#Use_in_Commerce)), Customary, REC, 2012-10-31), list(oz, Ounce, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, oz, US Ounce, Customary, REC, 2012-10-31), list(ozt, Troy Ounce, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, ozt, Troy Ounce, Customary, REC, 2012-10-31), list(T, Ton, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, T, US Ton, Customary, REC, 2012-10-31), list(hp, Horsepower, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, hp, Horsepower (Foot-pound per Second), Customary, REC, 2012-10-31), list(bbl, Barrel, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, bbl, Barrel (of Oil), Customary, REC, 2012-10-31), list(ft3, Cubic Foot, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, ft³, Cubic Foot, Customary, REC, 2012-10-31), list(gal, Gallon, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, gal, US Gallon, Customary, REC, 2012-10-31), list(MBbls, Thousand Barrels, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, MBbls, Thousands of Barrels (of Oil), Customary, REC, 2012-10-31), list(Mcf, Thousands Cubic Feet, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, Mcf, Thousands of Cubic Feet, Customary, REC, 2012-10-31), list(MMBbls, Million Barrels, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, MMBbls, Millions of Barrels (of Oil), Customary, REC, 2012-10-31), list(MMcf, Millions Cubic Feet, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, MMcf, Millions of Cubic Feet, Customary, REC, 2012-10-31), list(AED, U.A.E. dirham, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.إ, United Arab Emirates dirham, ISO4217, REC, 2012-10-31), list(AFN, Afghan afghani, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ؋, Afghan afghani, ISO4217, REC, 2012-10-31), list(ALL, Albanian lek, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, L, Albanian lek, ISO4217, REC, 2012-10-31), list(AMD, Armenian dram, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ֏, Armenian dram, ISO4217, REC, 2012-10-31), list(ANG, Netherlands Antillean guilder, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, NAƒ, Netherlands Antillean guilder, ISO4217, REC, 2012-10-31), list(AOA, Angolan kwanza, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Kz, Angolan kwanza, ISO4217, REC, 2012-10-31), list(ARS, Argentine peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Argentine peso, ISO4217, REC, 2012-10-31), list(AUD, Australian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Australian dollar, ISO4217, REC, 2012-10-31), list(AWG, Aruban florin, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ƒ, Aruban florin, ISO4217, REC, 2012-10-31), list(AZN, Azerbaijani manat, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₼, Azerbaijani manat, ISO4217, REC, 2012-10-31), list(BAM, Bosnia and Herzegovina convertible mark, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, KM, Bosnia and Herzegovina convertible mark, ISO4217, REC, 2012-10-31), list(BBD, Barbados dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Barbados dollar, ISO4217, REC, 2012-10-31), list(BDT, Bangladeshi taka, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ৳, Bangladeshi taka, ISO4217, REC, 2012-10-31), list(BGN, Bulgarian lev, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, лв, Bulgarian lev, ISO4217, REC, 2012-10-31), list(BHD, Bahraini dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, .د.ب, Bahraini dinar, ISO4217, REC, 2012-10-31), list(BIF, Burundian franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, FBu, Burundian franc, ISO4217, REC, 2012-10-31), list(BMD, Bermuda Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Bermudian dollar (customarily known as Bermuda dollar), ISO4217, REC, 2012-10-31), list(BND, Brunei dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Brunei dollar, ISO4217, REC, 2012-10-31), list(BOB, Boliviano, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Bs., Boliviano, ISO4217, REC, 2012-10-31), list(BOV, Bolivian Mvdol, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Bolivian Mvdol (funds code), ISO4217, REC, 2012-10-31), list(BRL, Brazilian real, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, R$, Brazilian real, ISO4217, REC, 2012-10-31), list(BSD, Bahamian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Bahamian dollar, ISO4217, REC, 2012-10-31), list(BTN, Bhutanese ngultrum, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ch., Bhutanese ngultrum, ISO4217, REC, 2012-10-31), list(BWP, Botswana pula, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, P, Botswana pula, ISO4217, REC, 2012-10-31), list(BYN, Belarusian ruble, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Br, Belarusian ruble, ISO4217, REC, 2017-07-12), list(BYR, Belarusian ruble, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Br, Belarusian ruble, ISO4217, REC, 2012-10-31), list(BZD, Belize dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Belize dollar, ISO4217, REC, 2012-10-31), list(CAD, Canadian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Canadian dollar, ISO4217, REC, 2012-10-31), list(CDF, Congolese franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, CF, Congolese franc, ISO4217, REC, 2012-10-31), list(CHE, WIR Bank, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , WIR Bank (complementary currency), ISO4217, REC, 2012-10-31), list(CHF, Swiss franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, SFr, Swiss franc, ISO4217, REC, 2012-10-31), list(CHW, WIR Bank, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , WIR Bank (complementary currency), ISO4217, REC, 2012-10-31), list(CLF, Unidad de Fomento, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Unidad de Fomento (funds code), ISO4217, REC, 2012-10-31), list(CLP, Chilean peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Chilean peso, ISO4217, REC, 2012-10-31), list(CNY, Chinese yuan, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ¥, Chinese yuan (renmibi), ISO4217, REC, 2012-10-31), list(COP, Colombian peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Colombian peso, ISO4217, REC, 2012-10-31), list(COU, Unidad de Valor Real, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Unidad de Valor Real, ISO4217, REC, 2012-10-31), list(CRC, Costa Rican colon, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₡, Costa Rican colon, ISO4217, REC, 2012-10-31), list(CUC, Cuban convertible peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, CUC$, Cuban convertible peso, ISO4217, REC, 2012-10-31), list(CUP, Cuban peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $MN, Cuban peso, ISO4217, REC, 2012-10-31), list(CVE, Cape Verde escudo, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Esc, Cape Verde escudo, ISO4217, REC, 2012-10-31), list(CZK, Czech koruna, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Kč, Czech koruna, ISO4217, REC, 2012-10-31), list(DJF, Djiboutian franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Fdj, Djiboutian franc, ISO4217, REC, 2012-10-31), list(DKK, Danish krone, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Danish krone, ISO4217, REC, 2012-10-31), list(DOP, Dominican peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Dominican peso, ISO4217, REC, 2012-10-31), list(DZD, Algerian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, دج, Algerian dinar, ISO4217, REC, 2012-10-31), list(EEK, Estonian kroon, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Estonian kroon, ISO4217, REC, 2012-10-31), list(EGP, Egyptian pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ج.م., Egyptian pound, ISO4217, REC, 2012-10-31), list(ERN, Eritrean nakfa, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Nfk, Eritrean nakfa, ISO4217, REC, 2012-10-31), list(ETB, Ethiopian birr, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Br, Ethiopian birr, ISO4217, REC, 2012-10-31), list(EUR, Euro, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, €, Euro, ISO4217, REC, 2012-10-31), list(FJD, Fiji dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Fiji dollar, ISO4217, REC, 2012-10-31), list(FKP, Falkland Islands pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Falkland Islands pound, ISO4217, REC, 2012-10-31), list(GBP, Pound sterling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Great Britain Pound sterling, ISO4217, REC, 2012-10-31), list(GEL, Georgian lari, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ლ, Georgian lari, ISO4217, REC, 2012-10-31), list(GHS, Ghanaian cedi, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, GH₵, Ghanaian cedi, ISO4217, REC, 2012-10-31), list(GIP, Gibraltar pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Gibraltar pound, ISO4217, REC, 2012-10-31), list(GMD, Gambian dalasi, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, D, Gambian dalasi, ISO4217, REC, 2012-10-31), list(GNF, Guinean franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, FG, Guinean franc, ISO4217, REC, 2012-10-31), list(GTQ, Guatemalan quetzal, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Q, Guatemalan quetzal, ISO4217, REC, 2012-10-31), list(GYD, Guyanese dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Guyanese dollar, ISO4217, REC, 2012-10-31), list(HKD, Hong Kong dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Hong Kong dollar, ISO4217, REC, 2012-10-31), list(HNL, Honduran lempira, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, L, Honduran lempira, ISO4217, REC, 2012-10-31), list(HRK, Croatian kuna, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kn, Croatian kuna, ISO4217, REC, 2012-10-31), list(HTG, Haitian gourde, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, G, Haitian gourde, ISO4217, REC, 2012-10-31), list(HUF, Hungarian forint, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ft, Hungarian forint, ISO4217, REC, 2012-10-31), list(IDR, Indonesian rupiah, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Rp, Indonesian rupiah, ISO4217, REC, 2012-10-31), list(ILS, Israeli new sheqel, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₪, Israeli new sheqel, ISO4217, REC, 2012-10-31), list(INR, Indian rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Indian rupee, ISO4217, REC, 2012-10-31), list(IQD, Iraqi dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.ع, Iraqi dinar, ISO4217, REC, 2012-10-31), list(IRR, Iranian rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ﷼, Iranian rial, ISO4217, REC, 2012-10-31), list(ISK, Icelandic króna, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Icelandic króna, ISO4217, REC, 2012-10-31), list(JMD, Jamaican dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Jamaican dollar, ISO4217, REC, 2012-10-31), list(JOD, Jordanian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, JD, Jordanian dinar, ISO4217, REC, 2012-10-31), list(JPY, Japanese yen, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ¥, Japanese yen, ISO4217, REC, 2012-10-31), list(KES, Kenyan shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ksh, Kenyan shilling, ISO4217, REC, 2012-10-31), list(KGS, Kyrgyzstani som, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, сом, Kyrgyzstani som, ISO4217, REC, 2012-10-31), list(KHR, Cambodian riel, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ៛, Cambodian riel, ISO4217, REC, 2012-10-31), list(KMF, Comoro franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₣, Comoro franc, ISO4217, REC, 2012-10-31), list(KPW, North Korean won, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₩, North Korean won, ISO4217, REC, 2012-10-31), list(KRW, South Korean won, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₩, South Korean won, ISO4217, REC, 2012-10-31), list(KWD, Kuwaiti dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.ك, Kuwaiti dinar, ISO4217, REC, 2012-10-31), list(KYD, Cayman Islands dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Cayman Islands dollar, ISO4217, REC, 2012-10-31), list(KZT, Kazakhstani tenge, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₸, Kazakhstani tenge, ISO4217, REC, 2012-10-31), list(LAK, Lao kip, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₭, Lao kip, ISO4217, REC, 2012-10-31), list(LBP, Lebanese pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, LL, Lebanese pound, ISO4217, REC, 2012-10-31), list(LKR, Sri Lanka rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, රු, Sri Lanka rupee, ISO4217, REC, 2012-10-31), list(LRD, Liberian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Liberian dollar, ISO4217, REC, 2012-10-31), list(LSL, Lesotho loti, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, M, Lesotho loti, ISO4217, REC, 2012-10-31), list(LTL, Lithuanian litas, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Lt, Lithuanian litas, ISO4217, REC, 2012-10-31), list(LVL, Latvian lats, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ls, Latvian lats, ISO4217, REC, 2012-10-31), list(LYD, Libyan dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ل.د, Libyan dinar, ISO4217, REC, 2012-10-31), list(MAD, Moroccan dirham, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.م., Moroccan dirham, ISO4217, REC, 2012-10-31), list(MDL, Moldovan leu, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, Moldovan leu, ISO4217, REC, 2012-10-31), list(MGA, Malagasy ariary, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ar, Malagasy ariary, ISO4217, REC, 2012-10-31), list(MKD, Macedonian denar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ден, Macedonian denar, ISO4217, REC, 2012-10-31), list(MMK, Myanma kyat, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, K, Myanma kyat, ISO4217, REC, 2012-10-31), list(MNT, Mongolian tugrik, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₮, Mongolian tugrik, ISO4217, REC, 2012-10-31), list(MOP, Macanese pataca, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, MOP$, Macanese pataca, ISO4217, REC, 2012-10-31), list(MRO, Mauritanian ouguiya, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, UM, Mauritanian ouguiya, ISO4217, REC, 2012-10-31), list(MUR, Mauritian rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Mauritian rupee, ISO4217, REC, 2012-10-31), list(MVR, Maldivian rufiyaa, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Rf., Maldivian rufiyaa, ISO4217, REC, 2012-10-31), list(MWK, Malawian kwacha, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, MK, Malawian kwacha, ISO4217, REC, 2012-10-31), list(MXN, Mexican peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Mexican peso, ISO4217, REC, 2012-10-31), list(MXV, Mexican UDI, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Mexican Unidad de Inversion (UDI) (funds code), ISO4217, REC, 2012-10-31), list(MYR, Malaysian ringgit, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, RM, Malaysian ringgit, ISO4217, REC, 2012-10-31), list(MZN, Mozambican metical, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, MT, Mozambican metical, ISO4217, REC, 2012-10-31), list(NAD, Namibian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Namibian dollar, ISO4217, REC, 2012-10-31), list(NGN, Nigerian naira, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₦, Nigerian naira, ISO4217, REC, 2012-10-31), list(NIO, Cordoba oro, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, C$, Cordoba oro, ISO4217, REC, 2012-10-31), list(NOK, Norwegian krone, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Norwegian krone, ISO4217, REC, 2012-10-31), list(NPR, Nepalese rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Nepalese rupee, ISO4217, REC, 2012-10-31), list(NZD, New Zealand dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, New Zealand dollar, ISO4217, REC, 2012-10-31), list(OMR, Omani rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ر.ع., Omani rial, ISO4217, REC, 2012-10-31), list(PAB, Panamanian balboa, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, B/., Panamanian balboa, ISO4217, REC, 2012-10-31), list(PEN, Peruvian nuevo sol, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, S/, Peruvian nuevo sol, ISO4217, REC, 2012-10-31), list(PGK, Papua New Guinean kina, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, K, Papua New Guinean kina, ISO4217, REC, 2012-10-31), list(PHP, Philippine peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₱, Philippine peso, ISO4217, REC, 2012-10-31), list(PKR, Pakistani rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Pakistani rupee, ISO4217, REC, 2012-10-31), list(PLN, Polish złoty, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, zł, Polish złoty, ISO4217, REC, 2012-10-31), list(PYG, Paraguayan guaraní, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₲, Paraguayan guaraní, ISO4217, REC, 2012-10-31), list(QAR, Qatari rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ر.ق, Qatari rial, ISO4217, REC, 2012-10-31), list(RON, Romanian new leu, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Romanian new leu, ISO4217, REC, 2012-10-31), list(RSD, Serbian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, дин, Serbian dinar, ISO4217, REC, 2012-10-31), list(RUB, Rouble, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₽, Russian rouble, ISO4217, REC, 2012-10-31), list(RWF, Rwandan franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, FRw, Rwandan franc, ISO4217, REC, 2012-10-31), list(SAR, Riyal, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ر.س, Saudi riyal, ISO4217, REC, 2012-10-31), list(SBD, Solomon Islands dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Solomon Islands dollar, ISO4217, REC, 2012-10-31), list(SCR, Seychelles rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, SRe, Seychelles rupee, ISO4217, REC, 2012-10-31), list(SDG, Sudanese pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Sudanese pound, ISO4217, REC, 2012-10-31), list(SEK, Swedish krona, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Swedish krona/kronor, ISO4217, REC, 2012-10-31), list(SGD, Singapore dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Singapore dollar, ISO4217, REC, 2012-10-31), list(SHP, Saint Helena pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Saint Helena pound, ISO4217, REC, 2012-10-31), list(SLL, Leone, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Le, Sierra Leonean leone, ISO4217, REC, 2012-10-31), list(SOS, Somali shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Sh.So, Somali shilling, ISO4217, REC, 2012-10-31), list(SRD, Surinamese dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Surinamese dollar, ISO4217, REC, 2012-10-31), list(SSP, South Sudanese pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, South Sudanese pound, ISO4217, REC, 2017-07-12), list(STD, São Tomé and Príncipe dobra, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Db, São Tomé and Príncipe dobra, ISO4217, REC, 2012-10-31), list(SVC, Salvadoran colón, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₡, Salvadoran colón, ISO4217, REC, 2017-07-12), list(SYP, Syrian pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, LS, Syrian pound, ISO4217, REC, 2012-10-31), list(SZL, Lilangeni, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, E, Swaziland Lilangeni, ISO4217, REC, 2012-10-31), list(THB, Baht, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ฿, Thai baht, ISO4217, REC, 2012-10-31), list(TJS, Tajikistani somoni, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Tajikistani somoni, ISO4217, REC, 2012-10-31), list(TMT, Turkmenistani manat, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Turkmenistani manat, ISO4217, REC, 2012-10-31), list(TND, Tunisian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.ت, Tunisian dinar, ISO4217, REC, 2012-10-31), list(TOP, Pa'anga, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, T$, Tongan pa'anga, ISO4217, REC, 2012-10-31), list(TRY, Turkish lira, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₺, Turkish lira, ISO4217, REC, 2012-10-31), list(TTD, Trinidad and Tobago dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Trinidad and Tobago dollar, ISO4217, REC, 2012-10-31), list(TWD, New Taiwan dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, New Taiwan dollar, ISO4217, REC, 2012-10-31), list(TZS, Tanzanian shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Tsh, Tanzanian shilling, ISO4217, REC, 2012-10-31), list(UAH, Hryvnia, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₴, Ukrainian hryvnia, ISO4217, REC, 2012-10-31), list(UGX, Ugandan shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, USh, Ugandan shilling, ISO4217, REC, 2012-10-31), list(USD, US Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, United States dollar, ISO4217, REC, 2012-10-31), list(USN, Next Day US Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, United States dollar (next day) (funds code), ISO4217, REC, 2012-10-31), list(USS, Same Day US Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, United States dollar (same day) (funds code), ISO4217, REC, 2012-10-31), list(UYI, Uruguay Peso en Unidades Indexadas, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code), ISO4217, REC, 2017-07-12), list(UYU, Uruguayan peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Uruguayan peso, ISO4217, REC, 2012-10-31), list(UZS, Som, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Uzbekistan som, ISO4217, REC, 2012-10-31), list(VEB, Venezualan Bolivar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Bs., Venezuelan bolívar, ISO4217, REC, 2012-10-31), list(VEF, Venezuelan Bolivar Fuerte, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Venezuelan bolívar fuerte (equals 1000 VEB), ISO4217, REC, 2012-10-31), list(VND, đồng, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₫, Vietnamese đồng, ISO4217, REC, 2012-10-31), list(VUV, Vanuatu vatu, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, VT, Vanuatu vatu, ISO4217, REC, 2012-10-31), list(WST, Samoan tala, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, WS$, Samoan tala, ISO4217, REC, 2012-10-31), list(XAF, CFA Franc BEAC, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , CFA franc BEAC, ISO4217, REC, 2012-10-31), list(XAG, Silver, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Silver (one troy ounce), ISO4217, REC, 2012-10-31), list(XAU, Gold, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Gold (one troy ounce), ISO4217, REC, 2012-10-31), list(XBA, EURCO, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Composite Unit (EURCO) (bond market unit), ISO4217, REC, 2012-10-31), list(XBB, E.M.U.-6, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Monetary Unit (E.M.U.-6) (bond market unit), ISO4217, REC, 2012-10-31), list(XBC, E.U.A.-9, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Unit of Account 9 (E.U.A.-9) (bond market unit), ISO4217, REC, 2012-10-31), list(XBD, E.U.A.-17, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Unit of Account 17 (E.U.A.-17) (bond market unit), ISO4217, REC, 2012-10-31), list(XCD, East Caribbean dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, East Caribbean dollar, ISO4217, REC, 2012-10-31), list(XDR, Special Drawing Rights, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Special Drawing Rights, ISO4217, REC, 2012-10-31), list(XFU, UIC Franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , UIC franc (special settlement currency), ISO4217, REC, 2012-10-31), list(XOF, CFA Franc BCEAO, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , CFA Franc BCEAO, ISO4217, REC, 2012-10-31), list(XPD, Palladium, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Palladium (one troy ounce), ISO4217, REC, 2012-10-31), list(XPF, CFP Franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , CFP franc, ISO4217, REC, 2012-10-31), list(XPT, Platinum, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Platinum (one troy ounce), ISO4217, REC, 2012-10-31), list(XSU, SUCRE, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Sucre, Unified System for Regional Compensation (SUCRE), ISO4217, REC, 2017-07-12), list(XUA, ADB Unit of Account, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, African Development Bank, ISO4217, REC, 2017-07-12), list(YER, Yemeni rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Yemeni rial, ISO4217, REC, 2012-10-31), list(ZAR, South African rand, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, R, South African rand, ISO4217, REC, 2012-10-31), list(ZMK, Zambian kwacha, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ZK, Zambian kwacha, ISO4217, REC, 2012-10-31), list(ZMW, Zambian kwacha, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ZK, Zambian kwacha, ISO4217, REC, 2017-07-12), list(ZWL, Zimbabwe dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Zimbabwe dollar, ISO4217, REC, 2012-10-31), list(Cal, Calorie, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Cal, Calorie, Non-SI, REC, 2012-10-31), list(t, Tonne, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, t, Tonne (Metric Tonne, Metric Ton), Non-SI, REC, 2012-10-31), list(B, Byte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, B, 8 adjacent bits of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31), list(GB, Gigabyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, GB, Gigabytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31), list(kB, Kilobyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, kB, Kilobytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31), list(MB, Megabyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, MB, Megabytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31), list(TB, Terabyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, TB, Terabytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31), list(ha, Hectare, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, ha, Hectare, SI, REC, 2012-10-31), list(sqkm, Square km, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, km², Square Kilometer, SI, REC, 2012-10-31), list(sqm, Square metre, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, m², Square Metre, SI, REC, 2012-10-31), list(A, Ampere, http://www.xbrl.org/2009/utr, electricCurrentItemType, 2009-12-16, A, Ampere, SI, REC, 2012-10-31), list(J, Joule, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, J, Joule, SI, REC, 2012-10-31), list(kJ, Kilojoule, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, kJ, Thousand Joules, SI, REC, 2012-10-31), list(kWh, Kilowatt-Hours, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, kWh, Kilowatt-Hours of Energy, SI, REC, 2012-10-31), list(mJ, mJ, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, mJ, Millijoules, SI, REC, 2012-10-31), list(MWh, Megawatt-Hour, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MWh, Megawatt-Hour, SI, REC, 2012-10-31), list(V, Volt, http://www.xbrl.org/2009/utr, voltageItemType, 2009-12-16, V, Electromotive Force, SI, REC, 2012-10-31), list(Hz, Hertz, http://www.xbrl.org/2009/utr, frequencyItemType, 2009-12-16, Hz, Frequency or Number of Cycles per Second, SI, REC, 2012-10-31), list(cm, Centimetre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, cm, One-hundreth of Metre, SI, REC, 2012-10-31), list(dm, Decimetre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, dm, Decimetre, SI, REC, 2012-10-31), list(km, Kilometre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, km, Thousand Metres, SI, REC, 2012-10-31), list(m, Metre,...</message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.40 secs - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Validate EFM successful, version 1.21.1. - validate/EFM </message>
+ <ref href="validate/EFM"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1. - inlineXbrlDocumentSet </message>
+ <ref href="inlineXbrlDocumentSet"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.34 secs at 2023-10-18T12:31:37 - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(acre, Acre, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, a, Acre, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(sqft, Square Foot, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, ft², Square Foot, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(sqmi, Square Mile, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, mi², Square Miles, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(sqyd, Square Yard, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, yd², Square Yard, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Boe, Barrel of Oil Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Boe, Barrel of Oil Equivalent, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Btu, British Thermal Unit, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, BTU, British Thermal Unit, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ft_lb, Foot-Pound, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, ft-lb, Foot-Pound Force, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MBoe, Thousand Barrels of Oil Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MBoe, Thousand Barrels of Oil Equivalent, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Mcfe, Thousand Cubic Foot Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Mcfe, Thousand Cubic Foot Equivalent, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MMBoe, Millions of Barrels of Oil Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MMBoe, Millions of Barrels of Oil Equivalent, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MMBTU, Millions of BTU, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MMBTU, Millions of BTU, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ft, Foot, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, ft, Twelve Inches, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(in, Inch, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, in, Inch, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(mi, Mile, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, mi, 5280 Feet, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(nmi, Nautical Mile, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, nmi, 1.15078 Miles (One Minute of Arc Latitude), Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(yd, Yard, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, yd, Three Feet, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(lb, Pound, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, lb, Pound of Mass, as Used in Commerce        (http://en.wikipedia.org/wiki/Pound_(mass)#Use_in_Commerce)), Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(oz, Ounce, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, oz, US Ounce, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ozt, Troy Ounce, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, ozt, Troy Ounce, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(T, Ton, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, T, US Ton, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(hp, Horsepower, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, hp, Horsepower (Foot-pound per Second), Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(bbl, Barrel, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, bbl, Barrel (of Oil), Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ft3, Cubic Foot, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, ft³, Cubic Foot, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(gal, Gallon, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, gal, US Gallon, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MBbls, Thousand Barrels, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, MBbls, Thousands of Barrels (of Oil), Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Mcf, Thousands Cubic Feet, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, Mcf, Thousands of Cubic Feet, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MMBbls, Million Barrels, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, MMBbls, Millions of Barrels (of Oil), Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MMcf, Millions Cubic Feet, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, MMcf, Millions of Cubic Feet, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(AED, U.A.E. dirham, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.إ, United Arab Emirates dirham, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(AFN, Afghan afghani, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ؋, Afghan afghani, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ALL, Albanian lek, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, L, Albanian lek, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(AMD, Armenian dram, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ֏, Armenian dram, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ANG, Netherlands Antillean guilder, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, NAƒ, Netherlands Antillean guilder, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(AOA, Angolan kwanza, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Kz, Angolan kwanza, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ARS, Argentine peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Argentine peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(AUD, Australian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Australian dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(AWG, Aruban florin, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ƒ, Aruban florin, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(AZN, Azerbaijani manat, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₼, Azerbaijani manat, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BAM, Bosnia and Herzegovina convertible mark, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, KM, Bosnia and Herzegovina convertible mark, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BBD, Barbados dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Barbados dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BDT, Bangladeshi taka, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ৳, Bangladeshi taka, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BGN, Bulgarian lev, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, лв, Bulgarian lev, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BHD, Bahraini dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, .د.ب, Bahraini dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BIF, Burundian franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, FBu, Burundian franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BMD, Bermuda Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Bermudian dollar (customarily known as Bermuda dollar), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BND, Brunei dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Brunei dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BOB, Boliviano, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Bs., Boliviano, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BOV, Bolivian Mvdol, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Bolivian Mvdol (funds code), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BRL, Brazilian real, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, R$, Brazilian real, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BSD, Bahamian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Bahamian dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BTN, Bhutanese ngultrum, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ch., Bhutanese ngultrum, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BWP, Botswana pula, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, P, Botswana pula, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BYN, Belarusian ruble, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Br, Belarusian ruble, ISO4217, REC, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BYR, Belarusian ruble, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Br, Belarusian ruble, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(BZD, Belize dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Belize dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CAD, Canadian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Canadian dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CDF, Congolese franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, CF, Congolese franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CHE, WIR Bank, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , WIR Bank (complementary currency), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CHF, Swiss franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, SFr, Swiss franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CHW, WIR Bank, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , WIR Bank (complementary currency), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CLF, Unidad de Fomento, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Unidad de Fomento (funds code), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CLP, Chilean peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Chilean peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CNY, Chinese yuan, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ¥, Chinese yuan (renmibi), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(COP, Colombian peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Colombian peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(COU, Unidad de Valor Real, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Unidad de Valor Real, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CRC, Costa Rican colon, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₡, Costa Rican colon, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CUC, Cuban convertible peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, CUC$, Cuban convertible peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CUP, Cuban peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $MN, Cuban peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CVE, Cape Verde escudo, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Esc, Cape Verde escudo, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(CZK, Czech koruna, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Kč, Czech koruna, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(DJF, Djiboutian franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Fdj, Djiboutian franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(DKK, Danish krone, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Danish krone, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(DOP, Dominican peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Dominican peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(DZD, Algerian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, دج, Algerian dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(EEK, Estonian kroon, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Estonian kroon, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(EGP, Egyptian pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ج.م., Egyptian pound, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ERN, Eritrean nakfa, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Nfk, Eritrean nakfa, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ETB, Ethiopian birr, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Br, Ethiopian birr, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(EUR, Euro, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, €, Euro, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(FJD, Fiji dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Fiji dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(FKP, Falkland Islands pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Falkland Islands pound, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GBP, Pound sterling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Great Britain Pound sterling, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GEL, Georgian lari, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ლ, Georgian lari, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GHS, Ghanaian cedi, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, GH₵, Ghanaian cedi, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GIP, Gibraltar pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Gibraltar pound, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GMD, Gambian dalasi, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, D, Gambian dalasi, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GNF, Guinean franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, FG, Guinean franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GTQ, Guatemalan quetzal, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Q, Guatemalan quetzal, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GYD, Guyanese dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Guyanese dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(HKD, Hong Kong dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Hong Kong dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(HNL, Honduran lempira, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, L, Honduran lempira, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(HRK, Croatian kuna, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kn, Croatian kuna, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(HTG, Haitian gourde, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, G, Haitian gourde, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(HUF, Hungarian forint, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ft, Hungarian forint, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(IDR, Indonesian rupiah, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Rp, Indonesian rupiah, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ILS, Israeli new sheqel, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₪, Israeli new sheqel, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(INR, Indian rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Indian rupee, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(IQD, Iraqi dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.ع, Iraqi dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(IRR, Iranian rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ﷼, Iranian rial, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ISK, Icelandic króna, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Icelandic króna, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(JMD, Jamaican dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Jamaican dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(JOD, Jordanian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, JD, Jordanian dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(JPY, Japanese yen, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ¥, Japanese yen, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KES, Kenyan shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ksh, Kenyan shilling, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KGS, Kyrgyzstani som, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, сом, Kyrgyzstani som, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KHR, Cambodian riel, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ៛, Cambodian riel, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KMF, Comoro franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₣, Comoro franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KPW, North Korean won, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₩, North Korean won, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KRW, South Korean won, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₩, South Korean won, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KWD, Kuwaiti dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.ك, Kuwaiti dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KYD, Cayman Islands dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Cayman Islands dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(KZT, Kazakhstani tenge, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₸, Kazakhstani tenge, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LAK, Lao kip, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₭, Lao kip, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LBP, Lebanese pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, LL, Lebanese pound, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LKR, Sri Lanka rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, රු, Sri Lanka rupee, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LRD, Liberian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Liberian dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LSL, Lesotho loti, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, M, Lesotho loti, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LTL, Lithuanian litas, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Lt, Lithuanian litas, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LVL, Latvian lats, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ls, Latvian lats, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(LYD, Libyan dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ل.د, Libyan dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MAD, Moroccan dirham, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.م., Moroccan dirham, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MDL, Moldovan leu, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, Moldovan leu, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MGA, Malagasy ariary, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Ar, Malagasy ariary, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MKD, Macedonian denar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ден, Macedonian denar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MMK, Myanma kyat, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, K, Myanma kyat, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MNT, Mongolian tugrik, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₮, Mongolian tugrik, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MOP, Macanese pataca, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, MOP$, Macanese pataca, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MRO, Mauritanian ouguiya, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, UM, Mauritanian ouguiya, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MUR, Mauritian rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Mauritian rupee, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MVR, Maldivian rufiyaa, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Rf., Maldivian rufiyaa, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MWK, Malawian kwacha, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, MK, Malawian kwacha, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MXN, Mexican peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Mexican peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MXV, Mexican UDI, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Mexican Unidad de Inversion (UDI) (funds code), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MYR, Malaysian ringgit, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, RM, Malaysian ringgit, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MZN, Mozambican metical, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, MT, Mozambican metical, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(NAD, Namibian dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Namibian dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(NGN, Nigerian naira, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₦, Nigerian naira, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(NIO, Cordoba oro, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, C$, Cordoba oro, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(NOK, Norwegian krone, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Norwegian krone, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(NPR, Nepalese rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Nepalese rupee, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(NZD, New Zealand dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, New Zealand dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(OMR, Omani rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ر.ع., Omani rial, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(PAB, Panamanian balboa, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, B/., Panamanian balboa, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(PEN, Peruvian nuevo sol, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, S/, Peruvian nuevo sol, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(PGK, Papua New Guinean kina, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, K, Papua New Guinean kina, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(PHP, Philippine peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₱, Philippine peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(PKR, Pakistani rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₨, Pakistani rupee, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(PLN, Polish złoty, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, zł, Polish złoty, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(PYG, Paraguayan guaraní, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₲, Paraguayan guaraní, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(QAR, Qatari rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ر.ق, Qatari rial, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(RON, Romanian new leu, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Romanian new leu, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(RSD, Serbian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, дин, Serbian dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(RUB, Rouble, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₽, Russian rouble, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(RWF, Rwandan franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, FRw, Rwandan franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SAR, Riyal, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ر.س, Saudi riyal, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SBD, Solomon Islands dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Solomon Islands dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SCR, Seychelles rupee, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, SRe, Seychelles rupee, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SDG, Sudanese pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Sudanese pound, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SEK, Swedish krona, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, kr, Swedish krona/kronor, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SGD, Singapore dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Singapore dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SHP, Saint Helena pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, £, Saint Helena pound, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SLL, Leone, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Le, Sierra Leonean leone, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SOS, Somali shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Sh.So, Somali shilling, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SRD, Surinamese dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Surinamese dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SSP, South Sudanese pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, South Sudanese pound, ISO4217, REC, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(STD, São Tomé and Príncipe dobra, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Db, São Tomé and Príncipe dobra, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SVC, Salvadoran colón, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₡, Salvadoran colón, ISO4217, REC, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SYP, Syrian pound, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, LS, Syrian pound, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(SZL, Lilangeni, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, E, Swaziland Lilangeni, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(THB, Baht, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ฿, Thai baht, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TJS, Tajikistani somoni, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Tajikistani somoni, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TMT, Turkmenistani manat, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Turkmenistani manat, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TND, Tunisian dinar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, د.ت, Tunisian dinar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TOP, Pa'anga, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, T$, Tongan pa'anga, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TRY, Turkish lira, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₺, Turkish lira, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TTD, Trinidad and Tobago dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Trinidad and Tobago dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TWD, New Taiwan dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, New Taiwan dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TZS, Tanzanian shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Tsh, Tanzanian shilling, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(UAH, Hryvnia, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₴, Ukrainian hryvnia, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(UGX, Ugandan shilling, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, USh, Ugandan shilling, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(USD, US Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, United States dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(USN, Next Day US Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, United States dollar (next day) (funds code), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(USS, Same Day US Dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, United States dollar (same day) (funds code), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(UYI, Uruguay Peso en Unidades Indexadas, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code), ISO4217, REC, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(UYU, Uruguayan peso, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Uruguayan peso, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(UZS, Som, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Uzbekistan som, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(VEB, Venezualan Bolivar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Bs., Venezuelan bolívar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(VEF, Venezuelan Bolivar Fuerte, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Venezuelan bolívar fuerte (equals 1000 VEB), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(VND, đồng, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ₫, Vietnamese đồng, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(VUV, Vanuatu vatu, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, VT, Vanuatu vatu, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(WST, Samoan tala, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, WS$, Samoan tala, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XAF, CFA Franc BEAC, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , CFA franc BEAC, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XAG, Silver, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Silver (one troy ounce), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XAU, Gold, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Gold (one troy ounce), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XBA, EURCO, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Composite Unit (EURCO) (bond market unit), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XBB, E.M.U.-6, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Monetary Unit (E.M.U.-6) (bond market unit), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XBC, E.U.A.-9, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Unit of Account 9 (E.U.A.-9) (bond market unit), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XBD, E.U.A.-17, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , European Unit of Account 17 (E.U.A.-17) (bond market unit), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XCD, East Caribbean dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, East Caribbean dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XDR, Special Drawing Rights, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Special Drawing Rights, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XFU, UIC Franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , UIC franc (special settlement currency), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XOF, CFA Franc BCEAO, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , CFA Franc BCEAO, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XPD, Palladium, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Palladium (one troy ounce), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XPF, CFP Franc, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , CFP franc, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XPT, Platinum, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Platinum (one troy ounce), ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XSU, SUCRE, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, Sucre, Unified System for Regional Compensation (SUCRE), ISO4217, REC, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(XUA, ADB Unit of Account, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, None, African Development Bank, ISO4217, REC, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(YER, Yemeni rial, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, 
+      , Yemeni rial, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ZAR, South African rand, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, R, South African rand, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ZMK, Zambian kwacha, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ZK, Zambian kwacha, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ZMW, Zambian kwacha, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, ZK, Zambian kwacha, ISO4217, REC, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ZWL, Zimbabwe dollar, http://www.xbrl.org/2003/iso4217, monetaryItemType, 2003-12-31, $, Zimbabwe dollar, ISO4217, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Cal, Calorie, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Cal, Calorie, Non-SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(t, Tonne, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, t, Tonne (Metric Tonne, Metric Ton), Non-SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(B, Byte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, B, 8 adjacent bits of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GB, Gigabyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, GB, Gigabytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kB, Kilobyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, kB, Kilobytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MB, Megabyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, MB, Megabytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TB, Terabyte, http://www.xbrl.org/2009/utr, memoryItemType, 2009-12-16, TB, Terabytes of Memory per IEEE 1541-2002, Non-SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(ha, Hectare, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, ha, Hectare, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(sqkm, Square km, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, km², Square Kilometer, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(sqm, Square metre, http://www.xbrl.org/2009/utr, areaItemType, 2009-12-16, m², Square Metre, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(A, Ampere, http://www.xbrl.org/2009/utr, electricCurrentItemType, 2009-12-16, A, Ampere, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(J, Joule, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, J, Joule, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kJ, Kilojoule, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, kJ, Thousand Joules, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kWh, Kilowatt-Hours, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, kWh, Kilowatt-Hours of Energy, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(mJ, mJ, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, mJ, Millijoules, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MWh, Megawatt-Hour, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MWh, Megawatt-Hour, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(V, Volt, http://www.xbrl.org/2009/utr, voltageItemType, 2009-12-16, V, Electromotive Force, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Hz, Hertz, http://www.xbrl.org/2009/utr, frequencyItemType, 2009-12-16, Hz, Frequency or Number of Cycles per Second, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(cm, Centimetre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, cm, One-hundreth of Metre, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(dm, Decimetre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, dm, Decimetre, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(km, Kilometre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, km, Thousand Metres, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(m, Metre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, m, Metre, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(mm, Millimetre, http://www.xbrl.org/2009/utr, lengthItemType, 2009-12-16, mm, One-thousandth of Metre, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(g, Gram, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, g, Gram, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kg, Kilogram, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, kg, Kilogram, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GW, Gigawatt, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, GW, Thousand Million Watts, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kW, Kilowatt, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, kW, Thousand Watts, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MW, Megawatt, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, MW, Million Watts, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TW, Terawatt, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, TW, Million Million Watts, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(W, Watt, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, W, Watt, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kV, Kilovolt, http://www.xbrl.org/2009/utr, voltageItemType, 2009-12-16, kV, Thousand Volts of Electromotive Force, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(l, Litre, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, l, Litre, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(m3, Cubic Metre, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, m³, Cubic Metre, SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(bu, Bushel, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, bu, US Bushel, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(aft, Acre-Foot, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, acre ft, Volume of one acre of surface area to a depth of one foot using a US survey foot, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Monetary_per_Share, Monetary/share, None, perShareItemType, 2009-12-16, None, Monetary Unit / Share, XBRL, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Monetary_per_Decimal, Monetary/Decimal, None, perUnitItemType, 2009-12-16, None, Monetary Unit / Anything, XBRL, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Monetary_per_Monetary, Monetary/Monetary, None, pureItemType, 2003-12-31, None, Exchange Rate Expressed as: Monetary Unit / Monetary Unit, XBRL, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(pure, pure, http://www.xbrl.org/2003/instance, pureItemType, 2003-12-31, None, Dimensionless (Pure) Number, XBRL, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Rate, Rate, http://www.xbrl.org/2009/utr, pureItemType, 2003-12-31, None, Rate, XBRL, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(shares, Share, http://www.xbrl.org/2003/instance, sharesItemType, 2003-12-31, None, Unit of Ownership (Stock), XBRL, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Y, Year, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, yr, Gregorian calendar year of 365 days. Use only as a denominator because durationItemType is not numeric and has no        units., Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(M, Month, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, mo, Gregorian calendar month of 30.41 days. Use only as a denominator because durationItemType is not numeric and has no        units., Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(D, Day, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, d, Day of 24 hours. Use only as a denominator because durationItemType is not numeric and has no units., Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(H, Hour, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, h, Hour of 60 minutes. Use only as a denominator because durationItemType is not numeric and has no units., Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MM, Minute, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, m, Minute of 60 seconds. Use only as a denominator because durationItemType is not numeric and has no        units., Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(S, Second, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, s, Second. Use only as a denominator because durationItemType is not numeric and has no        units., SI, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Volume_per_Duration, Volume/Duration, None, flowItemType, 2009-12-16, None, Flow rate, as Volume per Duration, Customary, REC, 2012-10-31) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MV, Megavolt, http://www.xbrl.org/2009/utr, voltageItemType, 2009-12-16, MV, One million volts, SI, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GV, Gigavolt, http://www.xbrl.org/2009/utr, voltageItemType, 2009-12-16, GV, One thousand million volts, SI, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Bcf, Billions of cubic feet, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, Bcf, One thousand million cubic feet, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Tcf, Trillions of cubic feet, http://www.xbrl.org/2009/utr, volumeItemType, 2009-12-16, Tcf, One trillion cubic feet, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GWh, Gigawatt-Hour, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, GWh, Gigawatt-Hour, SI, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(TWh, Terawatt-Hour, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, TWh, Terawatt-Hour, SI, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Q, Quarter, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, qtr, Gregorian Calendar Quarter (three months). Use only as a denominator because durationItemType is not numeric and has no units., Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(WK, Week, http://www.xbrl.org/2009/utr, durationItemType, 2003-12-31, wk, Gregorian Calendar Week. Use only as a denominator because durationItemType is not numeric and has no units., Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MMcfe, Million Cubic Foot Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MMcfe, Million cubic feet of natural gas equivalent, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Bcfe, Billion Cubic Foot Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Bcfe, Thousand million cubic feet of natural gas equivalent, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Tcfe, Trillion Cubic Foot Equivalent, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Tcfe, Trillion cubic feet of natural gas equivalent, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kT, Thousand Tons, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, kT, One thousand US tons, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MT, Million Tons, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, MT, One million US tons, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GT, Billion Tons, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, GT, One thousand million US tons, Customary, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(kt, Kilotonne, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, kt, Thousand Tonnes (Metric Tonnes, Metric Tons), Non-SI, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Mt, Megatonne, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, Mt, Million Tonnes (Metric Tonnes, Metric Tons), Non-SI, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Gt, Gigatonne, http://www.xbrl.org/2009/utr, massItemType, 2009-12-16, Gt, Thousand Million Tonnes (Metric Tonnes, Metric Tons), Non-SI, REC, 2013-05-17) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(MWM, Megawatt-Month, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, MW-M, Megawatt-Month assuming 730 hours per month, SI, REC, 2013-04-30) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(GWM, Gigawatt-Month, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, GW-M, Gigawatt-Month assuming 730 hours per month, SI, REC, 2013-04-30) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Energy_per_Duration, Energy/Duration, None, flowItemType, None, None, Flow rate, as Energy per Duration, Customary, CR, 2016-08-10) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Cel, Celsius, http://www.xbrl.org/2009/utr, temperatureItemType, None, °C, A temperature scale based on 0° for the freezing point of water and 100° for the boiling point of water at 1 atm pressure., SI, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(K, Kelvin, http://www.xbrl.org/2009/utr, temperatureItemType, None, K, The kelvin is a unit of measure for temperature based upon an absolute scale. It is one of the seven base units in the International System of Units (SI) and is assigned the unit symbol K. The Kelvin scale is an absolute, thermodynamic temperature scale using as its null point absolute zero, the temperature at which all thermal motion ceases in the classical description of thermodynamics. The kelvin is defined as the fraction  1⁄273.16 of the thermodynamic temperature of the triple point of water (exactly 0.01 °C or 32.018 °F). In other words, it is defined such that the triple point of water is exactly 273.16 K., SI, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(F, Fahrenheit, http://www.xbrl.org/2009/utr, temperatureItemType, None, °F, Fahrenheit is a unit of measure for temperature defined by two fixed points: the temperature at which water freezes into ice is defined as 32 °F, and the boiling point of water is defined to be 212 °F, a 180 °F separation, as defined at sea level and standard atmospheric pressure., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Pa, Pascal, http://www.xbrl.org/2009/utr, pressureItemType, None, Pa, The pascal is the SI derived unit of pressure used to quantify internal pressure, stress, Young's modulus and ultimate tensile strength. It is defined as one newton per square meter., SI, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Bar, Bar, http://www.xbrl.org/2009/utr, pressureItemType, None, bar, The bar is a metric unit of pressure, but is not approved as part of the International System of Units (SI). It is defined as exactly equal to 100000 Pa, which is slightly less than the current average atmospheric pressure on Earth at sea level., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(psi, Pounds Per Square Inch, http://www.xbrl.org/2009/utr, pressureItemType, None, psi, The pound per square inch is a unit of pressure or of stress based on avoirdupois units. It is the pressure resulting from a force of one pound-force applied to an area of one square inch., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(atm, Standard Atmosphere, http://www.xbrl.org/2009/utr, pressureItemType, None, atm, The standard atmosphere is a unit of pressure defined as 101325 Pa (1.01325 bar). It is sometimes used as a reference or standard pressure., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(N, Newton, http://www.xbrl.org/2009/utr, forceItemType, None, N, The newton is the International System of Units (SI) derived unit of force. One newton is the force needed to accelerate one kilogram of mass at the rate of one metre per second squared in direction of the applied force., SI, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(var, Volt-ampere reactive, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, var, In electric power transmission and distribution, volt-ampere reactive (var) is a unit by which reactive power is expressed in an AC electric power system. Reactive power is the power that is wasted and not used to do work on the load., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(VA, Volt-ampere, http://www.xbrl.org/2009/utr, powerItemType, 2009-12-16, VA, A volt-ampere (VA) is the unit used for the apparent power in an electrical circuit, equal to the product of root-mean-square (RMS) voltage and RMS current. In direct current (DC) circuits, this product is equal to the real power (active power) in watts. Volt-amperes are useful only in the context of alternating current (AC) circuits., SI, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Wh, Watt-Hours, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, Wh, Watt-Hours of Energy, SI, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(VAh, Volt-ampere-hours, http://www.xbrl.org/2009/utr, energyItemType, 2009-12-16, VAh, Volt-ampere (VA) hours of energy., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Ah, Ampere Hours, http://www.xbrl.org/2009/utr, electricChargeItemType, None, Ah, An ampere hour or amp hour is a unit of electric charge, equal to the charge transferred by a steady current of one ampere flowing for one hour., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(C, Coulomb, http://www.xbrl.org/2009/utr, electricChargeItemType, None, C, The coulomb is the International System of Units (SI) unit of electric charge. It is the charge transported by a constant current of one ampere in one second., SI, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(Degree, Degree, http://www.xbrl.org/2009/utr, planeAngleItemType, None, °, The degree is a measurement of a plane angle, defined so that a full rotation is 360 degrees. In XBRL the degree is reported in a decimal format., Customary, CR, 2017-07-12) - </message></entry>
+<entry code="units_xml" level="info">
+ <message filing_url="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS" severity="info" cid="4562333552">[units_xml] list(rad, Radian, http://www.xbrl.org/2009/utr, planeAngleItemType, None, rad, The radian is the standard unit of angular measure. The radian is an SI derived unit., SI, CR, 2017-07-12) - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.48 secs - /Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS </message>
+ <ref href="/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/_IXDS#?#/Users/campbellpryde/Downloads/0001109357-23-000067-xbrl.zip/exc-20230630.htm"/></entry>
+</log>

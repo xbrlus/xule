@@ -1,0 +1,10 @@
+
+
+constant $units_xml = xml-data-flat('/Users/campbellpryde/Documents/GitHub/unit-type-registry/schema/2017-07-12/utr.xml','/utr:utr/utr:units/utr:unit', list('utr:unitId','utr:unitName','utr:nsUnit','utr:itemType','utr:itemTypeDate','utr:symbol','utr:definition','utr:baseStandard','utr:status','utr:versionDate'),list('string','string','string','string','date','string','string','string','string','date'),dict(list('utr','http://www.xbrl.org/2009/utr')))
+
+output units_xml
+for $unit in $units_xml
+    if $unit[2] == 'http://www.xbrl.org/2003/iso4217'
+        skip
+    else
+        $unit
