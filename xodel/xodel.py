@@ -2189,7 +2189,7 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     # convert attributes to qnames
     attributes = {resolve_clark_to_qname(k, taxonomy): v for k, v in concept_info['attributes'].items()}
 
-    return taxonomy.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('abstract'),
+    return taxonomy.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('is-abstract'),
                             concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
                             concept_info.get('substitution-group-name'), concept_info.get('id'), attributes)
 
