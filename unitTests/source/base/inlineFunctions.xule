@@ -120,7 +120,7 @@ output INLIN024
   { @instance=$INSTANCE_XML @concept.local-name='Assets' }.inline-ancestors
 
 output INLIN025
-/* list() */
+/* no iteration */
 
   { @instance=$INSTANCE_XML @concept.local-name='Assets'  where $fact.inline-parent.length > 0}
 
