@@ -2310,10 +2310,10 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
             rel_info['target-name'] = resolve_clark_to_qname(log_rec.args['relationship-target'], taxonomy)
         except XodelNotInClark:
             rel_info['target-input-object'] = get_model_object(log_rec.args['relationship-target'], cntlr)
-    if 'order' in log_rec.args:
-        rel_info['order'] = decimal.Decimal(log_rec.args['order'])
-    if 'weight'in log_rec.args:
-        rel_info['weight'] = decimal.Decimal(log_rec.args['weight'])
+    if 'relationship-order' in log_rec.args:
+        rel_info['order'] = decimal.Decimal(log_rec.args['relationship-order'])
+    if 'relationship-weight'in log_rec.args:
+        rel_info['weight'] = decimal.Decimal(log_rec.args['relationship-weight'])
     if 'relationship-preferred-label' in log_rec.args:
         rel_info['preferred-label'] = resolve_role_uri(log_rec.args['relationship-preferred-label'], taxonomy)
     if 'relationship-role' in log_rec.args:
