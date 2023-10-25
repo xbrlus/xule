@@ -177,7 +177,7 @@ class XuleValue:
                 self._sort_value = [x.sort_value for x in self.value]
             elif self.type == 'set':
                 self._sort_value = {x.sort_value for x in self.value}
-            elif self.type == 'dictonary':
+            elif self.type == 'dictionary':
                 self._sort_value = [[k.sort_value, v.sort_value] for k, v in self.value]
             elif self.type == 'concept':
                 self._sort_value = self.value.qname.clarkNotation
