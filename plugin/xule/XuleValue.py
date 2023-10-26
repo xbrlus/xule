@@ -117,7 +117,6 @@ class XuleValue:
         self.facts = None
         self.tags = None
         self.aligned_result_only = False
-        self.used_vars = None
         self.used_expressions = None
         self.shadow_collection = shadow_collection
         self.tag = tag if tag is not None else self
@@ -219,7 +218,6 @@ class XuleValue:
         new_value.facts = copy.copy(self.facts)
         new_value.tags = copy.copy(self.tags)
         new_value.shadow_collection = copy.copy(self.shadow_collection)
-        new_value.used_vars = copy.copy(self.used_vars)
         new_value.used_expressions = copy.copy(self.used_expressions)
     
         return new_value
