@@ -212,13 +212,23 @@ class XuleValue:
         return self.format_value()
        
     def clone(self):       
-        new_value = copy.copy(self)
-        #new_value.value = copy.copy(self.value)
-        new_value.alignment = copy.copy(self.alignment)
-        new_value.facts = copy.copy(self.facts)
+        new_value = __class__.__new__(__class__)
+        new_value.value = self.value
+        new_value.type = self.type
+        new_value.fact = self.fact
+        new_value.from_model = self.from_model
+        new_value.alignment = self.alignment
+        new_value.facts = self.facts
         new_value.tags = copy.copy(self.tags)
-        new_value.shadow_collection = copy.copy(self.shadow_collection)
-        new_value.used_expressions = copy.copy(self.used_expressions)
+        new_value.aligned_result_only = self.aligned_result_only
+        new_value.used_expressions = self.used_expressions
+        new_value.shadow_collection = self.shadow_collection
+        new_value.tag = self.tag
+        new_value._hashable_system_value = self._hashable_system_value
+        if hasattr(self, '_sort_value'):
+            new_value._sort_value = self._sort_value
+        if hasattr(self, '_shadow_dictionary'):
+            new_value._shadow_dictionary = self._shadow_dictionary
     
         return new_value
 
