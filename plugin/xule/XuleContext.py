@@ -808,7 +808,7 @@ class XuleIterationTable:
         :param xule_context: The rule context
         :type xule_context: XuleContext
         """
-        self._ordered_tables = collections.OrderedDict()
+        self._ordered_tables = {}
         
         #This is a dictionary of which table the column is in.
         #self._columns = collections.defaultdict(list)
