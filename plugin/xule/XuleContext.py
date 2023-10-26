@@ -864,7 +864,7 @@ class XuleIterationTable:
     @property
     def facts(self):
         if self.is_empty:
-            return collections.OrderedDict()
+            return {}
         else:
             return self.current_table.facts
     @facts.setter
@@ -1139,7 +1139,7 @@ class XuleIterationSubTable:
         
         self.tags = dict()
         #self.facts = []
-        self.facts = collections.OrderedDict()
+        self.facts = {}
         self.aligned_result_only = False
         self.used_expressions = set()
         
@@ -1275,7 +1275,7 @@ class XuleIterationSubTable:
             #reset tags and facts
             self.tags = dict()
             #self.facts = []
-            self.facts = collections.OrderedDict()
+            self.facts = {}
             #reset used columns for the next iteration
             self._used_columns = set()
         
