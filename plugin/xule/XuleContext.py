@@ -828,9 +828,9 @@ class XuleIterationTable:
     
     @property
     def current_alignment(self):
-        for table_processing_id in reversed(self._ordered_tables):
-            if not self._ordered_tables[table_processing_id].is_empty:
-                return self._ordered_tables[table_processing_id].current_alignment
+        for table in reversed(self._ordered_tables.values()):
+            if not table.is_empty:
+                return table.current_alignment
         return None
         
         '''
