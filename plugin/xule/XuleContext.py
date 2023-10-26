@@ -818,15 +818,6 @@ class XuleIterationTable:
         self.main_table_id = None
 
     @property
-    def current_table(self):
-        if self.is_empty:
-            return None
-        else:
-            #return self._tables[-1]
-            table_processing_id = next(reversed(self._ordered_tables))
-            return self._ordered_tables[table_processing_id]
-    
-    @property
     def current_alignment(self):
         for table in reversed(self._ordered_tables.values()):
             if not table.is_empty:
@@ -1033,6 +1024,7 @@ class XuleIterationTable:
         child_table.tags = self.tags.copy()
         table_processing_id = self.xule_context.get_processing_id(table_id)
         self._ordered_tables[table_processing_id] = child_table
+        self.current_table = child_table
 
         if parent_table is not None:
             child_table.dependent_alignment = parent_table.dependent_alignment
@@ -1064,8 +1056,9 @@ class XuleIterationTable:
                 del self._columns[column_key]
             '''
         #remove the table
-        del self._ordered_tables[table_processing_id]        
-    
+        del self._ordered_tables[table_processing_id]
+        self.current_table = self._ordered_tables[next(reversed(self._ordered_tables))] if self._ordered_tables else None
+
     def is_table_empty(self, table_id):
         table_processing_id = self.xule_context.get_processing_id(table_id)
         return table_processing_id not in self._ordered_tables or self._ordered_tables[table_processing_id].is_empty
