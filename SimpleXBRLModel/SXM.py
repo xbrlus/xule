@@ -1718,8 +1718,9 @@ class SXMConcept(SXMElement, SXMAttributedBase):
 class SXMResource(_SXMDefined):
     def __init__(self, dts, concept, role, content=None, attributes=None):
         _validate_init_arguments()
-        if not isinstance(role, SXMRole):
-            raise SXMException("Trying to add resource with an invalid role. Found {}: {}".format(type(role).__name__, str(role)))
+        if not role is None:
+            if not isinstance(role, SXMRole):
+                raise SXMException("Trying to add resource with an invalid role. Found {}: {}".format(type(role).__name__, str(role)))
         super().__init__(dts)
         self.concept = concept
         self.role = role
@@ -2267,7 +2268,7 @@ _SXM_ARGUMENT_TYPES= {
     'parent_type': ((SXMType, ), SXMType),
     'part_content': ((SXMPart, ), str),
     'part_element': ((SXMPart, ), SXMElement),
-    'parts': ((SXMReference, ), None),
+    'parts': ((SXMReference, ), list, SXMPart),
     'pattern': ((SXMType, ), list, str),
     'period_type': ((SXMConcept, ), str),
     'preferred_label': ((SXMRelationship, ), None),

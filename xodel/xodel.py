@@ -1632,6 +1632,10 @@ _ARELLE_MODEL=None
 _STANDARD_LINK_NAMES = {'presentation': '{http://www.xbrl.org/2003/linkbase}presentationLink',
                         'definition': '{http://www.xbrl.org/2003/linkbase}definitionLink',
                         'calculation': '{http://www.xbrl.org/2003/linkbase}calculationLink',
+                        'labellink': '{http://www.xbrl.org/2003/linkbase}labelLink',
+                        'label': '{http://www.xbrl.org/2003/linkbase}label',
+                        'referencelink': '{http://www.xbrl.org/2003/linkbase}referenceLink',
+                        'reference': '{http://www.xbrl.org/2003/linkbase}reference',
                         'generic': '{http://xbrl.org/2008/generic}link'}
 _STANDARD_LINK_ARC_MAP = {'{http://www.xbrl.org/2003/linkbase}presentationLink': '{http://www.xbrl.org/2003/linkbase}presentationArc',
                         '{http://www.xbrl.org/2003/linkbase}definitionLink': '{http://www.xbrl.org/2003/linkbase}definitionArc',
@@ -1826,8 +1830,13 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'label-text': ('label', string_validator),
     'label-lang': ('label', string_validator),
     'label-role': ('label', role_validator),
-    #'label-name': ('label', string_validator),
-    'label-concept': ('label', qname_validator),
+    'label-concept': ('label', object_validator),
+    'label-concept-name': ('label', qname_validator),
+    'reference': ('reference', object_validator),
+    'reference-role': ('reference', role_validator),
+    'reference-concept': ('reference', object_validator),
+    'reference-concept-name': ('reference', qname_validator),
+    'reference-parts': ('reference', list_validator), # TODO - This should be a a list of lists
     'import-url': ('import', string_validator),
     'import2-url': ('import2', string_validator),
 }
@@ -2407,6 +2416,7 @@ def process_label(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     label-role
     label-name
     label-concept-name
+    label-concept
     '''
     # Check if there is a label output attribute. This will copy an existing label
     if 'label' in log_rec.args:
@@ -2423,6 +2433,10 @@ def process_label(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         label_info['role'] = resolve_role_uri(log_rec.args['label-role'], taxonomy)
     if 'label-concept-name' in log_rec.args:
         label_info['concept-name'] = resolve_clark_to_qname(log_rec.args['label-concept-name'], taxonomy)
+    if 'label-concept' in log_rec.args:
+        arelle_concept = get_model_object(log_rec.args['label-concept'], cntlr)
+        add_arelle_model(arelle_concept.modelXbrl, taxonomy)
+        label_info['concept-name'] = resolve_clark_to_qname(arelle_concept.qname.clarkNotation, taxonomy)
 
     if label_info.get('lang') in (None, ''):
         raise XodelException(f"A Language is required for a label (label-lang). Rule: {log_rec.messageCode}")
@@ -2442,6 +2456,61 @@ def process_label(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         raise XodelException(f"Concept {label_info['concept-name']} does not exist. Cannot create label. Rule: {log_rec.messageCode}")
     
     return label_concept.add_label(label_role, label_info['lang'], label_info['text'])
+
+def process_reference(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    '''
+    reference
+    reference-role
+    reference-concept
+    reference-concept-name
+    '''
+    # Check if there is a reference output attribute. This will copy an existing label
+    if 'reference' in log_rec.args:
+        arelle_reference = get_model_object(log_rec.args['reference'], cntlr)
+        ref_info = extract_reference_info(arelle_reference, taxonomy)
+    else:
+        ref_info = dict()
+
+    if 'reference-role' in log_rec.args:
+        ref_info['role'] = resolve_role_uri(log_rec.args['reference-role'], taxonomy)
+    if 'reference-concept-name' in log_rec.args:
+        ref_info['concept-name'] = resolve_clark_to_qname(log_rec.args['reference-concept-name'], taxonomy)
+    if 'reference-concept' in log_rec.args:
+        arelle_concept = get_model_object(log_rec.args['reference-concept'], cntlr)
+        add_arelle_model(arelle_concept.modelXbrl, taxonomy)
+        ref_info['concept-name'] = resolve_clark_to_qname(arelle_concept.qname.clarkNotation, taxonomy)
+
+    # load parts if there was an arelle reference object passed in.
+    ref_parts_by_qname = collections.OrderedDict()
+    for ref_part in ref_info.get('parts', tuple()):
+        ref_parts_by_qname[ref_part[0]] = ref_part[1]
+    # check if any ref parts were passed in the rule.
+    ref_parts_by_qname = {x[0]: x[1] for x in ref_info.get('parts', tuple())}
+    for ref_part in json.loads(log_rec.args.get('reference-parts', tuple())):
+        # each ref part shoud be a list of 2 items, the first is the qname (clark) and the second is the value.
+        if not isinstance(ref_part, list):
+            raise XodelException(f"Invalid reference part. Should be a list of 2 items, the first is the qname of the part and the second is the value. Found {ref_part}. Found in rule: {log_rec.messageCode}")
+        if len(ref_part) != 2:
+            raise XodelException(f"Invalid reference part. Should be a list of 2 items, the first is the qname of the part and the second is the value. Found {ref_part}. Found in rule: {log_rec.messageCode}")
+        ref_parts_by_qname[ref_part[0]] = ref_part[1]
+    
+    # Now need to convert the parts to SXMParts
+    final_parts = [resolve_reference_part(k, v, taxonomy, rule_name) for k, v in ref_parts_by_qname.items()]
+    
+    if ref_info.get('concept-name') is None:
+        raise XodelException(f"There is not concept for the reference. Rule: {log_rec.messageCode}")
+
+    if ref_info.get('role') is not None:
+        ref_role = taxonomy.get('Role', ref_info['role'])
+    else:
+        ref_role = None
+        
+    ref_concept = taxonomy.get('Concept', ref_info['concept-name'])
+
+    if ref_concept is None:
+        raise XodelException(f"Concept {ref_info['concept-name']} does not exist. Cannot create reference. Rule: {log_rec.messageCode}")
+    
+    return ref_concept.add_reference(ref_role, final_parts)
 
 def get_model_object(object_string, cntlr):
     arelle_model_id, object_id = json.loads(object_string)
@@ -2479,6 +2548,23 @@ def resolve_arcrole_uri(arcrole_name, taxonomy):
     else:
         raise XodelException(f"Arcrole {arcrole_name} is a arcrole short name, but matched to more than one arcrole in the taxonomy."
                              f" The matched arcroles are:\n" + '\n'.join(matched_arcrole_uris))
+
+def resolve_reference_part(part_name, part_value, taxonomy, rule_name):
+    # part_name is in clark notation
+    part_element_qname = resolve_clark_to_qname(part_name, taxonomy)
+    part_element = taxonomy.get('PartElement', part_element_qname)
+    if part_element is None:
+        # see if it is in arelle
+        arelle_part_object = get_arelle_object_by_qname(part_name, _CNTLR)
+        if arelle_part_object is None:
+            raise XodelException(f"Cannot find reference part element {part_name}. Does the schema that defines the reference part element need to be imported? Found in {rule_name}.")
+        add_arelle_model(arelle_part_object.modelXbrl, taxonomy)
+        # the part element should now be in the taxonomy.
+        part_element = taxonomy.get('PartElement', part_name)
+        if part_element is None:
+            raise XodelException(f"Problem finding the reference part element {part_name}. Found in {rule_name}")
+    
+    return taxonomy.new('Part', part_element, part_value)
 
 def no_sort(log_infos, _cntlr):
     # really - don't do anything - sort order doesn't matter
@@ -2589,6 +2675,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'role': (process_role, role_uri_sort),
     'arcrole': (process_arcrole, arcrole_uri_sort),
     'label': (process_label, no_sort),
+    'reference': (process_reference, no_sort),
     'relationship': (process_relationship, no_sort),
     'import': (process_import, no_sort), 
 

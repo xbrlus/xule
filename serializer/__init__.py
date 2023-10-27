@@ -502,7 +502,8 @@ def serialize_linkbase(document):
             extended_link, locators, arcs = resources[content.get_class_name()]
             serialize_resource(extended_link, locators, arcs, content, namespaces, document)
             # Make sure the resource role and arcrole has a reference
-            document.add(content.role, content.DOCUMENT_CONTENT_TYPES.ROLE_REF)
+            if content.role is not None:
+                document.add(content.role, content.DOCUMENT_CONTENT_TYPES.ROLE_REF)
         if isinstance(content, _SXM._SXMCubePart):
             if content.role not in cubes:
                 extended_link = etree.Element(_DEFINITION_LINKBASE, 
@@ -627,9 +628,11 @@ def serialize_resource(extended_link, locators, arcs, resource, namespaces, docu
                                         resource.concept.name.prefix, 
                                         resource.concept.name.local_name)
     # Create the resource
-    resource_attributes = {'{{{}}}role'.format(namespaces.namespace('xlink')): resource.role.role_uri,
-                            '{{{}}}type'.format(namespaces.namespace('xlink')): 'resource',
+    resource_attributes = {'{{{}}}type'.format(namespaces.namespace('xlink')): 'resource',
                             '{{{}}}label'.format(namespaces.namespace('xlink')): resource_xlink_label}
+    
+    if resource.role is not None:
+        resource_attributes['{{{}}}role'.format(namespaces.namespace('xlink'))] = resource.role.role_uri
     if resource_type == 'Label':
         resource_attributes['{http://www.w3.org/XML/1998/namespace}lang'] = resource.language
     if resource.attributes is not None:

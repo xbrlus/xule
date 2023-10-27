@@ -8,6 +8,7 @@ import arelle.XbrlConst as xc
 from lxml import etree
 from .XodelException import *
 from .XodelVars import *
+import json
 import re
 import inspect
 
@@ -314,6 +315,16 @@ def extract_label_info(model_label, dts):
                   'lang': model_label.xmlLang,
                   'role': model_label.role}
 
+def extract_reference_info(model_ref, dts):
+    parts = []
+    for part in model_ref:
+        # save the model, so if needed the qname for the part can be found.
+        save_arelle_model(part.modelXbrl)
+        parts.append((part.qname.clarkNotation, part.textValue))
+
+    return {'role': model_ref.role,
+            'parts': parts}
+
 def sxm_qname_to_arelle_qname(sxm_qname):
     return qname(sxm_qname.namespace, sxm_qname.local_name)
 
@@ -416,7 +427,7 @@ def new_concept_from_arelle(new_model, model_concept):
     if new_concept is None:
         # We should only be here when the add_taxonomy_from_arelle is processing. Otherwise, 
         # the document should already be loaded with all the concepts loaded.
-        if not is_function_in_call_stack(add_taxonomy_from_arelle):
+        if not is_function_in_call_stack(add_arelle_model):
             raise XodelException(f"Internal Error: Trying to copy concept {model_concept.qname.clarkNotation} and the document should alreay be in the new model, but it is not")
 
         # The type needs to be a SXMType, currently we have a qname
@@ -435,13 +446,13 @@ def new_concept_from_arelle(new_model, model_concept):
 
     return new_concept
 
-def new_element_from_arelle(new_model, model_element):
+def new_element_from_arelle(new_model, model_element, is_part=False):
     '''
     This is used to create a concept that is being imported into the new taxonomy. Hence it does
     not create a new concept in the new taxonomy.
     '''
     element_info = extract_element_info(model_element, new_model)
-    new_element = new_model.get('Element', element_info['element-name'])
+    new_element = new_model.get('PartElement' if is_part else 'Element', element_info['element-name'])
     if new_element is None:
         # The type needs to be a SXMType, currently we have a qname
         element_type = find_type(new_model, element_info['type-name'], model_element.modelXbrl.modelManager.cntlr)
@@ -449,7 +460,7 @@ def new_element_from_arelle(new_model, model_element):
                 raise XodelException(f"For element '{element_info['element-name'].clark}', do not have the type definition for '{element_info['type-name'].clark}'")
         
         attributes = {resolve_clark_to_qname(k, new_model): v for k, v in element_info['attributes'].items()}
-        new_element = new_model.new('Element', element_info.get('element-name'), element_type, element_info.get('abstract'),
+        new_element = new_model.new('PartElement' if is_part else 'Element', element_info.get('element-name'), element_type, element_info.get('abstract'),
                                 element_info.get('nillable'), 
                                 element_info.get('id'),
                                 element_info.get('substitution-group-name'),
@@ -628,35 +639,40 @@ def find_arelle_model(url, cntlr, current_arelle_model):
     return arelle_model
 
 def add_taxonomy_from_arelle(url, sxm_dts, cntlr, current_arelle_model):
-        # Get or create the arelle_model for the url
-        arelle_model = find_arelle_model(url, cntlr, current_arelle_model)
-        if arelle_model is None:
-            raise XodelException(f"Cannot create model for {url}")
-        # Convert Arelle Model to SXM
+    # Get or create the arelle_model for the url
+    arelle_model = find_arelle_model(url, cntlr, current_arelle_model)
+    if arelle_model is None:
+        raise XodelException(f"Cannot create model for {url}")
+    # Convert Arelle Model to SXM
 
-        '''
-        Documents
-        Types
-        Elements
-        Part Elements
-        Roles
-        Arcroles
-        Typed Domains
-        Concepts
-        Labels
-        References
-        Networks/Relationships
-        Cubes
-        '''
+    return add_arelle_model(arelle_model, sxm_dts)
 
-        add_documents_from_arelle(sxm_dts, arelle_model)
-        add_types_from_arelle(sxm_dts, arelle_model)
-        add_concepts_and_elements(sxm_dts, arelle_model)
-        add_roles(sxm_dts, arelle_model)
-        add_arcroles(sxm_dts, arelle_model)
+def add_arelle_model(arelle_model, sxm_dts):
+    '''
+    Puts an existing arelle model in the output model.
+    '''
+    '''
+    Documents
+    Types
+    Elements
+    Part Elements
+    Roles
+    Arcroles
+    Typed Domains
+    Concepts
+    Labels
+    References
+    Networks/Relationships
+    Cubes
+    '''
+    add_documents_from_arelle(sxm_dts, arelle_model)
+    add_types_from_arelle(sxm_dts, arelle_model)
+    add_concepts_and_elements(sxm_dts, arelle_model)
+    add_roles(sxm_dts, arelle_model)
+    add_arcroles(sxm_dts, arelle_model)
 
-        x = 1
-        sxm_dts.close_external_documents()      
+    x = 1
+    sxm_dts.close_external_documents()      
 
 def add_documents_from_arelle(sxm_dts, arelle_model):
     doc_type_map = {Type.SCHEMA: sxm_dts.DOCUMENT_TYPES.SCHEMA,
@@ -689,7 +705,7 @@ def add_concepts_and_elements(sxm_dts, arelle_model):
         if item.isItem:
             new_item = new_concept_from_arelle(sxm_dts, item)
         else:
-            new_item = new_element_from_arelle(sxm_dts, item)
+            new_item = new_element_from_arelle(sxm_dts, item, item.isLinkPart)
 
         if new_item.document is None:
             new_item.document = get_document_from_arelle(sxm_dts, item.modelDocument.uri)
