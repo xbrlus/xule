@@ -809,6 +809,7 @@ class XuleIterationTable:
         :type xule_context: XuleContext
         """
         self._ordered_tables = {}
+        self.is_empty = True
         
         #This is a dictionary of which table the column is in.
         #self._columns = collections.defaultdict(list)
@@ -838,10 +839,6 @@ class XuleIterationTable:
                 return self._ordered_tables[table_processing_id].current_alignment
         return None
     
-    @property
-    def is_empty(self):
-        return len(self._ordered_tables) == 0
-
     @property
     def tags(self):
         if self.is_empty:
@@ -1024,6 +1021,7 @@ class XuleIterationTable:
         child_table.tags = self.tags.copy()
         table_processing_id = self.xule_context.get_processing_id(table_id)
         self._ordered_tables[table_processing_id] = child_table
+        self.is_empty = False
         self.current_table = child_table
 
         if parent_table is not None:
@@ -1057,6 +1055,7 @@ class XuleIterationTable:
             '''
         #remove the table
         del self._ordered_tables[table_processing_id]
+        self.is_empty = len(self._ordered_tables) == 0
         self.current_table = self._ordered_tables[next(reversed(self._ordered_tables))] if self._ordered_tables else None
 
     def is_table_empty(self, table_id):
