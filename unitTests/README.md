@@ -16,7 +16,7 @@ The command to run the unit tests is as follows where $SCRIPT_DIR is the directo
 
 ```python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xuleUnit|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set $SCRIPT_DIR/../compiled/ut-ruleset.zip --logNoRefObjectProperties --logFormat "[%(messageCode)s] %(message)s" >> $SCRIPT_DIR/../output/output.txt```
 
-### Google SHeet with Unit Tests
+### Google Sheet with Unit Tests
 The google sheet used to define the unit tests is located at:
 
 ```https://docs.google.com/spreadsheets/d/1l8ckUrmZ5YLgGGCGM7R5FWZ058jDc1Q8KWDck2Cx7EE/edit#gid=0```
