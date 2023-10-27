@@ -1,0 +1,502 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1/F3Q - 231</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+</head>
+
+<body class="xbrl" id="ScheduleTransmissionServiceAndGenerationInterconnectionStudyCostsAbstract">
+    <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>This report is:</xendr:template-display>
+                    </xendr:replace><br/>
+                        
+                        (1) 
+                            <xendr:replace>
+                                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]>
+                                    </xendr:expression>  
+                                <xendr:template-display>
+                                        <input type="checkbox"/> An Original
+                                </xendr:template-display>
+                            </xendr:replace><br/>
+                            
+                        (2)
+                            <xendr:replace>
+                                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                        </xendr:expression> 
+                                    <xendr:template-display>
+                                            <input type="checkbox" checked = "checked"/> A Resubmission
+                                    </xendr:template-display>
+                            </xendr:replace> 
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>04/26/2019</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    End of: <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>2018</xendr:template-display>
+                    </xendr:replace>
+                    <span>/</span>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Q4</xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+        </table>
+    
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td colspan="6" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleTransmissionServiceAndGenerationInterconnectionStudyCostsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    Gas Property And Capacity Leased From Others
+                            </xendr:template-display>
+                    </xendr:replace>
+                    
+                </td>
+            </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="6">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleTransmissionServiceAndGenerationInterconnectionStudyCostsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            <ol>
+                                <li>Report the particulars (details) called for concerning the costs incurred and the reimbursements received for performing transmission service and generator interconnection studies.</li>
+                                <li>List each study separately.</li>
+                                <li>In column (a) provide the name of the study.</li>
+                                <li>In column (b) report the cost incurred to perform the study at the end of period.</li>
+                                <li>In column (c) report the account charged with the cost of the study.</li>
+                                <li>In column (d) report the amounts received for reimbursement of the study costs at end of period.</li>
+                                <li>In column (e) report the account credited with the reimbursement received for performing the study.</li>
+                            </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ColumnHeadings">
+                    <xendr:expression class="hide" name="ColumnHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleTransmissionServiceAndGenerationInterconnectionStudyCostsAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "231 - Schedule - Transmission Service and Generation Interconnection Study Costs") 
+
+                            $heading = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+    
+                            $heading_dict = dict(for $row in $heading
+                                    list("("+$row[1]+")",list($row[2],
+                                        if $row[3] == none
+                                            ""
+                                        else
+                                            taxonomy().concept(to-qname($row[3]))))
+                            );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+    
+                    <div style="text-align: center">
+                        <div class="tooltip">
+                                <div class="tooltiptext">
+                                        <xendr:replace>
+                                                <xendr:expression class="hide" name="ColumnHeadings" part="3">$heading_dict[$row][2].name.local-name</xendr:expression>
+                                            </xendr:replace>
+                                </div>    
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row][1]</xendr:expression>
+                                <xendr:template-display>
+                                    Description
+                                </xendr:template-display>
+                            </xendr:replace>
+                        </div>
+                    </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+        <!-- Line 1 -->
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl abstract">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:TransmissionStudiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1TransmissionAndGenerationStudyCosts").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                                Transmission Studies
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <!-- Line 2-18 -->
+        <tr class="schedule-row" xendr:repeat="StudyCostsIncurred">
+            <xendr:expression class="hide" name="StudyCostsIncurred">// adding a comment
+                
+            $data2 =   list(for $i in range(2,19)
+                                list($i," ",none,none,none,none,none, none)
+            );
+
+            $data = if count(list({covered @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=*})) > 0 
+            
+            $studyCosts = set({covered @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=*}.dimension(ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis));
+               
+                list(for $x in $studyCosts
+                    list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}).length > 0 
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}))
+                    else
+                        0,
+                    $x,
+                    if list({@ferc:DescriptionOfStudyPerformed @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}).length > 0
+                        first(list({@ferc:DescriptionOfStudyPerformed @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}))
+                    else
+                        none,
+                    if list({@ferc:StudyCostsIncurred @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}).length > 0
+                        first(list({@ferc:StudyCostsIncurred @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}))
+                    else
+                        none,
+                    if list({@ferc:StudyCostsAccountCharged @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}).length > 0
+                        first(list({@ferc:StudyCostsAccountCharged @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}))
+                    else
+                        none,
+                    if list({@ferc:StudyCostsReimbursements @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}).length > 0
+                        first(list({@ferc:StudyCostsReimbursements @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}))
+                    else 
+                        none,
+                    if list({@ferc:StudyCostsAccountReimbursed @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}).length > 0
+                        first(list({@ferc:StudyCostsAccountReimbursed @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @unit @period=$currentDuration @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=$x}))
+                    else 
+                        none
+
+                ))
+                else $data2;
+            
+                $uniqueData = list(for $x in  $data
+                                        if $x == list($x[1],$x[2],none,none,none,none,none)
+                                            skip
+                                        else 
+                                            $x
+                                        );
+                for $row in $uniqueData.sort
+                                           
+
+            </xendr:expression>
+
+            
+
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="StudyCostsIncurred">
+                    <xendr:startNumber>2</xendr:startNumber>
+                </xendr:lineNumber>
+                
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="StudyCostsIncurred" fact="true" part="2">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Study 1    
+                </xendr:template-display>
+            </td>
+            <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred" fact="true" format="ixt4:num-dot-decimal" part="3">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $1,111,111
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred" fact="true" part="4">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    999
+                </xendr:template-display>
+            </td>
+            <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred" fact="true" format="ixt4:num-dot-decimal" part="5">$row[6]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $2,222,222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred" fact="true" part="6">$row[7]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    888
+                </xendr:template-display>
+            </td>
+        </tr> 
+        <!-- Line 20 Total from Line 1-19 -->
+        <tr>
+            <td class="xbrl line-number">20</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:StudyCostsIncurred).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Total
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:StudyCostsIncurred @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $4,600,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl"></td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:StudyCostsReimbursements @ferc:StudyTypeAxis=ferc:TransmissionStudiesMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $2,600,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl"></td>
+            
+        </tr>
+        <!-- Line 21 Heading -->
+        <tr> 
+            <td class="xbrl line-number">21</td>
+            <td class="xbrl abstract">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:GenerationStudiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1TransmissionAndGenerationStudyCosts").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                                Generation Studies
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <!-- Line 22-38 -->
+        <tr class="schedule-row" xendr:repeat="StudyCostsIncurred2">
+            <xendr:expression class="hide" name="StudyCostsIncurred2">// adding a comment
+                
+            $data2 =   list(for $i in range(22,38)
+                                list($i,none,none,none,none,none, none)
+            );
+
+            $data = if count(list({covered @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=*})) > 0  
+            
+            
+                list({covered @ferc:TransmissionServiceAndGenerationInterconnectionStudyCostsAxis=*  {list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:DescriptionOfStudyPerformed @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DescriptionOfStudyPerformed @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:StudyCostsIncurred @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:StudyCostsIncurred @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:StudyCostsAccountCharged @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:StudyCostsAccountCharged @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:StudyCostsReimbursements @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:StudyCostsReimbursements @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}))
+                    else 
+                        none,
+                    if list({@ferc:StudyCostsAccountReimbursed @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:StudyCostsAccountReimbursed @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @unit @period=$currentDuration}))
+                    else 
+                        none
+
+                )}})
+                else $data2;
+            
+                $uniqueData = list(for $x in  $data
+                                        if $x == list($x[1],none,none,none,none,none)
+                                            skip
+                                        else 
+                                            $x
+                                        );
+    
+                for $row in $uniqueData.sort
+                                        
+
+            </xendr:expression>
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="StudyCostsIncurred2">
+                    <xendr:startNumber>22</xendr:startNumber>
+                </xendr:lineNumber>
+               
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="StudyCostsIncurred2" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Study 2    
+                </xendr:template-display>
+            </td>
+            <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred2" fact="true" format="ixt4:num-dot-decimal" part="3">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $4,444,444
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred2" fact="true" part="4">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    777
+                </xendr:template-display>
+            </td>
+            <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred2" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $1,729,061
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number"><xendr:replace><xendr:expression class="hide"  name="StudyCostsIncurred2" fact="true" part="6">$row[6]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    666
+                </xendr:template-display>
+            </td>
+        </tr> 
+        <!-- Line 39 Total Line -->
+        <tr>
+            <td class="xbrl line-number">39</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:StudyCostsIncurred).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Total
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:StudyCostsIncurred @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $6,800,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl"></td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:StudyCostsReimbursements @ferc:StudyTypeAxis=ferc:GenerationStudiesMember @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $8,600,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl"></td>
+        </tr>
+    <!-- Line 40 Total Line -->
+        <tr>
+            <td class="xbrl line-number">40</td>
+            <td class="xbrl description_items">
+                Grand Total
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:StudyCostsIncurred @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $12,800,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl"></td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:StudyCostsReimbursements @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $18,600,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl"></td>
+        </tr>
+    </table>
+<p></p>
+<div class="schedule-footer">
+    <div>FERC FORM No. 
+            <xendr:replace>
+                    <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                    <xendr:template-display>2/3-Q</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                    <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleTransmissionServiceAndGenerationInterconnectionStudyCostsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                    02-04
+                    </xendr:template-display>
+            </xendr:replace>            
+    </div>
+    <div class="center-text">Page 
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleTransmissionServiceAndGenerationInterconnectionStudyCostsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    1
+                    </xendr:template-display>
+            </xendr:replace>
+    </div> 
+</div>
+</body>
+</html>

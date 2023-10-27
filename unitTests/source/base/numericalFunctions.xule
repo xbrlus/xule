@@ -1,0 +1,450 @@
+/* NumericalFunctions */
+output DABS101
+/* 10 */
+
+  -10.abs
+
+output DABS102
+/* 10 */
+
+  (-10).abs
+
+output DABS103
+/* list(1, 3, 2, 1.1) */
+
+  list(-1,3,-2,1.10).abs
+
+output DABS104
+/* set(1, 3, 2002) */
+
+  set(-1,3,-2,1.0).abs
+
+output DABS105
+/* set() */
+
+  set().abs
+
+output DABS106
+/* [ERROR] [xule:error] rule DABS106: Rule: DABS106 - Property 'abs' is not a property of a 'qname'. */
+
+  set(-1,3,-2,Assets).abs
+
+output DABS107
+/* [ERROR] [xule:error] rule DABS107: Rule: DABS107 - Property 'abs' is not a property of a 'qname'. */
+
+  Assets.abs
+
+output DABS108
+/* None */
+
+  none.abs
+
+output ABS101
+/* 10 */
+
+  abs(10)
+
+output ABS102
+/* 10 */
+
+  abs(-10)
+
+output ABS103
+/* 1.123 */
+
+  abs(1.123)
+
+output ABS104
+/* 1.123 */
+
+  abs(-1.123)
+
+output ABS105
+/* [ERROR] [xule:error] rule ABS105: Rule: ABS105 - The first argument of function 'abs' must be int, float, decimal, fact, found 'None'. */
+
+  abs(none)
+
+output DAVG101
+/* 3.5 */
+
+  list(1,2,3,4,5,6).avg
+
+output DAVG102
+/* 12 */
+
+  list(12, 12).avg
+
+output DAVG103
+/* 0 */
+
+  list(12, -12).avg
+
+output DAVG104
+/* 0.62 */
+
+  list(0.12, 1.12).avg
+
+output DAVG105
+/* None */
+
+  list().avg
+
+output DAVG106
+/* 3.85 */
+
+  set(1.1,2.2,3.3,4.4,5.5,6.6).avg
+
+output DAVG107
+/* [ERROR] [xule:error] rule DAVG107: Rule: DAVG107 - Property 'avg' is not a property of a 'int'. */
+
+  112.avg
+
+output DAVG108
+/* [ERROR] [xule:error] rule DAVG108: Rule: DAVG108 - Statistic properties expect nuemric inputs, found 'string'. */
+
+  list(1.12, 'cat').avg
+
+output DAVG109
+/* [ERROR] [xule:error] rule DAVG109: Rule: DAVG109 - Statistic properties expect nuemric inputs, found 'None'. */
+
+  list(none,none,3).avg
+
+output AVG101
+/* 29.833333 */
+
+  avg(list(12, 1, 55, 6, 105, 0))
+
+output AVG102
+/* 12 */
+
+  avg(list(12, 12))
+
+output AVG103
+/* 0 */
+
+  avg(list(12, -12))
+
+output AVG104
+/* 0.62 */
+
+  avg(list(0.12, 1.12))
+
+output AVG191
+/* [ERROR] [xule:error] rule AVG191: Rule: AVG191 - The first argument of function 'avg' must be set, list, found 'float'. */
+
+  avg(0.12, 1.12)
+
+output AVG192
+/* [ERROR] [xule:error] rule AVG192: Rule: AVG192 - Statistic properties expect nuemric inputs, found 'string'. */
+
+  avg(list(1.12, 'cat'))
+
+output DLOG101
+/* 2 */
+
+  100.log10
+
+output DLOG102
+/*  None */
+
+  -1234.log10
+
+output LOG101
+/* 2 */
+
+  log10(100)
+
+output LOG102
+/*  None */
+
+  log10(-1234)
+
+output LOG103
+/* [ERROR] [xule:error] rule LOG103: Rule: LOG103 - The first argument of function 'log10' must be int, float, decimal, found 'None'. */
+
+  log10(none)
+
+output MOD101
+/* 0 */
+
+  mod(9, 3)
+
+output MOD102
+/* 1 */
+
+  mod(9, 4)
+
+output MOD109
+/* [ERROR] [xule:error] rule MOD109: integer division or modulo by zero */
+
+  mod(9, 0)
+
+output MOD111
+/* 0 */
+
+  mod(9.0, 3.0)
+
+output MOD112
+/* 1 */
+
+  mod(9.0, 4.0)
+
+output MOD119
+/* [ERROR] [xule:error] rule MOD119: float modulo */
+
+  mod(9.0, 0.0)
+
+output MOD120
+/* 1 */
+
+  9.mod(4)
+
+output DPOW101
+/* 8 */
+
+  2.power(3)
+
+output DPOW102
+/* 0.125 */
+
+  2.power(-3)
+
+output DPOW103
+/* list(1, 4, 10.89) */
+
+  list(1,2,3.3).power(2.0)
+
+output DPOW104
+/* list(0.008264, 0.002066, 0.000918) */
+
+  list(11,22,33).power(-2)
+
+output DPOW105
+/* set(121, 484, 1,089) */
+
+  set(11,22,33).power(2)
+
+output DPOW106
+/* set(1, 4, 9, 25, 36) */
+
+  set(1,2,3,5,6,2,1).power(2)
+
+output DPOW107
+/* [ERROR] [xule:error] rule DPOW107: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str' */
+
+  'cat'.power(2)
+
+output DPOW108
+/* [ERROR] [xule:error] rule DPOW108: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str' */
+
+  '4'.power(2)
+
+output DPOW109
+/* [ERROR] [xule:error] rule DPOW109: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str' */
+
+  list(1,2,'dog').power(2)
+
+output DPOW110
+/* [ERROR] [xule:error] rule DPOW110: Rule: DPOW110 - Property 'power' must have 1 arguments. Found 0. */
+
+  list(1,2).power()
+
+output DPOW111
+/* [ERROR] [xule:error] rule DPOW111: Rule: DPOW111 - Property 'power' must have 1 arguments. Found 2. */
+
+  list(1,2).power(1,2)
+
+output POW101
+/* 8 */
+
+  power(2, 3)
+
+output POW102
+/* 27 */
+
+  power(3, 3)
+
+output POW103
+/* 0.125 */
+
+  power(0.5, 3)
+
+output POW104
+/* 1.861646 */
+
+  power(500, 0.1)
+
+output RAND101
+/* 4d less than 1 */
+
+  random()
+
+output RAND102
+/* 4d greater than 1 */
+
+  random(8)
+
+output RAND103
+/* 4d less than 1 */
+
+  random(0)
+
+output RAND104
+/* negative number */
+
+  random(-3)
+
+output RAND105
+/* 4d less than 1 */
+
+  random(none)
+
+output RAND106
+/* list(0.8241 (rounded 4d), 1, 1.7733 (rounded 4d)) */
+
+  list(random(),random(1),random(2))
+
+output RAND107
+/* [ERROR] [xule:error] rule RAND107: Rule: RAND107 - 'random' is not a valid property. */
+
+  3.random
+
+output ROUN101
+/* list(1.03, 21.34)  */
+
+  list(1.03456,21.34345).round(2)
+
+output ROUN102
+/* 21.34 */
+
+  21.34345.round(2)
+
+output ROUN104
+/* 1.03 */
+
+  round(1.03456,2)
+
+output ROUN105
+/* [ERROR] [xule:error] rule ROUN105: Rule: ROUN105 - The first argument of function 'round' must be int, float, decimal, fact, found 'None'. */
+
+  round(none,3)
+
+output ROUN106
+/* 0 */
+
+  round(0,3)
+
+output ROUN107
+/* [ERROR] [xule:error] rule ROUN107: type XuleString doesn't define __round__ method */
+
+  round('cat',2)
+
+output SIG101
+/* 1 */
+
+  signum(10)
+
+output SIG102
+/* -1 */
+
+  signum(-10)
+
+output SIG103
+/* 0 */
+
+  signum(0)
+
+output SIG104
+/* [ERROR] [xule:error] rule SIG104: '<' not supported between instances of 'XuleString' and 'int' */
+
+  signum('cat')
+
+output TRUN101
+/* 10.01 */
+
+  10.0123.trunc(2)
+
+output TRUN102
+/* 123000 */
+
+  123456.trunc(-3)
+
+output TRUN103
+/* 102.23 */
+
+  trunc(102.2345,2)
+
+output TRUN104
+/* [ERROR] [xule:error] rule TRUN104: Rule: TRUN104 - The first argument of function 'trunc' must be int, float, decimal, fact, found 'None'. */
+
+  trunc(none,2)
+
+output TRUN105
+/* [ERROR] [xule:error] rule TRUN105: [<class 'decimal.ConversionSyntax'>] */
+
+  trunc('cat',2)
+
+output TRUN106
+/* 100 */
+
+  trunc(100.23456)
+
+output DEC001
+/* 20 */
+
+  20.decimal
+
+output DEC002
+/* 20.34 (rounded 4d) */
+
+  20.34.decimal
+
+output DEC003
+/* 20 */
+
+  decimal(20)
+
+output DEC004
+/* 20.34 (rounded 4d) */
+
+  decimal(20.34)
+
+output DEC005
+/* 0.3333 (rounded 4d) */
+
+  decimal(1/3)
+
+output INT001
+/* 20 */
+
+  20.2.int
+
+output INT002
+/* -32 */
+
+  -32.1.int
+
+output INT003
+/* 20 */
+
+  int(20.5)
+
+output INT004
+/* 20 */
+
+  int(20.51)
+
+output INT005
+/* 21 */
+
+  int(21.5)
+
+output INT006
+/* 21 */
+
+  int(21.99)
+
+output INT007
+/* -33 */
+
+  int(-33.5)

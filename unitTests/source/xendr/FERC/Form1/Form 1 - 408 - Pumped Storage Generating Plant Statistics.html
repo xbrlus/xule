@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1 - 408</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+   
+</head>
+
+<body class="xbrl" id="SchedulePumpedStorageGeneratingPlantStatisticsAbstract">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+                <br/>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                <br/>
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace>
+                <br/>
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace>
+                <br/>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace>
+                <br/>
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="8">
+                <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SchedulePumpedStorageGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Schedule").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                HYDROELECTRIC GENERATING PLANT STATISTICS (Large Plants)
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="8">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">
+                        taxonomy().concept(ferc:SchedulePumpedStorageGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Large plants and pumped storage plants of 10,000 Kw or more of installed capacity (name plate ratings).</li>
+                            <li>If any plant is leased, operating under a license from the Federal Energy Regulatory Commission, or operated as a joint facility, indicate such facts in a footnote.  Give project number.</li>
+                            <li>If net peak demand for 60 minutes is not available, give the which is available, specifying period.</li>
+                            <li>If a group of employees attends more than one generating plant, report on line 8 the approximate average number of employees assignable to each plant.</li>
+                            <li>The items under Cost of Plant represent accounts or combinations of accounts prescribed by the Uniform System of Accounts.  Production Expenses do not include Purchased Power System Control and Load Dispatching, and Other Expenses classified as ""Other Power Supply Expenses.""</li>
+                            <li>Pumping energy (Line 10) is that energy measured as input to the plant for pumping purposes.</li>
+                            <li>Include on Line 36 the cost of energy used in pumping into the storage reservoir.  When this item cannot be accurately computed leave Lines 36, 37 and 38 blank and describe at the bottom of the schedule the company's principal sources of pumping power, the estimated amounts of energy from each station or other source that individually provides more than 10 percent of the total energy used for pumping, and production expenses per net MWH as reported herein for each source described.  Group together stations and other resources which individually provide less than 10 percent of total pumping energy.  If contracts are made with others to purchase power for pumping, give the supplier contract number, and date of contract.</li>
+                            </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+
+        <tr class="col-heading-row">     
+                <td class="col-heading xbrl">Line No.</td>
+                <td class="col-heading xbrl">
+                    
+                    <div style="text-align: center">   
+                           Item
+                    </div>
+
+                    <div style="text-align: center">
+                                (a)
+                    </div>
+                </td>
+                <td class="col-heading xbrl" xendr:repeat="HGPSHeadings">
+                        <xendr:expression class="hide" name="HGPSHeadings">
+                                $plantSet = set({covered @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis = *}.dimension(ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis));
+                                $plants =  if $plantSet.length == 0 
+                                                list(none,none,none,none)
+                                            else  
+                                                $plantSet
+
+
+                                $headings = list(for $plant in $plants 
+                                                list($plant, 
+                                                    first(list([covered @ferc:LicensedProjectNumber @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis = $plant])), 
+                                                    first(list([covered @ferc:PlantName @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis = $plant]))
+                                                )
+                                );
+                                
+                                for $row in $headings.sort 
+                                        
+                        </xendr:expression>
+                        <div style="text-align: center">
+                            <div> FERC Licensed Project No.</div>
+                            <xendr:replace>
+                        <xendr:expression class="hide" name="HGPSHeadings" fact="true" part="1">$row[2]</xendr:expression>
+                        <xendr:template-display>
+                            123344
+                        </xendr:template-display>
+                    </xendr:replace>
+                </div>
+                    <div style="text-align: center">
+                            <div>Plant Name:</div>
+                            <xendr:replace>
+                            <xendr:expression class="hide" name="HGPSHeadings" fact="true" part="2">$row[3]</xendr:expression>
+                            <xendr:template-display>
+                             Test Plant 3
+                            </xendr:template-display>
+                        </xendr:replace></div>
+                </td>
+               
+            </tr>
+       <tr class="schedule-row" xendr:repeat="HydroelectricPlant">
+                <xendr:expression class="hide" name="HydroelectricPlant">
+    $data = navigate parent-child descendants from ferc:PumpedStorageGeneratingPlantStatisticsLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/SchedulePumpedStorageGeneratingPlantStatistics" returns list (target-name, preferred-label, result-order);
+    $plantSet = set({covered @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis = *}.dimension(ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis)).sort;
+    $plants =  if $plantSet.length == 0 
+                    list(none,none,none,none)
+                else  
+                    $plantSet
+
+    $data-labels = list(for $row in $data
+        if $row[3] > 3
+            $concept = taxonomy().concept($row[1]);
+            $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "408 - Schedule - Pumped Storage Generating Plant Statistics (Large Plants)" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+            $current = list(for $plant in $plants
+
+                    if exists([covered @concept = $row[1] @period = $currentDuration @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis=$plant])
+					        first(list([covered @concept = $row[1] @period = $currentDuration @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis=$plant]))
+					else
+                            if exists([covered @concept = $row[1] @period = $currentInstant @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis=$plant])
+                                first(list([covered @concept = $row[1] @period = $currentInstant @ferc:LicensedProjectNumberAndPumpedStoragePlantNameAxis=$plant]))
+                            else
+                                none);
+            list($concept,
+                $concept.label($row[2].role.uri).text,  //Title of Account
+                $current)
+            else
+                skip
+                );
+            
+    
+        for $data-label in $data-labels  
+
+            
+                </xendr:expression>
+                        <td class="xbrl line-number">
+                            <xendr:lineNumber name="HydroelectricPlant"></xendr:lineNumber>
+                        </td> 
+                        <td class="xbrl description_items">
+                                <div class="tooltip">
+                                        <div class="tooltiptext">
+                                                <xendr:replace>
+                                                        <xendr:expression class="hide" name="HydroelectricPlant" part="1">$data-label[1].name.local-name</xendr:expression>
+                                                    </xendr:replace>
+                                        </div>
+                                     <xendr:replace>
+                                    <xendr:expression class="hide" name="HydroelectricPlant"  part="2">$data-label[2]</xendr:expression>
+                                    <xendr:class location="parent" name="HydroelectricPlant" >if $data-label[1].is-abstract "sch-title" else ""</xendr:class>
+                                </xendr:replace>
+                                <xendr:template-display></xendr:template-display>
+                                </div>
+                        </td> 
+
+                        <td class="numeric_items xbrl" xendr:repeatWithin="HydroelectricPlant" xendr:repeat="plant">
+                            <xendr:expression class="hide" name="plant">
+                                for $plantID in $data-label[3]
+                            </xendr:expression>
+                            <xendr:replace>
+                                    <xendr:expression class="hide" name="plant" fact="true" part="3">$plantID</xendr:expression>
+                                    <xendr:format  name="plant" >if $data-label[1].is-numeric "ixt4:num-dot-decimal" else none</xendr:format>
+                                    <xendr:class location="parent" name="plant" >if $data-label[1].is-abstract "gray-out" else ""</xendr:class>
+                            </xendr:replace>
+                        </td>
+
+                                    
+        </tr>
+     
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:SchedulePumpedStorageGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (REV. 12-03)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SchedulePumpedStorageGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        408
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

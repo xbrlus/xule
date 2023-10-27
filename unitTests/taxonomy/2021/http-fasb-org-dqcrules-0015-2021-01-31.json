@@ -1,0 +1,52 @@
+{
+    "http://fasb.org/dqcrules-0015/2021-01-31": [
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "DQC.US.0015.Exclude Non-negative Member Strings [Abstract]",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegMemberStringsAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "DQC.US.0015.Exclude Non-negative Members [Abstract]",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegMembersAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "DQC.US.0015 [Abstract]",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "DQC.US.0015.Non-negative Items [Abstract]",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ListOfElements"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "DQC.US.0015.Exclude Non-negative Axis [Abstract]",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegAxisAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "DQC.US.0015.Exclude Non-negative Axis and Members [Abstract]",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegAxisMembersAbstract"
+        }
+    ]
+}

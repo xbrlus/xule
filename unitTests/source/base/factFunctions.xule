@@ -1,0 +1,220 @@
+/* FactFunctions */
+output FACT001
+/* -6 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).decimals
+
+output FACT002
+/* None */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).decimals
+
+output FACT003
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.decimals > -7]))
+
+output FACT004
+/* us-gaap:Assets */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).concept
+
+output FACT005
+/* None */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.concept == Assets]))
+
+output FACT006
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.concept.name == Assets]))
+
+output FACT007
+/* 44377 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).period
+
+output FACT008
+/* 2021-01-01 to 2021-06-30 */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).period
+
+output FACT009
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.period > date('2020-12-30')]))
+
+output FACT010
+/* USD */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit
+
+output FACT011
+/* None */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).unit
+
+output FACT012
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.unit == unit(iso4217:USD)]))
+
+output FACT013
+/* http://www.sec.gov/CIK=0000831259 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).entity
+
+output FACT014
+/* http://www.sec.gov/CIK=0000831259 */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).entity
+
+output FACT015
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.entity.id == '0000831259']))
+
+output FACT016
+/* fcx:CopperInConcentratesMember */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*})).dimension(srt:ProductOrServiceAxis)
+
+output FACT017
+/* 1115000000 */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimension(srt:ProductOrServiceAxis).name == GoldMember }))
+
+output FACT018
+/* id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmJhYzQxYmIzNDhjZjQ0MWJhYWQ3ZTY5ZTUxMWQ2ZWM1L3RhYmxlcmFuZ2U6YmFjNDFiYjM0OGNmNDQxYmFhZDdlNjllNTExZDZlYzVfNDItMjktMS0xLTMwNA_cb64a33c-b936-4561-82a2-870970bbe9a4 */
+
+  max(list([covered @instance = $INSTANCE1 @PaymentsToAcquireProductiveAssets])).id
+
+output FACT019
+/* None or 45436 */
+
+  max(list([covered @instance = $INSTANCE1 where $fact.id == 'id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmJhYzQxYmIzNDhjZjQ0MWJhYWQ3ZTY5ZTUxMWQ2ZWM1L3RhYmxlcmFuZ2U6YmFjNDFiYjM0OGNmNDQxYmFhZDdlNjllNTExZDZlYzVfNDItMjktMS0xLTMwNA_cb64a33c-b936-4561-82a2-870970bbe9a4']))
+
+output FACT020
+/* 1739 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).instance.facts.count
+
+output FACT021
+/* FACT021 - Property 'name' is not a property of a 'cube' */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).cubes.name
+
+output FACT022
+/* set(us-gaap:ScheduleOfCollaborativeArrangementsAndNoncollaborativeArrangementTransactionsTable, us-gaap:ScheduleOfSegmentReportingInformationBySegmentTable) */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).cubes.cube-concept
+
+output FACT023
+/* set(http://www.xbrl.org/2003/role/footnote - Standard footnote role) */
+
+  max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure})).footnotes.role
+
+output FACT024
+/* set(en-US) */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.lang
+
+output FACT025
+/* set(<span xmlns=http://www.w3.org/1999/xhtml xmlns:us-gaap=http://fasb.org/us-gaap/2022 xmlns:link=http://www.xbrl.org/2003/linkbase xmlns:country=http://xbrl.sec.gov/country/2022 xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance xmlns:xbrldt=http://xbrl.org/2005/xbrldt xmlns:ixt-sec=http://www.sec.gov/inlineXBRL/transformation/2015-08-31 xmlns:srt=http://fasb.org/srt/2022 xmlns:currency=http://xbrl.sec.gov/currency/2022 xmlns:ix=http://www.xbrl.org/2013/inlineXBRL xmlns:ref=http://www.xbrl.org/2006/ref xmlns:xbrli=http://www.xbrl.org/2003/instance xmlns:dei=http://xbrl.sec.gov/dei/2022 xmlns:iso4217=http://www.xbrl.org/2003/iso4217 xmlns:viot=http://www.viomi.com.cn/20221231 xmlns:xlink=http://www.w3.org/1999/xlink xmlns:xs=http://www.w3.org/2001/XMLSchema-instance xmlns:ixt=http://www.xbrl.org/inlineXBRL/transformation/2015-02-26 xmlns:xbrldi=http://xbrl.org/2006/xbrldi style=font-family:'Times New Roman','Times','serif';font-size:10pt;font-style:normal;font-weight:normal;>Short-term investments represent structured deposits, and the Company values these short-term investments based on quoted prices of similar products provided by banks at the end of each period, and accordingly, the Company classifies the valuation techniques that use these inputs as Level 2.</span>) */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=*})).footnotes.content
+
+output FACT026
+/* set(http://www.xbrl.org/2003/role/footnote - Standard footnote role) */
+
+  max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.role
+
+output FACT027
+/* set(http://www.xbrl.org/2003/arcrole/fact-footnote - Footnote relationship) */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis =us-gaap-2022:FairValueInputsLevel2Member})).footnotes.arcrole
+
+output FACT028
+/* set(http://www.xbrl.org/2003/arcrole/fact-footnote - Footnote relationship) */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.arcrole
+
+output FACT029
+/* FALSE */
+
+  4.is-fact
+
+output FACT030
+/* FALSE */
+
+  'hello'.is-fact
+
+output FACT031
+/* TRUE */
+
+  (first(list([covered @instance = $INSTANCE1 @Assets]))).is-fact
+
+output FACT032
+/* FALSE */
+
+  none.is-fact
+
+output FACT033
+/* FALSE */
+
+  (first(list([covered @instance = $INSTANCE1 @Assets]))).is-nil
+
+output FACT034
+/* [ERROR] [xule:error] rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'. */
+
+  'hello'.is-nil
+
+output FACT035
+/* set(set(srt:ProductOrServiceAxis)) */
+
+  set({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*}.dimensions.keys.name)
+
+output FACT036
+/* set(list(fcx:MolybdenumMember), list(us-gaap:GoldMember), list(fcx:RefinedCopperProductsMember), list(fcx:PurchasedCopperMember), list(fcx:CopperCathodeMember), list(fcx:CopperInConcentratesMember), list(fcx:OtherProductsOrServicesMember)) */
+
+  set({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*}.dimensions.values.name)
+
+output FACT037
+/* iso4217:USD */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator
+
+output FACT038
+/* list() */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.denominator
+
+output FACT039
+/* dictionary(period=2021-06-30,unit=USD,entity=http://www.sec.gov/CIK=0000831259,concept=us-gaap:Assets) */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).aspects
+
+output FACT040
+/* dictionary(link=http://www.xbrl.org/2003/linkbase,iso4217=http://www.xbrl.org/2003/iso4217,xbrldi=http://xbrl.org/2006/xbrldi,ix=http://www.xbrl.org/2013/inlineXBRL,ixt=http://www.xbrl.org/inlineXBRL/transformation/2015-02-26,country=http://xbrl.sec.gov/country/2020-01-31,srt=http://fasb.org/srt/2020-01-31,None=http://www.w3.org/1999/xhtml,ixt-sec=http://www.sec.gov/inlineXBRL/transformation/2015-08-31,fcx=http://www.fcx.com/20210630,xbrli=http://www.xbrl.org/2003/instance,dei=http://xbrl.sec.gov/dei/2020-01-31,us-gaap=http://fasb.org/us-gaap/2020-01-31,xlink=http://www.w3.org/1999/xlink,utr=http://www.xbrl.org/2009/utr,xsi=http://www.w3.org/2001/XMLSchema-instance) */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).namespace-map
+
+output FACT041
+/* http://www.sec.gov/CIK */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).entity.scheme
+
+output FACT042
+/* 831259 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).entity.id
+
+output FACT043
+/* [ERROR] [xule:error] rule FACT043: Rule: FACT043 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'. */
+
+  count(list([covered @instance = $INSTANCE1 @Assets @unit.numerator = unit(iso4217:USD)]))
+
+output FACT044
+/* set(828,867,000) */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact

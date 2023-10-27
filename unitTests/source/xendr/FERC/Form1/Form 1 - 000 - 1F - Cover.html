@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+    <head>
+
+     <title>Template - F1F - Cover</title>
+     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+     <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    </head>
+
+
+    <body class="xbrl">
+        <table  width="100%">
+            <tr>
+                <td class="cell-top">
+                    <table class="xbrl"  width="70%">
+                        <tr>
+                            <td class="xbrl center-text">
+                                THIS FILING IS
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="left-id-col xbrl" >
+                                <span>Item 1:</span>
+                                    
+                                    <xendr:replace>
+                                            <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                            '<span class="checkbox">&#9744;</span> An Initial (Original) Submission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                            '<span class="checkbox">&#9745;</span> An Initial (Original) Submission']]> else <![CDATA[
+                                            '<span class="checkbox">&#9744;</span> An Initial (Original) Submission']]>
+                                            </xendr:expression>  
+                                        <xendr:template-display>
+                                                <input type="checkbox"/> An Initial (Original) Submission
+                                        </xendr:template-display>
+                                    </xendr:replace>
+                                    
+                                    <span> OR </span>
+                                    <xendr:replace>
+                                            <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                            '<span class="checkbox">&#9744;</span> Resubmission No.']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                            '<span class="checkbox">&#9745;</span> Resubmission No.']]> else <![CDATA[
+                                            '<span class="checkbox">&#9744;</span> Resubmission No.']]>
+                                                </xendr:expression> 
+                                            <xendr:template-display>
+                                                    <input type="checkbox" checked="checked"/> Resubmission No.
+                                            </xendr:template-display>
+                                    </xendr:replace>     
+                                              
+                            </td>
+                        </tr>
+                    </table>
+                
+                </td>
+                <td class="form-id-code-top"></td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr> 
+                <td class="center-text" colspan="3" style="padding-bottom: 30px"></td>
+            </tr>
+            <tr>
+                <td colspan="3"> <div class="ferc-seal-large center-image"></div></td>
+            </tr>
+            <tr> 
+                <td class="center-text" colspan="3" style="padding-bottom: 100px"></td>
+            </tr>
+            <tr>
+                <td class="center-text" colspan="3">
+                    <H1>FERC FINANCIAL REPORT<br/> FERC FORM No. 1-F: ANNUAL REPORT<br/>
+                        OF NONMAJOR PUBLIC UTILITIES AND <br/>LICENSEES</H1>
+
+ 
+
+                </td>
+            </tr>
+            <tr>
+            <td class="center-text" colspan="3" style="padding-bottom: 100px">      
+            </td>
+             </tr>
+            <tr>
+                
+                <td>
+                    <div class="box center-blocktext">
+                        This report is mandatory under the Federal Power Act, Sections 304(a), and 18 CFR 141.2. Failure to report may result in criminal fines, civil penalties and other sanctions as provided by law. The Federal Energy Regulatory Commission does not consider this report to be of a confidential nature.
+                    </div>
+                </td>
+             
+            </tr>
+            <tr>
+            <td class="center-text" colspan="3" style="padding-bottom: 350px">
+                    
+            </td>
+        </tr>
+    </table>
+        <table class="xbrl" width="100%">
+                  <tr>
+            <td class="xbrl">
+                <div class="abstract">Exact Legal Name of Respondent (Company)</div><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+               
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        </table>
+        <br></br>
+        <div class="schedule-footer">
+
+            <div>FERC FORM NO. 
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                    
+                                                            </xendr:expression>
+                            <xendr:template-display>1</xendr:template-display>
+                    </xendr:replace>
+                    <span> </span>
+                    <xendr:replace>
+                            <xendr:expression class="hide">" (" + taxonomy().concept(ferc:Form2Abstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    (REV. 1-05)
+                            </xendr:template-display>
+                    </xendr:replace>
+                                
+            </div>
+           
+        </div>
+        </body>
+        </html>

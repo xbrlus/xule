@@ -1,0 +1,26 @@
+/**
+Mapping
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+
+Taxonomy: US GAAP 2020
+
+**/
+
+constant $us-gaap = taxonomy('http://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-std-2020-01-31.xsd')
+
+constant $exchange = taxonomy('https://xbrl.sec.gov/exch/2020/exch-2020-01-31.xsd')
+
+constant $state_province = taxonomy('https://xbrl.sec.gov/stpr/2018/stpr-2018-01-31.xsd')
+
+constant $naics = taxonomy('https://xbrl.sec.gov/naics/2017/naics-2017-01-31.xsd')
+
+constant $sic = taxonomy('https://xbrl.sec.gov/sic/2020/sic-2020-01-31.xsd')
+
+constant $all_base_taxonomies = list($us-gaap, $exchange, $state_province, $naics, $sic)
+
+
+/** DEI HANDLING**/
+
+constant $dei_namespace_list = (filter taxonomy().concepts where $item.name.local-name in list('DocumentPeriodEndDate','DocumentType') and $item.name.namespace-uri.lower-case.contains('dei')).to-list
+
+constant $dei_namespace = $dei_namespace_list[1].name.namespace-uri

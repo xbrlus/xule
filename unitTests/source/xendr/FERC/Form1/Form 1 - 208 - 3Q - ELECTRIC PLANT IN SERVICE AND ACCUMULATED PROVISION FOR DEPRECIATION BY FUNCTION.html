@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F3Q - 208Q</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl">
+    <div id="ScheduleElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunctionAbstract"></div>
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+                <br/> 
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>This report is:</xule:template-display>
+                </xule:replace>
+                <br/>
+                    (1) 
+                        <xule:replace>
+                                <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xule:expression>  
+                            <xule:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xule:template-display>
+                        </xule:replace>
+                        <br/> 
+                    (2)
+                        <xule:replace>
+                                <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xule:expression> 
+                                <xule:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xule:template-display>
+                        </xule:replace> 
+            </td>
+            <td class="xbrl"><xule:replace>
+                <xule:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                <xule:template-display>Date of Report:</xule:template-display>
+                </xule:replace>
+                <br/> 
+                    <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xule:expression>
+                        <xule:template-display>04/26/2019</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl"><xule:replace>
+                <xule:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                <xule:template-display>Year/Period of Report:</xule:template-display>
+                </xule:replace>
+                <br/>
+                End of: <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xule:expression>
+                    <xule:template-display>2018</xule:template-display>
+                </xule:replace>
+                <span>/</span>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xule:expression>
+                    <xule:template-display>Q4</xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        
+
+
+        <tr class="sch-title">
+            <td colspan="4" class="xbrl">
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunctionAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1QSchedule").text
+                            </xule:expression>
+                            <xule:template-display>
+                                ELECTRIC PLANT IN SERVICE AND ACCUMULATED PROVISION FOR DEPRECIATION BY FUNCTION
+                            </xule:template-display>
+                    </xule:replace>
+                </td>
+        </tr>
+
+
+
+
+        <tr>
+            <td class="instruction xbrl" colspan="4">
+                <xule:replace>
+                    <xule:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunctionAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xule:expression>
+                    <xule:template-display>
+                        <ol>
+                            <li>Report below the original cost of plant in service by function. In addition to Account 101, include Account 102, and Account 106. Report in column (b) the original cost of plant in service and in column(c) the accumulated provision for depreciation and amortization by function.</li>
+                        </ol>
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xule:repeat="ColumnHeadings">
+                    <xule:expression class="hide" name="ColumnHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunctionAbstract ).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "F1Q - 208 - Schedule - Electric Plant in Service and Accumulated Provision for Depreciation by Function") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+                                    list("("+$row[1]+")",$row[2])
+                            );
+                            for $row in $heading_dict.keys.sort
+                    </xule:expression>
+                    <div style="text-align: center"><xule:replace>
+                    <xule:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row]</xule:expression>
+                    <xule:template-display>
+                        Title  of Account
+                    </xule:template-display>
+                </xule:replace>
+            </div>
+                <div style="text-align: center"><xule:replace>
+                        <xule:expression class="hide" name="ColumnHeadings" part="2">$row</xule:expression>
+                        <xule:template-display>
+                            (a)
+                        </xule:template-display>
+                    </xule:replace></div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xule:repeat="PlantInServiceItems">
+                <xule:expression class="hide" name="PlantInServiceItems">
+    $dataHead = navigate parent-child descendants from ferc:ElectricPlantInServiceLineItems stop when $relationship.preferred-label == "http://ferc.gov/form/2020-01-01/roles/label/F1RollforwardHeader" role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1Q/ElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunction" returns list (target-name, preferred-label, order);
+    $rowHeaderSection = list(for $x in $dataHead
+            $abstractConcept = taxonomy().concept($x[1]);
+            $is-heading = if ($x[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1ElectricPlantinServiceandAccumulatedProvisionforDepreciationbyFunction")
+                                true
+                          else 
+                                false;
+            $abstractLabel = list($is-heading, $abstractConcept.label($x[2].role.uri).text);
+            $data = navigate parent-child children from $x[1] role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1Q/ElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunction" returns list(target, preferred-label, order);
+            $dataRow2 = list(none, none);
+            $row_num = (filter $abstractConcept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "F1Q - 208 - Schedule - Electric Plant in Service and Accumulated Provision for Depreciation by Function" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+            $row_number = list(if ($row_num.part-by-name(ferc-part:Row)).length == 0
+                ""
+            else
+                ($row_num.part-by-name(ferc-part:Row))[1].part-value);                       
+            $dataRow1 =   list(for $y in $data
+                                if exists([covered @concept = $y[1].name @period = $currentInstant])
+                                    first(list([covered @concept = $y[1].name @period = $currentInstant]))
+                                else
+                                    none
+                                    );
+            if $x[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1ElectricPlantinServiceandAccumulatedProvisionforDepreciationbyFunction"      
+                    $abstractLabel + $dataRow2 + $row_number
+            else
+                    $abstractLabel + $dataRow1 + $row_number
+                    )
+
+
+
+    for $rowl in $rowHeaderSection
+
+                </xule:expression>
+                <td class="xbrl line-number">
+                    <xule:lineNumber name="PlantInServiceItems">
+                        <xule:startNumber>1</xule:startNumber>
+                    </xule:lineNumber>
+                    <xule:template-display>1</xule:template-display>
+                </td> 
+
+                
+                        <!-- Header -->
+                        <td class="xbrl description_items">
+                                <xule:replace>
+                                    <xule:expression class="hide" name="PlantInServiceItems" part="1">$rowl[2]</xule:expression>
+                                </xule:replace>
+                       </td>
+                       
+                       <!-- Plant in Service -->
+                       <td class="xbrl monetary_items">
+                            <xule:replace>
+                                <xule:expression class="hide" name="PlantInServiceItems" fact="true" format="ixt4:num-dot-decimal" part="2">$rowl[3]</xule:expression>
+                                <xule:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xule:class> 
+                            </xule:replace>
+                   </td>
+
+                       <!-- Accrued Depreciation -->
+                       <td class="xbrl monetary_items">
+                            <xule:replace>
+                                <xule:expression class="hide" name="PlantInServiceItems" fact="true" format="ixt4:num-dot-decimal" part="3">$rowl[4]</xule:expression>
+                                <xule:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xule:class> 
+                            </xule:replace>
+                        </td> 
+
+        </tr>
+
+
+
+</table>
+<br/>
+    <div class="schedule-footer">
+        <div>FERC FORM No. 
+            <xule:replace>
+                    <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                            
+                                                   </xule:expression>
+                    <xule:template-display>1/3-Q</xule:template-display>
+            </xule:replace>
+            <span> </span>
+            <xule:replace>
+                    <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunctionAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xule:expression>
+                    <xule:template-display>
+                            (12-96)
+                    </xule:template-display>
+            </xule:replace>
+                        
+        </div>
+            <div class="center-text">Page 
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleElectricPlantInServiceAndAccumulatedProvisionForDepreciationByFunctionAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                            </xule:expression>
+                            <xule:template-display>
+                                    208
+                            </xule:template-display>
+                    </xule:replace>
+            </div> 
+    </div>
+</body>
+</html>

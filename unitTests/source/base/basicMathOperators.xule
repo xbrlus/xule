@@ -1,0 +1,305 @@
+/* BasicMathOperators */
+output XU101
+/* 9 */
+
+  2 + 7
+
+output XU102
+/* 7.9 */
+
+  1.2 + 6.7
+
+output XU103
+/* 7.7 */
+
+  1 + 6.7
+
+output XU104
+/* 7.25 */
+
+  1.25 + 6
+
+output XU105
+/*  cat */
+
+  'c' + 'a' + 't'
+
+output XU106
+/* -5 */
+
+  2 - 7
+
+output XU107
+/* 3.5 */
+
+  10.2 - 6.7
+
+output XU108
+/* 3.3 */
+
+  10 - 6.7
+
+output XU109
+/* 4.25 */
+
+  10.25 - 6
+
+output XU110
+/* -5 */
+
+  1.25 - 6.25
+
+output XU111
+/* 14 */
+
+  2 * 7
+
+output XU112
+/* 8.04 */
+
+  1.2 * 6.7
+
+output XU113
+/* 6.7 */
+
+  1 * 6.7
+
+output XU114
+/* 7.5 */
+
+  1.25 * 6
+
+output XU115
+/* 2 */
+
+  14 / 7
+
+output XU116
+/* 0.179104 */
+
+  1.2 / 6.7
+
+output XU117
+/* 1.492537 */
+
+  10 / 6.7
+
+output XU118
+/* 205.708333 */
+
+  1234.25 / 6
+
+output XU119
+/* 1.75 */
+
+  14 / 8
+
+output XU120
+/* 55 */
+
+  55 + none
+
+output XU121
+/* 55 */
+
+  none + 55
+
+output XU122
+/* 2.345 */
+
+  2.345 + none
+
+output XU123
+/* 2.345 */
+
+  none + 2.345
+
+output XU124
+/*  a String */
+
+  none + 'a String'
+
+output XU125
+/* 55 */
+
+  55 - none
+
+output XU126
+/* -55 */
+
+  none - 55
+
+output XU127
+/* 2.345 */
+
+  2.345 - none
+
+output XU128
+/* -2.345 */
+
+  none - 2.345
+
+output XU129
+/* skip */
+
+  none - none
+
+output XU130
+/* skip */
+
+  none + none
+
+output XU131
+/* a3 */
+
+  'a' + 3
+
+output XU132
+/* 33 */
+
+  '3' + 3
+
+output XU133
+/* [ERROR] [xule:error] rule XU133: unsupported operand type(s) for -: 'XuleString' and 'str' */
+
+  '3' - 3
+
+output XU134
+/*  True */
+
+  1 < 2
+
+output XU135
+/*  False */
+
+  2 < 1
+
+output XU136
+/*  True */
+
+  1.1 < 2.2
+
+output XU137
+/*  False */
+
+  2.2 < 1.1
+
+output XU138
+/*  True */
+
+  'a' < 'b'
+
+output XU139
+/*  False */
+
+  'b' < 'a'
+
+output XU140
+/* True */
+
+  'b' > 'a'
+
+output XU141
+/*  False */
+
+  'a' > 'a'
+
+output XU142
+/* skip */
+
+  3 +> none
+
+output XU143
+/* 3 */
+
+  3 <+ none
+
+output XU144
+/* 5 */
+
+  3 <+> 2 + none
+
+output XU145
+/* skip */
+
+  3 <+> none + 2
+
+output XU146
+/* skip */
+
+  3 +> skip
+
+output XU147
+/* 3 */
+
+  3 <+ skip
+
+output XU148
+/* 5 */
+
+  3 <+> 2 + skip
+
+output XU149
+/* skip */
+
+  3 <+> skip + 2
+
+output XU150
+/* 5 */
+
+  3 + skip + 2
+
+output XU151
+/* skip */
+
+  3 -> none
+
+output XU152
+/* 3 */
+
+  3 <- none
+
+output XU153
+/* 1 */
+
+  3 <-> 2 - none
+
+output XU154
+/* skip */
+
+  3 <-> none - 2
+
+output XU155
+/* skip */
+
+  3 -> skip
+
+output XU156
+/* 3 */
+
+  3 <- skip
+
+output XU157
+/* 1 */
+
+  3 <-> 2 + skip
+
+output XU158
+/* skip */
+
+  3 <-> skip + 2
+
+output XU159
+/* 1 */
+
+  3 - skip - 2
+
+output XU160
+/* True */
+
+  3 <= 3
+
+output XU161
+/* True */
+
+  3 >= 3

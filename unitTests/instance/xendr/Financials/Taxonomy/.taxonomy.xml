@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prop:properties xmlns:prop="http://mwtms.corefiling.com/properties">
+  <prop:taxonomyName/>
+  <prop:majorVersion/>
+  <prop:versionDescription/>
+  <prop:dtsRoot>xbrlus-20181231.xsd</prop:dtsRoot>
+  <prop:isLocked>false</prop:isLocked>
+</prop:properties>

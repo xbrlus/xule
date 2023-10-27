@@ -1,0 +1,130 @@
+/* None */
+output PMN101
+/* 3 */
+
+  none + 3
+
+output PMN102
+/* 3 */
+
+  3 + none
+
+output PMN103
+/* hello */
+
+  none + 'hello'
+
+output PMN104
+/* hello */
+
+  'hello' + none
+
+output PMN105
+/* skip */
+
+  none + none
+
+output PMN106
+/* hello */
+
+  'hello' - none
+
+output PMN107
+/* hello */
+
+  none - 'hello'
+
+output PMN108
+/* skip */
+
+  none - none
+
+output PMN109
+/* 3 */
+
+  3 - none
+
+output PMN110
+/* True */
+
+  none == none
+
+output PMN111
+/* False */
+
+  none == ''
+
+output PMN112
+/* False */
+
+  none == 0
+
+output PMN113
+/* None */
+
+  none > none
+
+output PMN114
+/* None */
+
+  none > -1
+
+output PMN115
+/* None */
+
+  none > 0
+
+output PMN116
+/* [ERROR] [xule:error] rule PMN116: argument of type 'NoneType' is not iterable */
+
+  none in none
+
+output PMN117
+/* True */
+
+  none in list(none)
+
+output PMN118
+/* None */
+
+  none.string
+
+output PMN119
+/* None */
+
+  none.decimals
+
+output PMN124
+/* None */
+
+  none.decimal
+
+output PMN120
+/* skip */
+
+  none + skip
+
+output PMN121
+/* -1 */
+
+  none -1
+
+output PMN122
+/* skip */
+
+  7 / none
+
+output PMN123
+/* skip */
+
+  7 * none
+
+output PMN125
+/* True */
+
+  none <= none
+
+output PMN126
+/* True */
+
+  none >= none

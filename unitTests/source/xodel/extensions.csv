@@ -1,0 +1,7 @@
+Concept,Label Type,Label
+CarpetLoans,label,Carpet Loans
+CarpetLoans,documentation,Loans to customers to buy carpet
+LoomEquipment,label,Loom Equipment
+LoomEquipment,documentation,Equipment that makes carpet
+WoolStock,label,Wool Stock
+WoolStock,documentation,Wool in inventory to make carpet

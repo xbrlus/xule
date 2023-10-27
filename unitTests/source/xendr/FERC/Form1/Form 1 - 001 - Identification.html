@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 001</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+
+</head>
+
+<body class="xbrl" id="ScheduleIdentificationAbstract">
+    <table class="xbrl">
+        <tr class="sch-title">
+                <td class="form-title" colspan="3">FERC FORM NO.
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xule:expression>
+                                <xule:template-display>1/3-Q</xule:template-display>
+                        </xule:replace>
+                        :<br></br> REPORT OF MAJOR ELECTRIC UTILITIES, LICENSEES AND OTHER
+                </td>
+        </tr>
+        <tr class="sch-title">
+                <td colspan="3" class="xbrl">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:ScheduleIdentificationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        Gas Property And Capacity Leased From Others
+                                </xule:template-display>
+                        </xule:replace>
+                    </td>
+        </tr>
+        <tr>
+            <td class="combinedField xbrl" colspan="2">
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                            </xule:expression>
+                            <xule:template-display>
+                                01 Exact Legal Name of Respondent
+                            </xule:template-display>
+                     </xule:replace>
+                            <p></p>
+                    <xule:replace>
+                            <xule:expression class="hide" fact="true" name="RespondentLegalName" part="1">[@ferc:RespondentLegalName]
+                            </xule:expression>
+                            <xule:template-display>
+                                01 Exact Legal Name of Respondent
+                            </xule:template-display>
+                    </xule:replace>
+                              
+            </td>
+            <td class="combinedField xbrl" colspan="1">
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                            </xule:expression>
+                            <xule:template-display>
+                                    02 Year/ Period of Report
+
+                                   
+                            </xule:template-display>
+                    </xule:replace>
+                <p></p>
+                <br></br>
+                End of: 
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xule:expression>
+                    <xule:template-display>2018</xule:template-display>
+                </xule:replace>
+                <span>/</span>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xule:expression>
+                    <xule:template-display>Q4</xule:template-display>
+                </xule:replace>
+                              
+            </td>
+            
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:PreviousNameAndDateOfChangeAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        03 Previous Name and Date of Change <i>(if name changed during year)</i>
+                                </xule:template-display>
+                         </xule:replace>
+                        <p></p>
+                         <xule:replace>
+                                <xule:expression class="hide" fact="true" part="1">[@ferc:PreviousName @period=$currentDuration]
+                                </xule:expression>
+                                <xule:template-display>
+                                       FERC Test 1 Company
+                                </xule:template-display>
+                        </xule:replace>
+                        <span>/</span>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">[@ferc:NameChangeDate @period=$currentDuration]</xule:expression>
+                                <xule:template-display>2018-09-04</xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:AddressOfPrincipalOfficeAtEndOfPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        04 Address of Principal Office at End of Year <i>(Street, City, State, Zip Code)</i>
+                                </xule:template-display>
+                         </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">[@concept=ferc:AddressOfPrincipalOfficeAtEndOfPeriod]
+                                </xule:expression>
+                                <xule:template-display>
+                                        4580 Olympic Boulevard, Erlanger, KY 41018
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="2">
+                        <xule:replace>
+                                <xule:expression class="hide" >taxonomy().concept(ferc:NameOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        05 Name of Contact Person
+                                </xule:template-display>
+                         </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">[@concept=ferc:NameOfContactPerson]
+                                </xule:expression>
+                                <xule:template-display>
+                                        Anna Anderson 
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:TitleOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        06 Title of Contact Person
+                                </xule:template-display>
+                        </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">[@concept=ferc:TitleOfContactPerson]
+                                </xule:expression>
+                                <xule:template-display>
+                                        Accounting Analyst II
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:AddressOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        07 Address of Contact Person<i> (Street, City, State, Zip Code)</i>
+                                </xule:template-display>
+                        </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">[@concept=ferc:AddressOfContactPerson]
+                                </xule:expression>
+                                <xule:template-display>
+                                        550 South Tryon Street, Charlotte, NC 28202
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="1">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:TelephoneOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        08 Telephone of Contact Person, <i>Including Area Code</i>
+                                </xule:template-display>
+                        </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">[@concept=ferc:TelephoneOfContactPerson]
+                                </xule:expression>
+                                <xule:template-display>
+                                        (980) 373-2179  
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        09 This Report is
+                                </xule:template-display>
+                            </xule:replace>
+                                
+                                <p></p>
+                                (1) 
+                                <xule:replace>
+                                        <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                                        </xule:expression>  
+                                    <xule:template-display>
+                                            <input type="checkbox"/> An Original
+                                    </xule:template-display>
+                                </xule:replace>
+                                <p></p>
+                            (2)
+                                <xule:replace>
+                                        <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                            </xule:expression> 
+                                        <xule:template-display>
+                                                <input type="checkbox" checked = "checked"/> A Resubmission
+                                        </xule:template-display>
+                                </xule:replace>               
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        10 Date of Report <i>(Mo, Da, Yr)</i>
+                                </xule:template-display>
+                        </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@concept=ferc:ReportDate]
+                                </xule:expression>
+                                <xule:template-display>
+                                        04/26/2019
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+        </tr>
+        <tr class="sch-title">
+                <td class="xbrl" colspan="3">Annual Corporate Officer Certification</td>
+         </tr>
+
+         <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        The undersigned officer certifies that:<p></p>
+I have examined this report and to the best of my knowledge, information, and belief all statements of fact contained in this report are correct statements
+of the business affairs of the respondent and the financial statements, and other financial information contained in this report, conform in all material
+respects to the Uniform System of Accounts.
+<P></P>
+<P></P>
+<P></P>
+<P></P>
+
+                                  
+                </td>
+        </tr>
+
+        <tr>
+            <td class="combinedField container-table" colspan="1">
+                    <table class="xbrl" style="width: 100%">
+                        <tr>
+                            <td class="combinedField xbrl" colspan="1">
+                                <xule:replace>
+                                        <xule:expression class="hide">taxonomy().concept(ferc:AttestationName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                        </xule:expression>
+                                        <xule:template-display>
+                                                01 Name
+                                        </xule:template-display>
+                                </xule:replace>
+                                    <p></p>
+                                <xule:replace>
+                                        <xule:expression class="hide" fact="true">first(list([@concept=ferc:AttestationName @period=$currentDuration]))
+                                        </xule:expression>
+                                        <xule:template-display>
+                                                Dwight L. Jacobs 
+                                        </xule:template-display>
+                                </xule:replace>
+                                           
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="combinedField xbrl" colspan="1">
+                                    <xule:replace>
+                                            <xule:expression class="hide">taxonomy().concept(ferc:AttestationTitle).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                            </xule:expression>
+                                            <xule:template-display>
+                                                    02 Title
+                                            </xule:template-display>
+                                    </xule:replace>
+                                        <p></p>
+                                    <xule:replace>
+                                            <xule:expression class="hide" fact="true">first(list([@concept=ferc:AttestationTitle @period=$currentDuration]))
+                                            </xule:expression>
+                                            <xule:template-display>
+                                                    SVP, CAO, Tax and Controller
+                                            </xule:template-display>
+                                    </xule:replace>               
+                                </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="combinedField cell-top xbrl" colspan="1">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:CorporateOfficerCertificationSignature).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        03 Signature
+                                </xule:template-display>
+                         </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true">first(list([@concept=ferc:CorporateOfficerCertificationSignature @period=$currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                       <i>Signature</i>
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+                <td class="combinedField cell-top xbrl" colspan="1">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:AttestationDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xule:expression>
+                                <xule:template-display>
+                                        04 Date Signed
+                                </xule:template-display>
+                        </xule:replace>
+                            <p></p>
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">first(list([@concept=ferc:AttestationDate @period=$currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        04/26/2019
+                                </xule:template-display>
+                        </xule:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        Title 18, U.S.C. 1001 makes it a crime for any person to knowingly and willingly to make to any Agency or Department of the United States any
+                        false, fictitious or fraudulent statements as to any matter within its jurisdiction.
+   
+                        <P></P>
+                        <P></P>
+                        <P></P>
+                                  
+                </td>
+        </tr>  
+    
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM No. 
+                <xule:replace>
+                        <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xule:expression>
+                        <xule:template-display>1/3-Q</xule:template-display>
+                </xule:replace>
+                <span> </span>
+                <xule:replace>
+                        <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleIdentificationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xule:expression>
+                        <xule:template-display>
+                                (12-96)
+                        </xule:template-display>
+                </xule:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:ScheduleIdentificationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xule:expression>
+                        <xule:template-display>
+                        212
+                        </xule:template-display>
+                </xule:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

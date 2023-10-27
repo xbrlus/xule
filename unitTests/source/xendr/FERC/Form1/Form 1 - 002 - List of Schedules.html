@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 002</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                    (1) 
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xendr:expression>  
+                            <xendr:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xendr:template-display>
+                        </xendr:replace>
+                        <br></br>
+                    (2)
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xendr:expression> 
+                                <xendr:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xendr:template-display>
+                        </xendr:replace> 
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td colspan="4" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleListOfSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    Gas Property And Capacity Leased From Others
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+    </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="4">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleListOfSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <p>Enter in column (c) the terms "none," "not applicable," or "NA," as appropriate, where no information or amounts have been reported for certain pages. Omit pages where the respondents are "none," "not applicable," or "NA".</p>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ListHeadings">
+                    <xendr:expression class="hide" name="ListHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleListOfSchedulesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "002 - Schedule - List of Schedules") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center"><xendr:replace>
+                    <xendr:expression class="hide" name="ListHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                    <xendr:template-display>
+                        Title  of Schedule
+                    </xendr:template-display>
+                </xendr:replace>
+            </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ListHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="ListLineItems">
+                <xendr:expression class="hide" name="ListLineItems">
+    $data = navigate parent-child descendants from ferc:Form1Abstract role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ListOfSchedules" returns list (target-name, preferred-label, navigation-depth);
+    $data-labels = list(for $row in $data
+            if $row[3] > 1 or $row[1] == ferc:DeprecatedItemsAbstract
+                skip
+            else
+                $concept = taxonomy().concept($row[1]);
+                $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "002 - Schedule - List of Schedules" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+                $page = $concept.label("http://ferc.gov/form/2020-01-01/roles/label/F1Page").text;
+            
+            
+                
+            
+                list($concept,
+                $concept.label($row[2].role.uri).text, //Title of Account
+                if exists($page) $page else "",  //Page Ref
+                if ($row_num.part-by-name(ferc-part:Row)).length == 0
+                    ""
+                else
+                    ($row_num.part-by-name(ferc-part:Row))[1].part-value,
+                if length(list([covered @concept=ferc:Remarks @ferc:ScheduleRemarksAxis = $concept.name.local-name])) > 0
+                    first(list([covered @concept=ferc:Remarks @ferc:ScheduleRemarksAxis = $concept.name.local-name]))
+                else    
+                    none
+                ));
+                
+    for $rowl in $data-labels
+
+                </xendr:expression>
+
+            <td class="xbrl line-number">
+                <xendr:replace><xendr:expression class="hide" name="ListLineItems" part="1">$rowl[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>1</xendr:template-display>
+            </td> 
+            <td class="xbrl description_items">
+                    <div class="tooltip">
+                            <div class="tooltiptext">
+                                    <xendr:replace>
+                                            <xendr:expression class="hide" name="ListLineItems" part="6">$rowl[1].name.local-name</xendr:expression>
+                                        </xendr:replace>
+                            </div>
+                    <xendr:replace>
+                        <xendr:expression class="hide" name="ListLineItems"  part="2">$rowl[2]</xendr:expression>
+                        <xendr:class location="parent">if $rowl[1].is-abstract "sch-title" else ""</xendr:class>
+                    </xendr:replace>
+                    <xendr:template-display>UTILITY PLANT</xendr:template-display>
+                    </div>
+            </td> 
+
+            <!--Page-->
+            <td class = "xbrl page-number">
+                <a>
+                    <xendr:replace>
+                        <xendr:expression class="hide" name="ListLineItems" part="3">$rowl[3]</xendr:expression>
+                        <xendr:attribute name = "href" location="parent">'#' + $rowl[1].name.local-name </xendr:attribute>
+                    </xendr:replace>  
+                </a>    
+            </td> 
+            <!-- Remarks -->
+            <td class="xbrl description_items">
+                    <xendr:replace><xendr:expression class="hide" name="ListLineItems" fact="true" part="4">$rowl[5]</xendr:expression></xendr:replace> 
+            </td> 
+           
+           
+                                    
+        </tr>
+        <tr>
+            <td class="xbrl"></td>
+            <td class="xbrl">
+                <div>
+                    Stockholders' Reports Check appropriate box:
+                </div>
+                <br></br>
+                <xendr:replace>
+                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:IndicatorStockholdersReportSubmittedOrNotPrepared @period=$currentDuration}) <![CDATA[
+                        '<span class="checkbox">&#9744;</span> Two copies will be submitted']]> else if [@concept=ferc:IndicatorStockholdersReportSubmittedOrNotPrepared @period=$currentDuration] == "Copies Submitted" <![CDATA[
+                        '<span class="checkbox">&#9745;</span> Two copies will be submitted']]> else <![CDATA[
+                        '<span class="checkbox">&#9744;</span> Two copies will be submitted']]>
+                        </xendr:expression>  
+                    <xendr:template-display>
+                            <input type="checkbox"/> Two copies will be submitted
+                    </xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                <xendr:replace>
+                        <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:IndicatorStockholdersReportSubmittedOrNotPrepared @period=$currentDuration]) <![CDATA[
+                        '<span class="checkbox">&#9744;</span> No annual report to stockholders is prepared']]> else if [@concept=ferc:IndicatorStockholdersReportSubmittedOrNotPrepared @period=$currentDuration] == "Not Prepared" <![CDATA[
+                        '<span class="checkbox">&#9745;</span>  No annual report to stockholders is prepared']]> else <![CDATA[
+                        '<span class="checkbox">&#9744;</span>  No annual report to stockholders is prepared']]>
+                            </xendr:expression> 
+                        <xendr:template-display>
+                                <input type="checkbox" checked = "checked"/> No annual report to stockholders is prepared
+                        </xendr:template-display>
+                </xendr:replace> 
+                <!-- old checkboxes
+                <input type="checkbox" id="ForCopies" value="ForCopies"/><label for="ForCopies"> Two copies will be submitted</label><br></br>
+                <input type="checkbox" id="NoAnnualReport" value="NoAnnualReport"/><label for="NoAnnualReport"> No annual report to stockholders is prepared</label>
+                -->
+                <br></br>
+            </td>
+            <td class="xbrl"></td>
+            <td class="xbrl"></td>
+            
+        </tr>
+    </table>
+<p></p>
+<div class="schedule-footer">
+
+    <div>FERC FORM No. 
+            <xendr:replace>
+                    <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                            
+                                                    </xendr:expression>
+                    <xendr:template-display>1/3-Q</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                    <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleListOfSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                            (12-96)
+                    </xendr:template-display>
+            </xendr:replace>
+                        
+    </div>
+    <div class="center-text">Page 
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleListOfSchedulesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    212
+                    </xendr:template-display>
+            </xendr:replace>
+    </div> 
+</div>
+</body>
+</html>

@@ -1,0 +1,165 @@
+/* Boolean */
+output BOL100
+/* True */
+
+  true > false
+
+output BOL101
+/* True */
+
+  true > 0
+
+output BOL102
+/* True */
+
+  true > 0.1
+
+output BOL103
+/* False */
+
+  true > 1.0
+
+output BOL104
+/* False */
+
+  true > 1.1
+
+output BOL105
+/* False */
+
+  true < false
+
+output BOL106
+/* False */
+
+  true == false
+
+output BOL107
+/* True */
+
+  true != false
+
+output BOL108
+/* [ERROR] [xule:error] rule BOL108: Rule: BOL108 - Left side of a + operation cannot be bool. */
+
+  false + false
+
+output BOL109
+/* False */
+
+  true and false
+
+output BOL110
+/* True */
+
+  true and true
+
+output BOL111
+/* True */
+
+  true or false
+
+output BOL112
+/* [ERROR] [xule:error] rule BOL112: Rule: BOL112 - Right side of a + operation cannot be bool. */
+
+  none + false
+
+output BOL113
+/* skip */
+
+  none and true
+
+output BOL114
+/* False */
+
+  none and false
+
+output BOL115
+/* skip */
+
+  none and none
+
+output BOL116
+/* False */
+
+  none and none and false
+
+output BOL117
+/* True */
+
+  none or true
+
+output BOL118
+/* skip */
+
+  none or false
+
+output BOL119
+/* skip */
+
+  none or none
+
+output BOL120
+/*  true */
+
+  (1 < 7) or (3 > 4)
+
+output BOL121
+/*  false */
+
+  (1 > 7) or (3 > 4)
+
+output BOL122
+/*  true */
+
+  (1 < 7) or (3 < 4)
+
+output BOL123
+/*  true */
+
+  (1 < 7) and (3 < 4)
+
+output BOL124
+/*  false */
+
+  (1 < 7) and (3 > 4)
+
+output BOL125
+/*  false */
+
+  (1 > 7) and (3 > 4)
+
+output BOL126
+/* True */
+
+  exists(none)
+
+output BOL127
+/* True */
+
+  exists(set(none))
+
+output BOL128
+/* True */
+
+  exists(list(none))
+
+output BOL129
+/* False */
+
+  missing(none)
+
+output BOL130
+/* False */
+
+  missing(set(none))
+
+output BOL131
+/* False */
+
+  missing(list(none))
+
+output BOL132
+/* True */
+
+  true >= false

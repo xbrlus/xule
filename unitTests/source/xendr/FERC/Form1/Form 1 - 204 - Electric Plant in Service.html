@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 204</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl" id="ScheduleElectricPlantInServiceAbstract">
+    <xendr:showif>if set('1-F').contains([covered @concept.local-name ='FormType']) 
+        if first(list([covered @ferc:UtilityPlantDataMajorNonmajor])) == "Major"
+            true
+        else
+            false
+     else
+        true</xendr:showif>
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace><br/>
+                    
+                    (1) 
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xendr:expression>  
+                            <xendr:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                    (2)
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xendr:expression> 
+                                <xendr:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xendr:template-display>
+                        </xendr:replace> 
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td colspan="8" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleElectricPlantInServiceAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    Gas Property And Capacity Leased From Others
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="8">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleElectricPlantInServiceAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                                <li>Report below the original cost of electric plant in service according to the prescribed accounts.</li>
+                                <li>In addition to Account 101, Electric Plant in Service (Classified), this page and the next include Account 102, Electric Plant Purchased or Sold; Account 103, Experimental Electric Plant Unclassified; and Account 106, Completed Construction Not Classified-Electric.</li>
+                                <li>Include in column (c) or (d), as appropriate, corrections of additions and retirements for the current or preceding year.</li>
+                                <li>For revisions to the amount of initial asset retirement costs capitalized, included by primary plant account, increases in column (c) additions and reductions in column (e) adjustments.</li>
+                                <li>Enclose in parentheses credit adjustments of plant accounts to indicate the negative effect of such accounts.</li>
+                                <li>Classify Account 106 according to prescribed accounts, on an estimated basis if necessary, and include the entries in column (c). Also to be included in column (c) are entries for reversals of tentative distributions of prior year reported in column (b). Likewise, if the respondent has a significant amount of plant retirements which have not been classified to primary accounts at the end of the year, include in column (d) a tentative distribution of such retirements, on an estimated basis, with appropriate contra entry to the account for accumulated depreciation provision. Include also in column (d) distributions of these tentative classifications in columns (c) and (d), including the reversals of the prior years tentative account distributions of these
+                                amounts. Careful observance of the above instructions and the texts of Accounts 101 and 106 will avoid serious omissions of the reported amount of respondent&rsquo;s plant actually in service at end of year.</li>
+                                <li>Show in column (f) reclassifications or transfers within utility plant accounts. Include also in column (f) the additions or reductions of primary account classifications arising from distribution of amounts initially recorded in Account 102, include in column (e) the amounts with respect to accumulated provision for depreciation, acquisition adjustments, etc., and show in column (f) only the offset to the debits or credits distributed in column (f) to primary account classifications.</li>
+                                <li>For Account 399, state the nature and use of plant included in this account and if substantial in amount submit a supplementary statement showing subaccount classification of such plant conforming to the requirement of these pages.</li>
+                                <li>For each amount comprising the reported balance and changes in Account 102, state the property purchased or sold, name of vendor or purchase, and date of transaction. If proposed journal entries have been filed with the Commission as required by the Uniform System of Accounts, give also date.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ElectricPlantInServiceHeadings">
+                <xendr:expression class="hide" name="ElectricPlantInServiceHeadings">
+                        $headings = filter (taxonomy().concept(ferc:ScheduleElectricPlantInServiceAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "204 - Schedule - Electric Plant In Service") 
+
+                        $headings = list(for $ref in $headings 
+                        list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                        $heading_dict = dict(for $row in $headings
+                                list("("+$row[1]+")",$row[2])
+                        );
+                        for $row in $heading_dict.keys.sort
+                </xendr:expression>
+                <div style="text-align: center"><xendr:replace>
+                <xendr:expression class="hide" name="ElectricPlantInServiceHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                <xendr:template-display>
+                    Account
+                </xendr:template-display>
+                </xendr:replace>
+                </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ElectricPlantInServiceHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                </xendr:replace></div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="IntangiblePlantLineItems">
+                <xendr:expression class="hide" name="IntangiblePlantLineItems">
+    $dataHead = navigate parent-child descendants from ferc:ElectricPlantInServiceLineItems stop when $relationship.preferred-label == "http://ferc.gov/form/2020-01-01/roles/label/F1RollforwardHeader" role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ElectricPlantInService" returns list (target-name, preferred-label, order);
+    $rollforwardSection = list(for $x in $dataHead
+            $abstractConcept = taxonomy().concept($x[1]);
+            $is-heading = if ($x[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1ElectricPlantInService")
+                                true
+                          else 
+                                false;
+
+            $row_num = (filter $abstractConcept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "204 - Schedule - Electric Plant In Service" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+
+            $row_number = if ($row_num.part-by-name(ferc-part:Row)).length > 0 
+                                ($row_num.part-by-name(ferc-part:Row))[1].part-value
+                        else
+                            ""
+
+
+
+
+            $abstractLabel = list($is-heading, $row_number, $abstractConcept.label($x[2].role.uri).text);
+            $data = navigate parent-child children from $x[1] role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ElectricPlantInService" returns list(target, preferred-label, order);
+            $dataRow2 = list(none, none, none, none, none, none);
+            $dataRow1 =   list(for $y in $data
+                                $conceptPeriod = $y[1].period-type
+                                if $conceptPeriod == "instant"
+                                    if $y[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1BeginningBalance"
+                                        if exists([covered @concept = $y[1].name @period = $priorInstant])
+                                            first(list([covered @concept = $y[1].name @period = $priorInstant]))
+                                        else
+                                            none
+                                    else
+                                        if exists([covered @concept = $y[1].name @period = $currentInstant])
+                                            first(list([covered @concept = $y[1].name @period = $currentInstant]))
+                                        else
+                                            none
+                                else
+                                        if exists([covered @concept = $y[1].name @period = $currentDuration])
+                                            first(list([covered @concept = $y[1].name @period = $currentDuration]))
+                                        else
+                                            none);                                   
+            if $x[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1ElectricPlantInService"      
+                    $abstractLabel + $dataRow2
+            else
+                    $abstractLabel + $dataRow1
+                    )
+
+
+
+    for $rowl in $rollforwardSection
+
+                </xendr:expression>
+
+                <td class="xbrl line-number">
+                    <xendr:replace>
+                            <xendr:expression class="hide" name="IntangiblePlantLineItems" part="1">$rowl[2]</xendr:expression>
+                        </xendr:replace>
+                </td>
+                        <!-- Header -->
+                        <td class="xbrl description_items">
+                                <xendr:replace>
+                                    <xendr:expression class="hide" name="IntangiblePlantLineItems" part="1">$rowl[3]</xendr:expression>
+                                </xendr:replace>
+                       </td>
+                       
+                       <!-- Opening Balance -->
+                       <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="IntangiblePlantLineItems" fact="true" format="ixt4:num-dot-decimal" part="2">$rowl[4]</xendr:expression>
+                                <xendr:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                            </xendr:replace>
+                   </td>
+
+                       <!-- Additions -->
+                       <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="IntangiblePlantLineItems" fact="true" format="ixt4:num-dot-decimal" part="3">$rowl[5]</xendr:expression>
+                                <xendr:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                            </xendr:replace>
+                        </td> 
+
+                        <!-- Retirements -->
+                       <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="IntangiblePlantLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$rowl[6]</xendr:expression>
+                                <xendr:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                            </xendr:replace>
+                        </td> 
+
+                        <!-- Adjustments -->
+                       <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="IntangiblePlantLineItems" fact="true" format="ixt4:num-dot-decimal" part="5">$rowl[7]</xendr:expression>
+                                <xendr:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                            </xendr:replace>
+                        </td> 
+
+                        <!-- Transfers -->
+                       <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="IntangiblePlantLineItems" fact="true" format="ixt4:num-dot-decimal" part="6">$rowl[8]</xendr:expression>
+                                <xendr:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                            </xendr:replace>
+                        </td> 
+
+                        <!-- Closing Balance -->
+                       <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="IntangiblePlantLineItems" fact="true" format="ixt4:num-dot-decimal" part="7">$rowl[9]</xendr:expression>
+                                <xendr:class  class="hide" location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                            </xendr:replace>
+                        </td> 
+
+         </tr>
+    </table>
+<p></p>
+<div class="schedule-footer">
+
+    <div>FERC FORM No. 
+            <xendr:replace>
+                    <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                            
+                                                   </xendr:expression>
+                    <xendr:template-display>1/3-Q</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                    <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleElectricPlantInServiceAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                            (12-96)
+                    </xendr:template-display>
+            </xendr:replace>
+                        
+    </div>
+    <div class="center-text">Page 
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleElectricPlantInServiceAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    212
+                    </xendr:template-display>
+            </xendr:replace>
+    </div> 
+</div>
+</body>
+</html>

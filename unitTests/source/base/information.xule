@@ -1,0 +1,118 @@
+/* Information */
+output INFO0001
+/* INFO0001 */
+
+  rule-name()
+
+output INFO0002
+/* [ERROR] [xule:error] rule INFO0002: Rule: INFO0002 - The 'alignment' function must have only 0 argument, found 1. */
+
+  alignment([covered @instance = $INSTANCE1 @concept.local-name = 'Assets' @period=date('2020-12-31')])
+
+output INFO0003
+/* None */
+
+  $factValue = [covered @instance = $INSTANCE1 @concept.local-name = 'Assets' @period=date('2020-12-31')];
+ alignment()
+
+output INFO0004
+/* dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD) */
+
+  $factValue = [@instance = $INSTANCE1 @concept.local-name = 'Assets' @period=date('2020-12-31')];
+ alignment()
+
+output INFO0005
+/* set */
+
+  set(1,2,3,none)._type
+
+output INFO0006
+/* instant */
+
+  date('2022-12-31')._type
+
+output INFO0007
+/* instant */
+
+  date('2022-12-31T11:00:00')._type
+
+output INFO0008
+/* taxonomy */
+
+  $US-GAAP-2020._type
+
+output INFO0009
+/* instance */
+
+  $INSTANCE1._type
+
+output INFO0010
+/* list */
+
+  list(1,2,3,none)._type
+
+output INFO0011
+/* duration */
+
+  duration('2022-01-30','2022-12-31')._type
+
+output INFO0012
+/* fact */
+
+  (first(list([covered @instance = $INSTANCE1 @Assets])))._type
+
+output INFO0013
+/* string */
+
+  'hello'._type
+
+output INFO0014
+/* cube */
+
+  $CUBE._type
+
+output INFO0015
+/* concept */
+
+  $US-GAAP-2020.concept(Assets)._type
+
+output INFO0016
+/* dimension */
+
+  $US-GAAP-2020.dimension(srt:StatementGeographicalAxis)._type
+
+output INFO0017
+/* relationship */
+
+  sum($PRES_RELATIONSHIP)._type
+
+output INFO0018
+/* qname */
+
+  Assets._type
+
+output INFO0019
+/* role */
+
+  $US-GAAP-2020.concept(Assets).label.role._type
+
+output INFO0020
+/* label */
+
+  $US-GAAP-2020.concept(Assets).label._type
+
+output INFO0021
+/* reference */
+
+  first($US-GAAP-2020.concept(Assets).references)._type
+
+output INFO0022
+/* qname */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator._type
+
+output INFO0023
+/* INFO0012.v1 */
+
+  rule-name()
+ rule-suffix 'v1'

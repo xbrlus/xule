@@ -1,0 +1,25 @@
+/* IfThenElse */
+output IFEL001
+/* 1 */
+
+  if 5 > 0 1 else 2
+
+output IFEL002
+/* hello */
+
+  if false 1 else if true 'hello' else 3
+
+output IFEL003
+/* skip */
+
+  if none true else false
+
+output IFEL004
+/* None */
+
+  if true none else false
+
+output IFEL005
+/* TRUE */
+
+  if false skip else true

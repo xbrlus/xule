@@ -1,0 +1,40 @@
+[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line.
+[info] Activation of plug-in SEC Inline Transforms successful, version 19.2.
+[info] Activation of plug-in Validate EFM successful, version 1.21.1.
+[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1.
+[info] Xule version: 3.0.23584
+[INFO] [CON001] concept=dei:EntityCommonStockSharesOutstanding, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingDepositoryReceiptRatio, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingParValuePerShare, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityNumberOfEmployees, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityPublicFloat, data-type=xbrli:monetaryItemType
+[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line.
+[info] Activation of plug-in SEC Inline Transforms successful, version 19.2.
+[info] Activation of plug-in Validate EFM successful, version 1.21.1.
+[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1.
+[info] Xule version: 3.0.23584
+[INFO] [CON001] concept=dei:EntityCommonStockSharesOutstanding, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingDepositoryReceiptRatio, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingParValuePerShare, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityNumberOfEmployees, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityPublicFloat, data-type=xbrli:monetaryItemType
+[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line.
+[info] Activation of plug-in SEC Inline Transforms successful, version 19.2.
+[info] Activation of plug-in Validate EFM successful, version 1.21.1.
+[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1.
+[info] Xule version: 3.0.23584
+[INFO] [CON001] concept=dei:EntityCommonStockSharesOutstanding, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingDepositoryReceiptRatio, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingParValuePerShare, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityNumberOfEmployees, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityPublicFloat, data-type=xbrli:monetaryItemType
+[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line.
+[info] Activation of plug-in SEC Inline Transforms successful, version 19.2.
+[info] Activation of plug-in Validate EFM successful, version 1.21.1.
+[info] Activation of plug-in Inline XBRL Document Set successful, version 1.1.
+[info] Xule version: 3.0.23584
+[INFO] [CON001] concept=dei:EntityCommonStockSharesOutstanding, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingDepositoryReceiptRatio, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityListingParValuePerShare, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityNumberOfEmployees, data-type=xbrli:monetaryItemType
+[INFO] [CON001] concept=dei:EntityPublicFloat, data-type=xbrli:monetaryItemType

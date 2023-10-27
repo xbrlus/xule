@@ -1,0 +1,952 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 250</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+</head>
+
+<body class="xbrl" id="ScheduleCapitalStockAbstract">
+        <table class="schedule-header xbrl" width="100%">
+                <tr>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace><br/>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>This report is:</xendr:template-display>
+                        </xendr:replace>
+                            <br/>
+                            (1) 
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                                        </xendr:expression>  
+                                    <xendr:template-display>
+                                            <input type="checkbox"/> An Original
+                                    </xendr:template-display>
+                                </xendr:replace>
+                                <br/>
+                            (2)
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                            </xendr:expression> 
+                                        <xendr:template-display>
+                                                <input type="checkbox" checked = "checked"/> A Resubmission
+                                        </xendr:template-display>
+                                </xendr:replace> 
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Date of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                            <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                                <xendr:template-display>04/26/2019</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                        End of: <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>2018</xendr:template-display>
+                        </xendr:replace>
+                        <span>/</span>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Q4</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                </tr>
+            </table>
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td class="xbrl" colspan="11">
+                <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleCapitalStockAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                               ACCUMULATED DEFERRED INCOME TAXES - OTHER (Account 283)
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="11">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleCapitalStockAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report below the particulars (details) called for concerning common and preferred stock at end of year, distinguishing separate
+                                series of any general class. Show separate totals for common and preferred stock. If information to meet the stock exchange reporting
+                                requirement outlined in column (a) is available from the SEC 10-K Report Form filing, a specific reference to report form (i.e., year and
+                                company title) may be reported in column (a) provided the fiscal years for both the 10-K report and this report are compatible.</li>
+                            <li>Entries in column (b) should represent the number of shares authorized by the articles of incorporation as amended to end of year.</li>
+                            <li>Give details concerning shares of any class and series of stock authorized to be issued by a regulatory commission which have not yet been issued.</li>
+                            <li>The identification of each class of preferred stock should show the dividend rate and whether the dividends are cumulative or noncumulative.</li>
+                            <li>State in a footnote if any capital stock that has been nominally issued is nominally outstanding at end of year.</li>
+                            <li>Give particulars (details) in column (a) of any nominally issued capital stock, reacquired stock, or stock in sinking and other funds which is pledged, stating name of pledgee and purpose of pledge.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+                <td class="col-heading xbrl line-number">Line No.</td>
+                <td class="col-heading xbrl" xendr:repeat="ISHeadings">
+                        <xendr:expression class="hide" name="ISHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleCapitalStockAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "250 - Schedule - Capital Stock - Common Stock (Account 201)") 
+    
+                                $headings = list(for $ref in $headings 
+                                list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+    
+                                $heading_dict = dict(for $row in $headings
+                                        list("("+$row[1]+")",$row[2])
+                                );
+                                for $row in $heading_dict.keys.sort
+                        </xendr:expression>
+        
+                        <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="ISHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                            <xendr:template-display>
+                                Title  of Account
+                            </xendr:template-display>
+                        </xendr:replace>
+                    </div>
+                        <div style="text-align: center"><xendr:replace>
+                                <xendr:expression class="hide" name="ISHeadings" part="2">$row</xendr:expression>
+                                <xendr:template-display>
+                                    (a)
+                                </xendr:template-display>
+                            </xendr:replace></div>
+                    </td>
+            </tr>
+        <!-- Common Stock Heading-->
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:CommonStockAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1CapitalStock").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Common Stock (Account 201)
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+        </tr>
+
+        <tr class="schedule-row" xendr:repeat="CommonStockLineItems">
+                <xendr:expression class="hide" name="CommonStockLineItems">// adding a comment
+                    
+                $data2 =   list(for $i in range(3)
+                                list($i,none,none,none,none,none,none,none,none,none,none)
+                );
+                
+                $NumberRecords = list({covered @ferc:CommonStockAxis=*}).length;
+
+                $data = if $NumberRecords > 0  
+                    list({covered @ferc:CommonStockAxis=*  {list(
+                        
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:CapitalStockDescription @unit @period=$currentDuration}).length > 0 
+                        first(list({@ferc:CapitalStockDescription @unit @period=$currentDuration})) 
+                    else  
+                        none,
+                    if list({@ferc:CommonStockSharesAuthorized @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CommonStockSharesAuthorized @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockParOrStatedValuePerShare @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockParOrStatedValuePerShare @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockCallPrice @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockCallPrice @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CommonStockSharesOutstanding @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CommonStockSharesOutstanding @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CommonStockIssued @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CommonStockIssued @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockSharesHeldAsReacquiredStock @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockSharesHeldAsReacquiredStock @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:ReacquiredCapitalStock @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:ReacquiredCapitalStock @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockSharesHeldInSinkingAndOtherFunds @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockSharesHeldInSinkingAndOtherFunds @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockValueHeldInSinkingAndOtherFunds @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockValueHeldInSinkingAndOtherFunds @unit @period=$currentInstant})) 
+                    else 
+                        none
+
+                    )}})
+                    else $data2;
+            
+                    $uniqueData = list(for $x in  $data
+                                        if $x == list($x[1],none,none,none,none,none,none,none,none,none,none)
+                                            skip
+                                        else 
+                                            $x
+                                    );
+                   $data3 = if $NumberRecords > 0  
+                                    $uniqueData
+                            else    
+                                $data2
+            
+                    for $row in $data3.sort             
+    
+                </xendr:expression>
+    
+            <td class="xbrl line-number">
+                    <xendr:lineNumber name="CommonStockLineItems"><xendr:startNumber>2</xendr:startNumber></xendr:lineNumber>
+                    
+            </td>
+ 
+            <!-- Description -->
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" name="CommonStockLineItems" part="2">$row[2]</xendr:expression>
+                    <xendr:template-display>
+                            Common Stock
+                    </xendr:template-display>
+                </xendr:replace>        
+            </td>
+                        
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="3">$row[3]</xendr:expression>
+                <xendr:template-display>
+                        400 shares
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+            
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="4">$row[4]</xendr:expression>
+                <xendr:template-display>
+                        $500
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+            <td class="numeric_items xbrl">
+                    <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="5">$row[5]</xendr:expression>
+                    <xendr:template-display>
+                            $400
+                    </xendr:template-display>
+                    </xendr:replace>        
+            </td> 
+            <td class="numeric_items xbrl">
+                    <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="6">$row[6]</xendr:expression>
+                    <xendr:template-display>
+                            4,000,000
+                    </xendr:template-display>
+                    </xendr:replace>        
+            </td> 
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="7">$row[7]</xendr:expression>
+                <xendr:template-display>
+                        $4,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="8">$row[8]</xendr:expression>
+                <xendr:template-display>
+                        2,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="9">$row[9]</xendr:expression>
+                <xendr:template-display>
+                        $4,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="10">$row[10]</xendr:expression>
+                <xendr:template-display>
+                        1,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CommonStockLineItems" part="11">$row[11]</xendr:expression>
+                <xendr:template-display>
+                        $1,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+        </tr>
+        <tr>
+            <td class="xbrl line-number">
+                <xendr:replace><xendr:expression class="hide">
+                        $heading = 1
+                        $total = 1
+                        $group1 = if count(list({covered @ferc:CommonStockAxis=*})) > 0
+                                        count(list({covered @ferc:CommonStockAxis=*})) 
+                                  else
+                                        3
+                                
+        
+                        $heading + $group1 + $total
+                    </xendr:expression></xendr:replace>
+                        <xendr:template-display>
+                            2
+                        </xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:CommonStockIssued).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Sub Total
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+ 
+            <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CommonStockSharesAuthorized @period=$currentInstant]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    4,080,200 
+                            </xendr:template-display>
+                    </xendr:replace>  
+            </td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CommonStockSharesOutstanding @period=$currentInstant]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    4,080,200 
+                            </xendr:template-display>
+                    </xendr:replace>  
+            </td>
+            <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CommonStockIssued @period=$currentInstant]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $4,080,200 
+                            </xendr:template-display>
+                    </xendr:replace>  
+            </td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+        </tr>
+    <!-- Preferred Stock Heading-->
+        <tr>
+                <td class="xbrl line-number">
+                        <xendr:replace><xendr:expression class="hide">
+                                $heading = 2
+                                $total = 1
+                                $group1 = if count(list({covered @ferc:CommonStockAxis=*})) > 0
+                                        count(list({covered @ferc:CommonStockAxis=*})) 
+                                  else
+                                        3
+                
+                                $heading + $group1 + $total
+                        </xendr:expression></xendr:replace>
+                        <xendr:template-display>2</xendr:template-display>
+                </td>
+                <td class="xbrl description_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:PreferredStockAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1CapitalStock").text
+                        </xendr:expression>
+                        <div>
+                            <xendr:template-display>
+                                Preferred Stock (Account 204)
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                </td>
+
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+                <td class="gray-out xbrl"></td>
+            </tr>
+    <!-- Preferred Stock -->
+    <tr class="schedule-row" xendr:repeat="PreferredStockLineItems">
+            <xendr:expression class="hide" name="PreferredStockLineItems">// adding a comment
+                
+            $data2 =   list(for $i in range(3)
+                            list($i,none,none,none,none,none,none,none,none,none,none)
+            );
+            $NumberRecords = list({covered @ferc:PreferredStockAxis=*}).length;
+
+
+            $data = if $NumberRecords > 0  
+                list({covered @ferc:PreferredStockAxis=*  {list(
+                    
+                if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                else
+                    0,
+                if list({@ferc:CapitalStockDescription @unit @period=$currentDuration}).length > 0 
+                    first(list({@ferc:CapitalStockDescription @unit @period=$currentDuration})) 
+                else  
+                    none,
+                if list({@ferc:PreferredStockSharesAuthorized @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:PreferredStockSharesAuthorized @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:CapitalStockParOrStatedValuePerShare @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:CapitalStockParOrStatedValuePerShare @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:CapitalStockCallPrice @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:CapitalStockCallPrice @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:PreferredStockSharesOutstanding @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:PreferredStockSharesOutstanding @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:PreferredStockIssued @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:PreferredStockIssued @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:CapitalStockSharesHeldAsReacquiredStock @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:CapitalStockSharesHeldAsReacquiredStock @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:ReacquiredCapitalStock @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:ReacquiredCapitalStock @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:CapitalStockSharesHeldInSinkingAndOtherFunds @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:CapitalStockSharesHeldInSinkingAndOtherFunds @unit @period=$currentInstant})) 
+                else 
+                    none,
+                if list({@ferc:CapitalStockValueHeldInSinkingAndOtherFunds @unit @period=$currentInstant}).length > 0
+                    first(list({@ferc:CapitalStockValueHeldInSinkingAndOtherFunds @unit @period=$currentInstant})) 
+                else 
+                    none
+
+                )}})
+                else $data2;
+        
+                $uniqueData = list(for $x in  $data
+                                if $x == list($x[1],none,none,none,none,none,none,none,none,none,none)
+                                    skip
+                                else 
+                                    $x
+                            );
+                $data3 = if $NumberRecords > 0  
+                            $uniqueData
+                    else    
+                        $data2
+
+                for $row in $data3.sort             
+
+            </xendr:expression>
+
+        <td class="xbrl line-number">
+                <xendr:lineNumber name="PreferredStockLineItems"><xendr:startNumber>
+                        $heading = 2
+                        $total = 1
+                        $group1 = if count(list({covered @ferc:CommonStockAxis=*})) > 0
+                                        count(list({covered @ferc:CommonStockAxis=*})) 
+                                  else
+                                        3
+        
+                        $heading + $group1 + $total + 1
+                </xendr:startNumber></xendr:lineNumber>
+                <xendr:template-display>2</xendr:template-display>
+        </td>
+
+        <!-- Description  -->
+        <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" name="PreferredStockLineItems"  part="2">$row[2]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>Preferred Stock</xendr:template-display>
+        </td> 
+                    
+        <td class="numeric_items xbrl">
+            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="3">$row[3]</xendr:expression>
+            <xendr:template-display>
+                    4,000,000 shares
+            </xendr:template-display>
+            </xendr:replace>        
+        </td> 
+        
+        <td class="numeric_items xbrl">
+            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="4">$row[4]</xendr:expression>
+            <xendr:template-display>
+                    $4.00
+            </xendr:template-display>
+            </xendr:replace>        
+        </td> 
+        <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="5">$row[5]</xendr:expression>
+                <xendr:template-display>
+                        $400
+                </xendr:template-display>
+                </xendr:replace>        
+        </td> 
+        <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="6">$row[6]</xendr:expression>
+                <xendr:template-display>
+                        4,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+        </td> 
+        <td class="numeric_items xbrl">
+            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="7">$row[7]</xendr:expression>
+            <xendr:template-display>
+                    $4,000,000
+            </xendr:template-display>
+            </xendr:replace>        
+        </td> 
+        <td class="numeric_items xbrl">
+            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="8">$row[8]</xendr:expression>
+            <xendr:template-display>
+                    2,000,000
+            </xendr:template-display>
+            </xendr:replace>        
+        </td> 
+        <td class="numeric_items xbrl">
+            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="9">$row[9]</xendr:expression>
+            <xendr:template-display>
+                    $2,000,000
+            </xendr:template-display>
+            </xendr:replace>        
+        </td> 
+        <td class="numeric_items xbrl">
+            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="10">$row[10]</xendr:expression>
+            <xendr:template-display>
+                    1,000,000
+            </xendr:template-display>
+            </xendr:replace>        
+        </td> 
+        <td class="numeric_items xbrl">
+            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="PreferredStockLineItems" part="11">$row[11]</xendr:expression>
+            <xendr:template-display>
+                    $1,000,000
+            </xendr:template-display>
+            </xendr:replace>        
+        </td> 
+    </tr>
+            <tr>
+                    <td class="xbrl line-number">
+                        <xendr:replace><xendr:expression class="hide">
+                            $heading = 2
+                            $total = 2
+                            $group1 = if count(list({covered @ferc:CommonStockAxis=*})) > 0
+                                        count(list({covered @ferc:CommonStockAxis=*})) 
+                                  else
+                                        3
+                            
+                            $group2 = if count(list({covered @ferc:PreferredStockAxis=*})) > 0
+                                                    count(list({covered @ferc:PreferredStockAxis=*})) 
+                                            else
+                                                    3;
+                
+                                $heading + $group1 + $group2 + $total
+                        </xendr:expression></xendr:replace>
+                        <xendr:template-display>
+                            2
+                        </xendr:template-display>
+                    </td>
+                    
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">
+                                taxonomy().concept(ferc:PreferredStockIssued).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                            </xendr:expression>
+                            <div>
+                                <xendr:template-display>
+                                    Sub Total
+                                </xendr:template-display>
+                            </div>
+                        </xendr:replace>
+                    </td>
+ 
+                    <td class="numeric_items xbrl">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:PreferredStockSharesAuthorized @period=$currentInstant]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            4,080,200 
+                                    </xendr:template-display>
+                            </xendr:replace>  
+                    </td>
+                    <td class="gray-out xbrl"></td>
+                    <td class="gray-out xbrl"></td>
+                    <td class="numeric_items xbrl">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:PreferredStockSharesOutstanding @period=$currentInstant]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            4,080,200 
+                                    </xendr:template-display>
+                            </xendr:replace>  
+                    </td>
+                    <td class="numeric_items xbrl">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:PreferredStockIssued @period=$currentInstant]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            $4,080,200 
+                                    </xendr:template-display>
+                            </xendr:replace>  
+                    </td>
+                    <td class="gray-out xbrl"></td>
+                    <td class="gray-out xbrl"></td>
+                    <td class="gray-out xbrl"></td>
+                    <td class="gray-out xbrl"></td>
+                </tr>
+        <!-- Capital Stock (Data Conversion) -->
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:CapitalStockLineItems).label("http://ferc.gov/form/2020-01-01/roles/label/F1CapitalStock").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                                Capital Stock (Accounts 201 and 204) - Data Conversion
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="CapitalStockLineItems">
+                <xendr:expression class="hide" name="CapitalStockLineItems">// adding a comment
+                    
+                $data2 =   list(for $i in range(3)
+                                list($i,none,none,none,none,none,none,none,none,none,none,none)
+                );
+                $NumberRecords = list({covered @ferc:CapitalStockByTypesAxis=*}).length;
+                
+                $data = if list({covered @ferc:CapitalStockByTypesAxis=*}).length > 0  
+                    list({covered @ferc:CapitalStockByTypesAxis=*  {list(
+                        
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:CapitalStockDescription @unit @period=$currentDuration}).length > 0 
+                        first(list({@ferc:CapitalStockDescription @unit @period=$currentDuration})) 
+                    else  
+                        none,
+                    if list({@ferc:CapitalStockSharesAuthorized @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockSharesAuthorized @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockParOrStatedValuePerShare @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockParOrStatedValuePerShare @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockCallPrice @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockCallPrice @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockSharesOutstanding @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockSharesOutstanding @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockValueOutstanding @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockValueOutstanding @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockSharesHeldAsReacquiredStock @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockSharesHeldAsReacquiredStock @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockValueHeldAsReacquiredStock @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockValueHeldAsReacquiredStock @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockSharesHeldInSinkingAndOtherFunds @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockSharesHeldInSinkingAndOtherFunds @unit @period=$currentInstant})) 
+                    else 
+                        none,
+                    if list({@ferc:CapitalStockValueHeldInSinkingAndOtherFunds @unit @period=$currentInstant}).length > 0
+                        first(list({@ferc:CapitalStockValueHeldInSinkingAndOtherFunds @unit @period=$currentInstant})) 
+                    else 
+                        none
+                    )}})
+                    else $data2;
+            
+                    $uniqueData = list(for $x in  $data
+                            if $x == list($x[1],none,none,none,none,none,none,none,none,none,none)
+                                skip
+                            else 
+                                $x
+                            );
+                    $data3 = if $NumberRecords > 0  
+                                $uniqueData
+                        else    
+                            $data2
+
+                    for $row in $data3.sort              
+    
+                </xendr:expression>
+    
+            <td class="xbrl line-number">
+                    <xendr:lineNumber name="CapitalStockLineItems"><xendr:startNumber>2</xendr:startNumber></xendr:lineNumber>
+                 
+            </td>
+            <!-- Description -->
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" name="CapitalStockLineItems" part="2">$row[2]</xendr:expression>
+                    <xendr:template-display>
+                            Capital Stock
+                    </xendr:template-display>
+                </xendr:replace>        
+            </td>
+
+            <!-- Common Shares Authorized -->
+            <td class="xbrl numeric_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true"  format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="3">$row[3]</xendr:expression>
+                         <xendr:template-display>3,000,000</xendr:template-display>
+                     </xendr:replace>
+            </td> 
+        
+             <!-- Par or Stated Value per Share         -->    
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="4">$row[4]</xendr:expression>
+                <xendr:template-display>
+                        $100
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+            
+             <!-- Call Price at End of Year -->    
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="5">$row[5]</xendr:expression>
+                <xendr:template-display>
+                        $400
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+           
+             <!-- Outstanding (Shares)  -->
+            <td class="numeric_items xbrl">
+                    <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="6">$row[6]</xendr:expression>
+                    <xendr:template-display>
+                        4,000,000 shares
+                    </xendr:template-display>
+                    </xendr:replace>        
+            </td> 
+           
+             <!-- Outstanding (Amount)  -->
+            <td class="numeric_items xbrl">
+                    <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="7">$row[7]</xendr:expression>
+                    <xendr:template-display>
+                            $4,000,000
+                    </xendr:template-display>
+                    </xendr:replace>        
+            </td> 
+ 
+             <!-- Held by Respondent as Reacquired Stock (Shares) -->
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="8">$row[8]</xendr:expression>
+                <xendr:template-display>
+                    3,000,000 shares
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+             
+             <!-- Held by Respondent as Reacquired Stock (Cost) -->
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="9">$row[9]</xendr:expression>
+                <xendr:template-display>
+                        $3,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+          
+             <!-- Held by Respondent In Skinking and Other Funds (Shares)   -->
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="10">$row[10]</xendr:expression>
+                <xendr:template-display>
+                        1,000,000 shares
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+          
+            <!-- Held by Respondent In Skinking and Other Funds (Amount)   -->
+            <td class="numeric_items xbrl">
+                <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CapitalStockLineItems" part="11">$row[11]</xendr:expression>
+                <xendr:template-display>
+                        $1,000,000
+                </xendr:template-display>
+                </xendr:replace>        
+            </td> 
+        </tr>
+        <tr>
+            <td class="xbrl line-number">
+                    <xendr:replace><xendr:expression class="hide">
+                            $heading = 1
+                            $total = 1
+                            $group1 = if count(list({covered @ferc:CapitalStockByTypesAxis=*})) > 0
+                                        count(set([covered @ferc:CapitalStockByTypesAxis=*].dimensions-typed().values))
+                                  else
+                                        3
+
+                                $heading + $group1 + $total
+                        </xendr:expression></xendr:replace>
+                        <xendr:template-display>
+                            2
+                        </xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:CapitalStockValueOutstanding).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Sub Total
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+
+            <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CapitalStockSharesAuthorized @period=$currentInstant]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    4,080,200 
+                            </xendr:template-display>
+                    </xendr:replace>  
+            </td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CapitalStockSharesOutstanding @period=$currentInstant]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    4,080,200 
+                            </xendr:template-display>
+                    </xendr:replace>  
+            </td>
+            <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CapitalStockValueOutstanding @period=$currentInstant]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $4,080,200 
+                            </xendr:template-display>
+                    </xendr:replace>  
+            </td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+            <td class="gray-out xbrl"></td>
+        </tr>
+    </table>
+<br/>
+<div class="schedule-footer">
+
+    <div>FERC FORM NO. 
+            <xendr:replace>
+                    <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                            
+                                                    </xendr:expression>
+                    <xendr:template-display>1</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                    <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleCapitalStockAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                            (ED. 12-96)
+                    </xendr:template-display>
+            </xendr:replace>
+                        
+    </div>
+    <div class="center-text">Page 
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleCapitalStockAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    250
+                    </xendr:template-display>
+            </xendr:replace>
+    </div> 
+</div>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" 
+    xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1F - 019</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+</head>
+
+<body class="xbrl">
+    <div id="SchedulePurchasedPowerShortAbstract"></div>
+    <xendr:showif>
+            if first(list([covered @ferc:PurchasedPowerMajorNonmajor])) == "Major"
+                false
+            else
+                true
+    </xendr:showif>
+    <table class="ident-table xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br />
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br />
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br />
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td colspan="6" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SchedulePurchasedPowerShortAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                PART XIX: PURCHASED POWER
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="6">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">
+                        taxonomy().concept(ferc:SchedulePurchasedPowerShortAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FInstructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report below the information called for concerning power purchased during the year. Power exchange transactions should be reported net in this schedule whether net is a receipt or a delivery. Indicate such transactions by an asterisk.</li>
+                            <li>Enter the name of the seller in column (a). Abbreviate if necessary but do not truncate the name or use acronyms. Report in column (e) the total cost of power shown on bills rendered by the seller.</li>
+                            <li>In column (b), identify the FERC Rate Schedule or Tariff Number, or, for non-FERC jurisdictional sellers, some appropriate designation for the contract.</li>
+                            <li>Report annual maximum demand in column (c). Demand must be in megawatts. Footnote any demand reported in column (c) which is not stated on a megawatt basis and explain.</li>
+                            <li>Report in column (d) the megawatt-hours shown on bills rendered by the seller.</li>
+                            <li>Report in column (e) the total cost of power shown on bills rendered by the seller.</li>
+                            <li>Footnote entries as required and provide explanations following all required data.</li>
+                            </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ISHeadings">
+                    <xendr:expression class="hide" name="ISHeadings">
+                            /** THIS CODE EXCLUDES ELEMENT NAMES AS THERE ARE NO ELEMENT SPECIFIC COLUMNS  **/
+                            $headings = filter (taxonomy().concept(ferc:SchedulePurchasedPowerShortAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "F1F - 019 - Schedule - Purchased Power") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center"><xendr:replace>
+                    <xendr:expression class="hide" name="ISHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                    <xendr:template-display>
+                        Title  of Account
+                    </xendr:template-display>
+                </xendr:replace>
+            </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ISHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+        <!--<tr class="col-heading-row">
+            <td class="col-heading xbrl" rowspan="2">Line No.</td>
+            <td class="col-heading xbrl" rowspan="2">
+                <div class="tooltip">
+                    <div class="tooltiptext">NameOfCompanyOrPublicAuthorityProvidingPurchasedPower</div>
+                    <xendr:replace>
+                        <xendr:expression class="hide" rowspan="2">
+                            taxonomy().concept(ferc:NameOfCompanyOrPublicAuthorityProvidingPurchasedPower).label("http://ferc.gov/form/2020-01-01/roles/label/F1SalesForResale").text
+                        </xendr:expression>
+
+                        <xendr:template-display>
+                            Name of Company or Public Authority [Footnote Affiliations]
+                        </xendr:template-display>
+
+                    </xendr:replace>
+                </div>
+                <div>(a)</div>
+            </td>
+            
+            <td class="col-heading xbrl" rowspan="2">
+                    <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:RateScheduleTariffNumber).label("http://ferc.gov/form/2020-01-01/roles/label/F1SalesForResale").text
+                        </xendr:expression>
+                        <div style="text-align: center">
+                            <xendr:template-display>
+                                FERC Rate Schedule or Tariff Number
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                    <div>(b)</div>
+            </td>
+            <td class="col-heading xbrl" rowspan="2">
+                    <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:PurchasedPowerAnnualMaximumDemand).label("http://ferc.gov/form/2020-01-01/roles/label/F1SalesForResale").text
+                        </xendr:expression>
+                        <div style="text-align: center">
+                            <xendr:template-display>
+                                Annual Maximum Demand (MW)
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                <div>(c)</div>
+            </td>
+            
+            <td class="col-heading xbrl" rowspan="2">
+                    <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:MegawattHoursPurchased).label("http://ferc.gov/form/2020-01-01/roles/label/F1SalesForResale").text
+                        </xendr:expression>
+                        <div style="text-align: center">
+                            <xendr:template-display>
+                                Megawatt-hours Purchased (MWH)
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                <div>(d)</div>
+            </td>
+            <td class="col-heading xbrl" rowspan="2">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SettlementOfPower).label("http://ferc.gov/form/2020-01-01/roles/label/F1SalesForResale").text
+                    </xendr:expression>
+                    <div style="text-align: center">
+                        <xendr:template-display>
+                            Revenues
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            <div>(e)</div>
+        </td> 
+        </tr>-->
+        
+        <tr class="schedule-row" xendr:repeat="SalesForResale">
+            <xendr:expression class="hide" name="SalesForResale">// adding a comment
+
+                $data2 = list(for $i in range(20)
+                list($i,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:PurchasedPowerAxis=*})) > 0  
+                
+               
+                    list({covered @ferc:PurchasedPowerAxis=*  {list(
+                        if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                            first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                        else
+                            0,
+                        if list({@ferc:NameOfCompanyOrPublicAuthorityProvidingPurchasedPower @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:NameOfCompanyOrPublicAuthorityProvidingPurchasedPower @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:RateScheduleTariffNumber @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:RateScheduleTariffNumber @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:PurchasedPowerAnnualMaximumDemand @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:PurchasedPowerAnnualMaximumDemand @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:MegawattHoursPurchased @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:MegawattHoursPurchased @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:SettlementOfPower @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:SettlementOfPower @unit @period=$currentDuration}))
+                        else 
+                            none     
+                )}})
+                else $data2;
+
+                $uniqueData = list(for $x in  $data
+                                        if $x == list(0,none,none,none,none,none)
+                                            skip
+                                        else 
+                                            $x
+                                    );
+            
+                for $row in $uniqueData.sort
+                            
+
+
+            </xendr:expression>
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="SalesForResale" />
+                <xendr:template-display>1</xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" part="2">$row[2]
+                    </xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    ABC Company
+                </xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" part="3">
+                        $row[3]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    FNS
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="4">
+                        $row[4]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    555
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="5">
+                        $row[5]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    1,028
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="6">
+                        $row[6]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    514,247
+                </xendr:template-display>
+            </td>
+            
+        </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                        <xendr:template-display>1-F</xendr:template-display>
+                </xendr:replace>
+                        <span> </span> 
+                <xendr:replace>
+                <xendr:expression class="hide">" (" + taxonomy().concept(ferc:SchedulePurchasedPowerShortAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                        ED 12-93
+                    </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SchedulePurchasedPowerShortAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        23
+                        </xendr:template-display>
+                </xendr:replace>
+        </div>
+    </div>
+</body>
+
+</html>

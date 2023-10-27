@@ -1,0 +1,712 @@
+       /*
+        Theme Name: Form Templates
+        Theme URI: https:/ferc.org/themes/formTemplates/
+        Author: FERC
+        email: campbell.pryde@XBRL.US
+        Author URI: https://ferc.org/
+        Description: This stylesheet controls the rendering of Form Templates to ensure that all forms have a consistent look and feel within the schedules on a form and schedules across forms.
+        Version: 1.0
+        License: GNU General Public License v2 or later
+        License URI: http://www.gnu.org/licenses/gpl-2.0.html
+        Text Domain: formTemplates
+        Tags: abstract, col-heading, sch-title
+        
+        */
+        @namespace ix url(http://www.xbrl.org/2013/inlineXBRL);
+
+        .abstract {
+            font-weight: bold;
+         }
+         .account-number {
+            text-align: center; 
+         }
+         .boolean-flag {
+            text-align: center; 
+         }
+         .status-flag {
+            text-align: center; 
+         }
+         .page-number {
+            text-align: center; 
+         }
+         .text-block {
+            padding-bottom: 30 !important
+        }
+
+       
+
+       body.xbrl {
+            font-family: sans-serif;
+        }
+
+        div.xbrl {
+            font-family: sans-serif;
+        }
+        
+        table.xbrl {
+            border-collapse: collapse;
+            border: 1px solid;
+            font-family: sans-serif;  
+            
+        }
+        /* Makes the footnote cells span the full width of the page when there
+           is xhtml content in the footnote
+        */
+        table.footnote-table {
+            width: 100%;
+            table-layout: fixed;
+        }        
+        /* Used to format cells in the template */
+        td.top-border {
+            border-top-style: solid;
+            border-top-width: 4px;
+        }
+
+        td.xbrl {
+            border: 1px solid;
+            padding:10 !important;
+            margin:5 !important;  
+        }
+
+        td.xbrl-no-top-line {
+            border-bottom: 1px solid;
+            border-left: 1px solid;
+            border-right: 1px solid;
+            padding:10 !important;
+            margin:5 !important;  
+        }
+        td.xbrl-no-bottom-line {
+            border-top: 1px solid;
+            border-left: 1px solid;
+            border-right: 1px solid;
+            padding:10 !important;
+            margin:5 !important;  
+        }
+
+        td.xbrl-no-bottom-top-line {
+            border-left: 1px solid;
+            border-right: 1px solid;
+            padding:10 !important;
+            margin:5 !important;  
+        }
+
+        td.xbrl-no-sides {
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            padding:10 !important;
+            margin:5 !important;  
+        }
+
+        td.xbrl-right-side-only {
+            border-right: 1px solid;
+            padding:10 !important;
+            margin:5 !important;  
+        }
+        td.xbrl-no-box {
+            padding:10 !important;
+            margin:5 !important;  
+        }
+/**
+        [contextref] {
+            background-color: pink;
+        }
+**/     
+        td.hideCell {
+            display: none;
+        }
+    
+        td.boolean-flag {
+            width: 10%; 
+        }
+        td.status-flag {
+            width: 10%; 
+        }
+        td.line-number {
+            width: 2%;
+        }
+
+        td.account-number {
+            width: 10%;
+        }
+        td.page-number {
+            width: 10%; 
+         }
+
+        td.numeric_items{
+            width: 15%;
+        }
+
+        td.percent_items{
+            width: 10%;
+        }
+        td.date_items{
+            width: 15%;
+        }
+
+        td.description_items {
+            width: 25%;
+            text-align: left;
+        }
+
+        td.monetary_items {
+            width: 15%;
+        }
+
+        td.short_months {
+            width: 5%;
+        }
+        
+        .container-table {
+            padding:0 !important;
+            margin:0 !important;
+        }
+
+        .cell-top {
+            vertical-align: top;
+        }
+
+        /* Used to center text */
+        .center-text {
+            text-align: center; 
+        }
+
+        /* Overflow text **/
+        .overflow {
+            max-width: 100px;
+            overflow: visible;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Used for table inside another table which will have no border.**/
+        .contained-table {
+            border: none;
+        }
+
+        /* Used to indicate that a cell is a column heading */
+        .col-heading {
+            text-align: center;
+            font-weight: bold
+        }
+
+        .col-heading-row {
+            font-weight: bold;
+            background-color: rgb(167, 157, 157);
+        }
+
+
+        /** used to hide formatting on a template  if required */
+        .hide {display: none}
+
+        .ident-header {
+            text-align: center;
+        }
+
+        .date_items {
+            text-align: center;
+        }
+
+        .duration_items {
+            text-align: center;
+        }
+
+        /* Used to indicate that the value is a numeric item */
+        .numeric_items {
+            text-align: right;
+        }
+
+        .monetary_items {
+            text-align: right;
+        }
+
+        .percent_items {
+            text-align: right;
+        }
+
+        /* Used to add percentage signs **/
+
+        .percent_items > div.sub-replacement::after {
+            content: '%';
+        } 
+        /* Used to add parens around negative numbers */
+        .sign-negative::before {
+            content: '(';
+        }
+        .sign-negative::after {
+            content: ')';
+        }
+
+        /* Used to add dollar sign to monetary items */
+        .unit-USD::before {
+            content: '';
+        }
+        
+        /* Used to remove an text decoration */
+        .plain {
+            text-decoration: none;
+            } 
+
+        /* used to define the title of a a schedule */
+        .sch-title {
+            text-align: center; 
+            font-weight: bold;
+        }
+        /* Specifically for form 714 */
+        .sch-header-title {
+            text-align: center; 
+            font-weight: bold;
+            font-size: x-large;
+        }
+        .quart-split {
+            width: 25%;
+        }
+
+
+        .sch-as-of-date-title {
+            text-align: center; 
+            font-weight: bold;
+            font-size: large;
+        }
+
+
+        .form-id-code-top {
+            text-align: left;
+            vertical-align: top;
+            width: 25%;
+        }
+
+        .form-name-top {
+            text-align: left;
+            vertical-align: top;
+            border-top: 1px solid;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            padding:10 !important;
+            margin:5 !important;  
+            width: 25%;
+        }
+
+        .left-id-col {
+            border-right: 2px solid;
+            padding-left: 30 !important;
+        }
+        .left-id-col2 {
+            border-right: 2px solid;
+            padding-left: 60 !important;
+        }
+
+        .right-id-col {
+            padding-left: 30 !important;
+        }
+
+        /* used to define the title of a a Form */
+        .form-title {
+            text-align: center; 
+            font-weight: bold;
+            font-size: large;
+            
+        }
+        span.title {
+            font-weight: bold;
+        }
+        span.padding-1 {
+            padding-left: 0px;
+        }
+
+        span.padding-2 {
+            padding-left: 4px;
+        }
+
+        span.padding-3 {
+            padding-left: 12px;
+        }
+
+        span.padding-4 {
+            padding-left: 16px;
+        }
+
+        span.padding-5 {
+            padding-left: 20px;
+        }
+
+        .field-ref {
+            text-align: left;
+            font-size: 8pt;
+        }
+
+        .ident-table {
+            border-bottom-style: none
+        }
+
+        .schedule-header {
+            border-bottom-style: none
+        }
+
+        .schedule-footer {
+            border-bottom-style: none;
+            font-weight: bold;
+
+        }
+
+        /* Used add a grayed out box in a template */
+        .gray-out {
+            background-color: grey
+        }
+        /** Used for data Defined Headings such as Name of Pipeline **/
+        .data-heading {
+            background-color: lightgrey
+        }
+
+        /* Used to format cells that are a total */
+        .total_items {
+            font-weight: bold
+        }
+
+        .preformatted-text {
+            white-space:pre-wrap;
+            font-family: monospace;
+        }        
+
+
+        div.sub-value {
+            display:inline-block
+        }
+        div.sub-html {
+            display:inline-block
+        }
+        /* The preamble can be removed */
+        div.sub-preamble {
+            display:inline-block
+        }
+        div.unit {
+            display:inline-block;
+        }
+        div.sign {
+            display:inline-block;
+        }
+
+        table.footnote-page-title {
+            width: 100%
+        }
+        td.footnote-page-title {
+            text-align: center
+        }
+        div.ferc-seal{
+            background-image: url("https://pbs.twimg.com/media/CtTQII4XgAE6Idy.jpg");
+            background-size: 100px;
+            background-repeat: no-repeat;
+            width: 100px;
+            height: 100px;
+        
+        }
+
+        div.ferc-seal-large{
+            background-image: url("https://pbs.twimg.com/media/CtTQII4XgAE6Idy.jpg");
+            background-size: 220px;
+            background-repeat: no-repeat;
+            width: 220px;
+            height: 220px;
+        
+        }
+        /*------------------------- Formatting for Ordered Lists -------------------------*/
+
+        
+    ol.upper-roman,  ol.upper-alpha, ol.lower-roman,  ol.lower-alpha, ol.number {
+        margin: 1em 0;
+        counter-reset: item; 
+        list-style-type: none;
+    }
+   
+    .start2 > li:before, .start3 > li:before, .start4 > li:before, .start5 > li:before, .start6 > li:before, .start7 > li:before, .start8 > li:before, .start9 > li:before, .start10 > li:before, .start11 > li:before, .start12 > li:before {
+        content: counter(item ) '.';
+        counter-increment: item;
+        /* Alignment */
+        position: absolute;
+        margin-left: -3.50em;
+        text-align: right;
+        width: 3em;
+    }
+    
+    ol.upper-roman > li:before {
+        content: counter(item ) '.';
+        counter-increment: item;
+        /* Alignment */
+        position: absolute;
+        margin-left: -3.50em;
+        text-align: right;
+        width: 3em;
+    }
+
+    ol.upper-alpha > li:before {
+        content: counter(item ) '.';
+        counter-increment: item;
+        /* Alignment */
+        position: absolute;
+        margin-left: -3.50em;
+        text-align: right;
+        width: 3em;
+    }
+
+    ol.number > li:before {
+        content: counter(item ) '.';
+        counter-increment: item;
+        /* Alignment */
+        position: absolute;
+        margin-left: -3.50em;
+        text-align: right;
+        width: 3em;
+    }
+
+    ol.lower-alpha > li:before {
+        content: counter(item ) '.';
+        counter-increment: item;
+        /* Alignment */
+        position: absolute;
+        margin-left: -3.50em;
+        text-align: right;
+        width: 3em;
+    }
+
+    ol.lower-roman > li:before {
+        content: counter(item ) '.';
+        counter-increment: item;
+        /* Alignment */
+        position: absolute;
+        margin-left: -3.50em;
+        text-align: right;
+        width: 3em;
+    }
+    
+    ol.start2 {
+        margin: 1em 0;
+        counter-reset: item 1; /* The first list item will start at 2, II */ 
+        list-style-type: none;
+    }
+    
+    ol.start3 {
+        margin: 1em 0;
+        counter-reset: item 2; /* The first list item will start at 3, III */ 
+        list-style-type: none;
+    }
+    
+    ol.start4 {
+        margin: 1em 0;
+        counter-reset: item 3; /* The first list item will start at 4, IV */ 
+        list-style-type: none;
+    }
+    
+    ol.start5 {
+        margin: 1em 0;
+        counter-reset: item 4; /* The first list item will start at 5, V */ 
+        list-style-type: none;
+    }
+    
+    ol.start6 {
+        margin: 1em 0;
+        counter-reset: item 5; /* The first list item will start at 6, VI */ 
+        list-style-type: none;
+    }
+    
+    ol.start7 {
+        margin: 1em 0;
+        counter-reset: item 6; /* The first list item will start at 7, VII */ 
+        list-style-type: none;
+    }
+    ol.start8 {
+        margin: 1em 0;
+        counter-reset: item 7; /* The first list item will start at 8, VIII */ 
+        list-style-type: none;
+    }
+    ol.start9 {
+        margin: 1em 0;
+        counter-reset: item 8; /* The first list item will start at 9, IX */ 
+        list-style-type: none;
+    }
+    ol.start10 {
+        margin: 1em 0;
+        counter-reset: item 9; /* The first list item will start at 10, X */ 
+        list-style-type: none;
+    }
+    ol.start11 {
+        margin: 1em 0;
+        counter-reset: item 10; /* The first list item will start at 11, XI */ 
+        list-style-type: none;
+    }ol.start12 {
+        margin: 1em 0;
+        counter-reset: item 11; /* The first list item will start at 12, XII */ 
+        list-style-type: none;
+    }
+    
+    
+    ol.upper-roman > li:before {
+        content: counter(item, upper-roman ) '.';
+    }
+    ol.upper-alpha > li:before {
+        content: counter(item, upper-alpha ) '.';
+    }
+    ol.number > li:before {
+        content: counter(item ) '.';
+      }
+  
+    ol.lower-alpha > li:before {
+                content: counter(item, lower-alpha ) '.';
+      }
+
+      ol.lower-roman > li:before {
+        content: counter(item, lower-roman ) '.';
+    }
+   
+            
+    
+
+
+
+
+        /** Underlining of text **/
+
+        .under-line {
+            text-decoration: underline;
+        }
+
+        /**  Formatting of Checkbox **/
+
+        span.checkbox {
+            font-size: x-large;
+        }
+        
+
+        /* Cover Page formatting stuff */
+        .center-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+          }
+
+        .box {
+            border-style:solid;
+            border-width: 1pt;
+            border-color: black;
+        }
+    
+        .center-blocktext {
+        margin-left: auto;
+        margin-right: auto;
+        width: 35em
+        }
+        
+        li.cover-instructions {
+            margin: 10px 0;
+        }
+
+        /* Used for Instructions on Form 1F **/
+        .two_column {
+            column-count: 2
+            ;
+          }
+
+        /* confidential styling */
+        .parent-confidential {background: repeating-linear-gradient(
+                                                    45deg,
+                                                   /* rgb(233, 124, 124),
+                                                    rgb(233, 124, 124)5px,*/
+                                                    lightgrey,
+                                                    lightgrey 5px,                                                    
+                                                    white 5px,
+                                                    white 10px
+                                                    );}
+        
+        /* redacted styling */
+        .parent-redacted {background: repeating-linear-gradient(
+                                                    45deg,
+                                                    lightgrey,
+                                                    lightgrey 5px,
+                                                    white 5px,
+                                                    white 10px
+                                                    );
+                          text-align: center;}
+        
+        .redacted:after {content: 'REDACTED'; font-weight: bold;}
+        
+
+        /* confidential watermark */
+        #watermark{
+            padding: 15px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            }
+            
+        #watermark p {
+            /* the actual 'watermark' */
+            opacity: 0.5; /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+            filter:alpha(opacity=50); /* for <= IE 8 */
+            font-size: xxx-large;
+            text-align: center
+            }     
+            
+        /* -------------------------FOOTNOTES ----------------------------------------*/
+
+        .footnote-ref {
+            
+            vertical-align: super; /* 2 */
+            font-size: 0.5em; /* 3 */
+            margin-left: 2px; /* 4 */
+            color: blue; /* 5 */
+            text-decoration: underline; /* 5 */
+            cursor: pointer; /* 5 */
+          }
+
+        /* -------------------------Tooltip STUFF ----------------------------------*/
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted rgb(185, 183, 183);
+            }
+    
+            .tooltip .tooltiptext {
+            visibility: hidden;
+            font-size: 12px;
+            background-color: rgb(8, 199, 49);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 5px;
+    
+            /* Position the tooltip */
+            position: absolute;
+            display: block;
+            z-index: 1;
+            }
+    
+            .tooltip:hover .tooltiptext {
+            visibility: visible;
+            }
+        /*--------------------------------------------------------------------------*/
+
+        xule\:template-display {
+            color: cadetblue
+        }
+
+        xule\:replace {
+            color: blue
+        }
+
+        @media print {
+            .screen-page-separator {
+                display: none;
+            } 
+            .print-page-separator {
+                page-break-after: always;
+            }
+
+           }
+
+        @media screen {
+            .print-page-separator {
+                display: none;
+            }
+        }        

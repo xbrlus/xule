@@ -1,0 +1,146 @@
+/* Collections */
+output LIST001
+/* list(1, 2, 3, 4, 5)  */
+
+  list(1,2,3,4,5)
+
+output LIST002
+/* list(a, b, c) */
+
+  list('a','b', 'c')
+
+output LIST003
+/* list(one Item) */
+
+  list('one Item')
+
+output LIST004
+/* list(a, list, of strings,  leading and trailing space , end)  */
+
+  list('a','list', 'of strings', ' leading and trailing space ', 'end')
+
+output LIST005
+/* list(1, 2, -199, -9) */
+
+  list(1,2,-199,-9)
+
+output LIST006
+/* list(2016-01-01 to 2016-12-31, 2016-12-31) */
+
+  list(duration('2016-01-01', '2016-12-31'), date('2016-12-31'))
+
+output LIST007
+/* list(None) */
+
+  list(none)
+
+output LIST008
+/* list('2017','2016','2015') */
+
+  list('2017','2016','2015')
+
+output LIST009
+/* list(Assets, Land,Cash, AccountsReceivable) */
+
+  list(Assets, Land,Cash, Liabilities)
+
+output LIST010
+/* False */
+
+  list('a','b','c') == list('b','c','a')
+
+output LIST011
+/* True */
+
+  list('a','b','c') == set('a','b','c')
+
+output LIST012
+/* list() */
+
+  list([covered @instance = $INSTANCE1 @AssetsAbstract])
+
+output LIST013
+/* none */
+
+  first(list([covered @instance = $INSTANCE1 @AssetsAbstract]))
+
+output LIST014
+/* skip */
+
+  list([@instance = $INSTANCE1 @AssetsAbstract])
+
+output LIST015
+/* skip */
+
+  first-value(list([covered @instance = $INSTANCE1 @AssetsAbstract]),none)
+
+output LIST016
+/* skip */
+
+  first-value(list([covered @instance = $INSTANCE1 @AssetsAbstract]))
+
+output LIST017
+/* skip */
+
+  first-value(first(list([covered @instance = $INSTANCE1 @AssetsAbstract])))
+
+output SET101
+/* set(4, 1, 2, 3)  */
+
+  set(1,2,3,4)
+
+output SET102
+/* set(b, b, a, a) */
+
+  set('a', Assets, Liabilities, 'b')
+
+output SET103
+/* set(None) */
+
+  set(none)
+
+output SET104
+/* set()  */
+
+  set()
+
+output SET105
+/* set() */
+
+  set(skip)
+
+output SET106
+/* True */
+
+  set('a','b','c') == set('b','c','a')
+
+output SET107
+/* False */
+
+  set('a','b','c') == set('b','c','d')
+
+output SET108
+/* True */
+
+  set('a','b','c') == set('b','c','a','a')
+
+output DICT001
+/* True */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$A == $B
+
+output DICT002
+/* True */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','CMember'));
+$B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$A == $B
+
+output DICT003
+/* False */
+
+  $A = dict(list('CAxis','AMember'), list('BAxis','CMember'));
+$B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$A == $B

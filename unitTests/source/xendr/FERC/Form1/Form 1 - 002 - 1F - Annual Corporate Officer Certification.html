@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1F - 002</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+
+</head>
+
+<body class="xbrl">
+        <div id="ScheduleAnnualReportCorporateOfficerCertificationAbstract"></div>
+        <table class="xbrl">
+        <tr class="sch-title">
+                <td colspan="6" class="xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleAnnualReportCorporateOfficerCertificationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        PART II: ANNUAL REPORT CORPORATE OFFICER CERTIFICATION
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+            </tr>        
+         <tr>
+                <td class="combinedField xbrl" colspan="6">
+                        The undersigned officer certifies that:<p></p>
+I have examined this report and to the best of my knowledge, information, and belief all statements of
+fact contained in this report are correct statements of the business affairs of the respondent and the
+financial statements and other financial information contained in this report, conform in all material
+respects to the Uniform System of Accounts.
+<P></P>
+<P></P>
+<P></P>
+<P></P>
+
+                                  
+                </td>
+        </tr>
+
+        <tr class="col-heading-row">
+            
+                    
+                        
+                <td class="xbrl line-number">Line No. </td>
+                       
+                <td class="combinedField cell-top xbrl decription_items" >
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:NameOfCertifyingOfficial).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Name of Certifying Official
+                                </xendr:template-display>
+                         </xendr:replace>
+                           
+                                  
+                </td>
+                <td class="combinedField cell-top xbrl decription_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:CorporateOfficerCertificationSignature).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Signature
+                                </xendr:template-display>
+                         </xendr:replace>
+                           
+                                  
+                </td>
+                <td class="combinedField cell-top xbrl decription_items" >
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:TitleOfCertifyingOfficial).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Title
+                                </xendr:template-display>
+                        </xendr:replace>
+                          
+                                  
+                </td>
+                <td class="combinedField cell-top xbrl" >
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:CertifyingOfficialDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Date
+                                </xendr:template-display>
+                        </xendr:replace>
+                        
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="xbrl line-number">1</td>
+                <td class="xbrl decription_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" >first(list([@concept=ferc:NameOfCertifyingOfficial @period=$currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        4,600,000 
+                                </xendr:template-display>
+                        </xendr:replace>  
+                    </td>
+                    <td class="xbrl decription_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" >first(list([@concept=ferc:CorporateOfficerCertificationSignature @period=$currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        4,600,000 
+                                </xendr:template-display>
+                        </xendr:replace>  
+                    </td>
+                    <td class="xbrl decription_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" >first(list([@concept=ferc:TitleOfCertifyingOfficial @period=$currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        4,600,000 
+                                </xendr:template-display>
+                        </xendr:replace>  
+                    </td>
+                    <td class="xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" >first(list([@concept=ferc:CertifyingOfficialDate @period=$currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        4,600,000 
+                                </xendr:template-display>
+                        </xendr:replace>  
+                    </td>
+                
+        </tr>      
+   
+        <tr>
+                <td class="combinedField xbrl" colspan="6">
+                        Title 18, U.S.C. 1001 makes it a crime for any person to knowingly and willingly to make to any Agency or Department of the United States any
+                        false, fictitious or fraudulent statements as to any matter within its jurisdiction.
+   
+                        <P></P>
+                        <P></P>
+                        <P></P>
+                                  
+                </td>
+        </tr>  
+              
+    </table>
+    <div class="schedule-footer">
+        <div>FERC FORM No.
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                        <xendr:template-display>1-F</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleAnnualReportCorporateOfficerCertificationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                REVISED 1-05
+                        </xendr:template-display>
+                </xendr:replace>       
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleAnnualReportCorporateOfficerCertificationAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        3a
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+/* InlineFunctions */
+output INLIN001
+/* {{list},{list},{list}} */
+
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-ancestors
+
+output INLIN002
+/* skip iteration */
+
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty where $fact.inline-ancestors.length > 0}
+
+output INLIN003
+/* skip iteration */
+
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty  where $fact.inline-parent.length > 0}
+
+output INLIN004
+/* {{None},{None},{None}} */
+
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-parent
+
+output INLIN005
+/* {{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock},{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock},{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock}} */
+
+  { @instance=$INSTANCE3 @concept.local-name = 'RelatedPartyTransactionRelationshipDescription'}.inline-parent.concept.name
+
+output INLIN006
+/* [ERROR] [xule:error] rule INLIN006: 'list' object has no attribute 'apend' */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
+
+output INLIN007
+/* [INFO] Long string of values */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants
+
+output INLIN008
+/* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription) */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
+
+output INLIN009
+/* No iteration */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
+
+output INLIN010
+/* 109 */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-negated == true}).count
+
+output INLIN011
+/* 15 */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-hidden == true}).count
+
+output INLIN012
+/* 6 */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-scale == 6}).count
+
+output INLIN013
+/* 3 */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}).count
+
+output INLIN014
+/* list(September 2021, September 2023, January 2015) */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}.inline-display-value)
+
+output INLIN015
+/* 0 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-negated == true}).count
+
+output INLIN016
+/* 0 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-negated == false}).count
+
+output INLIN017
+/* 0 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-hidden == true}).count
+
+output INLIN018
+/* 0 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-hidden == false}).count
+
+output INLIN019
+/* 0 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-scale == 6}).count
+
+output INLIN020
+/* 0 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-scale == 0}).count
+
+output INLIN021
+/* 839 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-scale == none}).count
+
+output INLIN022
+/* 839 */
+
+  length(list({ covered @instance=$INSTANCE_XML where $fact.inline-format == none}))
+
+output INLIN023
+/* 0 */
+
+  list({ covered @instance=$INSTANCE_XML where $fact.inline-format == ixt-2015:datemonthyearen}).count
+
+output INLIN024
+/* list() */
+
+  { @instance=$INSTANCE_XML @concept.local-name='Assets' }.inline-ancestors
+
+output INLIN025
+/* no iteration */
+
+  { @instance=$INSTANCE_XML @concept.local-name='Assets'  where $fact.inline-parent.length > 0}
+
+output INLIN026
+/* list() */
+
+  {@instance=$INSTANCE_XML @concept.local-name='Assets'}.inline-children.concept.name

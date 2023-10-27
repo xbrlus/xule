@@ -1,0 +1,39 @@
+{
+    "http://fasb.org/dqcrules/2021-01-31": [
+        {
+            "isAbstract": "false",
+            "type": "Reference",
+            "dataType": "string",
+            "label": "allowableSubString",
+            "localName": "allowableSubString"
+        },
+        {
+            "isAbstract": "false",
+            "type": "Reference",
+            "dataType": "string",
+            "label": "ruleDocumentation",
+            "localName": "ruleDocumentation"
+        },
+        {
+            "isAbstract": "false",
+            "type": "Reference",
+            "dataType": "string",
+            "label": "ruleName",
+            "localName": "ruleName"
+        },
+        {
+            "isAbstract": "false",
+            "type": "Reference",
+            "dataType": "dqcrules:ruleIdItemType",
+            "label": "ruleId",
+            "localName": "ruleId"
+        },
+        {
+            "isAbstract": "false",
+            "type": "Reference",
+            "dataType": "dqcrules:elementIdItemType",
+            "label": "ruleElementId",
+            "localName": "ruleElementId"
+        }
+    ]
+}

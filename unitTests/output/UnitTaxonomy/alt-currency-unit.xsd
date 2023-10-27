@@ -1,0 +1,29 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" targetNamespace="http://www.xbrl.org/2003/iso4217" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="alt-currency-unit_lab.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd"/>
+  <xs:element name="BOV" id="iso4217_BOV" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="CHE" id="iso4217_CHE" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="CHW" id="iso4217_CHW" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="CLF" id="iso4217_CLF" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="COU" id="iso4217_COU" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="MXV" id="iso4217_MXV" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="USN" id="iso4217_USN" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="USS" id="iso4217_USS" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="UYI" id="iso4217_UYI" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XAG" id="iso4217_XAG" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XAU" id="iso4217_XAU" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XBA" id="iso4217_XBA" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XBB" id="iso4217_XBB" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XBC" id="iso4217_XBC" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XBD" id="iso4217_XBD" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XDR" id="iso4217_XDR" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XFU" id="iso4217_XFU" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XPD" id="iso4217_XPD" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XPT" id="iso4217_XPT" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="XUA" id="iso4217_XUA" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+</xs:schema>

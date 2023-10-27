@@ -1,0 +1,10 @@
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
+  <link:roleRef roleURI="https://abc.com/2024/roles/pres" xlink:href="abc.xsd#pres" xlink:type="simple"/>
+  <link:presentationLink xlink:role="https://abc.com/2024/roles/pres" xlink:type="extended">
+    <link:loc xlink:label="ns4_CarpetLoans" xlink:href="abc.xsd#us-gaap_Assets_2" xlink:type="locator"/>
+    <link:loc xlink:label="ns4_WoolStock" xlink:href="abc.xsd#us-gaap_Assets_1" xlink:type="locator"/>
+    <link:presentationArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:from="ns4_CarpetLoans" xlink:to="ns4_WoolStock" order="1"/>
+    <link:loc xlink:label="ns4_LoomEquipment" xlink:href="abc.xsd#us-gaap_Assets" xlink:type="locator"/>
+    <link:presentationArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:type="arc" xlink:from="ns4_CarpetLoans" xlink:to="ns4_LoomEquipment" order="1"/>
+  </link:presentationLink>
+</link:linkbase>

@@ -1,0 +1,16 @@
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
+  <link:labelLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
+    <link:loc xlink:label="ns4_CarpetLoans" xlink:href="abc.xsd#us-gaap_Assets_2" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns4_CarpetLoans" xlink:to="lbl_lab_ns4_CarpetLoans"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns4_CarpetLoans" xml:lang="en">'Loans to customers to buy carpet'</link:label>
+    <link:loc xlink:label="ns4_WoolStock" xlink:href="abc.xsd#us-gaap_Assets_1" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns4_WoolStock" xlink:to="lbl_lab_ns4_WoolStock"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns4_WoolStock" xml:lang="en">'Wool Stock'</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns4_WoolStock" xml:lang="en">'Wool in inventory to make carpet'</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns4_CarpetLoans" xml:lang="en">'Carpet Loans'</link:label>
+    <link:loc xlink:label="ns4_LoomEquipment" xlink:href="abc.xsd#us-gaap_Assets" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns4_LoomEquipment" xlink:to="lbl_lab_ns4_LoomEquipment"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns4_LoomEquipment" xml:lang="en">'Loom Equipment'</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns4_LoomEquipment" xml:lang="en">'Equipment that makes carpet'</link:label>
+  </link:labelLink>
+</link:linkbase>

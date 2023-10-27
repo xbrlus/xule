@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" 
+    xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1/F1F - 419</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+</head>
+
+<body class="xbrl">
+    <div id="ScheduleEnergyStorageOperationsSmallPlantsAbstract"></div>
+    <table class="ident-table xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace><br/>
+                
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td class="xbrl" colspan="10"><xendr:replace>
+                <xendr:expression class="hide" html="true">if taxonomy().entry-point.contains('form1F')
+                    taxonomy().concept(ferc:ScheduleEnergyStorageOperationsSmallPlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                    else
+                    taxonomy().concept(ferc:ScheduleEnergyStorageOperationsSmallPlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                </xendr:expression>
+                <xendr:template-display>
+                    ENERGY STORAGE OPERATIONS (Small Plants)
+                </xendr:template-display>
+            </xendr:replace>
+            
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="10">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleEnergyStorageOperationsSmallPlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Small Plants are plants less than 10,000 KW.</li>
+                            <li>In columns (a), (b) and (c) report the name of the energy storage project, functional classification (Production, Transmission, Distribution), and location.</li>
+                            <li>In column (d), report project plant cost including but not exclusive of land and land rights, structures and improvements, energy storage equipment and any other costs associated with the energy storage project.</li>
+                            <li>In column (e), report operation expenses excluding fuel, (f), maintenance expenses, (g) fuel costs for storage operations and (h) cost of power purchased for storage operations and reported in Account 555.1, Power Purchased for Storage Operations. If power was purchased from an
+                            affiliated seller specify how the cost of the power was determined.</li>
+                            <li>If any other expenses, report in column (i) and footnote the nature of the item(s).</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-top-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="5">BALANCE AT BEGINNING OF YEAR</td>
+
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line line-number" width="2%">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings">
+                    <xendr:expression class="hide" name="ColumnHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleEnergyStorageOperationsSmallPlantsAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "419 - Schedule - Energy Storage Operations (Small Plants)") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center"><xendr:replace>
+                    <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                    <xendr:template-display>
+                        Name of the Energy Storage Project
+                    </xendr:template-display>
+                </xendr:replace>
+            </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+       
+        
+        <tr class="schedule-row" xendr:repeat="SalesForResale">
+            <xendr:expression class="hide" name="SalesForResale">// adding a comment
+
+                $data2 = list(for $i in range(35)
+                list($i,none,none,none,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:EnergyStorageOperationsAxis=*})) > 0  
+                
+               
+                    list({covered @ferc:EnergyStorageOperationsAxis=*  {list(
+                        if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                            first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                        else
+                            0,
+                        if list({@ferc:EnergyStorageProjectName @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyStorageProjectName @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:FunctionalClassificationEnergyStorageOperations @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:FunctionalClassificationEnergyStorageOperations @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:ProjectLocation @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProjectLocation @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:ProjectPlantCost @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProjectPlantCost @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:OperationExpenseExcludingFuel @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:OperationExpenseExcludingFuel @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:MaintenanceExpense @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:MaintenanceExpense @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:FuelUsedInStorageOperations @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:FuelUsedInStorageOperations @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:PowerPurchasedForStorageOperations @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:PowerPurchasedForStorageOperations @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:OtherExpenses @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:OtherExpenses @unit @period=$currentDuration}))
+                        else 
+                            none
+                    
+                       
+                    
+
+                )}})
+                else $data2;
+
+                $uniqueData = list(for $x in  $data
+                    if $x == list(0,none,none,none,none,none,none,none,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+
+                for $row in $uniqueData.sort
+                                
+
+
+            </xendr:expression>
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="SalesForResale" />
+                <xendr:template-display>1</xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" part="2">$row[2]
+                    </xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    ABC Company
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" part="3">
+                        $row[3]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    FNS
+                </xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" part="4">
+                        $row[4]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    Baltimore
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="5">
+                        $row[5]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    1,028
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="6">
+                        $row[6]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    514,247
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="7">
+                        $row[7]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    1,028
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="8">
+                        $row[8]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    514,247
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="9">
+                        $row[9]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    1,028
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="10">
+                        $row[10]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    514,247
+                </xendr:template-display>
+            </td>
+
+            
+        </tr>
+            <!-- "Line 36 -->
+        <tr>
+            <td class="xbrl line-number">36</td>
+            <td class="xbrl description_items">TOTAL</td>
+            <td class="xbrl"></td>
+            <td class="xbrl"></td>   
+                
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ProjectPlantCost @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $92,477,242
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OperationExpenseExcludingFuel @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $15,256,784
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:MaintenanceExpense @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $92,477,242
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:FuelUsedInStorageOperations @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $15,256,784
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:PowerPurchasedForStorageOperations @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $92,477,242
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OtherExpenses @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $15,256,784
+                        </xendr:template-display>
+                </xendr:replace> 
+            </td>
+
+            
+        </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1/1-F</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleEnergyStorageOperationsSmallPlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (NEW. 12-12)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleEnergyStorageOperationsSmallPlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        419
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

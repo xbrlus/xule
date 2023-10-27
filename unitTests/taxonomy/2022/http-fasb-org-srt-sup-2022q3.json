@@ -1,0 +1,188 @@
+{
+    "http://fasb.org/srt-sup/2022q3": [
+        {
+            "localName": "financialInstrumentGlobalIdentifierItemType",
+            "type": "Type",
+            "label": "financialInstrumentGlobalIdentifierItemType"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetPolicyTextBlock",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetPolicyTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SafeguardingLiabilityPlatformOperatorCryptoAsset",
+            "type": "Concept",
+            "label": "srt-supplement:SafeguardingLiabilityPlatformOperatorCryptoAsset",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetTextBlock",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetExtensibleEnumeration",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetSecureAndProtectFromLossExtensibleEnumeration",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetSecureAndProtectFromLossExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetAbstract",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CryptoAssetAxis",
+            "type": "Concept",
+            "label": "srt-supplement:CryptoAssetAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CryptoAssetOtherMember",
+            "type": "Concept",
+            "label": "srt-supplement:CryptoAssetOtherMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SafeguardingAssetPlatformOperatorCryptoAsset",
+            "type": "Concept",
+            "label": "srt-supplement:SafeguardingAssetPlatformOperatorCryptoAsset",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "FinancialInstrumentGlobalIdentifierFigi",
+            "type": "Concept",
+            "label": "srt-supplement:FinancialInstrumentGlobalIdentifierFigi",
+            "isAbstract": "false",
+            "dataType": "srt-supplement:financialInstrumentGlobalIdentifierItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetPlatformUserMember",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetPlatformUserMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetInternalRecordkeepingExtensibleEnumeration",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetInternalRecordkeepingExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "UseNameOfCryptoAssetAsValueForMemberUnderCryptoAssetDomainGuidance",
+            "type": "Concept",
+            "label": "srt-supplement:UseNameOfCryptoAssetAsValueForMemberUnderCryptoAssetDomainGuidance",
+            "isAbstract": "true",
+            "dataType": "dtr-types:guidanceItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetEntityMember",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetEntityMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetThirdPartyMember",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetThirdPartyMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetAgentMember",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetAgentMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CryptoAssetDomain",
+            "type": "Concept",
+            "label": "srt-supplement:CryptoAssetDomain",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetTableTextBlock",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetHeldForUser",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetHeldForUser",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetTable",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetLineItems",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PlatformOperatorCryptoAssetCryptographicKeyInformationExtensibleEnumeration",
+            "type": "Concept",
+            "label": "srt-supplement:PlatformOperatorCryptoAssetCryptographicKeyInformationExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        }
+    ]
+}

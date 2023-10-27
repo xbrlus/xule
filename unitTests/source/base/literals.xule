@@ -1,0 +1,45 @@
+/* Literals */
+output XU001
+/* 1234 */
+
+  1234
+
+output XU002
+/* 1.234 */
+
+  1.234
+
+output XU003
+/* -1234 */
+
+  -1234
+
+output XU004
+/* -1.234 */
+
+  -1.234
+
+output XU005
+/* 1234 */
+
+  +1234
+
+output XU006
+/* A Cat */
+
+  'A Cat'
+
+output XU007
+/* cat */
+
+  cat
+
+output XU008
+/* False */
+
+  False
+
+output XU009
+/* True */
+
+  True

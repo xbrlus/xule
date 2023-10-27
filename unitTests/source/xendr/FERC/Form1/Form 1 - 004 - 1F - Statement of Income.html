@@ -1,0 +1,409 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1F - 006</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl">
+    <div id="ScheduleStatementOfIncomeF1FAbstract"></div>
+    <xule:showif>
+            if first(list([covered @ferc:StatementOfIncomeMajorNonmajor])) == "Major"
+                false
+            else
+                true
+    </xule:showif>
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+                <br/>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>This report is:</xule:template-display>
+                </xule:replace>
+                    <br/>
+                    (1) 
+                        <xule:replace>
+                                <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xule:expression>  
+                            <xule:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xule:template-display>
+                        </xule:replace>
+                        <br/>
+                    (2)
+                        <xule:replace>
+                                <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xule:expression> 
+                                <xule:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xule:template-display>
+                        </xule:replace> 
+            </td>
+            <td class="xbrl"><xule:replace>
+                <xule:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                <xule:template-display>Date of Report:</xule:template-display>
+                </xule:replace>
+                <br/>
+                    <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xule:expression>
+                        <xule:template-display>04/26/2019</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl"><xule:replace>
+                <xule:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                <xule:template-display>Year/Period of Report:</xule:template-display>
+                </xule:replace>
+                <br/>
+                End of: <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xule:expression>
+                    <xule:template-display>2018</xule:template-display>
+                </xule:replace>
+                <span>/</span>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xule:expression>
+                    <xule:template-display>Q4</xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+                <td colspan="11" class="xbrl">
+                        <xule:replace>
+                                <xule:expression class="hide">taxonomy().concept(ferc:ScheduleStatementOfIncomeF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                                </xule:expression>
+                                <xule:template-display>
+                                    PART IV: STATEMENT OF INCOME FOR THE YEAR
+                                </xule:template-display>
+                        </xule:replace>
+                    </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="11">
+                <xule:replace>
+                    <xule:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleStatementOfIncomeF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FInstructions").text
+                    </xule:expression>
+                    <xule:template-display>
+                        <ol>
+                            <li>Report amounts for accounts 412 and 413, Revenues and expenses from Utility Plant Leased to Others, in the Other Utility column (h, I or j, k) in a similar manner to a utility department. Spread the amount(s) over lines 01 to 22 as appropriate. Include these amounts in column (b) and (c) totals.</li>
+                            <li>Report amounts for account 414, Other Utility Operating Income, in the same manner as accounts 412 and 413.</li>
+                            <li>Provide an explanation in Part VII. Notes to Financial Statements, of such unsettled rate proceedings where a contingency exists that refunds of a material amount may need to be made to the utility's customers or which may result in a material refund to the utility with respect to power or gas purchases. State for each year affected the gross revenues or costs to which the contingency relates and the tax effects; include an explanation for the major factors which affect the rights of the utility to retain such revenues or to recover amounts paid with respect to power or gas purchases.</li>
+                            <li>Provide an explanation in Part VII, Notes to Financial Statements, of significant amounts of any refunds made or received during the year resulting from settlement of any rate proceeding affecting revenued received for costs incurred for power or gas purchases and a summary of the adjustment made to balance sheet, income, and expense accounts.</li>
+                            <li>If any note appearing in the report to stockholders are applicable to the statement of income, either include such note in an attachment, or enter such data in Part VII.</li>
+                            <li>Provide an explanation in Part VII, Notes to Financial Statements of only those changes in account methods made during the year which had an effect on net income, including the basis of allocations and apportionments from those used in the preceding year. Also, give the approximate dollar effects of such changes.</li>
+                            </ol>
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="2">Total (d to i) </td>
+            <td class="xbrl center-text" colspan="2">Electric Utility </td>
+            <td class="xbrl center-text" colspan="2">Gas Utility </td>
+            <td class="xbrl center-text" colspan="2">Other Utility </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line line-number"><div>Line No.</div></td>
+            <td class="col-heading xbrl-no-top-line" xule:repeat="ISHeadings">
+                    <xule:expression class="hide" name="ISHeadings">
+                            /** THIS CODE EXCLUDES ELEMENT NAMES AS THERE ARE NO ELEMENT SPECIFIC COLUMNS  **/
+                            $headings = filter (taxonomy().concept(ferc:ScheduleStatementOfIncomeF1FAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "F1F - 004 - Schedule - Statement of Income For The Year") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xule:expression>
+                    <div style="text-align: center"><xule:replace>
+                    <xule:expression class="hide" name="ISHeadings" part="1">$heading_dict[$row]</xule:expression>
+                    <xule:template-display>
+                        Title  of Account
+                    </xule:template-display>
+                </xule:replace>
+            </div>
+                <div style="text-align: center"><xule:replace>
+                        <xule:expression class="hide" name="ISHeadings" part="2">$row</xule:expression>
+                        <xule:template-display>
+                            (a)
+                        </xule:template-display>
+                    </xule:replace></div>
+            </td>
+        </tr>
+       
+        <tr class="schedule-row" xule:repeat="ISLineItems">
+                <xule:expression class="hide" name="ISLineItems">
+    $data = navigate parent-child descendants from ferc:StatementOfIncomeLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1F/StatementOfIncomeForTheYear" returns list (target-name, preferred-label);
+    $data-labels = list(for $row in $data
+            $concept = taxonomy().concept($row[1]);
+            $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "F1F - 004 - Schedule - Statement of Income For The Year" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label"
+             and "http://ferc.gov/form/2020-01-01/roles/label/" + $item.part-by-name(ferc-part:ColumnName).part-value.string == $row[2].role.uri
+             )
+             ).to-list;
+            
+            $current = if list([covered @concept = $row[1] @period = $currentDuration]).length > 0
+					        first(list([covered @concept = $row[1] @period = $currentDuration]))
+					  else
+                            none
+            $prior = if list([covered @concept = $row[1] @period = $priorDuration]).length > 0
+                            first(list([covered @concept = $row[1] @period = $priorDuration]))
+					  else
+                            none
+            
+            $current_electric = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]).length > 0
+                                         first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                        else
+                                         none
+            $prior_electric = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $priorDuration]).length > 0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $priorDuration]))
+                        else
+                                        none
+            $current_gas = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:GasUtilityMember @period = $currentDuration]).length > 0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:GasUtilityMember @period = $currentDuration]))
+                        else
+                                         none
+            $prior_gas = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:GasUtilityMember @period = $priorDuration]).length > 0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:GasUtilityMember @period = $priorDuration]))
+                        else
+                                        none
+            $current_other = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @period = $currentDuration]).length > 0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @period = $currentDuration]))
+                        else
+                                        none
+            $prior_other = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @period = $priorDuration]).length > 0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:OtherUtilityMember @period = $priorDuration]))
+                        else
+                                         none
+            $account = $concept.label("http://ferc.gov/form/2020-01-01/roles/label/F1FAccount").text;
+
+            list($concept,
+			$concept.label($row[2].role.uri).text,
+			
+            if ($row_num.part-by-name(ferc-part:Row)).length > 0
+                ($row_num.part-by-name(ferc-part:Row))[1].part-value
+            else
+             "" ,
+            $current,
+            $prior,
+            $current_electric,
+            $prior_electric,
+            $current_gas,
+            $prior_gas,
+            $current_other,
+            $prior_other,
+            $account
+
+				));
+    for $rowl in $data-labels
+
+                </xule:expression>
+
+                        <td class="xbrl line-number">
+                            <xule:replace><xule:expression class="hide" name="ISLineItems" part="1">$rowl[3]</xule:expression></xule:replace>
+                            <xule:template-display>1</xule:template-display>
+                        </td> 
+                        <td class="xbrl description_items">
+                                <div class="tooltip">
+                                        <div class="tooltiptext">
+                                                <xule:replace>
+                                                        <xule:expression class="hide" name="ISLineItems" part="6">$rowl[1].name.local-name</xule:expression>
+                                                    </xule:replace>
+                                        </div>
+                                <xule:replace>
+                                    <xule:expression class="hide" name="ISLineItems"  part="2">$rowl[2]</xule:expression>
+                                    <xule:class class="hide" location="parent">if $rowl[1].is-abstract "title" else ""</xule:class>
+                                </xule:replace>
+                                <xule:template-display>UTILITY OPERATING INCOME</xule:template-display>
+                                </div>
+                        </td> 
+                        <!--Current -->
+                        <td class="numeric_items xbrl">
+                                <xule:replace>
+                                    <xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="4">$rowl[4]</xule:expression>
+                                    <xule:class class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                    <xule:template-display>
+                                            300
+                                    </xule:template-display>
+                             </xule:replace>        
+                        </td> 
+                        <!--PRIOR -->
+                        <td class="numeric_items xbrl">
+                                <xule:replace><xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="5">$rowl[5]</xule:expression>
+                                <xule:class  class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                <xule:template-display>
+                                        300
+                                </xule:template-display>
+                            </xule:replace>        
+                        </td> 
+                        <!--current_three_months -->
+                         
+                        <!--prior_three_months -->
+                         
+                        <!--current_electric -->
+                        <td class="numeric_items xbrl">
+                                <xule:replace><xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="6">$rowl[6]</xule:expression>
+                                <xule:class class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                <xule:class location="parent">if $rowl[3] == ""
+                                                                ""
+                                                              else
+                                                                if $rowl[3].number > 26 
+                                                                    "gray-out" 
+                                                                else 
+                                                                    ""</xule:class>
+                                <xule:template-display>
+                                        300
+                                </xule:template-display>                          
+                            </xule:replace>                
+                        </td> 
+                        <!--prior_electric -->
+                        <td class="numeric_items xbrl">
+                                <xule:replace><xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="7">$rowl[7]</xule:expression>
+                                <xule:class class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                <xule:class location="parent">if $rowl[3] == ""
+                                                                ""
+                                                              else
+                                                                if $rowl[3].number > 26 
+                                                                    "gray-out" 
+                                                                else 
+                                                                    ""</xule:class>
+                                <xule:template-display>
+                                        300
+                                </xule:template-display>                           
+                            </xule:replace>                
+                        </td> 
+
+                         <!--current_gas -->
+                         <td class="numeric_items xbrl">
+                                <xule:replace><xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="8">$rowl[8]</xule:expression>
+                                <xule:class class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                <xule:class location="parent">if $rowl[3] == ""
+                                                                ""
+                                                              else
+                                                                if $rowl[3].number > 26 
+                                                                    "gray-out" 
+                                                                else 
+                                                                    ""</xule:class>
+                                <xule:template-display>
+                                        300
+                                </xule:template-display>                            
+                            </xule:replace>                
+                        </td> 
+                        <!--prior_gas -->
+                        <td class="numeric_items xbrl">
+                                <xule:replace><xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="9">$rowl[9]</xule:expression>
+                                <xule:class  class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                <xule:class location="parent">if $rowl[3] == ""
+                                                                ""
+                                                              else
+                                                                if $rowl[3].number > 26 
+                                                                    "gray-out" 
+                                                                else 
+                                                                    ""</xule:class>
+                                <xule:template-display>
+                                        300
+                                </xule:template-display>
+                            </xule:replace>                
+                        </td> 
+                        <!-- current_other -->
+                        <td class="numeric_items xbrl">
+                                <xule:replace><xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="10">$rowl[10]</xule:expression>
+                                <xule:class class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                <xule:class location="parent">if $rowl[3] == ""
+                                                                        ""
+                                                                    else
+                                                                        if $rowl[3].number > 26 
+                                                                            "gray-out" 
+                                                                        else 
+                                                                            ""</xule:class>
+                                <xule:template-display>
+                                        300
+                                </xule:template-display>
+                                </xule:replace>                
+                        </td> 
+                        <!-- prior_other -->
+                        <td class="numeric_items xbrl">
+                                <xule:replace><xule:expression class="hide" format="ixt4:num-dot-decimal" fact="true" name="ISLineItems" part="11">$rowl[11]</xule:expression>
+                                <xule:class class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                <xule:class location="parent">if $rowl[3] == ""
+                                                                ""
+                                                              else
+                                                                if $rowl[3].number > 26 
+                                                                    "gray-out" 
+                                                                else 
+                                                                    ""</xule:class>
+                                <xule:template-display>
+                                        300
+                                </xule:template-display>
+                            </xule:replace>                
+                        </td>
+                        <td class="account-number xbrl">
+                            <xule:replace><xule:expression class="hide" name="ISLineItems" part="11">$rowl[12]</xule:expression>
+                            <xule:class class="hide" location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                            <xule:template-display>
+                                    300
+                            </xule:template-display>
+                        </xule:replace>                
+                    </td>
+                   
+        </tr>
+    </table>
+    <br/>
+        <div class="schedule-footer">
+            <div>FERC FORM No.
+                    <xule:replace>
+                            <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xule:expression>
+                            <xule:template-display>1-F</xule:template-display>
+                    </xule:replace>
+                    <span> </span>     
+                    <xule:replace>
+                            <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleStatementOfIncomeF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                            </xule:expression>
+                            <xule:template-display>
+                            02-04
+                            </xule:template-display>
+                    </xule:replace>
+                            
+            </div>
+            <div class="center-text">Page 
+                    <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleStatementOfIncomeF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                            </xule:expression>
+                            <xule:template-display>
+                            101
+                            </xule:template-display>
+                    </xule:replace>
+            </div> 
+        </div>
+</body>
+</html>

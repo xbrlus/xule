@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - 300 - Electric Operating Revenues</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl" id="ScheduleElectricOperatingRevenuesAbstract">
+    <xendr:showif>if set('1-F').contains([covered @concept.local-name ='FormType']) 
+        if first(list([covered @ferc:ElectricSalesDataMajorNonmajor])) == "Major"
+            true
+        else
+            false
+     else
+        true</xendr:showif>
+
+  
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+                <br></br> 
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                    <br></br> 
+                    (1) 
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xendr:expression>  
+                            <xendr:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xendr:template-display>
+                        </xendr:replace>
+                        <br/>
+                    (2)
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xendr:expression> 
+                                <xendr:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xendr:template-display>
+                        </xendr:replace> 
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace>
+                <br></br> 
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace>
+                <br></br> 
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="8"><xendr:replace>
+                <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleElectricOperatingRevenuesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                </xendr:expression>
+                <xendr:template-display>
+                    ELECTRIC OPERATING REVENUES (Account 400)
+                </xendr:template-display>
+            </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="8">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleElectricOperatingRevenuesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>The following instructions generally apply to the annual version of these pages.  Do not report quarterly data in columns (c), (e), (f), and (g).  Unbilled revenues and MWH related to unbilled revenues need not be reported separately as required in the annual version of these pages.</li>
+                            <li>Report below operating revenues for each prescribed account, and manufactured gas revenues in total.</li>
+                            <li>Report number of customers, columns (f) and (g), on the basis of meters, in addition to the number of flat rate accounts; except that where separate meter readings are added for billing purposes, one customer should be counted for each group of meters added.  The -average number of customers means the average of twelve figures at the close of each month.</li>
+                            <li>If increases or decreases from previous period (columns (c),(e), and (g)), are not derived from previously reported figures, explain any inconsistencies in a footnote.</li>
+                            <li>Disclose amounts of $250,000 or greater in a footnote for accounts 451, 456, and 457.2.</li>
+                            <li>Commercial and industrial Sales, Account 442, may be classified according to the basis of classification (Small or Commercial, and Large or Industrial) regularly used by the respondent if such basis of classification is not generally greater than 1000 Kw of demand.  (See Account 442 of the Uniform System of Accounts.  Explain basis of classification in a footnote.)</li>
+                            <li>See pages 108-109, Important Changes During Period, for important new territory added and important rate increase or decreases.</li>
+                            <li>For Lines 2,4,5,and 6, see Page 304 for amounts relating to unbilled revenue by accounts.</li>
+                            <li>Include unmetered sales.  Provide details of such Sales in a footnote.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="ElectricOperatingRevenuesHeadings">
+                <xendr:expression class="hide" name="ElectricOperatingRevenuesHeadings">
+                       $headings = filter (taxonomy().concept(ferc:ScheduleElectricOperatingRevenuesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "300 - Schedule - Electric Operating Revenues") 
+
+                        $headings = list(for $ref in $headings 
+                        list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                        $heading_dict = dict(for $row in $headings
+                                list("("+$row[1]+")",$row[2])
+                        );
+                        for $row in $heading_dict.keys.sort
+                </xendr:expression>
+                <div style="text-align: center"><xendr:replace>
+                <xendr:expression class="hide" name="ElectricOperatingRevenuesHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                <xendr:template-display>
+                    Title of Account
+                </xendr:template-display>
+                </xendr:replace>
+                </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ElectricOperatingRevenuesHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                </xendr:replace></div>
+            </td>
+        </tr>
+        
+       <tr class="schedule-row" xendr:repeat="ElectricOperatingRevenuesLineItems">
+                <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems">
+    $dataHead = navigate parent-child descendants from ferc:ElectricOperatingRevenuesLineItems stop when $relationship.preferred-label == "http://ferc.gov/form/2020-01-01/roles/label/F1RollforwardHeader" role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleElectricOperatingRevenues" returns list (target-name, preferred-label, order);
+    $rollforwardSection = list(for $x in $dataHead
+                                $abstractConcept = taxonomy().concept($x[1]);
+                                $is-heading = if ($x[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1ElectricOperatingRevenues" or $x[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1Total")
+                                                    true
+                                            else 
+                                                    false;
+                                $row_num = (filter $abstractConcept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "300 - Schedule - Electric Operating Revenues" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+
+                                $row_number =  if ($row_num.part-by-name(ferc-part:Row)).length > 0
+                                    ($row_num.part-by-name(ferc-part:Row))[1].part-value
+                                else
+                                    25 
+                                
+                                
+                                $data = if ($abstractConcept.is-abstract and $x[1] != ferc:OtherOperatingRevenuesAbstract)
+                                        navigate parent-child children from $x[1] role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleElectricOperatingRevenues" returns list(target, preferred-label, order)
+                                        else 
+                                            list(list($abstractConcept,$x[2],$x[3]));
+                                $abstractLabel = list($is-heading, $abstractConcept.is-abstract, $x[1], $abstractConcept.label($x[2].role.uri).text, $row_number);
+                            
+                                $dataLength = $data.length;
+                                $difference = 3 - $dataLength;
+                                $additionalColumns = $difference * 2;
+                                $fill = list(for $x in range($additionalColumns)
+                                        none
+                                        );   
+                                $dataRow1 =   list(for $z in $data
+
+                                                list(
+                                                                if exists([covered @concept = $z[1].name @period = $currentDuration])
+                                                                    first(list([covered @concept = $z[1].name @period = $currentDuration]))
+                                                                else
+                                                                    none,
+                                                                if exists([covered @concept = $z[1].name @period = $priorDuration])
+                                                                    first(list([covered @concept = $z[1].name @period = $priorDuration]))
+                                                                else
+                                                                    none
+                                                                )                                             
+                                                );  
+
+                            $sequenceReferences = (filter $abstractConcept.references("http://ferc.gov/form/2020-01-01/roles/reference/elementSequence") where ($item.part-by-name(ferc-part:ScheduleRole).part-value == "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleElectricOperatingRevenues") returns  $item.part-by-name(ferc-part:SequenceRole).part-value).to-list;
+
+                            $sequenceDimension = (filter $abstractConcept.references("http://ferc.gov/form/2020-01-01/roles/reference/elementSequence") where ($item.part-by-name(ferc-part:ScheduleRole).part-value == "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleElectricOperatingRevenues") returns  $item.part-by-name(ferc-part:SequenceDimension).part-value).to-list;
+                    
+                    
+                  
+                            $breakdown = list(
+                                    if $sequenceReferences.to-list.length > 0
+                                            
+                                        $sequenceRole = $sequenceReferences[1];
+            
+                                        $sequenceElements = navigate parent-child descendants role $sequenceRole returns list(target, preferred-label, result-order);
+            
+                                        $axis = $sequenceDimension[1].to-qname; 
+                                            
+                                        $lineItemsList = list(for $l in $sequenceElements
+                                                                if $l.length > 0
+                                                                    $conceptRoll = $l[1];
+                                                                    if $conceptRoll.is-abstract
+                                                                        skip
+                                                                    else  
+                                                                        $l 
+                                                                else
+                                                                    skip
+                                                                        );
+
+                                        
+                                            
+                                        $data1 = if count(list({covered where $fact.dimension($axis) != none})) > 0  
+                                        
+                                                        list({covered  {list(
+                                                            if exists({@ferc:OrderNumber @unit=* @period = $currentDuration where $fact.dimension($axis) != none})
+                                                                {@ferc:OrderNumber @unit=* @period = $currentDuration where $fact.dimension($axis) != none}
+                                                            else
+                                                                0,
+                                                             /** Description **/   
+                                                            if exists({@concept = $lineItemsList[2][1] @unit @period = $currentDuration where $fact.dimension($axis) != none}) 
+                                                                {@concept = $lineItemsList[2][1] @unit @period = $currentDuration where $fact.dimension($axis) != none} 
+                                                            else 
+                                                                none,
+                                                            /** Amount **/
+                                                            if exists({@concept = $lineItemsList[3][1] @unit @period = $currentDuration where $fact.dimension($axis) != none} ) 
+                                                                first(list({@concept = $lineItemsList[3][1] @unit @period = $currentDuration where $fact.dimension($axis) != none}))
+                                                            else 
+                                                                none,
+                                                            /** Amount **/
+                                                            if exists({@concept = $lineItemsList[3][1] @unit @period = $priorDuration where $fact.dimension($axis) != none} ) 
+                                                                first(list({@concept = $lineItemsList[3][1] @unit @period = $priorDuration where $fact.dimension($axis) != none}))
+                                                            else 
+                                                                none
+
+                                                            )}})
+                                                    else
+                                                        list(list(0,none,none,none));
+            
+                                        $data2 = list(for $x in $data1 
+                                                    if $x == list(0,none,none,none)
+                                                        skip
+                                                    else
+                                                        $x);
+                                            
+                                       
+                                        
+                                        $orderedData = $data2.sort;
+                                
+                                        $data-sequence = list(for $z in range($orderedData.length)
+                                                        $updatedNumber = "25" + "." + $z.string;
+                                                        list(
+                                                        $is-heading, 
+                                                        $abstractConcept.is-abstract, 
+                                                        $x[1],
+                                                        $orderedData[$z][2],
+                                                        $updatedNumber.number,
+                                                        $orderedData[$z][3],
+                                                        $orderedData[$z][4]
+                                                        )
+                                                    );
+            
+                                        for $row in  $data-sequence
+                                            $row   + $fill
+                                    else    
+                                        skip
+                                );
+            
+            $dataRow4 = if $difference > 0
+                      
+                           sum($dataRow1) + $fill
+                     
+                        else
+                            sum($dataRow1);
+
+                            
+            list($abstractLabel + $dataRow4) + $breakdown
+                    );
+
+
+
+    for $rows in $rollforwardSection                                                  
+        for $rowl in $rows
+            if $rowl.length == 0 
+                skip
+            else
+                
+                </xendr:expression>
+
+                        <td class="xbrl line-number">
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems"  part="2">$rowl[5]</xendr:expression>
+                                   
+                            </xendr:replace>
+                        </td> 
+                         <!-- Title of Account --> 
+                   <td class="xbrl description_items">
+                    <div class="tooltip">
+                            <div class="tooltiptext">
+                                    <xendr:replace>
+                                            <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" part="6">$rowl[3].local-name</xendr:expression>
+                                        </xendr:replace>
+                            </div>
+                    
+                        <xendr:replace>
+                            <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" part="1">$rowl[4]</xendr:expression>
+                            <xendr:fact  class="hide">if $rowl[4].is-fact "true" else "false"</xendr:fact>
+                        </xendr:replace>
+                    </div>
+          </td>
+           
+           <!-- Operating Revenues (Current) -->
+           <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" fact="true" format="ixt4:num-dot-decimal" part="2">$rowl[6]</xendr:expression>
+                    <xendr:class location="parent">if $rowl[1] and $rowl[2] "gray-out" else ""</xendr:class>    
+                </xendr:replace>
+       </td>
+
+           <!-- Operating Revenues (Prior) -->
+           <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" fact="true" format="ixt4:num-dot-decimal" part="3">$rowl[7]</xendr:expression>
+                    <xendr:class location="parent">if $rowl[1] and $rowl[2] "gray-out" else ""</xendr:class>
+                </xendr:replace>
+            </td> 
+
+            <!-- Megawatt Hours Sold (Current) -->
+           <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$rowl[8]</xendr:expression>
+                    <xendr:class location="parent">if $rowl[1] "gray-out" else ""</xendr:class>
+                </xendr:replace>
+            </td> 
+
+            <!-- Megawatt Hours Sold (Prior) -->
+           <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" fact="true" format="ixt4:num-dot-decimal" part="5">$rowl[9]</xendr:expression>
+                    <xendr:class location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                </xendr:replace>
+            </td> 
+
+            <!-- Avg Number of Customers (Current)-->
+           <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" fact="true" format="ixt4:num-dot-decimal" part="6">$rowl[10]</xendr:expression>
+                    <xendr:class location="parent">if $rowl[1] "gray-out" else ""</xendr:class> 
+                </xendr:replace>
+            </td>
+
+           <!--  Avg Number of Customers  (Prior)-->
+           <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="ElectricOperatingRevenuesLineItems" fact="true" format="ixt4:num-dot-decimal" part="7">$rowl[11]</xendr:expression>
+                    <xendr:class location="parent">if $rowl[1] "gray-out" else ""</xendr:class>
+                </xendr:replace>
+            </td>
+                    
+                        
+                         
+        </tr>
+        <tr>
+            <td colspan="8">
+                <span>Line12, column (b) includes $ </span>
+                <xendr:replace>
+                    <xendr:expression class="hide" format="ixt4:num-dot-decimal" fact="true">first(list([@ferc:RevenueFromSalesOfElectricityUnbilled @period=$currentDuration]))</xendr:expression>
+                    <xendr:template-display>789</xendr:template-display>
+                </xendr:replace>
+                <span> of unbilled revenues.</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <span>Line12, column (d) includes </span>
+                <xendr:replace>
+                    <xendr:expression class="hide" format="ixt4:num-dot-decimal" fact="true">first(list([@ferc:MegawattHoursOfElectricitySoldUnbilled @period=$currentDuration]))</xendr:expression>
+                    <xendr:template-display>200</xendr:template-display>
+                </xendr:replace>
+                <span> MWH relating to unbilled revenues</span>
+            </td>
+        </tr>
+            
+    </table>
+<br/>
+    <div class="schedule-footer">
+        <div> FERC FORM NO.
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                        <xendr:template-display>1/3-Q</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleElectricOperatingRevenuesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                        02-04
+                        </xendr:template-display>
+                </xendr:replace>            
+        </div> 
+        <div style="text-align: center">Page 
+            <xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleElectricOperatingRevenuesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                </xendr:expression>
+                <xendr:template-display>
+                300
+                </xendr:template-display>
+            </xendr:replace>
+        </div>
+    </div>
+</body>
+</html>

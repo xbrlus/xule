@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1F - 008</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+  
+</head>
+
+<body class="xbrl">
+    <div id="ScheduleNotesToFinancialStatementsF1FAbstract"></div>    
+    <table class="ident-table xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>This report is:</xendr:template-display>
+                    </xendr:replace>
+                        <br></br>
+                        (1) 
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]>
+                            </xendr:expression>  
+                        <xendr:template-display>
+                                <input type="checkbox"/> An Original
+                        </xendr:template-display>
+                    </xendr:replace>
+                    <br></br>
+                        (2)
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                </xendr:expression> 
+                            <xendr:template-display>
+                                    <input type="checkbox" checked = "checked"/> A Resubmission
+                            </xendr:template-display>
+                    </xendr:replace> 
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>04/26/2019</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    End of: <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>2018</xendr:template-display>
+                    </xendr:replace>
+                    <span>/</span>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Q4</xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+        </table>
+        <table class="xbrl" width="100%">
+            <tr class="sch-title">
+                <td colspan="5" class="xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleNotesToFinancialStatementsF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                    PART VIII: NOTES TO FINANCIAL STATEMENTS
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+        </tr>
+            <tr>
+                <td class="instruction xbrl" colspan="5">
+                    
+                    <xendr:replace>
+                        <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleNotesToFinancialStatementsF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FInstructions").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                            <p>Give particulars (details) concerning the matters indicated below. Make the statements explicit and precise, and number them in accordance with the inquiries. Each inquiry should be answered. Enter "none," "not applicable," or "NA" where applicable. If information which answers an inquiry is given elsewhere in the report, make a reference to the schedule in which it appears.</p>
+                            <ol>
+                                <li>Use the space below for important notes regarding the Balance Sheet, Statement of Income for the year, Statement of Retained Earnings for the year, and Statement of Cash Flows, or any account thereof. Classify the notes according to each basic statement, providing a subheading for each statement except where a note is applicable to more than one statement.</li>
+                                <li>Furnish particulars (details) as to any significant contingent assets or liabilities existing at end of year, including a brief explanation of any action initiated by the Internal Revenue Service involving possible assessment of additional income taxes of material amount, or of a claim for refund of income taxes of a material amount initiated by the utility. Give also a brief explanation of any dividends in arrears on cumulative preferred stock.</li>
+                                <li>For Account 116, Utility Plant Adjustments, explain the origin of such amount, debits and credits during the year, and plan of disposition contemplated, giving references to Commission orders or other authorizations respecting classification of amounts as plant adjustments and requirements as to disposition thereof.</li>
+                                <li>Where Accounts 189, Unamortized Loss on Reacquired Debt, and 257, Unamortized Gain on Reacquired Debt, are not used, give an explanation, providing the rate treatment given these items. See General Instruction 17 of the Uniform Systems of Accounts. </li>
+                                <li>Give a concise explanation of any retained earnings restrictions and state the amount of retained earnings affected by such restrictions.</li>
+                                <li>If the notes to financial statements relating to the respondent company appearing in the annual report to the. stockholders are applicable and furnish the data required by instructions above and on pages 6-11, such notes may be attached hereto.</li>
+                                </ol>
+                        </xendr:template-display>
+                    </xendr:replace>
+                
+                </td>
+            </tr>
+            <tr>
+                <td class="text-block xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:NotesToFinancialStatementsTextBlock @period=$currentDuration]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        See Notes to Financial Statements, Note 2, 
+                                </xendr:template-display>
+                        </xendr:replace>                   
+                </td>
+            </tr>
+            <tr>
+                <td class="text-block xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfImportantDisclosuresRegardingTheFinancialStatementsTextBlock @period=$currentDuration]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        See Notes to Financial Statements, Note 2, 
+                                </xendr:template-display>
+                        </xendr:replace>                   
+                </td>
+            </tr>
+            <tr>
+                <td class="text-block xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfSignificantContingentAssetsOrLiabilitiesTextBlock @period=$currentDuration]
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    See Notes to Financial Statements, Note 3, 
+                            </xendr:template-display>
+                    </xendr:replace>                   
+            </td>
+        </tr>
+        <tr>
+            <td class="text-block xbrl">
+                <xendr:replace>
+                        <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfAmountsRelatedToUtilityPlantAdjustmentsTextBlock @period=$currentDuration]
+                        </xendr:expression>
+                        <xendr:template-display>
+                                See Notes to Financial Statements, Note 5, 
+                        </xendr:template-display>
+                </xendr:replace>                   
+        </td>
+            </tr>
+            <tr>
+                <td class="text-block xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfRateTreatmentWhereUnamortizedLossOnReacquiredDebtAndUnamortizedGainOnReacquiredDebtAccountsAreNotUsedTextBlock @period=$currentDuration]
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    See Notes to Financial Statements, Note 4, 
+                            </xendr:template-display>
+                    </xendr:replace>                   
+            </td>
+                </tr>
+                <tr>
+                    <td class="text-block xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfRetainedEarningsRestrictionsTextBlock @period=$currentDuration]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        See Notes to Financial Statements, Note 3, 
+                                </xendr:template-display>
+                        </xendr:replace>                   
+                </td>
+                    </tr>
+                    <tr>
+                        <td class="text-block xbrl">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfApplicableNotesToSpecificPagesTextBlock @period=$currentDuration]
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            See Notes to Financial Statements, Note 6, 
+                                    </xendr:template-display>
+                            </xendr:replace>                   
+                    </td>
+                        </tr>
+                        
+                                
+        </table>
+        <br/>
+        <div class="schedule-footer">
+            <div>FERC FORM No.
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                        <xendr:template-display>1-F</xendr:template-display>
+                </xendr:replace>
+                <span> </span> 
+                    <xendr:replace>
+                            <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleNotesToFinancialStatementsF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                            </xendr:expression>
+                            <xendr:template-display>
+                                REV 06-04
+                            </xendr:template-display>
+                    </xendr:replace>
+                                
+            </div>
+            <div class="center-text">Page 
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleNotesToFinancialStatementsF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                            222a
+                            </xendr:template-display>
+                    </xendr:replace>
+            </div> 
+        
+        </div>
+    </body>
+    </html>  

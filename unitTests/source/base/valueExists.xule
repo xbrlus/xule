@@ -1,0 +1,190 @@
+/* ValueExist */
+output VE101
+/* skip */
+
+  exists([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE102
+/* False */
+
+  exists([covered @instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE103
+/* skip */
+
+  missing([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE104
+/* True */
+
+  missing([covered @instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE105
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree],[@instance = $INSTANCE1 @Assets])
+
+output VE106
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value(none,[@instance = $INSTANCE1 @Assets])
+
+output VE107
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value([@instance = $INSTANCE1 @Assets],skip)
+
+output VE108
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value(skip,[@instance = $INSTANCE1 @Assets])
+
+output VE109
+/* skip */
+
+  first-value(none,none,none)
+
+output VE110
+/* skip */
+
+  first-value(skip)
+
+output VE111
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree],none,[@instance = $INSTANCE1 @Assets])
+
+output VE112
+/* No Iteration */
+
+  first-value(skip,none,none)
+
+output VE113
+/* 1 */
+
+  first-value(skip,none,'1')
+
+output VE114
+/* 1 */
+
+  first-value(none,none,'1')
+
+output VE115
+/* none */
+
+  first-value-or-none(list([covered @instance = $INSTANCE1 @AssetsAbstract]),none)
+
+output VE116
+/* none */
+
+  first-value-or-none(list([covered @instance = $INSTANCE1 @AssetsAbstract]))
+
+output VE117
+/* 3 */
+
+  first-value-or-none(list([covered @instance = $INSTANCE1 @AssetsAbstract]),'3')
+
+output VE118
+/* none */
+
+  first-value-or-none(first(list([covered @instance = $INSTANCE1 @AssetsAbstract])))
+
+output VE119
+/* 2 */
+
+  first-value-or-none(first(list([covered @instance = $INSTANCE1 @AssetsAbstract])),'2')
+
+output VE120
+/* skip */
+
+  first-value-or-none(first(list([@instance = $INSTANCE1 @AssetsAbstract])))
+
+output VE121
+/* skip */
+
+  first-value-or-none([@instance = $INSTANCE1 @AssetsAbstract],none)
+
+output VE122
+/* skip */
+
+  first-value-or-none([@instance = $INSTANCE1 @AssetsAbstract] + 10 ,4)
+
+output VE123
+/* skip */
+
+  first-value-or-none([@instance = $INSTANCE1 @AssetsAbstract] + none ,4)
+
+output VE124
+/* skip */
+
+  first-value-or-none([@instance = $INSTANCE1 @AssetsAbstract] ,4)
+
+output VE125
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value-or-none([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree],[@instance = $INSTANCE1 @Assets])
+
+output VE126
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value-or-none(none,[@instance = $INSTANCE1 @Assets])
+
+output VE127
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value-or-none([@instance = $INSTANCE1 @Assets],skip)
+
+output VE128
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value-or-none(skip,[@instance = $INSTANCE1 @Assets])
+
+output VE129
+/* None */
+
+  first-value-or-none(none,none,none)
+
+output VE130
+/* None */
+
+  first-value-or-none(skip)
+
+output VE131
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value-or-none([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree],none,[@instance = $INSTANCE1 @Assets])
+
+output VE132
+/* None */
+
+  first-value-or-none(skip,none,none)
+
+output VE133
+/* 1 */
+
+  first-value-or-none(skip,none,'1')
+
+output VE134
+/* 1 */
+
+  first-value-or-none(none,none,'1')
