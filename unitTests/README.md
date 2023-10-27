@@ -14,7 +14,7 @@ The ruleset zip file is included in the directory /xule/unitTests/compiled/ut-ru
 
 The command to run the unit tests is as follows where $SCRIPT_DIR is the directory xule/unitTests/commands/: 
 
-```python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xuleUnit|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set $SCRIPT_DIR/../compiled/ut-ruleset.zip --logNoRefObjectProperties --logFormat "[%(messageCode)s] %(message)s" >> $SCRIPT_DIR/../output/output.txt```
+```python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set $SCRIPT_DIR/../compiled/ut-ruleset.zip --logNoRefObjectProperties --logFormat "[%(messageCode)s] %(message)s" >> $SCRIPT_DIR/../output/output.txt```
 
 ### Google Sheet with Unit Tests
 The google sheet used to define the unit tests is located at:
