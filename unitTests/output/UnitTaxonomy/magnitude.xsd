@@ -1,0 +1,33 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:si-prefix="http://www.xbrl.org/2023/si-prefix" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" targetNamespace="http://www.xbrl.org/2023/si-prefix" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="magnitude_lab.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd"/>
+  <xs:element name="atto" id="si-prefix_atto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="centi" id="si-prefix_centi" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="deca" id="si-prefix_deca" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="deci" id="si-prefix_deci" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="exa" id="si-prefix_exa" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="femto" id="si-prefix_femto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="giga" id="si-prefix_giga" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="hecto" id="si-prefix_hecto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="kilo" id="si-prefix_kilo" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="mega" id="si-prefix_mega" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="micro" id="si-prefix_micro" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="milli" id="si-prefix_milli" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="nano" id="si-prefix_nano" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="peta" id="si-prefix_peta" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="pico" id="si-prefix_pico" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="quecto" id="si-prefix_quecto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="quetta" id="si-prefix_quetta" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="ronna" id="si-prefix_ronna" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="ronto" id="si-prefix_ronto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="tera" id="si-prefix_tera" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="yocto" id="si-prefix_yocto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="yotta" id="si-prefix_yotta" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="zepto" id="si-prefix_zepto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="zetta" id="si-prefix_zetta" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+</xs:schema>

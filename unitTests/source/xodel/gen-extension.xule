@@ -56,6 +56,7 @@ output-attribute concept-period-type
 output-attribute concept-balance-type
 output-attribute concept-substitution-group
 output-attribute concept-attributes
+output-attribute concept-id
 // Role
 output-attribute role
 output-attribute role-name
@@ -86,7 +87,6 @@ output-attribute label
 output-attribute label-text
 output-attribute label-lang
 output-attribute label-role
-output-attribute label-name
 output-attribute label-concept-name
 
 //Import

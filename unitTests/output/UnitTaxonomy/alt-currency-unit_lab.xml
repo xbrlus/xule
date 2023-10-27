@@ -1,0 +1,87 @@
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
+  <link:roleRef roleURI="http://www.xbrl.org/2023/role/symbol" xlink:href="units.xsd#symbol" xlink:type="simple"/>
+  <link:labelLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
+    <link:loc xlink:label="ns7_COU" xlink:href="alt-currency-unit.xsd#iso4217_COU" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_COU" xlink:to="lbl_lab_ns7_COU"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_COU" xml:lang="en">Unidad de Valor Real</link:label>
+    <link:loc xlink:label="ns7_XBB" xlink:href="alt-currency-unit.xsd#iso4217_XBB" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XBB" xlink:to="lbl_lab_ns7_XBB"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XBB" xml:lang="en">European Monetary Unit (E.M.U.-6) (bond market unit)</link:label>
+    <link:loc xlink:label="ns7_MXV" xlink:href="alt-currency-unit.xsd#iso4217_MXV" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_MXV" xlink:to="lbl_lab_ns7_MXV"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_MXV" xml:lang="en">Mexican UDI</link:label>
+    <link:loc xlink:label="ns7_XBA" xlink:href="alt-currency-unit.xsd#iso4217_XBA" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XBA" xlink:to="lbl_lab_ns7_XBA"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XBA" xml:lang="en">European Composite Unit (EURCO) (bond market unit)</link:label>
+    <link:loc xlink:label="ns7_XPD" xlink:href="alt-currency-unit.xsd#iso4217_XPD" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XPD" xlink:to="lbl_lab_ns7_XPD"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XPD" xml:lang="en">Palladium</link:label>
+    <link:loc xlink:label="ns7_USS" xlink:href="alt-currency-unit.xsd#iso4217_USS" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_USS" xlink:to="lbl_lab_ns7_USS"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_USS" xml:lang="en">United States dollar (same day) (funds code)</link:label>
+    <link:loc xlink:label="ns7_XBC" xlink:href="alt-currency-unit.xsd#iso4217_XBC" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XBC" xlink:to="lbl_lab_ns7_XBC"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XBC" xml:lang="en">European Unit of Account 9 (E.U.A.-9) (bond market unit)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XBA" xml:lang="en">EURCO</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XBB" xml:lang="en">E.M.U.-6</link:label>
+    <link:loc xlink:label="ns7_CHE" xlink:href="alt-currency-unit.xsd#iso4217_CHE" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_CHE" xlink:to="lbl_lab_ns7_CHE"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_CHE" xml:lang="en">WIR Bank (complementary currency)</link:label>
+    <link:loc xlink:label="ns7_XAG" xlink:href="alt-currency-unit.xsd#iso4217_XAG" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XAG" xlink:to="lbl_lab_ns7_XAG"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XAG" xml:lang="en">Silver</link:label>
+    <link:loc xlink:label="ns7_XPT" xlink:href="alt-currency-unit.xsd#iso4217_XPT" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XPT" xlink:to="lbl_lab_ns7_XPT"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XPT" xml:lang="en">Platinum (one troy ounce)</link:label>
+    <link:loc xlink:label="ns7_XBD" xlink:href="alt-currency-unit.xsd#iso4217_XBD" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XBD" xlink:to="lbl_lab_ns7_XBD"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XBD" xml:lang="en">E.U.A.-17</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XPT" xml:lang="en">Platinum</link:label>
+    <link:loc xlink:label="ns7_XUA" xlink:href="alt-currency-unit.xsd#iso4217_XUA" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XUA" xlink:to="lbl_lab_ns7_XUA"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XUA" xml:lang="en">ADB Unit of Account</link:label>
+    <link:loc xlink:label="ns7_USN" xlink:href="alt-currency-unit.xsd#iso4217_USN" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_USN" xlink:to="lbl_lab_ns7_USN"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_USN" xml:lang="en">Next Day US Dollar</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XUA" xml:lang="en">African Development Bank</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XBC" xml:lang="en">E.U.A.-9</link:label>
+    <link:loc xlink:label="ns7_UYI" xlink:href="alt-currency-unit.xsd#iso4217_UYI" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_UYI" xlink:to="lbl_lab_ns7_UYI"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_UYI" xml:lang="en">Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)</link:label>
+    <link:loc xlink:label="ns7_XFU" xlink:href="alt-currency-unit.xsd#iso4217_XFU" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XFU" xlink:to="lbl_lab_ns7_XFU"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XFU" xml:lang="en">UIC Franc</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_USS" xml:lang="en">Same Day US Dollar</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XBD" xml:lang="en">European Unit of Account 17 (E.U.A.-17) (bond market unit)</link:label>
+    <link:loc xlink:label="ns7_XDR" xlink:href="alt-currency-unit.xsd#iso4217_XDR" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XDR" xlink:to="lbl_lab_ns7_XDR"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XDR" xml:lang="en">Special Drawing Rights</link:label>
+    <link:loc xlink:label="ns7_XAU" xlink:href="alt-currency-unit.xsd#iso4217_XAU" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_XAU" xlink:to="lbl_lab_ns7_XAU"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XAU" xml:lang="en">Gold</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_UYI" xml:lang="en">Uruguay Peso en Unidades Indexadas</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XFU" xml:lang="en">UIC franc (special settlement currency)</link:label>
+    <link:loc xlink:label="ns7_CHW" xlink:href="alt-currency-unit.xsd#iso4217_CHW" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_CHW" xlink:to="lbl_lab_ns7_CHW"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_CHW" xml:lang="en">WIR Bank (complementary currency)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_USN" xml:lang="en">United States dollar (next day) (funds code)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns7_USS" xml:lang="en">$</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_CHW" xml:lang="en">WIR Bank</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_MXV" xml:lang="en">Mexican Unidad de Inversion (UDI) (funds code)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns7_USN" xml:lang="en">$</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XAG" xml:lang="en">Silver (one troy ounce)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_XDR" xml:lang="en">Special Drawing Rights</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_COU" xml:lang="en">Unidad de Valor Real</link:label>
+    <link:loc xlink:label="ns7_BOV" xlink:href="alt-currency-unit.xsd#iso4217_BOV" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_BOV" xlink:to="lbl_lab_ns7_BOV"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_BOV" xml:lang="en">Bolivian Mvdol</link:label>
+    <link:loc xlink:label="ns7_CLF" xlink:href="alt-currency-unit.xsd#iso4217_CLF" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns7_CLF" xlink:to="lbl_lab_ns7_CLF"/>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_CLF" xml:lang="en">Unidad de Fomento</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns7_CHE" xml:lang="en">WIR Bank</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XAU" xml:lang="en">Gold (one troy ounce)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_BOV" xml:lang="en">Bolivian Mvdol (funds code)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_CLF" xml:lang="en">Unidad de Fomento (funds code)</link:label>
+    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns7_XPD" xml:lang="en">Palladium (one troy ounce)</link:label>
+  </link:labelLink>
+</link:linkbase>
