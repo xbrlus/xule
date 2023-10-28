@@ -2329,8 +2329,10 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
         rel_info['role'] = resolve_role_uri(log_rec.args['relationship-role'], taxonomy)
     if 'relationship-arcrole' in log_rec.args:
         rel_info['arcrole'] = resolve_arcrole_uri(log_rec.args['relationship-arcrole'], taxonomy)
-    if 'relationship-attribute' in log_rec.args:
-        rel_info['attributes'].update(json.loads(log_rec.args['relationship-attributes']))
+    if 'relationship-attributes' in log_rec.args:
+        atts_clark = json.loads(log_rec.args['relationship-attributes'])
+        atts = {resolve_clark_to_qname(k, taxonomy): v for k, v in atts_clark.items()}
+        rel_info['attributes'].update(atts)
     if 'relationship-type' in log_rec.args:
         rel_info['type'] = log_rec.args['relationship-type']
 
@@ -2504,7 +2506,7 @@ def process_reference(rule_name, log_rec, taxonomy, options, cntlr, arelle_model
         ref_role = taxonomy.get('Role', ref_info['role'])
     else:
         ref_role = None
-        
+
     ref_concept = taxonomy.get('Concept', ref_info['concept-name'])
 
     if ref_concept is None:

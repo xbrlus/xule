@@ -300,7 +300,7 @@ def extract_rel_info(model_rel, dts):
         rel_info['arelle-arcrole'] = model_arcroles[0]
     rel_info['type'] = resolve_clark_to_qname(model_rel.linkQname.clarkNotation, dts)
     rel_info['arcrole'] = model_rel.arcrole
-    rel_info['attriubtes'] = {k:v for k, v in model_rel.arcElement.attrib.items()
+    rel_info['attributes'] = {resolve_clark_to_qname(k, dts):v for k, v in model_rel.arcElement.attrib.items()
                                if k not in ('order', 'weight', 'preferredLabel',
                                             '{http://www.w3.org/1999/xlink}arcrole',
                                             '{http://www.w3.org/1999/xlink}from',
@@ -671,7 +671,6 @@ def add_arelle_model(arelle_model, sxm_dts):
     add_roles(sxm_dts, arelle_model)
     add_arcroles(sxm_dts, arelle_model)
 
-    x = 1
     sxm_dts.close_external_documents()      
 
 def add_documents_from_arelle(sxm_dts, arelle_model):
