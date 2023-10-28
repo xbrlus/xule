@@ -2332,7 +2332,10 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if 'relationship-attributes' in log_rec.args:
         atts_clark = json.loads(log_rec.args['relationship-attributes'])
         atts = {resolve_clark_to_qname(k, taxonomy): v for k, v in atts_clark.items()}
-        rel_info['attributes'].update(atts)
+        if 'attributes' in rel_info:
+            rel_info['attributes'].update(atts)
+        else:
+            rel_info['attributes'] = atts
     if 'relationship-type' in log_rec.args:
         rel_info['type'] = log_rec.args['relationship-type']
 
