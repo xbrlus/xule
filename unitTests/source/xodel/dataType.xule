@@ -4,6 +4,7 @@ constant $DATA_TYPES_XML = xml-data-flat('https://www.xbrl.org/dtr/dtr.xml','/dt
 
 constant $INBULT_DATATYPES = list('pureItemType', 'sharesItemType','monetaryItemType','durationItemType')
 
+constant $NEW_DATATYPES = list('timeDurationItemType', 'densityItemType')
 
 output create_dtr_concepts 
 $baseUnit = $CURRENCY_TAXONOMY.concept(currency:ADP)
@@ -21,7 +22,7 @@ concept-local-name $rule-value[2]
 
 output create_base_ItemType_concepts 
 $baseUnit = $CURRENCY_TAXONOMY.concept(currency:ADP)
-for $type in $INBULT_DATATYPES
+for $type in ($INBULT_DATATYPES + $NEW_DATATYPES)
     $type
 
 package-name $UNIT_TAXONOMY
@@ -52,7 +53,7 @@ label-lang 'en'
 
 /** CREATE INBUILT DATA TYPE LABELS **/
 output create_inbuilt_data_type_labels
-    for $label in ($INBULT_DATATYPES)
+    for $label in ($INBULT_DATATYPES + $NEW_DATATYPES)
          $label
 package-name $UNIT_TAXONOMY
 document-uri 'dtr-types_lab.xml'

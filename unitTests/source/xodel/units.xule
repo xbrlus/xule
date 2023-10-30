@@ -5,6 +5,7 @@ namespace utr = http://www.xbrl.org/2009/utr
 namespace si = http://www.xbrl.org/2023/si-prefix
 namespace property-part = https://xbrl.org/taxonomy/int/codelist-common/CR/2023-08-23/property-part
 namespace property = http://xbrl.org/2022/role/property
+namespace dtr = http://www.xbrl.org/dtr/type/2022-03-31
 
 /** EXTRACT DATA FROM UNITS REGISTRY 
 -------------------------------------**/
@@ -117,6 +118,14 @@ package-name $UNIT_TAXONOMY
 document-uri 'units.xsd'
 role-uri 'http://www.xbrl.org/2023/role/symbol'
 role-definition 'Defines the label role for the symbol associated with the unit'
+role-used-on list(link:label).to-xodel
+
+output create_label_roles_versionDate
+true
+package-name $UNIT_TAXONOMY
+document-uri 'units.xsd'
+role-uri 'http://www.xbrl.org/2023/role/versionDate'
+role-definition 'Defines the label role for the version date associated with the unit'
 role-used-on list(link:label).to-xodel
 
 
@@ -235,7 +244,7 @@ import2-url 'https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/cu
 -----------------------**/
 output create_labels_standard 
     for $label in ($UTR_UNITS + $CURRENCY_UNITS)
-        for $labelType in list(list(2,'http://www.xbrl.org/2003/role/label'), list(7,'http://www.xbrl.org/2003/role/documentation'),list(6,'http://www.xbrl.org/2023/role/symbol'))
+        for $labelType in list(list(2,'http://www.xbrl.org/2003/role/label'), list(7,'http://www.xbrl.org/2003/role/documentation'),list(6,'http://www.xbrl.org/2023/role/symbol'),list(10,'http://www.xbrl.org/2023/role/versionDate'))
             $iso_temp_namespace = if $label[3] == 'http://www.xbrl.org/2003/iso4217'
                                     $CURRENCY_NAMESPACE
                                 else
@@ -257,7 +266,7 @@ label-lang 'en'
 
 output add_alt_currency_labels 
     for $label in ($ALT_CURRENCY_UNITS)
-            for $labelType in list(list(2,'http://www.xbrl.org/2003/role/label'), list(7,'http://www.xbrl.org/2003/role/documentation'),list(6,'http://www.xbrl.org/2023/role/symbol'))
+            for $labelType in list(list(2,'http://www.xbrl.org/2003/role/label'), list(7,'http://www.xbrl.org/2003/role/documentation'),list(6,'http://www.xbrl.org/2023/role/symbol'),list(10,'http://www.xbrl.org/2023/role/versionDate'))
                 if $label[6] == none and $labelType[1] == 6
                     skip
                 else
