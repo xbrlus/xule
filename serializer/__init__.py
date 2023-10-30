@@ -150,7 +150,7 @@ class NSMap:
         result = []
         for namespace_info in self.map.values():
             if 'location'in namespace_info:
-                if namespace_info['location'].lower().startswith('http:') or namespace_info['location'].lower().startswith('http:s'):
+                if namespace_info['location'].lower().startswith('http:') or namespace_info['location'].lower().startswith('https:'):
                     href = namespace_info['location']
                 else:
                     href = posixpath.relpath(namespace_info['location'], start=posixpath.dirname(start_document.uri))
