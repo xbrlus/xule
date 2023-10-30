@@ -371,7 +371,7 @@ class XuleValue:
             return dict_value
             #return pprint.pformat(self.system_value)
         
-        elif self.type == 'concept':
+        elif self.type in ('concept', 'part-element'):
             return str(self.value.qname)
         
         elif self.type == 'taxonomy':

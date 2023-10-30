@@ -919,13 +919,18 @@ def property_data_type(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.fact.concept.type, 'type')
     elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.type, 'type')
+    elif object_value.type == 'part-element':
+        type_value = object_value.value.type
+        if type_value is None:
+            type_value = object_value.value.typeQname
+        return xv.XuleValue(xule_context, type_value, 'type')
     else: #none value
         return object_value
 
 def property_substitution(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.substitutionGroupQname, 'qname')
-    elif object_value.type == 'concept':
+    elif object_value.type in ('concept', 'part-element'):
         return xv.XuleValue(xule_context, object_value.value.substitutionGroupQname, 'qname')
     else: #none value
         return object_value
@@ -935,12 +940,13 @@ def property_enumerations(xule_context, object_value, *args):
         model_type = object_value.fact.concept.type
     elif object_value.type == 'type':
         model_type = object_value.value
-    elif object_value.type == 'concept':    
+    elif object_value.type in ('concept', 'part-element'):    
         model_type = object_value.value.type
     else: # None - this should not happen as the property only allows fact, type or concept.
         return object_value
-    
-    if model_type.facets is None:
+
+    # The model_type can be none for non concept elements (part-elements) that are based on an xsd type. Arelle does not create a type object for the modelConcept.type. 
+    if model_type is None or not hasattr(model_type, 'facets') or  model_type.facets is None:
         return xv.XuleValue(xule_context, frozenset(), 'set')
     else:
         if 'enumeration' in model_type.facets:
@@ -954,12 +960,13 @@ def property_has_enumerations(xule_context, object_value, *args):
         model_type = object_value.fact.concept.type
     elif object_value.type == 'type':
         model_type = object_value.value
-    elif object_value.type == 'concept':    
+    elif object_value.type in  ('concept', 'part-element'):    
         model_type = object_value.value.type
     else: # None
         return xv.XuleValue(xule_context, False, 'bool')  
     
-    if model_type.facets is None:
+    # The model_type can be none for non concept elements (part-elements) that are based on an xsd type. Arelle does not create a type object for the modelConcept.type. 
+    if model_type is None or not hasattr(model_type, 'facets') or model_type.facets is None:
         return xv.XuleValue(xule_context, False, 'bool')
     else:
         return xv.XuleValue(xule_context, 'enumeration' in model_type.facets, 'bool')  
@@ -971,7 +978,7 @@ def property_is_type(xule_context, object_value, *args):
     
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.instanceOfType(type_name.value), 'bool')
-    elif object_value.type == 'concept': # concept
+    elif object_value.type in ('concept', 'part-element'): # concept
         return xv.XuleValue(xule_context, object_value.value.instanceOfType(type_name.value), 'bool')
     else: #none value
         return object_value
@@ -979,7 +986,7 @@ def property_is_type(xule_context, object_value, *args):
 def property_is_numeric(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.isNumeric, 'bool')
-    elif object_value.type == 'concept':
+    elif object_value.type in ('concept', 'part-element'):
         #concept
         return xv.XuleValue(xule_context, object_value.value.isNumeric, 'bool')
     else:
@@ -997,7 +1004,7 @@ def property_is_monetary(xule_context, object_value, *args):
 def property_is_abstract(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.isAbstract, 'bool')
-    elif object_value.type == 'concept':
+    elif object_value.type in ('concept', 'part-element'):
         return xv.XuleValue(xule_context, object_value.value.isAbstract, 'bool')
     else: #none value
         return object_value
@@ -1174,8 +1181,13 @@ def property_lang(xule_context, object_value, *args):
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
-    elif object_value.type in ('concept', 'reference-part', 'type'):
+    elif object_value.type in ('concept', 'reference-part'):
         return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
+    elif object_value.type == 'type':
+        if isinstance(object_value.value, QName):
+            return xv.XuleValue(xule_context, object_value.value, 'qname')
+        else:
+            return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
     else: #none value
         return object_value
     
@@ -1183,7 +1195,7 @@ def property_local_name(xule_context, object_value, *args):
 
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
-    elif object_value.type in ('concept', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part'):
         return xv.XuleValue(xule_context, object_value.value.qname.localName, 'string')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.localName, 'string')
@@ -1195,7 +1207,7 @@ def property_local_name(xule_context, object_value, *args):
 def property_namespace_uri(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
-    elif object_value.type in ('concept', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part'):
         return xv.XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
@@ -1207,7 +1219,7 @@ def property_namespace_uri(xule_context, object_value, *args):
 def property_clark(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.clarkNotation, 'string')
-    elif object_value.type in ('concept', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part'):
         return xv.XuleValue(xule_context, object_value.value.qname.clarkNotation, 'string')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string')
@@ -1370,6 +1382,11 @@ def property_concept_names(xule_context, object_value, *args):
         raise XuleProcessingError(_("'concept-names' is not a property of '%s'" % object_value.type), xule_context)
  
     return xv.XuleValue(xule_context, frozenset(concepts), 'set')
+
+def property_reference_parts(xule_context, object_value, *args):
+
+    result = {xv.XuleValue(xule_context, x, 'part-element') for x in object_value.value.qnameConcepts.values() if x.isLinkPart}
+    return xv.XuleValue(xule_context, frozenset(result), 'set')
 
 def property_cube(xule_context, object_value, *args):
     """This returns the tables in a taxonomy
@@ -2134,7 +2151,9 @@ def property_list_properties(xule_context, object_value, *args):
                 object_prop[prop_object].append((prop_name, str(prop_info[PROP_ARG_NUM])))
                  
     s += "\nProperites by type:"
-    for object_type, props in object_prop.items():
+    object_types = sorted(object_prop.keys())
+    for object_type in object_types:
+        props = object_prop[object_type]
         s += "\n" + object_type
         for prop in props:
             s += "\n\t" + prop[0] + "," + prop[1]
@@ -2534,19 +2553,19 @@ PROPERTIES = {
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
               'days': (property_days, 0, ('instant', 'duration', 'time-period'), False),
-              'numerator': (property_numerator, 0, ('unit', ), False),
+              'numerator': (property_numerator, 0, ('unit',), False),
               'denominator': (property_denominator, 0, ('unit',), False),
-              'attribute': (property_attribute, 1, ('concept', 'relationship', 'role'), False),
+              'attribute': (property_attribute, 1, ('concept', 'part-element','relationship', 'role'), False),
               'balance': (property_balance, 0, ('concept',), False),              
               'base-type': (property_base_type, 0, ('concept', 'fact'), True),
-              'data-type': (property_data_type, 0, ('concept', 'fact'), True), 
-              'substitution': (property_substitution, 0, ('concept', 'fact'), True),   
-              'enumerations': (property_enumerations, 0, ('type', 'concept', 'fact'), True), 
-              'has-enumerations': (property_has_enumerations, 0, ('type', 'concept', 'fact'), True),
-              'is-type': (property_is_type, 1, ('concept', 'fact'), True),          
-              'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), True),
+              'data-type': (property_data_type, 0, ('concept', 'part-element', 'fact'), True), 
+              'substitution': (property_substitution, 0, ('concept', 'part-element', 'fact'), True),   
+              'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
+              'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
+              'is-type': (property_is_type, 1, ('concept', 'part-element', 'fact'), True),          
+              'is-numeric': (property_is_numeric, 0, ('concept', 'part-element', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
-              'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), True),
+              'is-abstract': (property_is_abstract, 0, ('concept', 'part-element', 'fact'), True),
               'is-nil': (property_is_nil, 0, ('fact',), True),
               'is-fact': (property_is_fact, 0, (), True),
               'inline-scale': (property_scale, 0, ('fact',), True),
@@ -2561,10 +2580,10 @@ PROPERTIES = {
               'footnotes': (property_footnotes, 0, ('fact',), False),   
               'content': (property_content, 0, ('footnote',), False),   
               'fact': (property_fact, 0, ('footnote',), False),     
-              'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
-              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
-              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
-              'clark': (property_clark, 0, ('qname', 'concept', 'fact', 'reference-part'), True),             
+              'name': (property_name, 0, ('fact', 'concept', 'part-element', 'reference-part', 'type'), True),
+              'local-name': (property_local_name, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'type'), True),
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'type'), True),
+              'clark': (property_clark, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part'), True),             
               'period-type': (property_period_type, 0, ('concept',), False),
               'parts': (property_parts, 0, ('reference',), False),
               'part-value': (property_part_value, 0, ('reference-part',), False),
@@ -2579,7 +2598,7 @@ PROPERTIES = {
               'roots': (property_roots, 0, ('network',), False),
               'uri': (property_uri, 0, ('role', 'taxonomy'), False),
               'description': (property_description, 0, ('role',), False),
-              'used-on': (property_used_on, 0, ('role'), False),
+              'used-on': (property_used_on, 0, ('role',), False),
               'source': (property_source, 0, ('relationship',), False),
               'target': (property_target, 0, ('relationship',), False),              
               'source-name': (property_source_name, 0, ('relationship',), False),
@@ -2606,8 +2625,8 @@ PROPERTIES = {
               'lower-case': (property_lower_case, 0, ('string', 'uri'), False),
               'upper-case': (property_upper_case, 0, ('string', 'uri'), False),
               'split': (property_split, 1, ('string', 'uri'), False),
-              'to-qname': (property_to_qname, -1, ('string'), False),
-              'inline-transform': (property_inline_transform, -2, ('string'), False),
+              'to-qname': (property_to_qname, -1, ('string',), False),
+              'inline-transform': (property_inline_transform, -2, ('string',), False),
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
@@ -2638,6 +2657,7 @@ PROPERTIES = {
               'facts': (property_facts, 0, ('cube','instance'), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
+              'reference-parts': (property_reference_parts, 0, ('taxonomy',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
               'time-span': (property_time_span, 0, ('string', 'duration'), False),
@@ -2652,9 +2672,9 @@ PROPERTIES = {
 
               # inline properties
               'inline-parent': (property_inline_parent, 0, ('fact',), False),
-              'inline-ancestors': (property_inline_ancestors, 0, ('fact', ), False),
-              'inline-children': (property_inline_children, 0, ('fact', ), False),
-              'inline-descendants': (property_inline_descendants, 0, ('fact', ), False),
+              'inline-ancestors': (property_inline_ancestors, 0, ('fact',), False),
+              'inline-children': (property_inline_children, 0, ('fact',), False),
+              'inline-descendants': (property_inline_descendants, 0, ('fact',), False),
 
               # Debugging properties
               '_type': (property_type, 0, (), False),
