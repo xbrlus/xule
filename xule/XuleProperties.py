@@ -1388,6 +1388,15 @@ def property_part_elements(xule_context, object_value, *args):
     result = {xv.XuleValue(xule_context, x, 'part-element') for x in object_value.value.qnameConcepts.values() if x.isLinkPart}
     return xv.XuleValue(xule_context, frozenset(result), 'set')
 
+def property_part_element(xule_context, object_value, *args):
+
+    part_element = object_value.value.modelXbrl.qnameConcepts.get(object_value.value.elementQname)
+    if part_element is None:
+        # this really should not happen
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        return xv.XuleValue(xule_context, part_element, 'part-element')
+    
 def property_cube(xule_context, object_value, *args):
     """This returns the tables in a taxonomy
 
@@ -2658,6 +2667,7 @@ PROPERTIES = {
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
               'part-elements': (property_part_elements, 0, ('taxonomy',), False),
+              'part-element': (property_part_element, 0, ('reference-part',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
               'time-span': (property_time_span, 0, ('string', 'duration'), False),

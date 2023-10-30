@@ -374,6 +374,9 @@ class XuleValue:
         elif self.type in ('concept', 'part-element'):
             return str(self.value.qname)
         
+        elif self.type == ('reference-part'):
+            return f"{self.value.qname.clarkNotation} = {self.value.textValue}"
+        
         elif self.type == 'taxonomy':
             return self.value.taxonomy_name
             
