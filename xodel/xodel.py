@@ -3,7 +3,9 @@ Reivision number: $Change: 23365 $
 '''
 # TODO - clean out the xince stuff
 # TODO - Need to handle xsi:schemaLocation for namespaces that are used. For instance, for the generic linkbase, when it is used, a schemaLocation is needed in the linkbase files. This means that we need to know the location of the schema file. This is not provided. For generic linkbase, xodel can add this, but if custom link elements are used, this would be a problem. Maybe provide a namespace-location output attribute that can be used. It would take a dictionary of namespace uri as the key and the location as the value. 
-# TODO - How to import schemas for things that are not defined in this taxonomy. For example, using reference parts that are defined in another taxonomy. 
+# TODO - Attribute values need to be converted to a string before the SXM object is created
+# TODO - Referenc and label roles are not required. If they are not used, the default ones should be explicitly added.
+# TODO - Add creation of cubes from presentation.
 from arelle import FileSource
 from arelle import ModelManager
 from arelle.ModelXbrl import ModelXbrl
@@ -1806,6 +1808,14 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'concept-balance-type': ('concept', balance_type_validator),
     'concept-substitution-group': ('concept', qname_validator),
     'concept-attributes': ('concept', attribute_validator),
+    'concept-id': ('concept', string_or_list_of_strings_validator),
+
+    'part': ('part', object_validator),
+    'part-name': ('part', qname_validator),
+    'part-data-type': ('part', qname_validator),
+    'part-id': ('part', string_validator),
+    'part-attributes': ('part', attribute_validator),
+
     'role': ('role', object_validator),
     'role-uri': ('role', string_validator),
     'role-definition': ('role', string_validator),
@@ -2202,6 +2212,80 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
                             concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
                             concept_info.get('substitution-group-name'), concept_info.get('id'), attributes)
 
+def process_part_element(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    
+    '''
+    part
+    part-name
+    part-data-type
+    part-id
+    part-attributes
+    '''
+
+    # Check if there is a concept that is being copied (output attribute 'concept')
+    if 'part'in log_rec.args:
+        arelle_part_element = get_model_object(log_rec.args['part'], cntlr)
+        part_info = extract_element_info(arelle_part_element, taxonomy)
+    else:
+        part_info = dict()
+
+    if 'part-id' in log_rec.args:
+        part_info['id'] = log_rec.args['part-id'].strip()
+
+    if 'part-name' in log_rec.args:
+        part_info['part-name'] = resolve_clark_to_qname(log_rec.args['part-name'], taxonomy)
+    
+    if 'part-namespace' in log_rec.args and 'part-local-name' in log_rec.args:
+        part_info['part-name'] = taxonomy.new('QName', log_rec.args['part-namespace'], log_rec.args['part-local-name'])
+    else:
+        if 'part-namespace' in log_rec.args:
+            if 'part-name' in part_info:
+                part_info['part-name'] = taxonomy.new('QName', log_rec.args['part-namespace'], part_info['part-name'].local_name)
+        if 'part-local-name' in log_rec.args:
+            if 'part-name' in 'concept_info':
+                part_info['part-name'] = taxonomy.new('QName', part_info['part-name'].namespace, log_rec.args['part-local-name'])
+
+    if 'part-data-type' in log_rec.args:
+        part_info['type-name'] = resolve_clark_to_qname(log_rec.args['part-data-type'], taxonomy)
+    # if 'concept-abstract' in log_rec.args:
+    #     concept_info['is-abstract'] = json.loads(log_rec.args['concept-abstract'])
+    # if 'concept-nillable' in log_rec.args:
+    #     concept_info['nillable'] = log_rec.args['concept-nillable'].lower()
+    # if 'concept-period-type' in log_rec.args:
+    #     concept_info['period-type'] = log_rec.args['concept-period-type']
+    # if 'concept-balance-type' in log_rec.args:
+    #     if log_rec.args['concept-balance-type'].lower() == 'none':
+    #         try:
+    #             del concept_info['balance']
+    #         except KeyError:
+    #             # don't worry if there isn't a balance-type
+    #             pass
+    #     else:
+    #         concept_info['balance'] = log_rec.args['concept-balance-type'].lower()
+    # if 'concept-substitution-group' in log_rec.args:
+    #     concept_info['substitution-group'] = resolve_clark_to_qname(log_rec.args['concept-substitution-group'], taxonomy)
+    if 'part-attributes' in log_rec.args:
+        part_info['attributes'].update(json.loads(log_rec.args['part-attributes']))
+
+    # Check concept name
+    if 'part-name' not in part_info:
+        raise XodelException(f"Cannot create a part element without a name. Need to copy from an existing concept or use the 'part-name' output attribute")
+    # Check type
+    if 'type-name' not in part_info:
+        raise XodelException(f"For part element '{part_info['part-name'].clark}', type '{part_info['type-name'].clark}' is not found.")
+    # The type needs to be a SXMType, currently we have a qname
+    part_type = find_type(taxonomy, part_info['type-name'], _CNTLR)
+    if part_type is None:
+            raise XodelException(f"For part element '{part_info['part-name'].clark}', do not have the type definition for '{part_info['type-name'].clark}'")
+    
+    # convert attributes to qnames
+    attributes = {resolve_clark_to_qname(k, taxonomy): v for k, v in part_info.get('attributes', dict()).items()}
+
+    return taxonomy.new('PartElement', part_info.get('part-name'), part_type, part_info.get('is-abstract'),
+                            part_info.get('nillable'), part_info.get('id'), 
+                            resolve_clark_to_qname('{http://www.xbrl.org/2003/linkbase}part', taxonomy),
+                            attributes)
+
 
 def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     '''
@@ -2491,7 +2575,7 @@ def process_reference(rule_name, log_rec, taxonomy, options, cntlr, arelle_model
         ref_parts_by_qname[ref_part[0]] = ref_part[1]
     # check if any ref parts were passed in the rule.
     ref_parts_by_qname = {x[0]: x[1] for x in ref_info.get('parts', tuple())}
-    for ref_part in json.loads(log_rec.args.get('reference-parts', tuple())):
+    for ref_part in json.loads(log_rec.args.get('reference-parts', '[]')):
         # each ref part shoud be a list of 2 items, the first is the qname (clark) and the second is the value.
         if not isinstance(ref_part, list):
             raise XodelException(f"Invalid reference part. Should be a list of 2 items, the first is the qname of the part and the second is the value. Found {ref_part}. Found in rule: {log_rec.messageCode}")
@@ -2677,6 +2761,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'import2': (process_import2, no_sort),
     'type': (process_type, type_sort),
     'concept': (process_concept, no_sort),
+    'part': (process_part_element, no_sort), 
     'role': (process_role, role_uri_sort),
     'arcrole': (process_arcrole, arcrole_uri_sort),
     'label': (process_label, no_sort),
