@@ -1,0 +1,125 @@
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xmlns:property-part="https://xbrl.org/taxonomy/int/codelist-common/CR/2023-08-23/property-part" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd https://xbrl.org/taxonomy/int/codelist-common/CR/2023-08-23/property-part https:/www.xbrl.org/taxonomy/int/codelist-common/CR/2023-08-23/property-part.xsd">
+  <link:roleRef roleURI="https://xbrl.org/2022/role/property" xlink:href="http://www.xbrl.org/lrr/role/property-2022-09-28.xsd#property" xlink:type="simple"/>
+  <link:referenceLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
+    <link:loc xlink:label="ns12_tera" xlink:href="magnitude.xsd#si-prefix_tera" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_tera" xlink:to="lbl_ref_ns12_tera"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_tera">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}tera</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_deci" xlink:href="magnitude.xsd#si-prefix_deci" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_deci" xlink:to="lbl_ref_ns12_deci"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_deci">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}deci</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_giga" xlink:href="magnitude.xsd#si-prefix_giga" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_giga" xlink:to="lbl_ref_ns12_giga"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_giga">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}giga</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_micro" xlink:href="magnitude.xsd#si-prefix_micro" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_micro" xlink:to="lbl_ref_ns12_micro"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_micro">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}micro</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_yotta" xlink:href="magnitude.xsd#si-prefix_yotta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_yotta" xlink:to="lbl_ref_ns12_yotta"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_yotta">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}yotta</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_hecto" xlink:href="magnitude.xsd#si-prefix_hecto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_hecto" xlink:to="lbl_ref_ns12_hecto"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_hecto">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}hecto</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_milli" xlink:href="magnitude.xsd#si-prefix_milli" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_milli" xlink:to="lbl_ref_ns12_milli"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_milli">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}milli</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_mega" xlink:href="magnitude.xsd#si-prefix_mega" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_mega" xlink:to="lbl_ref_ns12_mega"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_mega">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}mega</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_peta" xlink:href="magnitude.xsd#si-prefix_peta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_peta" xlink:to="lbl_ref_ns12_peta"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_peta">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}peta</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_yocto" xlink:href="magnitude.xsd#si-prefix_yocto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_yocto" xlink:to="lbl_ref_ns12_yocto"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_yocto">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}yocto</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_ronna" xlink:href="magnitude.xsd#si-prefix_ronna" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_ronna" xlink:to="lbl_ref_ns12_ronna"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_ronna">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}ronna</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_quecto" xlink:href="magnitude.xsd#si-prefix_quecto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_quecto" xlink:to="lbl_ref_ns12_quecto"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_quecto">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}quecto</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_ronto" xlink:href="magnitude.xsd#si-prefix_ronto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_ronto" xlink:to="lbl_ref_ns12_ronto"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_ronto">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}ronto</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_pico" xlink:href="magnitude.xsd#si-prefix_pico" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_pico" xlink:to="lbl_ref_ns12_pico"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_pico">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}pico</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_quetta" xlink:href="magnitude.xsd#si-prefix_quetta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_quetta" xlink:to="lbl_ref_ns12_quetta"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_quetta">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}quetta</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_femto" xlink:href="magnitude.xsd#si-prefix_femto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_femto" xlink:to="lbl_ref_ns12_femto"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_femto">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}femto</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_atto" xlink:href="magnitude.xsd#si-prefix_atto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_atto" xlink:to="lbl_ref_ns12_atto"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_atto">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}atto</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_zepto" xlink:href="magnitude.xsd#si-prefix_zepto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_zepto" xlink:to="lbl_ref_ns12_zepto"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_zepto">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}zepto</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_kilo" xlink:href="magnitude.xsd#si-prefix_kilo" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_kilo" xlink:to="lbl_ref_ns12_kilo"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_kilo">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}kilo</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_zetta" xlink:href="magnitude.xsd#si-prefix_zetta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_zetta" xlink:to="lbl_ref_ns12_zetta"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_zetta">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}zetta</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_exa" xlink:href="magnitude.xsd#si-prefix_exa" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_exa" xlink:to="lbl_ref_ns12_exa"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_exa">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}exa</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_deca" xlink:href="magnitude.xsd#si-prefix_deca" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_deca" xlink:to="lbl_ref_ns12_deca"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_deca">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}deca</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_centi" xlink:href="magnitude.xsd#si-prefix_centi" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_centi" xlink:to="lbl_ref_ns12_centi"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_centi">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}centi</property-part:StatusRemark>
+    </link:reference>
+    <link:loc xlink:label="ns12_nano" xlink:href="magnitude.xsd#si-prefix_nano" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns12_nano" xlink:to="lbl_ref_ns12_nano"/>
+    <link:reference xlink:role="https://xbrl.org/2022/role/property" xlink:type="resource" xlink:label="lbl_ref_ns12_nano">
+      <property-part:StatusRemark>{http://www.xbrl.org/2023/si-prefix}nano</property-part:StatusRemark>
+    </link:reference>
+  </link:referenceLink>
+</link:linkbase>

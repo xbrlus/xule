@@ -1,11 +1,18 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:si-prefix="http://www.xbrl.org/2023/si-prefix" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" targetNamespace="http://www.xbrl.org/2023/si-prefix" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:si-prefix="http://www.xbrl.org/2023/si-prefix" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://www.xbrl.org/2023/si-prefix" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:annotation>
     <xs:appinfo>
-      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="magnitude_lab.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnatude_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnitude_lab.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:roleType roleURI="https://www.xbrl.org/2023/roles/si-prefix-presentation" id="si-prefix-presentation">
+        <linkbase:definition>SI Prefix List</linkbase:definition>
+        <linkbase:usedOn>linkbase:presentationLink</linkbase:usedOn>
+      </linkbase:roleType>
     </xs:appinfo>
   </xs:annotation>
+  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="dtr-types.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+  <xs:element name="SIPrefixDomain" id="si_SIPrefixDomain" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="atto" id="si-prefix_atto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="centi" id="si-prefix_centi" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="deca" id="si-prefix_deca" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
