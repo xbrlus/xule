@@ -1383,7 +1383,7 @@ def property_concept_names(xule_context, object_value, *args):
  
     return xv.XuleValue(xule_context, frozenset(concepts), 'set')
 
-def property_reference_parts(xule_context, object_value, *args):
+def property_part_elements(xule_context, object_value, *args):
 
     result = {xv.XuleValue(xule_context, x, 'part-element') for x in object_value.value.qnameConcepts.values() if x.isLinkPart}
     return xv.XuleValue(xule_context, frozenset(result), 'set')
@@ -2657,7 +2657,7 @@ PROPERTIES = {
               'facts': (property_facts, 0, ('cube','instance'), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
-              'reference-parts': (property_reference_parts, 0, ('taxonomy',), False),
+              'part-elements': (property_part_elements, 0, ('taxonomy',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
               'time-span': (property_time_span, 0, ('string', 'duration'), False),
