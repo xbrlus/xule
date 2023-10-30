@@ -72,7 +72,7 @@ constant $UTR_UNITS = list(for $unit in $UNITS_XML
 /** GET DATA TO CREATE CONCEPTS FOR MAGNITUDE 
 ---------------------------------------------**/
 
-constant $SCALE_CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel/scale.csv',true, list( 'string','string', 'decimal', 'decimal'))
+constant $SCALE_CONCEPTS = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/source/xodel/scale.csv',true, list( 'string','string', 'decimal', 'decimal'))
 
 
 /** GET DATA TO CREATE CONCEPTS FOR DOMAIN HEADERS 
@@ -89,7 +89,7 @@ constant $DOMAIN_HEADERS = (list(
 /** EXTRACT DATA FROM EXCEL FOR CONVERSION FACTORS 
 -------------------------------------------------**/
 
-constant $CONVERT_LINKS = excel-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel/unitRelations.xlsx', 'Sheet1',true,list('int','string','string', 'string','string','string','decimal'))
+constant $CONVERT_LINKS = excel-data('https://github.com/xbrlus/xule/raw/main/unitTests/source/xodel/unitRelations.xlsx', 'Sheet1',true,list('int','string','string', 'string','string','string','decimal'))
 
 /** DEFINE THE PACKAGE 
 -----------------------**/
