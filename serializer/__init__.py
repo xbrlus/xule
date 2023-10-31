@@ -875,6 +875,8 @@ def serialize_schema(document):
 
     # add imports for namespaces that were added from the contents
     for namespace in needed_namespaces:
+        if namespace == _SCHEMA_NAMESPACE:
+            continue
         namespaces.get_or_add_prefix(namespace)
         for potential_import in document.dts.documents.values():
             if potential_import.target_namespace == namespace:
