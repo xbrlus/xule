@@ -1,0 +1,16 @@
+namespace units-parts = http://www.xbrl.org/2023/units-parts
+namespace xs = http://www.w3.org/2001/XMLSchema
+
+constant $REF_PARTS = list(list('units-parts:UnitQname',xs:QName))
+
+output add_reference_parts
+
+for $ref in ($REF_PARTS)
+        $ref
+
+package-name $UNIT_TAXONOMY
+document-uri 'unit-part.xsd'
+document-imported-in 'units.xsd'
+document-namespace 'http://www.xbrl.org/2023/units-parts'
+part-name to-qname($ref[1]).to-xodel
+part-data-type $ref[2].to-xodel

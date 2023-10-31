@@ -90,7 +90,7 @@ constant $DOMAIN_HEADERS = (list(
 /** EXTRACT DATA FROM EXCEL FOR CONVERSION FACTORS 
 -------------------------------------------------**/
 
-constant $CONVERT_LINKS = excel-data('https://github.com/xbrlus/xule/raw/main/unitTests/source/xodel/unitRelations.xlsx', 'Sheet1',true,list('int','string','string', 'string','string','string','decimal'))
+constant $CONVERT_LINKS = excel-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel/unitRelations.xlsx', 'Sheet1',true,list('string','string','string', 'string','string','string','decimal'))
 
 /** DEFINE THE PACKAGE 
 -----------------------**/
@@ -133,7 +133,8 @@ role-used-on list(link:label).to-xodel
 ------------------------------**/
 output create_operator_arcroles
 
-$arcroles = list(list('http://www.xbrl.org/2002/arcrole/datatype-numerator','Defines the datatype numerator of a datatype that comprises two or more units for example flowItemType may have a numerator of volumeItemType.'),
+$arcroles = list(
+list('http://www.xbrl.org/2023/arcrole/datatype-numerator','Defines the datatype numerator of a datatype that comprises two or more units for example flowItemType may have a numerator of volumeItemType.'),
 list('http://www.xbrl.org/2023/arcrole/datatype-denominator','Defines the datatype denominator of a datatype that comprises two or more units for example flowItemType may have a denominator of timeItemType.'),
 list('http://www.xbrl.org/2023/arcrole/datatype-multiplier','Defines the datatype multiplier of a datatype that comprises two or more units for example areaItemType may have a multiplier of lengthItemType.'),
 list('http://www.xbrl.org/2023/arcrole/datatype-squared','Defines the datatype derived by squaring another datatype. For example area is derived from length squared.'),
@@ -510,7 +511,7 @@ role-used-on list('Definition').to-xodel
 output link_unit_to_unit
 
 for $links in $CONVERT_LINKS
-    $source = qname('http://www.xbrl.org/2009/utr',$links[2])
+    $source = to-qname($links[3] + ':' + $links[2])
     $targetqnames = to-qname($links[6] + ':' + $links[5])
     $links
 
@@ -542,7 +543,7 @@ document-uri 'units_ref.xml'
 document-imported-in 'units.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname($iso_temp_namespace, $ref[1]).to-xodel
-reference-parts  list(list(property-part:StatusRemark, qname($ref[3],$ref[1]))).to-xodel
+reference-parts  list(list(units-parts:UnitQname, qname($ref[3],$ref[1]))).to-xodel
 
 
 output add_reference_qname_alt
@@ -555,7 +556,7 @@ document-uri 'units_ref.xml'
 document-imported-in 'units.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname($ref[3], $ref[1]).to-xodel
-reference-parts  list(list(property-part:StatusRemark, qname($ref[3],$ref[1]))).to-xodel
+reference-parts  list(list(units-parts:UnitQname, qname($ref[3],$ref[1]))).to-xodel
 
 output add_reference_qname_datatype
 
@@ -567,7 +568,7 @@ document-uri 'units_ref.xml'
 document-imported-in 'units.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname('http://www.xbrl.org/2023/datatype-units', $ref[1]).to-xodel
-reference-parts  list(list(property-part:StatusRemark, qname($ref[3],$ref[1]))).to-xodel
+reference-parts  list(list(units-parts:UnitQname, qname($ref[3],$ref[1]))).to-xodel
 
 
 output add_reference_qname_si
@@ -580,4 +581,4 @@ document-uri 'magnitude_ref.xml'
 document-imported-in 'units.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname('http://www.xbrl.org/2023/si-prefix', $ref[1]).to-xodel
-reference-parts  list(list(property-part:StatusRemark, qname('http://www.xbrl.org/2023/si-prefix',$ref[1]))).to-xodel
+reference-parts  list(list(units-parts:UnitQname, qname('http://www.xbrl.org/2023/si-prefix',$ref[1]))).to-xodel

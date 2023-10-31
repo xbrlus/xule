@@ -5,7 +5,8 @@
         "functions.xule",
         "constants.xule",
         "units.xule",
-        "dataType.xule"
+        "dataType.xule",
+        "parts.xule"
     ],
     "xule.namespaces.definitions": [
         "/Users/campbellpryde/Documents/GitHub/filer_membership/taxonomies/2020/http-fasb-org-us-gaap-2020-01-31.json",

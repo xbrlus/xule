@@ -11,6 +11,7 @@
   <xs:element name="SQNamesType" id="dtr_SQNamesType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="areaItemType" id="dtr_areaItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="dateTimeItemType" id="dtr_dateTimeItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="densityItemType" id="dtr_densityItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="domainItemType" id="dtr_domainItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="durationItemType" id="dtr_durationItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="electricChargeItemType" id="dtr_electricChargeItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
@@ -53,6 +54,7 @@
   <xs:element name="speedItemType" id="dtr_speedItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="temperatureItemType" id="dtr_temperatureItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="textBlockItemType" id="dtr_textBlockItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="timeDurationItemType" id="dtr_timeDurationItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="voltageItemType" id="dtr_voltageItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="volumeItemType" id="dtr_volumeItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="weightItemType" id="dtr_weightItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>

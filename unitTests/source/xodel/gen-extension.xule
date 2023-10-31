@@ -98,6 +98,9 @@ output-attribute reference-role
 output-attribute reference-concept-name
 output-attribute reference-parts
 
+//Parts
+output-attribute part-name
+output-attribute part-data-type
 
 namespace http://fasb.org/us-gaap/2023
 

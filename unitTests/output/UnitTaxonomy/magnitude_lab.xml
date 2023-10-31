@@ -1,128 +1,128 @@
 <link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
   <link:roleRef roleURI="http://www.xbrl.org/2023/role/symbol" xlink:href="units.xsd#symbol" xlink:type="simple"/>
   <link:labelLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
-    <link:loc xlink:label="ns12_micro" xlink:href="magnitude.xsd#si-prefix_micro" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_micro" xlink:to="lbl_lab_ns12_micro"/>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_micro" xml:lang="en">&#956;</link:label>
-    <link:loc xlink:label="ns12_nano" xlink:href="magnitude.xsd#si-prefix_nano" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_nano" xlink:to="lbl_lab_ns12_nano"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_nano" xml:lang="en">A nano is the SI unit prefix represented using the symbol n. A nano uses a base 10 magnitude of -9. </link:label>
-    <link:loc xlink:label="ns12_deca" xlink:href="magnitude.xsd#si-prefix_deca" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_deca" xlink:to="lbl_lab_ns12_deca"/>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_deca" xml:lang="en">da</link:label>
-    <link:loc xlink:label="ns12_mega" xlink:href="magnitude.xsd#si-prefix_mega" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_mega" xlink:to="lbl_lab_ns12_mega"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_mega" xml:lang="en">mega</link:label>
-    <link:loc xlink:label="ns12_ronto" xlink:href="magnitude.xsd#si-prefix_ronto" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_ronto" xlink:to="lbl_lab_ns12_ronto"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_ronto" xml:lang="en">ronto</link:label>
-    <link:loc xlink:label="ns12_tera" xlink:href="magnitude.xsd#si-prefix_tera" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_tera" xlink:to="lbl_lab_ns12_tera"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_tera" xml:lang="en">tera</link:label>
     <link:loc xlink:label="ns12_milli" xlink:href="magnitude.xsd#si-prefix_milli" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_milli" xlink:to="lbl_lab_ns12_milli"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_milli" xml:lang="en">milli</link:label>
-    <link:loc xlink:label="ns12_zepto" xlink:href="magnitude.xsd#si-prefix_zepto" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_zepto" xlink:to="lbl_lab_ns12_zepto"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_zepto" xml:lang="en">zepto</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_mega" xml:lang="en">M</link:label>
-    <link:loc xlink:label="ns12_hecto" xlink:href="magnitude.xsd#si-prefix_hecto" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_hecto" xlink:to="lbl_lab_ns12_hecto"/>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_hecto" xml:lang="en">h</link:label>
-    <link:loc xlink:label="ns12_yotta" xlink:href="magnitude.xsd#si-prefix_yotta" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_yotta" xlink:to="lbl_lab_ns12_yotta"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_yotta" xml:lang="en">yotta</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_micro" xml:lang="en">A micro is the SI unit prefix represented using the symbol &#956;. A micro uses a base 10 magnitude of -6. </link:label>
-    <link:loc xlink:label="ns12_ronna" xlink:href="magnitude.xsd#si-prefix_ronna" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_ronna" xlink:to="lbl_lab_ns12_ronna"/>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_ronna" xml:lang="en">R</link:label>
-    <link:loc xlink:label="ns12_peta" xlink:href="magnitude.xsd#si-prefix_peta" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_peta" xlink:to="lbl_lab_ns12_peta"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_peta" xml:lang="en">A peta is the SI unit prefix represented using the symbol P. A peta uses a base 10 magnitude of 15. </link:label>
-    <link:loc xlink:label="ns12_pico" xlink:href="magnitude.xsd#si-prefix_pico" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_pico" xlink:to="lbl_lab_ns12_pico"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_pico" xml:lang="en">pico</link:label>
-    <link:loc xlink:label="ns12_centi" xlink:href="magnitude.xsd#si-prefix_centi" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_centi" xlink:to="lbl_lab_ns12_centi"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_centi" xml:lang="en">centi</link:label>
-    <link:loc xlink:label="ns12_quecto" xlink:href="magnitude.xsd#si-prefix_quecto" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_quecto" xlink:to="lbl_lab_ns12_quecto"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_quecto" xml:lang="en">A quecto is the SI unit prefix represented using the symbol q. A quecto uses a base 10 magnitude of -30. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_milli" xml:lang="en">m</link:label>
-    <link:loc xlink:label="ns12_deci" xlink:href="magnitude.xsd#si-prefix_deci" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_deci" xlink:to="lbl_lab_ns12_deci"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_deci" xml:lang="en">A deci is the SI unit prefix represented using the symbol d. A deci uses a base 10 magnitude of -1. </link:label>
-    <link:loc xlink:label="ns12_quetta" xlink:href="magnitude.xsd#si-prefix_quetta" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_quetta" xlink:to="lbl_lab_ns12_quetta"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_quetta" xml:lang="en">quetta</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_milli" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A milli is the SI unit prefix represented using the symbol m. A milli uses a base 10 magnitude of -3. </link:label>
+    <link:loc xlink:label="ns12_tera" xlink:href="magnitude.xsd#si-prefix_tera" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_tera" xlink:to="lbl_lab_ns12_tera"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_tera" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">T</link:label>
+    <link:loc xlink:label="ns12_ronto" xlink:href="magnitude.xsd#si-prefix_ronto" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_ronto" xlink:to="lbl_lab_ns12_ronto"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_ronto" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A ronto is the SI unit prefix represented using the symbol r. A ronto uses a base 10 magnitude of -27. </link:label>
+    <link:loc xlink:label="ns12_mega" xlink:href="magnitude.xsd#si-prefix_mega" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_mega" xlink:to="lbl_lab_ns12_mega"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_mega" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">mega</link:label>
+    <link:loc xlink:label="ns12_deca" xlink:href="magnitude.xsd#si-prefix_deca" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_deca" xlink:to="lbl_lab_ns12_deca"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_deca" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A deca is the SI unit prefix represented using the symbol da. A deca uses a base 10 magnitude of 1. </link:label>
     <link:loc xlink:label="ns12_exa" xlink:href="magnitude.xsd#si-prefix_exa" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_exa" xlink:to="lbl_lab_ns12_exa"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_exa" xml:lang="en">exa</link:label>
-    <link:loc xlink:label="ns12_zetta" xlink:href="magnitude.xsd#si-prefix_zetta" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_zetta" xlink:to="lbl_lab_ns12_zetta"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_zetta" xml:lang="en">zetta</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_zepto" xml:lang="en">A zepto is the SI unit prefix represented using the symbol z. A zepto uses a base 10 magnitude of -21. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_nano" xml:lang="en">n</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_exa" xml:lang="en">E</link:label>
-    <link:loc xlink:label="ns12_yocto" xlink:href="magnitude.xsd#si-prefix_yocto" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_yocto" xlink:to="lbl_lab_ns12_yocto"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_yocto" xml:lang="en">yocto</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_yocto" xml:lang="en">y</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_tera" xml:lang="en">T</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_exa" xml:lang="en">A exa is the SI unit prefix represented using the symbol E. A exa uses a base 10 magnitude of 18. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_deci" xml:lang="en">d</link:label>
-    <link:loc xlink:label="ns12_SIPrefixDomain" xlink:href="magnitude.xsd#si_SIPrefixDomain" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_SIPrefixDomain" xlink:to="lbl_lab_ns12_SIPrefixDomain"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_SIPrefixDomain" xml:lang="en">SI Prefix [Domain]</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_deci" xml:lang="en">deci</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_hecto" xml:lang="en">hecto</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_yocto" xml:lang="en">A yocto is the SI unit prefix represented using the symbol y. A yocto uses a base 10 magnitude of -24. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_exa" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">E</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_tera" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">tera</link:label>
+    <link:loc xlink:label="ns12_yotta" xlink:href="magnitude.xsd#si-prefix_yotta" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_yotta" xlink:to="lbl_lab_ns12_yotta"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_yotta" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">yotta</link:label>
+    <link:loc xlink:label="ns12_pico" xlink:href="magnitude.xsd#si-prefix_pico" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_pico" xlink:to="lbl_lab_ns12_pico"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_pico" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A pico is the SI unit prefix represented using the symbol p. A pico uses a base 10 magnitude of -12. </link:label>
+    <link:loc xlink:label="ns12_hecto" xlink:href="magnitude.xsd#si-prefix_hecto" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_hecto" xlink:to="lbl_lab_ns12_hecto"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_hecto" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A hecto is the SI unit prefix represented using the symbol h. A hecto uses a base 10 magnitude of 2. </link:label>
     <link:loc xlink:label="ns12_giga" xlink:href="magnitude.xsd#si-prefix_giga" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_giga" xlink:to="lbl_lab_ns12_giga"/>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_giga" xml:lang="en">G</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_zepto" xml:lang="en">z</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_giga" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A giga is the SI unit prefix represented using the symbol G. A giga uses a base 10 magnitude of 9. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_ronto" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">r</link:label>
     <link:loc xlink:label="ns12_kilo" xlink:href="magnitude.xsd#si-prefix_kilo" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_kilo" xlink:to="lbl_lab_ns12_kilo"/>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_kilo" xml:lang="en">k</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_kilo" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A kilo is the SI unit prefix represented using the symbol k. A kilo uses a base 10 magnitude of 3. </link:label>
     <link:loc xlink:label="ns12_femto" xlink:href="magnitude.xsd#si-prefix_femto" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_femto" xlink:to="lbl_lab_ns12_femto"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_femto" xml:lang="en">A femto is the SI unit prefix represented using the symbol f. A femto uses a base 10 magnitude of -15. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_yotta" xml:lang="en">A yotta is the SI unit prefix represented using the symbol Y. A yotta uses a base 10 magnitude of 24. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_peta" xml:lang="en">P</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_quetta" xml:lang="en">Q</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_centi" xml:lang="en">A centi is the SI unit prefix represented using the symbol c. A centi uses a base 10 magnitude of -2. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_pico" xml:lang="en">p</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_giga" xml:lang="en">giga</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_nano" xml:lang="en">nano</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_hecto" xml:lang="en">A hecto is the SI unit prefix represented using the symbol h. A hecto uses a base 10 magnitude of 2. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_mega" xml:lang="en">A mega is the SI unit prefix represented using the symbol M. A mega uses a base 10 magnitude of 6. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_femto" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">femto</link:label>
+    <link:loc xlink:label="ns12_peta" xlink:href="magnitude.xsd#si-prefix_peta" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_peta" xlink:to="lbl_lab_ns12_peta"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_peta" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">peta</link:label>
+    <link:loc xlink:label="ns12_deci" xlink:href="magnitude.xsd#si-prefix_deci" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_deci" xlink:to="lbl_lab_ns12_deci"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_deci" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A deci is the SI unit prefix represented using the symbol d. A deci uses a base 10 magnitude of -1. </link:label>
+    <link:loc xlink:label="ns12_zepto" xlink:href="magnitude.xsd#si-prefix_zepto" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_zepto" xlink:to="lbl_lab_ns12_zepto"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_zepto" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">z</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_milli" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">milli</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_hecto" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">hecto</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_yotta" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">Y</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_zepto" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A zepto is the SI unit prefix represented using the symbol z. A zepto uses a base 10 magnitude of -21. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_ronto" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">ronto</link:label>
     <link:loc xlink:label="ns12_atto" xlink:href="magnitude.xsd#si-prefix_atto" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_atto" xlink:to="lbl_lab_ns12_atto"/>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_atto" xml:lang="en">A atto is the SI unit prefix represented using the symbol a. A atto uses a base 10 magnitude of -18. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_tera" xml:lang="en">A tera is the SI unit prefix represented using the symbol T. A tera uses a base 10 magnitude of 12. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_peta" xml:lang="en">peta</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_ronto" xml:lang="en">A ronto is the SI unit prefix represented using the symbol r. A ronto uses a base 10 magnitude of -27. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_giga" xml:lang="en">A giga is the SI unit prefix represented using the symbol G. A giga uses a base 10 magnitude of 9. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_milli" xml:lang="en">A milli is the SI unit prefix represented using the symbol m. A milli uses a base 10 magnitude of -3. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_atto" xml:lang="en">atto</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_femto" xml:lang="en">f</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_femto" xml:lang="en">femto</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_quecto" xml:lang="en">q</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_yotta" xml:lang="en">Y</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_centi" xml:lang="en">c</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_quecto" xml:lang="en">quecto</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_pico" xml:lang="en">A pico is the SI unit prefix represented using the symbol p. A pico uses a base 10 magnitude of -12. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_kilo" xml:lang="en">A kilo is the SI unit prefix represented using the symbol k. A kilo uses a base 10 magnitude of 3. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_zetta" xml:lang="en">A zetta is the SI unit prefix represented using the symbol Z. A zetta uses a base 10 magnitude of 21. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_atto" xml:lang="en">a</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_deca" xml:lang="en">A deca is the SI unit prefix represented using the symbol da. A deca uses a base 10 magnitude of 1. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_kilo" xml:lang="en">kilo</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_ronna" xml:lang="en">A ronna is the SI unit prefix represented using the symbol R. A ronna uses a base 10 magnitude of 27. </link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_micro" xml:lang="en">micro</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_ronna" xml:lang="en">ronna</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_zetta" xml:lang="en">Z</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/label" xlink:type="resource" xlink:label="lbl_lab_ns12_deca" xml:lang="en">deca</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2023/role/symbol" xlink:type="resource" xlink:label="lbl_lab_ns12_ronto" xml:lang="en">r</link:label>
-    <link:label xlink:role="http://www.xbrl.org/2003/role/documentation" xlink:type="resource" xlink:label="lbl_lab_ns12_quetta" xml:lang="en">A quetta is the SI unit prefix represented using the symbol Q. A quetta uses a base 10 magnitude of 30. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_atto" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A atto is the SI unit prefix represented using the symbol a. A atto uses a base 10 magnitude of -18. </link:label>
+    <link:loc xlink:label="ns12_micro" xlink:href="magnitude.xsd#si-prefix_micro" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_micro" xlink:to="lbl_lab_ns12_micro"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_micro" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">&#956;</link:label>
+    <link:loc xlink:label="ns12_quecto" xlink:href="magnitude.xsd#si-prefix_quecto" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_quecto" xlink:to="lbl_lab_ns12_quecto"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_quecto" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A quecto is the SI unit prefix represented using the symbol q. A quecto uses a base 10 magnitude of -30. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_zepto" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">zepto</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_peta" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">P</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_giga" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">giga</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_quecto" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">q</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_tera" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A tera is the SI unit prefix represented using the symbol T. A tera uses a base 10 magnitude of 12. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_kilo" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">k</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_kilo" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">kilo</link:label>
+    <link:loc xlink:label="ns12_yocto" xlink:href="magnitude.xsd#si-prefix_yocto" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_yocto" xlink:to="lbl_lab_ns12_yocto"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_yocto" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">y</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_deci" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">deci</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_peta" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A peta is the SI unit prefix represented using the symbol P. A peta uses a base 10 magnitude of 15. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_milli" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">m</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_yocto" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A yocto is the SI unit prefix represented using the symbol y. A yocto uses a base 10 magnitude of -24. </link:label>
+    <link:loc xlink:label="ns12_nano" xlink:href="magnitude.xsd#si-prefix_nano" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_nano" xlink:to="lbl_lab_ns12_nano"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_nano" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">nano</link:label>
+    <link:loc xlink:label="ns12_zetta" xlink:href="magnitude.xsd#si-prefix_zetta" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_zetta" xlink:to="lbl_lab_ns12_zetta"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_zetta" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">zetta</link:label>
+    <link:loc xlink:label="ns12_ronna" xlink:href="magnitude.xsd#si-prefix_ronna" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_ronna" xlink:to="lbl_lab_ns12_ronna"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_ronna" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">R</link:label>
+    <link:loc xlink:label="ns12_quetta" xlink:href="magnitude.xsd#si-prefix_quetta" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_quetta" xlink:to="lbl_lab_ns12_quetta"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_quetta" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">Q</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_mega" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">M</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_quetta" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A quetta is the SI unit prefix represented using the symbol Q. A quetta uses a base 10 magnitude of 30. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_micro" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">micro</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_atto" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">atto</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_ronna" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A ronna is the SI unit prefix represented using the symbol R. A ronna uses a base 10 magnitude of 27. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_atto" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">a</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_giga" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">G</link:label>
+    <link:loc xlink:label="ns12_centi" xlink:href="magnitude.xsd#si-prefix_centi" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_centi" xlink:to="lbl_lab_ns12_centi"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_centi" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A centi is the SI unit prefix represented using the symbol c. A centi uses a base 10 magnitude of -2. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_femto" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A femto is the SI unit prefix represented using the symbol f. A femto uses a base 10 magnitude of -15. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_pico" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">pico</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_exa" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A exa is the SI unit prefix represented using the symbol E. A exa uses a base 10 magnitude of 18. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_exa" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">exa</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_yocto" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">yocto</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_centi" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">centi</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_zetta" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">Z</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_nano" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A nano is the SI unit prefix represented using the symbol n. A nano uses a base 10 magnitude of -9. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_femto" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">f</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_zetta" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A zetta is the SI unit prefix represented using the symbol Z. A zetta uses a base 10 magnitude of 21. </link:label>
+    <link:loc xlink:label="ns12_SIPrefixDomain" xlink:href="magnitude.xsd#si_SIPrefixDomain" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns12_SIPrefixDomain" xlink:to="lbl_lab_ns12_SIPrefixDomain"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_SIPrefixDomain" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">SI Prefix [Domain]</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_deci" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">d</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_yotta" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A yotta is the SI unit prefix represented using the symbol Y. A yotta uses a base 10 magnitude of 24. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_deca" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">deca</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_quetta" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">quetta</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_quecto" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">quecto</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_hecto" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">h</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_ronna" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">ronna</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_pico" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">p</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_micro" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A micro is the SI unit prefix represented using the symbol &#956;. A micro uses a base 10 magnitude of -6. </link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_centi" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">c</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_nano" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">n</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_deca" xlink:role="http://www.xbrl.org/2023/role/symbol" xml:lang="en">da</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns12_mega" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">A mega is the SI unit prefix represented using the symbol M. A mega uses a base 10 magnitude of 6. </link:label>
   </link:labelLink>
 </link:linkbase>

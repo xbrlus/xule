@@ -5,10 +5,6 @@
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_def.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
-      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2002/arcrole/datatype-numerator" cyclesAllowed="none" id="datatype-numerator">
-        <linkbase:definition>Defines the datatype numerator of a datatype that comprises two or more units for example flowItemType may have a numerator of volumeItemType.</linkbase:definition>
-        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
-      </linkbase:arcroleType>
       <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/converted-convertee" cyclesAllowed="none" id="converted-convertee">
         <linkbase:definition>Defines the unit conversion factor to a unit from another unit. The conversion factor is defined as an attibute of the arc called conversionFactor</linkbase:definition>
         <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
@@ -23,6 +19,10 @@
       </linkbase:arcroleType>
       <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-multiplier" cyclesAllowed="none" id="datatype-multiplier">
         <linkbase:definition>Defines the datatype multiplier of a datatype that comprises two or more units for example areaItemType may have a multiplier of lengthItemType.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-numerator" cyclesAllowed="none" id="datatype-numerator">
+        <linkbase:definition>Defines the datatype numerator of a datatype that comprises two or more units for example flowItemType may have a numerator of volumeItemType.</linkbase:definition>
         <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
       </linkbase:arcroleType>
       <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-squared" cyclesAllowed="none" id="datatype-squared">
@@ -53,6 +53,10 @@
         <linkbase:definition>Defines the label role for the symbol associated with the unit</linkbase:definition>
         <linkbase:usedOn>linkbase:label</linkbase:usedOn>
       </linkbase:roleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/versionDate" id="versionDate">
+        <linkbase:definition>Defines the label role for the version date associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
       <linkbase:roleType roleURI="https://www.xbrl.org/2023/roles/currency-presentation" id="currency-presentation">
         <linkbase:definition>Currency List</linkbase:definition>
         <linkbase:usedOn>linkbase:presentationLink</linkbase:usedOn>
@@ -69,5 +73,6 @@
   <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
   <xs:import namespace="http://www.xbrl.org/taxonomy/int/currency/YYYY-MM-DD/currency-en" schemaLocation="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/units-parts" schemaLocation="unit-part.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2009/utr" schemaLocation="utr-units.xsd"/>
 </xs:schema>
