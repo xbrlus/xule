@@ -90,7 +90,7 @@ constant $DOMAIN_HEADERS = (list(
 /** EXTRACT DATA FROM EXCEL FOR CONVERSION FACTORS 
 -------------------------------------------------**/
 
-constant $CONVERT_LINKS = excel-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel/unitRelations.xlsx', 'Sheet1',true,list('string','string','string', 'string','string','string','decimal'))
+constant $CONVERT_LINKS = excel-data('https://github.com/xbrlus/xule/raw/main/unitTests/source/xodel/unitRelations.xlsx', 'Sheet1',true,list('string','string','string', 'string','string','string','decimal'))
 
 /** DEFINE THE PACKAGE 
 -----------------------**/
