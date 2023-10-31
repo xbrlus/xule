@@ -2,7 +2,6 @@
   <xs:annotation>
     <xs:appinfo>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnitude_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
-      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_def.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/converted-convertee" cyclesAllowed="none" id="converted-convertee">
@@ -14,7 +13,7 @@
         <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
       </linkbase:arcroleType>
       <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-denominator" cyclesAllowed="none" id="datatype-denominator">
-        <linkbase:definition>Defines the datatype denominator of a datatype that comprises two or more units for example flowItemType may have a denominator of timeItemType.</linkbase:definition>
+        <linkbase:definition>Defines the datatype denominator of a datatype that comprises two or more units for example flowItemType may have a denominator of timeDurationItemType.</linkbase:definition>
         <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
       </linkbase:arcroleType>
       <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-multiplier" cyclesAllowed="none" id="datatype-multiplier">
@@ -69,7 +68,7 @@
   </xs:annotation>
   <xs:import namespace="http://www.xbrl.org/2003/iso4217" schemaLocation="alt-currency-unit.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2023/datatype-units" schemaLocation="datatype-units.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="dtr-types.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/concept/2022-03-31" schemaLocation="dtr-types.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
   <xs:import namespace="http://www.xbrl.org/taxonomy/int/currency/YYYY-MM-DD/currency-en" schemaLocation="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude.xsd"/>

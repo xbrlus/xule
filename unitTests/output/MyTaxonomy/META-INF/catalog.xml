@@ -1,3 +1,0 @@
-<ct:catalog xmlns:ct="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <ct:rewriteURI rewritePrefix="../" uriStartString="https://taxonomies.xbrl.us/xodel/MyTaxonomy/"/>
-</ct:catalog>

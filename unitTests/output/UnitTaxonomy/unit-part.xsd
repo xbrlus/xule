@@ -1,5 +1,4 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:units-parts="http://www.xbrl.org/2023/units-parts" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://www.xbrl.org/2023/units-parts" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  
   <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
   <xs:element name="UnitQname" id="PartElement" type="xs:QName" substitutionGroup="linkbase:part"/>
 </xs:schema>

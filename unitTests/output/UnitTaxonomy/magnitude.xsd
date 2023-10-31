@@ -9,9 +9,9 @@
       </linkbase:roleType>
     </xs:appinfo>
   </xs:annotation>
-  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="dtr-types.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd"/>
   <xs:element name="SIPrefixDomain" id="si_SIPrefixDomain" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="atto" id="si-prefix_atto" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="centi" id="si-prefix_centi" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
