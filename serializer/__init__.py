@@ -650,7 +650,14 @@ def serialize_resource(extended_link, locators, arcs, resource, namespaces, docu
             # Make sure the part namespace is in the document
             namespaces.get_or_add_prefix(part.part_element.name.namespace, part.part_element.document.uri)
             part_node = etree.Element(part.part_element.name.clark, nsmap=namespaces.ns_by_prefix)
-            part_node.text = part.content
+            # Check if the value is a qname. This needs special handling
+            if part.part_element.type.base_xml_type.name.clark == '{http://www.w3.org/2001/XMLSchema}QName':
+                # make sure the namespace is in the document.
+                part_value_qname = resolve_clark_to_qname(part.content, part.dts)
+                prefix = namespaces.get_or_add_prefix(part_value_qname.namespace)
+                part_node.text = f"{prefix}:{part_value_qname.local_name}"
+            else:
+                part_node.text = part.content
             resource_node.append(part_node)
 
     # locator if needed
@@ -678,6 +685,13 @@ def serialize_resource(extended_link, locators, arcs, resource, namespaces, docu
         arcs.add(resource.concept)
 
     extended_link.append(resource_node)
+
+def resolve_clark_to_qname(name, dts):
+    '''Convert a clark notation qname to a SXMQName'''
+    match = re.match('^{([^}]+)}(.*)$', name)
+    if match is None:
+        raise SerializerException(f"QName '{name}' is not a valid clark notation")
+    return dts.new('QName', match.group(1), match.group(2))
 
 def serialize_cube(extended_link, locators, cube_part, namespaces, document, primary_role=None):
     # The primary_role indicates that the all relationship of the primary is in a different role
