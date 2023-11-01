@@ -30345,3 +30345,1308 @@
  <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
  <ref href=""/></entry>
 </log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.38 secs at 2023-11-01T10:56:32 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4554207088">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4554207088">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="Serializer" level="info">
+ <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.54 secs at 2023-11-01T13:20:08 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4391595888">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4391595888">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="Serializer" level="info">
+ <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23628 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.46 secs at 2023-11-01T13:28:40 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4445683568">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4445683568">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23649 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.17 secs at 2023-11-01T14:47:06 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4562648944">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4562648944">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23649 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.15 secs at 2023-11-01T14:47:48 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4401409904">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4401409904">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="Serializer" level="info">
+ <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23649 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.18 secs at 2023-11-01T15:52:54 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4430880624">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4430880624">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="Serializer" level="info">
+ <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23649 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.17 secs at 2023-11-01T15:59:03 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4336246640">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4336246640">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="Serializer" level="info">
+ <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23649 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.15 secs at 2023-11-01T16:12:14 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4475379568">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4475379568">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="Serializer" level="info">
+ <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xodel successful, version 0.9. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL Serializer successful, version 01.0. - serializer </message>
+ <ref href="serializer"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23649 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.35 secs at 2023-11-01T16:23:17 - https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_reference_qname_datatypes: Rule: add_reference_qname_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_reference_qname_inbuilt_datatypes: Rule: add_reference_qname_inbuilt_datatypes - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_base_ItemType_concepts: Rule: create_base_ItemType_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_data_type_labels: Rule: create_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_dtr_concepts: Rule: create_dtr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_inbuilt_data_type_labels: Rule: create_inbuilt_data_type_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_reference_parts: Rule: add_reference_parts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_alt_currency_labels: Rule: add_alt_currency_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_datatype_unit_labels: Rule: add_datatype_unit_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_reference_qname: Rule: add_reference_qname - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_reference_qname_alt: Rule: add_reference_qname_alt - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_reference_qname_datatype: Rule: add_reference_qname_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule add_reference_qname_si: Rule: add_reference_qname_si - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_alt_iso_concepts: Rule: create_alt_iso_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_base_unit_taxonomy: Rule: create_base_unit_taxonomy - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_currency_presentation: Rule: create_currency_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_currency_presentation_role: Rule: create_currency_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_datatype_presentation: Rule: create_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_datatype_presentation_role: Rule: create_datatype_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_datatype_unit_concepts: Rule: create_datatype_unit_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_domain_header_concepts: Rule: create_domain_header_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_domain_labels: Rule: create_domain_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_label_roles: Rule: create_label_roles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_label_roles_versionDate: Rule: create_label_roles_versionDate - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_labels_standard: Rule: create_labels_standard - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_magnatude_documentation: Rule: create_magnatude_documentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_magnatude_labels: Rule: create_magnatude_labels - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_magnitude_presentation: Rule: create_magnitude_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_magnitude_presentation_role: Rule: create_magnitude_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_new_datatype_presentation: Rule: create_new_datatype_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_operator_arcroles: Rule: create_operator_arcroles - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_scale_concepts: Rule: create_scale_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_utr_concepts: Rule: create_utr_concepts - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_utr_definition_role: Rule: create_utr_definition_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_utr_presentation: Rule: create_utr_presentation - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule create_utr_presentation_role: Rule: create_utr_presentation_role - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="import_currency_taxonomy" level="info">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/0000831259-21-000029-xbrl.zip/fcx-20210630.htm" package-name="UnitTaxonomy" import2-url="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd" severity="info" cid="4356403056">[import_currency_taxonomy] True - </message></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule link_currency_to_datatype: Rule: link_currency_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule link_unit_to_builtIndatatype: Rule: link_unit_to_builtIndatatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule link_unit_to_datatype: Rule: link_unit_to_datatype - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="xule:error" level="error">
+ <message cid="4356403056">[xule:error] rule link_unit_to_unit: Rule: link_unit_to_unit - 'to-xodel' is not a valid property. - fcx-20210630.htm </message>
+ <ref href="fcx-20210630.htm"/></entry>
+<entry code="Serializer" level="info">
+ <message>[Serializer] Writing package /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/UnitTaxonomy.zip - </message>
+ <ref href=""/></entry>
+</log>

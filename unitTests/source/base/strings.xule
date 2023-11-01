@@ -339,6 +339,21 @@ output DST101
 
   27.string
 
+output DST102
+/* 2734.56789 */
+
+  2734.56789.string
+
+output DST103
+/* 273489 */
+
+  273489.plain-string
+
+output DST104
+/* 2734.56789 */
+
+  2734.56789.plain-string
+
 output STR101
 /* '5' */
 
@@ -348,6 +363,16 @@ output STR102
 /* 'cat' */
 
   string('cat')
+
+output STR103
+/* 'cat' */
+
+  plain-string('cat')
+
+output STR104
+/* 'cat' */
+
+  plain-string(2734.56789)
 
 output DSS101
 /* Hello */

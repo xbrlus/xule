@@ -6,7 +6,7 @@ constant $DATA_TYPE_CONCEPT_NS = 'http://www.xbrl.org/dtr/concept/2022-03-31'
 
 constant $INBULT_DATATYPES = list('pureItemType', 'sharesItemType','monetaryItemType','durationItemType')
 
-constant $NEW_DATATYPES = list('timeDurationItemType', 'densityItemType')
+constant $NEW_DATATYPES = list('timeDurationItemType', 'densityItemType', 'luminousFluxItemType','electricalResistanceItemType')
 
 output create_dtr_concepts 
 $baseUnit = $CURRENCY_TAXONOMY.concept(currency:ADP)
@@ -78,3 +78,15 @@ document-imported-in 'dtr-types.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname($DATA_TYPE_CONCEPT_NS, $ref).to-xodel
 reference-parts  list(list(units-parts:UnitQname, qname('http://www.xbrl.org/dtr/type/2022-03-31',$ref))).to-xodel
+
+output add_reference_qname_inbuilt_datatypes
+
+for $ref in $INBULT_DATATYPES
+    $ref
+
+package-name $UNIT_TAXONOMY
+document-uri 'dtr-types_ref.xml'
+document-imported-in 'dtr-types.xsd'
+reference-role 'https://xbrl.org/2022/role/property'
+reference-concept-name qname($DATA_TYPE_CONCEPT_NS, $ref).to-xodel
+reference-parts  list(list(units-parts:UnitQname, qname('http://www.xbrl.org/2003/instance',$ref))).to-xodel

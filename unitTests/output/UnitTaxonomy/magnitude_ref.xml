@@ -1,95 +1,105 @@
 <link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xmlns:units-parts="http://www.xbrl.org/2023/units-parts" xmlns:si-prefix="http://www.xbrl.org/2023/si-prefix" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd http://www.xbrl.org/2023/units-parts unit-part.xsd">
   <link:roleRef roleURI="https://xbrl.org/2022/role/property" xlink:href="http://www.xbrl.org/lrr/role/property-2022-09-28.xsd#property" xlink:type="simple"/>
   <link:referenceLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
+    <link:loc xlink:label="ns13_peta" xlink:href="magnitude.xsd#si-prefix_peta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_peta" xlink:to="lbl_ref_ns13_peta"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_peta" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:peta</units-parts:UnitQname>
+    </link:reference>
     <link:loc xlink:label="ns13_deca" xlink:href="magnitude.xsd#si-prefix_deca" xlink:type="locator"/>
     <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_deca" xlink:to="lbl_ref_ns13_deca"/>
     <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_deca" xlink:role="https://xbrl.org/2022/role/property">
       <units-parts:UnitQname>si-prefix:deca</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_femto" xlink:href="magnitude.xsd#si-prefix_femto" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_femto" xlink:to="lbl_ref_ns13_femto"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_femto" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:femto</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_milli" xlink:href="magnitude.xsd#si-prefix_milli" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_milli" xlink:to="lbl_ref_ns13_milli"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_milli" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:milli</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_mega" xlink:href="magnitude.xsd#si-prefix_mega" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_mega" xlink:to="lbl_ref_ns13_mega"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_mega" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:mega</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_atto" xlink:href="magnitude.xsd#si-prefix_atto" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_atto" xlink:to="lbl_ref_ns13_atto"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_atto" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:atto</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_ronna" xlink:href="magnitude.xsd#si-prefix_ronna" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_ronna" xlink:to="lbl_ref_ns13_ronna"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_ronna" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:ronna</units-parts:UnitQname>
     </link:reference>
     <link:loc xlink:label="ns13_yocto" xlink:href="magnitude.xsd#si-prefix_yocto" xlink:type="locator"/>
     <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_yocto" xlink:to="lbl_ref_ns13_yocto"/>
     <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_yocto" xlink:role="https://xbrl.org/2022/role/property">
       <units-parts:UnitQname>si-prefix:yocto</units-parts:UnitQname>
     </link:reference>
-    <link:loc xlink:label="ns13_exa" xlink:href="magnitude.xsd#si-prefix_exa" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_exa" xlink:to="lbl_ref_ns13_exa"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_exa" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:exa</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_quetta" xlink:href="magnitude.xsd#si-prefix_quetta" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_quetta" xlink:to="lbl_ref_ns13_quetta"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_quetta" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:quetta</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_kilo" xlink:href="magnitude.xsd#si-prefix_kilo" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_kilo" xlink:to="lbl_ref_ns13_kilo"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_kilo" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:kilo</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_pico" xlink:href="magnitude.xsd#si-prefix_pico" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_pico" xlink:to="lbl_ref_ns13_pico"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_pico" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:pico</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_ronto" xlink:href="magnitude.xsd#si-prefix_ronto" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_ronto" xlink:to="lbl_ref_ns13_ronto"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_ronto" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:ronto</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_nano" xlink:href="magnitude.xsd#si-prefix_nano" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_nano" xlink:to="lbl_ref_ns13_nano"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_nano" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:nano</units-parts:UnitQname>
+    <link:loc xlink:label="ns13_mega" xlink:href="magnitude.xsd#si-prefix_mega" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_mega" xlink:to="lbl_ref_ns13_mega"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_mega" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:mega</units-parts:UnitQname>
     </link:reference>
     <link:loc xlink:label="ns13_centi" xlink:href="magnitude.xsd#si-prefix_centi" xlink:type="locator"/>
     <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_centi" xlink:to="lbl_ref_ns13_centi"/>
     <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_centi" xlink:role="https://xbrl.org/2022/role/property">
       <units-parts:UnitQname>si-prefix:centi</units-parts:UnitQname>
     </link:reference>
-    <link:loc xlink:label="ns13_quecto" xlink:href="magnitude.xsd#si-prefix_quecto" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_quecto" xlink:to="lbl_ref_ns13_quecto"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_quecto" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:quecto</units-parts:UnitQname>
+    <link:loc xlink:label="ns13_milli" xlink:href="magnitude.xsd#si-prefix_milli" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_milli" xlink:to="lbl_ref_ns13_milli"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_milli" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:milli</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_femto" xlink:href="magnitude.xsd#si-prefix_femto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_femto" xlink:to="lbl_ref_ns13_femto"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_femto" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:femto</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_pico" xlink:href="magnitude.xsd#si-prefix_pico" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_pico" xlink:to="lbl_ref_ns13_pico"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_pico" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:pico</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_hecto" xlink:href="magnitude.xsd#si-prefix_hecto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_hecto" xlink:to="lbl_ref_ns13_hecto"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_hecto" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:hecto</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_ronna" xlink:href="magnitude.xsd#si-prefix_ronna" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_ronna" xlink:to="lbl_ref_ns13_ronna"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_ronna" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:ronna</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_yotta" xlink:href="magnitude.xsd#si-prefix_yotta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_yotta" xlink:to="lbl_ref_ns13_yotta"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_yotta" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:yotta</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_zetta" xlink:href="magnitude.xsd#si-prefix_zetta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_zetta" xlink:to="lbl_ref_ns13_zetta"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_zetta" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:zetta</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_atto" xlink:href="magnitude.xsd#si-prefix_atto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_atto" xlink:to="lbl_ref_ns13_atto"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_atto" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:atto</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_exa" xlink:href="magnitude.xsd#si-prefix_exa" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_exa" xlink:to="lbl_ref_ns13_exa"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_exa" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:exa</units-parts:UnitQname>
     </link:reference>
     <link:loc xlink:label="ns13_tera" xlink:href="magnitude.xsd#si-prefix_tera" xlink:type="locator"/>
     <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_tera" xlink:to="lbl_ref_ns13_tera"/>
     <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_tera" xlink:role="https://xbrl.org/2022/role/property">
       <units-parts:UnitQname>si-prefix:tera</units-parts:UnitQname>
     </link:reference>
-    <link:loc xlink:label="ns13_micro" xlink:href="magnitude.xsd#si-prefix_micro" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_micro" xlink:to="lbl_ref_ns13_micro"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_micro" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:micro</units-parts:UnitQname>
+    <link:loc xlink:label="ns13_nano" xlink:href="magnitude.xsd#si-prefix_nano" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_nano" xlink:to="lbl_ref_ns13_nano"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_nano" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:nano</units-parts:UnitQname>
     </link:reference>
-    <link:loc xlink:label="ns13_zetta" xlink:href="magnitude.xsd#si-prefix_zetta" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_zetta" xlink:to="lbl_ref_ns13_zetta"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_zetta" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:zetta</units-parts:UnitQname>
+    <link:loc xlink:label="ns13_ronto" xlink:href="magnitude.xsd#si-prefix_ronto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_ronto" xlink:to="lbl_ref_ns13_ronto"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_ronto" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:ronto</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_deci" xlink:href="magnitude.xsd#si-prefix_deci" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_deci" xlink:to="lbl_ref_ns13_deci"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_deci" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:deci</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_quecto" xlink:href="magnitude.xsd#si-prefix_quecto" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_quecto" xlink:to="lbl_ref_ns13_quecto"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_quecto" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:quecto</units-parts:UnitQname>
+    </link:reference>
+    <link:loc xlink:label="ns13_quetta" xlink:href="magnitude.xsd#si-prefix_quetta" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_quetta" xlink:to="lbl_ref_ns13_quetta"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_quetta" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:quetta</units-parts:UnitQname>
     </link:reference>
     <link:loc xlink:label="ns13_zepto" xlink:href="magnitude.xsd#si-prefix_zepto" xlink:type="locator"/>
     <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_zepto" xlink:to="lbl_ref_ns13_zepto"/>
@@ -101,25 +111,15 @@
     <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_giga" xlink:role="https://xbrl.org/2022/role/property">
       <units-parts:UnitQname>si-prefix:giga</units-parts:UnitQname>
     </link:reference>
-    <link:loc xlink:label="ns13_deci" xlink:href="magnitude.xsd#si-prefix_deci" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_deci" xlink:to="lbl_ref_ns13_deci"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_deci" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:deci</units-parts:UnitQname>
+    <link:loc xlink:label="ns13_micro" xlink:href="magnitude.xsd#si-prefix_micro" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_micro" xlink:to="lbl_ref_ns13_micro"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_micro" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:micro</units-parts:UnitQname>
     </link:reference>
-    <link:loc xlink:label="ns13_peta" xlink:href="magnitude.xsd#si-prefix_peta" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_peta" xlink:to="lbl_ref_ns13_peta"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_peta" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:peta</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_hecto" xlink:href="magnitude.xsd#si-prefix_hecto" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_hecto" xlink:to="lbl_ref_ns13_hecto"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_hecto" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:hecto</units-parts:UnitQname>
-    </link:reference>
-    <link:loc xlink:label="ns13_yotta" xlink:href="magnitude.xsd#si-prefix_yotta" xlink:type="locator"/>
-    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_yotta" xlink:to="lbl_ref_ns13_yotta"/>
-    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_yotta" xlink:role="https://xbrl.org/2022/role/property">
-      <units-parts:UnitQname>si-prefix:yotta</units-parts:UnitQname>
+    <link:loc xlink:label="ns13_kilo" xlink:href="magnitude.xsd#si-prefix_kilo" xlink:type="locator"/>
+    <link:referenceArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-reference" xlink:type="arc" xlink:from="ns13_kilo" xlink:to="lbl_ref_ns13_kilo"/>
+    <link:reference xlink:type="resource" xlink:label="lbl_ref_ns13_kilo" xlink:role="https://xbrl.org/2022/role/property">
+      <units-parts:UnitQname>si-prefix:kilo</units-parts:UnitQname>
     </link:reference>
   </link:referenceLink>
 </link:linkbase>
