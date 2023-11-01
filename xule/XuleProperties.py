@@ -2129,6 +2129,9 @@ def property_compute_type(xule_context, object_value, *args):
 def property_string(xule_context, object_value, *args):
     '''SHOULD THE META DATA BE INCLUDED???? THIS SHOULD BE HANDLED BY THE PROPERTY EVALUATOR.'''
     return xv.XuleValue(xule_context, object_value.format_value(), 'string')
+
+def property_plain_string(xule_context, object_value, *args):
+    return xv.XuleValue(xule_context, str(object_value.value), 'string')
  
 def property_context_facts(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, "\n".join([str(f.qname) + " " + str(f.xValue) for f in xule_context.facts]), 'string')
@@ -2640,6 +2643,7 @@ PROPERTIES = {
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
               'string': (property_string, 0, (), False),
+              'plain-string': (property_plain_string, 0, (), False),
               'trim': (property_trim, -1, ('string', 'uri'), False),
               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
               'entry-point': (property_entry_point, 0, ('taxonomy',), False),
