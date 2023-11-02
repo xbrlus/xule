@@ -14,7 +14,7 @@ for $type in $DATA_TYPES_XML
     $type
 
 package-name $UNIT_TAXONOMY
-document-uri 'dtr-types.xsd'
+document-uri 'dtr/dtr-types.xsd'
 document-imported-in 'units.xsd'
 document-namespace $DATA_TYPE_CONCEPT_NS
 concept $baseUnit.to-xodel
@@ -28,7 +28,7 @@ for $type in ($INBULT_DATATYPES + $NEW_DATATYPES)
     $type
 
 package-name $UNIT_TAXONOMY
-document-uri 'dtr-types.xsd'
+document-uri 'dtr/dtr-types.xsd'
 document-imported-in 'units.xsd'
 document-namespace $DATA_TYPE_CONCEPT_NS
 concept $baseUnit.to-xodel
@@ -45,8 +45,8 @@ output create_data_type_labels
                 else
                     $label
 package-name $UNIT_TAXONOMY
-document-uri 'dtr-types_lab.xml'
-document-imported-in 'dtr-types.xsd'
+document-uri 'dtr/dtr-types_lab.xml'
+document-imported-in 'dtr/dtr-types.xsd'
 label-concept-name qname($DATA_TYPE_CONCEPT_NS, $label[2]).to-xodel
 label-text trim(join(split(join(split($label[$labelType[1]],'
     '),' '),'   '),' '))
@@ -58,8 +58,8 @@ output create_inbuilt_data_type_labels
     for $label in ($INBULT_DATATYPES + $NEW_DATATYPES)
          $label
 package-name $UNIT_TAXONOMY
-document-uri 'dtr-types_lab.xml'
-document-imported-in 'dtr-types.xsd'
+document-uri 'dtr/dtr-types_lab.xml'
+document-imported-in 'dtr/dtr-types.xsd'
 label-concept-name qname($DATA_TYPE_CONCEPT_NS, $label).to-xodel
 label-text $label
 label-role 'http://www.xbrl.org/2003/role/label'
@@ -73,8 +73,8 @@ for $ref in $allTypes
     $ref
 
 package-name $UNIT_TAXONOMY
-document-uri 'dtr-types_ref.xml'
-document-imported-in 'dtr-types.xsd'
+document-uri 'dtr/dtr-types_ref.xml'
+document-imported-in 'dtr/dtr-types.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname($DATA_TYPE_CONCEPT_NS, $ref).to-xodel
 reference-parts  list(list(units-parts:UnitQname, qname('http://www.xbrl.org/dtr/type/2022-03-31',$ref))).to-xodel
@@ -85,8 +85,8 @@ for $ref in $INBULT_DATATYPES
     $ref
 
 package-name $UNIT_TAXONOMY
-document-uri 'dtr-types_ref.xml'
-document-imported-in 'dtr-types.xsd'
+document-uri 'dtr/dtr-types_ref.xml'
+document-imported-in 'dtr/dtr-types.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname($DATA_TYPE_CONCEPT_NS, $ref).to-xodel
 reference-parts  list(list(units-parts:UnitQname, qname('http://www.xbrl.org/2003/instance',$ref))).to-xodel

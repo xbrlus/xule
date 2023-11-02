@@ -18,6 +18,7 @@
   <xs:element name="durationItemType" id="dtr_durationItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="electricChargeItemType" id="dtr_electricChargeItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="electricCurrentItemType" id="dtr_electricCurrentItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="electricalResistanceItemType" id="dtr_electricalResistanceItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="energyItemType" id="dtr_energyItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="escapedItemType" id="dtr_escapedItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="flowItemType" id="dtr_flowItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
@@ -29,6 +30,7 @@
   <xs:element name="insolationItemType" id="dtr_insolationItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="irradianceItemType" id="dtr_irradianceItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="lengthItemType" id="dtr_lengthItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="luminousFluxItemType" id="dtr_luminousFluxItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="massFlowItemType" id="dtr_massFlowItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="massItemType" id="dtr_massItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
   <xs:element name="memoryItemType" id="dtr_memoryItemType" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>

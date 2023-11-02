@@ -10,7 +10,7 @@ namespace dtr-concept = http://www.xbrl.org/dtr/concept/2022-03-31
 
 /** EXTRACT DATA FROM UNITS REGISTRY 
 -------------------------------------**/
-constant $UNITS_XML = xml-data-flat('https://www.xbrl.org/utr/utr.xml','/utr:utr/utr:units/utr:unit', list('utr:unitId','utr:unitName','utr:nsUnit','utr:itemType','utr:itemTypeDate','utr:symbol','utr:definition','utr:baseStandard','utr:status','utr:versionDate','@id'),list('string','string','string','string','date','string','string','string','string','date','string'),dict(list('utr','http://www.xbrl.org/2009/utr')))
+constant $UNITS_XML = xml-data-flat('https://www.xbrl.org/utr/utr.xml','/utr:utr/utr:units/utr:unit', list('utr:unitId','utr:unitName','utr:nsUnit','utr:itemType','utr:itemTypeDate','utr:symbol','utr:definition','utr:baseStandard','utr:status','utr:versionDate','@id','utr:conversionPresentation/math:math/math:mrow/math:mn'),list('string','string','string','string','date','string','string','string','string','date','string','string'),dict(list('utr','http://www.xbrl.org/2009/utr'),list('math','http://www.w3.org/1998/Math/MathML')))
 
 
 constant $CURRENCY_TAXONOMY = taxonomy('https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-elts.xsd')
@@ -81,10 +81,10 @@ constant $SCALE_CONCEPTS = csv-data('https://raw.githubusercontent.com/xbrlus/xu
 ---------------------------------------------**/
 
 constant $DOMAIN_HEADERS = (list(
-                                    list('UtrUnitsDomain','http://www.xbrl.org/2009/utr','utr-units', 'UTR Units [Domain]','utr'),
-                                    list('AlternativeCurrencyDomain','http://www.xbrl.org/2003/iso4217','alt-currency-unit', 'UTR Units [Domain]','iso4217'),
-                                    list('SIPrefixDomain','http://www.xbrl.org/2023/si-prefix','magnitude', 'SI Prefix [Domain]','si'),
-                                    list('DatatypeUnitsDomain','http://www.xbrl.org/2023/datatype-units','datatype-units', 'Datatype Units [Domain]','datatype-unit'),
+                                    list('UtrUnitsDomain','http://www.xbrl.org/2009/utr','utr-units/utr-units', 'UTR Units [Domain]','utr'),
+                                    list('AlternativeCurrencyDomain','http://www.xbrl.org/2003/iso4217','alt-curr/alt-currency-unit', 'UTR Units [Domain]','iso4217'),
+                                    list('SIPrefixDomain','http://www.xbrl.org/2023/si-prefix','magnitude/magnitude', 'SI Prefix [Domain]','si'),
+                                    list('DatatypeUnitsDomain','http://www.xbrl.org/2023/datatype-units','datatype-units/datatype-units', 'Datatype Units [Domain]','datatype-unit'),
                                 )
                             )
 
@@ -96,7 +96,7 @@ constant $CONVERT_LINKS = excel-data('/Users/campbellpryde/Documents/GitHub/xule
 /** EXTRACT DATA FROM EXCEL FOR NEW UNITS 
 -------------------------------------------------**/
 
-constant $NEW_UNITS = excel-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel/unitRelations.xlsx', 'newUnits',true,list('string','string','string', 'string','date','string','string','string','string','date','string'))
+constant $NEW_UNITS = excel-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel/unitRelations.xlsx', 'newUnits',true,list('string','string','string', 'string','date','string','string','string','string','date','string','string'))
 
 /** DEFINE THE PACKAGE 
 -----------------------**/
@@ -135,6 +135,15 @@ role-definition 'Defines the label role for the version date associated with the
 role-used-on list(link:label).to-xodel
 
 
+output create_label_roles_conversionPresentation
+true
+package-name $UNIT_TAXONOMY
+document-uri 'units.xsd'
+role-uri 'http://www.xbrl.org/2023/role/conversionPresentation'
+role-definition 'Defines the label role for the conversion presentation associated with the unit'
+role-used-on list(link:label).to-xodel
+
+
 /** DEFINE NUMERATER DENOMINATOR and  ARC ROLE 
 ------------------------------**/
 output create_operator_arcroles
@@ -170,7 +179,7 @@ for $unit in ($UTR_UNITS + $NEW_UNITS)
     $unit
 
 package-name $UNIT_TAXONOMY
-document-uri 'utr-units.xsd'
+document-uri 'utr-units/utr-units.xsd'
 document-imported-in 'units.xsd'
 document-namespace 'http://www.xbrl.org/2009/utr'
 concept $baseUnit.to-xodel
@@ -184,7 +193,7 @@ for $unit in $EXCLUDED_CURRENCIES
     $unit
 
 package-name $UNIT_TAXONOMY
-document-uri 'alt-currency-unit.xsd'
+document-uri 'alt-curr/alt-currency-unit.xsd'
 document-imported-in 'units.xsd'
 document-namespace 'http://www.xbrl.org/2003/iso4217'
 concept $baseUnit.to-xodel
@@ -199,7 +208,7 @@ for $unit in $DATA_TYPES_THAT_ARE_UNITS
     $unit
 
 package-name $UNIT_TAXONOMY
-document-uri 'datatype-units.xsd'
+document-uri 'datatype-units/datatype-units.xsd'
 document-imported-in 'units.xsd'
 document-namespace 'http://www.xbrl.org/2023/datatype-units'
 concept $baseUnit.to-xodel
@@ -215,7 +224,7 @@ for $unit in $UniqueScale
     $unit
 
 package-name $UNIT_TAXONOMY
-document-uri 'magnitude.xsd'
+document-uri 'magnitude/magnitude.xsd'
 document-imported-in 'units.xsd'
 document-namespace 'http://www.xbrl.org/2023/si-prefix'
 concept $baseUnit.to-xodel
@@ -251,7 +260,7 @@ import2-url 'https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/cu
 -----------------------**/
 output create_labels_standard 
     for $label in ($UTR_UNITS + $CURRENCY_UNITS + $NEW_UNITS )
-        for $labelType in list(list(2,'http://www.xbrl.org/2003/role/label'), list(7,'http://www.xbrl.org/2003/role/documentation'),list(6,'http://www.xbrl.org/2023/role/symbol'),list(10,'http://www.xbrl.org/2023/role/versionDate'))
+        for $labelType in list(list(2,'http://www.xbrl.org/2003/role/label'), list(7,'http://www.xbrl.org/2003/role/documentation'),list(6,'http://www.xbrl.org/2023/role/symbol'),list(10,'http://www.xbrl.org/2023/role/versionDate'), list(12,'http://www.xbrl.org/2023/role/conversionPresentation'))
             $iso_temp_namespace = if $label[3] == 'http://www.xbrl.org/2003/iso4217'
                                     $CURRENCY_NAMESPACE
                                 else
@@ -264,8 +273,8 @@ output create_labels_standard
                 else
                     $label
 package-name $UNIT_TAXONOMY
-document-uri 'utr-units_lab.xml'
-document-imported-in 'utr-units.xsd'
+document-uri 'utr-units/utr-units_lab.xml'
+document-imported-in 'utr-units/utr-units.xsd'
 label-concept-name qname($iso_temp_namespace, $label[1]).to-xodel
 label-text $label[$labelType[1]]
 label-role $labelType[2]
@@ -279,8 +288,8 @@ output add_alt_currency_labels
                 else
                     $label
 package-name $UNIT_TAXONOMY
-document-uri 'alt-currency-unit_lab.xml'
-document-imported-in 'alt-currency-unit.xsd'
+document-uri 'alt-curr/alt-currency-unit_lab.xml'
+document-imported-in 'alt-curr/alt-currency-unit.xsd'
 label-concept-name qname($label[3], $label[1]).to-xodel
 label-text $label[$labelType[1]]
 label-role $labelType[2]
@@ -291,8 +300,8 @@ output add_datatype_unit_labels
             for $labelType in list(list(2,'http://www.xbrl.org/2003/role/label'), list(7,'http://www.xbrl.org/2003/role/documentation'))
                     $label
 package-name $UNIT_TAXONOMY
-document-uri 'datatype-units_lab.xml'
-document-imported-in 'datatype-units.xsd'
+document-uri 'datatype-units/datatype-units_lab.xml'
+document-imported-in 'datatype-units/datatype-units.xsd'
 label-concept-name qname('http://www.xbrl.org/2023/datatype-units', $label[1]).to-xodel
 label-text $label[$labelType[1]]
 label-role $labelType[2]
@@ -313,8 +322,8 @@ output create_magnatude_labels
         for $labelType in list(list(1,'http://www.xbrl.org/2003/role/label'),list(2,'http://www.xbrl.org/2023/role/symbol'))
                 $label
 package-name $UNIT_TAXONOMY
-document-uri 'magnitude_lab.xml'
-document-imported-in 'magnitude.xsd'
+document-uri 'magnitude/magnitude_lab.xml'
+document-imported-in 'magnitude/magnitude.xsd'
 label-concept-name qname('http://www.xbrl.org/2023/si-prefix', $label[1]).to-xodel
 label-text $label[$labelType[1]]
 label-role $labelType[2]
@@ -324,8 +333,8 @@ output create_magnatude_documentation
     for $label in $SCALE_CONCEPTS
                 $label
 package-name $UNIT_TAXONOMY
-document-uri 'magnitude_lab.xml'
-document-imported-in 'magnitude.xsd'
+document-uri 'magnitude/magnitude_lab.xml'
+document-imported-in 'magnitude/magnitude.xsd'
 label-concept-name qname('http://www.xbrl.org/2023/si-prefix', $label[1]).to-xodel
 label-text 'A ' + $label[1] + ' is the SI unit prefix represented using the symbol ' + $label[2] + '. A ' + $label[1] + ' uses a base 10 magnitude of ' + $label[3] + '. '
 label-role 'http://www.xbrl.org/2003/role/documentation'
@@ -339,7 +348,7 @@ output create_utr_presentation_role
     true
 
 package-name $UNIT_TAXONOMY
-document-uri 'utr-units.xsd'
+document-uri 'utr-units/utr-units.xsd'
 role-uri 'https://www.xbrl.org/2023/roles/utr-presentation'
 role-definition 'Units List'
 role-used-on list('Presentation').to-xodel
@@ -354,8 +363,8 @@ for $child_no in range($UTR_units_Length)
     $record
 
 package-name $UNIT_TAXONOMY
-document-uri 'utr-units_pre.xml'
-document-imported-in 'utr-units.xsd'
+document-uri 'utr-units/utr-units_pre.xml'
+document-imported-in 'utr-units/utr-units.xsd'
 relationship-source $FirstItem.to-xodel
 relationship-target qname('http://www.xbrl.org/2009/utr', $record[1]).to-xodel
 relationship-order $child_no
@@ -369,7 +378,7 @@ output create_magnitude_presentation_role
     true
 
 package-name $UNIT_TAXONOMY
-document-uri 'magnitude.xsd'
+document-uri 'magnitude/magnitude.xsd'
 role-uri 'https://www.xbrl.org/2023/roles/si-prefix-presentation'
 role-definition 'SI Prefix List'
 role-used-on list('Presentation').to-xodel
@@ -383,8 +392,8 @@ for $child_no in range($UTR_units_Length)
     $record
 
 package-name $UNIT_TAXONOMY
-document-uri 'magnatude_pre.xml'
-document-imported-in 'magnitude.xsd'
+document-uri 'magnitude/magnitude_pre.xml'
+document-imported-in 'magnitude/magnitude.xsd'
 relationship-source $FirstItem.to-xodel
 relationship-target qname('http://www.xbrl.org/2023/si-prefix', $record[1]).to-xodel
 relationship-order $child_no
@@ -528,7 +537,7 @@ output create_utr_definition_role
     true
 
 package-name $UNIT_TAXONOMY
-document-uri 'utr-units.xsd'
+document-uri 'utr-units/utr-units.xsd'
 role-uri 'https://www.xbrl.org/2023/roles/utr-conversion'
 role-definition 'Units Conversion Factors'
 role-used-on list('Definition').to-xodel
@@ -602,8 +611,8 @@ for $ref in ($SCALE_CONCEPTS)
         $ref
 
 package-name $UNIT_TAXONOMY
-document-uri 'magnitude_ref.xml'
-document-imported-in 'units.xsd'
+document-uri 'magnitude/magnitude_ref.xml'
+document-imported-in 'magnitude/magnitude.xsd'
 reference-role 'https://xbrl.org/2022/role/property'
 reference-concept-name qname('http://www.xbrl.org/2023/si-prefix', $ref[1]).to-xodel
 reference-parts  list(list(units-parts:UnitQname, qname('http://www.xbrl.org/2023/si-prefix',$ref[1]))).to-xodel

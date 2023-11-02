@@ -1,165 +1,176 @@
 <link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
-  <link:roleRef roleURI="https://www.xbrl.org/2023/roles/utr-conversion" xlink:href="utr-units.xsd#utr-conversion" xlink:type="simple"/>
-  <link:arcroleRef arcroleURI="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:href="units.xsd#converted-convertee" xlink:type="simple"/>
+  <link:roleRef roleURI="https://www.xbrl.org/2023/roles/utr-conversion" xlink:href="utr-units/utr-units.xsd#utr-conversion" xlink:type="simple"/>
   <link:arcroleRef arcroleURI="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:href="units.xsd#unit-squared" xlink:type="simple"/>
-  <link:arcroleRef arcroleURI="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:href="units.xsd#unit-multiplied" xlink:type="simple"/>
   <link:arcroleRef arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:href="units.xsd#datatype-denominator" xlink:type="simple"/>
+  <link:arcroleRef arcroleURI="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:href="units.xsd#unit-multiplied" xlink:type="simple"/>
+  <link:arcroleRef arcroleURI="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:href="units.xsd#converted-convertee" xlink:type="simple"/>
   <link:arcroleRef arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:href="units.xsd#datatype-numerator" xlink:type="simple"/>
   <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
-    <link:loc xlink:label="ns12_sqm" xlink:href="utr-units.xsd#si_sqm" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_sqmi" xlink:href="utr-units.xsd#non-si_sqmi" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_sqmi" order="29" ns0:ConversionRate="2,589,988.1103 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_J" xlink:href="utr-units.xsd#si_J" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_MMBoe" xlink:href="utr-units.xsd#non-si_MMBoe" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MMBoe" order="36" ns0:ConversionRate="6,117,863,200,000,000"/>
-    <link:loc xlink:label="ns12_MBoe" xlink:href="utr-units.xsd#non-si_MBoe" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MBoe" order="34" ns0:ConversionRate="6,117,863,200,000"/>
-    <link:loc xlink:label="ns12_Pa" xlink:href="utr-units.xsd#si_Pa" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_Bar" xlink:href="utr-units.xsd#non-si_Bar" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_Pa" xlink:to="ns12_Bar" order="60" ns0:ConversionRate="100,000"/>
-    <link:loc xlink:label="ns12_m3" xlink:href="utr-units.xsd#si_m3" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_gal" xlink:href="utr-units.xsd#non-si_gal" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_gal" order="46" ns0:ConversionRate="0.0038 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_kg" xlink:href="utr-units.xsd#si_kg" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_T" xlink:href="utr-units.xsd#non-si_T" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_T" order="42" ns0:ConversionRate="907.1847 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_m" xlink:href="utr-units.xsd#si_m" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_cm" xlink:href="utr-units.xsd#si_cm" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_cm" order="12" ns0:ConversionRate="0.01"/>
-    <link:loc xlink:label="ns12_sqyd" xlink:href="utr-units.xsd#non-si_sqyd" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_sqyd" order="30" ns0:ConversionRate="0.8361 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_lb" xlink:href="utr-units.xsd#non-si_lb" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_lb" order="39" ns0:ConversionRate="0.4536 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_ha" xlink:href="utr-units.xsd#si_ha" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_ha" order="55" ns0:ConversionRate="10,000"/>
-    <link:loc xlink:label="ns12_ft" xlink:href="utr-units.xsd#non-si_ft" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_ft" order="8" ns0:ConversionRate="0.3048"/>
-    <link:loc xlink:label="ns12_bbl" xlink:href="utr-units.xsd#non-si_bbl" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_bbl" order="44" ns0:ConversionRate="0.159 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_Wh" xlink:href="utr-units.xsd#non-si_Wh" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Wh" order="62" ns0:ConversionRate="3,600"/>
-    <link:loc xlink:label="ns12_bu" xlink:href="utr-units.xsd#non-si_bu" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_bu" order="58" ns0:ConversionRate="0.0352 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_ft_lb" xlink:href="utr-units.xsd#non-si_ft_lb" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_ft_lb" order="33" ns0:ConversionRate="1.3558 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_MMcf" xlink:href="utr-units.xsd#non-si_MMcf" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_MMcf" order="50" ns0:ConversionRate="28,316.8466 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_mJ" xlink:href="utr-units.xsd#si_mJ" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_mJ" order="56" ns0:ConversionRate="0.001"/>
-    <link:loc xlink:label="ns12_mi" xlink:href="utr-units.xsd#non-si_mi" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_mi" order="9" ns0:ConversionRate="1,609.344"/>
-    <link:loc xlink:label="ns12_Mcfe" xlink:href="utr-units.xsd#non-si_Mcfe" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Mcfe" order="35" ns0:ConversionRate="1,087,200,000"/>
-    <link:loc xlink:label="ns12_ft3" xlink:href="utr-units.xsd#non-si_ft3" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_ft3" order="45" ns0:ConversionRate="0.0283 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_MWh" xlink:href="utr-units.xsd#si_MWh" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MWh" order="57" ns0:ConversionRate="3,600,000,000"/>
-    <link:loc xlink:label="ns12_acre" xlink:href="utr-units.xsd#non-si_acre" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_acre" order="21" ns0:ConversionRate="4,046.873"/>
-    <link:loc xlink:label="ns12_in" xlink:href="utr-units.xsd#non-si_in" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_in" order="38" ns0:ConversionRate="0.0254"/>
-    <link:loc xlink:label="ns12_t" xlink:href="utr-units.xsd#non-si_t" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_t" order="52" ns0:ConversionRate="1,000"/>
-    <link:loc xlink:label="ns12_Btu" xlink:href="utr-units.xsd#non-si_Btu" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Btu" order="32" ns0:ConversionRate="1,055.056"/>
-    <link:loc xlink:label="ns12_dm" xlink:href="utr-units.xsd#si_dm" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_dm" order="13" ns0:ConversionRate="0.1"/>
-    <link:loc xlink:label="ns12_km" xlink:href="utr-units.xsd#si_km" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_km" order="14" ns0:ConversionRate="1,000"/>
-    <link:loc xlink:label="ns12_oz" xlink:href="utr-units.xsd#non-si_oz" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_oz" order="40" ns0:ConversionRate="0.028"/>
-    <link:loc xlink:label="ns12_MBbls" xlink:href="utr-units.xsd#non-si_MBbls" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_MBbls" order="47" ns0:ConversionRate="158.9873 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_psi" xlink:href="utr-units.xsd#non-si_psi" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_Pa" xlink:to="ns12_psi" order="59" ns0:ConversionRate="6,894.76"/>
-    <link:loc xlink:label="ns12_atm" xlink:href="utr-units.xsd#non-si_atm" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_Pa" xlink:to="ns12_atm" order="61" ns0:ConversionRate="101,325"/>
-    <link:loc xlink:label="ns12_W" xlink:href="utr-units.xsd#si_W" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_hp" xlink:href="utr-units.xsd#non-si_hp" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_W" xlink:to="ns12_hp" order="43" ns0:ConversionRate="745.7"/>
-    <link:loc xlink:label="ns12_nmi" xlink:href="utr-units.xsd#non-si_nmi" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_nmi" order="10" ns0:ConversionRate="1,852"/>
-    <link:loc xlink:label="ns12_yd" xlink:href="utr-units.xsd#non-si_yd" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_yd" order="11" ns0:ConversionRate="0.9144"/>
-    <link:loc xlink:label="ns12_MMBTU" xlink:href="utr-units.xsd#non-si_MMBTU" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MMBTU" order="37" ns0:ConversionRate="1,054,500,000"/>
-    <link:loc xlink:label="ns12_sqft" xlink:href="utr-units.xsd#non-si_sqft" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_sqft" order="28" ns0:ConversionRate="0.0929 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_kJ" xlink:href="utr-units.xsd#si_kJ" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_kJ" order="54" ns0:ConversionRate="1,000"/>
-    <link:loc xlink:label="ns12_ozt" xlink:href="utr-units.xsd#non-si_ozt" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_ozt" order="41" ns0:ConversionRate="0.0311 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_MMBbls" xlink:href="utr-units.xsd#non-si_MMBbls" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_MMBbls" order="49" ns0:ConversionRate="158,987.2949 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_Cal" xlink:href="utr-units.xsd#non-si_Cal" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Cal" order="51" ns0:ConversionRate="4.184"/>
-    <link:loc xlink:label="ns12_kWh" xlink:href="utr-units.xsd#si_kWh" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_kWh" order="53" ns0:ConversionRate="3,600,000"/>
-    <link:loc xlink:label="ns12_Mcf" xlink:href="utr-units.xsd#non-si_Mcf" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_Mcf" order="48" ns0:ConversionRate="28,316.8466 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_aft" xlink:href="utr-units.xsd#non-si_aft" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_aft" order="23" ns0:ConversionRate="1,233.4892 (rounded 4d)"/>
-    <link:loc xlink:label="ns12_Boe" xlink:href="utr-units.xsd#non-si_Boe" xlink:type="locator"/>
-    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Boe" order="31" ns0:ConversionRate="6,117,863,200"/>
-  </link:definitionLink>
-  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
-    <link:loc xlink:label="ns12_sqm" xlink:href="utr-units.xsd#si_sqm" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_m" xlink:href="utr-units.xsd#si_m" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_m" order="22"/>
-    <link:loc xlink:label="ns12_sqmi" xlink:href="utr-units.xsd#non-si_sqmi" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_mi" xlink:href="utr-units.xsd#non-si_mi" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqmi" xlink:to="ns12_mi" order="2"/>
-    <link:loc xlink:label="ns12_sqyd" xlink:href="utr-units.xsd#non-si_sqyd" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_yd" xlink:href="utr-units.xsd#non-si_yd" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqyd" xlink:to="ns12_yd" order="3"/>
-    <link:loc xlink:label="ns12_sqft" xlink:href="utr-units.xsd#non-si_sqft" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_ft" xlink:href="utr-units.xsd#non-si_ft" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqft" xlink:to="ns12_ft" order="1"/>
-  </link:definitionLink>
-  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
-    <link:loc xlink:label="ns9_irradianceItemType" xlink:href="dtr-types.xsd#dtr_irradianceItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_areaItemType" xlink:href="dtr-types.xsd#dtr_areaItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_irradianceItemType" xlink:to="ns9_areaItemType" order="24"/>
-    <link:loc xlink:label="ns9_densityItemType" xlink:href="dtr-types.xsd#dtr_densityItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_volumeItemType" xlink:href="dtr-types.xsd#dtr_volumeItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_densityItemType" xlink:to="ns9_volumeItemType" order="26"/>
-    <link:loc xlink:label="ns9_perShareItemType" xlink:href="dtr-types.xsd#dtr_perShareItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_sharesItemType" xlink:href="dtr-types.xsd#dtr_sharesItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_perShareItemType" xlink:to="ns9_sharesItemType" order="15"/>
-    <link:loc xlink:label="ns9_pureItemType" xlink:href="dtr-types.xsd#dtr_pureItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_monetaryItemType" xlink:href="dtr-types.xsd#dtr_monetaryItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_pureItemType" xlink:to="ns9_monetaryItemType" order="17"/>
-    <link:loc xlink:label="ns9_flowItemType" xlink:href="dtr-types.xsd#dtr_flowItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_durationItemType" xlink:href="dtr-types.xsd#dtr_durationItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_flowItemType" xlink:to="ns9_durationItemType" order="19"/>
-  </link:definitionLink>
-  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
-    <link:loc xlink:label="ns9_pureItemType" xlink:href="dtr-types.xsd#dtr_pureItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_monetaryItemType" xlink:href="dtr-types.xsd#dtr_monetaryItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_pureItemType" xlink:to="ns9_monetaryItemType" order="18"/>
-    <link:loc xlink:label="ns9_flowItemType" xlink:href="dtr-types.xsd#dtr_flowItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_volumeItemType" xlink:href="dtr-types.xsd#dtr_volumeItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_flowItemType" xlink:to="ns9_volumeItemType" order="20"/>
-    <link:loc xlink:label="ns9_perShareItemType" xlink:href="dtr-types.xsd#dtr_perShareItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_monetaryItemType_1" xlink:href="dtr-types.xsd#dtr_monetaryItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_perShareItemType" xlink:to="ns9_monetaryItemType_1" order="16"/>
-    <link:loc xlink:label="ns9_irradianceItemType" xlink:href="dtr-types.xsd#dtr_irradianceItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_powerItemType" xlink:href="dtr-types.xsd#dtr_powerItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_irradianceItemType" xlink:to="ns9_powerItemType" order="25"/>
-    <link:loc xlink:label="ns9_densityItemType" xlink:href="dtr-types.xsd#dtr_densityItemType" xlink:type="locator"/>
-    <link:loc xlink:label="ns9_massItemType" xlink:href="dtr-types.xsd#dtr_massItemType" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_densityItemType" xlink:to="ns9_massItemType" order="27"/>
-  </link:definitionLink>
-  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
-    <link:loc xlink:label="ns12_MMBoe" xlink:href="utr-units.xsd#non-si_MMBoe" xlink:type="locator"/>
-    <link:loc xlink:label="ns13_mega" xlink:href="magnitude.xsd#si-prefix_mega" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_MMBoe" xlink:to="ns13_mega" order="7"/>
-    <link:loc xlink:label="ns12_Boe" xlink:href="utr-units.xsd#non-si_Boe" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_MMBoe" xlink:href="utr-units/utr-units.xsd#non-si_MMBoe" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_Boe" xlink:href="utr-units/utr-units.xsd#non-si_Boe" xlink:type="locator"/>
     <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_MMBoe" xlink:to="ns12_Boe" order="6"/>
-    <link:loc xlink:label="ns12_MBoe" xlink:href="utr-units.xsd#non-si_MBoe" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_Boe_1" xlink:href="utr-units.xsd#non-si_Boe" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_MBoe" xlink:to="ns12_Boe_1" order="4"/>
-    <link:loc xlink:label="ns13_kilo" xlink:href="magnitude.xsd#si-prefix_kilo" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_MBoe" xlink:href="utr-units/utr-units.xsd#non-si_MBoe" xlink:type="locator"/>
+    <link:loc xlink:label="ns13_kilo" xlink:href="magnitude/magnitude.xsd#si-prefix_kilo" xlink:type="locator"/>
     <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_MBoe" xlink:to="ns13_kilo" order="5"/>
+    <link:loc xlink:label="ns13_mega" xlink:href="magnitude/magnitude.xsd#si-prefix_mega" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_MMBoe" xlink:to="ns13_mega" order="7"/>
+    <link:loc xlink:label="ns12_l" xlink:href="utr-units/utr-units.xsd#si_l" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_m3" xlink:href="utr-units/utr-units.xsd#si_m3" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_l" xlink:to="ns12_m3" order="65"/>
+    <link:loc xlink:label="ns13_milli" xlink:href="magnitude/magnitude.xsd#si-prefix_milli" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_l" xlink:to="ns13_milli" order="66"/>
+    <link:loc xlink:label="ns12_Boe_1" xlink:href="utr-units/utr-units.xsd#non-si_Boe" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-multiplied" xlink:type="arc" xlink:from="ns12_MBoe" xlink:to="ns12_Boe_1" order="4"/>
+  </link:definitionLink>
+  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
+    <link:loc xlink:label="ns12_J" xlink:href="utr-units/utr-units.xsd#si_J" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_MMBTU" xlink:href="utr-units/utr-units.xsd#non-si_MMBTU" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MMBTU" order="37" ns0:ConversionRate="1054500000"/>
+    <link:loc xlink:label="ns12_MMBoe" xlink:href="utr-units/utr-units.xsd#non-si_MMBoe" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MMBoe" order="36" ns0:ConversionRate="6117863200000000"/>
+    <link:loc xlink:label="ns12_m" xlink:href="utr-units/utr-units.xsd#si_m" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_in" xlink:href="utr-units/utr-units.xsd#non-si_in" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_in" order="38" ns0:ConversionRate="0.0254"/>
+    <link:loc xlink:label="ns12_ft" xlink:href="utr-units/utr-units.xsd#non-si_ft" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_ft" order="8" ns0:ConversionRate="0.3048"/>
+    <link:loc xlink:label="ns12_kg" xlink:href="utr-units/utr-units.xsd#si_kg" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_lb" xlink:href="utr-units/utr-units.xsd#non-si_lb" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_lb" order="39" ns0:ConversionRate="0.45359237"/>
+    <link:loc xlink:label="ns12_oz" xlink:href="utr-units/utr-units.xsd#non-si_oz" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_oz" order="40" ns0:ConversionRate="0.028"/>
+    <link:loc xlink:label="ns12_ozt" xlink:href="utr-units/utr-units.xsd#non-si_ozt" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_ozt" order="41" ns0:ConversionRate="0.0311034768"/>
+    <link:loc xlink:label="ns12_mi" xlink:href="utr-units/utr-units.xsd#non-si_mi" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_mi" order="9" ns0:ConversionRate="1609.344"/>
+    <link:loc xlink:label="ns12_T" xlink:href="utr-units/utr-units.xsd#non-si_T" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_T" order="42" ns0:ConversionRate="907.18474"/>
+    <link:loc xlink:label="ns12_nmi" xlink:href="utr-units/utr-units.xsd#non-si_nmi" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_nmi" order="10" ns0:ConversionRate="1852"/>
+    <link:loc xlink:label="ns12_yd" xlink:href="utr-units/utr-units.xsd#non-si_yd" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_yd" order="11" ns0:ConversionRate="0.9144"/>
+    <link:loc xlink:label="ns12_W" xlink:href="utr-units/utr-units.xsd#si_W" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_hp" xlink:href="utr-units/utr-units.xsd#non-si_hp" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_W" xlink:to="ns12_hp" order="43" ns0:ConversionRate="745.7"/>
+    <link:loc xlink:label="ns12_cm" xlink:href="utr-units/utr-units.xsd#si_cm" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_cm" order="12" ns0:ConversionRate="0.01"/>
+    <link:loc xlink:label="ns12_m3" xlink:href="utr-units/utr-units.xsd#si_m3" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_bbl" xlink:href="utr-units/utr-units.xsd#non-si_bbl" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_bbl" order="44" ns0:ConversionRate="0.1589873"/>
+    <link:loc xlink:label="ns12_dm" xlink:href="utr-units/utr-units.xsd#si_dm" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_dm" order="13" ns0:ConversionRate="0.1"/>
+    <link:loc xlink:label="ns12_ft3" xlink:href="utr-units/utr-units.xsd#non-si_ft3" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_ft3" order="45" ns0:ConversionRate="0.028316846592"/>
+    <link:loc xlink:label="ns12_km" xlink:href="utr-units/utr-units.xsd#si_km" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m" xlink:to="ns12_km" order="14" ns0:ConversionRate="1000"/>
+    <link:loc xlink:label="ns12_gal" xlink:href="utr-units/utr-units.xsd#non-si_gal" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_gal" order="46" ns0:ConversionRate="0.003785412"/>
+    <link:loc xlink:label="ns12_MBbls" xlink:href="utr-units/utr-units.xsd#non-si_MBbls" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_MBbls" order="47" ns0:ConversionRate="158.98729493"/>
+    <link:loc xlink:label="ns12_Mcf" xlink:href="utr-units/utr-units.xsd#non-si_Mcf" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_Mcf" order="48" ns0:ConversionRate="28316.846592"/>
+    <link:loc xlink:label="ns12_MMBbls" xlink:href="utr-units/utr-units.xsd#non-si_MMBbls" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_MMBbls" order="49" ns0:ConversionRate="158987.294933"/>
+    <link:loc xlink:label="ns12_MMcf" xlink:href="utr-units/utr-units.xsd#non-si_MMcf" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_MMcf" order="50" ns0:ConversionRate="28316.846592"/>
+    <link:loc xlink:label="ns12_Cal" xlink:href="utr-units/utr-units.xsd#non-si_Cal" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Cal" order="51" ns0:ConversionRate="4.184"/>
+    <link:loc xlink:label="ns12_sqm" xlink:href="utr-units/utr-units.xsd#si_sqm" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_acre" xlink:href="utr-units/utr-units.xsd#non-si_acre" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_acre" order="21" ns0:ConversionRate="4046.873"/>
+    <link:loc xlink:label="ns12_t" xlink:href="utr-units/utr-units.xsd#non-si_t" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_kg" xlink:to="ns12_t" order="52" ns0:ConversionRate="1000"/>
+    <link:loc xlink:label="ns12_aft" xlink:href="utr-units/utr-units.xsd#non-si_aft" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_aft" order="23" ns0:ConversionRate="1233.4892384681"/>
+    <link:loc xlink:label="ns12_kWh" xlink:href="utr-units/utr-units.xsd#si_kWh" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_kWh" order="53" ns0:ConversionRate="3600000"/>
+    <link:loc xlink:label="ns12_kJ" xlink:href="utr-units/utr-units.xsd#si_kJ" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_kJ" order="54" ns0:ConversionRate="1000"/>
+    <link:loc xlink:label="ns12_sqft" xlink:href="utr-units/utr-units.xsd#non-si_sqft" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_sqft" order="28" ns0:ConversionRate="0.09290304"/>
+    <link:loc xlink:label="ns12_ha" xlink:href="utr-units/utr-units.xsd#si_ha" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_ha" order="55" ns0:ConversionRate="10000"/>
+    <link:loc xlink:label="ns12_sqmi" xlink:href="utr-units/utr-units.xsd#non-si_sqmi" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_sqmi" order="29" ns0:ConversionRate="2589988.110336"/>
+    <link:loc xlink:label="ns12_mJ" xlink:href="utr-units/utr-units.xsd#si_mJ" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_mJ" order="56" ns0:ConversionRate="0.001"/>
+    <link:loc xlink:label="ns12_MWh" xlink:href="utr-units/utr-units.xsd#si_MWh" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MWh" order="57" ns0:ConversionRate="3600000000"/>
+    <link:loc xlink:label="ns12_sqyd" xlink:href="utr-units/utr-units.xsd#non-si_sqyd" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_sqyd" order="30" ns0:ConversionRate="0.83612736"/>
+    <link:loc xlink:label="ns12_bu" xlink:href="utr-units/utr-units.xsd#non-si_bu" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_bu" order="58" ns0:ConversionRate="0.0352391"/>
+    <link:loc xlink:label="ns12_Boe" xlink:href="utr-units/utr-units.xsd#non-si_Boe" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Boe" order="31" ns0:ConversionRate="6117863200"/>
+    <link:loc xlink:label="ns12_Pa" xlink:href="utr-units/utr-units.xsd#si_Pa" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_psi" xlink:href="utr-units/utr-units.xsd#non-si_psi" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_Pa" xlink:to="ns12_psi" order="59" ns0:ConversionRate="6894.76"/>
+    <link:loc xlink:label="ns12_Btu" xlink:href="utr-units/utr-units.xsd#non-si_Btu" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Btu" order="32" ns0:ConversionRate="1055.056"/>
+    <link:loc xlink:label="ns12_Bar" xlink:href="utr-units/utr-units.xsd#non-si_Bar" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_Pa" xlink:to="ns12_Bar" order="60" ns0:ConversionRate="100000"/>
+    <link:loc xlink:label="ns12_ft_lb" xlink:href="utr-units/utr-units.xsd#non-si_ft_lb" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_ft_lb" order="33" ns0:ConversionRate="1.3558179483314"/>
+    <link:loc xlink:label="ns12_atm" xlink:href="utr-units/utr-units.xsd#non-si_atm" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_Pa" xlink:to="ns12_atm" order="61" ns0:ConversionRate="101325"/>
+    <link:loc xlink:label="ns12_MBoe" xlink:href="utr-units/utr-units.xsd#non-si_MBoe" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_MBoe" order="34" ns0:ConversionRate="6117863200000"/>
+    <link:loc xlink:label="ns12_Wh" xlink:href="utr-units/utr-units.xsd#non-si_Wh" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Wh" order="62" ns0:ConversionRate="3600"/>
+    <link:loc xlink:label="ns12_Mcfe" xlink:href="utr-units/utr-units.xsd#non-si_Mcfe" xlink:type="locator"/>
+    <link:definitionArc xmlns:ns0="http://www.xbrl.org/2009/utr" xlink:arcrole="http://www.xbrl.org/2023/arcrole/converted-convertee" xlink:type="arc" xlink:from="ns12_J" xlink:to="ns12_Mcfe" order="35" ns0:ConversionRate="1087200000"/>
+  </link:definitionLink>
+  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
+    <link:loc xlink:label="ns12_sqft" xlink:href="utr-units/utr-units.xsd#non-si_sqft" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_ft" xlink:href="utr-units/utr-units.xsd#non-si_ft" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqft" xlink:to="ns12_ft" order="1"/>
+    <link:loc xlink:label="ns12_sqm" xlink:href="utr-units/utr-units.xsd#si_sqm" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_m" xlink:href="utr-units/utr-units.xsd#si_m" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqm" xlink:to="ns12_m" order="22"/>
+    <link:loc xlink:label="ns12_sqmi" xlink:href="utr-units/utr-units.xsd#non-si_sqmi" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_mi" xlink:href="utr-units/utr-units.xsd#non-si_mi" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqmi" xlink:to="ns12_mi" order="2"/>
+    <link:loc xlink:label="ns12_m3" xlink:href="utr-units/utr-units.xsd#si_m3" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_m_1" xlink:href="utr-units/utr-units.xsd#si_m" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_m3" xlink:to="ns12_m_1" order="64"/>
+    <link:loc xlink:label="ns12_sqyd" xlink:href="utr-units/utr-units.xsd#non-si_sqyd" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_yd" xlink:href="utr-units/utr-units.xsd#non-si_yd" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_sqyd" xlink:to="ns12_yd" order="3"/>
+    <link:loc xlink:label="ns12_ft3" xlink:href="utr-units/utr-units.xsd#non-si_ft3" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_ft_1" xlink:href="utr-units/utr-units.xsd#non-si_ft" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/unit-squared" xlink:type="arc" xlink:from="ns12_ft3" xlink:to="ns12_ft_1" order="63"/>
+  </link:definitionLink>
+  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
+    <link:loc xlink:label="ns9_perShareItemType" xlink:href="dtr/dtr-types.xsd#dtr_perShareItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_sharesItemType" xlink:href="dtr/dtr-types.xsd#dtr_sharesItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_perShareItemType" xlink:to="ns9_sharesItemType" order="15"/>
+    <link:loc xlink:label="ns9_flowItemType" xlink:href="dtr/dtr-types.xsd#dtr_flowItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_durationItemType" xlink:href="dtr/dtr-types.xsd#dtr_durationItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_flowItemType" xlink:to="ns9_durationItemType" order="19"/>
+    <link:loc xlink:label="ns9_pureItemType" xlink:href="dtr/dtr-types.xsd#dtr_pureItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_monetaryItemType" xlink:href="dtr/dtr-types.xsd#dtr_monetaryItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_pureItemType" xlink:to="ns9_monetaryItemType" order="17"/>
+    <link:loc xlink:label="ns9_densityItemType" xlink:href="dtr/dtr-types.xsd#dtr_densityItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_volumeItemType" xlink:href="dtr/dtr-types.xsd#dtr_volumeItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_densityItemType" xlink:to="ns9_volumeItemType" order="26"/>
+    <link:loc xlink:label="ns9_irradianceItemType" xlink:href="dtr/dtr-types.xsd#dtr_irradianceItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_areaItemType" xlink:href="dtr/dtr-types.xsd#dtr_areaItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-denominator" xlink:type="arc" xlink:from="ns9_irradianceItemType" xlink:to="ns9_areaItemType" order="24"/>
+  </link:definitionLink>
+  <link:definitionLink xlink:role="https://www.xbrl.org/2023/roles/utr-conversion" xlink:type="extended">
+    <link:loc xlink:label="ns9_perShareItemType" xlink:href="dtr/dtr-types.xsd#dtr_perShareItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_monetaryItemType" xlink:href="dtr/dtr-types.xsd#dtr_monetaryItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_perShareItemType" xlink:to="ns9_monetaryItemType" order="16"/>
+    <link:loc xlink:label="ns9_flowItemType" xlink:href="dtr/dtr-types.xsd#dtr_flowItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_volumeItemType" xlink:href="dtr/dtr-types.xsd#dtr_volumeItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_flowItemType" xlink:to="ns9_volumeItemType" order="20"/>
+    <link:loc xlink:label="ns9_pureItemType" xlink:href="dtr/dtr-types.xsd#dtr_pureItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_monetaryItemType_1" xlink:href="dtr/dtr-types.xsd#dtr_monetaryItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_pureItemType" xlink:to="ns9_monetaryItemType_1" order="18"/>
+    <link:loc xlink:label="ns9_irradianceItemType" xlink:href="dtr/dtr-types.xsd#dtr_irradianceItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_powerItemType" xlink:href="dtr/dtr-types.xsd#dtr_powerItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_irradianceItemType" xlink:to="ns9_powerItemType" order="25"/>
+    <link:loc xlink:label="ns9_densityItemType" xlink:href="dtr/dtr-types.xsd#dtr_densityItemType" xlink:type="locator"/>
+    <link:loc xlink:label="ns9_massItemType" xlink:href="dtr/dtr-types.xsd#dtr_massItemType" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/datatype-numerator" xlink:type="arc" xlink:from="ns9_densityItemType" xlink:to="ns9_massItemType" order="27"/>
   </link:definitionLink>
 </link:linkbase>

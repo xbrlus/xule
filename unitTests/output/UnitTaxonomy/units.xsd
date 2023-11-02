@@ -1,7 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:units="http://www.xbrl.org/2023/units" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://www.xbrl.org/2023/units" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:annotation>
     <xs:appinfo>
-      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnitude_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_def.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
@@ -49,6 +48,10 @@
         <linkbase:definition>Defines the unit derived by squaring another unit. For example square miles and miles.</linkbase:definition>
         <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
       </linkbase:arcroleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/conversionPresentation" id="conversionPresentation">
+        <linkbase:definition>Defines the label role for the conversion presentation associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
       <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/symbol" id="symbol">
         <linkbase:definition>Defines the label role for the symbol associated with the unit</linkbase:definition>
         <linkbase:usedOn>linkbase:label</linkbase:usedOn>
@@ -67,12 +70,12 @@
       </linkbase:roleType>
     </xs:appinfo>
   </xs:annotation>
-  <xs:import namespace="http://www.xbrl.org/2003/iso4217" schemaLocation="alt-currency-unit.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/2023/datatype-units" schemaLocation="datatype-units.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/dtr/concept/2022-03-31" schemaLocation="dtr-types.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2003/iso4217" schemaLocation="alt-curr/alt-currency-unit.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/datatype-units" schemaLocation="datatype-units/datatype-units.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/concept/2022-03-31" schemaLocation="dtr/dtr-types.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
   <xs:import namespace="http://www.xbrl.org/taxonomy/int/currency/YYYY-MM-DD/currency-en" schemaLocation="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude/magnitude.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2023/units-parts" schemaLocation="unit-part.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/2009/utr" schemaLocation="utr-units.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2009/utr" schemaLocation="utr-units/utr-units.xsd"/>
 </xs:schema>

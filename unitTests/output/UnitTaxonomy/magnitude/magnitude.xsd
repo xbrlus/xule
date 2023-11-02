@@ -1,8 +1,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:si-prefix="http://www.xbrl.org/2023/si-prefix" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://www.xbrl.org/2023/si-prefix" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:annotation>
     <xs:appinfo>
-      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnatude_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnitude_lab.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnitude_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="magnitude_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:roleType roleURI="https://www.xbrl.org/2023/roles/si-prefix-presentation" id="si-prefix-presentation">
         <linkbase:definition>SI Prefix List</linkbase:definition>
         <linkbase:usedOn>linkbase:presentationLink</linkbase:usedOn>
