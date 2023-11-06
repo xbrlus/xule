@@ -328,7 +328,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     else:
                         possible_footnotes_fact = model_fact
 
-            elif json_result['type'] == 's': # result is a string
+            elif json_result['type'] in ('s', 'f'): # result is a string
                 # This will check if the html flag is in meta data (sub) or calculated in the result
                 if sub.get('html', json_result.get('html', False)):
                 #if sub.get('html', False):
