@@ -488,7 +488,7 @@ def format_rule_result_text_part(expression_text, part, value_number, type, extr
     if type == 'f':
         # if inside:
         #     # Inside expressions have an extra component to capture the fact. This is used to build the rule focus.
-            output_dictionary['fact'] = f"{expression_text}.xendr-object-id"       
+            output_dictionary['fact'] = f"({expression_text}).xendr-object-id"       
     # Extra expressions (i.e. class, format, scale)
     for extra_name, extra_expression in extra_expressions.items():
         if extra_name == 'fact':
