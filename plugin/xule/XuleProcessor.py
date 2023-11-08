@@ -203,7 +203,7 @@ def evaluate_rule_set(global_context):
                 if getattr(global_context.options, "xule_crash", False):
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error", "rule %s: %s" % (rule_name, str(e)))
+                    xule_context.global_context.message_queue.error("xule:error", "rule %s: %s" % (rule_name, str(e)), rule_name=rule_name)
 
             except XuleIterationStop:
                 pass
@@ -213,7 +213,7 @@ def evaluate_rule_set(global_context):
                     # if global_context.crash_on_error:
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error", "rule %s: %s" % (rule_name, str(e)))
+                    xule_context.global_context.message_queue.error("xule:error", "rule %s: %s" % (rule_name, str(e)), rule_name=rule_name)
 
             if getattr(global_context.options, "xule_time", None) is not None:
                 rule_end = datetime.datetime.today()
