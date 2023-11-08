@@ -13,6 +13,7 @@ import re
 import inspect
 
 _DTR_LOCATION = 'https://www.xbrl.org/dtr/dtr.xml'
+_CONCEPT_LABEL = 'http://www.xbrl.org/2003/arcrole/concept-label'
 
 _BASE_NAMESPACES = re.compile(r'^http://(www\.)?((w3)|(xbrl))\.org/')
 # def new_concept(new_model, model_concept, namespace=None):
@@ -652,14 +653,14 @@ def add_arelle_model(arelle_model, sxm_dts):
     Puts an existing arelle model in the output model.
     '''
     '''
-    Documents
-    Types
-    Elements
-    Part Elements
-    Roles
-    Arcroles
-    Typed Domains
-    Concepts
+    -Documents
+    -Types
+    -Elements
+    -Part Elements
+    -Roles
+    -Arcroles
+    -Typed Domains
+    -Concepts
     Labels
     References
     Networks/Relationships
@@ -670,6 +671,7 @@ def add_arelle_model(arelle_model, sxm_dts):
     add_concepts_and_elements(sxm_dts, arelle_model)
     add_roles(sxm_dts, arelle_model)
     add_arcroles(sxm_dts, arelle_model)
+    add_labels(sxm_dts, arelle_model)
 
     sxm_dts.close_external_documents()      
 
@@ -727,9 +729,24 @@ def add_arcroles(sxm_dts, arelle_model):
         if new_arcrole.document is None:
             new_arcrole.document = get_document_from_arelle(sxm_dts, model_arcrole.modelDocument.uri)
 
+def add_labels(sxm_dts, arelle_model):
+    label_network = arelle_model.relationshipSet(_CONCEPT_LABEL)
+    for label_rel in label_network.modelRelationships:
+        concept_qname = resolve_clark_to_qname(label_rel.fromModelObject.qname.clarkNotation, sxm_dts)
+        concept = sxm_dts.get('Concept', concept_qname)
+        arelle_label = label_rel.toModelObject
+        label_role = sxm_dts.get('Role', arelle_label.role)
+        concept.add_label(label_role, arelle_label.xmlLang, arelle_label.textValue)
 
 
-
+    # label_rels = label_network.fromModelObject(concept)
+    # label_by_type = collections.defaultdict(list)
+    # #filter the labels
+    # for lab_rel in label_rels:
+    #     label = lab_rel.toModelObject
+    #     if ((base_lang is None or label.xmlLang.lower().startswith(base_lang.lower())) and
+    #         (base_label_type is None or label.role == base_label_type)):
+    #         label_by_type[label.role].append(label)
 
 def is_function_in_call_stack(target_function):
 

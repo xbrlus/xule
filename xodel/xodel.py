@@ -154,7 +154,7 @@ _LINK_ALIASES_BY_URI = {'http://www.xbrl.org/2003/arcrole/fact-footnote': 'footn
 _LINK_ALIASES_BY_ALIAS = {v.lower(): k for k, v in _LINK_ALIASES_BY_URI.items()}
 _STANDARD_ROLE_ALIAS = '_'
 
-
+_STANDARD_LABEL_ROLE = 'http://www.xbrl.org/2003/role/label'
 
 # Starting point
 def process_xodel(cntlr, options, modelXbrl):
@@ -1663,6 +1663,8 @@ _STANDARD_ARCROLES = {
     "http://www.xbrl.org/2003/arcrole/requires-element"
 }
 
+_PARENT_CHILD = "http://www.xbrl.org/2003/arcrole/parent-child"
+
 # output attribute validators
 def string_validator(val):
     return True
@@ -1749,6 +1751,8 @@ def role_validator(val):
     return True
 def arcrole_validator(val):
     return True
+def cube_style_validator(val):
+    return val.lower() in ('us-gaap', 'ifrs')
 
 _VALIDATOR_FORMAT_MESSAGE = {
     qname_validator: 'QName must be formatted in clark notation (is {namespace-uri}local-name). Did you use the .to-xodel property',
@@ -1847,6 +1851,9 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'reference-concept': ('reference', object_validator),
     'reference-concept-name': ('reference', qname_validator),
     'reference-parts': ('reference', list_validator), # TODO - This should be a a list of lists
+    'cube-from-presentation': ('cube', cube_style_validator),
+    'cube-from-presentation-role': ('cube', role_validator),
+
     'import-url': ('import', string_validator),
     'import2-url': ('import2', string_validator),
 }
@@ -2497,6 +2504,173 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     return taxonomy.new('Relationship', network, source_concept, target_concept, rel_info.get('order', 1),
                                  rel_info.get('weight'), rel_info.get('preferred-label'), rel_info.get('attributes', dict()))
 
+def process_cube(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    '''
+    cube-from-presentation
+    cube-from-presentation-role
+    '''
+
+
+    cube_style = log_rec.args.get('cube-from-presentation')
+    cube_role = log_rec.args.get('cube-from-presentation-role') 
+
+    if cube_style is None:
+        raise XodelException(f"A cube style of 'us-gaap' or 'ifrs' is required. Found in rule {rule_name}")
+
+    return organize_cubes(taxonomy, cube_style, cube_role)
+
+def organize_cubes(taxonomy, cube_style, cube_role):
+    ''' Build the cubes
+    
+    The cubes are built from the presentation relationships. The existing dimension relationships are ignored.
+    '''
+    # need utility function for building networks of members
+    build_from_network = taxonomy.get_utility('Member', 'build_from_network') # This is a class method to create member nodes
+
+    cubes = []
+    # Go through the presentation relationships and find the cubes
+    for network in taxonomy.get_match('Network', (None, None, _PARENT_CHILD, cube_role)):
+        tables = find_dim_parts(network, 'TABLE')
+        for table in tables:
+            cube_node = taxonomy.new('Cube', network.role, table)
+            cubes.append(cube_node)
+            # Find the primary items
+            primaries = find_dim_parts(network, 'LINE ITEMS', table)
+            for primary in primaries:
+                primary_node = taxonomy.new('Primary', primary, network.role)
+                cube_node.add_primary_node(primary_node)
+                top_members = build_from_network(network, primary)
+                for top_member in top_members:
+                    primary_node.add_child_node(top_member)
+
+            # Get each of the dimensions
+            dimensions = find_dim_parts(network, 'AXIS', table)
+            for dimension in dimensions:
+                dimension_node = taxonomy.new('Dimension', dimension, network.role, dimension.typed_domain)
+                cube_node.add_dimension_node(dimension_node)
+                # Get the domains for the dimension
+                domains = find_dim_parts(network, 'DOMAIN', dimension)
+                if len(domains) > 1:
+                    raise XodelException("Dimension {} has more than one domain. Only 1 is allowed".format(dimension.name.clark,
+                            '\n'.join([x.name.clark for x in domains])))
+                elif len(domains) == 1:
+                    domain = list(domains)[0]
+                    domain_node = taxonomy.new('Member', domain, network.role)
+                    dimension_node.add_child_node(domain_node)
+                    top_members = build_from_network(network, domain)
+                    for top_member in top_members:
+                        domain_node.add_child_node(top_member)
+                    # Add the default
+                    if dimension_node.is_explicit:
+                        dimension_node.default = domain_node
+            
+    return cubes
+
+def find_dim_parts(network, part_name, root=None):
+    dim_parts = set()
+    if root is None:
+        concepts = network.concepts
+    else:
+        # Get all the concepts under the root concept
+        concepts = [x.to_concept for x in network.get_descendants(root)]
+
+    for concept in concepts:
+        for standard_labels in concept.get_match('Label', (_STANDARD_LABEL_ROLE,)):
+            for standard_label in standard_labels:
+                if standard_label.content.upper().endswith('[{}]'.format(part_name.upper())):
+                    dim_parts.add(concept)
+                    break
+    return dim_parts
+
+def is_dimensional(concept, dimension_type):
+    for standard_label in concept.get_match('Label', (_STANDARD_LABEL_ROLE,)):
+        if standard_label.content.endswith('[{}]'.format(dimension_type.uppercase())):
+            return True
+    return False
+
+def create_default_table(new_model, schedule_role_map):
+    ''''
+    The default table is a table of only line items (no dimensions) for line items that only exist in 
+    a tables with at least one typed dimension. Because of the typed dimension, facts for these
+    concepts cannot be reported without dimensions (typed dimensions don't have a default). So the default
+    table is created to allow these facts to be valid in the default table.
+    '''
+
+    # Reverse the schedule_role_map so I can look up by role. This will identify the document
+    # for the schedule
+    role_schedule_map = dict()
+    for schedule_concept, roles in schedule_role_map.items():
+        for role in roles:
+            role_schedule_map[role] = schedule_concept
+    
+    # Find the line items
+    typed_cubes = set()
+    for cube in new_model.cubes.values():
+        for dim in cube.dimensions:
+            if dim.is_typed:
+                typed_cubes.add(cube)
+                break
+
+    # Go through the cubes with typed dimensions. Find the cooresponding presentation network and
+    # look for siblings of the table that are total elements
+    for cube in typed_cubes:
+        typed_total_concepts = set()
+        network = new_model.get('Network', new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT), 
+                                           new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
+                                           _PARENT_CHILD,
+                                           cube.role)
+        if network is None:
+            raise FERCSerialzierException("Cannot find cooresponding network for cube {} in role {}".format(cube.concept.name, cube.role.role_uri))
+        parent_rels = network.get_parents(cube.concept)
+        if len(parent_rels) != 1:
+            raise FERCSerialzierException("Cube {} is in a presentation network more than once in role {}.".find(cube.concept.name.clark, cube.role.role_uri))
+        for child_rel in network.get_children(parent_rels[0].from_concept):
+            if (child_rel.order >= parent_rels[0].order and # This indicates the child is a following sibling of the table
+                child_rel.to_concept.type.is_numeric and
+                child_rel.to_concept is not cube.concept):
+                typed_total_concepts.add(child_rel.to_concept)
+                for descendant in network.get_descendants(child_rel.to_concept):
+                    if descendant.to_concept.type.is_nuemric:
+                        typed_total_concepts.add(descendant.to_concept)
+        
+        if len(typed_total_concepts) > 0: # This indicates a total table needs to be created
+            # Create a new role for the totals. This will be based on the exiting cube role
+            i = 0
+            while True:
+                new_role_uri = '{}Total{}'.format(cube.role.role_uri, '' if i == 0 else str(i))
+                if new_role_uri not in new_model.roles:
+                    break
+                else:
+                    i += 1
+                if i > 1000000:
+                    raise FERCSerialzierException("In a terrible loop trying to create the total role for role {}".format(cube.role.role_uri))
+            new_role = cube.role.copy(role_uri=new_role_uri, description='{} - Totals'.format(cube.role.description))
+            # Create the new cube
+            new_cube = cube.copy(role=new_role)
+            for dimension in cube.dimensions:
+                if dimension.is_explicit and dimension.default is not None:
+                    # Copy this defaulted dimension to the total table
+                    new_dimension = dimension.copy(deep=True, role=new_role)
+                    new_cube.add_dimension_node(new_dimension)
+            if len(cube.primary_items) == 0:
+                raise FERCSerialzierException("There are no primary items for table concept {}".format(cube.concept.name.clark))
+            new_primary = cube.primary_items[0].copy(role=new_role)
+            new_cube.add_primary_node(new_primary)
+            # create the new presentation network
+            new_network = network.copy(role=new_role)
+            presentation_document = parent_rels[0].document
+            new_network.add_relationship(parent_rels[0].from_concept, new_cube.concept)
+            presentation_document.add(new_network.add_relationship(parent_rels[0].from_concept, new_cube.concept))
+            presentation_document.add(new_network.add_relationship(new_cube.concept, new_primary.concept))
+
+            for concept in typed_total_concepts:
+                # add to the cube
+                new_member = new_primary.add_child(concept.get_class('Member'), concept)
+                new_member.document = new_primary.document
+                # add to the presentation network
+                new_rel = new_network.add_relationship(new_primary.concept, concept)
+                presentation_document.add(new_rel)
+
 def process_label(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     '''
     label
@@ -2744,13 +2918,27 @@ def process_import2(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     if 'import2-url' in log_rec.args:
         add_taxonomy_from_arelle(log_rec.args['import2-url'], taxonomy, cntlr, arelle_model)
 
-def set_document(rule_name, log_rec, sxm_object):
+def set_document(rule_name, log_rec, sxm_object_or_objects):
     uri = log_rec.args.get('document-uri')
     if uri is None:
         return
     
-    doc = sxm_object.dts.get('Document', uri)
-    sxm_object.document = doc
+
+    if isinstance(sxm_object_or_objects, list):
+        sxm_objects = sxm_object_or_objects
+    else:
+        sxm_objects = (sxm_object_or_objects,) # convert to a tuple with a single value
+    
+    doc = sxm_objects[0].dts.get('Document', uri)
+    for sxm_object in sxm_objects:
+        sxm_object.document = doc
+        if isinstance(sxm_object, sxm_object.get_class('Cube')):
+            # need to add all the parts of the cube to the document
+            for cube_top in sxm_object.primary_items + sxm_object.dimensions:
+                cube_top.document = doc
+                for cube_node in cube_top.all_descendants:
+                    cube_node.document = doc
+
 
 # XODAL Processing Order
 _XODEL_COMPONENT_ORDER = collections.OrderedDict({
@@ -2767,6 +2955,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'label': (process_label, no_sort),
     'reference': (process_reference, no_sort),
     'relationship': (process_relationship, no_sort),
+    'cube': (process_cube, no_sort),
     'import': (process_import, no_sort), 
 
 })

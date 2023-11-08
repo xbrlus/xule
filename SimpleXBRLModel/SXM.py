@@ -934,7 +934,7 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
         tax_items = (set(self.types.values()) | set(self.concepts.values()) | set(self.elements.values()) | 
                      set(self.roles.values()) | set(self.arcroles.values()) | set(self.part_elements.values()))
 
-        linkbase_items = set(self.networks.values()) | set(self.cubes)
+        linkbase_items = set(self.networks.values()) | set(self.cubes.values())
 
         # Each schema document for concepts, elements and types will be named 'taxonomy' followed by a number
         # This will separate the different namespaces
@@ -1015,6 +1015,15 @@ class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
                             if default_entry_point:
                                 entry_point_document.add(linkbase_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
                         rel.document = linkbase_document
+            elif isinstance(linkbase_item, SXMCube):
+                if linkbase_item.document is None:
+                    doc_name = f"{base_name}-def.xml"
+                    linkbase_document = self.get('Document', doc_name)
+                    if linkbase_document is None:
+                        linkbase_document = self.new('Document', doc_name, self.DOCUMENT_TYPES.LINKBASE)
+                        if default_entry_point:
+                            entry_point_document.add(linkbase_document, self.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+                    linkbase_item.document = linkbase_document
 
         # Asign documents to the labels
         label_document_name = f"{base_name}-lab.xml"
@@ -2236,7 +2245,7 @@ _SXM_ARGUMENT_TYPES= {
     'arc_name': ((SXMNetwork, ), SXMQName),
     'arcrole': ((SXMNetwork, ), SXMArcrole),
     'arcrole_uri': ((SXMArcrole, ), str),
-    'attributes': ((SXMConcept, SXMDimension, SXMElement, SXMMember, SXMPartElement, SXMPrimary, SXMReference, SXMRelationship, SXMResource, SXMTypedDomain), dict, (SXMQName, str), str),
+    'attributes': ((SXMConcept, SXMDimension, SXMElement, SXMMember, SXMPartElement, SXMPrimary, SXMReference, SXMRelationship, SXMResource, SXMTypedDomain), dict, (SXMQName, str), None),
     'balance_type': ((SXMConcept, ), str),
     'concept': ((SXMCube, SXMDimension, SXMMember, SXMPrimary, SXMReference, SXMResource), SXMConcept),
     'content': ((SXMResource, ), str),
