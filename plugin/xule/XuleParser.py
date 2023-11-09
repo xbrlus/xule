@@ -131,30 +131,9 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
         try:
             parseRes = parseFile(job.fullFileName, stack_size=stack_size, recursion_limit=new_depth)
         except (ParseException, ParseSyntaxException) as err:
-            error_message = ("Parse error in %s \n"
-                             "line: %i col: %i position: %i\n"
-                             "%s\n"
-                             "%s\n" % (job.fullFileName, err.lineno, err.col, err.loc, err.msg, err.line))
-            parse_errors.append(error_message)
-            print(error_message)
+            handleParsingException(job, err, parse_errors)
         else:
-            # Write the parse results as a json file
-            if save_pyparsing_result_location:
-                pyparsing_result_file_name = f'{os.path.join(save_pyparsing_result_location, job.fileName)}.pyparsed.json'
-                Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
-                with open(pyparsing_result_file_name, 'w') as py_write:
-                    py_write.write(json.dumps(parseRes, indent=2))
-
-            # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0
-            # the parse creates an extra layer in the hierarchy of the parse result for tagged, indexed and property
-            # expressions.
-            fixForPyParsing(parseRes)
-
-            ast_start = datetime.datetime.today()
-            print("%s: ast start" % datetime.datetime.isoformat(ast_start))
-            ruleSet.add(parseRes, os.path.getmtime(job.fullFileName), job.fileName, job.fileHash)
-            ast_end = datetime.datetime.today()
-            print("%s: ast end. Took %s" % (datetime.datetime.isoformat(ast_end), ast_end - ast_start))
+            handleParsedFile(parseRes, job, ruleSet, save_pyparsing_result_location)
 
     #reset the recursion limit
     if orig_recursionlimit != sys.getrecursionlimit():
@@ -181,3 +160,30 @@ def getFileHash(fullFileName):
             buffer = xule_file.read(4096)
             file_hash_contents.update(buffer)
         return file_hash_contents.hexdigest()
+
+def handleParsingException(job, err, parse_errors):
+    error_message = ("Parse error in %s \n"
+                     "line: %i col: %i position: %i\n"
+                     "%s\n"
+                     "%s\n" % (job.fullFileName, err.lineno, err.col, err.loc, err.msg, err.line))
+    parse_errors.append(error_message)
+    print(error_message)
+
+def handleParsedFile(parseRes, job, ruleSet, save_pyparsing_result_location):
+    # Write the parse results as a json file
+    if save_pyparsing_result_location:
+        pyparsing_result_file_name = f'{os.path.join(save_pyparsing_result_location, job.fileName)}.pyparsed.json'
+        Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
+        with open(pyparsing_result_file_name, 'w') as py_write:
+            py_write.write(json.dumps(parseRes, indent=2))
+
+    # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0
+    # the parse creates an extra layer in the hierarchy of the parse result for tagged, indexed and property
+    # expressions.
+    fixForPyParsing(parseRes)
+
+    ast_start = datetime.datetime.today()
+    print("%s: %s ast start" % (datetime.datetime.isoformat(ast_start), job.fileName))
+    ruleSet.add(parseRes, os.path.getmtime(job.fullFileName), job.fileName, job.fileHash)
+    ast_end = datetime.datetime.today()
+    print("%s: %s ast end. Took %s" % (datetime.datetime.isoformat(ast_end), job.fileName, ast_end - ast_start))
