@@ -14,6 +14,7 @@ import inspect
 
 _DTR_LOCATION = 'https://www.xbrl.org/dtr/dtr.xml'
 _CONCEPT_LABEL = 'http://www.xbrl.org/2003/arcrole/concept-label'
+_CONCEPT_REFERENCE = 'http://www.xbrl.org/2003/arcrole/concept-reference'
 
 _BASE_NAMESPACES = re.compile(r'^http://(www\.)?((w3)|(xbrl))\.org/')
 # def new_concept(new_model, model_concept, namespace=None):
@@ -653,18 +654,18 @@ def add_arelle_model(arelle_model, sxm_dts):
     Puts an existing arelle model in the output model.
     '''
     '''
-    -Documents
-    -Types
-    -Elements
-    -Part Elements
-    -Roles
-    -Arcroles
-    -Typed Domains
-    -Concepts
-    Labels
-    References
+    Documents
+    x Types
+    x Elements
+    x Part Elements
+    x Roles
+    x Arcroles
+    x Typed Domains
+    x Concepts
+    x Labels
+    x References
     Networks/Relationships
-    Cubes
+    Cubes # Not needed for xodel as cubes cannot be copied
     '''
     add_documents_from_arelle(sxm_dts, arelle_model)
     add_types_from_arelle(sxm_dts, arelle_model)
@@ -672,6 +673,8 @@ def add_arelle_model(arelle_model, sxm_dts):
     add_roles(sxm_dts, arelle_model)
     add_arcroles(sxm_dts, arelle_model)
     add_labels(sxm_dts, arelle_model)
+    add_references(sxm_dts, arelle_model)
+    add_networks(sxm_dts, arelle_model)
 
     sxm_dts.close_external_documents()      
 
@@ -736,17 +739,53 @@ def add_labels(sxm_dts, arelle_model):
         concept = sxm_dts.get('Concept', concept_qname)
         arelle_label = label_rel.toModelObject
         label_role = sxm_dts.get('Role', arelle_label.role)
-        concept.add_label(label_role, arelle_label.xmlLang, arelle_label.textValue)
+        new_label = concept.add_label(label_role, arelle_label.xmlLang, arelle_label.textValue)
+        # add document
+        new_label.document = get_document_from_arelle(sxm_dts, arelle_label.modelDocument.uri)
 
 
-    # label_rels = label_network.fromModelObject(concept)
-    # label_by_type = collections.defaultdict(list)
-    # #filter the labels
-    # for lab_rel in label_rels:
-    #     label = lab_rel.toModelObject
-    #     if ((base_lang is None or label.xmlLang.lower().startswith(base_lang.lower())) and
-    #         (base_label_type is None or label.role == base_label_type)):
-    #         label_by_type[label.role].append(label)
+def add_references(sxm_dts, arelle_model):
+    ref_network = arelle_model.relationshipSet(_CONCEPT_REFERENCE)
+    for ref_rel in ref_network.modelRelationships:
+        concept_qname = resolve_clark_to_qname(ref_rel.fromModelObject.qname.clarkNotation, sxm_dts)
+        concept = sxm_dts.get('Concept', concept_qname)
+        arelle_ref = ref_rel.toModelObject
+        ref_role = sxm_dts.get('Role', arelle_ref.role)
+        parts = []
+        for arelle_part in arelle_ref:
+            part_element = sxm_dts.get('Element', resolve_clark_to_qname(arelle_part.qname.clarkNotation, sxm_dts))
+            part = sxm_dts.new('Part', part_element, arelle_part.textValue)
+            parts.append(part)
+        new_ref = concept.add_reference(ref_role, parts)
+        new_ref.document = get_document_from_arelle(sxm_dts, arelle_ref.modelDocument.uri)
+
+def add_networks(sxm_dts, arelle_model):
+    for arelle_network in arelle_model.relationshipSets.values():
+        if arelle_network.linkqname is None or arelle_network.arcqname is None:
+            # This is the case for labels and references.
+            continue
+        link_name = resolve_clark_to_qname(arelle_network.linkqname.clarkNotation, sxm_dts)
+        arc_name = resolve_clark_to_qname(arelle_network.arcqname.clarkNotation, sxm_dts)
+        arcrole = sxm_dts.get('Arcrole', arelle_network.arcrole)
+        role = sxm_dts.get('Role', arelle_network.linkrole)
+        network = sxm_dts.new('Network', link_name, arc_name, arcrole, role)
+        for rel in arelle_network.modelRelationships:
+            if not isinstance(rel.fromModelObject, ModelConcept) or not isinstance(rel.toModelObject, ModelConcept):
+                # this is not a relationship between concepts. Not sure what to do
+                continue
+            from_concept = sxm_dts.get('Concept', resolve_clark_to_qname(rel.fromModelObject.qname.clarkNotation, sxm_dts))
+            to_concept = sxm_dts.get('Concept', resolve_clark_to_qname(rel.toModelObject.qname.clarkNotation, sxm_dts))
+            attribs = dict()
+            for att_clark, att_value in rel.arcElement.attrib.items():
+                if att_clark in ('order', 'weight', 'preferredLabel', 'use'):
+                    continue
+                att_qname = resolve_clark_to_qname(att_clark, sxm_dts)
+                if att_qname.namespace == 'http://www.w3.org/1999/xlink':
+                    continue
+                attribs[att_qname] = att_value
+            new_rel = network.add_relationship(from_concept, to_concept, rel.orderDecimal, rel.weightDecimal, rel.preferredLabel, attribs)
+            # add document
+            new_rel.document = get_document_from_arelle(sxm_dts, rel.modelDocument.uri)
 
 def is_function_in_call_stack(target_function):
 
