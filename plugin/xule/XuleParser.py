@@ -25,13 +25,13 @@ DOCSKIP
 from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException
 from . import XuleRuleSet as xrs
 from . import XuleRuleSetBuilder as xrsb
-from .xule_grammar import get_grammar
+from .XuleParseFile import parseFile
 import os
 import datetime
 import json
 import sys
 import hashlib
-import threading
+from dataclasses import dataclass
 from pathlib import Path
 
 _options = None
@@ -49,6 +49,12 @@ def printRes(pr, level=0):
         for child in pr:
             printRes(child, level)
 
+@dataclass(frozen=True)
+class CompileJob:
+    fullFileName: str
+    fileName: str
+    fileHash: str
+
 def add_location(src, loc, toks):
     #adds location information to the parse results
     '''NEEDS TO BE ADDED TO EACH OF THE ParserElements'''
@@ -56,55 +62,6 @@ def add_location(src, loc, toks):
     toks['line'] = lineno(loc, src)
     
     return toks
-
-def parseFile(fullFileName, fileHash, xuleGrammar, ruleSet):
-    parse_errors = []
-    try:
-        start_time = datetime.datetime.today()
-        print("%s: parse start" % datetime.datetime.isoformat(start_time))
-
-        fileName = os.path.basename(fullFileName)
-
-        returns = []
-        def threaded_parse():
-            returns.append(xuleGrammar.parse_file(fullFileName).as_dict())
-
-        t = threading.Thread(target=threaded_parse)
-        t.start()
-        t.join()
-        parseRes = returns[0]
-
-
-        # Write the parse results as a josn file
-        if hasattr(_options, 'xule_compile_save_pyparsing_result_location') and _options.xule_compile_save_pyparsing_result_location is not None:
-            pyparsing_result_file_name = f'{os.path.join(_options.xule_compile_save_pyparsing_result_location, fileName)}.pyparsed.json'
-            Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
-            with open(pyparsing_result_file_name, 'w') as py_write:
-                py_write.write(json.dumps(parseRes, indent=2))
-
-        # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0
-        # the parse creates an extra layer in the hiearachy of the parse result for tagged, indexed and property
-        # expressions.
-        fixForPyParsing(parseRes)
-
-        end_time = datetime.datetime.today()
-        print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
-        ast_start = datetime.datetime.today()
-        print("%s: ast start" % datetime.datetime.isoformat(ast_start))
-        ruleSet.add(parseRes, os.path.getmtime(fullFileName), fileName, fileHash)
-        ast_end = datetime.datetime.today()
-        print("%s: ast end. Took %s" %(datetime.datetime.isoformat(ast_end), ast_end - ast_start))
-        
-        
-    except (ParseException, ParseSyntaxException) as err:
-        error_message = ("Parse error in %s \n" 
-            "line: %i col: %i position: %i\n"
-            "%s\n"
-            "%s\n" % (fullFileName, err.lineno, err.col, err.loc, err.msg, err.line))
-        parse_errors.append(error_message)
-        print(error_message)
-    
-    return parse_errors
 
 def fixForPyParsing(parseRes):
     if isinstance(parseRes, dict):
@@ -126,8 +83,8 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
 
     # Set the stack size
     global _options
+    save_pyparsing_result_location = getattr(_options, 'xule_compile_save_pyparsing_result_location', None)
     stack_size = getattr(_options, 'xule_stack_size', 8) * 1048576
-    threading.stack_size(stack_size)
 
     #Need to check the recursion limit. 1000 is too small for some rules.
     new_depth = max_recurse_depth or 5500
@@ -135,10 +92,10 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
     if orig_recursionlimit < new_depth:
         sys.setrecursionlimit(new_depth)
     
-    xuleGrammar = get_grammar()
     ruleSet = xrsb.XuleRuleSetBuilder(compile_type)
     ruleSet.append(dest)
     
+    compileJobs = []
     for ruleFile in sorted(files):
         processFile = ruleFile.strip()
         if os.path.isfile(processFile):
@@ -147,7 +104,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
             fullFileName = os.path.join(root, fileName)
             fileHash = getFileHash(fullFileName)
             if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(fullFileName):
-                parse_errors += parseFile(fullFileName, fileHash, xuleGrammar, ruleSet)
+                compileJobs.append(CompileJob(fullFileName, fileName, fileHash))
             else:
                 ruleSet.markFileKeep(fileName)
 
@@ -164,12 +121,41 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
                         fullFileName = os.path.join(processFile, relativeFileName)
                         fileHash = getFileHash(fullFileName)
                         if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(fullFileName):
-                            parse_errors += parseFile(fullFileName, fileHash, xuleGrammar, ruleSet)
+                            compileJobs.append(CompileJob(fullFileName, relativeFileName, fileHash))
                         else:
                             ruleSet.markFileKeep(relativeFileName)
         else:
             print("Not a file or directory: %s" % processFile)
-    
+
+    for job in compileJobs:
+        try:
+            parseRes = parseFile(job.fullFileName, stack_size=stack_size, recursion_limit=new_depth)
+        except (ParseException, ParseSyntaxException) as err:
+            error_message = ("Parse error in %s \n"
+                             "line: %i col: %i position: %i\n"
+                             "%s\n"
+                             "%s\n" % (job.fullFileName, err.lineno, err.col, err.loc, err.msg, err.line))
+            parse_errors.append(error_message)
+            print(error_message)
+        else:
+            # Write the parse results as a json file
+            if save_pyparsing_result_location:
+                pyparsing_result_file_name = f'{os.path.join(save_pyparsing_result_location, job.fileName)}.pyparsed.json'
+                Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
+                with open(pyparsing_result_file_name, 'w') as py_write:
+                    py_write.write(json.dumps(parseRes, indent=2))
+
+            # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0
+            # the parse creates an extra layer in the hierarchy of the parse result for tagged, indexed and property
+            # expressions.
+            fixForPyParsing(parseRes)
+
+            ast_start = datetime.datetime.today()
+            print("%s: ast start" % datetime.datetime.isoformat(ast_start))
+            ruleSet.add(parseRes, os.path.getmtime(job.fullFileName), job.fileName, job.fileHash)
+            ast_end = datetime.datetime.today()
+            print("%s: ast end. Took %s" % (datetime.datetime.isoformat(ast_end), ast_end - ast_start))
+
     #reset the recursion limit
     if orig_recursionlimit != sys.getrecursionlimit():
         sys.setrecursionlimit(orig_recursionlimit)
