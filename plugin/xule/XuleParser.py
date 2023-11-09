@@ -76,7 +76,7 @@ def fixForPyParsing(parseRes):
         for child in parseRes:
             fixForPyParsing(child)
 
-def parseRules(files, dest, compile_type, max_recurse_depth=None):
+def parseRules(files, dest, compile_type, max_recurse_depth=None, xule_compile_workers=1):
 
     parse_start = datetime.datetime.today()
     parse_errors = []
@@ -127,13 +127,30 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
         else:
             print("Not a file or directory: %s" % processFile)
 
-    for job in compileJobs:
-        try:
-            parseRes = parseFile(job.fullFileName, stack_size=stack_size, recursion_limit=new_depth)
-        except (ParseException, ParseSyntaxException) as err:
-            handleParsingException(job, err, parse_errors)
-        else:
-            handleParsedFile(parseRes, job, ruleSet, save_pyparsing_result_location)
+    if xule_compile_workers == 1:
+        for job in compileJobs:
+            try:
+                parseRes = parseFile(job.fullFileName, stack_size=stack_size, recursion_limit=new_depth)
+            except (ParseException, ParseSyntaxException) as err:
+                handleParsingException(job, err, parse_errors)
+            else:
+                handleParsedFile(parseRes, job, ruleSet, save_pyparsing_result_location)
+    else:
+        from arelle.PluginUtils import PluginProcessPoolExecutor
+        xule_plugin_module = sys.modules["xule"]
+        max_workers = None if xule_compile_workers <= 0 else xule_compile_workers
+        with PluginProcessPoolExecutor(xule_plugin_module, max_workers) as pool:
+            jobFutures = {
+                job: pool.submit(parseFile, full_file_name=job.fullFileName, stack_size=stack_size, recursion_limit=new_depth)
+                for job in compileJobs
+            }
+            for job, future in jobFutures.items():
+                try:
+                    parseRes = future.result()
+                except (ParseException, ParseSyntaxException) as err:
+                    handleParsingException(job, err, parse_errors)
+                else:
+                    handleParsedFile(parseRes, job, ruleSet, save_pyparsing_result_location)
 
     #reset the recursion limit
     if orig_recursionlimit != sys.getrecursionlimit():
