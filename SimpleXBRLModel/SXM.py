@@ -1696,6 +1696,15 @@ class SXMConcept(SXMElement, SXMAttributedBase):
         return label
 
     def add_reference(self, reference_role, parts):
+        # validate the args
+        if not isinstance(reference_role, SXMRole):
+            raise SXMException(f"Invalid reference. Found {type(reference_role.__name__)}. Occurred when adding a reference for concept {self.name.clark}")
+        if not isinstance(parts, list):
+            raise SXMException(f"Invalid parts when adding a reference to concept {self.name.clark}. Found {type(parts).__name__}, expecting a list")
+        bad_parts = tuple(f"Expected a SXMPart but found {type(x).__name__}" for x in parts if not isinstance(x, SXMPart))
+        if len(bad_parts) > 0:
+            raise SXMException(f"Found bad reference parts when adding reference parts for concept {self.name.clark}. Bad parts: {', '.join()}")
+
         ref = self.new('Reference', self, reference_role, parts)
         return ref
 
