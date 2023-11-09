@@ -32,6 +32,7 @@ import json
 import sys
 import hashlib
 import threading
+from pathlib import Path
 
 _options = None
 
@@ -76,7 +77,6 @@ def parseFile(fullFileName, fileHash, xuleGrammar, ruleSet):
 
         # Write the parse results as a josn file
         if hasattr(_options, 'xule_compile_save_pyparsing_result_location') and _options.xule_compile_save_pyparsing_result_location is not None:
-            from pathlib import Path
             pyparsing_result_file_name = f'{os.path.join(_options.xule_compile_save_pyparsing_result_location, fileName)}.pyparsed.json'
             Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
             with open(pyparsing_result_file_name, 'w') as py_write:
@@ -126,14 +126,9 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
 
     # Set the stack size
     global _options
-    if _options is None or getattr(_options, 'xule_stack_size', None) is None:
-        #threading.stack_size(0x2000000)
-        threading.stack_size(8 * 1048576)
-    else:
-        threading.stack_size(getattr(_options, 'xule_stack_size') * 1048576)
-    
-    #threading.stack_size(0x2000000)
-    
+    stack_size = getattr(_options, 'xule_stack_size', 8) * 1048576
+    threading.stack_size(stack_size)
+
     #Need to check the recursion limit. 1000 is too small for some rules.
     new_depth = max_recurse_depth or 5500
     orig_recursionlimit = sys.getrecursionlimit()
