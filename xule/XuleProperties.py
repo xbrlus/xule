@@ -2483,7 +2483,7 @@ def property_inline_children(xule_context, object_value, *args):
     result = []
     for child in object_value.fact.iterchildren():
         if isinstance(child, ModelInlineFact):
-            result.apend(child)
+            result.append(child)
         else: 
             # check if there is a descendant
             descendants = tuple(x for x in child.iterdescendants() if isinstance(x, ModelInlineFact))
