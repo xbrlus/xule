@@ -117,10 +117,10 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="xendr_show_xule_log",
                       help=_("Show the log messages when running the xule rules. By default these messages are not displayed."))
 
-    parserGroup.add_option("--xendr-constants", 
+    parserGroup.add_option("--xendr-global", 
                       action="store", 
-                      dest="xendr_constants", 
-                      help=_("Name of the constants file. This will default to render-constants.xule."))  
+                      dest="xendr_global", 
+                      help=_("Name of a xule file that is placed in the generated ruleset."))  
 
     parserGroup.add_option("--xendr-partial",
                       action="store_true",
