@@ -552,3 +552,18 @@ output DIMFILT005
 /* 3785000000 */
 
   max(list([covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis = *]))
+
+output NOTINFILT001
+/* 1138 */
+
+  list({covered @instance = $INSTANCE1 @concept not in list(Assets,Liabilities) where $fact.dimensions.length > 0 }).length
+
+output NILSFILT001
+/* 1579 */
+
+  list({covered nonils @instance = $INSTANCE1 @concept.substitution = xbrli:item}).count
+
+output NILSFILT002
+/* 1579 */
+
+  list({covered nonils @instance = $INSTANCE1}).count

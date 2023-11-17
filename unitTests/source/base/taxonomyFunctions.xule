@@ -279,57 +279,62 @@ output TAXPROP009
 
   $US-GAAP-2020.entry-point-namespace
 
-output TAXPROP010
+output CUBEPROP010
 /* [ERROR] [xule:error] rule TAXPROP010: Rule: TAXPROP010 - Property 'cube' must have 2 arguments. Found 1. */
 
   $US-GAAP-2020.cube(StatementTable)
 
-output TAXPROP011
+output CUBEPROP011
 /* us-gaap:ScheduleOfFairValueOffBalanceSheetRisksTable  */
 
   $CUBE.cube-concept
 
-output TAXPROP012
+output CUBEPROP012
 /* us-gaap:ScheduleOfFairValueOffBalanceSheetRisksTable  */
 
   cube-concept($CUBE)
 
-output TAXPROP013
+output CUBEPROP013
 /*  http://fasb.org/us-gaap/role/disclosure/FinancialInstrumentsFairValueDisclosuresScheduleOfFairValueOffBalanceSheetRisksTable */
 
   $CUBE.drs-role.uri
 
-output TAXPROP014
+output CUBEPROP014
 /*  http://fasb.org/us-gaap/role/disclosure/FinancialInstrumentsFairValueDisclosuresScheduleOfFairValueOffBalanceSheetRisksTable */
 
   drs-role($CUBE).uri
 
-output TAXPROP015
+output CUBEPROP015
 /* set(us-gaap:FinancialInstrumentAxis) */
 
   $CUBE.dimensions.concept
 
-output TAXPROP016
+output CUBEPROP016
 /* set(us-gaap:FinancialInstrumentAxis) */
 
   dimensions($CUBE).concept
 
-output TAXPROP017
+output CUBEPROP017
 /* 6 */
 
   $CUBE.primary-concepts.length
 
-output TAXPROP018
+output CUBEPROP018
 /* 6 */
 
   primary-concepts($CUBE).length
 
-output TAXPROP019
+output CUBEPROP019
+/* 6 */
+
+  $US-GAAP-2020.cubes.primary-concepts.sum.length
+
+output CUBEPROP020
 /* [ERROR] [xule:error] rule TAXPROP019: Rule: TAXPROP019 - 'closed' is not a valid property. */
 
   $CUBE.closed
 
-output TAXPROP020
+output CUBEPROP021
 /* 437 */
 
   count($US-GAAP-2020.cubes)
