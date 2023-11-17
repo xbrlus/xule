@@ -325,7 +325,7 @@ output CUBEPROP018
   primary-concepts($CUBE).length
 
 output CUBEPROP019
-/* 6 */
+/* 8213 */
 
   $US-GAAP-2020.cubes.primary-concepts.sum.length
 
