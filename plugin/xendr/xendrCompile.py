@@ -72,7 +72,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         xule_rule_set_name = os.path.join(temp_dir, 'temp-ruleset.zip')
         from .xule import __pluginInfo__ as xule_plugin_info
         compile_method = xule_plugin_info['Xule.compile']
-        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"))
+        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"), getattr(options, "xule_compile_workers"))
 
         template_catalog.append({'name': template_name,
                             'template': template_file_name,
