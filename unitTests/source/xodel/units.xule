@@ -110,11 +110,23 @@ package-name $UNIT_TAXONOMY
 package-url 'https://taxonomies.xbrl.us/xodel/Units'
 document-uri 'units.xsd'
 document-namespace 'http://www.xbrl.org/2023/units'
-document-import list('https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd').to-xodel
 document-package-entry-point true
 document-package-entry-point-description 'main entry point'
 document-package-entry-point-language 'en'
 document-package-entry-point-name 'Main'
+
+
+output create_currency_entry_point_taxonomy
+true
+package-name $UNIT_TAXONOMY
+document-uri 'currency/iso-currency-units.xsd'
+document-namespace 'http://www.xbrl.org/2023/iso-currency-units'
+document-imported-in 'units.xsd'
+document-import list('https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd').to-xodel
+document-package-entry-point true
+document-package-entry-point-description 'currency entry point'
+document-package-entry-point-language 'en'
+document-package-entry-point-name 'Currency'
 
 /** DEFINE NEW LABEL ROLES 
 -----------------------**/
