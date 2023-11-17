@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23650 $
+$Change: 23659 $
 DOCSKIP
 """
 
@@ -764,26 +764,26 @@ def validate_data_field_types(column_types, func_name, xule_context):
 
     return ordered_cols
 
-def convert_file_data_item(val, type, xule_context):
+def convert_file_data_item(val, value_type, xule_context):
     
-    if type is None:
+    if value_type is None:
         return xv.XuleValue(xule_context, val, 'string')
 
-    if type.type in ('qname', 'list'):
+    if value_type.type in ('qname', 'list'):
         # this is a transform
-        # Need to convert the stering version of the value to the canonical string version using the transform format.
-        if type.type == 'qname': # This is just a transform, the type will be a string
-            f = type.value
+        # Need to convert the string version of the value to the canonical string version using the transform format.
+        if value_type.type == 'qname': # This is just a transform, the type will be a string
+            f = value_type.value
             output_type = 'string'
         else: # this is a list of 2 items. the first is the transform and the second is output type
-            if len(type.value) != 2:
+            if len(value_type.value) != 2:
                 raise XuleProcessingError(_("When the type value is a list, it must have 2 items, the first is the transform name and the second is output type"), xule_context)
-            if type.value[0].type != 'qname':
-                raise XuleProcessingError(_("The fist item in a type list must be a qname for a transform. Found '{}'".format(type.value[0].type)), xule_context)
-            f = type.value[0].value
-            if type.value[1].type != 'string':
-                raise XuleProcessingError(_("The second item in a type list must be sting indicating the output type. Found '{}'".format(type.value[1].type)), xule_context)
-            output_type = type.value[1].value
+            if value_type.value[0].type != 'qname':
+                raise XuleProcessingError(_("The fist item in a type list must be a qname for a transform. Found '{}'".format(value_type.value[0].type)), xule_context)
+            f = value_type.value[0].value
+            if value_type.value[1].type != 'string':
+                raise XuleProcessingError(_("The second item in a type list must be sting indicating the output type. Found '{}'".format(value_type.value[1].type)), xule_context)
+            output_type = value_type.value[1].value
 
         if f.namespaceURI in FunctionIxt.ixtNamespaceFunctions:
             try:
@@ -798,7 +798,7 @@ def convert_file_data_item(val, type, xule_context):
             except Exception as err:
                 raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, f.clarkNotation)))
     else: #This is a string indicating the output type
-        output_type = type.value
+        output_type = value_type.value
         v = val
 
     if output_type == 'qname':
@@ -817,23 +817,28 @@ def convert_file_data_item(val, type, xule_context):
         try:
             return xv.XuleValue(xule_context, int(v), 'int')
         except ValueError:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(val, type)), xule_context)
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(val, value_type.value)), xule_context)
     elif output_type == 'float':
         try:
             return xv.XuleValue(xule_context, float(v), 'float')
         except ValueError:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, type)), xule_context)
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, value_type.value)), xule_context)
     elif output_type == 'decimal':
         try:
             return xv.XuleValue(xule_context, decimal.Decimal(v), 'decimal')
         except decimal.InvalidOperation:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, type)), xule_context)
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, value_type.value)), xule_context)
     elif output_type == 'string':
         return xv.XuleValue(xule_context, v, 'string')  
     elif output_type == 'date':
         return xv.XuleValue(xule_context, datetime.datetime.fromisoformat(v).date(), 'date')
     elif output_type == 'boolean':
         return xv.XuleValue(xule_context, bool(v), 'boolean')
+    elif output_type == 'xml':
+        try:
+            return xv.XuleValue(xule_context, et.tostring(v).decode(), 'string')
+        except Exception as e:
+            raise XuleProcessingError(_(f"Trying to process a field as XML, but it is not valid XML. Value is \n{v}"), xule_context)
     else:
         raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(output_type)), xule_context)
 
@@ -920,7 +925,6 @@ def func_xml_data_flat(xule_context, *args):
         if field.type != 'string':
             raise XuleProcessingError(_(f"Field in the {field_count} position is not a string"), xule_context)
     
-    mapped_file_url = PackageManager.mappedUrl(file_url.value)
     try:
         xml = et.parse(FileSource.openFileStream(xule_context.global_context.cntlr, file_url.value))
     except IOError:
@@ -933,31 +937,31 @@ def func_xml_data_flat(xule_context, *args):
     except:
         raise XuleProcessingError(_(f"In function xml-data-flat(), xpath failed. File: {file_url.value}, XPath: {locator_xpath.value}"), xule_context)
     
-    for node in nodes:
+    for row_num, node in enumerate(nodes):
         record = []
         shadow_record = []
         field_count = 0
-        for field in fields.value:
+        for field_count, field in enumerate(fields.value):
             try:
                 field_result = node.xpath(field.value, namespaces=nsmap)
                 if len(field_result) == 0:
                     field_val = xv.XuleValue(xule_context, None, 'none')
                 else:
-                    if hasattr(field_result[0], 'text'):
+                    if ordered_cols is not None and ordered_cols[field_count].value == 'xml':
+                        field_val = field_result[0]
+                    elif hasattr(field_result[0], 'text'):
                         field_val = field_result[0].text
                     else:
                         field_val = field_result[0]
                     if ordered_cols is not None and field_count >= len(ordered_cols):
-                        raise XuleProcessingError(_("The nubmer of columns on row {} is greater than the number of column types provided in the third argument of the csv-data() function. File: {}".format(row_num, file_url.value)), xule_context)
+                        raise XuleProcessingError(_("The number of columns on row {} is greater than the number of column types provided in the third argument of the csv-data() function. File: {}".format(row_num, file_url.value)), xule_context)
             
                     field_val = convert_file_data_item(field_val, ordered_cols[field_count] if ordered_cols is not None else None, xule_context)
             except:
-                raise XuleProcessingError(_(f"In function xml-data-flat, field xpath of '{field.value + 1}' is not valid."), xule_context)
+                raise XuleProcessingError(_(f"In function xml-data-flat, field xpath of '{field.value}' is not valid as '{ordered_cols[field_count] if ordered_cols is not None else 'string'}'."), xule_context)
 
             record.append(field_val)
             shadow_record.append(field_val.value)
-
-            field_count += 1
 
         record_xule_val = xv.XuleValue(xule_context, tuple(record), 'list', shadow_collection=shadow_record)
         result.append(record_xule_val)
