@@ -71,10 +71,10 @@
     </xs:appinfo>
   </xs:annotation>
   <xs:import namespace="http://www.xbrl.org/2003/iso4217" schemaLocation="alt-curr/alt-currency-unit.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/iso-currency-units" schemaLocation="currency/iso-currency-units.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2023/datatype-units" schemaLocation="datatype-units/datatype-units.xsd"/>
   <xs:import namespace="http://www.xbrl.org/dtr/concept/2022-03-31" schemaLocation="dtr/dtr-types.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/taxonomy/int/currency/YYYY-MM-DD/currency-en" schemaLocation="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude/magnitude.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2023/units-parts" schemaLocation="unit-part.xsd"/>
   <xs:import namespace="http://www.xbrl.org/2009/utr" schemaLocation="utr-units/utr-units.xsd"/>

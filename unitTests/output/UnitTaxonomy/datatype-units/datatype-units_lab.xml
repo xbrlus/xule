@@ -1,15 +1,15 @@
 <link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
   <link:labelLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
-    <link:loc xlink:label="ns11_shares" xlink:href="datatype-units.xsd#instance_shares" xlink:type="locator"/>
-    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns11_shares" xlink:to="lbl_lab_ns11_shares"/>
-    <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_shares" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">Unit of Ownership (Stock)</link:label>
-    <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_shares" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">Share</link:label>
     <link:loc xlink:label="ns11_pure" xlink:href="datatype-units.xsd#instance_pure" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns11_pure" xlink:to="lbl_lab_ns11_pure"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_pure" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">pure</link:label>
+    <link:loc xlink:label="ns11_shares" xlink:href="datatype-units.xsd#instance_shares" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns11_shares" xlink:to="lbl_lab_ns11_shares"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_shares" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">Share</link:label>
     <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_pure" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">Dimensionless (Pure) Number</link:label>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_shares" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en">Unit of Ownership (Stock)</link:label>
     <link:loc xlink:label="ns11_DatatypeUnitsDomain" xlink:href="datatype-units.xsd#datatype-unit_DatatypeUnitsDomain" xlink:type="locator"/>
     <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns11_DatatypeUnitsDomain" xlink:to="lbl_lab_ns11_DatatypeUnitsDomain"/>
     <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_DatatypeUnitsDomain" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">Datatype Units [Domain]</link:label>
-    <link:label xlink:type="resource" xlink:label="lbl_lab_ns11_pure" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en">pure</link:label>
   </link:labelLink>
 </link:linkbase>

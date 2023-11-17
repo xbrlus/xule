@@ -1,0 +1,3 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:iso-currency-units="http://www.xbrl.org/2023/iso-currency-units" targetNamespace="http://www.xbrl.org/2023/iso-currency-units" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:import namespace="http://www.xbrl.org/taxonomy/int/currency/YYYY-MM-DD/currency-en" schemaLocation="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd"/>
+</xs:schema>
