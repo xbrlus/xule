@@ -8,7 +8,7 @@ for keeping track of the processing (including the iterations that are created w
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2022 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23555 $
+$Change: 23623 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -219,6 +219,7 @@ class XuleGlobalContext(object):
         self.other_taxonomies = dict()
         self.maximum_iterations = max(getattr(self.options, "xule_max_rule_iterations", 10000), len(getattr(model_xbrl, "factsInInstance", tuple())) + 10 )
         self.ancestry_cache = defaultdict(dict)
+        self.output_files = set() # list of files that are created
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cid=id(self.cntlr))

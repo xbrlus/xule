@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23609 $
+$Change: 23650 $
 DOCSKIP
 """
 
@@ -37,10 +37,10 @@ import random
 from lxml import etree as et
 from .XuleRunTime import XuleProcessingError
 from . import XuleValue as xv
+from . import XuleProperties as xp
 from . import XuleRollForward as xrf
 from . import XuleInstanceFunctions as xif
 from . import XuleUtility as xu
-
 
 def func_exists(xule_context, *args):   
     #return xv.xv.XuleValue(xule_context, args[0].type not in ('unbound', 'none'), 'bool')
@@ -50,22 +50,22 @@ def func_missing(xule_context, *args):
     #return xv.XuleValue(xule_context, args[0].type in ('unbound', 'none'), 'bool')
     return xv.XuleValue(xule_context, args[0].type == 'unbound', 'bool')
 
-def func_date(xule_context, *args):
-    arg = args[0]
+# def func_date(xule_context, *args):
+#     arg = args[0]
 
-    if arg.type == 'instant':
-        return arg
-    elif arg.type == 'string':
-        return xv.XuleValue(xule_context, xv.iso_to_date(xule_context, arg.value), 'instant')
-    else:
-        raise XuleProcessingError(_("function 'date' requires a string argument, found '%s'" % arg.type), xule_context)
+#     if arg.type == 'instant':
+#         return arg
+#     elif arg.type == 'string':
+#         return xv.XuleValue(xule_context, xv.iso_to_date(xule_context, arg.value), 'instant')
+#     else:
+#         raise XuleProcessingError(_("function 'date' requires a string argument, found '%s'" % arg.type), xule_context)
 
 def func_duration(xule_context, *args):
     start = args[0]
     end = args[1]
     
-    start_instant = func_date(xule_context, start)
-    end_instant = func_date(xule_context, end)
+    start_instant = xp.property_date(xule_context, start)
+    end_instant = xp.property_date(xule_context, end)
     
     if end_instant.value < start_instant.value:
         return xv.XuleValue(xule_context, None, 'unbound')
@@ -476,25 +476,29 @@ def func_excel_data(xule_context, *args):
 
     if len(args) > 1:
         range_descriptor = args[1]
-        if range_descriptor.type != 'string':
+        if range_descriptor.type == 'none':
+            range_descriptor = None
+        elif range_descriptor.type != 'string':
             raise XuleProcessingError(_("The cell range argument (2nd) of the excel-data() function must be a string, found {}".format(range_descriptor.type)), xule_context)
     else:
         range_descriptor = None
 
     if len(args) > 2:
-        if args[2].type != 'bool':
+        if args[2].type not in ('bool', 'none'):
             raise XuleProcessingError(_("The has headers argument (3rd) of the excel-data() function muset be a boolean, found '{}'.".format(args[2].type)), xule_context)
         has_headers = args[2].value
     else: # default is false
         has_headers = False
 
-    if len(args) >= 4: 
+    if len(args) >= 4:
         ordered_cols = validate_data_field_types(args[3], 'excel-data', xule_context)   
     else:
         ordered_cols = None
     
     if len(args) == 5:
-        if args[4].type != 'bool':
+        if args[4].type == 'none':
+            return_row_type = 'list'
+        elif args[4].type != 'bool':
             raise XuleProcessingError(_("The as dictionary argument (5th) of the excel-data() function must be a boolean, found '{}'.".format(args[4].type)), xule_context)
         if args[2].value:
             return_row_type = 'dictionary'
@@ -536,7 +540,10 @@ def func_excel_data(xule_context, *args):
                 if sheet_name is None:
                     sheet_name = wb.active.title
                 ranges = [(sheet_name, cell_range_text)] # This mimics what wb.defined_names returns
-        
+        else:
+            # use active sheet
+            ranges = [(wb.active.title, None)]
+
         result = []
         result_shadow = []
         first_line = True
@@ -621,7 +628,7 @@ def open_excel(file_name, xule_context):
         file = file_source.file(file_name, binary=True)
         # file is  tuple of one item as a BytesIO stream. Since this is in bytes
         # open the excel file and save it in the cache
-        xule_context.global_context.excel_files[file_name] = openpyxl.load_workbook(file[0])
+        xule_context.global_context.excel_files[file_name] = openpyxl.load_workbook(file[0], data_only=True)
     
     xule_context.global_context.excel_files.move_to_end(file_name) # move the key to the end of the ordered dict.
     
@@ -958,16 +965,42 @@ def func_xml_data_flat(xule_context, *args):
         
     return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=shadow_result)
 
-def func_first_value(xule_context, *args):
+def func_first_value(xule_context, *args, evaluate_function, iteration_stop):
     """Return the first non None value.
 
     This function can take any number of arguments. It will return the first argument that is not None
     """
-    for arg in args:
-        if arg.value is not None:
+    # The arguments are not pre-evaluated, so they must be evaluated as the processing happesn
+    # This allows the ability for the first-value() function to evaluate the arguments in lazy way
+    # saving, processing time.
+    for function_arg in args: # these args are the parse tree nodes
+        function_info = BUILTIN_FUNCTIONS.get('first-value')
+        if function_info is None:
+            raise XuleProcessingError(_("Problem evaluating the first-value() function."), xule_context)
+        if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
+            try:
+                arg = evaluate_function(function_arg, xule_context)
+            except iteration_stop as xis:
+                arg = xis.stop_value
+        else:
+            arg = evaluate_function(function_arg, xule_context)
+
+        if arg.type in ('list', 'set', 'dictionary'): 
+            # This is a collection, so only if there are values in the collection should we take it
+            return_value = len(arg.value) > 0
+        else:
+            return_value = arg.value is not None
+        if return_value:
             return arg.clone()
     # If here, either there were no arguments, or they were all none
     return xv.XuleValue(xule_context, None, 'unbound')
+
+def func_first_value_or_none(xule_context, *args, evaluate_function, iteration_stop):
+    result = func_first_value(xule_context, *args, evaluate_function=evaluate_function, iteration_stop=iteration_stop)
+    if result.type == 'unbound':
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        return result
 
 def func_range(xule_context, *args):
     """Return a list of numbers.
@@ -1159,6 +1192,7 @@ FUNCTION_DEFAULT_TYPE = 4
 #non aggregate only
 FUNCTION_ALLOW_UNBOUND_ARGS = 3
 FUNCTION_RESULT_NUMBER = 4
+FUNCTION_POST_EVALUATE_ARGS = 5
 
 def built_in_functions():
     funcs = {
@@ -1175,34 +1209,35 @@ def built_in_functions():
              #'set': ('aggregate', agg_set, 1, None, None),
              'dict': ('aggregate', agg_dict, 1, frozenset(), 'dictionary'),
              
-             'exists': ('regular', func_exists, 1, True, 'single'),
-             'missing': ('regular', func_missing, 1, True, 'single'),
+             'exists': ('regular', func_exists, 1, True, 'single', False),
+             'missing': ('regular', func_missing, 1, True, 'single', False),
              #'instant': ('regular', func_instant, 1, False, 'single'),
-             'date': ('regular', func_date, 1, False, 'single'),
-             'duration': ('regular', func_duration, 2, False, 'single'),
-             'forever': ('regular', func_forever, 0, False, 'single'),
-             'unit': ('regular', func_unit, -2, False, 'single'),
-             'entity': ('regular', func_entity, 2, False, 'single'),
-             'qname': ('regular', func_qname, 2, True, 'single'),
-             'uri': ('regular', func_uri, 1, False, 'single'),
+             #'date': ('regular', func_date, 1, False, 'single'),
+             'duration': ('regular', func_duration, 2, False, 'single', False),
+             'forever': ('regular', func_forever, 0, False, 'single', False),
+             'unit': ('regular', func_unit, -2, False, 'single', False),
+             'entity': ('regular', func_entity, 2, False, 'single', False),
+             'qname': ('regular', func_qname, 2, True, 'single', False),
+             'uri': ('regular', func_uri, 1, False, 'single', False),
              #'time-span': ('regular', func_time_span, 1, False, 'single'),
-             'schema-type': ('regular', func_schema_type, 1, False, 'single'),
-             'num-to-string': ('regular', func_num_to_string, 1, False, 'single'),
-             'mod': ('regular', func_mod, 2, False, 'single'),
-             'random': ('regular', func_random, -3, False, 'single'),
-             'extension-concepts': ('regular', func_extension_concept, 0, False, 'single'),
-             'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
-             'csv-data': ('regular', func_csv_data, -4, False, 'single'),
-             'json-data': ('regular', func_json_data, 1, False, 'single'),
-             'xml-data-flat': ('regular', func_xml_data_flat, -5, False, 'single'),
-             'excel-data': ('regular', func_excel_data, -5, False, 'single'),
-             'first-value': ('regular', func_first_value, None, True, 'single'),
-             'range': ('regular', func_range, -3, False, 'single'),
-             'difference': ('regular', func_difference, 2, False, 'single'),
-             'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single'),
-             'version': ('regular', func_version, 0, False, 'single'),
-             'rule-name': ('regular', func_rule_name, 0, False, 'single'),
-             'alignment': ('regular', func_alignment, 0, False, 'single')
+             'schema-type': ('regular', func_schema_type, 1, False, 'single', False),
+             'num-to-string': ('regular', func_num_to_string, 1, False, 'single', False),
+             'mod': ('regular', func_mod, 2, False, 'single', False),
+             'random': ('regular', func_random, -3, False, 'single', False),
+             'extension-concepts': ('regular', func_extension_concept, 0, False, 'single', False),
+             'taxonomy': ('regular', func_taxonomy, -1, False, 'single', False),
+             'csv-data': ('regular', func_csv_data, -4, False, 'single', False),
+             'json-data': ('regular', func_json_data, 1, False, 'single', False),
+             'xml-data-flat': ('regular', func_xml_data_flat, -5, False, 'single', False),
+             'excel-data': ('regular', func_excel_data, -5, False, 'single', False),
+             'first-value': ('regular', func_first_value, None, True, 'single', True),
+             'first-value-or-none': ('regular', func_first_value_or_none, None, True, 'single', True),
+             'range': ('regular', func_range, -3, False, 'single', False),
+             'difference': ('regular', func_difference, 2, False, 'single', False),
+             'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single', False),
+             'version': ('regular', func_version, 0, False, 'single', False),
+             'rule-name': ('regular', func_rule_name, 0, False, 'single', False),
+             'alignment': ('regular', func_alignment, 0, False, 'single', False)
              }    
 
     try:

@@ -7,7 +7,7 @@ The XuleProcessor module is the main module for processing a rule set against an
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23612 $
+$Change: 23623 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -105,7 +105,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         fact_index_end = datetime.datetime.today()
         global_context.message_queue.print("Index build time %s." % (fact_index_end - fact_index_start))
 
-    # Determine is constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
+    # Determine if constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
     # environment.
     if getattr(global_context.options, "xule_precalc_constants", False):
         constant_start = datetime.datetime.today()
@@ -1090,8 +1090,10 @@ def evaluate_output_rule(output_rule, xule_context):
             if xule_value.type != 'unbound' and not (
                     xule_context.iteration_table.current_alignment is None and xule_context.aligned_result_only):
                 # Determine if a message should be sent
-
                 xule_context.iter_message_count += 1
+                # produce file output
+                result_file(output_rule, xule_value, xule_context)
+
                 messages = dict()
                 # Process each of the results in the rule. The Results are the messages that are produced.
                 for rule_result in output_rule.get('results', list()):
@@ -4178,18 +4180,24 @@ def regular_function(xule_context, function_ref, function_info):
 
     function_args = []
     for function_arg in function_ref['functionArgs']:
-        # for i in range(len(function_ref.functionArgs)):
-        if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
-            try:
-                arg = evaluate(function_arg, xule_context)
-            except XuleIterationStop as xis:
-                arg = xis.stop_value
+        if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
+            # the function arguments will be evaluated by the function instead of pre-evaluated here
+            function_args.append(function_arg)
         else:
-            arg = evaluate(function_arg, xule_context)
+            if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
+                try:
+                    arg = evaluate(function_arg, xule_context)
+                except XuleIterationStop as xis:
+                    arg = xis.stop_value
+            else:
+                arg = evaluate(function_arg, xule_context)
 
-        function_args.append(arg)
+            function_args.append(arg)
 
-    return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+    if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args, evaluate_function=evaluate, iteration_stop=XuleIterationStop)
+    else:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
 
 
 def user_defined_function(xule_context, function_ref):
@@ -4612,6 +4620,7 @@ FUNCTION_DEFAULT_TYPE = 4
 # non aggregate only
 FUNCTION_ALLOW_UNBOUND_ARGS = 3
 FUNCTION_RESULT_NUMBER = 4
+FUNCTION_POST_EVALUATE_ARGS = 5
 
 
 def built_in_functions():
@@ -5119,7 +5128,50 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
     return trace_info
 
+def result_file(rule_ast, xule_value, xule_context):
 
+    file_content = None
+    file_location = None
+
+    for result_ast in rule_ast.get('results', tuple()):
+        if result_ast.get('resultName') in ('file-content', 'file-location'):
+            try:
+                message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
+                message_context.tags['rule-value'] = xule_value
+                message_context.tags['alignment'] = func_alignment(xule_context)
+                message_context.result_alignment = func_alignment(xule_context)
+                saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache', False)
+                xule_context.global_context.options.xule_no_cache = True
+                result = evaluate(result_ast['resultExpr'], message_context)
+                if result_ast.get('resultName') == 'file-content':
+                    file_content = result
+                else: # this is file-location
+                    file_location = result
+            finally:
+                xule_context.global_context.options.xule_no_cache = saved_no_cache
+
+    if file_content is None or file_location is None:
+        return # there is nothing to do. 
+
+    if file_location.type != 'string':
+        raise XuleProcessingError(_(f"The file-location needs to be a string, but it is a {file_location.type}"), xule_context)
+
+    if file_content.type not in ('none', 'string'):
+        raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
+
+    # Write the file
+    if file_location.value in xule_context.global_context.output_files:
+        open_mode = 'a'
+    else:
+        open_mode = 'w'
+        xule_context.global_context.output_files.add(file_location.value)
+
+    try:
+        with open(file_location.value, open_mode) as ofile:
+            ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
+    except FileNotFoundError:
+        raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
+    
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     # validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))

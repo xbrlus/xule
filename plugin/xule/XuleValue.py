@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2022 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23559 $
+$Change: 23645 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -371,8 +371,11 @@ class XuleValue:
             return dict_value
             #return pprint.pformat(self.system_value)
         
-        elif self.type == 'concept':
+        elif self.type in ('concept', 'part-element'):
             return str(self.value.qname)
+        
+        elif self.type == ('reference-part'):
+            return f"{self.value.qname.clarkNotation} = {self.value.textValue}"
         
         elif self.type == 'taxonomy':
             return self.value.taxonomy_name
@@ -824,6 +827,11 @@ class XuleUnit:
                 self._denominator= tuple(sorted(denoms))
                 self._unit_xml_id = args[0].id
                 self._unit_cancel()
+            elif isinstance(args[0], QName):
+                # This happens when combining types in an operation. The TYPE_MAP will try to create a unit from the underlying value (which is an arelle QName)
+                self._numerator = (args[0],)
+                self._denominator = tuple()
+                self._unit_xml_id = None
             elif isinstance(args[0], XuleValue) and args[0].type == 'qname':
                 self._numerator = (args[0].value,)
                 self._denominator = tuple()
@@ -925,7 +933,10 @@ class XuleUnit:
                                                   " * ".join([x.localName for x in self._denominator]))       
 
     def __eq__(self, other):
-        return self._numerator == other._numerator and self._denominator == other._denominator
+        if self is None or other is None:
+            return False
+        else:
+            return self._numerator == other._numerator and self._denominator == other._denominator
 
     def __hash__(self):
         return hash((self._numerator, self._denominator))
