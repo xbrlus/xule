@@ -119,7 +119,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None, xule_compile_w
                             relpath = ''
                         relativeFileName = os.path.join(relpath, name)
                         fullFileName = os.path.join(processFile, relativeFileName)
-                        fileHash = getFileHash(relativeFileName)
+                        fileHash = getFileHash(fullFileName)
                         if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(relativeFileName):
                             compileJobs.append(CompileJob(fullFileName, relativeFileName, fileHash))
                         else:
