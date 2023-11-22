@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23604 $
+$Change: 23663 $
 DOCSKIP
 """
 from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException
@@ -103,7 +103,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None, xule_compile_w
             fileName = os.path.basename(processFile)
             fullFileName = os.path.join(root, fileName)
             fileHash = getFileHash(fullFileName)
-            if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(fullFileName):
+            if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(fileName):
                 compileJobs.append(CompileJob(fullFileName, fileName, fileHash))
             else:
                 ruleSet.markFileKeep(fileName)
@@ -120,7 +120,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None, xule_compile_w
                         relativeFileName = os.path.join(relpath, name)
                         fullFileName = os.path.join(processFile, relativeFileName)
                         fileHash = getFileHash(fullFileName)
-                        if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(fullFileName):
+                        if ruleSet.recompile_all or fileHash != ruleSet.getFileHash(relativeFileName):
                             compileJobs.append(CompileJob(fullFileName, relativeFileName, fileHash))
                         else:
                             ruleSet.markFileKeep(relativeFileName)
