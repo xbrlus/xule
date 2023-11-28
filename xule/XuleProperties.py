@@ -44,6 +44,8 @@ import math
 import numpy
 import re
 
+_INLINE_NAMESPACE = 'http://www.xbrl.org/2013/inlineXBRL'
+
 def property_union(xule_context, object_value, *args):
     other_set = args[0]
     return XuleUtility.add_sets(xule_context, object_value, other_set)
@@ -650,7 +652,7 @@ def property_negated(xule_context, object_value, *args):
 def property_hidden(xule_context, object_value, *args):
     if object_value.is_fact:
         if object_value.fact.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
-            return xv.XuleValue(xule_context, qname('http://www.xbrl.org/2013/inlineXBRL', 'hidden') in object_value.fact.ancestorQnames, 'bool')
+            return xv.XuleValue(xule_context, qname(_INLINE_NAMESPACE, 'hidden') in object_value.fact.ancestorQnames, 'bool')
         else:
             return xv.XuleValue(xule_context, None, 'none')
     else:
@@ -2467,17 +2469,54 @@ def regex_match_string(xule_context, search_string, pattern, group_num=None):
         except IndexError:
             raise XuleProcessingError(_("Group does not exist for group number {} for regex-match-string".format(group_num)))
 
-def property_inline_parent(xule_context, object_value, *args):
-
-    ancestors = tuple(x for x in object_value.fact.iterancestors() if isinstance(x, ModelInlineFact))
-    if len(ancestors) > 0:
-        return xv.XuleValue(xule_context, ancestors[0], 'fact')
-    else:
-        return xv.XuleValue(xule_context, None, 'none')
+def property_inline_parents(xule_context, object_value, *args):
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_ancestor_facts(xule_context, object_value.fact, 1) if isinstance(x, ModelInlineFact))
+    return xv.XuleValue(xule_context, result, 'list')
 
 def property_inline_ancestors(xule_context, object_value, *args):
-    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterancestors() if isinstance(x, ModelInlineFact))
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_ancestor_facts(xule_context, object_value.fact) if isinstance(x, ModelInlineFact))
     return xv.XuleValue(xule_context, result, 'list')
+
+def _traverse_for_inline_ancestor_facts(xule_context, fact, max_depth=None, depth=1):
+    if max_depth is not None and depth > max_depth:
+        return []
+    result = []
+    parent = fact.getparent()
+    add_to_depth = 0
+    if parent is None:
+        return result # we are at the top or the bottom of the tree
+    if parent.elementQname.namespaceURI == _INLINE_NAMESPACE and parent.elementQname.localName == 'continuation':
+        # This is a continuation. Get the node that this is continued from.
+        continations = _traverse_continuations(xule_context, parent)
+        for cont_parent in continations:
+            if cont_parent.qname.namespaceURI == _INLINE_NAMESPACE and cont_parent.qname.localName == 'continuation':
+                result.extend(_traverse_for_inline_ancestor_facts(xule_context, cont_parent, max_depth=max_depth, depth=depth))
+            else: # This is a non continuation inline element
+                result.append(cont_parent) 
+                result += _traverse_for_inline_ancestor_facts(xule_context, cont_parent, max_depth=max_depth, depth=depth + 1)
+                
+    elif parent.elementQname.namespaceURI == _INLINE_NAMESPACE:
+        result.append(parent)
+        add_to_depth = 1
+    
+    # the list(dict.fromkeys(any list here)) eliminates duplicates while keeping order. There may be duplicates if there 
+    # are multiple continuations in the ancestry of the fact.
+    next_results = _traverse_for_inline_ancestor_facts(xule_context, parent, max_depth=max_depth, depth=depth + add_to_depth)
+    return list(dict.fromkeys(result + next_results))
+
+def _traverse_continuations(xule_context, cont_node):
+    cont_id = cont_node.get('id')
+    if cont_id is not None:
+        cont_from_node = cont_node.getroottree().getroot().find(f'.//*[@continuedAt="{cont_id}"]')
+        if cont_from_node is not None:
+            if cont_from_node.qname.namespaceURI == _INLINE_NAMESPACE and cont_from_node.qname.localName == 'continuation':
+                # the continuation points to another continuation
+                more = _traverse_continuations(xule_context, cont_from_node)
+                return [cont_from_node,] + more
+            elif cont_from_node.elementQname.namespaceURI == _INLINE_NAMESPACE: # .element.qname gets the qname of the ix element whereas .qname returns the qname of the xbrl concept.
+                return [cont_from_node,]
+    # Should only get here because there wasn't an inline element that had a @continuedAt pointing to this continuation.
+    return []
 
 def property_inline_children(xule_context, object_value, *args):
     result = []
@@ -2685,7 +2724,7 @@ PROPERTIES = {
               'regex-match-string-all': (property_regex_match_string_all, -2, ('string', 'uri'), False),
 
               # inline properties
-              'inline-parent': (property_inline_parent, 0, ('fact',), False),
+              'inline-parents': (property_inline_parents, 0, ('fact',), False),
               'inline-ancestors': (property_inline_ancestors, 0, ('fact',), False),
               'inline-children': (property_inline_children, 0, ('fact',), False),
               'inline-descendants': (property_inline_descendants, 0, ('fact',), False),
