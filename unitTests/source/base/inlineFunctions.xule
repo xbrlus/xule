@@ -2,37 +2,37 @@
 output INLIN001
 /* {{list},{list},{list}} */
 
-  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-ancestors
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-ancestors.concept.name
 
 output INLIN002
-/* skip iteration */
+/* {41,584,000},{97,223,000},{106,929,000} */
 
   { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty where $fact.inline-ancestors.length > 0}
 
 output INLIN003
-/* skip iteration */
+/* {41,584,000},{97,223,000},{106,929,000} */
 
-  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty  where $fact.inline-parent.length > 0}
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty  where $fact.inline-parents.length > 0}
 
 output INLIN004
 /* {{None},{None},{None}} */
 
-  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-parent
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-parents.concept.name
 
 output INLIN005
 /* {{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock},{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock},{viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock}} */
 
-  { @instance=$INSTANCE3 @concept.local-name = 'RelatedPartyTransactionRelationshipDescription'}.inline-parent.concept.name
+  { @instance=$INSTANCE3 @concept.local-name = 'RelatedPartyTransactionRelationshipDescription'}.inline-parents.concept.name
 
 output INLIN006
-/* [ERROR] [xule:error] rule INLIN006: 'list' object has no attribute 'apend' */
+/* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock) */
 
   {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
 
 output INLIN007
 /* [INFO] Long string of values */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
 
 output INLIN008
 /* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription) */
@@ -50,7 +50,7 @@ output INLIN010
   list({ covered @instance=$INSTANCE3 where $fact.inline-negated == true}).count
 
 output INLIN011
-/* 15 */
+/* 14 */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-hidden == true}).count
 
@@ -122,7 +122,7 @@ output INLIN024
 output INLIN025
 /* no iteration */
 
-  { @instance=$INSTANCE_XML @concept.local-name='Assets'  where $fact.inline-parent.length > 0}
+  { @instance=$INSTANCE_XML @concept.local-name='Assets'  where $fact.inline-parents.length > 0}
 
 output INLIN026
 /* list() */
