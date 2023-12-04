@@ -2519,20 +2519,78 @@ def _traverse_continuations(xule_context, cont_node):
     return []
 
 def property_inline_children(xule_context, object_value, *args):
-    result = []
-    for child in object_value.fact.iterchildren():
-        if isinstance(child, ModelInlineFact):
-            result.append(child)
-        else: 
-            # check if there is a descendant
-            descendants = tuple(x for x in child.iterdescendants() if isinstance(x, ModelInlineFact))
-            if len(descendants) > 0:
-                result.append(descendants[0])
-    return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
+    # result = []
+    # for child in object_value.fact.iterchildren():
+    #     if isinstance(child, ModelInlineFact):
+    #         result.append(child)
+    #     else: 
+    #         # check if there is a descendant
+    #         descendants = tuple(x for x in child.iterdescendants() if isinstance(x, ModelInlineFact))
+    #         if len(descendants) > 0:
+    #             result.append(descendants[0])
+    # return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
+
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_descendants_facts(xule_context, object_value.fact, 1) if isinstance(x, ModelInlineFact))
+    return xv.XuleValue(xule_context, result, 'list')
 
 def property_inline_descendants(xule_context, object_value, *args):
-    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
+    # result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
+    # return xv.XuleValue(xule_context, result, 'list')
+
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_descendants_facts(xule_context, object_value.fact) if isinstance(x, ModelInlineFact))
     return xv.XuleValue(xule_context, result, 'list')
+
+def _traverse_for_inline_descendants_facts(xule_context, fact, max_depth=None, depth=1):
+    if max_depth is not None and depth > max_depth:
+        return []
+    result = []
+    add_to_depth = 0
+    for child in fact.getchildren():
+        if child.elementQname.namespaceURI == _INLINE_NAMESPACE and child.elementQname.localName == 'continuation':                
+            continuations_down = _traverse_continuations_down(xule_context, child)
+            
+            for cont_child in continuations_down:
+                if cont_child.qname.namespaceURI == _INLINE_NAMESPACE and cont_child.qname.localName == 'continuation':
+                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1)
+                else: # This is a non continuation inline element
+                    result.append(cont_child) 
+                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1)
+                    
+        elif child.elementQname.namespaceURI == _INLINE_NAMESPACE:
+            result.append(child)
+            add_to_depth = 1
+    
+        # the list(dict.fromkeys(any list here)) eliminates duplicates while keeping order. There may be duplicates if there 
+        # are multiple continuations in the ancestry of the fact.
+        result += _traverse_for_inline_descendants_facts(xule_context, child, max_depth=max_depth, depth=depth + add_to_depth)
+    return list(dict.fromkeys(result))
+
+def _traverse_continuations_down(xule_context, cont_node):
+    result = []
+    cont_id = cont_node.get('id')
+    cont_to_id = cont_node.get('continuedAt')
+    if cont_id is not None:
+
+        # This is a continuation. Get the node that this is continued from.
+        continations_up = _traverse_continuations(xule_context, cont_node) # This is to get the fact that this is a continuation of
+        top_of_continuation = continations_up[-1] # It will be the last item in the continuations
+        # Should we look at children of the top of the continuation or just the continuations that are direct children of the starting fact? For now just the continuations that are direct children of the starting fact and the continuations further down the continuation chain. Yes, this is strange, but currently, this is basically the opposite of how ancestors work.
+
+        # add the top of the continuation (if it is a fact, it could be a footnote) to the result
+        if isinstance(top_of_continuation, ModelInlineFact):
+            result.append(top_of_continuation)
+
+        cont_to_node = cont_node.getroottree().getroot().find(f'.//*[@id="{cont_to_id}"]')
+        if cont_to_node is not None:
+            if cont_to_node.qname.namespaceURI == _INLINE_NAMESPACE and cont_to_node.qname.localName == 'continuation':
+                # the continuation points to another continuation
+                more = _traverse_continuations_down(xule_context, cont_to_node)
+                return result + [cont_to_node,] + more
+            elif cont_to_node.elementQname.namespaceURI == _INLINE_NAMESPACE: # .element.qname gets the qname of the ix element whereas .qname returns the qname of the xbrl concept.
+                return result + [cont_to_node,]
+    # Should only get here because there wasn't an inline element that had a @continuedAt pointing to this continuation.
+    return result
+
 
 def property_roles(xule_context, object_value, *args):
     result_set = set()
