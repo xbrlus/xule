@@ -807,6 +807,11 @@ def property_dimension_type(xule_context, object_value, *args):
     else:
         return xv.XuleValue(xule_context, 'typed', 'string')
 
+def property_members(xule_context, object_value, *args):
+    members = {xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.members}
+
+    return xv.XuleValue(xule_context, frozenset(members), 'set')
+
 def property_aspects(xule_context, object_value, *args):
     if not object_value.is_fact:
         return object_value
@@ -1406,23 +1411,31 @@ def property_cube(xule_context, object_value, *args):
         args[0] - The concept or qname of the hypercube
         args[1] - The drs-role
     """
-    if args[0].type == 'qname':
-        cube_concept = get_concept(object_value.value, args[0].value)
-    elif args[0].type == 'concept':
-        cube_concept = args[0].value
+    if len(args) == 0:
+        if object_value.type == 'dimension':
+            cube = object_value.value.cube
+        else:
+            raise XuleProcessingError(_("The .cube property without arguments must be for a 'dimension', found '{}'".format(object_value.type)), xule_context)
+    elif len(args) == 2:
+        if args[0].type == 'qname':
+            cube_concept = get_concept(object_value.value, args[0].value)
+        elif args[0].type == 'concept':
+            cube_concept = args[0].value
+        else:
+            raise XuleProcessingError(_("The first argument of property 'cube' must be a qname or a concept, found '{}'.".format(args[0].type)), xule_context)
+
+        if args[1].type in ('string', 'uri'):
+            drs_role = args[1].value
+        elif args[1].type == 'qname':
+            # get the taxonomy from the object_value, which is the taxonomy.
+            drs_role = XuleUtility.resolve_role(args[1], 'role', object_value.value, xule_context)
+        else:
+            raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
+
+        cube = xv.XuleDimensionCube(object_value.value, drs_role, cube_concept)
     else:
-        raise XuleProcessingError(_("The first argument of property 'cube' must be a qname or a concept, found '{}'.".format(args[0].type)), xule_context)
-
-    if args[1].type in ('string', 'uri'):
-        drs_role = args[1].value
-    elif args[1].type == 'qname':
-        # get the taxonomy from the object_value, which is the taxonomy.
-        drs_role = XuleUtility.resolve_role(args[1], 'role', object_value.value, xule_context)
-    else:
-        raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
-
-    cube = xv.XuleDimensionCube(object_value.value, drs_role, cube_concept)
-
+        raise XuleProcessingError(_("The .cube property must have 2 arguments unless it is for a 'dimension'. Found '{}'".format(object_value.type)), xule_context)
+    
     if cube is None:
         return xv.XuleValue(xule_context, None, 'none')
     else:
@@ -2657,7 +2670,8 @@ PROPERTIES = {
               'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
               'roles': (property_roles, 0, ('taxonomy',), False),
               'arcroles': (property_arcroles, 0, ('taxonomy',), False),
-              'dimension-type': (property_dimension_type, 0, ('dimension',), True),                          
+              'dimension-type': (property_dimension_type, 0, ('dimension',), True),   
+              'members': (property_members, 0, ('dimension',), False),                       
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
@@ -2759,7 +2773,7 @@ PROPERTIES = {
               'stdev': (property_stats, 0, ('set', 'list'), False, numpy.std),
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
-              'cube': (property_cube, 2, ('taxonomy',), False),
+              'cube': (property_cube, -2, ('taxonomy', 'dimension'), False),
               'cubes': (property_cubes, 0, ('taxonomy','fact'), False),
               'drs-role': (property_drs_role, 0, ('cube',), False),
               'cube-concept': (property_cube_concept, 0, ('cube',), False),
