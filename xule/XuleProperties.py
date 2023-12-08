@@ -605,6 +605,8 @@ def property_id(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, None, 'none')
         else:
             return xv.XuleValue(xule_context, object_value.value.xml_id, 'string')
+    elif object_value.type in ('concept', 'part-element'):
+        return xv.XuleValue(xule_context, object_value.value.id, 'string')
     elif object_value.is_fact:
         if object_value.fact.id is None:
             return xv.XuleValue(xule_context, None, 'none')
@@ -1015,6 +1017,9 @@ def property_is_abstract(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.value.isAbstract, 'bool')
     else: #none value
         return object_value
+
+def property_is_nillable(xule_context, object_value):
+    return xv.XuleValue(xule_context, object_value.value.isNillable, 'bool')
 
 def property_is_nil(xule_context, object_value, *args):
     if object_value.is_fact:
@@ -2662,7 +2667,7 @@ PROPERTIES = {
               'unit': (property_unit, 0, ('fact',), True),
               'entity': (property_entity, 0, ('fact',), True),
               'namespace-map': (property_namespace_map, 0, ('fact',), True),
-              'id': (property_id, 0, ('entity','unit','fact'), True),
+              'id': (property_id, 0, ('entity','unit','fact', 'concept', 'part-element'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
@@ -2689,6 +2694,7 @@ PROPERTIES = {
               'is-numeric': (property_is_numeric, 0, ('concept', 'part-element', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
               'is-abstract': (property_is_abstract, 0, ('concept', 'part-element', 'fact'), True),
+              'is-nillable': (property_is_nillable, 0, ('concept', 'part-element'), True),
               'is-nil': (property_is_nil, 0, ('fact',), True),
               'is-fact': (property_is_fact, 0, (), True),
               'inline-scale': (property_scale, 0, ('fact',), True),
