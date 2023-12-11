@@ -118,13 +118,13 @@ class NSMap:
             url_parts = ns.lower().split('/')
             prefix = None
             for part in reversed(url_parts):
-                if re.fullmatch('\d{4}-\d{2}-\d{2}', part): # This looks like a date
+                if re.fullmatch(r'\d{4}-\d{2}-\d{2}', part): # This looks like a date
                     continue
                 if ':' in part: # this might be the http: or https:. In any case it is not a good prefix
                     continue
                 if part in ('', 'cr'):
                     continue
-                if re.match('\A[^a-zA-Z]', part): # doesn't start with an alfa character, not a good choice.
+                if re.match(r'\A[^a-zA-Z]', part): # doesn't start with an alfa character, not a good choice.
                     continue
                 prefix = part
                 break
@@ -688,7 +688,7 @@ def serialize_resource(extended_link, locators, arcs, resource, namespaces, docu
 
 def resolve_clark_to_qname(name, dts):
     '''Convert a clark notation qname to a SXMQName'''
-    match = re.match('^{([^}]+)}(.*)$', name)
+    match = re.match(r'^{([^}]+)}(.*)$', name)
     if match is None:
         raise SerializerException(f"QName '{name}' is not a valid clark notation")
     return dts.new('QName', match.group(1), match.group(2))
