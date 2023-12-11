@@ -1969,7 +1969,7 @@ def evaluate_add(add_expr, xule_context):
         right_expr = right['rightExpr']
 
         if left.type not in (
-        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
+        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'dictionary', 'unbound', 'none'):
             raise XuleProcessingError(_("Left side of a {} operation cannot be {}.".format(operator, left.type)),
                                       xule_context)
 
@@ -1983,7 +1983,7 @@ def evaluate_add(add_expr, xule_context):
                 right = xis.stop_value
 
         if right.type not in (
-        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
+        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'dictionary', 'unbound', 'none'):
             raise XuleProcessingError(_("Right side of a {} operation cannot be {}.".format(operator, right.type)),
                                       xule_context)
 
@@ -2023,11 +2023,19 @@ def evaluate_add(add_expr, xule_context):
                     # use union for sets
                     # left = XuleValue(xule_context, left_compute_value | right_compute_value, 'set')
                     left = XuleUtility.add_sets(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type == 'dictionary':
+                    left = XuleUtility.add_dictionaries(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type in ('set', 'list'):
+                    raise XuleProcessingError(_("Cannot add a dictionary and a %s" % right.type), xule_context)
                 else:
                     left = XuleValue(xule_context, left_compute_value + right_compute_value, combined_type)
             elif '-' in operator:
                 if left.type == 'set' and right.type == 'set':
                     left = XuleUtility.subtract_sets(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type == 'dictionary':
+                    left = XuleUtility.subtract_dictionaries(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type in ('set', 'list'):
+                    left = XuleUtility.subtract_keys_from_dictionary(xule_context, left, right)
                 else:
                     left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
             else:

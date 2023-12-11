@@ -1637,8 +1637,10 @@ TYPE_MAP = {frozenset(['int', 'float']): [('float', float), ('int', lambda x: in
             frozenset(['decimal', 'string']): [('string', str), ('decimal', decimal.Decimal)],
             frozenset(['uri', 'string']): [('string', lambda x: x), ('uri', lambda x: x)],
             frozenset(['qname', 'unit']): [('unit', lambda x: XuleUnit(x))],
-            frozenset(['instant', 'time-period']): [('instant', lambda x:x)]
+            frozenset(['instant', 'time-period']): [('instant', lambda x:x)],
             #frozenset(['none', 'string']): [('string', lambda x: x if x is not None else '')],
+            frozenset(['dictionary', 'list']): [('dictionary', lambda x:x)],
+            frozenset(['dictionary', 'set']): [('dictionary', lambda x:x)],
             }
 
 def model_to_xule_type(xule_context, model_value):
