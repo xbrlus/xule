@@ -1,0 +1,10 @@
+<tp:taxonomyPackage xmlns:tp="http://xbrl.org/2016/taxonomy-package">
+  <tp:identifier>Taxonomy Package</tp:identifier>
+  <tp:entryPoints>
+    <tp:entryPoint>
+      <tp:name xml:lang="en">abc</tp:name>
+      <tp:description xml:lang="en">EFM TEST CASE FOR e60501000gd</tp:description>
+      <tp:entryPointDocument href="http://xbrl.sec.gov/efm/2023/conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xsd"></tp:entryPointDocument>
+    </tp:entryPoint>
+  </tp:entryPoints>
+</tp:taxonomyPackage>

@@ -24,7 +24,21 @@ concept-local-name $rule-value[2]
 
 output create_base_ItemType_concepts 
 $baseUnit = $CURRENCY_TAXONOMY.concept(currency:ADP)
-for $type in ($INBULT_DATATYPES + $NEW_DATATYPES)
+for $type in ($INBULT_DATATYPES)
+    $type
+
+package-name $UNIT_TAXONOMY
+document-uri 'dtr/dtr-types.xsd'
+document-imported-in 'units.xsd'
+document-namespace $DATA_TYPE_CONCEPT_NS
+concept $baseUnit.to-xodel
+concept-id 'dtr_' + $rule-value
+concept-namespace $DATA_TYPE_CONCEPT_NS
+concept-local-name $rule-value
+
+output create_new_ItemType_concepts 
+$baseUnit = $CURRENCY_TAXONOMY.concept(currency:ADP)
+for $type in ($NEW_DATATYPES)
     $type
 
 package-name $UNIT_TAXONOMY
@@ -55,7 +69,18 @@ label-lang 'en'
 
 /** CREATE INBUILT DATA TYPE LABELS **/
 output create_inbuilt_data_type_labels
-    for $label in ($INBULT_DATATYPES + $NEW_DATATYPES)
+    for $label in ($INBULT_DATATYPES)
+         $label
+package-name $UNIT_TAXONOMY
+document-uri 'dtr/dtr-types_lab.xml'
+document-imported-in 'dtr/dtr-types.xsd'
+label-concept-name qname($DATA_TYPE_CONCEPT_NS, $label).to-xodel
+label-text $label
+label-role 'http://www.xbrl.org/2003/role/label'
+label-lang 'en'
+
+output create_new_inbuilt_data_type_labels
+    for $label in ($NEW_DATATYPES)
          $label
 package-name $UNIT_TAXONOMY
 document-uri 'dtr/dtr-types_lab.xml'
@@ -68,7 +93,20 @@ label-lang 'en'
 output add_reference_qname_datatypes
 
 $types = (filter $DATA_TYPES_XML returns $item[2]).to-set
-$allTypes = $types + $NEW_DATATYPES.to-set
+$allTypes = $types
+for $ref in $allTypes
+    $ref
+
+package-name $UNIT_TAXONOMY
+document-uri 'dtr/dtr-types_ref.xml'
+document-imported-in 'dtr/dtr-types.xsd'
+reference-role 'https://xbrl.org/2022/role/property'
+reference-concept-name qname($DATA_TYPE_CONCEPT_NS, $ref).to-xodel
+reference-parts  list(list(units-parts:UnitQname, qname('http://www.xbrl.org/dtr/type/2022-03-31',$ref))).to-xodel
+
+output add_reference_qname_for_new_datatypes
+
+$allTypes = $NEW_DATATYPES.to-set
 for $ref in $allTypes
     $ref
 

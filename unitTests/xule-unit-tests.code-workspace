@@ -8,6 +8,14 @@
 		},
 		{
 			"path": "output"
+		},
+		{
+			"path": "source/efmUnitTest/createDocs",
+			"name": "createDocs"
+		},
+{
+			"path": "source/efmUnitTest/extractDocs",
+			"name": "extractDocs"
 		}
 	]
 }

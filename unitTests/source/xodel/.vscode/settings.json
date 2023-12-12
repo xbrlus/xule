@@ -1,6 +1,5 @@
 {
     "xule.autoImports": [
-        "namespace.xule",
         "base-taxonomy-2020.xule",
         "functions.xule",
         "constants.xule",

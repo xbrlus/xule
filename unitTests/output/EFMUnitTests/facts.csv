@@ -1,0 +1,6 @@
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml,False,dei:EntityEmergingGrowthCompany,,,http://www.sec.gov/CIK,9876543210,2011-04-01T00:00:00/2011-07-01T00:00:00
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml,9876543210,dei:EntityCentralIndexKey,,,http://www.sec.gov/CIK,9876543210,2011-04-01T00:00:00/2011-07-01T00:00:00
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml,e60501000gd,dei:EntityRegistrantName,,,http://www.sec.gov/CIK,9876543210,2011-04-01T00:00:00/2011-07-01T00:00:00
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml,8-K,dei:DocumentType,,,http://www.sec.gov/CIK,9876543210,2011-04-01T00:00:00/2011-07-01T00:00:00
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml,False,dei:AmendmentFlag,,,http://www.sec.gov/CIK,9876543210,2011-04-01T00:00:00/2011-07-01T00:00:00
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml,2011-06-30 00:00:00,dei:DocumentPeriodEndDate,,,http://www.sec.gov/CIK,9876543210,2011-04-01T00:00:00/2011-07-01T00:00:00

@@ -1,0 +1,30 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:edgar="http://edgar/20111231" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" targetNamespace="http://edgar/20111231" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="e60501000gd-20111231_def.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="e60501000gd-20111231_pre.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:roleType xmlns:ns0="http://www.xbrl.org/2003/linkbase" roleURI="http://edgar/role/Defaults" id="Defaults">
+        <ns0:definition>999 - Document - Defaults</ns0:definition>
+      </ns0:roleType>
+      <ns0:roleType xmlns:ns0="http://www.xbrl.org/2003/linkbase" roleURI="http://edgar/role/DocumentInformation" id="DocumentInformation">
+        <ns0:definition>992 - Document - Document Information, ABC</ns0:definition>
+      </ns0:roleType>
+      <ns0:roleType xmlns:ns0="http://www.xbrl.org/2003/linkbase" roleURI="http://edgar/role/EntityInformation" id="EntityInformation">
+        <ns0:definition>991 - Document - Entity Information, ABC</ns0:definition>
+      </ns0:roleType>
+      <ns0:roleType xmlns:ns0="http://www.xbrl.org/2003/linkbase" roleURI="http://edgar/role/OtherInformation" id="OtherInformation">
+        <ns0:definition>990 - Document - Other Information, ABC</ns0:definition>
+      </ns0:roleType>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
+  <xs:import namespace="http://xbrl.org/2005/xbrldt" schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd"/>
+  <xs:import namespace="http://xbrl.sec.gov/dei/2023" schemaLocation="http://xbrl.sec.gov/dei/2023/dei-2023.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd"/>
+  <xs:element name="AbcMember" id="edgar_AbcMember" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="AbcfsMember" id="edgar_AbcfsMember" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="Exhibit31Member" id="edgar_Exhibit31Member" type="type:domainItemType" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="Form10KMember" id="edgar_Form10KMember" type="type:domainItemType" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="OtherFloat" id="edgar_OtherFloat" type="xbrli:monetaryItemType" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration" xbrli:balance="credit"/>
+  <xs:element name="Top" id="edgar_Top" type="xbrli:stringItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+</xs:schema>

@@ -1,0 +1,4 @@
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xsd,http://edgar/role/DocumentInformation,"992 - Document - Document Information, ABC","(link:definitionLink, link:calculationLink, link:presentationLink)"
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xsd,http://edgar/role/OtherInformation,"990 - Document - Other Information, ABC","(link:definitionLink, link:calculationLink, link:presentationLink)"
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xsd,http://edgar/role/Defaults,999 - Document - Defaults,"(link:definitionLink, link:calculationLink, link:presentationLink)"
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xsd,http://edgar/role/EntityInformation,"991 - Document - Entity Information, ABC","(link:definitionLink, link:calculationLink, link:presentationLink)"

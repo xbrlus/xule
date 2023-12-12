@@ -1,0 +1,100 @@
+
+/** EXTRACT DATA TO MAKE  Taxonomy
+-------------------------------------**/
+constant $CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','qname', 'string','qname', 'string','string','string','string'))
+
+constant $UNIT_TEST_LISTS = list('e60501000gd')
+
+constant $ROLES = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
+
+constant $RELATIONSHIPS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/relationships.csv',false, list('string','string', 'string', 'string','qname','string', 'string','string', 'string','string','string','string'))
+
+/** DEFINE THE PACKAGE 
+-----------------------**/
+
+constant $TESTCASE_TAXONOMY = first(first($CONCEPTS))
+
+
+output create_base_unit_taxonomy
+$packageData = first($CONCEPTS)
+    true
+package-name $TESTCASE_TAXONOMY
+package-url 'http://xbrl.sec.gov/efm/2023'
+document-uri $packageData[2]
+document-namespace $packageData[3]
+document-import list('http://www.xbrl.org/2005/xbrldt-2005.xsd','http://xbrl.sec.gov/dei/2023/dei-2023.xsd').to-xodel 
+document-package-entry-point true
+document-package-entry-point-description 'EFM TEST CASE FOR ' + $packageData[1].to-xodel
+document-package-entry-point-language 'en'
+document-package-entry-point-name 'abc'
+
+
+output import_dimensions_taxonomy1
+true
+
+package-name $TESTCASE_TAXONOMY
+import2-url 'http://www.xbrl.org/2005/xbrldt-2005.xsd'
+
+output import_dei_taxonomy
+true
+
+package-name $TESTCASE_TAXONOMY
+import2-url 'https://xbrl.sec.gov/dei/2023/dei-2023.xsd'
+
+output create_concepts
+$baseItem = taxonomy().concept(dei:EntityCentralIndexKey)
+for $extension in $CONCEPTS
+    $extension
+
+package-name $TESTCASE_TAXONOMY
+document-uri  $extension[2].to-xodel
+document-namespace $extension[3].to-xodel
+concept-namespace  $extension[3].to-xodel
+concept-id  $extension[7].to-xodel
+concept-local-name  $extension[4].to-xodel
+concept $baseItem.to-xodel
+concept-period-type duration.to-xodel
+concept-data-type $extension[6].to-xodel
+concept-substitution-group $extension[8].to-xodel
+concept-abstract ($extension[10]=='True').to-xodel
+concept-nillable ($extension[9]=='true').to-xodel
+concept-balance-type (if $extension[11] == '' none else $extension[11]).to-xodel
+
+
+output create_roles
+$packageData = first($ROLES)
+for $role in $ROLES
+    $used-on = if $role[5].contains('(link:calculationLink, link:definitionLink, link:presentationLink)')  
+                list('Presentation','Calculation','Definition')
+                else
+                    if $role[5].contains('(link:definitionLink, link:presentationLink)') 
+                        list('Presentation','Definition')
+                    else
+                        if $role[5].contains('(link:presentationLink)') 
+                            list('Presentation','Definition')
+                        else
+                            list()
+
+    $role
+
+package-name $TESTCASE_TAXONOMY
+document-uri $packageData[2].to-xodel
+role-uri $role[3].to-xodel
+role-definition $role[4].to-xodel
+role-used-on  $used-on.to-xodel
+
+output create_relationships
+
+for $relationship in $RELATIONSHIPS
+    $relationship
+
+package-name $TESTCASE_TAXONOMY
+document-uri $relationship[2].to-xodel
+document-imported-in 'conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xsd'
+relationship-source  qname($relationship[6], $relationship[7]).to-xodel
+relationship-target  qname($relationship[8], $relationship[9]).to-xodel
+relationship-order $relationship[10].to-xodel
+relationship-role $relationship[3].to-xodel
+relationship-arcrole $relationship[4].to-xodel
+relationship-type  $relationship[5].to-xodel
+
