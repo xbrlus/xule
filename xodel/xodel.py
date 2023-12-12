@@ -2464,7 +2464,7 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if rel_info['type'] in _STANDARD_LINK_NAMES:
         link_name = resolve_clark_to_qname(_STANDARD_LINK_NAMES[rel_info['type']], taxonomy)
     else:
-        link_name = rel_info['type']
+        link_name = resolve_clark_to_qname(rel_info['type'], taxonomy)
 
     # TODO If the arcrole/role is not in the new taxonomy, maybe get it from the
     # input taxonomy if it is from a document with an absolute address. This would 
