@@ -2182,9 +2182,9 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     if 'concept-data-type' in log_rec.args:
         concept_info['type-name'] = resolve_clark_to_qname(log_rec.args['concept-data-type'], taxonomy)
     if 'concept-abstract' in log_rec.args:
-        concept_info['is-abstract'] = json.loads(log_rec.args['concept-abstract'])
+        concept_info['is-abstract'] = json.loads(log_rec.args['concept-abstract'].lower())
     if 'concept-nillable' in log_rec.args:
-        concept_info['nillable'] = log_rec.args['concept-nillable'].lower()
+        concept_info['nillable'] = json.loads(log_rec.args['concept-nillable'].lower())
     if 'concept-period-type' in log_rec.args:
         concept_info['period-type'] = log_rec.args['concept-period-type']
     if 'concept-balance-type' in log_rec.args:
