@@ -2161,7 +2161,7 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         arelle_concept = get_model_object(log_rec.args['concept'], cntlr)
         concept_info = extract_concept_info(arelle_concept, taxonomy)
     else:
-        concept_info = dict()
+        concept_info = {'attributes': dict()}
 
     if 'concept-id' in log_rec.args:
         concept_info['id'] = log_rec.args['concept-id'].strip()
