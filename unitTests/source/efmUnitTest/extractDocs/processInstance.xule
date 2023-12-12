@@ -11,7 +11,7 @@ file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUn
 
 output get_roles
 for $role in (filter taxonomy().roles where not $item.uri.lower-case.contains('xbrl.sec.gov/dei/'))
-    list($TEST_CASE_ID, $role.document-location.substring($role.document-location.index-of('/conf/')+1),$role.uri,$role.description,$role.used-on)
+    list($TEST_CASE_ID, $role.document-location.substring($role.document-location.index-of('/conf/')+1),$role.uri,$role.description,$role.used-on.to-list.sort('asc'))
 
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv'
@@ -42,7 +42,7 @@ output get_labels
 for $network in taxonomy().networks
                             for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('labelArc'))
                                 for $label in ($relationship.source.all-labels)
-                                    list($TEST_CASE_ID, $label.document-location.substring($label.document-location.index-of('/conf/')+1), $relationship.source-name, $label.role, $label.text, $label.lang)
+                                    list($TEST_CASE_ID, $label.document-location.substring($label.document-location.index-of('/conf/')+1), $relationship.source-name.namespace-uri,$relationship.source-name.local-name, $label.role, $label.text, $label.lang)
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv'
 

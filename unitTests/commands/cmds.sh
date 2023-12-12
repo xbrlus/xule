@@ -46,6 +46,8 @@ python3.9 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbell
 
 python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xuleUnit|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' -f /Users/campbellpryde/Downloads/efm-68d-231120/conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/efmUnitTests-ruleset.zip --logNoRefObjectProperties --logFile /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concept.xml --xule-crash --xule-arg TEST_CASE_ID=e60501000gd
 
+python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xuleUnit|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' -f /Users/campbellpryde/Downloads/efm-68d-231120/conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231.xml --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/efmUnitTests-ruleset.zip --logNoRefObjectProperties --logFile /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concept.xml --xule-crash --xule-arg TEST_CASE_ID=e60501001ng
+
 #RCreateUnitTest
 python3.9 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/efmUnitTest/createDocs  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/createUnitTests-ruleset.zip --xule-max-recurse-depth=2500
 

@@ -3,11 +3,13 @@
 -------------------------------------**/
 constant $CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','qname', 'string','qname', 'string','string','string','string'))
 
-constant $UNIT_TEST_LISTS = list('e60501000gd')
+constant $UNIT_TEST_LISTS = list('e60501000gd','e60501001ng')
 
 constant $ROLES = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
 
 constant $RELATIONSHIPS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/relationships.csv',false, list('string','string', 'string', 'string','qname','string', 'string','string', 'string','string','string','string'))
+
+constant $LABELS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv',false, list( 'string','string','string','string','string','string','string'))
 
 /** DEFINE THE PACKAGE 
 -----------------------**/
@@ -16,9 +18,11 @@ constant $TESTCASE_TAXONOMY = first(first($CONCEPTS))
 
 
 output create_base_unit_taxonomy
-$packageData = first($CONCEPTS)
-    true
-package-name $TESTCASE_TAXONOMY
+for $unitTest in  $UNIT_TEST_LISTS
+    $packageData = first(filter $CONCEPTS where $item[1] == $unitTest)
+    $unitTest
+
+package-name $unitTest
 package-url 'http://xbrl.sec.gov/efm/2023'
 document-uri $packageData[2]
 document-namespace $packageData[3]
@@ -30,23 +34,26 @@ document-package-entry-point-name 'abc'
 
 
 output import_dimensions_taxonomy1
-true
+for $unitTest in  $UNIT_TEST_LISTS
+    $unitTest
 
-package-name $TESTCASE_TAXONOMY
+package-name $unitTest
 import2-url 'http://www.xbrl.org/2005/xbrldt-2005.xsd'
 
 output import_dei_taxonomy
-true
+for $unitTest in  $UNIT_TEST_LISTS
+    $unitTest
 
-package-name $TESTCASE_TAXONOMY
+package-name $unitTest
 import2-url 'https://xbrl.sec.gov/dei/2023/dei-2023.xsd'
 
 output create_concepts
 $baseItem = taxonomy().concept(dei:EntityCentralIndexKey)
-for $extension in $CONCEPTS
-    $extension
+for $unitTest in  $UNIT_TEST_LISTS
+    for $extension in filter $CONCEPTS where $item[1] == $unitTest
+        $extension
 
-package-name $TESTCASE_TAXONOMY
+package-name $unitTest
 document-uri  $extension[2].to-xodel
 document-namespace $extension[3].to-xodel
 concept-namespace  $extension[3].to-xodel
@@ -62,35 +69,35 @@ concept-balance-type (if $extension[11] == '' none else $extension[11]).to-xodel
 
 
 output create_roles
-$packageData = first($ROLES)
-for $role in $ROLES
-    $used-on = if $role[5].contains('(link:calculationLink, link:definitionLink, link:presentationLink)')  
-                list('Presentation','Calculation','Definition')
-                else
-                    if $role[5].contains('(link:definitionLink, link:presentationLink)') 
-                        list('Presentation','Definition')
+for $unitTest in  $UNIT_TEST_LISTS
+    for $role in (filter $ROLES where $item[1] == $unitTest)
+        $used-on = if $role[5].contains('(link:calculationLink, link:definitionLink, link:presentationLink)')  
+                    list('Presentation','Calculation','Definition')
                     else
-                        if $role[5].contains('(link:presentationLink)') 
+                        if $role[5].contains('(link:definitionLink, link:presentationLink)') 
                             list('Presentation','Definition')
                         else
-                            list()
+                            if $role[5].contains('(link:presentationLink)') 
+                                list('Presentation','Definition')
+                            else
+                                list()
 
-    $role
+        $role
 
-package-name $TESTCASE_TAXONOMY
-document-uri $packageData[2].to-xodel
+package-name $unitTest
+document-uri $role[2].to-xodel
 role-uri $role[3].to-xodel
 role-definition $role[4].to-xodel
 role-used-on  $used-on.to-xodel
 
 output create_relationships
+for $unitTest in  $UNIT_TEST_LISTS
+    for $relationship in filter $RELATIONSHIPS where $item[1] == $unitTest
+        (filter $CONCEPTS where $item[1] == $unitTest)[1][2] 
 
-for $relationship in $RELATIONSHIPS
-    $relationship
-
-package-name $TESTCASE_TAXONOMY
+package-name $unitTest
 document-uri $relationship[2].to-xodel
-document-imported-in 'conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xsd'
+document-imported-in $rule-value
 relationship-source  qname($relationship[6], $relationship[7]).to-xodel
 relationship-target  qname($relationship[8], $relationship[9]).to-xodel
 relationship-order $relationship[10].to-xodel
@@ -98,3 +105,15 @@ relationship-role $relationship[3].to-xodel
 relationship-arcrole $relationship[4].to-xodel
 relationship-type  $relationship[5].to-xodel
 
+
+output create_labels
+for $unitTest in  $UNIT_TEST_LISTS
+    for $label in (filter $LABELS where $item[1] == $unitTest)
+        (filter $CONCEPTS where $item[1] == $unitTest)[1][2]
+package-name $unitTest
+document-uri $label[2].to-xodel
+document-imported-in $rule-value
+label-concept-name qname($label[3], $label[4]).to-xodel
+label-text $label[6]
+label-role $label[5]
+label-lang $label[7]

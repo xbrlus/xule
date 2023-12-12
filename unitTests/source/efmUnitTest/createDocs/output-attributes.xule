@@ -90,6 +90,7 @@ output-attribute label-text
 output-attribute label-lang
 output-attribute label-role
 output-attribute label-concept-name
+output-attribute label-concept
 
 //Import
 output-attribute import-url

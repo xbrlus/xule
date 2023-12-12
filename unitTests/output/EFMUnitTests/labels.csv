@@ -1,15 +1,30 @@
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:CurrentFiscalYearEndDate,http://www.xbrl.org/2003/role/label,Current Fiscal Year End Date,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:EntityInvCompanyType,http://www.xbrl.org/2003/role/label,Entity Inv Company Type,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:DocumentType,http://www.xbrl.org/2003/role/label,Document Type,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,edgar:AbcfsMember,http://www.xbrl.org/2003/role/label,ABCFS [Member],en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,edgar:Exhibit31Member,http://www.xbrl.org/2003/role/label,Exhibit 31 [Member],en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:EntitySmallBusiness,http://www.xbrl.org/2003/role/label,Entity Small Business,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,edgar:Form10KMember,http://www.xbrl.org/2003/role/label,Form 10K [Member],en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:EntityEmergingGrowthCompany,http://www.xbrl.org/2003/role/label,Entity Emerging Growth Company,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,edgar:Top,http://www.xbrl.org/2003/role/label,Top,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:AmendmentDescription,http://www.xbrl.org/2003/role/label,Amendment Description,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:DocumentPeriodEndDate,http://www.xbrl.org/2003/role/label,Document Period End Date,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:AmendmentFlag,http://www.xbrl.org/2003/role/label,Amendment Flag,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:EntityRegistrantName,http://www.xbrl.org/2003/role/label,Registrant Name,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,dei:EntityCentralIndexKey,http://www.xbrl.org/2003/role/label,Central Index Key,en-US
-e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,edgar:AbcMember,http://www.xbrl.org/2003/role/label,ABC [Member],en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntitySmallBusiness,http://www.xbrl.org/2003/role/label,Entity Small Business,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,AmendmentFlag,http://www.xbrl.org/2003/role/label,Amendment Flag,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://edgar/20111231,Form10KMember,http://www.xbrl.org/2003/role/label,Form 10K [Member],en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,AmendmentDescription,http://www.xbrl.org/2003/role/label,Amendment Description,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://edgar/20111231,Exhibit31Member,http://www.xbrl.org/2003/role/label,Exhibit 31 [Member],en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,DocumentPeriodEndDate,http://www.xbrl.org/2003/role/label,Document Period End Date,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://edgar/20111231,AbcfsMember,http://www.xbrl.org/2003/role/label,ABCFS [Member],en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityRegistrantName,http://www.xbrl.org/2003/role/label,Registrant Name,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://edgar/20111231,AbcMember,http://www.xbrl.org/2003/role/label,ABC [Member],en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityCentralIndexKey,http://www.xbrl.org/2003/role/label,Central Index Key,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://edgar/20111231,Top,http://www.xbrl.org/2003/role/label,Top,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,CurrentFiscalYearEndDate,http://www.xbrl.org/2003/role/label,Current Fiscal Year End Date,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,DocumentType,http://www.xbrl.org/2003/role/label,Document Type,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityEmergingGrowthCompany,http://www.xbrl.org/2003/role/label,Entity Emerging Growth Company,en-US
+e60501001ng,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501001ng-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityInvCompanyType,http://www.xbrl.org/2003/role/label,Entity Inv Company Type,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,CurrentFiscalYearEndDate,http://www.xbrl.org/2003/role/label,Current Fiscal Year End Date,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityEmergingGrowthCompany,http://www.xbrl.org/2003/role/label,Entity Emerging Growth Company,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,AmendmentDescription,http://www.xbrl.org/2003/role/label,Amendment Description,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,AmendmentFlag,http://www.xbrl.org/2003/role/label,Amendment Flag,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://edgar/20111231,Form10KMember,http://www.xbrl.org/2003/role/label,Form 10K [Member],en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://edgar/20111231,AbcMember,http://www.xbrl.org/2003/role/label,ABC [Member],en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityCentralIndexKey,http://www.xbrl.org/2003/role/label,Central Index Key,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityRegistrantName,http://www.xbrl.org/2003/role/label,Registrant Name,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntityInvCompanyType,http://www.xbrl.org/2003/role/label,Entity Inv Company Type,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://edgar/20111231,Exhibit31Member,http://www.xbrl.org/2003/role/label,Exhibit 31 [Member],en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,DocumentPeriodEndDate,http://www.xbrl.org/2003/role/label,Document Period End Date,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,DocumentType,http://www.xbrl.org/2003/role/label,Document Type,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://xbrl.sec.gov/dei/2023,EntitySmallBusiness,http://www.xbrl.org/2003/role/label,Entity Small Business,en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://edgar/20111231,AbcfsMember,http://www.xbrl.org/2003/role/label,ABCFS [Member],en-US
+e60501000gd,conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231_lab.xml,http://edgar/20111231,Top,http://www.xbrl.org/2003/role/label,Top,en-US
