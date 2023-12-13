@@ -2326,11 +2326,13 @@ def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     
     # a role uri is required
     if 'uri' not in role_info or len(role_info['uri']) == 0 or role_info['uri'] is None:
-        raise XodelException(f"Duplicate role. Role {role_info['uri']} is already in the taxonomy")
+        raise XodelException(f"Role URI is missing. Found in rule {rule_name}")
     
-    return taxonomy.get('Role', role_info['uri']) or \
-        taxonomy.new('Role', role_info['uri'], role_info.get('definition'), role_info.get('used-on'))
-    
+    if taxonomy.get('Role', role_info['uri']) is None:
+        return taxonomy.new('Role', role_info['uri'], role_info.get('definition'), role_info.get('used-on'))
+    else:
+        raise XodelException(f"Duplicate role. Role {role_info['uri']} is already in the taxonomy. Found in rule {rule_name}")
+
 def process_arcrole(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     '''
     arcrole
@@ -2366,13 +2368,15 @@ def process_arcrole(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     
     # a role uri is required
     if 'uri' not in arcrole_info or len(arcrole_info['uri']) == 0 or arcrole_info['uri'] is None:
-        raise XodelException(f"Duplicate arcrole. Arcrole {arcrole_info['uri']} is already in the taxonomy")
+        raise XodelException(f"Arcrole URI is missing. Found in rule {rule_name}")
     # cycles allowed is requires
     if 'cycles-allowed' not in arcrole_info:
         raise XodelException(f"arcrole-cycles-allowed is required for an arcrole. Arcrole {arcrole_info['uri']}.")
     
-    return taxonomy.get('Arcrole', arcrole_info['uri']) or \
-        taxonomy.new('Arcrole', arcrole_info['uri'], arcrole_info.get('cycles-allowed'), arcrole_info.get('definition'), arcrole_info.get('used-on'))
+    if taxonomy.get('Arcrole', arcrole_info['uri']) is None:
+        return taxonomy.new('Arcrole', arcrole_info['uri'], arcrole_info.get('cycles-allowed'), arcrole_info.get('definition'), arcrole_info.get('used-on'))
+    else: 
+        raise XodelException(f"Duplicate arcrole. Arcrole {arcrole_info['uri']} is already in the taxonomy. Found in rule {rule_name}")
 
 def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     ''''
