@@ -1,15 +1,17 @@
 
 /** EXTRACT DATA TO MAKE  Taxonomy
 -------------------------------------**/
-constant $CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','qname', 'string','qname', 'string','string','string','string'))
+constant $CONCEPTS = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','qname', 'string','qname', 'string','string','string','string'))
 
 constant $UNIT_TEST_LISTS = list('e60501000gd','e60501001ng') /**,'**/
 
-constant $ROLES = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
+constant $ROLES = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
 
-constant $RELATIONSHIPS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/relationships.csv',false, list('string','string', 'string', 'string','qname','string', 'string','string', 'string','string','string','string'))
+constant $RELATIONSHIPS = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/relationships.csv',false, list('string','string', 'string', 'string','qname','string', 'string','string', 'string','string','string','string'))
 
-constant $LABELS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv',false, list( 'string','string','string','string','string','string','string'))
+constant $LABELS = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/labels.csv',false, list( 'string','string','string','string','string','string','string'))
+
+constant $FACTS = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/facts.csv',false, list( 'string'/**1-test**/,'string'/**2-file**/,'string'/**3-fact**/,'qname'/**4-elementName**/,'string'/**5-unit**/,'string'/**5-dimension**/,'string'/**6-scheme**/,'string'/**7-scheme-id**/,'string'/**8-period**/))
 
 /** DEFINE THE PACKAGE 
 -----------------------**/
@@ -59,7 +61,6 @@ document-namespace $extension[3].to-xodel
 concept-namespace  $extension[3].to-xodel
 concept-id  $extension[7].to-xodel
 concept-local-name  $extension[4].to-xodel
-/**concept $baseItem.to-xodel**/
 concept-period-type duration.to-xodel
 concept-data-type $extension[6].to-xodel
 concept-substitution-group $extension[8].to-xodel
@@ -117,3 +118,6 @@ label-concept-name qname($label[3], $label[4]).to-xodel
 label-text $label[6]
 label-role $label[5]
 label-lang $label[7]
+
+output create_instance
+true
