@@ -2197,7 +2197,7 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         else:
             concept_info['balance'] = log_rec.args['concept-balance-type'].lower()
     if 'concept-substitution-group' in log_rec.args:
-        concept_info['substitution-group'] = resolve_clark_to_qname(log_rec.args['concept-substitution-group'], taxonomy)
+        concept_info['substitution-group-name'] = resolve_clark_to_qname(log_rec.args['concept-substitution-group'], taxonomy)
     if 'concept-attributes' in log_rec.args:
         concept_info['attributes'].update(json.loads(log_rec.args['concept-attributes']))
 
@@ -2463,8 +2463,10 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     # Get the extended link element
     if rel_info['type'] in _STANDARD_LINK_NAMES:
         link_name = resolve_clark_to_qname(_STANDARD_LINK_NAMES[rel_info['type']], taxonomy)
-    else:
+    elif isinstance(rel_info['type'], str):
         link_name = resolve_clark_to_qname(rel_info['type'], taxonomy)
+    else:
+        link_name = rel_info['type']
 
     # TODO If the arcrole/role is not in the new taxonomy, maybe get it from the
     # input taxonomy if it is from a document with an absolute address. This would 
