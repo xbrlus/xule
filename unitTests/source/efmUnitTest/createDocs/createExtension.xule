@@ -3,7 +3,7 @@
 -------------------------------------**/
 constant $CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','qname', 'string','qname', 'string','string','string','string'))
 
-constant $UNIT_TEST_LISTS = list('e60501000gd','e60501001ng')
+constant $UNIT_TEST_LISTS = list('e60501000gd','e60501001ng') /**,'**/
 
 constant $ROLES = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
 
@@ -26,7 +26,7 @@ package-name $unitTest
 package-url 'http://xbrl.sec.gov/efm/2023'
 document-uri $packageData[2]
 document-namespace $packageData[3]
-document-import list('http://www.xbrl.org/2005/xbrldt-2005.xsd','http://xbrl.sec.gov/dei/2023/dei-2023.xsd').to-xodel 
+document-import list('http://xbrl.sec.gov/dei/2023/dei-2023.xsd', 'http://www.xbrl.org/2005/xbrldt-2005.xsd').to-xodel 
 document-package-entry-point true
 document-package-entry-point-description 'EFM TEST CASE FOR ' + $packageData[1].to-xodel
 document-package-entry-point-language 'en'
@@ -59,7 +59,7 @@ document-namespace $extension[3].to-xodel
 concept-namespace  $extension[3].to-xodel
 concept-id  $extension[7].to-xodel
 concept-local-name  $extension[4].to-xodel
-concept $baseItem.to-xodel
+/**concept $baseItem.to-xodel**/
 concept-period-type duration.to-xodel
 concept-data-type $extension[6].to-xodel
 concept-substitution-group $extension[8].to-xodel
