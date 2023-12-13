@@ -5140,9 +5140,10 @@ def result_file(rule_ast, xule_value, xule_context):
 
     file_content = None
     file_location = None
+    file_append = None
 
     for result_ast in rule_ast.get('results', tuple()):
-        if result_ast.get('resultName') in ('file-content', 'file-location'):
+        if result_ast.get('resultName') in ('file-content', 'file-location', 'file-append'):
             try:
                 message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
                 message_context.tags['rule-value'] = xule_value
@@ -5153,8 +5154,10 @@ def result_file(rule_ast, xule_value, xule_context):
                 result = evaluate(result_ast['resultExpr'], message_context)
                 if result_ast.get('resultName') == 'file-content':
                     file_content = result
-                else: # this is file-location
+                elif result_ast.get('resultName') == 'file-location':
                     file_location = result
+                else: # This is file-append
+                    file_append = result
             finally:
                 xule_context.global_context.options.xule_no_cache = saved_no_cache
 
@@ -5167,8 +5170,11 @@ def result_file(rule_ast, xule_value, xule_context):
     if file_content.type not in ('none', 'string'):
         raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
 
+    if file_append is not None and file_append.type != 'bool':
+        raise XuleProcessingError(_(f"file-append must be a boolean, found {file_append.type}"))
+
     # Write the file
-    if file_location.value in xule_context.global_context.output_files:
+    if file_location.value in xule_context.global_context.output_files or (file_append is not None and file_append.value):
         open_mode = 'a'
     else:
         open_mode = 'w'
