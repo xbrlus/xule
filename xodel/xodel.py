@@ -2842,7 +2842,7 @@ def arcrole_uri_sort(log_infos, cntlr):
     return uri_sort(log_infos, cntlr, 'arcrole-uri', 'arcroleURI', 'arcrole')
 
 def uri_sort(log_infos, cntlr, uri_key, arelle_uri_property_name, object_key):
-    uris = dict()
+    uris = collections.defaultdict(list)
     for log_info in log_infos:
         if uri_key in log_info[1].args:
             uri = log_info[1].args[uri_key]
@@ -2852,13 +2852,14 @@ def uri_sort(log_infos, cntlr, uri_key, arelle_uri_property_name, object_key):
                 raise XodelException(f"Cannot find arelle role/arcrole")
             else:
                 uri = model_role.get(arelle_uri_property_name)
-        if uri in uris:
-            raise XodelException(f"Duplicate role/arcrole {uri}")
-        uris[uri] = log_info
+        # if uri in uris:
+        #     raise XodelException(f"Duplicate role/arcrole {uri}")
+        uris[uri].append(log_info)
 
     result = []
     for key in sorted(uris.keys()):
-        result.append(uris[key])
+        for item in uris[key]:
+            result.append(item)
     
     return result
 
