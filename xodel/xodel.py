@@ -554,11 +554,17 @@ def organize_instances_and_facts(log_capture, cntlr):
 def process_instance(instance_name, taxonomies, facts, cntlr, options):
 
     used_footnotes, fact_footnotes = organize_footnotes(instance_name, facts, cntlr)
+    instance_file_name = os.path.join(options.xodel_location, f'{instance_name}.xml')
+    instance_dir = os.path.dirname(instance_file_name)
+    # Create an Arelle model of the taxonomy. This is done by adding the taxonomies 
+    # as schema refs and loading the file. The model is used to validate as facts are created
+    # (i.e. the concept name is valid)
+    taxonomy_model = get_taxonomy_model(instance_name, taxonomies, instance_dir, cntlr)
 
     if options.xodel_file_type == 'json':
-        process_json(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options)
+        process_json(instance_name, taxonomies, taxonomy_model, facts, used_footnotes, fact_footnotes, cntlr, options)
     else:
-        process_xml(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options)
+        process_xml(instance_name, taxonomies, taxonomy_model, facts, used_footnotes, fact_footnotes, cntlr, options)
 
 def organize_footnotes(instance_name, facts, cntlr):
     '''This fucntion dedups the footnotes and assigns footnote ids'''
@@ -614,13 +620,10 @@ def footnote_hash(footnote, rule_name, cntlr):
     hash_dict['arcrole'] = arcrole
     return hash(frozenset(hash_dict.items()))
 
-def process_json(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options):
+def process_json(instance_name, taxonomies, taxonomy_model, facts, used_footnotes, fact_footnotes, cntlr, options):
 
     instance = json.loads(_INSTANCE_BASE_JSON_STRING)
-    # Create an Arelle model of the taxonomy. This is done by adding the taxonomies 
-    # as schema refs and loading the file. The model is used to validate as facts are created
-    # (i.e. the concept name is valid)
-    taxonomy_model = get_taxonomy_model(instance_name, taxonomies, cntlr)
+
     nsmap = get_initial_nsmap(instance, taxonomy_model, instance['documentInfo']['namespaces'])
     # Always keep the 'xbrl' namespace
     nsmap.mark_namespace_as_used('https://xbrl.org/2021')
@@ -660,13 +663,10 @@ def process_json(instance_name, taxonomies, facts, used_footnotes, fact_footnote
         json.dump(instance, f, indent=2)
     cntlr.addToLog(f"Writing instance file {output_file_name}", "XinceInfo")
 
-def process_xml(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options):
+def process_xml(instance_name, taxonomies, taxonomy_model, facts, used_footnotes, fact_footnotes, cntlr, options):
 
     instance = et.fromstring(_INSTANCE_BASE_XML_STRING)
-    # Create an Arelle model of the taxonomy. This is done by adding the taxonomies 
-    # as schema refs and loading the file. The model is used to validate as facts are created
-    # (i.e. the concept name is valid)
-    taxonomy_model = get_taxonomy_model(instance_name, taxonomies, cntlr)
+
     nsmap = get_initial_nsmap(instance, taxonomy_model, instance.nsmap)
     # Add the schema refs
     for taxonomy in taxonomies:
@@ -723,13 +723,19 @@ def get_initial_nsmap(instance, taxonomy_model, namespaces):
     
     return nsmap
 
-def get_taxonomy_model(tax_name, taxonomies, cntlr):
+def get_taxonomy_model(tax_name, taxonomies, instance_dir, cntlr):
 
     cntlr.addToLog(f"Start loading taxonomy model for instance {tax_name}", "XinceInfo")
     entry_point = _TAXONOMY_MODEL_START
     for taxonomy in taxonomies:
         # TODO - This assumes that the taxonomies are all schema refs, but they could be rolerefs and arcrole refs.
-        entry_point += f'<link:schemaRef xlink:href="{taxonomy}" xlink:type="simple"/>'
+        # need to determine if the taxonomy is absolute or relative
+        if taxonomy.strip().lower().startswith(('http:', 'https:', '/')): # is absolute - the last case '/' is for files. Technicaly, this is not an absolute for URLs.
+            taxonomy_location = taxonomy
+        else:
+            # taxonomy is relative to the location of the instance
+            taxonomy_location = os.path.normpath(os.path.join(instance_dir, taxonomy))
+        entry_point += f'<link:schemaRef xlink:href="{taxonomy_location}" xlink:type="simple"/>'
     entry_point += '</xbrli:xbrl>'
 
     entry_point_file_object, entry_point_file_name = tempfile.mkstemp('.xml', text=True)
