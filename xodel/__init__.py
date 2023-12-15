@@ -43,11 +43,11 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                             action="store",
                             help=_("Directory where files are create"))
 
-    parserGroup.add_option("--xodel-file-type",
+    parserGroup.add_option("--xince-file-type",
                             action="store",
                             choices=('json', 'xml'),
                             default="json",
-                            help=_("type of output. values are 'json', 'xml'"))
+                            help=_("type of output for the taxonomy. values are 'json', 'xml'"))
 
     parserGroup.add_option("--xodel-show-xule-log",
                             action="store_true",
@@ -70,8 +70,8 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         process_xodel(cntlr, options, modelXbrl)
 
 __pluginInfo__ = {
-    'name': 'Xodel',
-    'version': '0.9',
+    'name': 'Xince and Xodel',
+    'version': '1.0',
     'description': "Xince and Xodel- Xule Instance and taxonomy creator",
     'copyright': '(c) Copyright 2022 XBRL US Inc., All rights reserved.',
     'import': ('xule', 'SimpleXBRLModel', 'serializer'),

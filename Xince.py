@@ -432,6 +432,10 @@ def cmdUtilityRun(cntlr, options, **kwargs):
 def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     # Model is create (file loaded) now ready to create an instance
 
+    modelXbrl.error("XinceDeprecated", "Xince is now a part of the Xodel plugin, please execute using Xodel.")
+
+    return
+
     if options.xince_location is None:
         # nothing to do
         modelXbrl.info("Xule to Instance plugin is installed but the --xince-location option was not provided. Not creating instances.")
@@ -1658,7 +1662,7 @@ class _logCaptureHandler(logging.Handler):
 __pluginInfo__ = {
     'name': 'Xince',
     'version': '0.9',
-    'description': "Xince - Xule Instance creator",
+    'description': "DEPRECATED. Use plugin ""Xode"" instead.",
     'copyright': '(c) Copyright 2022 XBRL US Inc., All rights reserved.',
     'import': 'xule',
     # classes of mount points (required)

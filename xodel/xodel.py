@@ -561,7 +561,7 @@ def process_instance(instance_name, taxonomies, facts, cntlr, options):
     # (i.e. the concept name is valid)
     taxonomy_model = get_taxonomy_model(instance_name, taxonomies, instance_dir, cntlr)
 
-    if options.xodel_file_type == 'json':
+    if options.xince_file_type == 'json':
         process_json(instance_name, taxonomies, taxonomy_model, facts, used_footnotes, fact_footnotes, cntlr, options)
     else:
         process_xml(instance_name, taxonomies, taxonomy_model, facts, used_footnotes, fact_footnotes, cntlr, options)
