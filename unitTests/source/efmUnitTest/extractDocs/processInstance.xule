@@ -42,7 +42,7 @@ output get_labels
 for $network in taxonomy().networks
                             for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('labelArc'))
                                 for $label in ($relationship.source.all-labels)
-                                    list($TEST_CASE_ID, $label.document-location.substring($label.document-location.index-of('/conf/')+1), $relationship.source-name.namespace-uri,$relationship.source-name.local-name, $label.role, $label.text, $label.lang)
+                                    list($TEST_CASE_ID, $label.document-location.substring($label.document-location.index-of('/conf/')+1), $relationship.source-name.namespace-uri,$relationship.source-name.namespace-uri, $label.role, $label.text, $label.lang)
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv'
 
