@@ -885,7 +885,7 @@ def get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimens
             period_node.append(instant_node)
             if period.start.hour + period.start.minute + period.start.second + period.start.microsecond == 0:
                 # the time is midnight the end of day
-                instant_node.text = (period.start + datetime.timedelta(days=1)).date().isoformat()
+                instant_node.text = (period.start - datetime.timedelta(days=1)).date().isoformat()
             else:
                 instant_node.text = period.start.isoformat()
         else: # duration
@@ -898,7 +898,7 @@ def get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimens
         
             end_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}endDate')
             if period.end.hour + period.end.minute + period.end.second + period.end.microsecond == 0:
-                end_node.text = (period.end + datetime.timedelta(days=1)).date().isoformat()
+                end_node.text = (period.end - datetime.timedelta(days=1)).date().isoformat()
             else:
                 end_node.text = period.end.isoformat()
             period_node.append(end_node)
