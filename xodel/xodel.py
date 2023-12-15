@@ -1968,7 +1968,6 @@ def process_document_import(rule_name, log_rec, taxonomy, options, cntlr, arelle
             sub_doc = taxonomy.get('Document', sub_doc_uri) or get_import_document(sub_doc_uri, taxonomy, cntlr, arelle_model, rule_name)
             if sub_doc is None:
                 raise XodelException(f"Document {sub_doc_uri} cannot be found. Rule {rule_name}")
-            add_taxonomy_from_arelle(sub_doc_uri, taxonomy, cntlr, arelle_model)
             if sub_doc.document_type == taxonomy.DOCUMENT_TYPES.SCHEMA:
                 doc.add(sub_doc, taxonomy.DOCUMENT_CONTENT_TYPES.IMPORT)
             else:
