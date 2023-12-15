@@ -43,11 +43,17 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                             action="store",
                             help=_("Directory where files are create"))
 
+    parserGroup.add_option("--xodel-file-type",
+                            action="store",
+                            choices=('xml',),
+                            default="xml",
+                            help=_("Type of output for the taxonomy. Currently only 'xml' is suppoprted"))
+
     parserGroup.add_option("--xince-file-type",
                             action="store",
                             choices=('json', 'xml'),
                             default="json",
-                            help=_("type of output for the taxonomy. values are 'json', 'xml'"))
+                            help=_("Type of output for the instance files. values are 'json', 'xml'"))
 
     parserGroup.add_option("--xodel-show-xule-log",
                             action="store_true",
