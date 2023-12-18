@@ -523,7 +523,7 @@ class XuleRuleContext(object):
                   
         return var_info
         
-    def add_arg(self, name, node_id, tag, value, number):
+    def add_arg(self, name, node_id, tag, value, number, is_for=False):
         """Add an argument (variable) to the rule context
         
         Arguments are just like variables, but they don't have an expression and they are already calculated.
@@ -545,6 +545,8 @@ class XuleRuleContext(object):
                     "calculated": True,
                     "value": value,
                     }
+        if is_for:
+            var_info['is_for'] = True
 
         self.vars[node_id].append(var_info)
         if tag is not None:
@@ -555,6 +557,10 @@ class XuleRuleContext(object):
         self.vars[node_id].pop()
         if len(self.vars[node_id]) == 0:
             del self.vars[node_id]
+
+    def find_for_vars(self):
+        # the [-1] is to get the last value for the variable on the stack.
+        return tuple(x[-1] for x in self.vars.values() if x[-1].get('is_for', False) == True)
 
     def find_var(self, var_name, node_id, constant_only=False):
         """Finds a variable in the variable stack

@@ -919,6 +919,12 @@ def get_local_cache_key(rule_part, xule_context):
                 if var_info['calculated']:
                     dep_var_index.add((var_info['name'], var_info['value']))
 
+    # specail handling for for loops. This ensures that the for variable is included in the cache key. If the body of the for
+    # loop did not use the for variable it would not in the list dependent vars list for the expression and so it would not
+    # be included in the cache key.
+    for for_var in xule_context.find_for_vars():
+        dep_var_index.add((for_var['name'], for_var['value']))
+
     alignment = xule_context.iteration_table.current_alignment if rule_part['has_alignment'] else None
 
     cache_key = (rule_part['node_id'], frozenset(dep_var_index), alignment)
@@ -1695,7 +1701,8 @@ def evaluate_for(for_expr, xule_context):
                              for_expr['forLoopExpr']['node_id'],
                              for_expr['forVar'],  # tagged - all variables are automatically tagged
                              for_loop_var,
-                             'single')
+                             'single',
+                             True)
 
         try:
             body_values = evaluate_for_body_detail(for_expr['forBodyExpr'],
