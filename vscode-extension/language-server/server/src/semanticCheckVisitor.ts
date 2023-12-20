@@ -790,6 +790,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "to-qname": new PropertyInfo(0),
     "to-set": new PropertyInfo(0),
     "to-xince": new PropertyInfo(0),
+    "to-xodel": new PropertyInfo(0),
     "trim": new PropertyInfo({ min: 0, max: 1 }),
     "trunc": new PropertyInfo({ min: 0, max: 1 }),
     "union": new PropertyInfo(1),
