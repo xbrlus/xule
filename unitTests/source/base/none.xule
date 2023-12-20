@@ -128,3 +128,18 @@ output PMN126
 /* True */
 
   none >= none
+
+output PMN127
+/* None */
+
+  none.intersect(set(1,2,3))
+
+output PMN128
+/* skip */
+
+  first-value(set(),set()).intersect(set(1,2,3))
+
+output PMN129
+/* True */
+
+  none >= none

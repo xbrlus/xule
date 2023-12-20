@@ -188,3 +188,8 @@ output VE134
 /* 1 */
 
   first-value-or-none(none,none,'1')
+
+output VE135
+/* none */
+
+  first-value-or-none(set(),list())

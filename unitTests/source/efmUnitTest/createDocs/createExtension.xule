@@ -3,7 +3,7 @@
 -------------------------------------**/
 constant $CONCEPTS = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','qname', 'string','qname', 'string','string','string','string'))
 
-constant $UNIT_TEST_LISTS = list('e60501000gd','e60501001ng') /**,'**/
+constant $UNIT_TEST_LISTS = list('e60501000gd','e60501001ng','i00200gd','i00201gd','i00202gd','i00203gd','i00204gd') /**,'**/
 
 constant $ROLES = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
 
@@ -36,17 +36,14 @@ document-package-entry-point-name 'abc'
 
 output import_dimensions_taxonomy1
 for $unitTest in  $UNIT_TEST_LISTS
-    $unitTest
+    $import = list('https://xbrl.sec.gov/dei/2023/dei-2023.xsd','http://www.xbrl.org/2005/xbrldt-2005.xsd')
+        for $imp in  $import
+           list($unitTest,$imp)
+            
 
-package-name $unitTest
-import2-url 'http://www.xbrl.org/2005/xbrldt-2005.xsd'
+package-name $rule-value[1]
+import2-url $rule-value[2]
 
-output import_dei_taxonomy
-for $unitTest in  $UNIT_TEST_LISTS
-    $unitTest
-
-package-name $unitTest
-import2-url 'https://xbrl.sec.gov/dei/2023/dei-2023.xsd'
 
 output create_concepts
 $baseItem = taxonomy().concept(dei:EntityCentralIndexKey)
@@ -91,7 +88,7 @@ role-used-on  $used-on.to-xodel
 
 output create_relationships
 for $unitTest in  $UNIT_TEST_LISTS
-    for $relationship in filter $RELATIONSHIPS where $item[1] == $unitTest
+    for $relationship in (filter $RELATIONSHIPS where $item[1] == $unitTest)
         (filter $CONCEPTS where $item[1] == $unitTest)[1][2]
 
 package-name $unitTest

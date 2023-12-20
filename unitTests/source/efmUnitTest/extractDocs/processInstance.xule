@@ -1,5 +1,6 @@
 output-attribute file-content
 output-attribute file-location
+output-attribute file-append
 
 
 output get_schema
@@ -8,6 +9,7 @@ for $extension in  $EXTENSION_CONCEPTS
 
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv'
+file-append true
 
 output get_roles
 for $role in (filter taxonomy().roles where not $item.uri.lower-case.contains('xbrl.sec.gov/dei/'))
@@ -15,14 +17,16 @@ for $role in (filter taxonomy().roles where not $item.uri.lower-case.contains('x
 
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv'
+file-append true
 
 output get_relationships
 for $network in taxonomy().networks
-    for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('definitionArc','presentationArc','calculationArc'))
+    for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('definitionArc','presentationArc','calculationArc') and not $item.document-location.contains('xbrl.fasb.org'))
         list($TEST_CASE_ID, $relationship.document-location.substring($relationship.document-location.index-of('/conf/')+1),$relationship.role.uri,$relationship.arcrole-uri,$relationship.link-name,$relationship.source.namespace-uri,$relationship.source-name.local-name, $relationship.target.namespace-uri, $relationship.target-name.local-name, $relationship.order, $relationship.weight, $relationship.preferred-label)
 
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/relationships.csv'
+file-append true
 
 output get_namespace_location
 
@@ -35,6 +39,7 @@ $namespaceLocations.to-list
 
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/namespaceLocations.csv'
+file-append true
 
 
 output get_labels
@@ -51,3 +56,4 @@ for $fact in list({covered @})
         list($TEST_CASE_ID, $fact.document-location.substring($fact.document-location.index-of('/conf/')+1), $fact, $fact.concept.name, $fact.unit, $fact.dimensions.join(', ','='), $fact.entity.scheme, $fact.entity.id, $fact.period.to-xince)
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/facts.csv'
+file-append true

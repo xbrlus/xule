@@ -144,3 +144,27 @@ output DICT003
   $A = dict(list('CAxis','AMember'), list('BAxis','CMember'));
 $B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
 $A == $B
+
+output DICT004
+/* dict(list('AAxis','AMember'), list('BAxis','BMember'),
+list('YAxis','YMember'))
+ */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = dict(list('YAxis','YMember'));
+$A + $B
+
+
+output DICT005
+/* dict(list('AAxis','AMember')) */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = dict(list('BAxis','BMember'));
+$A - $B
+
+output DICT006
+/* dict(list('AAxis','AMember')) */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = list('BAxis');
+$A - $B

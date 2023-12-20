@@ -1,0 +1,22 @@
+/**constant $TEST_CASE_LOCATION_XML = xml-data-flat('/Users/campbellpryde/Downloads/efm-68d-231120/conf/testcases.xml','/testcases/testcase', list('@uri'))
+
+output uriTest2
+$path = '/Users/campbellpryde/Downloads/efm-68d-231120/conf/'
+
+for $testFile in $TEST_CASE_LOCATION_XML
+    $list_of_list_of_files = xml-data-flat($path + sum($testFile),'/t:testcase/t:variation/t:data',list('t:instance'),list('string'),dict(list('t','http://edgar/2009/conformance')))
+    $list_of_files = sum($list_of_list_of_files)
+    $pathComp = split(sum($testFile),'/')
+    $pathList = list(for $x in range(($pathComp.length) - 1)
+                $pathComp[$x]
+                );
+    $path = $pathList.join('/')
+
+    for $testcase in (if $list_of_files == none skip else $list_of_files)
+        $testcaseName = split(split($testcase,'/')[1],'-')[1]
+        list("python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xuleUnit|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' -f /Users/campbellpryde/Downloads/efm-68d-231120/conf/" + $path + '/' + $testcase  + " --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/efmUnitTests-ruleset.zip --logNoRefObjectProperties --logFile /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concept.xml --xule-crash --xule-arg TEST_CASE_ID=" + $testcaseName + " --xule-arg T2=a")
+
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/cmds-to-run.sh'
+**/

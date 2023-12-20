@@ -922,3 +922,18 @@ output TAXPROP131
 /* Assets */
 
   qname($US-GAAP-2020.concept(Assets).namespace-uri,'Assets')
+
+output TAXPROP132
+/*  */
+
+  count($US-GAAP-2020.roles)
+
+output TAXPROP133
+/*  */
+
+  count($US-GAAP-2020.arcroles)
+
+output TAXPROP134
+/*  */
+
+  count($US-GAAP-2020.part-elements)
