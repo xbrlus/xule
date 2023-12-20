@@ -180,6 +180,7 @@ export class OutputAttributeInfo extends IdentifierInfo {
 
 export const initialEnvironment = new Environment();
 export const wellKnownVariables = {
+	"$alignment": {},
 	"$fact": {},
 	"$ruleversion": {},
 	"$rule-value": {},

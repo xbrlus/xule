@@ -479,6 +479,7 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "all-references": new FunctionInfo({ min: 1, max: 2 }),
     "any": new FunctionInfo(1),
     "arcrole": new FunctionInfo(1),
+    "arcroles": new FunctionInfo(1),
     "arcrole-description": new FunctionInfo(1),
     "arcrole-uri": new FunctionInfo(1),
     "arc-name": new FunctionInfo(1),
@@ -575,8 +576,10 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "numerator": new FunctionInfo(1),
     "order": new FunctionInfo(1),
     "part-by-name": new FunctionInfo(2),
+    "part-elements": new FunctionInfo(1),
     "part-value": new FunctionInfo(1),
     "parts": new FunctionInfo(1),
+    "plain-string": new FunctionInfo(1),
     "power": new FunctionInfo(2),
     "preferred-label": new FunctionInfo(1),
     "primary-concepts": new FunctionInfo(1),
@@ -591,6 +594,7 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "range": new FunctionInfo({ min: 1, max: 3 }),
     "relationships": new FunctionInfo(1),
     "role": new FunctionInfo(1),
+    "roles": new FunctionInfo(1),
     "roots": new FunctionInfo(1),
     "round": new FunctionInfo(2),
     "rule-name": new FunctionInfo(0),
@@ -639,6 +643,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "any": new PropertyInfo(0),
     "arc-name": new PropertyInfo(0),
     "arcrole": new PropertyInfo(0),
+    "arcroles": new PropertyInfo(0),
     "arcrole-description": new PropertyInfo(0),
     "arcrole-uri": new PropertyInfo(0),
     "aspects": new PropertyInfo(0),
@@ -736,10 +741,12 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "numerator": new PropertyInfo(0),
     "order": new PropertyInfo(0),
     "part-by-name": new PropertyInfo(1),
+    "part-elements": new PropertyInfo(0),
     "part-value": new PropertyInfo(0),
     "parts": new PropertyInfo(0),
     "period": new PropertyInfo(0),
     "period-type": new PropertyInfo(0),
+    "plain-string": new PropertyInfo(0),
     "power": new PropertyInfo(1),
     "preferred-label": new PropertyInfo(0),
     "primary-concepts": new PropertyInfo(0),
@@ -751,6 +758,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "regex-match-string-all": new PropertyInfo({ min: 1, max: 2 }),
     "relationships": new PropertyInfo(0),
     "role": new PropertyInfo(0),
+    "roles": new PropertyInfo(0),
     "role-description": new PropertyInfo(0),
     "role-uri": new PropertyInfo(0),
     "roots": new PropertyInfo(0),
@@ -792,6 +800,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "values": new PropertyInfo(0),
     "weight": new PropertyInfo(0),
     "year": new PropertyInfo(0),
+    "_type": new PropertyInfo(0),
 };
 
 export const dimensions = {
@@ -804,5 +813,5 @@ export const dimensions = {
 }
 
 export const wellKnownOutputAttributes = [
-    "message", "rule-suffix", "rule-focus", "severity", "file-location", "file-content"
+    "message", "rule-suffix", "rule-focus", "severity", "file-location", "file-content", "file-append"
 ];
