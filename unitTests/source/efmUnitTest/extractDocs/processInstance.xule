@@ -2,8 +2,22 @@ output-attribute file-content
 output-attribute file-location
 output-attribute file-append
 
+output record_testcase
+list($TEST_CASE_ID)
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/testcase.csv'
+file-append true
 
 output get_schema
+list($TEST_CASE_ID, taxonomy().entry-point, taxonomy().entry-point-namespace)
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/schema.csv'
+file-append true
+
+
+output get_concepts
 for $extension in  $EXTENSION_CONCEPTS
     list($TEST_CASE_ID, $extension.document-location.substring($extension.document-location.index-of('/conf/')+1), $extension.namespace-uri, $extension.name.local-name, $extension.period-type, $extension.data-type.name, $extension.attribute(qname(none, 'id')), $extension.substitution, $extension.attribute(qname(none, 'nillable')), $extension.is-abstract, $extension.balance, $extension.attribute(qname(none, 'default')))
 
@@ -47,9 +61,10 @@ output get_labels
 for $network in taxonomy().networks
                             for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('labelArc'))
                                 for $label in ($relationship.source.all-labels)
-                                    list($TEST_CASE_ID, $label.document-location.substring($label.document-location.index-of('/conf/')+1), $relationship.source-name.namespace-uri,$relationship.source-name.namespace-uri, $label.role, $label.text, $label.lang)
+                                    list($TEST_CASE_ID, $label.document-location.substring($label.document-location.index-of('/conf/')+1), $relationship.source-name.namespace-uri,$relationship.source-name.local-name, $label.role, $label.text, $label.lang)
 file-content $rule-value.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv'
+file-append true
 
 output get_facts
 for $fact in list({covered @})
