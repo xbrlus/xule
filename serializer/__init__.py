@@ -8,7 +8,6 @@ import zipfile
 from lxml import etree
 
 from arelle import FileSource, PackageManager, PluginManager
-from arelle.CntlrWebMain import Options
 
 _CNTLR = None
 _OPTIONS = None
