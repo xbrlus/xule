@@ -252,13 +252,20 @@ def info(msg, code='Serializer'):
 
 def cmdLineOptionExtender(parser, *args, **kwargs):
     # extend command line options to compile rules
-    if isinstance(parser, Options):
-        parserGroup = parser
-    else:
+    # if isinstance(parser, Options):
+    #     parserGroup = parser
+    # else:
+    #     parserGroup = optparse.OptionGroup(parser,
+    #                                        "Serializer",
+    #                                        "This plugin will create a Taxonomy Package. ")
+    #     parser.add_option_group(parserGroup)
+    if hasattr(optparse, "OptionGroup"):
         parserGroup = optparse.OptionGroup(parser,
                                            "Serializer",
                                            "This plugin will create a Taxonomy Package. ")
         parser.add_option_group(parserGroup)
+    else: 
+        parserGroup = parser
     
     parserGroup.add_option('--serializer-package-taxonomy-package',
                             action='store',
