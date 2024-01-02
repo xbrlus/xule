@@ -5188,7 +5188,7 @@ def result_file(rule_ast, xule_value, xule_context):
         xule_context.global_context.output_files.add(file_location.value)
 
     try:
-        with open(file_location.value, open_mode) as ofile:
+        with open(file_location.value, open_mode, encoding='utf8') as ofile:
             ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
     except FileNotFoundError:
         raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
