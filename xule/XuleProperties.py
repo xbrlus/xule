@@ -1990,6 +1990,8 @@ def property_sum(xule_context, object_value, *args):
                         shadow_values.add(item.value)
                         result_values.add(item)
                 sum_value = xv.XuleValue(xule_context, frozenset(result_values), combined_type)
+            elif combined_type == 'dictionary':
+                sum_value = XuleUtility.add_dictionaries(xule_context, sum_value, next_value)
             else:
                 sum_value = xv.XuleValue(xule_context, left + right, combined_type)
                 

@@ -103,6 +103,7 @@ def subtract_sets(xule_context, left, right):
     return XuleValue.XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
 
 def add_dictionaries(xule_context, left, right):
+    _imports()
     left_dict = {k:v for k, v in left.value}
 
     for k, v in right.value:
