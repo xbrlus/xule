@@ -2103,6 +2103,99 @@ def property_stats(xule_context, object_value, stat_function, *args):
     stat_value.facts = object_value.facts
     return stat_value
 
+def property_agg_to_dict(xule_context, object_value, *args):
+    '''Convert a set/list of lists to a dictionary
+    
+    This property will take a 2 dimensional list (or a set of list) and convert it to a dictinary.
+    The key of the dictionary is determined by the passed argument which is the column number (or a list of column numbers)
+    for compound keys) to use as the key.
+    '''
+
+    # check the argument. It should either be an integer or a list of integers
+    key_cols = []
+    for arg in args:
+        if arg.type != 'int':
+            raise XuleProcessingError(_(f"Arguments for agg-to-dict must be integers. Found {arg.type}"), xule_context)
+        key_cols.append(arg.value)
+
+    # if args[0].type == 'int':
+    #     key_cols = [args[0].value,]
+    # elif args[0].type == 'list':
+    #     # Check that each value is an integer
+    #     for col in args[0].value:
+    #         if col.type != 'int':
+    #             raise XuleProcessingError(_("Argument for agg-to-dict must be an integer or a list of integers. Found a list with a non integer value"), xule_context)
+    #         key_cols = [x.value for x in args[0].value]
+    # else:
+    #     raise XuleProcessingError(_(f"Argument for agg-to-dict must be an integer or a list of integers, Found {args[0].type}"), xule_context)
+    
+    result_dict = collections.defaultdict(list)
+
+    tags = {}
+    facts = collections.OrderedDict()
+    dict_value = collections.defaultdict(list)
+    shadow = collections.defaultdict(list)
+    key_map = dict()
+
+    for row in object_value.value:
+        if row.type != 'list':
+            raise XuleProcessingError(_(f"The object of the agg-to-dict property must be a list/set of lists. Found {row.type} in the set/list"), xule_context)
+        #compose the key
+        key_parts = []
+        key_shadow = []
+        key_tags = {}
+        key_facts = collections.OrderedDict()
+        for key_location in key_cols:
+            try:
+                key_value = row.value[key_location-1].clone()
+                key_parts.append(key_value)
+                key_shadow.append(key_value.value)
+                if key_value.tags is not None:
+                    key_tags.update(key_value.tags)
+                if key_value.facts is not None:
+                    key_facts.update(key_value.facts)
+            except IndexError:
+                # if the row does not have the column use None
+                key_parts.append(xv.XuleValue(xule_context, None, 'none'))
+                key_shadow.append(None)
+
+        if len(key_cols) == 1:
+            key = key_parts[0]
+        else:
+            key = xv.XuleValue(xule_context, tuple(key_parts), 'list', shadow_collection=tuple(key_shadow))
+
+        key_shadow = key.shadow_collection if key.type in ('list', 'set') else key.value
+        if key_shadow not in key_map:
+            key_map[key_shadow] = key
+        # Deal with tags and facts for the key
+        if len(key_tags) > 0:
+            if key_map[key_shadow].tags is None:
+                key_map[key_shadow].tags = key_tags
+            else:
+                key_map[key_shadow].tags.update(key_tags)
+        if len(key_facts) > 0:
+            if key_map[key_shadow].facts is None:
+                key_map[key_shadow].facts = key_facts
+            else:
+                key_map[key_shadow].facts.update(key_facts)
+
+        new_row = row.clone()
+        dict_value[key_map[key_shadow]].append(new_row)
+        shadow[key_shadow].append(new_row.shadow_collection)
+
+        if new_row.tags is not None:
+            tags.update(new_row.tags)
+        if new_row.facts is not None:
+            facts.update(new_row.facts)
+
+    result_dict = {k: xv.XuleValue(xule_context, tuple(v), 'list') for k, v in dict_value.items()}
+    result_dict_value = xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary')
+    if len(tags) > 0:
+        result_dict_value.tags = tags
+    if len(facts) > 0:
+        result_dict_value.facts = facts
+    return result_dict_value
+
 def property_number(xule_context, object_value, *args):
 
     if object_value.type in ('int', 'float', 'decimal'):
@@ -2781,6 +2874,7 @@ PROPERTIES = {
               'stdev': (property_stats, 0, ('set', 'list'), False, numpy.std),
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
+              'agg-to-dict': (property_agg_to_dict, -1000, ('set', 'list'), False),
               'cube': (property_cube, -2, ('taxonomy', 'dimension'), False),
               'cubes': (property_cubes, 0, ('taxonomy','fact'), False),
               'drs-role': (property_drs_role, 0, ('cube',), False),
