@@ -473,6 +473,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
 
 export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "abs": new FunctionInfo(1),
+    "agg-to-dict": new FunctionInfo({ min: 2, max: 1001 }),
     "alignment": new FunctionInfo(0),
     "all": new FunctionInfo(1),
     "all-labels": new FunctionInfo({ min: 1, max: 3 }),
@@ -637,6 +638,7 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
 
 export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "abs": new PropertyInfo(0),
+    "agg-to-dict": new PropertyInfo({ min: 1, max: 1000 }),
     "all": new PropertyInfo(0),
     "all-labels": new PropertyInfo({ min: 0, max: 2 }),
     "all-references": new PropertyInfo({ min: 0, max: 1 }),
