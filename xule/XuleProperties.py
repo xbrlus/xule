@@ -2113,22 +2113,13 @@ def property_agg_to_dict(xule_context, object_value, *args):
 
     # check the argument. It should either be an integer or a list of integers
     key_cols = []
+    if len(args) == 0:
+        raise XuleProcessingError(_("agg-to-dict requires at least 1 key location argument, found 0"), xule_context)
     for arg in args:
         if arg.type != 'int':
             raise XuleProcessingError(_(f"Arguments for agg-to-dict must be integers. Found {arg.type}"), xule_context)
         key_cols.append(arg.value)
 
-    # if args[0].type == 'int':
-    #     key_cols = [args[0].value,]
-    # elif args[0].type == 'list':
-    #     # Check that each value is an integer
-    #     for col in args[0].value:
-    #         if col.type != 'int':
-    #             raise XuleProcessingError(_("Argument for agg-to-dict must be an integer or a list of integers. Found a list with a non integer value"), xule_context)
-    #         key_cols = [x.value for x in args[0].value]
-    # else:
-    #     raise XuleProcessingError(_(f"Argument for agg-to-dict must be an integer or a list of integers, Found {args[0].type}"), xule_context)
-    
     result_dict = collections.defaultdict(list)
 
     tags = {}
@@ -2148,6 +2139,8 @@ def property_agg_to_dict(xule_context, object_value, *args):
         for key_location in key_cols:
             try:
                 key_value = row.value[key_location-1].clone()
+                if key_value.type == 'dictionary':
+                    raise XuleProcessingError(_(f"In property agg-to-dict, the key cannot be a dictionary"), xule_context)
                 key_parts.append(key_value)
                 key_shadow.append(key_value.value)
                 if key_value.tags is not None:
