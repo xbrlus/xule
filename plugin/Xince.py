@@ -434,7 +434,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
     if options.xince_location is None:
         # nothing to do
-        modelXbrl.info("Xule to Instance plugin is installed but the --xince-location option was not provided. Not creating instances.")
+        modelXbrl.info("xince:locationNotProvided", "Xule to Instance plugin is installed but the --xince-location option was not provided. Not creating instances.")
     else:
         create_instance(cntlr, options, modelXbrl)
 
