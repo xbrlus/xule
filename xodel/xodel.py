@@ -2335,7 +2335,7 @@ def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         raise XodelException(f"Role URI is missing. Found in rule {rule_name}")
     
     if taxonomy.get('Role', role_info['uri']) is None:
-        return taxonomy.new('Role', role_info['uri'], role_info.get('definition'), role_info.get('used-on'))
+        return taxonomy.new('Role', role_info['uri'], role_info.get('definition'), role_info.get('used-on'),role_info.get('id'))
     else:
         raise XodelException(f"Duplicate role. Role {role_info['uri']} is already in the taxonomy. Found in rule {rule_name}")
 
@@ -2380,7 +2380,7 @@ def process_arcrole(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         raise XodelException(f"arcrole-cycles-allowed is required for an arcrole. Arcrole {arcrole_info['uri']}.")
     
     if taxonomy.get('Arcrole', arcrole_info['uri']) is None:
-        return taxonomy.new('Arcrole', arcrole_info['uri'], arcrole_info.get('cycles-allowed'), arcrole_info.get('definition'), arcrole_info.get('used-on'))
+        return taxonomy.new('Arcrole', arcrole_info['uri'], arcrole_info.get('cycles-allowed'), arcrole_info.get('definition'), arcrole_info.get('used-on'), arcrole_info.get('id'))
     else: 
         raise XodelException(f"Duplicate arcrole. Arcrole {arcrole_info['uri']} is already in the taxonomy. Found in rule {rule_name}")
 
