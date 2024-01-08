@@ -814,7 +814,8 @@ class XuleIterationTable:
         :param xule_context: The rule context
         :type xule_context: XuleContext
         """
-        self._ordered_tables = collections.OrderedDict()
+        self._ordered_tables = {}
+        self.is_empty = True
         
         #This is a dictionary of which table the column is in.
         #self._columns = collections.defaultdict(list)
@@ -823,20 +824,20 @@ class XuleIterationTable:
         #self.add_table(0)
         self.main_table_id = None
 
-    @property
-    def current_table(self):
-        if self.is_empty:
-            return None
-        else:
-            #return self._tables[-1]
-            table_processing_id = next(reversed(self._ordered_tables))
-            return self._ordered_tables[table_processing_id]
+    # @property
+    # def current_table(self):
+    #     if self.is_empty:
+    #         return None
+    #     else:
+    #         #return self._tables[-1]
+    #         table_processing_id = next(reversed(self._ordered_tables))
+    #         return self._ordered_tables[table_processing_id]
     
     @property
     def current_alignment(self):
-        for table_processing_id in reversed(self._ordered_tables):
-            if not self._ordered_tables[table_processing_id].is_empty:
-                return self._ordered_tables[table_processing_id].current_alignment
+        for table in reversed(self._ordered_tables.values()):
+            if not table.is_empty:
+                return table.current_alignment
         return None
         
         '''
@@ -852,10 +853,6 @@ class XuleIterationTable:
             if not self._ordered_tables[table_processing_id].is_empty and self._ordered_tables[table_processing_id].current_alignment is not None:
                 return self._ordered_tables[table_processing_id].current_alignment
         return None
-    
-    @property
-    def is_empty(self):
-        return len(self._ordered_tables) == 0
 
     @property
     def tags(self):
@@ -870,7 +867,7 @@ class XuleIterationTable:
     @property
     def facts(self):
         if self.is_empty:
-            return collections.OrderedDict()
+            return {}
         else:
             return self.current_table.facts
     @facts.setter
@@ -1039,6 +1036,8 @@ class XuleIterationTable:
         child_table.tags = self.tags.copy()
         table_processing_id = self.xule_context.get_processing_id(table_id)
         self._ordered_tables[table_processing_id] = child_table
+        self.is_empty = False
+        self.current_table = child_table
 
         if parent_table is not None:
             child_table.dependent_alignment = parent_table.dependent_alignment
@@ -1070,8 +1069,11 @@ class XuleIterationTable:
                 del self._columns[column_key]
             '''
         #remove the table
-        del self._ordered_tables[table_processing_id]        
-    
+        # del self._ordered_tables[table_processing_id]        
+        del self._ordered_tables[table_processing_id]
+        self.is_empty = len(self._ordered_tables) == 0
+        self.current_table = self._ordered_tables[next(reversed(self._ordered_tables))] if self._ordered_tables else None
+
     def is_table_empty(self, table_id):
         table_processing_id = self.xule_context.get_processing_id(table_id)
         return table_processing_id not in self._ordered_tables or self._ordered_tables[table_processing_id].is_empty
@@ -1145,7 +1147,7 @@ class XuleIterationSubTable:
         
         self.tags = dict()
         #self.facts = []
-        self.facts = collections.OrderedDict()
+        self.facts = {}
         self.aligned_result_only = False
         self.used_expressions = set()
         
@@ -1281,7 +1283,7 @@ class XuleIterationSubTable:
             #reset tags and facts
             self.tags = dict()
             #self.facts = []
-            self.facts = collections.OrderedDict()
+            self.facts = {}
             #reset used columns for the next iteration
             self._used_columns = set()
         

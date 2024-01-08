@@ -2741,7 +2741,7 @@ def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filter
 
 
 def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non_align_aspects, align_aspects,
-                           nested_filters, aspect_vars, pre_matched_used_expressoins_ids, xule_context):
+                           nested_filters, aspect_vars, pre_matched_used_expressions_ids, xule_context):
     """Apply the where portion of the factset"""
     results = XuleValueSet()
     default_used_expressions = set()
@@ -3026,7 +3026,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                                 new_fact_value.facts = xule_context.iteration_table.facts.copy()
                                 new_fact_value.tags = xule_context.iteration_table.tags.copy()
                                 # new_fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids + xule_context.used_vars)
-                                new_fact_value.used_expressions = pre_matched_used_expressoins_ids | xule_context.used_expressions
+                                new_fact_value.used_expressions = pre_matched_used_expressions_ids | xule_context.used_expressions
                                 results.append(new_fact_value)
                             '''It may be that the false value should also be included with an unbound value'''
                         else:
@@ -3050,13 +3050,13 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                     xule_context.del_arg(var_name, declaration_id)
                 # remove where table (if this is the result of an exception the where table may be left behind)
                 xule_context.iteration_table.del_table(where_table.table_id)
-                # restore aligned results, used_vars and used_expressoins
+                # restore aligned results, used_vars and used_expressions
                 # xule_context.aligned_result_only = save_aligned_result_only
                 # xule_context.used_vars = save_used_vars
                 xule_context.used_expressions = save_used_expressions
         else:
             # fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids)
-            fact_value.used_expressions = pre_matched_used_expressoins_ids
+            fact_value.used_expressions = pre_matched_used_expressions_ids
             results.append(fact_value)
 
     return results, default_used_expressions

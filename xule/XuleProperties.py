@@ -39,6 +39,7 @@ import csv
 import datetime
 import decimal
 import io
+import itertools
 import json
 import math
 import numpy
@@ -979,7 +980,11 @@ def property_has_enumerations(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, False, 'bool')
     else:
         return xv.XuleValue(xule_context, 'enumeration' in model_type.facets, 'bool')  
-    
+
+
+
+
+
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
     if type_name.type != 'qname':
@@ -1250,11 +1255,8 @@ def property_all_references(xule_context, object_value, *args):
     else:
         concept = object_value.value
     references_by_type = get_references(concept) # This is a defaultdict(list)
-    result_value = set()
-    for refs in references_by_type.values():
-        result_value |= set(refs)
-    
-    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in result_value)), 'set')
+    result_value = dict.fromkeys(itertools.chain.from_iterable(references_by_type.values()))
+    return xv.XuleValue(xule_context, frozenset(xv.XuleValue(xule_context, x, 'reference') for x in result_value.keys()), 'set')
 
 def property_references(xule_context, object_value, *args):
     #reference type
@@ -2778,6 +2780,21 @@ PROPERTIES = {
               'substitution': (property_substitution, 0, ('concept', 'part-element', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
+
+            #   'min-exclusive': (property_min_exclusive, 0, ('type','part-element', 'concept', 'fact'), True),
+# max-exclusive
+# min-inclusive
+# max-inclusive
+# length (this has to be type-length)
+# min-length
+# max-length
+# enumerations
+# pattern
+# total-digits
+# fraction-digits
+# white-space
+
+
               'is-type': (property_is_type, 1, ('concept', 'part-element', 'fact'), True),          
               'is-numeric': (property_is_numeric, 0, ('concept', 'part-element', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
