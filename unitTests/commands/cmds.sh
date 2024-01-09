@@ -8,6 +8,8 @@ python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC
 
 python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/ut-ruleset.zip --logNoRefObjectProperties --logFormat "[%(messageCode)s] %(message)s" >> /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt
 
+python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xuleUnit|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/ut-ruleset.zip --logNoRefObjectProperties --xule-time .0000001  --logFormat "[%(messageCode)s] %(message)s" >> /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/output.txt
+
 /Users/campbellpryde/Documents/GitHub/xule/unitTests/commands/buildUnitTests.sh
 
 
