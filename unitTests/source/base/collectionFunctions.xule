@@ -1157,3 +1157,63 @@ output RNG003
 /* list(4, 6, 8, 10) */
 
   range(4, 10, 2)
+
+output ADICT001
+/* dictionary(a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g)),h=list(list(h, i, j))) */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    $i.agg-to-dict(1)
+
+output ADICT002
+/* dictionary(e=list(list(e, f, g)),a=list(list(a, b, c), list(a, x, y)),h=list(list(h, i, j))) */
+
+  $i = set(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    $i.agg-to-dict(1)
+
+output ADICT003
+/* dictionary(list(a, None)=list(list(a, x, y)),list(e, None)=list(list(e, f, g)),list(h, None)=list(list(h, i, j)),list(a, d)=list(list(a, b, c, d))) */
+
+  $i = list(list('a', 'b', 'c', 'd'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    $i.agg-to-dict(1,4)
+
+output ADICT004
+/* dictionary(h=list(list(h, i, j)),a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g))) */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    agg-to-dict($i, 1)
+
+output ADICT005
+/* dictionary(None=list(list(a, b, c), list(e, f, g), list(h, i, j), list(r, dictionary(a=1), x, y))) */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('r', dict(list('a', 1)), 'x', 'y'))
+
+    agg-to-dict($i, 100)
+
+output ADICT006
+/* [ERROR] [xule:error] rule ADICT006: Rule: ADICT006 - agg-to-dict requires at least 1 key location argument, found 0 */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('r', dict(list('a', 1)), 'x', 'y'))
+
+    $i.agg-to-dict()
+
+output ADICT007
+/* [ERROR] [xule:error] rule ADICT007: Rule: ADICT007 - agg-to-dict requires at least 1 key location argument, found 0 */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('r', dict(list('a', 1)), 'x', 'y'))
+
+    agg-to-dict($i)
+
+output ADICT008
+/* dictionary(c=list(list(c, 3)),a=list(list(a, 1)),b=list(list(b, 2))) */
+
+  $i = list(
+            list('a', 1),
+            list('b', 2),
+            list('c', 3)
+    )
+
+    $i.agg-to-dict(1)
