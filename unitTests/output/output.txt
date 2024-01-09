@@ -1,3 +1,4 @@
+Index build time 0:00:00.000488.
 [INFO] [XU101] 9
 [INFO] [XU102] 7.9
 [INFO] [XU103] 7.7
@@ -82,6 +83,14 @@
 [INFO] [BOL130] False
 [INFO] [BOL131] False
 [INFO] [BOL132] True
+[INFO] [ADICT001] dictionary(h=list(list(h, i, j)),e=list(list(e, f, g)),a=list(list(a, b, c), list(a, x, y)))
+[INFO] [ADICT002] dictionary(h=list(list(h, i, j)),a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g)))
+[INFO] [ADICT003] dictionary(list(a, d)=list(list(a, b, c, d)),list(e, None)=list(list(e, f, g)),list(h, None)=list(list(h, i, j)),list(a, None)=list(list(a, x, y)))
+[INFO] [ADICT004] dictionary(h=list(list(h, i, j)),e=list(list(e, f, g)),a=list(list(a, b, c), list(a, x, y)))
+[INFO] [ADICT005] dictionary(None=list(list(a, b, c), list(e, f, g), list(h, i, j), list(r, dictionary(a=1), x, y)))
+[ERROR] [xule:error] rule ADICT006: Rule: ADICT006 - agg-to-dict requires at least 1 key location argument, found 0
+[ERROR] [xule:error] rule ADICT007: Rule: ADICT007 - agg-to-dict requires at least 1 key location argument, found 0
+[INFO] [ADICT008] dictionary(c=list(list(c, 3)),b=list(list(b, 2)),a=list(list(a, 1)))
 [INFO] [ALL101] True
 [INFO] [ALL102] False
 [INFO] [ALL103] False
@@ -142,7 +151,7 @@
 [ERROR] [xule:error] rule DCOU106: Rule: DCOU106 - Property 'count' is not a property of a 'instance'.
 [ERROR] [xule:error] rule DCOU107: Rule: DCOU107 - Property 'count' is not a property of a 'dictionary'.
 [INFO] [DCOU108] 18,274
-[INFO] [DDC010] dictionary(c=cat,a=advark,d=dog)
+[INFO] [DDC010] dictionary(c=cat,d=dog,a=advark)
 [ERROR] [xule:error] rule DDC091: Rule: DDC091 - Arguments for the dict() function must be lists of key/value pairs, found string
 [INFO] [DDC092] dictionary()
 [INFO] [DDC093] dictionary(c=cat)
@@ -155,15 +164,15 @@
 [INFO] [DHK094] True
 [ERROR] [xule:error] rule DHK095: Rule: DHK095 - Property 'has-key' is not a property of a 'string'.
 [INFO] [DHK096] True
-[INFO] [DIC001] dictionary(m=monkey,z=zebra,a=albatross,c=cat,b=bat)
+[INFO] [DIC001] dictionary(b=bat,m=monkey,c=cat,a=albatross,z=zebra)
 [INFO] [DIC002] dictionary(a=first)
 [ERROR] [xule:error] rule DIC091: Rule: DIC091 - Arguments for the dict() function must be lists of key/value pairs, found set
 [INFO] [DIC092] dictionary()
 [INFO] [DIC093] dictionary()
 [ERROR] [xule:error] rule DIC094: Rule: DIC094 - Arguments for the dict() function must be lists of key/value pairs, found float
-[INFO] [DKEY101] set(b, c, a)
+[INFO] [DKEY101] set(a, b, c)
 [INFO] [DKEY102] set(a)
-[INFO] [DKEY103] set(b, a, d, c)
+[INFO] [DKEY103] set(d, b, c, a)
 [INFO] [DKEY104] None
 [ERROR] [xule:error] rule DKEY105: Rule: DKEY105 - Property 'keys' is not a property of a 'string'.
 [ERROR] [xule:error] rule DKEY106: Rule: DKEY106 - Property 'keys' is not a property of a 'string'.
@@ -184,15 +193,15 @@
 [INFO] [DTL010] list(a, b, c, d, e)
 [INFO] [DTL011] list(a, b, c, d, e)
 [INFO] [DTL012] list()
-[INFO] [DTS001] set(3, 4, 2, 1, 5)
+[INFO] [DTS001] set(3, 2, 4, 1, 5)
 [INFO] [DTS002] set()
-[INFO] [DTS003] set(list(a, apple), list(d, dog), list(c, cat), list(b, boy))
-[INFO] [DTS004] set(b, a, b, a)
+[INFO] [DTS003] set(list(b, boy), list(c, cat), list(a, apple), list(d, dog))
+[INFO] [DTS004] set(a, b, b, a)
 [INFO] [DTS005] 18,274
 [ERROR] [xule:error] rule DTS006: Rule: DTS006 - Property 'to-set' is not a property of a 'string'.
 [INFO] [FIRST001] 1
-[INFO] [FIRST002] 1
-[INFO] [FIRST003] 2
+[INFO] [FIRST002] 3
+[INFO] [FIRST003] 1
 [INFO] [FIRST004] None
 [INFO] [FIRST005] None
 [INFO] [HKY001] True
@@ -203,19 +212,19 @@
 [INFO] [HKY006] False
 [INFO] [HKY007] True
 [ERROR] [xule:error] rule HKY008: dictionary update sequence element #0 has length 1; 2 is required
-[INFO] [INTER101] set(2, 3)
+[INFO] [INTER101] set(3, 2)
 [INFO] [JOIN101] a,b,c
 [INFO] [JOIN102] AAxis=AMember, BAxis=BMember
 [INFO] [JOIN103] a,b,c
-[INFO] [KEY001] set(c, a, b)
+[INFO] [KEY001] set(b, c, a)
 [INFO] [KEY002] set(a)
-[INFO] [KEY003] set(d, c, b, a)
+[INFO] [KEY003] set(a, b, d, c)
 [ERROR] [xule:error] rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argument, found none.
 [ERROR] [xule:error] rule KEY005: Rule: KEY005 - The first argument of function 'keys' must be dictionary, found 'string'.
 [ERROR] [xule:error] rule KEY006: cannot unpack non-iterable XuleValue object
 [INFO] [LAST001] 5
-[INFO] [LAST002] 4
-[INFO] [LAST003] 3
+[INFO] [LAST002] 5
+[INFO] [LAST003] 4
 [INFO] [LAST004] None
 [INFO] [LAST005] None
 [ERROR] [xule:error] rule LAST006: Rule: LAST006 - The first argument of function 'last' must be set, list, found 'dictionary'.
@@ -232,7 +241,7 @@
 [INFO] [MIN102] 0
 [INFO] [MIN103] -1
 [INFO] [MIN104] 0.25
-[ERROR] [xule:error] rule MIN105: '<' not supported between instances of 'float' and 'XuleString'
+[ERROR] [xule:error] rule MIN105: '<' not supported between instances of 'XuleString' and 'float'
 [ERROR] [xule:error] rule MIN106: Rule: MIN106 - The first argument of function 'min' must be set, list, found 'int'.
 [INFO] [MIN107] None
 [INFO] [MIN108] None
@@ -271,14 +280,14 @@
 [INFO] [SUM194] list(None, None)
 [INFO] [SUM195] list(None)
 [INFO] [SUM196] None
-[INFO] [SUM197] set(5, 4, 1, 6, 3, 2)
+[INFO] [SUM197] set(5, 4, 3, 2, 1, 6)
 [INFO] [SUM198] None
 [ERROR] [xule:error] rule SUM199: Rule: SUM199 - The first argument of function 'sum' must be set, list, found 'dictionary'.
 [ERROR] [xule:error] rule SUM200: Rule: SUM200 - The first argument of function 'sum' must be set, list, found 'dictionary'.
 [ERROR] [xule:error] rule SUM201: Rule: SUM201 - The first argument of function 'sum' must be set, list, found 'dictionary'.
 [INFO] [SUM202] 6
 [INFO] [SUM203] 6
-[INFO] [SUM204] set(5, 2, 6, 4, 1, 3)
+[INFO] [SUM204] set(3, 2, 5, 6, 4, 1)
 [INFO] [SUM205] list(1, 2, 3, 2, 3, 4, 4, 5, 6)
 [INFO] [SUM206] None
 [INFO] [TCSV100] BankLoans,100
@@ -301,13 +310,13 @@ c",1,lmnop,yes
 AssetsCurrent,200
 AssetsNoncurrent,30
 
-[INFO] [TJSON100] {"Capital": 30, "Assets": 200, "BankLoans": 100}
+[INFO] [TJSON100] {"BankLoans": 100, "Capital": 30, "Assets": 200}
 [INFO] [TJSON101] {"Assets": 200, "Capital": 30, "BankLoans": 100}
-[INFO] [TJSON102] {"Assets": 200, "BankLoans": 100, "Capital": 30}
-[INFO] [TSE101] set(2, 1, 3, 5, 4)
+[INFO] [TJSON102] {"Assets": 200, "Capital": 30, "BankLoans": 100}
+[INFO] [TSE101] set(3, 5, 1, 4, 2)
 [INFO] [TSE102] set()
-[INFO] [TSE105] set(list(d, dog), list(a, apple), list(b, boy), list(c, cat))
-[INFO] [TSE106] set(a, b)
+[INFO] [TSE105] set(list(c, cat), list(a, apple), list(d, dog), list(b, boy))
+[INFO] [TSE106] set(b, a)
 [INFO] [TSE111] 18,274
 [ERROR] [xule:error] rule TSE191: Rule: TSE191 - The first argument of function 'to-set' must be list, set, dictionary, found 'string'.
 [INFO] [VAL001] list(apple, banana, cantaloupe)
@@ -322,6 +331,35 @@ AssetsNoncurrent,30
 [INFO] [VAL104] None
 [ERROR] [xule:error] rule VAL105: Rule: VAL105 - Property 'values' is not a property of a 'string'.
 [ERROR] [xule:error] rule VAL106: Rule: VAL106 - Property 'values' is not a property of a 'string'.
+[INFO] [DICT001] True
+[INFO] [DICT002] False
+[INFO] [DICT003] False
+[INFO] [DICT004] dictionary(YAxis=YMember,AAxis=AMember,BAxis=BMember)
+[INFO] [DICT005] dictionary(AAxis=AMember)
+[INFO] [DICT006] dictionary(AAxis=AMember)
+[INFO] [DICT007] dictionary(BAxis=BMember,AAxis=AMember)
+[INFO] [DICT008] dictionary(BAxis=BMember,AAxis=AMember)
+[INFO] [LIST001] list(1, 2, 3, 4, 5)
+[INFO] [LIST002] list(a, b, c)
+[INFO] [LIST003] list(one Item)
+[INFO] [LIST004] list(a, list, of strings,  leading and trailing space , end)
+[INFO] [LIST005] list(1, 2, -199, -9)
+[INFO] [LIST006] list(2016-01-01 to 2016-12-31, 2016-12-31)
+[INFO] [LIST007] list(None)
+[INFO] [LIST008] list(2017, 2016, 2015)
+[INFO] [LIST009] list(Assets, Land, Cash, Liabilities)
+[INFO] [LIST010] False
+[INFO] [LIST011] False
+[INFO] [LIST012] list()
+[INFO] [LIST013] None
+[INFO] [SET101] set(3, 4, 2, 1)
+[INFO] [SET102] set(b, Assets, a, Liabilities)
+[INFO] [SET103] set(None)
+[INFO] [SET104] set()
+[INFO] [SET105] set()
+[INFO] [SET106] True
+[INFO] [SET107] False
+[INFO] [SET108] True
 [INFO] [FUN101] 10
 [ERROR] [xule:error] rule FUN102: Rule: FUN102 - Function 'cats' not found
 [INFO] [DAT001] 2022-01-01
@@ -367,7 +405,7 @@ AssetsNoncurrent,30
 [INFO] [FDATE112] 2020-01-01
 [ERROR] [xule:error] rule FDATE113: Rule: FDATE113 - Property 'end' is not a property of a 'string'.
 [INFO] [FDATE114] set(2022-01-01, 2020-03-31)
-[INFO] [FDATE115] set(2020-06-30, 2022-01-01)
+[INFO] [FDATE115] set(2022-01-01, 2020-06-30)
 [INFO] [FDATE116] list(2020-03-31, 2022-01-01)
 [ERROR] [xule:error] rule FDATE117: Rule: FDATE117 - Property 'end' is not a property of a 'qname'.
 [INFO] [FDATE118] 2
@@ -378,7 +416,7 @@ AssetsNoncurrent,30
 [INFO] [FDATE123] 2020-01-01
 [INFO] [FDATE124] 2020-01-01
 [ERROR] [xule:error] rule FDATE125: Rule: FDATE125 - Property 'start' is not a property of a 'string'.
-[INFO] [FDATE126] set(2022-01-01, 2020-01-01)
+[INFO] [FDATE126] set(2020-01-01, 2022-01-01)
 [INFO] [FDATE127] set(2022-01-01, 2020-01-01)
 [INFO] [FDATE128] list(2020-01-01, 2022-01-01)
 [ERROR] [xule:error] rule FDATE129: Rule: FDATE129 - Property 'start' is not a property of a 'qname'.
@@ -448,15 +486,15 @@ AssetsNoncurrent,30
 [INFO] [CFILT108] set(-6)
 [INFO] [CFILT109] -6
 [INFO] [CFILT110] Assets
-[INFO] [CFILT111] OtherComprehensiveIncomeLossAvailableForSaleSecuritiesAdjustmentBeforeReclassificationAdjustmentsAndTax
+[INFO] [CFILT111] FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionAbstract
 [ERROR] [xule:error] rule CFILT112: 'all'
 [ERROR] [xule:error] rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'none'
 [INFO] [CFILT114] set(instant)
 [ERROR] [xule:error] rule CFILT115: Rule: CFILT115 - Property 'period-type' is not a property of a 'decimal'.
 [INFO] [CFILT116] set(xbrli:item)
 [INFO] [CFILT117] set(xbrli:item)
-[INFO] [CFILT118] set(7,895,000,000, 8,795,000,000, 45,436,000,000, 18,461,000,000, 180,000,000, 1,631,000,000, 5,334,000,000, 259,000,000, 2,579,000,000, 10,146,000,000, 5,198,000,000, 16,848,000,000, 726,000,000, 2,635,000,000, 2,697,000,000, 1,777,000,000, 42,144,000,000, 40,230,000,000, 1,795,000,000, 10,590,000,000, 5,288,000,000, 1,740,000,000, 271,000,000, 1,117,000,000, 8,515,000,000, 7,923,000,000)
-[INFO] [CFILT119] set(45,436,000,000, 42,144,000,000, 40,230,000,000)
+[INFO] [CFILT118] set(7,895,000,000, 2,635,000,000, 16,848,000,000, 8,515,000,000, 1,631,000,000, 42,144,000,000, 1,740,000,000, 271,000,000, 2,579,000,000, 1,117,000,000, 40,230,000,000, 10,146,000,000, 2,697,000,000, 5,288,000,000, 7,923,000,000, 8,795,000,000, 1,795,000,000, 10,590,000,000, 45,436,000,000, 18,461,000,000, 1,777,000,000, 259,000,000, 726,000,000, 180,000,000, 5,334,000,000, 5,198,000,000)
+[INFO] [CFILT119] set(42,144,000,000, 40,230,000,000, 45,436,000,000)
 [INFO] [CFILT120] 632
 [INFO] [CFILT121] 315
 [INFO] [CFILT122] 315
@@ -532,16 +570,16 @@ AssetsNoncurrent,30
 [INFO] [UNITFILT004] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [INFO] [UNITFILT005] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)
 [INFO] [UNITFILT005] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
+[INFO] [UNITFILT006] False with alignment dictionary(unit=USD,entity=http://www.sec.gov/CIK=0000831259)
 [INFO] [UNITFILT006] False with alignment dictionary(period=2021-01-01 to 2021-07-01,entity=http://www.sec.gov/CIK=0000831259)
-[INFO] [UNITFILT006] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
 [INFO] [UNITFILT007] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [INFO] [UNITFILT008] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [INFO] [UNITFILT009] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
 [INFO] [UNITFILT009] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
-[INFO] [UNITFILT010] True with alignment dictionary(unit=USD,entity=http://www.sec.gov/CIK=0000831259)
-[INFO] [UNITFILT011] True with alignment dictionary(period=2021-01-01,entity=http://www.sec.gov/CIK=0000831259,unit=USD)
-[INFO] [UNITFILT011] True with alignment dictionary(period=2020-07-01,entity=http://www.sec.gov/CIK=0000831259,unit=USD)
-[INFO] [UNITFILT011] True with alignment dictionary(period=2021-07-01,unit=USD,entity=http://www.sec.gov/CIK=0000831259)
+[INFO] [UNITFILT010] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
+[INFO] [UNITFILT011] True with alignment dictionary(unit=USD,entity=http://www.sec.gov/CIK=0000831259,period=2021-07-01)
+[INFO] [UNITFILT011] True with alignment dictionary(period=2020-07-01,unit=USD,entity=http://www.sec.gov/CIK=0000831259)
+[INFO] [UNITFILT011] True with alignment dictionary(period=2021-01-01,unit=USD,entity=http://www.sec.gov/CIK=0000831259)
 [INFO] [UNITFILT012] 44
 [INFO] [UNITFILT013] 1,535
 [INFO] [UNITFILT014] 1,579
@@ -571,7 +609,7 @@ AssetsNoncurrent,30
 [INFO] [FACT019] 1,137,000,000
 [INFO] [FACT020] 1,739
 [ERROR] [xule:error] rule FACT021: Rule: FACT021 - Property 'name' is not a property of a 'cube'.
-[INFO] [FACT022] set(us-gaap:ScheduleOfCollaborativeArrangementsAndNoncollaborativeArrangementTransactionsTable, us-gaap:ScheduleOfSegmentReportingInformationBySegmentTable)
+[INFO] [FACT022] set(us-gaap:ScheduleOfSegmentReportingInformationBySegmentTable, us-gaap:ScheduleOfCollaborativeArrangementsAndNoncollaborativeArrangementTransactionsTable)
 [INFO] [FACT023] set(http://www.xbrl.org/2003/role/footnote - Standard footnote role)
 [INFO] [FACT024] set(en-US)
 [INFO] [FACT025] set(<span xmlns="http://www.w3.org/1999/xhtml" xmlns:us-gaap="http://fasb.org/us-gaap/2022" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:country="http://xbrl.sec.gov/country/2022" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:ixt-sec="http://www.sec.gov/inlineXBRL/transformation/2015-08-31" xmlns:srt="http://fasb.org/srt/2022" xmlns:currency="http://xbrl.sec.gov/currency/2022" xmlns:ix="http://www.xbrl.org/2013/inlineXBRL" xmlns:ref="http://www.xbrl.org/2006/ref" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:dei="http://xbrl.sec.gov/dei/2022" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:viot="http://www.viomi.com.cn/20221231" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xmlns:ixt="http://www.xbrl.org/inlineXBRL/transformation/2015-02-26" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" style="font-family:'Times New Roman','Times','serif';font-size:10pt;font-style:normal;font-weight:normal;">Short-term investments represent structured deposits, and the Company values these short-term investments based on quoted prices of similar products provided by banks at the end of each period, and accordingly, the Company classifies the valuation techniques that use these inputs as Level 2.</span>)
@@ -585,25 +623,25 @@ AssetsNoncurrent,30
 [INFO] [FACT033] False
 [ERROR] [xule:error] rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'.
 [INFO] [FACT035] set(set(srt:ProductOrServiceAxis))
-[INFO] [FACT036] set(list(fcx:OtherProductsOrServicesMember), list(fcx:RefinedCopperProductsMember), list(fcx:PurchasedCopperMember), list(fcx:MolybdenumMember), list(fcx:CopperInConcentratesMember), list(us-gaap:GoldMember), list(fcx:CopperCathodeMember))
+[INFO] [FACT036] set(list(fcx:MolybdenumMember), list(fcx:CopperCathodeMember), list(fcx:RefinedCopperProductsMember), list(fcx:OtherProductsOrServicesMember), list(us-gaap:GoldMember), list(fcx:CopperInConcentratesMember), list(fcx:PurchasedCopperMember))
 [INFO] [FACT037] iso4217:USD
 [INFO] [FACT038] list()
-[INFO] [FACT039] dictionary(unit=USD,period=2021-06-30,concept=us-gaap:Assets,entity=http://www.sec.gov/CIK=0000831259)
-[INFO] [FACT040] dictionary(xbrli=http://www.xbrl.org/2003/instance,ix=http://www.xbrl.org/2013/inlineXBRL,srt=http://fasb.org/srt/2020-01-31,ixt=http://www.xbrl.org/inlineXBRL/transformation/2015-02-26,fcx=http://www.fcx.com/20210630,None=http://www.w3.org/1999/xhtml,country=http://xbrl.sec.gov/country/2020-01-31,utr=http://www.xbrl.org/2009/utr,iso4217=http://www.xbrl.org/2003/iso4217,xbrldi=http://xbrl.org/2006/xbrldi,us-gaap=http://fasb.org/us-gaap/2020-01-31,dei=http://xbrl.sec.gov/dei/2020-01-31,xsi=http://www.w3.org/2001/XMLSchema-instance,link=http://www.xbrl.org/2003/linkbase,ixt-sec=http://www.sec.gov/inlineXBRL/transformation/2015-08-31,xlink=http://www.w3.org/1999/xlink)
+[INFO] [FACT039] dictionary(concept=us-gaap:Assets,entity=http://www.sec.gov/CIK=0000831259,period=2021-06-30,unit=USD)
+[INFO] [FACT040] dictionary(xsi=http://www.w3.org/2001/XMLSchema-instance,link=http://www.xbrl.org/2003/linkbase,country=http://xbrl.sec.gov/country/2020-01-31,iso4217=http://www.xbrl.org/2003/iso4217,xbrldi=http://xbrl.org/2006/xbrldi,ix=http://www.xbrl.org/2013/inlineXBRL,us-gaap=http://fasb.org/us-gaap/2020-01-31,fcx=http://www.fcx.com/20210630,xbrli=http://www.xbrl.org/2003/instance,None=http://www.w3.org/1999/xhtml,utr=http://www.xbrl.org/2009/utr,xlink=http://www.w3.org/1999/xlink,ixt-sec=http://www.sec.gov/inlineXBRL/transformation/2015-08-31,dei=http://xbrl.sec.gov/dei/2020-01-31,ixt=http://www.xbrl.org/inlineXBRL/transformation/2015-02-26,srt=http://fasb.org/srt/2020-01-31)
 [INFO] [FACT041] http://www.sec.gov/CIK
 [INFO] [FACT042] 0000831259
 [ERROR] [xule:error] rule FACT043: Rule: FACT043 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'.
 [INFO] [FACT044] USD
 [INFO] [FACT045] http://www.xbrl.org/2003/iso4217
 [INFO] [FACT046] set(828,867,000)
-[INFO] [FIL101] set(3, 2)
+[INFO] [FIL101] set(2, 3)
 [INFO] [FIL102] set(cat, cup)
 [INFO] [FIL103] set(CAT, CUP)
 [INFO] [FIL104] set(DOG, CUP, CAT)
 [INFO] [FIL105] set(2, 3, 6)
-[INFO] [FIL106] set(3, 2, 6)
+[INFO] [FIL106] set(2, 3, 6)
 [INFO] [FIL107] set(4, 3)
-[INFO] [FIL108] set(credit, debit)
+[INFO] [FIL108] set(debit, credit)
 [INFO] [FIL109] list(2, 2, 3)
 [INFO] [FIL110] list(cat, cup)
 [INFO] [FIL111] list(CAT, CUP)
@@ -620,10 +658,10 @@ AssetsNoncurrent,30
 [INFO] [FIL121] list(240,000,000,000)
 [INFO] [FIL121] list(240,000,000,000)
 [ERROR] [xule:error] rule FIL122: '>' not supported between instances of 'int' and 'frozenset'
-[INFO] [FIL123] list(6,000,001, 6,000,002, 6,000,003)
 [INFO] [FIL123] list(3,000,001, 3,000,002, 3,000,003)
-[INFO] [FIL123] list(6,000,001, 6,000,002, 6,000,003)
 [INFO] [FIL123] list(4,000,001, 4,000,002, 4,000,003)
+[INFO] [FIL123] list(6,000,001, 6,000,002, 6,000,003)
+[INFO] [FIL123] list(6,000,001, 6,000,002, 6,000,003)
 [INFO] [FIL124] 3
 [INFO] [FIL125] 2
 [INFO] [FORL101] 1
@@ -659,9 +697,9 @@ AssetsNoncurrent,30
 [ERROR] [xule:error] rule SLO107: Rule: SLO107 - Index value of 0 is out of range for the list with length of 3
 [ERROR] [xule:error] rule SLO108: Rule: SLO108 - Index value of 4 is out of range for the list with length of 3
 [ERROR] [xule:error] rule SLO109: Rule: SLO109 - Index value of 1 is out of range for the list with length of 0
-[INFO] [SLO110] 42,144,000,000
-[INFO] [SLO110] 40,230,000,000
 [INFO] [SLO110] 45,436,000,000
+[INFO] [SLO110] 40,230,000,000
+[INFO] [SLO110] 42,144,000,000
 [ERROR] [xule:error] rule SLO110: Rule: SLO110 - Index value of 1 is out of range for the list with length of 0
 [ERROR] [xule:error] rule SLO111: Rule: SLO111 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'set'
 [INFO] [INFO0001] INFO0001
@@ -690,11 +728,11 @@ AssetsNoncurrent,30
 [INFO] [INLIN001] list(us-gaap:ScheduleOfRelatedPartyTransactionsTableTextBlock, us-gaap:RelatedPartyTransactionsDisclosureTextBlock)
 [INFO] [INLIN001] list(us-gaap:ScheduleOfRelatedPartyTransactionsTableTextBlock, us-gaap:RelatedPartyTransactionsDisclosureTextBlock)
 [INFO] [INLIN001] list(us-gaap:ScheduleOfRelatedPartyTransactionsTableTextBlock, us-gaap:RelatedPartyTransactionsDisclosureTextBlock)
-[INFO] [INLIN002] 41,584,000
 [INFO] [INLIN002] 106,929,000
+[INFO] [INLIN002] 41,584,000
 [INFO] [INLIN002] 97,223,000
-[INFO] [INLIN003] 41,584,000
 [INFO] [INLIN003] 106,929,000
+[INFO] [INLIN003] 41,584,000
 [INFO] [INLIN003] 97,223,000
 [INFO] [INLIN004] list(us-gaap:ScheduleOfRelatedPartyTransactionsTableTextBlock, us-gaap:RelatedPartyTransactionsDisclosureTextBlock)
 [INFO] [INLIN004] list(us-gaap:ScheduleOfRelatedPartyTransactionsTableTextBlock, us-gaap:RelatedPartyTransactionsDisclosureTextBlock)
@@ -706,7 +744,7 @@ AssetsNoncurrent,30
 [INFO] [INLIN007] list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription)
 [INFO] [INLIN008] list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription)
 [INFO] [INLIN010] 109
-[INFO] [INLIN011] list(False, None, CN, None, None, --12-31, 2022, FY, VIOT, 105,516,779, 0001742770, 104,539,463, CN, 103,214,547, 102,854,550)
+[INFO] [INLIN011] list(None, None, None, 0001742770, --12-31, 2022, FY, VIOT, CN, CN, 104,539,463, 105,516,779, 102,854,550, 103,214,547, False)
 [INFO] [INLIN012] 6
 [INFO] [INLIN013] 3
 [INFO] [INLIN014] list(September 2021, September 2023, January 2015)
@@ -732,6 +770,39 @@ AssetsNoncurrent,30
 [INFO] [LU107] False
 [INFO] [LU108] False
 [INFO] [LU109] False
+[INFO] [LM001] list(1, 2, 3, 4, a, b, c, 4, 1, 2, 3, 4)
+[INFO] [LM002] True
+[INFO] [LM003] False
+[INFO] [LM004] list(1, 2, 3, None)
+[INFO] [LM005] list(1, 2, 3)
+[ERROR] [xule:error] rule LM006: unsupported operand type(s) for -: 'tuple' and 'tuple'
+[ERROR] [xule:error] rule LM007: Rule: LM007 - The left operand of '*' is not numeric, found 'list'
+[ERROR] [xule:error] rule LM008: Rule: LM008 - Intersection can only operatate on sets. The left side is a 'list'.
+[ERROR] [xule:error] rule LM009: unsupported operand type(s) for -: 'tuple' and 'tuple'
+[INFO] [LM010] True
+[INFO] [LM011] False
+[INFO] [LM012] False
+[INFO] [LM013] False
+[INFO] [LM014] False
+[INFO] [LM015] False
+[INFO] [LM016] True
+[INFO] [LM017] True
+[INFO] [LM018] list(45,436,000,000)
+[INFO] [LM018] list(40,230,000,000)
+[INFO] [LM018] list(42,144,000,000)
+[INFO] [LM019] list(lang, 45,436,000,000)
+[INFO] [LM019] list(lang, 40,230,000,000)
+[INFO] [LM019] list(lang, 42,144,000,000)
+[INFO] [LM020] list(lang, 45,436,000,000)
+[INFO] [LM020] list(lang, 40,230,000,000)
+[INFO] [LM020] list(lang, 42,144,000,000)
+[INFO] [LM021] list(lang, 45,436,000,000)
+[INFO] [LM021] list(lang, 40,230,000,000)
+[INFO] [LM021] list(lang, 42,144,000,000)
+[INFO] [LM022] list(lang, list(45,436,000,000))
+[INFO] [LM022] list(lang, list(40,230,000,000))
+[INFO] [LM022] list(lang, list(42,144,000,000))
+[INFO] [LM023] list(1, 2, 3)
 [INFO] [XU001] 1,234
 [INFO] [XU002] 1.234
 [INFO] [XU003] -1,234
@@ -744,26 +815,12 @@ AssetsNoncurrent,30
 [ERROR] [xule:error] rule ME101: Rule: ME101 - The left operand of '/' is not numeric, found 'string'
 [ERROR] [xule:error] rule ME102: Rule: ME102 - Divide by zero error.
 [INFO] [MESS001] pass -  The value is 3
-[INFO] [MESS002] pass -  The value of Assets is 42,144,000,000
-[INFO] [MESS002] pass -  The value of Assets is 40,230,000,000
 [INFO] [MESS002] pass -  The value of Assets is 45,436,000,000
-[INFO] [MESS003] The value of us-gaap:Assets is None or 42,144,000,000.
-[INFO] [MESS003] The value of us-gaap:Assets is None or 40,230,000,000.
+[INFO] [MESS002] pass -  The value of Assets is 40,230,000,000
+[INFO] [MESS002] pass -  The value of Assets is 42,144,000,000
 [INFO] [MESS003] The value of us-gaap:Assets is None or 45,436,000,000.
-[INFO] [MESS004] The value of us-gaap:Assets is 42,144,000,000.
-
-Attribute Tests
-Assets
-debit
--6
-2020-12-31
-[INFO] [MESS004] The value of us-gaap:Assets is 40,230,000,000.
-
-Attribute Tests
-Assets
-debit
--6
-2020-06-30
+[INFO] [MESS003] The value of us-gaap:Assets is None or 40,230,000,000.
+[INFO] [MESS003] The value of us-gaap:Assets is None or 42,144,000,000.
 [INFO] [MESS004] The value of us-gaap:Assets is 45,436,000,000.
 
 Attribute Tests
@@ -771,8 +828,22 @@ Assets
 debit
 -6
 2021-06-30
-[INFO] [MESS005] The value of Assets is 65,620,000,000. 
-The components are us-gaap:Assets with a value of 42,144,000,000 and us-gaap:Liabilities with a value of 23,476,000,000
+[INFO] [MESS004] The value of us-gaap:Assets is 40,230,000,000.
+
+Attribute Tests
+Assets
+debit
+-6
+2020-06-30
+[INFO] [MESS004] The value of us-gaap:Assets is 42,144,000,000.
+
+Attribute Tests
+Assets
+debit
+-6
+2020-12-31
+[INFO] [MESS005] The value of Assets is 69,937,000,000. 
+The components are us-gaap:Assets with a value of 45,436,000,000 and us-gaap:Liabilities with a value of 24,501,000,000
 
 Attribute Tests
 
@@ -787,8 +858,8 @@ Attribute Tests
 f1 decimals:-6
 f2 decimals:None
 
-[INFO] [MESS005] The value of Assets is 69,937,000,000. 
-The components are us-gaap:Assets with a value of 45,436,000,000 and us-gaap:Liabilities with a value of 24,501,000,000
+[INFO] [MESS005] The value of Assets is 65,620,000,000. 
+The components are us-gaap:Assets with a value of 42,144,000,000 and us-gaap:Liabilities with a value of 23,476,000,000
 
 Attribute Tests
 
@@ -1004,7 +1075,7 @@ False
 [INFO] [DABS101] 10
 [INFO] [DABS102] 10
 [INFO] [DABS103] list(1, 3, 2, 1.1)
-[INFO] [DABS104] set(3, 2, 1)
+[INFO] [DABS104] set(3, 1, 2)
 [INFO] [DABS105] set()
 [ERROR] [xule:error] rule DABS106: Rule: DABS106 - Property 'abs' is not a property of a 'qname'.
 [ERROR] [xule:error] rule DABS107: Rule: DABS107 - Property 'abs' is not a property of a 'qname'.
@@ -1014,7 +1085,7 @@ False
 [INFO] [DAVG103] 0
 [INFO] [DAVG104] 0.62 (rounded 4d)
 [INFO] [DAVG105] None
-[INFO] [DAVG106] 3.85 (rounded 4d)
+[INFO] [DAVG106] 3.85
 [ERROR] [xule:error] rule DAVG107: Rule: DAVG107 - Property 'avg' is not a property of a 'int'.
 [ERROR] [xule:error] rule DAVG108: Rule: DAVG108 - Statistic properties expect numeric inputs, found 'string'.
 [ERROR] [xule:error] rule DAVG109: Rule: DAVG109 - Statistic properties expect numeric inputs, found 'none'.
@@ -1029,8 +1100,8 @@ False
 [INFO] [DPOW102] 0.125
 [INFO] [DPOW103] list(1, 4, 10.89 (rounded 4d))
 [INFO] [DPOW104] list(0.008264462809917356, 0.002066115702479339, 0.0009182736455463728)
-[INFO] [DPOW105] set(1,089, 121, 484)
-[INFO] [DPOW106] set(36, 1, 4, 9, 25)
+[INFO] [DPOW105] set(121, 1,089, 484)
+[INFO] [DPOW106] set(9, 4, 1, 25, 36)
 [ERROR] [xule:error] rule DPOW107: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str'
 [ERROR] [xule:error] rule DPOW108: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str'
 [ERROR] [xule:error] rule DPOW109: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str'
@@ -1057,12 +1128,12 @@ False
 [INFO] [POW102] 27
 [INFO] [POW103] 0.125
 [INFO] [POW104] 1.8616 (rounded 4d)
-[INFO] [RAND101] 0.0857 (rounded 4d)
-[INFO] [RAND102] 2.7749 (rounded 4d)
-[INFO] [RAND103] 0.7821 (rounded 4d)
-[INFO] [RAND104] -0.7586 (rounded 4d)
-[INFO] [RAND105] 0.6813 (rounded 4d)
-[INFO] [RAND106] list(0.1511 (rounded 4d), 1, 1.2863 (rounded 4d))
+[INFO] [RAND101] 0.8834 (rounded 4d)
+[INFO] [RAND102] 4.3451 (rounded 4d)
+[INFO] [RAND103] 0.8668 (rounded 4d)
+[INFO] [RAND104] -1.3966 (rounded 4d)
+[INFO] [RAND105] 0.5366 (rounded 4d)
+[INFO] [RAND106] list(0.0701 (rounded 4d), 1, 1.873 (rounded 4d))
 [ERROR] [xule:error] rule RAND107: Rule: RAND107 - 'random' is not a valid property.
 [INFO] [ROUN101] list(1.03, 21.34)
 [INFO] [ROUN102] 21.34
@@ -1083,16 +1154,16 @@ False
 [INFO] [XU200] 7
 [INFO] [XU201] 6
 [INFO] [XU202] 12
-[INFO] [XU203] set(1, 4, 3, 2)
-[INFO] [XU204] set(1, 2, 3, 4)
+[INFO] [XU203] set(4, 2, 3, 1)
+[INFO] [XU204] set(4, 2, 3, 1)
 [INFO] [XU205] set(4)
 [INFO] [XU206] set(4)
-[INFO] [XU207] set(1, 4, 2, 3)
+[INFO] [XU207] set(4, 3, 1, 2)
 [INFO] [XU208] set()
 [INFO] [XU209] set(3, 4)
 [INFO] [XU210] set()
 [INFO] [XU211] set(3)
-[INFO] [XU212] set(5, 4, 2, 1, 3)
+[INFO] [XU212] set(3, 4, 5, 1, 2)
 [INFO] [XU213] set(5)
 [INFO] [RES001] 3214
 [INFO] [RES002] list(list(ISHARES MSCI CHILE ETF, MSCI CHILE ETF, 464286640, 2,674,884), list(ISHARES MSCI PACIFIC EX JAPAN ETF, MSCI PAC JP ETF, 464286665, 498,160), list(ISHARES LATIN AMERICA  ETF, LATN AMER 40 ETF, 464287390, 2,000,516), list(ISHARES EUROPE ETF TRUST, EUROPE ETF, 464287861, 590,137), list(ISHARES MSCI JAPAN ETF, MSCI JPN ETF NEW, 46434G822, 706,801), list(SPDR S&P  ETF TRUST, TR UNIT, 78462F103, 3,597,218))
@@ -1100,21 +1171,21 @@ False
 [INFO] [RES004] list(list(10-K))
 [INFO] [RES005] list(Commitments and Contingencies, Guarantees and Product Liability (Details) - USD ($), 12 Months Ended, None)
 [INFO] [RES006] list(Document and Entity Information - USD ($), 12 Months Ended, None, None, None)
-[INFO] [SM001] set(b, m, c, a, n)
-[INFO] [SM002] set(D, d, C, b, a, A, c, B)
-[INFO] [SM003] set(2, 4, 1, 3)
-[INFO] [SM004] set(d, i, h, c, f, j, g, e, b, a)
-[INFO] [SM005] set(2, 3, 1, 4)
-[INFO] [SM006] set(3, 4, 2, 1)
+[INFO] [SM001] set(c, a, n, b, m)
+[INFO] [SM002] set(A, d, b, C, c, B, D, a)
+[INFO] [SM003] set(2, 1, 3, 4)
+[INFO] [SM004] set(i, j, e, a, b, d, f, h, g, c)
+[INFO] [SM005] set(2, 3, 4, 1)
+[INFO] [SM006] set(2, 1, 3, 4)
 [INFO] [SM007] set()
-[INFO] [SM008] set(2, 1, 3, None, 4)
+[INFO] [SM008] set(1, 3, 4, None, 2)
 [ERROR] [xule:error] rule SM009: Rule: SM009 - Incompatabile operands set + list.
 [INFO] [SM010] set(2, 3)
 [INFO] [SM011] set()
 [INFO] [SM012] set(b, c)
-[INFO] [SM013] set(a, d, c, b)
+[INFO] [SM013] set(d, a, b, c)
 [INFO] [SM014] set()
-[INFO] [SM015] set(EarningsPerShareBasic, BankLoans, Assets, DebtAndCapitalLeaseObligations)
+[INFO] [SM015] set(BankLoans, EarningsPerShareBasic, Assets, DebtAndCapitalLeaseObligations)
 [INFO] [SM016] True
 [INFO] [SM017] False
 [INFO] [SM018] False
@@ -1125,18 +1196,18 @@ False
 [INFO] [SM023] True
 [INFO] [SM024] set(2, 1, 3)
 [ERROR] [xule:error] rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int'
-[INFO] [SM026] set(42,144,000,000)
-[INFO] [SM026] set(40,230,000,000)
 [INFO] [SM026] set(45,436,000,000)
-[INFO] [SM027] set(42,144,000,000, lang)
-[INFO] [SM027] set(lang, 40,230,000,000)
+[INFO] [SM026] set(40,230,000,000)
+[INFO] [SM026] set(42,144,000,000)
 [INFO] [SM027] set(lang, 45,436,000,000)
+[INFO] [SM027] set(lang, 40,230,000,000)
+[INFO] [SM027] set(lang, 42,144,000,000)
+[INFO] [SM028] set(45,436,000,000, lang)
+[INFO] [SM028] set(lang, 40,230,000,000)
 [INFO] [SM028] set(lang, 42,144,000,000)
-[INFO] [SM028] set(40,230,000,000, lang)
-[INFO] [SM028] set(lang, 45,436,000,000)
-[INFO] [SM029] set(lang, 42,144,000,000)
+[INFO] [SM029] set(lang, 45,436,000,000)
 [INFO] [SM029] set(lang, 40,230,000,000)
-[INFO] [SM029] set(45,436,000,000, lang)
+[INFO] [SM029] set(lang, 42,144,000,000)
 [INFO] [SM030] True
 [INFO] [SM031] True
 [INFO] [SM032] True
@@ -1148,18 +1219,18 @@ False
 [INFO] [SM038] False
 [INFO] [SM039] True
 [INFO] [SM040] True
-[INFO] [SM041] set(b, e, a, d, c)
+[INFO] [SM041] set(b, e, d, c, a)
 [INFO] [SM042] set()
 [INFO] [SM043] set(2, 3)
 [INFO] [SM044] set()
 [INFO] [SM045] set()
-[INFO] [SM046] set(2, 3)
-[INFO] [SM047] set(b, c)
+[INFO] [SM046] set(3, 2)
+[INFO] [SM047] set(c, b)
 [INFO] [SM048] set(a, d, b, c)
 [INFO] [SM049] set()
-[INFO] [SM050] set(Assets, DebtAndCapitalLeaseObligations, BankLoans, EarningsPerShareBasic)
-[INFO] [SM051] set(list(Assets, BankLoans, Capital), list(BankLoans, Assets, Capital), list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic))
-[INFO] [SM052] set(3, 1, 2)
+[INFO] [SM050] set(Assets, BankLoans, EarningsPerShareBasic, DebtAndCapitalLeaseObligations)
+[INFO] [SM051] set(list(Assets, BankLoans, Capital), list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic), list(BankLoans, Assets, Capital))
+[INFO] [SM052] set(1, 3, 2)
 [INFO] [SK100] 2
 [INFO] [SK102] list(3)
 [INFO] [SK103] 3
@@ -1180,7 +1251,7 @@ False
 [INFO] [DLI101] 17
 [INFO] [DLO101] abcdef
 [INFO] [DLO102] abcdef
-[INFO] [DLO111] set(hello kitty, dog, cat)
+[INFO] [DLO111] set(cat, dog, hello kitty)
 [INFO] [DNU101] 67
 [INFO] [DNU102] 12,345
 [INFO] [DNU103] 12.345
@@ -1188,13 +1259,13 @@ False
 [INFO] [DNU105] inf
 [INFO] [DNU111] list(3.14, 22, -3)
 [INFO] [DNU112] list()
-[INFO] [DNU114] set(-3, 22, 3.14)
+[INFO] [DNU114] set(22, 3.14, -3)
 [INFO] [DNU116] set()
 [ERROR] [xule:error] rule DNU191: Rule: DNU191 - Cannot convert 'z67' to a number
 [ERROR] [xule:error] rule DNU192: Rule: DNU192 - Cannot convert '' to a number
 [INFO] [DSP101] list(The, quick, fox, jumped, over, the, lazy, dogs, back)
 [INFO] [DSP102] list(The quick fox jumped over the lazy dogs back)
-[INFO] [DSP103] set(list(c, t), list(mouse), list(b, t), list(dog))
+[INFO] [DSP103] set(list(b, t), list(c, t), list(dog), list(mouse))
 [INFO] [DSP104] list(list(c, t), list(dog), list(mouse), list(b, t))
 [ERROR] [xule:error] rule DSP191: Rule: DSP191 - The separator argument for property 'string' must be a 'string', found 'int'
 [ERROR] [xule:error] rule DSP192: 'int' object has no attribute 'split'
@@ -1244,14 +1315,14 @@ False
 [INFO] [NUM108] inf
 [INFO] [NUM109] nan
 [INFO] [NUM110] nan
-[INFO] [REGEX001] dictionary(end=5,start=4,match=de,groups=list(),match-count=1)
-[INFO] [REGEX002] list(dictionary(end=5,match-count=1,start=4,match=de,groups=list()))
+[INFO] [REGEX001] dictionary(start=4,end=5,match-count=1,groups=list(),match=de)
+[INFO] [REGEX002] list(dictionary(match-count=1,groups=list(),match=de,end=5,start=4))
 [INFO] [REGEX003] de
 [INFO] [REGEX004] d
 [INFO] [REGEX005] list(cd, fg, cd, fg)
 [INFO] [REGEX006] list(d, g, d, g)
-[INFO] [REGEX007] dictionary(groups=list(),start=4,match=de,end=5,match-count=1)
-[INFO] [REGEX008] list(dictionary(end=5,match-count=1,start=4,match=de,groups=list()))
+[INFO] [REGEX007] dictionary(start=4,match=de,end=5,groups=list(),match-count=1)
+[INFO] [REGEX008] list(dictionary(groups=list(),end=5,match-count=1,start=4,match=de))
 [INFO] [REGEX009] de
 [INFO] [STR101] 5
 [INFO] [STR102] cat
@@ -1319,12 +1390,12 @@ ref:Paragraph - 32
 [INFO] [LABPROP001] http://www.xbrl.org/2003/role/label - Standard label for a Concept.
 [INFO] [LABPROP002] Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events.
 [INFO] [LABPROP003] en-US
-[INFO] [LABPROP004] set((http://www.xbrl.org/2003/role/label) (en-US) Assets, (http://www.xbrl.org/2003/role/documentation) (en-US) Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events., (http://www.xbrl.org/2003/role/totalLabel) (en-US) Assets, Total)
+[INFO] [LABPROP004] set((http://www.xbrl.org/2003/role/totalLabel) (en-US) Assets, Total, (http://www.xbrl.org/2003/role/label) (en-US) Assets, (http://www.xbrl.org/2003/role/documentation) (en-US) Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events.)
 [INFO] [LABPROP005] (http://www.xbrl.org/2003/role/label) (en-US) Assets
-[INFO] [REFPROP001] set(list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, ref:Subparagraph, codification-part:URI), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, codification-part:URI), list(cn-part:SourceName, cn-part:TaxonomyVersion, cn-part:ChangeDate, cn-part:ModifiedReferences))
-[INFO] [REFPROP002] set(list(FASB, Accounting Standards Codification, 235, 10, S99, 1, (SX 210.4-08(g)(1)(ii)), http://asc.fasb.org/extlink&oid=120395691&loc=d3e23780-122690), list(FASB, Accounting Standards Codification, 942, 210, S99, 1, (SX 210.9-03(11)), http://asc.fasb.org/extlink&oid=120398452&loc=d3e534808-122878), list(FASB, Accounting Standards Codification, 810, 10, 45, 25, (a), http://asc.fasb.org/extlink&oid=116870748&loc=SL6758485-165988), list(FASB, Accounting Standards Codification, 944, 210, S99, 1, (SX 210.7-03(a)(12)), http://asc.fasb.org/extlink&oid=120400017&loc=d3e572229-122910), list(VIEs:Taxonomy Technical Improvement, 2020, 2019-12, true), list(FASB, Accounting Standards Codification, 810, 10, 50, 3, (bb), http://asc.fasb.org/extlink&oid=121559654&loc=d3e5710-111685), list(FASB, Accounting Standards Codification, 323, 10, 50, 3, (c), http://asc.fasb.org/extlink&oid=114001798&loc=d3e33918-111571), list(FASB, Accounting Standards Codification, 280, 10, 50, 30, (c), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8906-108599), list(FASB, Accounting Standards Codification, 280, 10, 50, 22, http://asc.fasb.org/extlink&oid=120311839&loc=d3e8736-108599), list(Reference Project, 2018, 2017-11, true), list(FASB, Accounting Standards Codification, 825, 10, 50, 28, (f), http://asc.fasb.org/extlink&oid=75031198&loc=d3e14064-108612), list(FASB, Accounting Standards Codification, 280, 10, 50, 32, (d), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8933-108599))
-[INFO] [REFPROP003] set(list(http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31, http://fasb.org/codification-part/2020-01-31, http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31), list(http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31))
-[INFO] [REFPROP004] set(list(Publisher, Name, Topic, SubTopic, Section, Paragraph, URI), list(SourceName, TaxonomyVersion, ChangeDate, ModifiedReferences), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, Subparagraph, URI))
+[INFO] [REFPROP001] set(list(cn-part:SourceName, cn-part:TaxonomyVersion, cn-part:ChangeDate, cn-part:ModifiedReferences), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, codification-part:URI), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, ref:Subparagraph, codification-part:URI))
+[INFO] [REFPROP002] set(list(FASB, Accounting Standards Codification, 825, 10, 50, 28, (f), http://asc.fasb.org/extlink&oid=75031198&loc=d3e14064-108612), list(FASB, Accounting Standards Codification, 942, 210, S99, 1, (SX 210.9-03(11)), http://asc.fasb.org/extlink&oid=120398452&loc=d3e534808-122878), list(FASB, Accounting Standards Codification, 944, 210, S99, 1, (SX 210.7-03(a)(12)), http://asc.fasb.org/extlink&oid=120400017&loc=d3e572229-122910), list(FASB, Accounting Standards Codification, 810, 10, 50, 3, (bb), http://asc.fasb.org/extlink&oid=121559654&loc=d3e5710-111685), list(FASB, Accounting Standards Codification, 280, 10, 50, 30, (c), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8906-108599), list(FASB, Accounting Standards Codification, 280, 10, 50, 32, (d), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8933-108599), list(FASB, Accounting Standards Codification, 810, 10, 45, 25, (a), http://asc.fasb.org/extlink&oid=116870748&loc=SL6758485-165988), list(FASB, Accounting Standards Codification, 323, 10, 50, 3, (c), http://asc.fasb.org/extlink&oid=114001798&loc=d3e33918-111571), list(Reference Project, 2018, 2017-11, true), list(VIEs:Taxonomy Technical Improvement, 2020, 2019-12, true), list(FASB, Accounting Standards Codification, 235, 10, S99, 1, (SX 210.4-08(g)(1)(ii)), http://asc.fasb.org/extlink&oid=120395691&loc=d3e23780-122690), list(FASB, Accounting Standards Codification, 280, 10, 50, 22, http://asc.fasb.org/extlink&oid=120311839&loc=d3e8736-108599))
+[INFO] [REFPROP003] set(list(http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31), list(http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31, http://fasb.org/codification-part/2020-01-31, http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31))
+[INFO] [REFPROP004] set(list(SourceName, TaxonomyVersion, ChangeDate, ModifiedReferences), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, Subparagraph, URI), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, URI))
 [INFO] [REFPROP005] set(list(1, 2, 3, 4, 5, 6, 7, 8), list(1, 2, 3, 4, 5, 6, 7), list(1, 2, 3, 4))
 [INFO] [REFPROP006] set(http://fasb.org/srt/role/changeNote/changeNote
 	cn-part:SourceName: VIEs:Taxonomy Technical Improvement
@@ -1337,8 +1408,8 @@ ref:Paragraph - 32
 	cn-part:ChangeDate: 2017-11
 	cn-part:ModifiedReferences: true
 )
-[INFO] [REFPROP007] set(FASB, None)
-[INFO] [REFPROP008] set(us-gaap:FairValueOptionQuantitativeDisclosuresTextBlock, us-gaap:StatementClassOfStockAxis, us-gaap:AssetsCurrent, us-gaap:EquityMethodInvestmentsPolicy, us-gaap:ScheduleOfEquityMethodInvestmentsTable, us-gaap:FairValueOptionIneligibleItemsAggregateCarryingAmount, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDue, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatusAggregatedDifference, us-gaap:GrossProfit, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatus, us-gaap:NetIncomeLoss, us-gaap:FairValueOptionRelationToMeasurementInputs, us-gaap:ClassOfStockDomain, us-gaap:MinorityInterest, us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest, us-gaap:StockholdersEquity, us-gaap:ProfitLoss, us-gaap:Revenues, us-gaap:AssetsNoncurrent, us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDueAggregateDifference, us-gaap:Assets, us-gaap:FairValueOptionAggregateDifferencesLongTermDebtInstruments, us-gaap:CostOfRevenue, us-gaap:DescriptionOfHybridInstrumentsAccountedForAtFairValue, us-gaap:Liabilities, us-gaap:FairValueOptionAggregateDifferencesLoansAndLongTermReceivables, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOrGroupOfInvesteesMember, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeAxis, us-gaap:RepurchaseAgreementsValuationPolicy, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOtherMember, us-gaap:RedeemablePreferredStockMember, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeDomain, us-gaap:FairValueOptionReasonsForElection, us-gaap:FairValueOptionReasonsForPartialElection, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateDifference, us-gaap:LiabilitiesNoncurrent, us-gaap:FairValueOptionRelationToBalanceSheetPartialElection, us-gaap:LiabilitiesCurrent, us-gaap:LiabilitiesAndStockholdersEquity, us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest)
+[INFO] [REFPROP007] set(None, FASB)
+[INFO] [REFPROP008] set(us-gaap:DescriptionOfHybridInstrumentsAccountedForAtFairValue, us-gaap:FairValueOptionAggregateDifferencesLongTermDebtInstruments, us-gaap:Liabilities, us-gaap:CostOfRevenue, us-gaap:FairValueOptionAggregateDifferencesLoansAndLongTermReceivables, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeAxis, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOrGroupOfInvesteesMember, us-gaap:RedeemablePreferredStockMember, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOtherMember, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeDomain, us-gaap:FairValueOptionReasonsForElection, us-gaap:FairValueOptionReasonsForPartialElection, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateDifference, us-gaap:LiabilitiesNoncurrent, us-gaap:LiabilitiesCurrent, us-gaap:FairValueOptionRelationToBalanceSheetPartialElection, us-gaap:RepurchaseAgreementsValuationPolicy, us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest, us-gaap:LiabilitiesAndStockholdersEquity, us-gaap:FairValueOptionQuantitativeDisclosuresTextBlock, us-gaap:StatementClassOfStockAxis, us-gaap:AssetsCurrent, us-gaap:EquityMethodInvestmentsPolicy, us-gaap:ScheduleOfEquityMethodInvestmentsTable, us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests, us-gaap:FairValueOptionIneligibleItemsAggregateCarryingAmount, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDue, us-gaap:GrossProfit, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatusAggregatedDifference, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatus, us-gaap:FairValueOptionRelationToMeasurementInputs, us-gaap:ClassOfStockDomain, us-gaap:MinorityInterest, us-gaap:NetIncomeLoss, us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest, us-gaap:StockholdersEquity, us-gaap:ProfitLoss, us-gaap:Revenues, us-gaap:AssetsNoncurrent, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDueAggregateDifference, us-gaap:Assets)
 [INFO] [TAXPROP001] https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd
 [INFO] [TAXPROP002] https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd
 [ERROR] [xule:error] rule TAXPROP003: Rule: TAXPROP003 - The 'entry-point' function must have at least one argument, found none.
@@ -1364,20 +1435,20 @@ False
 Cube: us-gaap:ScheduleOfRevenuesFromExternalCustomersAndLongLivedAssetsTable
 DRS Role: http://fasb.org/us-gaap/role/disclosure/SegmentReportingScheduleOfRevenuesFromExternalCustomersAndLongLivedAssetsTable
 Members:
-	srt:NorthAmericaMember
-	us-gaap:NonUsMember
-	srt:CentralAmericaMember
+	srt:AmericasMember
 	srt:LatinAmericaMember
+	srt:NorthAmericaMember
 	srt:SegmentGeographicalDomain (DOMAIN) (DEFAULT)
+	srt:AfricaMember
 	us-gaap:EuropeanUnionMember
 	us-gaap:EMEAMember
-	srt:AsiaMember
-	srt:EuropeMember
 	us-gaap:MiddleEastMember
-	srt:AmericasMember
 	srt:SouthAmericaMember
+	srt:CentralAmericaMember
+	us-gaap:NonUsMember
+	srt:EuropeMember
 	srt:AsiaPacificMember
-	srt:AfricaMember
+	srt:AsiaMember
 
 [INFO] [TAXPROP026] srt:SegmentGeographicalDomain
 [INFO] [TAXPROP027] srt:SegmentGeographicalDomain
@@ -1518,21 +1589,21 @@ False
 [INFO] [TAXPROP134] 61
 [INFO] [VE102] False
 [INFO] [VE104] True
-[INFO] [VE105] 42,144,000,000
-[INFO] [VE105] 40,230,000,000
 [INFO] [VE105] 45,436,000,000
-[INFO] [VE106] 42,144,000,000
-[INFO] [VE106] 40,230,000,000
+[INFO] [VE105] 40,230,000,000
+[INFO] [VE105] 42,144,000,000
 [INFO] [VE106] 45,436,000,000
-[INFO] [VE107] 42,144,000,000
-[INFO] [VE107] 40,230,000,000
+[INFO] [VE106] 40,230,000,000
+[INFO] [VE106] 42,144,000,000
 [INFO] [VE107] 45,436,000,000
-[INFO] [VE108] 42,144,000,000
-[INFO] [VE108] 40,230,000,000
+[INFO] [VE107] 40,230,000,000
+[INFO] [VE107] 42,144,000,000
 [INFO] [VE108] 45,436,000,000
-[INFO] [VE111] 42,144,000,000
-[INFO] [VE111] 40,230,000,000
+[INFO] [VE108] 40,230,000,000
+[INFO] [VE108] 42,144,000,000
 [INFO] [VE111] 45,436,000,000
+[INFO] [VE111] 40,230,000,000
+[INFO] [VE111] 42,144,000,000
 [INFO] [VE113] 1
 [INFO] [VE114] 1
 [INFO] [VE115] None
@@ -1540,86 +1611,1471 @@ False
 [INFO] [VE117] 3
 [INFO] [VE118] None
 [INFO] [VE119] 2
-[INFO] [VE125] 42,144,000,000
-[INFO] [VE125] 40,230,000,000
 [INFO] [VE125] 45,436,000,000
-[INFO] [VE126] 42,144,000,000
-[INFO] [VE126] 40,230,000,000
+[INFO] [VE125] 40,230,000,000
+[INFO] [VE125] 42,144,000,000
 [INFO] [VE126] 45,436,000,000
-[INFO] [VE127] 42,144,000,000
-[INFO] [VE127] 40,230,000,000
+[INFO] [VE126] 40,230,000,000
+[INFO] [VE126] 42,144,000,000
 [INFO] [VE127] 45,436,000,000
-[INFO] [VE128] 42,144,000,000
-[INFO] [VE128] 40,230,000,000
+[INFO] [VE127] 40,230,000,000
+[INFO] [VE127] 42,144,000,000
 [INFO] [VE128] 45,436,000,000
+[INFO] [VE128] 40,230,000,000
+[INFO] [VE128] 42,144,000,000
 [INFO] [VE129] None
 [INFO] [VE130] None
-[INFO] [VE131] 42,144,000,000
-[INFO] [VE131] 40,230,000,000
 [INFO] [VE131] 45,436,000,000
+[INFO] [VE131] 40,230,000,000
+[INFO] [VE131] 42,144,000,000
 [INFO] [VE132] None
 [INFO] [VE133] 1
 [INFO] [VE134] 1
 [INFO] [VE135] None
-[INFO] [DICT001] True
-[INFO] [DICT002] False
-[INFO] [DICT003] False
-[INFO] [DICT004] dictionary(YAxis=YMember,AAxis=AMember,BAxis=BMember)
-[INFO] [DICT005] dictionary(AAxis=AMember)
-[INFO] [DICT006] dictionary(AAxis=AMember)
-[ERROR] [xule:error] rule DICT007: unsupported operand type(s) for +: 'frozenset' and 'frozenset'
-[INFO] [DICT008] dictionary(AAxis=AMember,BAxis=BMember)
-[INFO] [LIST001] list(1, 2, 3, 4, 5)
-[INFO] [LIST002] list(a, b, c)
-[INFO] [LIST003] list(one Item)
-[INFO] [LIST004] list(a, list, of strings,  leading and trailing space , end)
-[INFO] [LIST005] list(1, 2, -199, -9)
-[INFO] [LIST006] list(2016-01-01 to 2016-12-31, 2016-12-31)
-[INFO] [LIST007] list(None)
-[INFO] [LIST008] list(2017, 2016, 2015)
-[INFO] [LIST009] list(Assets, Land, Cash, Liabilities)
-[INFO] [LIST010] False
-[INFO] [LIST011] False
-[INFO] [LIST012] list()
-[INFO] [LIST013] None
-[INFO] [SET101] set(3, 4, 2, 1)
-[INFO] [SET102] set(Liabilities, a, Assets, b)
-[INFO] [SET103] set(None)
-[INFO] [SET104] set()
-[INFO] [SET105] set()
-[INFO] [SET106] True
-[INFO] [SET107] False
-[INFO] [SET108] True
-[INFO] [LM001] list(1, 2, 3, 4, a, b, c, 4, 1, 2, 3, 4)
-[INFO] [LM002] True
-[INFO] [LM003] False
-[INFO] [LM004] list(1, 2, 3, None)
-[INFO] [LM005] list(1, 2, 3)
-[ERROR] [xule:error] rule LM006: unsupported operand type(s) for -: 'tuple' and 'tuple'
-[ERROR] [xule:error] rule LM007: Rule: LM007 - The left operand of '*' is not numeric, found 'list'
-[ERROR] [xule:error] rule LM008: Rule: LM008 - Intersection can only operatate on sets. The left side is a 'list'.
-[ERROR] [xule:error] rule LM009: unsupported operand type(s) for -: 'tuple' and 'tuple'
-[INFO] [LM010] True
-[INFO] [LM011] False
-[INFO] [LM012] False
-[INFO] [LM013] False
-[INFO] [LM014] False
-[INFO] [LM015] False
-[INFO] [LM016] True
-[INFO] [LM017] True
-[INFO] [LM018] list(42,144,000,000)
-[INFO] [LM018] list(40,230,000,000)
-[INFO] [LM018] list(45,436,000,000)
-[INFO] [LM019] list(lang, 42,144,000,000)
-[INFO] [LM019] list(lang, 40,230,000,000)
-[INFO] [LM019] list(lang, 45,436,000,000)
-[INFO] [LM020] list(lang, 42,144,000,000)
-[INFO] [LM020] list(lang, 40,230,000,000)
-[INFO] [LM020] list(lang, 45,436,000,000)
-[INFO] [LM021] list(lang, 42,144,000,000)
-[INFO] [LM021] list(lang, 40,230,000,000)
-[INFO] [LM021] list(lang, 45,436,000,000)
-[INFO] [LM022] list(lang, list(42,144,000,000))
-[INFO] [LM022] list(lang, list(40,230,000,000))
-[INFO] [LM022] list(lang, list(45,436,000,000))
-[INFO] [LM023] list(1, 2, 3)
+Total number of rules processed: 1444
+Number of rules over 1e-07s: 1444
+Rule DLEN105 end. Took 0:00:18.479397
+Rule REFPROP008 end. Took 0:00:09.741390
+Rule NAX001 end. Took 0:00:05.268648
+Rule MULTIIN001 end. Took 0:00:05.165126
+Rule PFILT105 end. Took 0:00:04.427252
+Rule COU110 end. Took 0:00:03.989170
+Rule RES001 end. Took 0:00:03.780512
+Rule FACT023 end. Took 0:00:03.414421
+Rule TSE111 end. Took 0:00:03.228170
+Rule INLIN015 end. Took 0:00:03.216376
+Rule INFO0016 end. Took 0:00:02.842407
+Rule DTS005 end. Took 0:00:02.339535
+Rule NAX003 end. Took 0:00:01.766896
+Rule NAX056 end. Took 0:00:01.607082
+Rule CUBEPROP019 end. Took 0:00:01.237936
+Rule INFO0019 end. Took 0:00:00.938122
+Rule INSFILT004 end. Took 0:00:00.809359
+Rule INFO0021 end. Took 0:00:00.761166
+Rule NAX009 end. Took 0:00:00.744011
+Rule RES002 end. Took 0:00:00.492500
+Rule RES004 end. Took 0:00:00.470145
+Rule RES003 end. Took 0:00:00.413788
+Rule NAX002 end. Took 0:00:00.344242
+Rule INSFILT003 end. Took 0:00:00.317433
+Rule NAX007 end. Took 0:00:00.308307
+Rule UNITFILT017 end. Took 0:00:00.270521
+Rule INLIN002 end. Took 0:00:00.264836
+Rule DCOU108 end. Took 0:00:00.262314
+Rule UNITFILT019 end. Took 0:00:00.256766
+Rule INLIN001 end. Took 0:00:00.256399
+Rule NOTINFILT001 end. Took 0:00:00.252169
+Rule UNITFILT018 end. Took 0:00:00.237521
+Rule COU192 end. Took 0:00:00.215713
+Rule INLIN011 end. Took 0:00:00.194381
+Rule INLIN003 end. Took 0:00:00.177091
+Rule INLIN004 end. Took 0:00:00.174459
+Rule INLIN014 end. Took 0:00:00.161315
+Rule INLIN013 end. Took 0:00:00.161262
+Rule INLIN012 end. Took 0:00:00.148500
+Rule INLIN010 end. Took 0:00:00.146666
+Rule NAX122 end. Took 0:00:00.123973
+Rule NAX124 end. Took 0:00:00.118685
+Rule INLIN022 end. Took 0:00:00.109184
+Rule INLIN021 end. Took 0:00:00.106382
+Rule NAX038 end. Took 0:00:00.103294
+Rule NAX092 end. Took 0:00:00.098176
+Rule NAX121 end. Took 0:00:00.096255
+Rule NAX123 end. Took 0:00:00.093799
+Rule INLIN019 end. Took 0:00:00.092455
+Rule NAX080 end. Took 0:00:00.091651
+Rule INLIN023 end. Took 0:00:00.091213
+Rule INLIN016 end. Took 0:00:00.089562
+Rule INLIN020 end. Took 0:00:00.089125
+Rule INFO0014 end. Took 0:00:00.088947
+Rule INLIN018 end. Took 0:00:00.087816
+Rule INFO0017 end. Took 0:00:00.087013
+Rule INLIN017 end. Took 0:00:00.085563
+Rule CFILT111 end. Took 0:00:00.084262
+Rule NAX084 end. Took 0:00:00.080461
+Rule NAX088 end. Took 0:00:00.079665
+Rule NAX076 end. Took 0:00:00.077325
+Rule PFILT108 end. Took 0:00:00.072245
+Rule PFILT109 end. Took 0:00:00.070635
+Rule NAX052 end. Took 0:00:00.067562
+Rule PFILT115 end. Took 0:00:00.067221
+Rule NAX048 end. Took 0:00:00.066576
+Rule NOFILT003 end. Took 0:00:00.065284
+Rule CFILT120 end. Took 0:00:00.064994
+Rule FDATE110 end. Took 0:00:00.064905
+Rule NAX060 end. Took 0:00:00.064301
+Rule NAX064 end. Took 0:00:00.063367
+Rule TAXPROP134 end. Took 0:00:00.062529
+Rule FACT019 end. Took 0:00:00.061503
+Rule NAX044 end. Took 0:00:00.061279
+Rule NAX040 end. Took 0:00:00.060343
+Rule NAX068 end. Took 0:00:00.058659
+Rule DCOU104 end. Took 0:00:00.058206
+Rule NAX030 end. Took 0:00:00.057347
+Rule NAX004 end. Took 0:00:00.055728
+Rule NAX005 end. Took 0:00:00.055290
+Rule NILSFILT001 end. Took 0:00:00.051478
+Rule NILSFILT002 end. Took 0:00:00.050171
+Rule CFILT141 end. Took 0:00:00.048840
+Rule CFILT146 end. Took 0:00:00.048351
+Rule UNITFILT014 end. Took 0:00:00.047555
+Rule NOFILT001 end. Took 0:00:00.047536
+Rule NAX104 end. Took 0:00:00.044063
+Rule CFILT140 end. Took 0:00:00.042476
+Rule UNITFILT013 end. Took 0:00:00.042034
+Rule UNITFILT015 end. Took 0:00:00.041603
+Rule NAX051 end. Took 0:00:00.040432
+Rule NAX010 end. Took 0:00:00.040340
+Rule CFILT139 end. Took 0:00:00.040113
+Rule NAX117 end. Took 0:00:00.040069
+Rule UNITFILT016 end. Took 0:00:00.039676
+Rule CFILT138 end. Took 0:00:00.039222
+Rule NAX103 end. Took 0:00:00.038759
+Rule NAX107 end. Took 0:00:00.037950
+Rule NAX120 end. Took 0:00:00.037720
+Rule NAX116 end. Took 0:00:00.037481
+Rule NAX041 end. Took 0:00:00.036121
+Rule TAXPROP123 end. Took 0:00:00.035823
+Rule NAX119 end. Took 0:00:00.034636
+Rule NAX011 end. Took 0:00:00.033914
+Rule NAX067 end. Took 0:00:00.033748
+Rule CUBEFILT004 end. Took 0:00:00.033295
+Rule NAX063 end. Took 0:00:00.032482
+Rule CUBEFILT003 end. Took 0:00:00.032461
+Rule CUBEFILT005 end. Took 0:00:00.032364
+Rule NAX047 end. Took 0:00:00.032245
+Rule INSFILT002 end. Took 0:00:00.031790
+Rule NAX093 end. Took 0:00:00.031674
+Rule NAX045 end. Took 0:00:00.031284
+Rule NAX059 end. Took 0:00:00.030655
+Rule NAX043 end. Took 0:00:00.030567
+Rule CFILT121 end. Took 0:00:00.030337
+Rule NAX085 end. Took 0:00:00.030036
+Rule NOFILT004 end. Took 0:00:00.029886
+Rule NAX089 end. Took 0:00:00.029884
+Rule NAX049 end. Took 0:00:00.029858
+Rule NAX053 end. Took 0:00:00.029709
+Rule NAX055 end. Took 0:00:00.029701
+Rule NAX071 end. Took 0:00:00.029347
+Rule NAX073 end. Took 0:00:00.029265
+Rule NAX098 end. Took 0:00:00.028954
+Rule CFILT122 end. Took 0:00:00.028906
+Rule NAX077 end. Took 0:00:00.028898
+Rule NAX061 end. Took 0:00:00.028876
+Rule NAX065 end. Took 0:00:00.028792
+Rule NAX069 end. Took 0:00:00.028329
+Rule NAX042 end. Took 0:00:00.028162
+Rule NAX096 end. Took 0:00:00.028092
+Rule NAX078 end. Took 0:00:00.028002
+Rule NAX081 end. Took 0:00:00.027809
+Rule NAX090 end. Took 0:00:00.027705
+Rule NAX079 end. Took 0:00:00.027685
+Rule NAX075 end. Took 0:00:00.027521
+Rule NAX091 end. Took 0:00:00.027498
+Rule NAX057 end. Took 0:00:00.027453
+Rule NAX087 end. Took 0:00:00.027297
+Rule NAX111 end. Took 0:00:00.027135
+Rule NAX086 end. Took 0:00:00.027010
+Rule NAX105 end. Took 0:00:00.026797
+Rule NAX074 end. Took 0:00:00.026780
+Rule NAX083 end. Took 0:00:00.026435
+Rule NAX082 end. Took 0:00:00.026385
+Rule NAX094 end. Took 0:00:00.026278
+Rule NAX046 end. Took 0:00:00.026275
+Rule NAX101 end. Took 0:00:00.026248
+Rule NAX066 end. Took 0:00:00.026142
+Rule NAX058 end. Took 0:00:00.025975
+Rule NAX118 end. Took 0:00:00.025910
+Rule NAX109 end. Took 0:00:00.025733
+Rule NAX054 end. Took 0:00:00.025716
+Rule NAX050 end. Took 0:00:00.025620
+Rule NAX099 end. Took 0:00:00.025576
+Rule NAX062 end. Took 0:00:00.025472
+Rule NAX112 end. Took 0:00:00.025452
+Rule NAX115 end. Took 0:00:00.025296
+Rule NAX114 end. Took 0:00:00.024740
+Rule NAX070 end. Took 0:00:00.024729
+Rule NAX113 end. Took 0:00:00.024648
+Rule NAX100 end. Took 0:00:00.023635
+Rule NAX095 end. Took 0:00:00.023605
+Rule TAXPROP122 end. Took 0:00:00.023410
+Rule NAX102 end. Took 0:00:00.023363
+Rule NAX097 end. Took 0:00:00.022928
+Rule FACT020 end. Took 0:00:00.022746
+Rule NAX106 end. Took 0:00:00.022289
+Rule NAX108 end. Took 0:00:00.022271
+Rule NAX013 end. Took 0:00:00.022069
+Rule NAX110 end. Took 0:00:00.021564
+Rule NAX125 end. Took 0:00:00.021415
+Rule INSFILT001 end. Took 0:00:00.021376
+Rule NAX025 end. Took 0:00:00.021231
+Rule NAX127 end. Took 0:00:00.020804
+Rule NAX126 end. Took 0:00:00.020532
+Rule NAX019 end. Took 0:00:00.020320
+Rule NAX008 end. Took 0:00:00.019897
+Rule CFILT129 end. Took 0:00:00.018264
+Rule CFILT127 end. Took 0:00:00.017462
+Rule CFILT128 end. Took 0:00:00.016463
+Rule CFILT136 end. Took 0:00:00.015754
+Rule CONPROP018 end. Took 0:00:00.015532
+Rule NAX031 end. Took 0:00:00.013907
+Rule NAX006 end. Took 0:00:00.012606
+Rule NAX072 end. Took 0:00:00.011044
+Rule NAX026 end. Took 0:00:00.009902
+Rule NAX037 end. Took 0:00:00.009841
+Rule NAX015 end. Took 0:00:00.009799
+Rule TAXPROP021 end. Took 0:00:00.009422
+Rule NAX027 end. Took 0:00:00.009399
+Rule NAX039 end. Took 0:00:00.009395
+Rule NAX028 end. Took 0:00:00.009367
+Rule NAX014 end. Took 0:00:00.009296
+Rule CFILT143 end. Took 0:00:00.009184
+Rule TAXPROP039 end. Took 0:00:00.009126
+Rule NAX016 end. Took 0:00:00.008982
+Rule NAX133 end. Took 0:00:00.008824
+Rule NAX017 end. Took 0:00:00.008735
+Rule NAX137 end. Took 0:00:00.008708
+Rule TAXPROP022 end. Took 0:00:00.008701
+Rule NAX023 end. Took 0:00:00.008689
+Rule NAX020 end. Took 0:00:00.008677
+Rule NAX141 end. Took 0:00:00.008671
+Rule NAX139 end. Took 0:00:00.008618
+Rule NAX131 end. Took 0:00:00.008545
+Rule NAX129 end. Took 0:00:00.008502
+Rule NAX135 end. Took 0:00:00.008493
+Rule NAX138 end. Took 0:00:00.008429
+Rule NAX142 end. Took 0:00:00.008424
+Rule NAX136 end. Took 0:00:00.008408
+Rule NAX132 end. Took 0:00:00.008405
+Rule NAX021 end. Took 0:00:00.008337
+Rule TAXPROP040 end. Took 0:00:00.008272
+Rule NAX140 end. Took 0:00:00.008268
+Rule NAX130 end. Took 0:00:00.008226
+Rule CFILT147 end. Took 0:00:00.008207
+Rule NAX134 end. Took 0:00:00.008175
+Rule NAX128 end. Took 0:00:00.008145
+Rule CUBEFILT001 end. Took 0:00:00.008144
+Rule NAX032 end. Took 0:00:00.008137
+Rule NAX034 end. Took 0:00:00.008122
+Rule COU193 end. Took 0:00:00.008013
+Rule NAX029 end. Took 0:00:00.008013
+Rule TAXPROP124 end. Took 0:00:00.007936
+Rule CFILT134 end. Took 0:00:00.007910
+Rule NAX012 end. Took 0:00:00.007896
+Rule NAX035 end. Took 0:00:00.007868
+Rule NAX024 end. Took 0:00:00.007816
+Rule NAX033 end. Took 0:00:00.007784
+Rule NAX036 end. Took 0:00:00.007673
+Rule TAXPROP125 end. Took 0:00:00.007605
+Rule CFILT132 end. Took 0:00:00.007469
+Rule NAX018 end. Took 0:00:00.007462
+Rule TAXPROP042 end. Took 0:00:00.007207
+Rule CFILT133 end. Took 0:00:00.007196
+Rule CUBEPROP021 end. Took 0:00:00.007189
+Rule TAXPROP041 end. Took 0:00:00.007157
+Rule CFILT130 end. Took 0:00:00.007042
+Rule CFILT131 end. Took 0:00:00.006846
+Rule PFILT101 end. Took 0:00:00.006824
+Rule UNITFILT012 end. Took 0:00:00.006631
+Rule FIL123 end. Took 0:00:00.006221
+Rule CFILT144 end. Took 0:00:00.006082
+Rule CFILT124 end. Took 0:00:00.005986
+Rule CFILT126 end. Took 0:00:00.005134
+Rule CFILT125 end. Took 0:00:00.005119
+Rule TAXPROP032 end. Took 0:00:00.004910
+Rule TAXPROP024 end. Took 0:00:00.004577
+Rule TAXPROP033 end. Took 0:00:00.004391
+Rule TAXPROP038 end. Took 0:00:00.004324
+Rule TAXPROP023 end. Took 0:00:00.004296
+Rule PFILT103 end. Took 0:00:00.003931
+Rule FACT017 end. Took 0:00:00.003665
+Rule INSFILT005 end. Took 0:00:00.003510
+Rule TAXPROP037 end. Took 0:00:00.003490
+Rule FIL121 end. Took 0:00:00.003209
+Rule PFILT113 end. Took 0:00:00.003004
+Rule FACT036 end. Took 0:00:00.002890
+Rule FACT035 end. Took 0:00:00.002889
+Rule TAXPROP025 end. Took 0:00:00.002825
+Rule UNITFILT006 end. Took 0:00:00.002798
+Rule TAXPROP049 end. Took 0:00:00.002769
+Rule MESS005 end. Took 0:00:00.002709
+Rule MESS007 end. Took 0:00:00.002636
+Rule MESS004 end. Took 0:00:00.002581
+Rule UNITFILT001 end. Took 0:00:00.002483
+Rule DAVG105 end. Took 0:00:00.002426
+Rule CFILT114 end. Took 0:00:00.002388
+Rule MESS003 end. Took 0:00:00.002306
+Rule REFPROP002 end. Took 0:00:00.002259
+Rule UNITFILT011 end. Took 0:00:00.002220
+Rule FIRST005 end. Took 0:00:00.002209
+Rule TAXPROP026 end. Took 0:00:00.002192
+Rule MESS008 end. Took 0:00:00.002188
+Rule TAXPROP030 end. Took 0:00:00.002145
+Rule TAXPROP028 end. Took 0:00:00.002127
+Rule TAXPROP027 end. Took 0:00:00.002120
+Rule TAXPROP029 end. Took 0:00:00.002115
+Rule LM021 end. Took 0:00:00.002076
+Rule TAXPROP035 end. Took 0:00:00.002074
+Rule TAXPROP031 end. Took 0:00:00.002042
+Rule TJSON102 end. Took 0:00:00.002041
+Rule VAL002 end. Took 0:00:00.001966
+Rule TAXPROP034 end. Took 0:00:00.001913
+Rule TAXPROP045 end. Took 0:00:00.001912
+Rule UNITFILT010 end. Took 0:00:00.001911
+Rule MESS002 end. Took 0:00:00.001888
+Rule INTRSF001 end. Took 0:00:00.001843
+Rule UNITFILT009 end. Took 0:00:00.001820
+Rule REFPROP004 end. Took 0:00:00.001808
+Rule DTL011 end. Took 0:00:00.001802
+Rule FDATE103 end. Took 0:00:00.001790
+Rule REFPROP003 end. Took 0:00:00.001761
+Rule TAXPROP132 end. Took 0:00:00.001746
+Rule SM028 end. Took 0:00:00.001727
+Rule TAXPROP046 end. Took 0:00:00.001718
+Rule TCSV100 end. Took 0:00:00.001694
+Rule UNITFILT008 end. Took 0:00:00.001678
+Rule UNITFILT005 end. Took 0:00:00.001675
+Rule UNITFILT002 end. Took 0:00:00.001661
+Rule RES006 end. Took 0:00:00.001584
+Rule TAXPROP107 end. Took 0:00:00.001550
+Rule UNITFILT003 end. Took 0:00:00.001547
+Rule UNITFILT004 end. Took 0:00:00.001538
+Rule FIL117 end. Took 0:00:00.001519
+Rule REFPROP001 end. Took 0:00:00.001506
+Rule REFPROP005 end. Took 0:00:00.001504
+Rule TAXPROP048 end. Took 0:00:00.001501
+Rule TCSV105 end. Took 0:00:00.001499
+Rule REFPROP006 end. Took 0:00:00.001485
+Rule TAXPROP055 end. Took 0:00:00.001472
+Rule LM022 end. Took 0:00:00.001465
+Rule TAXPROP053 end. Took 0:00:00.001443
+Rule TCSV102 end. Took 0:00:00.001423
+Rule MESS009 end. Took 0:00:00.001411
+Rule VE105 end. Took 0:00:00.001400
+Rule ADICT005 end. Took 0:00:00.001394
+Rule LM020 end. Took 0:00:00.001387
+Rule TCSV101 end. Took 0:00:00.001385
+Rule TAXPROP054 end. Took 0:00:00.001368
+Rule CFILT145 end. Took 0:00:00.001362
+Rule UNITFILT007 end. Took 0:00:00.001348
+Rule SLO110 end. Took 0:00:00.001343
+Rule FIL115 end. Took 0:00:00.001332
+Rule TAXPROP056 end. Took 0:00:00.001323
+Rule ADICT003 end. Took 0:00:00.001317
+Rule CUBEFILT002 end. Took 0:00:00.001300
+Rule TSE105 end. Took 0:00:00.001270
+Rule VE131 end. Took 0:00:00.001256
+Rule DDC091 end. Took 0:00:00.001252
+Rule FIL118 end. Took 0:00:00.001252
+Rule LM018 end. Took 0:00:00.001244
+Rule STDEV101 end. Took 0:00:00.001224
+Rule SM026 end. Took 0:00:00.001207
+Rule MESS010 end. Took 0:00:00.001202
+Rule VE125 end. Took 0:00:00.001191
+Rule XU124 end. Took 0:00:00.001164
+Rule VE106 end. Took 0:00:00.001139
+Rule FACT031 end. Took 0:00:00.001138
+Rule ADICT001 end. Took 0:00:00.001136
+Rule MULTIIN002 end. Took 0:00:00.001128
+Rule VE111 end. Took 0:00:00.001128
+Rule SM027 end. Took 0:00:00.001117
+Rule FIL125 end. Took 0:00:00.001112
+Rule REFPROP007 end. Took 0:00:00.001109
+Rule VE107 end. Took 0:00:00.001108
+Rule FIL116 end. Took 0:00:00.001106
+Rule DIMFILT005 end. Took 0:00:00.001094
+Rule VE108 end. Took 0:00:00.001094
+Rule LM019 end. Took 0:00:00.001091
+Rule STDEV102 end. Took 0:00:00.001085
+Rule DIMFILT001 end. Took 0:00:00.001078
+Rule DIMFILT004 end. Took 0:00:00.001066
+Rule VE127 end. Took 0:00:00.001064
+Rule CFILT118 end. Took 0:00:00.001051
+Rule CFILT142 end. Took 0:00:00.001043
+Rule PROD101 end. Took 0:00:00.001037
+Rule SUM204 end. Took 0:00:00.001033
+Rule SM019 end. Took 0:00:00.001029
+Rule ADICT006 end. Took 0:00:00.001028
+Rule FORL103 end. Took 0:00:00.001022
+Rule ADICT007 end. Took 0:00:00.001010
+Rule FACT016 end. Took 0:00:00.001005
+Rule ADICT002 end. Took 0:00:00.000995
+Rule VE128 end. Took 0:00:00.000989
+Rule DICT003 end. Took 0:00:00.000984
+Rule TAXPROP118 end. Took 0:00:00.000983
+Rule STDEV103 end. Took 0:00:00.000979
+Rule VE126 end. Took 0:00:00.000961
+Rule CFILT104 end. Took 0:00:00.000958
+Rule FIL124 end. Took 0:00:00.000953
+Rule REGEX002 end. Took 0:00:00.000941
+Rule FACT006 end. Took 0:00:00.000940
+Rule TAXPROP119 end. Took 0:00:00.000931
+Rule ADICT004 end. Took 0:00:00.000923
+Rule FACT012 end. Took 0:00:00.000919
+Rule DICT002 end. Took 0:00:00.000913
+Rule CFILT105 end. Took 0:00:00.000910
+Rule CFILT101 end. Took 0:00:00.000901
+Rule FACT046 end. Took 0:00:00.000900
+Rule FORL102 end. Took 0:00:00.000897
+Rule TAXPROP079 end. Took 0:00:00.000894
+Rule FIL105 end. Took 0:00:00.000885
+Rule DIC001 end. Took 0:00:00.000881
+Rule CFILT103 end. Took 0:00:00.000877
+Rule FACT009 end. Took 0:00:00.000873
+Rule CUBEFILT006 end. Took 0:00:00.000868
+Rule FACT028 end. Took 0:00:00.000863
+Rule FACT024 end. Took 0:00:00.000861
+Rule FACT003 end. Took 0:00:00.000859
+Rule BOL118 end. Took 0:00:00.000815
+Rule SM004 end. Took 0:00:00.000812
+Rule DICT001 end. Took 0:00:00.000803
+Rule HKY003 end. Took 0:00:00.000799
+Rule PROD102 end. Took 0:00:00.000792
+Rule FACT025 end. Took 0:00:00.000789
+Rule INLIN008 end. Took 0:00:00.000784
+Rule FIL112 end. Took 0:00:00.000783
+Rule FACT015 end. Took 0:00:00.000778
+Rule DCOU107 end. Took 0:00:00.000777
+Rule SLO104 end. Took 0:00:00.000766
+Rule DIX023 end. Took 0:00:00.000765
+Rule INLIN007 end. Took 0:00:00.000763
+Rule FIL114 end. Took 0:00:00.000761
+Rule VAL102 end. Took 0:00:00.000760
+Rule DHK003 end. Took 0:00:00.000755
+Rule SM029 end. Took 0:00:00.000753
+Rule TAXPROP061 end. Took 0:00:00.000753
+Rule DICT005 end. Took 0:00:00.000749
+Rule CFILT106 end. Took 0:00:00.000738
+Rule FACT039 end. Took 0:00:00.000738
+Rule DIX025 end. Took 0:00:00.000738
+Rule SM051 end. Took 0:00:00.000732
+Rule FACT027 end. Took 0:00:00.000731
+Rule FIL107 end. Took 0:00:00.000731
+Rule DKEY102 end. Took 0:00:00.000727
+Rule INLIN005 end. Took 0:00:00.000727
+Rule FACT040 end. Took 0:00:00.000723
+Rule ADICT008 end. Took 0:00:00.000721
+Rule FACT026 end. Took 0:00:00.000718
+Rule FACT005 end. Took 0:00:00.000715
+Rule DICT006 end. Took 0:00:00.000714
+Rule FIL106 end. Took 0:00:00.000712
+Rule DICT004 end. Took 0:00:00.000696
+Rule DHK001 end. Took 0:00:00.000692
+Rule RES005 end. Took 0:00:00.000687
+Rule VAL103 end. Took 0:00:00.000684
+Rule FIL111 end. Took 0:00:00.000682
+Rule DHK002 end. Took 0:00:00.000679
+Rule DTS003 end. Took 0:00:00.000671
+Rule TCSV103 end. Took 0:00:00.000666
+Rule VAL003 end. Took 0:00:00.000664
+Rule DIX021 end. Took 0:00:00.000663
+Rule XU204 end. Took 0:00:00.000663
+Rule FACT013 end. Took 0:00:00.000661
+Rule DPOW105 end. Took 0:00:00.000660
+Rule DKEY103 end. Took 0:00:00.000659
+Rule FACT037 end. Took 0:00:00.000659
+Rule FIL122 end. Took 0:00:00.000659
+Rule DIX022 end. Took 0:00:00.000658
+Rule TJSON100 end. Took 0:00:00.000654
+Rule DIX024 end. Took 0:00:00.000649
+Rule XU209 end. Took 0:00:00.000649
+Rule SLO102 end. Took 0:00:00.000646
+Rule TJSON101 end. Took 0:00:00.000645
+Rule SLO106 end. Took 0:00:00.000645
+Rule KEY003 end. Took 0:00:00.000644
+Rule SLO103 end. Took 0:00:00.000644
+Rule INFO0022 end. Took 0:00:00.000644
+Rule SLO105 end. Took 0:00:00.000641
+Rule KEY002 end. Took 0:00:00.000634
+Rule DIMFILT003 end. Took 0:00:00.000631
+Rule CFILT108 end. Took 0:00:00.000627
+Rule XU211 end. Took 0:00:00.000626
+Rule DKEY101 end. Took 0:00:00.000625
+Rule SM034 end. Took 0:00:00.000620
+Rule SM043 end. Took 0:00:00.000618
+Rule FACT021 end. Took 0:00:00.000617
+Rule XU210 end. Took 0:00:00.000614
+Rule FIL108 end. Took 0:00:00.000613
+Rule DDC010 end. Took 0:00:00.000609
+Rule DIC002 end. Took 0:00:00.000606
+Rule XU101 end. Took 0:00:00.000605
+Rule KEY001 end. Took 0:00:00.000603
+Rule FACT002 end. Took 0:00:00.000597
+Rule FACT022 end. Took 0:00:00.000596
+Rule SUM197 end. Took 0:00:00.000595
+Rule VAL001 end. Took 0:00:00.000595
+Rule FIL119 end. Took 0:00:00.000593
+Rule INLIN006 end. Took 0:00:00.000592
+Rule FACT018 end. Took 0:00:00.000589
+Rule HKY001 end. Took 0:00:00.000585
+Rule DLEN104 end. Took 0:00:00.000584
+Rule FACT001 end. Took 0:00:00.000582
+Rule SUM205 end. Took 0:00:00.000578
+Rule FIL120 end. Took 0:00:00.000572
+Rule DICT007 end. Took 0:00:00.000569
+Rule DIC094 end. Took 0:00:00.000568
+Rule CFILT123 end. Took 0:00:00.000566
+Rule HKY002 end. Took 0:00:00.000564
+Rule CFILT116 end. Took 0:00:00.000551
+Rule SUM200 end. Took 0:00:00.000550
+Rule CFILT110 end. Took 0:00:00.000550
+Rule VAL101 end. Took 0:00:00.000545
+Rule SM011 end. Took 0:00:00.000545
+Rule CFILT117 end. Took 0:00:00.000544
+Rule CFILT109 end. Took 0:00:00.000542
+Rule SUM201 end. Took 0:00:00.000539
+Rule AVG101 end. Took 0:00:00.000538
+Rule FIL101 end. Took 0:00:00.000536
+Rule LM001 end. Took 0:00:00.000536
+Rule SM050 end. Took 0:00:00.000535
+Rule FDATE119 end. Took 0:00:00.000531
+Rule PMN124 end. Took 0:00:00.000529
+Rule FACT038 end. Took 0:00:00.000523
+Rule FACT044 end. Took 0:00:00.000518
+Rule XU203 end. Took 0:00:00.000518
+Rule SRT105 end. Took 0:00:00.000516
+Rule SM036 end. Took 0:00:00.000515
+Rule SM041 end. Took 0:00:00.000509
+Rule XU205 end. Took 0:00:00.000504
+Rule FACT045 end. Took 0:00:00.000503
+Rule XU207 end. Took 0:00:00.000502
+Rule INFO0004 end. Took 0:00:00.000501
+Rule TAXPROP120 end. Took 0:00:00.000501
+Rule CFILT107 end. Took 0:00:00.000499
+Rule SUM202 end. Took 0:00:00.000497
+Rule SUM203 end. Took 0:00:00.000497
+Rule FDATE131 end. Took 0:00:00.000497
+Rule FACT010 end. Took 0:00:00.000492
+Rule FIL103 end. Took 0:00:00.000490
+Rule SM030 end. Took 0:00:00.000490
+Rule FACT042 end. Took 0:00:00.000487
+Rule XU206 end. Took 0:00:00.000487
+Rule FACT041 end. Took 0:00:00.000485
+Rule INFO0012 end. Took 0:00:00.000485
+Rule XU208 end. Took 0:00:00.000485
+Rule INLIN024 end. Took 0:00:00.000483
+Rule DDC093 end. Took 0:00:00.000482
+Rule FACT007 end. Took 0:00:00.000481
+Rule XU213 end. Took 0:00:00.000481
+Rule DCO020 end. Took 0:00:00.000480
+Rule CFILT115 end. Took 0:00:00.000477
+Rule FACT033 end. Took 0:00:00.000476
+Rule FACT004 end. Took 0:00:00.000474
+Rule INLIN025 end. Took 0:00:00.000472
+Rule XU212 end. Took 0:00:00.000472
+Rule DIX011 end. Took 0:00:00.000470
+Rule DPOW106 end. Took 0:00:00.000464
+Rule SM035 end. Took 0:00:00.000463
+Rule FACT008 end. Took 0:00:00.000455
+Rule LAST005 end. Took 0:00:00.000454
+Rule COU103 end. Took 0:00:00.000453
+Rule SM002 end. Took 0:00:00.000451
+Rule SRT191 end. Took 0:00:00.000450
+Rule INFO0003 end. Took 0:00:00.000450
+Rule MAX103 end. Took 0:00:00.000447
+Rule FDATE115 end. Took 0:00:00.000447
+Rule CFILT119 end. Took 0:00:00.000447
+Rule DHK096 end. Took 0:00:00.000445
+Rule MIN103 end. Took 0:00:00.000445
+Rule FACT043 end. Took 0:00:00.000445
+Rule SM015 end. Took 0:00:00.000445
+Rule LABPROP004 end. Took 0:00:00.000445
+Rule VE115 end. Took 0:00:00.000445
+Rule FIL109 end. Took 0:00:00.000442
+Rule DCOU102 end. Took 0:00:00.000440
+Rule CFILT102 end. Took 0:00:00.000439
+Rule DHK094 end. Took 0:00:00.000437
+Rule PFILT114 end. Took 0:00:00.000437
+Rule FACT011 end. Took 0:00:00.000436
+Rule DIX095 end. Took 0:00:00.000436
+Rule PFILT102 end. Took 0:00:00.000435
+Rule SUM199 end. Took 0:00:00.000431
+Rule BLOCK103 end. Took 0:00:00.000430
+Rule FDATE127 end. Took 0:00:00.000429
+Rule DICT008 end. Took 0:00:00.000427
+Rule DABS103 end. Took 0:00:00.000423
+Rule SRT104 end. Took 0:00:00.000419
+Rule SM045 end. Took 0:00:00.000416
+Rule DLA003 end. Took 0:00:00.000415
+Rule SM003 end. Took 0:00:00.000415
+Rule SRT101 end. Took 0:00:00.000413
+Rule SRT103 end. Took 0:00:00.000412
+Rule FIL102 end. Took 0:00:00.000411
+Rule FDATE129 end. Took 0:00:00.000408
+Rule INFO0010 end. Took 0:00:00.000406
+Rule FDATE128 end. Took 0:00:00.000405
+Rule LIST008 end. Took 0:00:00.000404
+Rule FACT014 end. Took 0:00:00.000399
+Rule SM001 end. Took 0:00:00.000398
+Rule FIL110 end. Took 0:00:00.000396
+Rule DAVG106 end. Took 0:00:00.000396
+Rule SRT102 end. Took 0:00:00.000394
+Rule SET108 end. Took 0:00:00.000394
+Rule SM009 end. Took 0:00:00.000393
+Rule SM044 end. Took 0:00:00.000391
+Rule JOIN102 end. Took 0:00:00.000388
+Rule FDATE107 end. Took 0:00:00.000388
+Rule SET101 end. Took 0:00:00.000387
+Rule HKY007 end. Took 0:00:00.000385
+Rule SRT111 end. Took 0:00:00.000383
+Rule DIX092 end. Took 0:00:00.000380
+Rule FDATE108 end. Took 0:00:00.000379
+Rule DCO010 end. Took 0:00:00.000377
+Rule PFILT106 end. Took 0:00:00.000377
+Rule BLOCK104 end. Took 0:00:00.000376
+Rule HKY006 end. Took 0:00:00.000374
+Rule LIST011 end. Took 0:00:00.000367
+Rule LIST006 end. Took 0:00:00.000366
+Rule SM012 end. Took 0:00:00.000366
+Rule PFILT110 end. Took 0:00:00.000363
+Rule LIST010 end. Took 0:00:00.000362
+Rule SET106 end. Took 0:00:00.000361
+Rule DPOW103 end. Took 0:00:00.000361
+Rule DAVG109 end. Took 0:00:00.000360
+Rule DIMFILT002 end. Took 0:00:00.000358
+Rule SET107 end. Took 0:00:00.000357
+Rule INTER101 end. Took 0:00:00.000354
+Rule INLIN026 end. Took 0:00:00.000354
+Rule LIST004 end. Took 0:00:00.000353
+Rule DPOW104 end. Took 0:00:00.000353
+Rule TSE101 end. Took 0:00:00.000352
+Rule DCOU100 end. Took 0:00:00.000350
+Rule LAST001 end. Took 0:00:00.000345
+Rule SM010 end. Took 0:00:00.000344
+Rule FDATE102 end. Took 0:00:00.000341
+Rule DCOU101 end. Took 0:00:00.000340
+Rule DLA005 end. Took 0:00:00.000340
+Rule DTL010 end. Took 0:00:00.000339
+Rule JOIN103 end. Took 0:00:00.000339
+Rule DIX010 end. Took 0:00:00.000339
+Rule XU007 end. Took 0:00:00.000339
+Rule DAVG101 end. Took 0:00:00.000339
+Rule FDATE114 end. Took 0:00:00.000338
+Rule DNU111 end. Took 0:00:00.000335
+Rule LM011 end. Took 0:00:00.000334
+Rule LM002 end. Took 0:00:00.000332
+Rule FDATE132 end. Took 0:00:00.000331
+Rule MESS001 end. Took 0:00:00.000330
+Rule SUM101 end. Took 0:00:00.000328
+Rule LAST003 end. Took 0:00:00.000327
+Rule MIN102 end. Took 0:00:00.000327
+Rule FDATE120 end. Took 0:00:00.000327
+Rule PFILT107 end. Took 0:00:00.000326
+Rule CFILT135 end. Took 0:00:00.000325
+Rule TAXPROP051 end. Took 0:00:00.000322
+Rule DIX012 end. Took 0:00:00.000321
+Rule FDATE126 end. Took 0:00:00.000319
+Rule TAXPROP052 end. Took 0:00:00.000319
+Rule CFILT137 end. Took 0:00:00.000318
+Rule FDATE116 end. Took 0:00:00.000317
+Rule LAST002 end. Took 0:00:00.000316
+Rule BLOCK101 end. Took 0:00:00.000315
+Rule DSP103 end. Took 0:00:00.000314
+Rule SM046 end. Took 0:00:00.000311
+Rule DSP104 end. Took 0:00:00.000311
+Rule FDATE117 end. Took 0:00:00.000309
+Rule ALL113 end. Took 0:00:00.000308
+Rule DTS001 end. Took 0:00:00.000307
+Rule SUM102 end. Took 0:00:00.000307
+Rule DIX014 end. Took 0:00:00.000305
+Rule DIX091 end. Took 0:00:00.000305
+Rule VE119 end. Took 0:00:00.000304
+Rule DLA002 end. Took 0:00:00.000303
+Rule LIST005 end. Took 0:00:00.000302
+Rule LM013 end. Took 0:00:00.000301
+Rule DCO011 end. Took 0:00:00.000300
+Rule SM008 end. Took 0:00:00.000299
+Rule TAXPROP059 end. Took 0:00:00.000299
+Rule DHK093 end. Took 0:00:00.000297
+Rule SM047 end. Took 0:00:00.000297
+Rule DLA001 end. Took 0:00:00.000296
+Rule LM023 end. Took 0:00:00.000294
+Rule DCO021 end. Took 0:00:00.000293
+Rule DTS004 end. Took 0:00:00.000293
+Rule MAX102 end. Took 0:00:00.000292
+Rule LIST012 end. Took 0:00:00.000290
+Rule CONPROP004 end. Took 0:00:00.000290
+Rule COU101 end. Took 0:00:00.000289
+Rule VE117 end. Took 0:00:00.000288
+Rule PMN107 end. Took 0:00:00.000287
+Rule ANY106 end. Took 0:00:00.000285
+Rule DO106 end. Took 0:00:00.000285
+Rule COU102 end. Took 0:00:00.000284
+Rule SM014 end. Took 0:00:00.000284
+Rule TCSV104 end. Took 0:00:00.000283
+Rule SM013 end. Took 0:00:00.000282
+Rule VE118 end. Took 0:00:00.000282
+Rule DIX093 end. Took 0:00:00.000281
+Rule TSE106 end. Took 0:00:00.000280
+Rule TAXPROP129 end. Took 0:00:00.000278
+Rule LIST015 end. Took 0:00:00.000277
+Rule SUM194 end. Took 0:00:00.000274
+Rule DIC091 end. Took 0:00:00.000272
+Rule STDEV104 end. Took 0:00:00.000271
+Rule SM017 end. Took 0:00:00.000271
+Rule DIX096 end. Took 0:00:00.000270
+Rule CUBEPROP011 end. Took 0:00:00.000270
+Rule XU139 end. Took 0:00:00.000269
+Rule DIX094 end. Took 0:00:00.000268
+Rule VE116 end. Took 0:00:00.000268
+Rule LIST017 end. Took 0:00:00.000267
+Rule DLEN106 end. Took 0:00:00.000266
+Rule RNG001 end. Took 0:00:00.000266
+Rule SM016 end. Took 0:00:00.000266
+Rule LIST013 end. Took 0:00:00.000265
+Rule FIL113 end. Took 0:00:00.000265
+Rule DIC092 end. Took 0:00:00.000264
+Rule SM021 end. Took 0:00:00.000263
+Rule REGEX001 end. Took 0:00:00.000263
+Rule LIST001 end. Took 0:00:00.000262
+Rule DAT005 end. Took 0:00:00.000262
+Rule SM022 end. Took 0:00:00.000262
+Rule FIRST003 end. Took 0:00:00.000261
+Rule DABS104 end. Took 0:00:00.000261
+Rule SM005 end. Took 0:00:00.000261
+Rule VE101 end. Took 0:00:00.000261
+Rule LM008 end. Took 0:00:00.000259
+Rule DPOW109 end. Took 0:00:00.000258
+Rule TAXPROP090 end. Took 0:00:00.000256
+Rule LIST016 end. Took 0:00:00.000255
+Rule FIL104 end. Took 0:00:00.000255
+Rule DPOW108 end. Took 0:00:00.000255
+Rule SM006 end. Took 0:00:00.000254
+Rule DNU114 end. Took 0:00:00.000253
+Rule RAND106 end. Took 0:00:00.000252
+Rule SUBS101 end. Took 0:00:00.000252
+Rule FIRST001 end. Took 0:00:00.000251
+Rule SET102 end. Took 0:00:00.000249
+Rule INFO0005 end. Took 0:00:00.000249
+Rule VE120 end. Took 0:00:00.000249
+Rule FIRST002 end. Took 0:00:00.000247
+Rule FUN101 end. Took 0:00:00.000243
+Rule DUR093 end. Took 0:00:00.000243
+Rule DUR100 end. Took 0:00:00.000242
+Rule DUR101 end. Took 0:00:00.000242
+Rule SUM191 end. Took 0:00:00.000240
+Rule SM033 end. Took 0:00:00.000240
+Rule REGEX005 end. Took 0:00:00.000240
+Rule XU138 end. Took 0:00:00.000239
+Rule LIST014 end. Took 0:00:00.000239
+Rule DUR099 end. Took 0:00:00.000238
+Rule VE104 end. Took 0:00:00.000238
+Rule LM015 end. Took 0:00:00.000237
+Rule MOD112 end. Took 0:00:00.000236
+Rule TAXPROP073 end. Took 0:00:00.000234
+Rule LAST006 end. Took 0:00:00.000233
+Rule MAX105 end. Took 0:00:00.000233
+Rule DUR098 end. Took 0:00:00.000233
+Rule XU106 end. Took 0:00:00.000232
+Rule SUM195 end. Took 0:00:00.000232
+Rule ROUN107 end. Took 0:00:00.000232
+Rule REGEX004 end. Took 0:00:00.000232
+Rule LIST009 end. Took 0:00:00.000231
+Rule INLIN009 end. Took 0:00:00.000231
+Rule DABS106 end. Took 0:00:00.000231
+Rule SM048 end. Took 0:00:00.000231
+Rule SLO101 end. Took 0:00:00.000230
+Rule LABPROP001 end. Took 0:00:00.000230
+Rule LM010 end. Took 0:00:00.000229
+Rule JOIN101 end. Took 0:00:00.000228
+Rule ROUN101 end. Took 0:00:00.000228
+Rule XU154 end. Took 0:00:00.000225
+Rule SM049 end. Took 0:00:00.000225
+Rule DLA011 end. Took 0:00:00.000223
+Rule DO101 end. Took 0:00:00.000223
+Rule SLO111 end. Took 0:00:00.000222
+Rule LM003 end. Took 0:00:00.000222
+Rule VE123 end. Took 0:00:00.000222
+Rule MAX104 end. Took 0:00:00.000221
+Rule DUR095 end. Took 0:00:00.000217
+Rule MIN105 end. Took 0:00:00.000216
+Rule DO119 end. Took 0:00:00.000215
+Rule DUR097 end. Took 0:00:00.000214
+Rule LM016 end. Took 0:00:00.000214
+Rule AVG102 end. Took 0:00:00.000214
+Rule SM031 end. Took 0:00:00.000214
+Rule DAVG102 end. Took 0:00:00.000213
+Rule SM024 end. Took 0:00:00.000213
+Rule LM007 end. Took 0:00:00.000212
+Rule DLO111 end. Took 0:00:00.000211
+Rule FDATE111 end. Took 0:00:00.000210
+Rule PFILT111 end. Took 0:00:00.000210
+Rule LM006 end. Took 0:00:00.000209
+Rule DAVG103 end. Took 0:00:00.000209
+Rule DAVG104 end. Took 0:00:00.000209
+Rule LIO107 end. Took 0:00:00.000209
+Rule DHK091 end. Took 0:00:00.000208
+Rule MIN104 end. Took 0:00:00.000207
+Rule CFILT112 end. Took 0:00:00.000207
+Rule MAX108 end. Took 0:00:00.000206
+Rule LM009 end. Took 0:00:00.000206
+Rule LIST002 end. Took 0:00:00.000205
+Rule VE122 end. Took 0:00:00.000205
+Rule DLEN100 end. Took 0:00:00.000204
+Rule DUR094 end. Took 0:00:00.000204
+Rule NOFILT002 end. Took 0:00:00.000204
+Rule AVG103 end. Took 0:00:00.000204
+Rule DHK092 end. Took 0:00:00.000202
+Rule REGEX008 end. Took 0:00:00.000202
+Rule ALL101 end. Took 0:00:00.000201
+Rule SLO107 end. Took 0:00:00.000201
+Rule ANY108 end. Took 0:00:00.000200
+Rule TSP106 end. Took 0:00:00.000200
+Rule AVG104 end. Took 0:00:00.000200
+Rule CONPROP001 end. Took 0:00:00.000200
+Rule CONPROP003 end. Took 0:00:00.000199
+Rule ALL111 end. Took 0:00:00.000198
+Rule INFO0020 end. Took 0:00:00.000198
+Rule TAXPROP131 end. Took 0:00:00.000198
+Rule ALL112 end. Took 0:00:00.000197
+Rule ANY110 end. Took 0:00:00.000197
+Rule DLEN107 end. Took 0:00:00.000197
+Rule SLO108 end. Took 0:00:00.000197
+Rule ALL114 end. Took 0:00:00.000196
+Rule ANY109 end. Took 0:00:00.000196
+Rule STDEV106 end. Took 0:00:00.000196
+Rule ALL115 end. Took 0:00:00.000195
+Rule ANY113 end. Took 0:00:00.000195
+Rule LM014 end. Took 0:00:00.000194
+Rule ANY111 end. Took 0:00:00.000193
+Rule ANY112 end. Took 0:00:00.000193
+Rule DLEN102 end. Took 0:00:00.000193
+Rule DO117 end. Took 0:00:00.000193
+Rule CONPROP005 end. Took 0:00:00.000192
+Rule BOL101 end. Took 0:00:00.000191
+Rule BOL127 end. Took 0:00:00.000191
+Rule VE121 end. Took 0:00:00.000191
+Rule ALL110 end. Took 0:00:00.000190
+Rule LABPROP002 end. Took 0:00:00.000190
+Rule ALL116 end. Took 0:00:00.000189
+Rule INFO0007 end. Took 0:00:00.000189
+Rule SM039 end. Took 0:00:00.000189
+Rule DTR106 end. Took 0:00:00.000189
+Rule VE102 end. Took 0:00:00.000189
+Rule ALL122 end. Took 0:00:00.000188
+Rule ALL102 end. Took 0:00:00.000187
+Rule HKY005 end. Took 0:00:00.000187
+Rule DSP192 end. Took 0:00:00.000187
+Rule VE124 end. Took 0:00:00.000187
+Rule ALL103 end. Took 0:00:00.000186
+Rule ANY101 end. Took 0:00:00.000184
+Rule ANY103 end. Took 0:00:00.000184
+Rule MESS006 end. Took 0:00:00.000184
+Rule ANY102 end. Took 0:00:00.000183
+Rule XU200 end. Took 0:00:00.000183
+Rule VE103 end. Took 0:00:00.000182
+Rule DO100 end. Took 0:00:00.000181
+Rule PFILT112 end. Took 0:00:00.000181
+Rule DTR104 end. Took 0:00:00.000181
+Rule DATAPROP001 end. Took 0:00:00.000181
+Rule DO103 end. Took 0:00:00.000180
+Rule LM004 end. Took 0:00:00.000178
+Rule LM005 end. Took 0:00:00.000178
+Rule SM052 end. Took 0:00:00.000177
+Rule ANY105 end. Took 0:00:00.000176
+Rule MAX107 end. Took 0:00:00.000176
+Rule FORL101 end. Took 0:00:00.000176
+Rule LM017 end. Took 0:00:00.000176
+Rule TAXPROP128 end. Took 0:00:00.000175
+Rule XU134 end. Took 0:00:00.000174
+Rule ALL105 end. Took 0:00:00.000174
+Rule DO114 end. Took 0:00:00.000174
+Rule DO115 end. Took 0:00:00.000174
+Rule TAXPROP002 end. Took 0:00:00.000173
+Rule TAXPROP062 end. Took 0:00:00.000173
+Rule TAXPROP057 end. Took 0:00:00.000172
+Rule INFO0015 end. Took 0:00:00.000170
+Rule TAXPROP047 end. Took 0:00:00.000170
+Rule INFO0011 end. Took 0:00:00.000169
+Rule COUNTSTRING101 end. Took 0:00:00.000169
+Rule ALL120 end. Took 0:00:00.000168
+Rule SUM103 end. Took 0:00:00.000168
+Rule PMN126 end. Took 0:00:00.000168
+Rule SM042 end. Took 0:00:00.000167
+Rule ALL106 end. Took 0:00:00.000166
+Rule DO118 end. Took 0:00:00.000166
+Rule XU121 end. Took 0:00:00.000165
+Rule BLOCK102 end. Took 0:00:00.000165
+Rule BOL121 end. Took 0:00:00.000165
+Rule CONPROP010 end. Took 0:00:00.000165
+Rule ALL108 end. Took 0:00:00.000164
+Rule TAXPROP099 end. Took 0:00:00.000164
+Rule ALL109 end. Took 0:00:00.000162
+Rule SK104 end. Took 0:00:00.000162
+Rule INTRSF002 end. Took 0:00:00.000162
+Rule REGEX006 end. Took 0:00:00.000162
+Rule TAXPROP091 end. Took 0:00:00.000162
+Rule TAXPROP133 end. Took 0:00:00.000162
+Rule XU111 end. Took 0:00:00.000161
+Rule ALL121 end. Took 0:00:00.000161
+Rule FDATE123 end. Took 0:00:00.000161
+Rule DAT096 end. Took 0:00:00.000160
+Rule PMN117 end. Took 0:00:00.000160
+Rule DAT098 end. Took 0:00:00.000159
+Rule TSP195 end. Took 0:00:00.000159
+Rule DTR102 end. Took 0:00:00.000159
+Rule DAVG108 end. Took 0:00:00.000158
+Rule REGEX007 end. Took 0:00:00.000158
+Rule XU159 end. Took 0:00:00.000157
+Rule PROD105 end. Took 0:00:00.000157
+Rule AVG192 end. Took 0:00:00.000157
+Rule HKY008 end. Took 0:00:00.000156
+Rule DAT097 end. Took 0:00:00.000156
+Rule TRIM102 end. Took 0:00:00.000156
+Rule DHK095 end. Took 0:00:00.000154
+Rule SM038 end. Took 0:00:00.000154
+Rule DST102 end. Took 0:00:00.000154
+Rule DAT002 end. Took 0:00:00.000153
+Rule FDATE106 end. Took 0:00:00.000153
+Rule TAXPROP130 end. Took 0:00:00.000153
+Rule DAT001 end. Took 0:00:00.000152
+Rule TRIM101 end. Took 0:00:00.000152
+Rule DUR001 end. Took 0:00:00.000151
+Rule TRIM103 end. Took 0:00:00.000151
+Rule LABPROP003 end. Took 0:00:00.000151
+Rule LABPROP005 end. Took 0:00:00.000151
+Rule PROD106 end. Took 0:00:00.000150
+Rule DO102 end. Took 0:00:00.000150
+Rule DO112 end. Took 0:00:00.000150
+Rule SM025 end. Took 0:00:00.000150
+Rule DO107 end. Took 0:00:00.000149
+Rule TAXPROP116 end. Took 0:00:00.000149
+Rule XU105 end. Took 0:00:00.000148
+Rule INFO0023 end. Took 0:00:00.000148
+Rule TAXPROP006 end. Took 0:00:00.000148
+Rule DCOU106 end. Took 0:00:00.000147
+Rule DO105 end. Took 0:00:00.000147
+Rule DO111 end. Took 0:00:00.000147
+Rule PROD108 end. Took 0:00:00.000146
+Rule DO104 end. Took 0:00:00.000146
+Rule TAXPROP043 end. Took 0:00:00.000146
+Rule CONPROP011 end. Took 0:00:00.000145
+Rule SM040 end. Took 0:00:00.000144
+Rule DLO101 end. Took 0:00:00.000144
+Rule TAXPROP113 end. Took 0:00:00.000144
+Rule STDEV105 end. Took 0:00:00.000143
+Rule ROUN104 end. Took 0:00:00.000143
+Rule DPOW110 end. Took 0:00:00.000142
+Rule TAXPROP127 end. Took 0:00:00.000142
+Rule CFILT113 end. Took 0:00:00.000141
+Rule DOCUMENT003 end. Took 0:00:00.000141
+Rule DUR096 end. Took 0:00:00.000140
+Rule TRIM100 end. Took 0:00:00.000140
+Rule BOL123 end. Took 0:00:00.000139
+Rule FDATE104 end. Took 0:00:00.000139
+Rule PMN127 end. Took 0:00:00.000139
+Rule TAXPROP126 end. Took 0:00:00.000139
+Rule XU102 end. Took 0:00:00.000138
+Rule FDATE121 end. Took 0:00:00.000138
+Rule FDATE133 end. Took 0:00:00.000137
+Rule PMN128 end. Took 0:00:00.000137
+Rule DPOW111 end. Took 0:00:00.000137
+Rule BOL124 end. Took 0:00:00.000136
+Rule MAX101 end. Took 0:00:00.000136
+Rule DLI101 end. Took 0:00:00.000136
+Rule DSP101 end. Took 0:00:00.000136
+Rule DTR103 end. Took 0:00:00.000136
+Rule TAXPROP093 end. Took 0:00:00.000136
+Rule XU137 end. Took 0:00:00.000134
+Rule BOL130 end. Took 0:00:00.000134
+Rule TSE102 end. Took 0:00:00.000134
+Rule VAL104 end. Took 0:00:00.000134
+Rule DO116 end. Took 0:00:00.000134
+Rule CONPROP002 end. Took 0:00:00.000134
+Rule CONPROP017 end. Took 0:00:00.000134
+Rule TAXPROP081 end. Took 0:00:00.000134
+Rule TAXPROP115 end. Took 0:00:00.000134
+Rule DKEY104 end. Took 0:00:00.000133
+Rule TAXPROP004 end. Took 0:00:00.000133
+Rule TAXPROP058 end. Took 0:00:00.000133
+Rule TAXPROP060 end. Took 0:00:00.000133
+Rule TAXPROP063 end. Took 0:00:00.000133
+Rule BOL116 end. Took 0:00:00.000132
+Rule BOL128 end. Took 0:00:00.000132
+Rule DO108 end. Took 0:00:00.000132
+Rule TAXPROP101 end. Took 0:00:00.000132
+Rule BOL114 end. Took 0:00:00.000131
+Rule MOD111 end. Took 0:00:00.000131
+Rule CONPROP013 end. Took 0:00:00.000131
+Rule XU123 end. Took 0:00:00.000130
+Rule MIN101 end. Took 0:00:00.000130
+Rule SUM206 end. Took 0:00:00.000130
+Rule CONPROP006 end. Took 0:00:00.000130
+Rule CONPROP007 end. Took 0:00:00.000130
+Rule VAL106 end. Took 0:00:00.000129
+Rule CUBEPROP013 end. Took 0:00:00.000129
+Rule TAXPROP103 end. Took 0:00:00.000129
+Rule PROD103 end. Took 0:00:00.000128
+Rule FDATE112 end. Took 0:00:00.000128
+Rule TRUN101 end. Took 0:00:00.000128
+Rule CONPROP009 end. Took 0:00:00.000128
+Rule CONPROP012 end. Took 0:00:00.000128
+Rule CONPROP016 end. Took 0:00:00.000128
+Rule TAXPROP044 end. Took 0:00:00.000128
+Rule TAXPROP089 end. Took 0:00:00.000128
+Rule MIN108 end. Took 0:00:00.000127
+Rule SUM193 end. Took 0:00:00.000127
+Rule LIST007 end. Took 0:00:00.000127
+Rule FDATE130 end. Took 0:00:00.000127
+Rule CONPROP019 end. Took 0:00:00.000127
+Rule DOCUMENT004 end. Took 0:00:00.000127
+Rule XU201 end. Took 0:00:00.000126
+Rule DTR101 end. Took 0:00:00.000126
+Rule CONPROP008 end. Took 0:00:00.000126
+Rule CUBEPROP015 end. Took 0:00:00.000126
+Rule CUBEPROP016 end. Took 0:00:00.000126
+Rule CUBEPROP017 end. Took 0:00:00.000126
+Rule TAXPROP114 end. Took 0:00:00.000126
+Rule XU140 end. Took 0:00:00.000125
+Rule BOL131 end. Took 0:00:00.000125
+Rule INFO0006 end. Took 0:00:00.000125
+Rule CONPROP024 end. Took 0:00:00.000125
+Rule TAXPROP083 end. Took 0:00:00.000125
+Rule TAXPROP095 end. Took 0:00:00.000125
+Rule COU105 end. Took 0:00:00.000124
+Rule DKEY106 end. Took 0:00:00.000124
+Rule TSP101 end. Took 0:00:00.000124
+Rule ABS101 end. Took 0:00:00.000123
+Rule CONPROP015 end. Took 0:00:00.000123
+Rule CUBEPROP018 end. Took 0:00:00.000123
+Rule TAXPROP109 end. Took 0:00:00.000123
+Rule MIN109 end. Took 0:00:00.000122
+Rule LIST003 end. Took 0:00:00.000122
+Rule IFEL001 end. Took 0:00:00.000122
+Rule SM023 end. Took 0:00:00.000122
+Rule XU132 end. Took 0:00:00.000121
+Rule DCOU103 end. Took 0:00:00.000121
+Rule RNG002 end. Took 0:00:00.000121
+Rule SET103 end. Took 0:00:00.000121
+Rule REGEX003 end. Took 0:00:00.000121
+Rule CUBEPROP014 end. Took 0:00:00.000121
+Rule TAXPROP001 end. Took 0:00:00.000121
+Rule TAXPROP087 end. Took 0:00:00.000121
+Rule RNG003 end. Took 0:00:00.000120
+Rule DPOW101 end. Took 0:00:00.000120
+Rule SK102 end. Took 0:00:00.000120
+Rule CONPROP014 end. Took 0:00:00.000120
+Rule TAXPROP067 end. Took 0:00:00.000120
+Rule TAXPROP097 end. Took 0:00:00.000120
+Rule XU107 end. Took 0:00:00.000119
+Rule CONPROP021 end. Took 0:00:00.000119
+Rule CONPROP023 end. Took 0:00:00.000119
+Rule VE113 end. Took 0:00:00.000119
+Rule FDATE118 end. Took 0:00:00.000118
+Rule FDATE124 end. Took 0:00:00.000118
+Rule PMN101 end. Took 0:00:00.000118
+Rule TAXPROP071 end. Took 0:00:00.000118
+Rule TAXPROP111 end. Took 0:00:00.000118
+Rule VE135 end. Took 0:00:00.000118
+Rule TAXPROP082 end. Took 0:00:00.000117
+Rule TAXPROP085 end. Took 0:00:00.000117
+Rule TAXPROP102 end. Took 0:00:00.000117
+Rule KEY006 end. Took 0:00:00.000116
+Rule PROD104 end. Took 0:00:00.000116
+Rule VAL006 end. Took 0:00:00.000116
+Rule FACT029 end. Took 0:00:00.000116
+Rule TAXPROP065 end. Took 0:00:00.000116
+Rule TAXPROP105 end. Took 0:00:00.000116
+Rule DTR105 end. Took 0:00:00.000115
+Rule TAXPROP064 end. Took 0:00:00.000115
+Rule XU127 end. Took 0:00:00.000114
+Rule INFO0008 end. Took 0:00:00.000114
+Rule XU202 end. Took 0:00:00.000114
+Rule CUBEPROP012 end. Took 0:00:00.000114
+Rule DOCUMENT001 end. Took 0:00:00.000114
+Rule TAXPROP069 end. Took 0:00:00.000114
+Rule TAXPROP075 end. Took 0:00:00.000114
+Rule TAXPROP094 end. Took 0:00:00.000114
+Rule FDATE101 end. Took 0:00:00.000113
+Rule SM007 end. Took 0:00:00.000113
+Rule SK108 end. Took 0:00:00.000113
+Rule XU133 end. Took 0:00:00.000112
+Rule SET105 end. Took 0:00:00.000112
+Rule FDATE109 end. Took 0:00:00.000112
+Rule VE133 end. Took 0:00:00.000112
+Rule VE129 end. Took 0:00:00.000111
+Rule TSP107 end. Took 0:00:00.000110
+Rule TAXPROP077 end. Took 0:00:00.000110
+Rule TAXPROP098 end. Took 0:00:00.000110
+Rule VE132 end. Took 0:00:00.000110
+Rule XU103 end. Took 0:00:00.000109
+Rule SM037 end. Took 0:00:00.000109
+Rule TAXPROP086 end. Took 0:00:00.000109
+Rule TAXPROP106 end. Took 0:00:00.000109
+Rule DEC005 end. Took 0:00:00.000108
+Rule DLOG102 end. Took 0:00:00.000108
+Rule TRIM104 end. Took 0:00:00.000108
+Rule XU118 end. Took 0:00:00.000107
+Rule DO113 end. Took 0:00:00.000107
+Rule INFO0009 end. Took 0:00:00.000107
+Rule SM018 end. Took 0:00:00.000107
+Rule SM032 end. Took 0:00:00.000107
+Rule LIO104 end. Took 0:00:00.000107
+Rule TAXPROP009 end. Took 0:00:00.000107
+Rule TAXPROP074 end. Took 0:00:00.000107
+Rule TAXPROP078 end. Took 0:00:00.000107
+Rule TAXPROP110 end. Took 0:00:00.000107
+Rule XU131 end. Took 0:00:00.000106
+Rule SK106 end. Took 0:00:00.000106
+Rule DOCUMENT002 end. Took 0:00:00.000106
+Rule TAXPROP066 end. Took 0:00:00.000106
+Rule TAXPROP070 end. Took 0:00:00.000106
+Rule TAXPROP080 end. Took 0:00:00.000106
+Rule VE134 end. Took 0:00:00.000106
+Rule XU125 end. Took 0:00:00.000105
+Rule BOL120 end. Took 0:00:00.000105
+Rule DAY001 end. Took 0:00:00.000105
+Rule TSP104 end. Took 0:00:00.000105
+Rule CUBEPROP020 end. Took 0:00:00.000105
+Rule VE114 end. Took 0:00:00.000105
+Rule DDC092 end. Took 0:00:00.000104
+Rule DAT003 end. Took 0:00:00.000104
+Rule DUR091 end. Took 0:00:00.000104
+Rule MON001 end. Took 0:00:00.000104
+Rule IFEL002 end. Took 0:00:00.000104
+Rule TSP102 end. Took 0:00:00.000103
+Rule YER001 end. Took 0:00:00.000103
+Rule DCOU105 end. Took 0:00:00.000102
+Rule DAT095 end. Took 0:00:00.000102
+Rule TSP105 end. Took 0:00:00.000102
+Rule REGEX009 end. Took 0:00:00.000102
+Rule FVR005 end. Took 0:00:00.000101
+Rule MON002 end. Took 0:00:00.000101
+Rule INFO0018 end. Took 0:00:00.000101
+Rule TOQ101 end. Took 0:00:00.000101
+Rule XU141 end. Took 0:00:00.000100
+Rule BOL122 end. Took 0:00:00.000100
+Rule DAT004 end. Took 0:00:00.000100
+Rule YER002 end. Took 0:00:00.000100
+Rule DEC001 end. Took 0:00:00.000100
+Rule TRUN102 end. Took 0:00:00.000100
+Rule TAXPROP121 end. Took 0:00:00.000100
+Rule XU157 end. Took 0:00:00.000099
+Rule FORL104 end. Took 0:00:00.000099
+Rule PMN103 end. Took 0:00:00.000099
+Rule SM020 end. Took 0:00:00.000099
+Rule XU144 end. Took 0:00:00.000098
+Rule DTL012 end. Took 0:00:00.000098
+Rule DPOW102 end. Took 0:00:00.000098
+Rule ROUN102 end. Took 0:00:00.000098
+Rule DIO102 end. Took 0:00:00.000098
+Rule DST101 end. Took 0:00:00.000098
+Rule XU148 end. Took 0:00:00.000097
+Rule XU153 end. Took 0:00:00.000097
+Rule DAY002 end. Took 0:00:00.000097
+Rule DSS102 end. Took 0:00:00.000097
+Rule TAXPROP050 end. Took 0:00:00.000097
+Rule XU126 end. Took 0:00:00.000096
+Rule XU150 end. Took 0:00:00.000096
+Rule DLA004 end. Took 0:00:00.000096
+Rule PFILT104 end. Took 0:00:00.000096
+Rule DSS101 end. Took 0:00:00.000096
+Rule MOD120 end. Took 0:00:00.000095
+Rule IXO101 end. Took 0:00:00.000095
+Rule CUBEPROP010 end. Took 0:00:00.000095
+Rule XU104 end. Took 0:00:00.000094
+Rule XU108 end. Took 0:00:00.000094
+Rule XU113 end. Took 0:00:00.000094
+Rule XU156 end. Took 0:00:00.000094
+Rule BOL100 end. Took 0:00:00.000094
+Rule BOL125 end. Took 0:00:00.000094
+Rule DLEN101 end. Took 0:00:00.000094
+Rule DABS105 end. Took 0:00:00.000094
+Rule DPOW107 end. Took 0:00:00.000094
+Rule MOD101 end. Took 0:00:00.000094
+Rule TRUN103 end. Took 0:00:00.000094
+Rule XU112 end. Took 0:00:00.000093
+Rule BOL111 end. Took 0:00:00.000093
+Rule DTS002 end. Took 0:00:00.000093
+Rule TSE191 end. Took 0:00:00.000093
+Rule FVR006 end. Took 0:00:00.000093
+Rule SUBS102 end. Took 0:00:00.000093
+Rule TAXPROP092 end. Took 0:00:00.000093
+Rule XU115 end. Took 0:00:00.000092
+Rule XU116 end. Took 0:00:00.000092
+Rule XU117 end. Took 0:00:00.000092
+Rule XU128 end. Took 0:00:00.000092
+Rule XU135 end. Took 0:00:00.000092
+Rule BOL117 end. Took 0:00:00.000092
+Rule LM012 end. Took 0:00:00.000092
+Rule PMN125 end. Took 0:00:00.000092
+Rule CONPROP020 end. Took 0:00:00.000092
+Rule VE112 end. Took 0:00:00.000092
+Rule XU122 end. Took 0:00:00.000091
+Rule ANY114 end. Took 0:00:00.000091
+Rule LAST004 end. Took 0:00:00.000091
+Rule MAX109 end. Took 0:00:00.000091
+Rule PMN129 end. Took 0:00:00.000091
+Rule ABS102 end. Took 0:00:00.000091
+Rule ROUN106 end. Took 0:00:00.000091
+Rule XU114 end. Took 0:00:00.000090
+Rule BOL103 end. Took 0:00:00.000090
+Rule ALL117 end. Took 0:00:00.000090
+Rule FVR003 end. Took 0:00:00.000090
+Rule RAND102 end. Took 0:00:00.000090
+Rule LIO101 end. Took 0:00:00.000090
+Rule CONPROP022 end. Took 0:00:00.000090
+Rule BOL106 end. Took 0:00:00.000089
+Rule DLEN103 end. Took 0:00:00.000089
+Rule INFO0013 end. Took 0:00:00.000089
+Rule DEC002 end. Took 0:00:00.000089
+Rule POW103 end. Took 0:00:00.000089
+Rule SK105 end. Took 0:00:00.000089
+Rule IXO102 end. Took 0:00:00.000089
+Rule VE109 end. Took 0:00:00.000089
+Rule XU119 end. Took 0:00:00.000088
+Rule XU136 end. Took 0:00:00.000088
+Rule COU104 end. Took 0:00:00.000088
+Rule FVR002 end. Took 0:00:00.000088
+Rule PMN111 end. Took 0:00:00.000088
+Rule POW104 end. Took 0:00:00.000088
+Rule XU110 end. Took 0:00:00.000087
+Rule FACT030 end. Took 0:00:00.000087
+Rule XU008 end. Took 0:00:00.000087
+Rule XU109 end. Took 0:00:00.000086
+Rule BOL102 end. Took 0:00:00.000086
+Rule DTS006 end. Took 0:00:00.000086
+Rule MIN107 end. Took 0:00:00.000086
+Rule PMN104 end. Took 0:00:00.000086
+Rule PMN121 end. Took 0:00:00.000086
+Rule MOD102 end. Took 0:00:00.000086
+Rule POW101 end. Took 0:00:00.000086
+Rule SK107 end. Took 0:00:00.000086
+Rule NUM106 end. Took 0:00:00.000086
+Rule XU120 end. Took 0:00:00.000085
+Rule BOL109 end. Took 0:00:00.000085
+Rule SUM198 end. Took 0:00:00.000085
+Rule DUR092 end. Took 0:00:00.000085
+Rule FACT032 end. Took 0:00:00.000085
+Rule PMN102 end. Took 0:00:00.000085
+Rule DSP102 end. Took 0:00:00.000085
+Rule BOL110 end. Took 0:00:00.000084
+Rule BOL132 end. Took 0:00:00.000084
+Rule ANY104 end. Took 0:00:00.000084
+Rule FORL105 end. Took 0:00:00.000084
+Rule PMN106 end. Took 0:00:00.000084
+Rule TRUN105 end. Took 0:00:00.000084
+Rule DNU191 end. Took 0:00:00.000084
+Rule LIO103 end. Took 0:00:00.000084
+Rule XU143 end. Took 0:00:00.000083
+Rule SUM196 end. Took 0:00:00.000083
+Rule ABS103 end. Took 0:00:00.000083
+Rule CON101 end. Took 0:00:00.000083
+Rule DCO101 end. Took 0:00:00.000083
+Rule DIO101 end. Took 0:00:00.000083
+Rule DLO102 end. Took 0:00:00.000083
+Rule LIO102 end. Took 0:00:00.000083
+Rule NUM101 end. Took 0:00:00.000083
+Rule TAXPROP108 end. Took 0:00:00.000083
+Rule XU160 end. Took 0:00:00.000082
+Rule ALL104 end. Took 0:00:00.000082
+Rule PMN110 end. Took 0:00:00.000082
+Rule DABS101 end. Took 0:00:00.000082
+Rule INT001 end. Took 0:00:00.000082
+Rule POW102 end. Took 0:00:00.000082
+Rule RAND103 end. Took 0:00:00.000082
+Rule RAND104 end. Took 0:00:00.000082
+Rule DNU103 end. Took 0:00:00.000082
+Rule DUC103 end. Took 0:00:00.000082
+Rule NUM107 end. Took 0:00:00.000082
+Rule NUM108 end. Took 0:00:00.000082
+Rule TOQ102 end. Took 0:00:00.000082
+Rule TAXPROP068 end. Took 0:00:00.000082
+Rule TAXPROP084 end. Took 0:00:00.000082
+Rule TAXPROP117 end. Took 0:00:00.000082
+Rule XU161 end. Took 0:00:00.000081
+Rule RAND101 end. Took 0:00:00.000081
+Rule RAND105 end. Took 0:00:00.000081
+Rule TRUN106 end. Took 0:00:00.000081
+Rule DNU101 end. Took 0:00:00.000081
+Rule TAXPROP100 end. Took 0:00:00.000081
+Rule TAXPROP104 end. Took 0:00:00.000081
+Rule XU147 end. Took 0:00:00.000080
+Rule XU155 end. Took 0:00:00.000080
+Rule DKEY105 end. Took 0:00:00.000080
+Rule FACT034 end. Took 0:00:00.000080
+Rule PMN112 end. Took 0:00:00.000080
+Rule PMN113 end. Took 0:00:00.000080
+Rule PMN114 end. Took 0:00:00.000080
+Rule PMN115 end. Took 0:00:00.000080
+Rule ABS104 end. Took 0:00:00.000080
+Rule LEN101 end. Took 0:00:00.000080
+Rule NUM109 end. Took 0:00:00.000080
+Rule TAXPROP088 end. Took 0:00:00.000080
+Rule TAXPROP096 end. Took 0:00:00.000080
+Rule VE130 end. Took 0:00:00.000080
+Rule BOL104 end. Took 0:00:00.000079
+Rule BOL115 end. Took 0:00:00.000079
+Rule DAT090 end. Took 0:00:00.000079
+Rule IFEL004 end. Took 0:00:00.000079
+Rule PMN105 end. Took 0:00:00.000079
+Rule PMN109 end. Took 0:00:00.000079
+Rule DLOG101 end. Took 0:00:00.000079
+Rule DCO102 end. Took 0:00:00.000079
+Rule DST103 end. Took 0:00:00.000079
+Rule TAXPROP112 end. Took 0:00:00.000079
+Rule BOL107 end. Took 0:00:00.000078
+Rule BOL119 end. Took 0:00:00.000078
+Rule BOL126 end. Took 0:00:00.000078
+Rule SK100 end. Took 0:00:00.000078
+Rule NUM110 end. Took 0:00:00.000078
+Rule TAXPROP010 end. Took 0:00:00.000078
+Rule TAXPROP072 end. Took 0:00:00.000078
+Rule XU152 end. Took 0:00:00.000077
+Rule BOL105 end. Took 0:00:00.000077
+Rule IFEL005 end. Took 0:00:00.000077
+Rule PMN120 end. Took 0:00:00.000077
+Rule DNU112 end. Took 0:00:00.000077
+Rule DNU116 end. Took 0:00:00.000077
+Rule LOW101 end. Took 0:00:00.000077
+Rule TAXPROP036 end. Took 0:00:00.000077
+Rule TAXPROP076 end. Took 0:00:00.000077
+Rule DAT094 end. Took 0:00:00.000076
+Rule DO110 end. Took 0:00:00.000076
+Rule PMN119 end. Took 0:00:00.000076
+Rule DABS102 end. Took 0:00:00.000076
+Rule CON102 end. Took 0:00:00.000076
+Rule LOW103 end. Took 0:00:00.000076
+Rule NUM102 end. Took 0:00:00.000076
+Rule DEC004 end. Took 0:00:00.000075
+Rule INT002 end. Took 0:00:00.000075
+Rule NUM103 end. Took 0:00:00.000075
+Rule BOL129 end. Took 0:00:00.000074
+Rule DIC093 end. Took 0:00:00.000074
+Rule VAL105 end. Took 0:00:00.000074
+Rule STR102 end. Took 0:00:00.000074
+Rule DAT091 end. Took 0:00:00.000073
+Rule FDATE113 end. Took 0:00:00.000073
+Rule SLO109 end. Took 0:00:00.000073
+Rule PMN123 end. Took 0:00:00.000073
+Rule DNU102 end. Took 0:00:00.000073
+Rule DUC101 end. Took 0:00:00.000073
+Rule LEN102 end. Took 0:00:00.000073
+Rule FIRST004 end. Took 0:00:00.000072
+Rule SET104 end. Took 0:00:00.000072
+Rule DEC003 end. Took 0:00:00.000072
+Rule LOG101 end. Took 0:00:00.000072
+Rule STR101 end. Took 0:00:00.000072
+Rule STR103 end. Took 0:00:00.000072
+Rule BOL113 end. Took 0:00:00.000071
+Rule PMN118 end. Took 0:00:00.000071
+Rule DABS108 end. Took 0:00:00.000071
+Rule SIG101 end. Took 0:00:00.000071
+Rule DNU192 end. Took 0:00:00.000071
+Rule LEN103 end. Took 0:00:00.000071
+Rule DAT093 end. Took 0:00:00.000070
+Rule INFO0001 end. Took 0:00:00.000070
+Rule PMN108 end. Took 0:00:00.000070
+Rule MOD119 end. Took 0:00:00.000070
+Rule SK103 end. Took 0:00:00.000070
+Rule STR104 end. Took 0:00:00.000070
+Rule BOL112 end. Took 0:00:00.000069
+Rule LOW102 end. Took 0:00:00.000069
+Rule NUM105 end. Took 0:00:00.000069
+Rule XU129 end. Took 0:00:00.000068
+Rule XU130 end. Took 0:00:00.000068
+Rule PMN122 end. Took 0:00:00.000068
+Rule INT003 end. Took 0:00:00.000068
+Rule MOD109 end. Took 0:00:00.000068
+Rule SIG102 end. Took 0:00:00.000068
+Rule DUC102 end. Took 0:00:00.000068
+Rule INT004 end. Took 0:00:00.000067
+Rule ROUN105 end. Took 0:00:00.000067
+Rule ANY115 end. Took 0:00:00.000066
+Rule INT007 end. Took 0:00:00.000066
+Rule LOG102 end. Took 0:00:00.000066
+Rule DSP191 end. Took 0:00:00.000066
+Rule LEN104 end. Took 0:00:00.000066
+Rule XU142 end. Took 0:00:00.000065
+Rule FDATE125 end. Took 0:00:00.000065
+Rule INT005 end. Took 0:00:00.000065
+Rule INT006 end. Took 0:00:00.000065
+Rule SIG104 end. Took 0:00:00.000065
+Rule XU145 end. Took 0:00:00.000064
+Rule ALL118 end. Took 0:00:00.000064
+Rule SRT192 end. Took 0:00:00.000064
+Rule VAL005 end. Took 0:00:00.000064
+Rule FVR001 end. Took 0:00:00.000064
+Rule SIG103 end. Took 0:00:00.000064
+Rule LEN105 end. Took 0:00:00.000064
+Rule LEN106 end. Took 0:00:00.000064
+Rule NUM104 end. Took 0:00:00.000064
+Rule SUMSTRING101 end. Took 0:00:00.000064
+Rule TAXPROP008 end. Took 0:00:00.000064
+Rule COU191 end. Took 0:00:00.000063
+Rule PROD107 end. Took 0:00:00.000063
+Rule YER092 end. Took 0:00:00.000063
+Rule ME101 end. Took 0:00:00.000063
+Rule DST104 end. Took 0:00:00.000063
+Rule XU149 end. Took 0:00:00.000062
+Rule XU158 end. Took 0:00:00.000062
+Rule ALL119 end. Took 0:00:00.000062
+Rule KEY005 end. Took 0:00:00.000062
+Rule MAX106 end. Took 0:00:00.000062
+Rule FDATE122 end. Took 0:00:00.000062
+Rule MON092 end. Took 0:00:00.000062
+Rule ABS105 end. Took 0:00:00.000062
+Rule AVG191 end. Took 0:00:00.000062
+Rule DAVG107 end. Took 0:00:00.000062
+Rule DNU105 end. Took 0:00:00.000062
+Rule TAXPROP005 end. Took 0:00:00.000062
+Rule ANY107 end. Took 0:00:00.000061
+Rule FDATE105 end. Took 0:00:00.000061
+Rule XU151 end. Took 0:00:00.000060
+Rule BOL108 end. Took 0:00:00.000060
+Rule DAY092 end. Took 0:00:00.000060
+Rule TSP191 end. Took 0:00:00.000060
+Rule TSP194 end. Took 0:00:00.000060
+Rule PMN116 end. Took 0:00:00.000060
+Rule DABS107 end. Took 0:00:00.000060
+Rule DNU104 end. Took 0:00:00.000060
+Rule LIO105 end. Took 0:00:00.000060
+Rule VE110 end. Took 0:00:00.000060
+Rule MIN106 end. Took 0:00:00.000059
+Rule YER093 end. Took 0:00:00.000059
+Rule DO109 end. Took 0:00:00.000059
+Rule XU002 end. Took 0:00:00.000059
+Rule XU146 end. Took 0:00:00.000058
+Rule IFEL003 end. Took 0:00:00.000058
+Rule TRUN104 end. Took 0:00:00.000058
+Rule ALL107 end. Took 0:00:00.000057
+Rule XU001 end. Took 0:00:00.000057
+Rule LOG103 end. Took 0:00:00.000057
+Rule SUM192 end. Took 0:00:00.000056
+Rule XU006 end. Took 0:00:00.000056
+Rule LU101 end. Took 0:00:00.000055
+Rule FVR004 end. Took 0:00:00.000054
+Rule LU104 end. Took 0:00:00.000054
+Rule XU004 end. Took 0:00:00.000054
+Rule ANY116 end. Took 0:00:00.000053
+Rule TSP193 end. Took 0:00:00.000053
+Rule LIO106 end. Took 0:00:00.000053
+Rule LU102 end. Took 0:00:00.000052
+Rule RAND107 end. Took 0:00:00.000052
+Rule ME102 end. Took 0:00:00.000051
+Rule LU105 end. Took 0:00:00.000050
+Rule DSP193 end. Took 0:00:00.000050
+Rule LU103 end. Took 0:00:00.000049
+Rule LU108 end. Took 0:00:00.000049
+Rule DIO191 end. Took 0:00:00.000049
+Rule XU003 end. Took 0:00:00.000048
+Rule LU109 end. Took 0:00:00.000047
+Rule TAXPROP007 end. Took 0:00:00.000047
+Rule LU107 end. Took 0:00:00.000046
+Rule XU005 end. Took 0:00:00.000046
+Rule DIO192 end. Took 0:00:00.000046
+Rule XU009 end. Took 0:00:00.000045
+Rule LU106 end. Took 0:00:00.000042
+Rule HKY004 end. Took 0:00:00.000040
+Rule VAL004 end. Took 0:00:00.000040
+Rule FUN102 end. Took 0:00:00.000039
+Rule SK101 end. Took 0:00:00.000038
+Rule KEY004 end. Took 0:00:00.000037
+Rule DAT092 end. Took 0:00:00.000036
+Rule DAY091 end. Took 0:00:00.000036
+Rule MON091 end. Took 0:00:00.000036
+Rule YER091 end. Took 0:00:00.000035
+Rule TAXPROP003 end. Took 0:00:00.000035
+Rule TSP192 end. Took 0:00:00.000034
+Rule INFO0002 end. Took 0:00:00.000034
+Total time to process: 0:01:26.571627.
