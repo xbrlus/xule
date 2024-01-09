@@ -168,3 +168,15 @@ output DICT006
   $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
 $B = list('BAxis');
 $A - $B
+
+output DICT007
+/* dict(list('AAxis','AMember'), list('BAxis','BMember'))
+ */
+
+  sum(list(dict(list('AAxis','AMember')), dict(list('BAxis','BMember'))))
+
+output DICT008
+/* dict(list('AAxis','AMember'), list('BAxis','BMember'))
+ */
+
+  dict(list('AAxis','AMember'), list('BAxis','BMember')) + none

@@ -235,12 +235,12 @@ output DOCUMENT004
   $US-GAAP-2020.concept(srt:StatementGeographicalAxis).document-location
 
 output TAXPROP001
-/* http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
+/* https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd */
 
   entry-point($US-GAAP-2020)
 
 output TAXPROP002
-/* http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd */
+/* https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd */
 
   $US-GAAP-2020.entry-point
 
@@ -260,7 +260,7 @@ output TAXPROP005
   'cat'.entry-point
 
 output TAXPROP006
-/* http://fasb.org/us-gaap/2020-01-31 */
+/* http://fasb.org/us-gaap-entryPoint-all/2020-01-31 */
 
   entry-point-namespace($US-GAAP-2020)
 
@@ -275,12 +275,17 @@ output TAXPROP008
   entry-point-namespace('US-GAAP-2020')
 
 output TAXPROP009
-/* http://fasb.org/us-gaap/2020-01-31 */
+/* http://fasb.org/us-gaap-entryPoint-all/2020-01-31 */
 
   $US-GAAP-2020.entry-point-namespace
 
+output TAXPROP010
+/*  */
+
+  $INSTANCE1.entry-point
+
 output CUBEPROP010
-/* [ERROR] [xule:error] rule TAXPROP010: Rule: TAXPROP010 - Property 'cube' must have 2 arguments. Found 1. */
+/* [ERROR] [xule:error] rule CUBEPROP010: Rule: CUBEPROP010 - Property 'cube' must have 2 arguments. Found 1. */
 
   $US-GAAP-2020.cube(StatementTable)
 
@@ -924,16 +929,16 @@ output TAXPROP131
   qname($US-GAAP-2020.concept(Assets).namespace-uri,'Assets')
 
 output TAXPROP132
-/*  */
+/* 706 */
 
   count($US-GAAP-2020.roles)
 
 output TAXPROP133
-/*  */
+/* 13 */
 
   count($US-GAAP-2020.arcroles)
 
 output TAXPROP134
-/*  */
+/* 61 */
 
   count($US-GAAP-2020.part-elements)

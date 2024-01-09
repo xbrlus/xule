@@ -215,6 +215,16 @@ output FACT043
   count(list([covered @instance = $INSTANCE1 @Assets @unit.numerator = unit(iso4217:USD)]))
 
 output FACT044
+/* USD */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator.local-name
+
+output FACT045
+/* iso4217 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator.namespace-uri
+
+output FACT046
 /* set(828,867,000) */
 
   max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact

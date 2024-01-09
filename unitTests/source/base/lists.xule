@@ -121,3 +121,8 @@ output LM022
 
   $x = filter list([@instance = $INSTANCE1 @Assets]) returns $item
   list('lang',  $x)
+
+output LM023
+/* list(1,2,3) */
+
+  list(1,2,3) + none

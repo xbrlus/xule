@@ -279,3 +279,8 @@ output SM051
 /* set(list(BankLoans, Assets, Capital), list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic), list(Assets, BankLoans, Capital)) */
 
   set(list(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic),list(Assets,BankLoans,Capital),list(Assets,BankLoans,Capital),list(BankLoans,Assets,Capital))
+
+output SM052
+/* set(1,2,3) */
+
+  set(1,2,3) + none
