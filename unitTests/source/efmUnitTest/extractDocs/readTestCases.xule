@@ -1,4 +1,4 @@
-/**constant $TEST_CASE_LOCATION_XML = xml-data-flat('/Users/campbellpryde/Downloads/efm-68d-231120/conf/testcases.xml','/testcases/testcase', list('@uri'))
+/** constant $TEST_CASE_LOCATION_XML = xml-data-flat('/Users/campbellpryde/Downloads/efm-68d-231120/conf/testcases.xml','/testcases/testcase', list('@uri'))
 
 output uriTest2
 $path = '/Users/campbellpryde/Downloads/efm-68d-231120/conf/'

@@ -1,30 +1,51 @@
 
 /** EXTRACT DATA TO MAKE  Taxonomy
 -------------------------------------**/
-constant $CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','qname', 'string','qname', 'string','string','string','string'))
+constant $CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv',false, list( 'string','string', 'string', 'string','string','string','string', 'string','string', 'string','string','string','string'))
+constant $CONCEPTS_DICT = $CONCEPTS.agg-to-dict(1)
 
-constant $UNIT_TEST_LISTS = list('e60501000gd','e60501001ng','i00200gd','i00201gd','i00202gd') /**,'i00200gd','i00201gd','i00202gd','i00203gd','i00204gd'**/
+constant $TEST_CASE = 'e60501000gd'
 
-constant $ROLES = csv-data('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
+constant $TEST_CASE_LIST = list($TEST_CASE,'i00200gd','i00201gd','i00202gd','i00203gd','i00204gd','i00210gd','i00211gd','i00301ng','i00302ng','i00303ng','i00305ng','i00307ng','i00308ng','i00309ng','i00310ng','i00311ng','i00312ng','i00313ng','i00314ng','i00315ng','i00316ng','i00317ng','i00318ng','i00319ng','i00320ng','i00321ng','i00322ng','i00323ng','i00324ng','i00325ng','i00326ng','i00327ng','i00328ng','i00329ng','i00330ng','i00331ng','i00332ng','i00333ng','i00334ng','i00335ng','i00336ng','i00337ng','i00338ng','i00339ng','i00340ng','i00341ng','i00342ng','i00343ng')
 
-constant $RELATIONSHIPS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/relationships.csv',false, list('string','string', 'string', 'string','qname','string', 'string','string', 'string','string','string','string'))
+constant $ROLES = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv',false, list( 'string','string','string','string','string'))
+
+constant $ROLES_DICT = $ROLES.agg-to-dict(1)
+
+constant $RELATIONSHIPS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/relationships.csv',false, list('string','string', 'string', 'string','string','string', 'string','string', 'string','string','string','string'))
+
+constant $RELATIONSHIPS_DICT = $RELATIONSHIPS.agg-to-dict(1)
 
 constant $LABELS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv',false, list( 'string','string','string','string','string','string','string'))
 
-constant $FACTS_DATA = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/facts.csv',false, list( 'string'/**1-test**/,'string'/**2-file**/,'string'/**3-fact**/,'qname'/**4-elementName**/,'string'/**5-unit**/,'string'/**6-dimension**/,'string'/**7-scheme**/,'string'/**8-scheme-id**/,'string'/**9-period**/))
+constant $LABELS_DICT = $LABELS.agg-to-dict(1)
 
-constant $TEST_CASE_LIST = sum(csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/testcase.csv',false, list( 'string')))
+constant $FACTS_DATA = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/facts.csv',false, list( 'string'/**1-test**/,'string'/**2-file**/,'string'/**3-fact**/,'string'/**4-elementName**/,'string'/**5-unit-namespace**/,'string'/**6-unit-local**/,'string'/**7-dimension**/,'string'/**8-scheme**/,'string'/**9-scheme-id**/,'string'/**10-period**/,'string'/**11-id**/,'string'/**12-namespace**/))
+
+constant $FACTS_DICT = $FACTS_DATA.agg-to-dict(1)
+
+constant $TEST_CASE_LIST_LOCATION = '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/testcase.csv'
+
+constant $TEST_CASE_LIST1 = sum(csv-data($TEST_CASE_LIST_LOCATION ,false, list( 'string')))
 
 constant $IMPORTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/namespaceLocations.csv',false, list( 'string','string', 'string' ))
 
-constant $SCHEMA = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/schema.csv',false, list('string','string','string'))
+constant $IMPORTS_DICT = $IMPORTS.agg-to-dict(1)
 
+constant $SCHEMA = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/schema.csv',false, list('string','string','string'))
+constant $SCHEMA_DICT = $SCHEMA.agg-to-dict(1)
+
+constant $DIMENSIONS_DATA = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/dimensions.csv',false, list('string','string', 'string', 'string', 'string','string'))
+
+constant $FOOTNOTE_DATA = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/footnotes.csv',false, list('string','string', 'string', 'string', 'string', 'string', 'string'))
+
+constant $FOOTNOTE_DICT = $FOOTNOTE_DATA.agg-to-dict(1)
 /** DEFINE THE PACKAGE 
 -----------------------**/
 
 output create_base_unit_taxonomy
 for $unitTest in  $TEST_CASE_LIST
-        $packageData = first(filter $SCHEMA where $item[1] == $unitTest)
+        $packageData = first($SCHEMA_DICT[$unitTest])
         $importData = filter $IMPORTS where $item[1] == $unitTest and $item[3] != $packageData[2] returns $item[3]
         $unitTest
 
@@ -32,7 +53,7 @@ package-name $unitTest
 package-url 'http://xbrl.sec.gov/efm/2023'
 document-uri $packageData[2].substring(($packageData[2].last-index-of('/'))+1)
 document-namespace $packageData[3]
-document-import list('http://xbrl.sec.gov/dei/2023/dei-2023.xsd','http://www.xbrl.org/2005/xbrldt-2005.xsd').to-xodel 
+document-import list('https://xbrl.sec.gov/dei/2023/dei-2023.xsd','http://www.xbrl.org/2005/xbrldt-2005.xsd').to-xodel 
 document-package-entry-point true
 document-package-entry-point-description 'EFM TEST CASE FOR ' + $packageData[1].to-xodel
 document-package-entry-point-language 'en'
@@ -41,10 +62,10 @@ document-package-entry-point-name 'abc'
 
 output import_dimensions_taxonomy1
 for $unitTest in  $TEST_CASE_LIST
-    /**$packageData = first(filter $SCHEMA where $item[1] == $unitTest)
-    $importData = filter $IMPORTS where $item[1] == $unitTest and $item[3] != $packageData[2] returns $item[3]**/
-   $importData = list('http://xbrl.sec.gov/dei/2023/dei-2023.xsd','http://www.xbrl.org/2005/xbrldt-2005.xsd', 'https://xbrl.ifrs.org/taxonomy/2023-03-23/full_ifrs/full_ifrs-cor_2023-03-23.xsd') 
-        for $imp in   $importData
+    $packageData = first($SCHEMA_DICT[$unitTest])
+    $importData = filter $IMPORTS where $item[1] == $unitTest and not $packageData[2].contains($item[3]) returns $item[3]
+   /**$importData = list('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/conf/dei-2023.xsd','http://www.xbrl.org/2005/xbrldt-2005.xsd', 'https://xbrl.ifrs.org/taxonomy/2023-03-23/full_ifrs/full_ifrs-cor_2023-03-23.xsd') **/
+        for $imp in  $importData
            list($unitTest,$imp)
             
 
@@ -55,26 +76,26 @@ import2-url $rule-value[2]
 output create_concepts
 $baseItem = taxonomy().concept(dei:EntityCentralIndexKey)
 for $unitTest in  $TEST_CASE_LIST
-    for $extension in filter $CONCEPTS where $item[1] == $unitTest
+    for $extension in $CONCEPTS_DICT[$unitTest]
         $extension
 
 package-name $unitTest
 document-uri  $extension[2].substring(($extension[2].last-index-of('/'))+1).to-xodel
 document-namespace $extension[3].to-xodel
 concept-namespace  $extension[3].to-xodel
-concept-id  $extension[7].to-xodel
+concept-id  $extension[8].to-xodel
 concept-local-name  $extension[4].to-xodel
 concept-period-type duration.to-xodel
-concept-data-type $extension[6].to-xodel
-concept-substitution-group $extension[8].to-xodel
-concept-abstract ($extension[10]=='True').to-xodel
-concept-nillable ($extension[9]=='true').to-xodel
-concept-balance-type (if $extension[11] == '' none else $extension[11]).to-xodel
+concept-data-type qname($extension[6],$extension[7]).to-xodel
+concept-substitution-group to-qname($extension[9]).to-xodel
+concept-abstract ($extension[11]=='True').to-xodel
+concept-nillable ($extension[10]=='true').to-xodel
+concept-balance-type (if $extension[12] == '' none else $extension[12]).to-xodel
 
 
 output create_roles
 for $unitTest in  $TEST_CASE_LIST
-    for $role in (filter $ROLES where $item[1] == $unitTest)
+    for $role in $ROLES_DICT[$unitTest]
         $used-on = if $role[5].contains('(link:calculationLink, link:definitionLink, link:presentationLink)')  
                     list('Presentation','Calculation','Definition')
                     else
@@ -95,28 +116,30 @@ role-used-on  $used-on.to-xodel
 
 output create_relationships
 for $unitTest in  $TEST_CASE_LIST
-    for $relationship in (filter $RELATIONSHIPS where $item[1] == $unitTest)
-        (filter $CONCEPTS where $item[1] == $unitTest)[1][2]
+    $packageData = first($SCHEMA_DICT[$unitTest])
+    for $relationship in $RELATIONSHIPS_DICT[$unitTest]
+        $relationship
 
 package-name $unitTest
-document-uri $relationship[2].substring(($relationship[2].last-index-of('/'))+1).to-xodel
-document-imported-in $rule-value.substring(($rule-value.last-index-of('/'))+1).to-xodel
-relationship-source  qname($relationship[6], $relationship[7]).to-xodel
-relationship-target  qname($relationship[8], $relationship[9]).to-xodel
-relationship-order $relationship[10].to-xodel
-relationship-role $relationship[3].to-xodel
-relationship-arcrole $relationship[4].to-xodel
-relationship-type  $relationship[5].to-xodel
+document-uri $rule-value[2].substring(($rule-value[2].last-index-of('/'))+1).to-xodel
+document-imported-in $packageData[2].substring(($packageData[2].last-index-of('/'))+1)
+relationship-source  qname($rule-value[6], $rule-value[7]).to-xodel
+relationship-target  qname($rule-value[8], $rule-value[9]).to-xodel
+relationship-order $rule-value[10].to-xodel
+relationship-role $rule-value[3].to-xodel
+relationship-arcrole $rule-value[4].to-xodel
+relationship-type  to-qname($rule-value[5]).to-xodel
 
 
 output create_labels
 for $unitTest in  $TEST_CASE_LIST
-    for $label in (filter $LABELS where $item[1] == $unitTest)
-        (filter $CONCEPTS where $item[1] == $unitTest and $label == $label)[1][2]
+    for $label in $LABELS_DICT[$unitTest]
+        $packageData = first($SCHEMA_DICT[$unitTest])
+        $label
 
 package-name $unitTest
 document-uri $label[2].substring(($label[2].last-index-of('/'))+1).to-xodel
-document-imported-in $rule-value.substring(($rule-value.last-index-of('/'))+1).to-xodel
+document-imported-in $packageData[2].substring(($packageData[2].last-index-of('/'))+1)
 label-concept-name qname($label[3], $label[4]).to-xodel
 label-text $label[6]
 label-role $label[5]
@@ -136,15 +159,28 @@ instance-taxonomy list($rule-value).to-json
 
 output add_facts_to_instance
 for $unitTest in $TEST_CASE_LIST
-    for $factItem in (filter $FACTS_DATA where $item[1] == $unitTest)
-        $date = if $factItem[9].contains('/')
-                    $datesList = $factItem[9].split('/');
+    for $factItem in $FACTS_DICT[$unitTest]
+        $date = if $factItem[10].contains('/')
+                    $datesList = $factItem[10].split('/');
                     duration($datesList[1],$datesList[2])
                 else
-                    date($factItem[9])
+                    date($factItem[10])
+        $footnotes_on_fact = list(for $footnote in (filter $FOOTNOTE_DATA where $item[1] == $unitTest and $item[3] == $factItem[11])
+                                    dict(list('lang', $footnote[6]),
+                                        list('arcrole', $footnote[4]),
+                                        list('content',  $footnote[5]))
+                                        )
+
+       $dimensions_on_fact = dict(for $dimension in (filter $DIMENSIONS_DATA where $item[1] == $unitTest and  $item[2] == $factItem[7])
+                                        list(qname($dimension[3],$dimension[4]),qname($dimension[5],$dimension[6]))
+                                    ); 
         $factItem
 fact-instance split($factItem[2].substring(($factItem[2].last-index-of('/'))+1),".")[1]
 fact-value $factItem[3].to-xince
-fact-concept $factItem[4].to-xince
-fact-entity entity($factItem[7],$factItem[8]).to-xince
+fact-concept qname($factItem[12],$factItem[4]).to-xince
+fact-entity entity($factItem[8],$factItem[9]).to-xince
 fact-period $date.to-xince
+fact-unit qname($factItem[5],$factItem[6]).to-xince
+fact-footnote $footnotes_on_fact.to-xince
+/**fact-dimensions $dimensions_on_fact.to-xince **/
+fact-id $factItem[11]
