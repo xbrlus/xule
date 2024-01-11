@@ -853,7 +853,7 @@ class XuleIterationTable:
             if not self._ordered_tables[table_processing_id].is_empty and self._ordered_tables[table_processing_id].current_alignment is not None:
                 return self._ordered_tables[table_processing_id].current_alignment
         return None
-
+    
     @property
     def tags(self):
         if self.is_empty:
