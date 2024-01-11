@@ -26,7 +26,7 @@ def index_model(xule_context, model=None):
     if model is not None and getattr(model, 'xuleFactIndex', None) is None:
         fact_index = collections.defaultdict(lambda: collections.defaultdict(set))
         facts_to_index = collections.defaultdict(list)
-        for model_fact in model.factsInInstance:
+        for model_fact in model.facts:
             if not fact_is_complete(model_fact):
                 # Fact is incomplete. This can be caused by a filing that is still in the process of being built.
                 # Ignore the fact and continue validating the rest of the filing.

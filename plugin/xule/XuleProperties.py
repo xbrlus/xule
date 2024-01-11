@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23665 $
+$Change: 23694 $
 DOCSKIP
 """
 
@@ -39,6 +39,7 @@ import csv
 import datetime
 import decimal
 import io
+import itertools
 import json
 import math
 import numpy
@@ -605,6 +606,8 @@ def property_id(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, None, 'none')
         else:
             return xv.XuleValue(xule_context, object_value.value.xml_id, 'string')
+    elif object_value.type in ('concept', 'part-element'):
+        return xv.XuleValue(xule_context, object_value.value.id, 'string')
     elif object_value.is_fact:
         if object_value.fact.id is None:
             return xv.XuleValue(xule_context, None, 'none')
@@ -807,6 +810,11 @@ def property_dimension_type(xule_context, object_value, *args):
     else:
         return xv.XuleValue(xule_context, 'typed', 'string')
 
+def property_members(xule_context, object_value, *args):
+    members = {xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.members}
+
+    return xv.XuleValue(xule_context, frozenset(members), 'set')
+
 def property_aspects(xule_context, object_value, *args):
     if not object_value.is_fact:
         return object_value
@@ -972,7 +980,11 @@ def property_has_enumerations(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, False, 'bool')
     else:
         return xv.XuleValue(xule_context, 'enumeration' in model_type.facets, 'bool')  
-    
+
+
+
+
+
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
     if type_name.type != 'qname':
@@ -1010,6 +1022,9 @@ def property_is_abstract(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.value.isAbstract, 'bool')
     else: #none value
         return object_value
+
+def property_is_nillable(xule_context, object_value):
+    return xv.XuleValue(xule_context, object_value.value.isNillable, 'bool')
 
 def property_is_nil(xule_context, object_value, *args):
     if object_value.is_fact:
@@ -1240,11 +1255,8 @@ def property_all_references(xule_context, object_value, *args):
     else:
         concept = object_value.value
     references_by_type = get_references(concept) # This is a defaultdict(list)
-    result_value = set()
-    for refs in references_by_type.values():
-        result_value |= set(refs)
-    
-    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in result_value)), 'set')
+    result_value = dict.fromkeys(itertools.chain.from_iterable(references_by_type.values()))
+    return xv.XuleValue(xule_context, frozenset(xv.XuleValue(xule_context, x, 'reference') for x in result_value.keys()), 'set')
 
 def property_references(xule_context, object_value, *args):
     #reference type
@@ -1406,23 +1418,31 @@ def property_cube(xule_context, object_value, *args):
         args[0] - The concept or qname of the hypercube
         args[1] - The drs-role
     """
-    if args[0].type == 'qname':
-        cube_concept = get_concept(object_value.value, args[0].value)
-    elif args[0].type == 'concept':
-        cube_concept = args[0].value
+    if len(args) == 0:
+        if object_value.type == 'dimension':
+            cube = object_value.value.cube
+        else:
+            raise XuleProcessingError(_("The .cube property without arguments must be for a 'dimension', found '{}'".format(object_value.type)), xule_context)
+    elif len(args) == 2:
+        if args[0].type == 'qname':
+            cube_concept = get_concept(object_value.value, args[0].value)
+        elif args[0].type == 'concept':
+            cube_concept = args[0].value
+        else:
+            raise XuleProcessingError(_("The first argument of property 'cube' must be a qname or a concept, found '{}'.".format(args[0].type)), xule_context)
+
+        if args[1].type in ('string', 'uri'):
+            drs_role = args[1].value
+        elif args[1].type == 'qname':
+            # get the taxonomy from the object_value, which is the taxonomy.
+            drs_role = XuleUtility.resolve_role(args[1], 'role', object_value.value, xule_context)
+        else:
+            raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
+
+        cube = xv.XuleDimensionCube(object_value.value, drs_role, cube_concept)
     else:
-        raise XuleProcessingError(_("The first argument of property 'cube' must be a qname or a concept, found '{}'.".format(args[0].type)), xule_context)
-
-    if args[1].type in ('string', 'uri'):
-        drs_role = args[1].value
-    elif args[1].type == 'qname':
-        # get the taxonomy from the object_value, which is the taxonomy.
-        drs_role = XuleUtility.resolve_role(args[1], 'role', object_value.value, xule_context)
-    else:
-        raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
-
-    cube = xv.XuleDimensionCube(object_value.value, drs_role, cube_concept)
-
+        raise XuleProcessingError(_("The .cube property must have 2 arguments unless it is for a 'dimension'. Found '{}'".format(object_value.type)), xule_context)
+    
     if cube is None:
         return xv.XuleValue(xule_context, None, 'none')
     else:
@@ -1972,6 +1992,8 @@ def property_sum(xule_context, object_value, *args):
                         shadow_values.add(item.value)
                         result_values.add(item)
                 sum_value = xv.XuleValue(xule_context, frozenset(result_values), combined_type)
+            elif combined_type == 'dictionary':
+                sum_value = XuleUtility.add_dictionaries(xule_context, sum_value, next_value)
             else:
                 sum_value = xv.XuleValue(xule_context, left + right, combined_type)
                 
@@ -2082,6 +2104,92 @@ def property_stats(xule_context, object_value, stat_function, *args):
     stat_value.tags = object_value.tags
     stat_value.facts = object_value.facts
     return stat_value
+
+def property_agg_to_dict(xule_context, object_value, *args):
+    '''Convert a set/list of lists to a dictionary
+    
+    This property will take a 2 dimensional list (or a set of list) and convert it to a dictinary.
+    The key of the dictionary is determined by the passed argument which is the column number (or a list of column numbers)
+    for compound keys) to use as the key.
+    '''
+
+    # check the argument. It should either be an integer or a list of integers
+    key_cols = []
+    if len(args) == 0:
+        raise XuleProcessingError(_("agg-to-dict requires at least 1 key location argument, found 0"), xule_context)
+    for arg in args:
+        if arg.type != 'int':
+            raise XuleProcessingError(_(f"Arguments for agg-to-dict must be integers. Found {arg.type}"), xule_context)
+        key_cols.append(arg.value)
+
+    result_dict = collections.defaultdict(list)
+
+    tags = {}
+    facts = collections.OrderedDict()
+    dict_value = collections.defaultdict(list)
+    shadow = collections.defaultdict(list)
+    key_map = dict()
+
+    for row in object_value.value:
+        if row.type != 'list':
+            raise XuleProcessingError(_(f"The object of the agg-to-dict property must be a list/set of lists. Found {row.type} in the set/list"), xule_context)
+        #compose the key
+        key_parts = []
+        key_shadow = []
+        key_tags = {}
+        key_facts = collections.OrderedDict()
+        for key_location in key_cols:
+            try:
+                key_value = row.value[key_location-1].clone()
+                if key_value.type == 'dictionary':
+                    raise XuleProcessingError(_(f"In property agg-to-dict, the key cannot be a dictionary"), xule_context)
+                key_parts.append(key_value)
+                key_shadow.append(key_value.value)
+                if key_value.tags is not None:
+                    key_tags.update(key_value.tags)
+                if key_value.facts is not None:
+                    key_facts.update(key_value.facts)
+            except IndexError:
+                # if the row does not have the column use None
+                key_parts.append(xv.XuleValue(xule_context, None, 'none'))
+                key_shadow.append(None)
+
+        if len(key_cols) == 1:
+            key = key_parts[0]
+        else:
+            key = xv.XuleValue(xule_context, tuple(key_parts), 'list', shadow_collection=tuple(key_shadow))
+
+        key_shadow = key.shadow_collection if key.type in ('list', 'set') else key.value
+        if key_shadow not in key_map:
+            key_map[key_shadow] = key
+        # Deal with tags and facts for the key
+        if len(key_tags) > 0:
+            if key_map[key_shadow].tags is None:
+                key_map[key_shadow].tags = key_tags
+            else:
+                key_map[key_shadow].tags.update(key_tags)
+        if len(key_facts) > 0:
+            if key_map[key_shadow].facts is None:
+                key_map[key_shadow].facts = key_facts
+            else:
+                key_map[key_shadow].facts.update(key_facts)
+
+        new_row = row.clone()
+        dict_value[key_map[key_shadow]].append(new_row)
+        shadow[key_shadow].append(new_row.shadow_collection)
+
+        if new_row.tags is not None:
+            tags.update(new_row.tags)
+        if new_row.facts is not None:
+            facts.update(new_row.facts)
+
+    result_dict = {k: xv.XuleValue(xule_context, tuple(v), 'list') for k, v in dict_value.items()}
+    result_dict_value = xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary')
+    if len(tags) > 0:
+        result_dict_value.tags = tags
+    if len(facts) > 0:
+        result_dict_value.facts = facts
+    return result_dict_value
 
 def property_number(xule_context, object_value, *args):
 
@@ -2519,20 +2627,78 @@ def _traverse_continuations(xule_context, cont_node):
     return []
 
 def property_inline_children(xule_context, object_value, *args):
-    result = []
-    for child in object_value.fact.iterchildren():
-        if isinstance(child, ModelInlineFact):
-            result.append(child)
-        else: 
-            # check if there is a descendant
-            descendants = tuple(x for x in child.iterdescendants() if isinstance(x, ModelInlineFact))
-            if len(descendants) > 0:
-                result.append(descendants[0])
-    return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
+    # result = []
+    # for child in object_value.fact.iterchildren():
+    #     if isinstance(child, ModelInlineFact):
+    #         result.append(child)
+    #     else: 
+    #         # check if there is a descendant
+    #         descendants = tuple(x for x in child.iterdescendants() if isinstance(x, ModelInlineFact))
+    #         if len(descendants) > 0:
+    #             result.append(descendants[0])
+    # return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
+
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_descendants_facts(xule_context, object_value.fact, 1) if isinstance(x, ModelInlineFact))
+    return xv.XuleValue(xule_context, result, 'list')
 
 def property_inline_descendants(xule_context, object_value, *args):
-    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
+    # result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
+    # return xv.XuleValue(xule_context, result, 'list')
+
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_descendants_facts(xule_context, object_value.fact) if isinstance(x, ModelInlineFact))
     return xv.XuleValue(xule_context, result, 'list')
+
+def _traverse_for_inline_descendants_facts(xule_context, fact, max_depth=None, depth=1):
+    if max_depth is not None and depth > max_depth:
+        return []
+    result = []
+    add_to_depth = 0
+    for child in fact.getchildren():
+        if child.elementQname.namespaceURI == _INLINE_NAMESPACE and child.elementQname.localName == 'continuation':                
+            continuations_down = _traverse_continuations_down(xule_context, child)
+            
+            for cont_child in continuations_down:
+                if cont_child.qname.namespaceURI == _INLINE_NAMESPACE and cont_child.qname.localName == 'continuation':
+                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1)
+                else: # This is a non continuation inline element
+                    result.append(cont_child) 
+                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1)
+                    
+        elif child.elementQname.namespaceURI == _INLINE_NAMESPACE:
+            result.append(child)
+            add_to_depth = 1
+    
+        # the list(dict.fromkeys(any list here)) eliminates duplicates while keeping order. There may be duplicates if there 
+        # are multiple continuations in the ancestry of the fact.
+        result += _traverse_for_inline_descendants_facts(xule_context, child, max_depth=max_depth, depth=depth + add_to_depth)
+    return list(dict.fromkeys(result))
+
+def _traverse_continuations_down(xule_context, cont_node):
+    result = []
+    cont_id = cont_node.get('id')
+    cont_to_id = cont_node.get('continuedAt')
+    if cont_id is not None:
+
+        # This is a continuation. Get the node that this is continued from.
+        continations_up = _traverse_continuations(xule_context, cont_node) # This is to get the fact that this is a continuation of
+        top_of_continuation = continations_up[-1] # It will be the last item in the continuations
+        # Should we look at children of the top of the continuation or just the continuations that are direct children of the starting fact? For now just the continuations that are direct children of the starting fact and the continuations further down the continuation chain. Yes, this is strange, but currently, this is basically the opposite of how ancestors work.
+
+        # add the top of the continuation (if it is a fact, it could be a footnote) to the result
+        if isinstance(top_of_continuation, ModelInlineFact):
+            result.append(top_of_continuation)
+
+        cont_to_node = cont_node.getroottree().getroot().find(f'.//*[@id="{cont_to_id}"]')
+        if cont_to_node is not None:
+            if cont_to_node.qname.namespaceURI == _INLINE_NAMESPACE and cont_to_node.qname.localName == 'continuation':
+                # the continuation points to another continuation
+                more = _traverse_continuations_down(xule_context, cont_to_node)
+                return result + [cont_to_node,] + more
+            elif cont_to_node.elementQname.namespaceURI == _INLINE_NAMESPACE: # .element.qname gets the qname of the ix element whereas .qname returns the qname of the xbrl concept.
+                return result + [cont_to_node,]
+    # Should only get here because there wasn't an inline element that had a @continuedAt pointing to this continuation.
+    return result
+
 
 def property_roles(xule_context, object_value, *args):
     result_set = set()
@@ -2591,7 +2757,7 @@ PROPERTIES = {
               'unit': (property_unit, 0, ('fact',), True),
               'entity': (property_entity, 0, ('fact',), True),
               'namespace-map': (property_namespace_map, 0, ('fact',), True),
-              'id': (property_id, 0, ('entity','unit','fact'), True),
+              'id': (property_id, 0, ('entity','unit','fact', 'concept', 'part-element'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
@@ -2599,7 +2765,8 @@ PROPERTIES = {
               'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
               'roles': (property_roles, 0, ('taxonomy',), False),
               'arcroles': (property_arcroles, 0, ('taxonomy',), False),
-              'dimension-type': (property_dimension_type, 0, ('dimension',), True),                          
+              'dimension-type': (property_dimension_type, 0, ('dimension',), True),   
+              'members': (property_members, 0, ('dimension',), False),                       
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
@@ -2613,10 +2780,26 @@ PROPERTIES = {
               'substitution': (property_substitution, 0, ('concept', 'part-element', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
+
+            #   'min-exclusive': (property_min_exclusive, 0, ('type','part-element', 'concept', 'fact'), True),
+# max-exclusive
+# min-inclusive
+# max-inclusive
+# length (this has to be type-length)
+# min-length
+# max-length
+# enumerations
+# pattern
+# total-digits
+# fraction-digits
+# white-space
+
+
               'is-type': (property_is_type, 1, ('concept', 'part-element', 'fact'), True),          
               'is-numeric': (property_is_numeric, 0, ('concept', 'part-element', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
               'is-abstract': (property_is_abstract, 0, ('concept', 'part-element', 'fact'), True),
+              'is-nillable': (property_is_nillable, 0, ('concept', 'part-element'), True),
               'is-nil': (property_is_nil, 0, ('fact',), True),
               'is-fact': (property_is_fact, 0, (), True),
               'inline-scale': (property_scale, 0, ('fact',), True),
@@ -2701,7 +2884,8 @@ PROPERTIES = {
               'stdev': (property_stats, 0, ('set', 'list'), False, numpy.std),
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
-              'cube': (property_cube, 2, ('taxonomy',), False),
+              'agg-to-dict': (property_agg_to_dict, -1000, ('set', 'list'), False),
+              'cube': (property_cube, -2, ('taxonomy', 'dimension'), False),
               'cubes': (property_cubes, 0, ('taxonomy','fact'), False),
               'drs-role': (property_drs_role, 0, ('cube',), False),
               'cube-concept': (property_cube_concept, 0, ('cube',), False),
