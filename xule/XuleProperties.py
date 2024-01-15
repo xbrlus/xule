@@ -618,7 +618,7 @@ def property_id(xule_context, object_value, *args):
     
 def property_scale(xule_context, object_value, *args):
     if object_value.is_fact:
-        if hasattr(object_value.fact, 'scaleInt'):
+        if hasattr(object_value.fact, 'scaleInt') and object_value.fact.scaleInt is not None:
             return xv.XuleValue(xule_context, object_value.fact.scaleInt, 'int')
         else:
             return xv.XuleValue(xule_context, None, 'none')
@@ -636,7 +636,7 @@ def property_format(xule_context, object_value, *args):
 
 def property_display_value(xule_context, object_value, *args):
     if object_value.is_fact:
-        if hasattr(object_value.fact, 'text'):
+        if hasattr(object_value.fact, 'text') and object_value.fact.text is not None:
             return xv.XuleValue(xule_context, object_value.fact.text, 'string')
         else:
             return xv.XuleValue(xule_context, None, 'none')
@@ -645,7 +645,7 @@ def property_display_value(xule_context, object_value, *args):
 
 def property_negated(xule_context, object_value, *args):
     if object_value.is_fact:
-        if hasattr(object_value.fact, 'sign'):
+        if hasattr(object_value.fact, 'sign') and object_value.fact.sign is not None:
             return xv.XuleValue(xule_context, object_value.fact.sign == '-', 'bool')
         else:
             return xv.XuleValue(xule_context, None, 'none')
@@ -966,13 +966,8 @@ def property_enumerations(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, frozenset(), 'set')
 
 def property_has_enumerations(xule_context, object_value, *args):
-    if object_value.is_fact:
-        model_type = object_value.fact.concept.type
-    elif object_value.type == 'type':
-        model_type = object_value.value
-    elif object_value.type in  ('concept', 'part-element'):    
-        model_type = object_value.value.type
-    else: # None
+    model_type = get_type(object_value)
+    if model_type is None:
         return xv.XuleValue(xule_context, False, 'bool')  
     
     # The model_type can be none for non concept elements (part-elements) that are based on an xsd type. Arelle does not create a type object for the modelConcept.type. 
@@ -981,9 +976,31 @@ def property_has_enumerations(xule_context, object_value, *args):
     else:
         return xv.XuleValue(xule_context, 'enumeration' in model_type.facets, 'bool')  
 
-
-
-
+def get_type(object_value):
+    if object_value.is_fact:
+        return object_value.fact.concept.type
+    elif object_value.type == 'type':
+        return object_value.value
+    elif object_value.type in  ('concept', 'part-element'):    
+        return object_value.value.type
+    else: # None
+        return None
+    
+# def property_min_exclusive(xule_context, object_value, *args):
+#     model_type = get_type(object_value)
+#     if model_type is None:
+#         return xv.XuleValue(xule_context, False, 'bool') 
+    
+#     # The model_type can be none for non concept elements (part-elements) that are based on an xsd type. Arelle does not create a type object for the modelConcept.type. 
+#     if model_type is None or not hasattr(model_type, 'facets') or model_type.facets is None:
+#         return xv.XuleValue(xule_context, None, 'none')
+#     else:
+#         facet = model_type.facets.get('minExclusive')
+#         if facet is None:
+#             return xv.XuleValue(xule_context, None, 'none')
+#         else:
+#             xule_type, val = xv.model_to_xule_type(xule_context, facet)
+#             return xv.XuleValue(xule_context, val, xule_type)  
 
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
