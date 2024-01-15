@@ -986,21 +986,21 @@ def get_type(object_value):
     else: # None
         return None
     
-# def property_min_exclusive(xule_context, object_value, *args):
-#     model_type = get_type(object_value)
-#     if model_type is None:
-#         return xv.XuleValue(xule_context, False, 'bool') 
+def property_type_facet(xule_context, object_value, facet_name, *args):
+    model_type = get_type(object_value)
+    if model_type is None:
+        return xv.XuleValue(xule_context, False, 'bool') 
     
-#     # The model_type can be none for non concept elements (part-elements) that are based on an xsd type. Arelle does not create a type object for the modelConcept.type. 
-#     if model_type is None or not hasattr(model_type, 'facets') or model_type.facets is None:
-#         return xv.XuleValue(xule_context, None, 'none')
-#     else:
-#         facet = model_type.facets.get('minExclusive')
-#         if facet is None:
-#             return xv.XuleValue(xule_context, None, 'none')
-#         else:
-#             xule_type, val = xv.model_to_xule_type(xule_context, facet)
-#             return xv.XuleValue(xule_context, val, xule_type)  
+    # The model_type can be none for non concept elements (part-elements) that are based on an xsd type. Arelle does not create a type object for the modelConcept.type. 
+    if model_type is None or not hasattr(model_type, 'facets') or model_type.facets is None:
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        facet = model_type.facets.get(facet_name)
+        if facet is None:
+            return xv.XuleValue(xule_context, None, 'none')
+        else:
+            xule_type, val = xv.model_to_xule_type(xule_context, facet)
+            return xv.XuleValue(xule_context, val, xule_type)  
 
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
@@ -2798,20 +2798,17 @@ PROPERTIES = {
               'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
 
-            #   'min-exclusive': (property_min_exclusive, 0, ('type','part-element', 'concept', 'fact'), True),
-# max-exclusive
-# min-inclusive
-# max-inclusive
-# length (this has to be type-length)
-# min-length
-# max-length
-# enumerations
-# pattern
-# total-digits
-# fraction-digits
-# white-space
-
-
+              'min-exclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'minExclusive'),
+              'max-exclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'maxExclusive'),
+              'min-inclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'minInclusive'),
+              'max-inclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'maxInclusive'),
+              'type-length': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'length'),
+              'min-length': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'minLength'),
+              'max-length': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'maxLength'),
+              'pattern': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'pattern'),
+              'total-digits': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'totalDigits'),
+              'fraction-digits': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'fractionDigits'),
+              'white-space': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'whiteSpace'),
               'is-type': (property_is_type, 1, ('concept', 'part-element', 'fact'), True),          
               'is-numeric': (property_is_numeric, 0, ('concept', 'part-element', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),

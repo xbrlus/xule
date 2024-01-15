@@ -30,6 +30,7 @@ from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelRelationship
 from arelle.ValidateXbrlDimensions import loadDimensionDefaults
 from arelle.Validate import validate
+from arelle.XmlValidate import XsdPattern
 from lxml import etree
 import datetime
 import decimal
@@ -1632,13 +1633,15 @@ TYPE_SYSTEM_TO_XULE = {int: 'int',
                        gMonthDay: 'model_g_month_day',
                        gYearMonth: 'model_g_year_month',
                        AnyURI: 'uri',
-                       Fraction: 'fraction'}
+                       Fraction: 'fraction',
+                       XsdPattern: 'xsd_pattern'}
 
 TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'instant'),
                             'model_g_year': (model_to_xule_model_g_year, 'int'),
                             'model_g_month_day': (model_to_xule_model_g_month_day, 'string'),
                             'model_g_year_month': (model_to_xule_model_g_year_month, 'string'),
-                            'iso_duration': (lambda x,c: x.sourceValue, 'string')}
+                            'iso_duration': (lambda x,c: x.sourceValue, 'string'),
+                            'xsd_pattern': (lambda x,c: x.pattern, 'string')}
 
 '''The TYPE_MAP shows conversions between xule types. The first entry is the common conversion when comparing
    2 values, the second entry (if present) is a reverse conversion.
