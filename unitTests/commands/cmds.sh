@@ -73,3 +73,12 @@ python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xodel|serializer' -
 
 
 ython3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xodel|serializer' -f /Users/campbellpryde/Downloads/efm-68d-231120/conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml  --noCertificateCheck --xule-time .005 --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/createUnitTests-ruleset.zip --logNoRefObjectProperties  --xodel-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/conf' --xince-file-type=xml  --xule-arg TEST_CASE=e60501000gd --xule-run-only create_concepts2
+
+
+
+
+#BUILD A META TAXONOMY
+
+python3.9 ~/arelle/Arelle-master/arellecmdline.py  --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel-meta  --plugins 'xule|xodel' --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/xodel-meta-ruleset.zip --xule-max-recurse-depth=2500
+
+python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xodel|serializer' -f /Users/campbellpryde/Downloads/efm-68d-231120/conf/605-instance-syntax/605-01-entity-identifier-scheme/e60501000gd-20111231.xml --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/xodel-meta-ruleset.zip  --logNoRefObjectProperties  --xodel-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/meta' --xodel-show-xule-log  --logFile /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/meta/meta.xml --xule-debug

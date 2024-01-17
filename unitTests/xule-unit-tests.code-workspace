@@ -13,9 +13,12 @@
 			"path": "source/efmUnitTest/createDocs",
 			"name": "createDocs"
 		},
-{
+		{
 			"path": "source/efmUnitTest/extractDocs",
 			"name": "extractDocs"
+		},
+		{
+			"path": "source/xodel-meta"
 		}
 	]
 }

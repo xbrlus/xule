@@ -143,3 +143,13 @@ output PMN129
 /* True */
 
   none >= none
+
+output PMN130
+/* True */
+
+  list({covered @instance=$INSTANCE3 @concept=us-gaap-2022:Assets where none})
+
+output PMN131
+/* True */
+
+  list({covered @instance=$INSTANCE3 @concept=us-gaap-2022:Assets where none > 0})

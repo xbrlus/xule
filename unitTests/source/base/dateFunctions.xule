@@ -314,6 +314,11 @@ output DUR101
 
   duration('2022-03-01', '2022-06-30') < duration('2022-05-01', '2022-12-31')
 
+output DUR102
+/* [ERROR] [xule:error] rule DUR0102 Rule: DUR096 - Property 'contains' is not a property of a 'duration'. */
+
+  duration('2022-01-01', '2022-09-31').contains(duration('2022-03-01', '2022-06-30'))
+
 output FVR001
 /* forever */
 

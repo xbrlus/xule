@@ -1,0 +1,15 @@
+<tp:taxonomyPackage xmlns:tp="http://xbrl.org/2016/taxonomy-package">
+  <tp:identifier>Taxonomy Package</tp:identifier>
+  <tp:entryPoints>
+    <tp:entryPoint>
+      <tp:name xml:lang="en">Meta Model Schema 2023</tp:name>
+      <tp:description xml:lang="en">META MODEL SCHEMA</tp:description>
+      <tp:entryPointDocument href="https://taxonomies.xbrl.us/us-gaap/2023/meta/us-gaap-metaModel-2023.xsd"></tp:entryPointDocument>
+    </tp:entryPoint>
+    <tp:entryPoint>
+      <tp:name xml:lang="en">Meta Model 2023</tp:name>
+      <tp:description xml:lang="en">META MODEL FOR THE US_GAAP 2023 Taxonomy </tp:description>
+      <tp:entryPointDocument href="https://taxonomies.xbrl.us/us-gaap/2023/meta/us-gaap-metaModel-entire-2023.xsd"></tp:entryPointDocument>
+    </tp:entryPoint>
+  </tp:entryPoints>
+</tp:taxonomyPackage>

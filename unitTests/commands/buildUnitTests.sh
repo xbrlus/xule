@@ -205,11 +205,11 @@ curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx
 sed -e "s/\"//g" x.csv > $SCRIPT_DIR/../source/base/valueExists.xule
 rm x.csv
 
-python3.9 ~/arelle/Arelle-master/arellecmdline.py --xule-compile $SCRIPT_DIR/../source/base/  --plugins "xuleUnit" --xule-rule-set $SCRIPT_DIR/../compiled/ut-ruleset.zip --xule-max-recurse-depth=2500
+python3.9 ~/arelle/Arelle-master/arellecmdline.py --xule-compile $SCRIPT_DIR/../source/base/  --plugins "xule" --xule-rule-set $SCRIPT_DIR/../compiled/ut-ruleset.zip --xule-max-recurse-depth=2500
 
 rm $SCRIPT_DIR/../output/output.txt
 
-python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xuleUnit|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set $SCRIPT_DIR/../compiled/ut-ruleset.zip --logNoRefObjectProperties  --logFormat "[%(messageCode)s] %(message)s" >> $SCRIPT_DIR/../output/output.txt
+python3.9 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet' --xule-run --noCertificateCheck --xule-rule-set $SCRIPT_DIR/../compiled/ut-ruleset.zip --logNoRefObjectProperties  --logFormat "[%(messageCode)s] %(message)s" >> $SCRIPT_DIR/../output/output.txt
 
 
 grep -E -v "(ix11.11.1.2:invalidTransformation|ix11.10.1.2:invalidTransformation|xmlSchema:syntax|html:syntaxError|Activation of plug|Xule version:|Instance Loaded.|Taxonomy Loaded.)" $SCRIPT_DIR/../output/output.txt > $SCRIPT_DIR/../output/outputtmp.txt && mv $SCRIPT_DIR/../output/outputtmp.txt $SCRIPT_DIR/../output/output.txt

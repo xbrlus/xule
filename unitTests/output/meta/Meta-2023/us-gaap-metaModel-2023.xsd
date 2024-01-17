@@ -1,0 +1,48 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:us-gaap-metamodel="http://fasb.org/us-gaap-metaModel/2023" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" xmlns:generic="http://xbrl.org/2008/generic" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://fasb.org/us-gaap-metaModel/2023" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="us-gaap-metaModel-2023-lab.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:roleType roleURI="http://xbrl.us/metaModel/role" id="role">
+        <linkbase:definition>MetaModel of US GAAP Taxonomy</linkbase:definition>
+        <linkbase:usedOn>generic:link</linkbase:usedOn>
+        <linkbase:usedOn>linkbase:definitionLink</linkbase:usedOn>
+      </linkbase:roleType>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+  <xs:import namespace="http://xbrl.org/2008/generic" schemaLocation="http://www.xbrl.org/2008/generic-link.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd"/>
+  <xs:import namespace="http://fasb.org/us-gaap/2023" schemaLocation="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd"/>
+  <xs:element name="ActivityTypeDomain" id="us-gaap-metaModel_ActivityTypeDomain" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="ActivityTypeTrait" id="us-gaap-metaModel_ActivityTypeTrait" type="us-gaap-metamodel:trait" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="Allocation" id="us-gaap-metaModel_Allocation" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="CarryingValue" id="us-gaap-metaModel_CarryingValue" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="CurrentTrait" id="us-gaap-metaModel_CurrentTrait" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="FinancingActivity" id="us-gaap-metaModel_FinancingActivity" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="InvestingActivity" id="us-gaap-metaModel_InvestingActivity" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="LiquidityDomain" id="us-gaap-metaModel_LiquidityDomain" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="LiquidityTrait" id="us-gaap-metaModel_LiquidityTrait" type="us-gaap-metamodel:trait" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="Noncurrent" id="us-gaap-metaModel_Noncurrent" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="OperatingActivitiesTrait" id="us-gaap-metaModel_OperatingActivitiesTrait" type="us-gaap-metamodel:trait" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="OperatingActivity" id="us-gaap-metaModel_OperatingActivity" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="Reclassification" id="us-gaap-metaModel_Reclassification" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecodedValueTrait" id="us-gaap-metaModel_RecodedValueTrait" type="us-gaap-metamodel:trait" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecordedAsEstimate" id="us-gaap-metaModel_RecordedAsEstimate" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" id="us-gaap-metaModel_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecordedAtAmortizedCostMember" id="us-gaap-metaModel_RecordedAtAmortizedCostMember" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecordedAtHistoricalCost" id="us-gaap-metaModel_RecordedAtHistoricalCost" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecordedAtLowerOfCarryingValueOrFairValue" id="us-gaap-metaModel_RecordedAtLowerOfCarryingValueOrFairValue" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecordedAtLowerOfCarryingValueOrFairValueLessCostToSell" id="us-gaap-metaModel_RecordedAtLowerOfCarryingValueOrFairValueLessCostToSell" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RecordedValueDomain" id="us-gaap-metaModel_RecordedValueDomain" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RelatedPartyTrait" id="us-gaap-metaModel_RelatedPartyTrait" type="us-gaap-metamodel:trait" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="Remeasurement" id="us-gaap-metaModel_Remeasurement" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="ReportedAtFairValue" id="us-gaap-metaModel_ReportedAtFairValue" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="RestrictedMember" id="us-gaap-metaModel_RestrictedMember" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:element name="UnrestrictedMember" id="us-gaap-metaModel_UnrestrictedMember" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:complexType name="trait">
+    <xs:simpleContent>
+      <xs:restriction base="xbrli:stringItemType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>
