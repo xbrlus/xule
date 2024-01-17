@@ -1,0 +1,246 @@
+@startuml Simple XBRL Model
+title "Simple XBRL Model"
+hide methods
+
+together {
+    class SXMCube
+    class SXMCubePart
+    class SXMCubeTreeNode
+    class SXMPrimary
+    class SXMDimension
+    class SXMDomain
+    class SXMMember
+}
+
+abstract class "SXMBase" #LightGray  {
+}
+
+abstract class "SXMAttributeBase" #LightGray {
+}
+SXMBase <|-[#Blue]- SXMAttributeBase
+
+abstract class "SXMDTSBase" #LightGray {
+    dts : SXMDTSBase
+}
+SXMBase <|-[#Blue]- SXMDTSBase
+
+class "SXMDocument" {
+    uri : string
+    name : string
+    target_namespace
+    contents : *SXMDefined
+}
+SXMBase <|-[#Blue]- SXMDocument
+SXMDefined *-- SXMDocument
+
+abstract class "SXMDefined"  #LightGray{
+    document: SXMDocument
+}
+SXMBase <|-[#Blue]- SXMDefined
+
+class "SXMQName" {
+    namespace : string
+    local_name : string
+    clark : string
+}
+SXMDTSBase <|-[#Blue]- SXMQName
+
+class "SXMDTS" {
+    concepts : *SXMConcept
+    elements : *SXMelement
+    networks : *SXMNetwork
+    arcroles : *SXMArcrole
+    roles : *SXMRole
+    types : *SXMType
+    cubes : *SXMCube
+    type_domains : *SXMTypedDomain
+    part_elements : *SXMPart
+    documents : *SXMDocument
+}
+SXMAttributeBase <|-[#Blue]- SXMDTS
+SXMConcept *-up- SXMDTS
+SXMElement *-up- SXMDTS
+SXMNetwork *-up- SXMDTS
+SXMArcrole *-up- SXMDTS
+SXMRole *-up- SXMDTS
+SXMType *-up- SXMDTS
+SXMCube *-up- SXMDTS
+SXMTypedDomain *-up- SXMDTS
+SXMPart *-up- SXMDTS
+
+class "SXMElement" {
+    id : string
+    name : string
+    type : SXMType ?QName
+    is_abstract : bool
+    nillable : bool
+    attributes : dict
+
+}
+SXMDefined <|-[#Blue]- SXMElement
+SXMDTSBase <|-[#Blue]- SXMElement
+SXMType *-up- SXMElement
+
+class "SXMConcept" {
+    substitutuion_group : SXMQName or SXMConcept
+    period_type : string
+    balance_type : string
+    typed_domain : SXMTypedDomain
+    from_concept_relationships : dict of SXMRelationship
+    to_concept_relationships : dict of SXMRelationship
+    labels : dict of SXMLabel
+    references : dict of SXMReference
+}
+
+SXMAttributeBase <|-[#Blue]- SXMConcept
+SXMElement <|-down[#Blue]- SXMConcept
+SXMResource *-up- SXMConcept
+SXMRelationship *-- SXMConcept : from
+SXMRelationship *-- SXMConcept : to
+SXMConcept *-- SXMConcept : substitution_group
+SXMConcept *-- SXMTypedDomain
+
+class "SXMResource" {
+    role : SXMRole
+    content : string
+}
+
+SXMDefined <|-[#Blue]- SXMResource
+SXMDTSBase <|-[#Blue]- SXMResource
+
+class "SXMLabel" {
+    label_role : SXMRole
+    language : string
+    text : string
+    concept : SXMConcept
+}
+SXMResource <|-[#Blue]- SXMLabel
+
+
+class "SXMReference" {
+    reference_role : SXMRole
+    parts : dict of SXMPart
+    concept : SXMConcept
+}
+SXMResource <|-[#Blue]- SXMReference
+SXMPart *-up- SXMReference
+
+class "SXMPart" {
+    part_element : SXMElement
+    value : string
+}
+SXMDefined <|-[#Blue]- SXMPart
+SXMDTSBase <|-[#Blue]- SXMPart
+SXMElement *-- SXMPart
+
+class "SXMArcrole" {
+    arcrole_uri : string
+    description : string
+    used_ones : *SXMQName
+}
+SXMDTSBase <|-[#Blue]- SXMArcrole
+SXMDefined <|-[#Blue]- SXMArcrole
+
+class "SXMRole" {
+    role_uri : string
+    description : string
+    used_ones : *SXMQName
+}
+SXMDTSBase <|-[#Blue]- SXMRole
+SXMDefined <|-[#Blue]- SXMRole
+
+class "SXMTypedDomain" {
+    content : xml
+}
+SXMElement <|-[#Blue]- SXMTypedDomain
+
+class "SXMType" {
+    name : SXMQName
+    parent_type : SXMType ir SXMQName
+    content : xml
+}
+SXMDTSBase <|-[#Blue]- SXMType
+SXMDefined <|-[#Blue]- SXMType
+
+class "SXMNetwork"{
+    link_name : SXMQName
+    arc_name : SXMQName
+    arcrcole : SXMArcrole
+    role : SXMRole
+    attributes : dict
+    from_relationships : *SXMRelationship
+    to_relationships : *SXMRelationship
+    relationships : *SXMRelationship
+    roots : *SXMRelationship
+    concepts : *SXMConcept
+}
+SXMDTSBase <|-[#Blue]- SXMNetwork
+SXMDefined <|-[#Blue]- SXMNetwork
+SXMRelationship *-up- SXMNetwork : from
+SXMRelationship *-up- SXMNetwork : to
+
+class "SXMRelationship" {
+    network : SXMNetwork
+    from_concept : SXMConcept
+    to_concept : SXMConcept
+    order : decimal
+    weight : decimal
+    attributes : dict
+    preferred_label : SXMRole
+    target_role : SXMRole
+    link_name : SXMQName
+    arc_name : SXMQName
+    arcrole : SXMArcrole
+    role : SXMRole
+}
+SXMDTSBase <|-[#Blue]- SXMRelationship
+SXMDefined <|-[#Blue]- SXMRelationship
+
+abstract class "SXMCubePart" #LightGray {
+    dim_type : string
+    concept : SXMConcept
+    role : SXMRole
+    attributes : dict
+}
+SXMDTSBase <|-[#Blue]- SXMCubePart
+SXMRole *-- SXMCubePart
+SXMConcept *-- SXMCubePart
+
+class "SXMCube" {
+    primary_items : *SXMConcept
+    dimensions : *SXMDimension
+    negative_cubes : *SXMCube
+}
+SXMCubePart <|-[#Blue]- SXMCube
+SXMDefined <|-[#Blue]- SXMCube
+SXMPrimary *-- SXMCube
+SXMDimension *-- SXMCube
+SXMCube *-- SXMCube : negative_cubes
+
+abstract class "SXMCubeTreeNode" #LightGray {
+    usable : bool
+    children : SXMCubeTreeNode
+}
+SXMCubePart <|-[#Blue]- SXMCubeTreeNode
+SXMDefined <|-[#Blue]- SXMCubeTreeNode
+
+class SXMDimension {
+
+}
+SXMCubeTreeNode <|-[#Blue]- SXMDimension
+
+class SXMDomain {
+
+}
+SXMCubeTreeNode <|-[#Blue]- SXMDomain
+
+class SXMPrimary {
+
+}
+SXMCubeTreeNode <|-[#Blue]- SXMPrimary
+
+class SXMMember {
+
+}
+SXMCubeTreeNode <|-[#Blue]- SXMMember
+@enduml

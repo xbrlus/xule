@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23339 $
+$Change: 23690 $
 DOCSKIP
 """
 from arelle.ModelRelationshipSet import ModelRelationshipSet
@@ -101,6 +101,36 @@ def subtract_sets(xule_context, left, right):
             new_shadow.add(item.shadow_collection if item.type in ('set', 'list', 'dictionary') else item.value)
             
     return XuleValue.XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
+
+def add_dictionaries(xule_context, left, right):
+    _imports()
+    left_dict = {k:v for k, v in left.value}
+
+    for k, v in right.value:
+        if k.value not in left.shadow_dictionary:
+            left_dict[k] = v
+
+    return XuleValue.XuleValue(xule_context, frozenset(left_dict.items()), 'dictionary')
+
+def subtract_dictionaries(xule_context, left, right):
+    left_dict = {k.value:(k, v) for k, v in left.value}
+
+    for k, v in right.value:
+        if k.value in left_dict:
+            _x, left_compare_value, right_compare_value = XuleValue.combine_xule_types(v, left_dict[k.value][1], xule_context)
+            if left_compare_value == right_compare_value:
+                del left_dict[k.value]
+
+    return XuleValue.XuleValue(xule_context, frozenset(left_dict.values()), 'dictionary')
+
+def subtract_keys_from_dictionary(xule_context, left, right):
+    left_dict = {k.value:(k, v) for k, v in left.value}
+
+    for k in right.value:
+        if k.value in left_dict:
+            del left_dict[k.value] 
+    
+    return XuleValue.XuleValue(xule_context, frozenset(left_dict.values()), 'dictionary')
 
 def symetric_difference(xule_context, left, right):
     _imports()

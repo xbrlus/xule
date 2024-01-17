@@ -8,7 +8,7 @@ for keeping track of the processing (including the iterations that are created w
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2022 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23555 $
+$Change: 23694 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -219,6 +219,7 @@ class XuleGlobalContext(object):
         self.other_taxonomies = dict()
         self.maximum_iterations = max(getattr(self.options, "xule_max_rule_iterations", 10000), len(getattr(model_xbrl, "factsInInstance", tuple())) + 10 )
         self.ancestry_cache = defaultdict(dict)
+        self.output_files = set() # list of files that are created
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cid=id(self.cntlr))
@@ -522,7 +523,7 @@ class XuleRuleContext(object):
                   
         return var_info
         
-    def add_arg(self, name, node_id, tag, value, number):
+    def add_arg(self, name, node_id, tag, value, number, is_for=False):
         """Add an argument (variable) to the rule context
         
         Arguments are just like variables, but they don't have an expression and they are already calculated.
@@ -544,6 +545,8 @@ class XuleRuleContext(object):
                     "calculated": True,
                     "value": value,
                     }
+        if is_for:
+            var_info['is_for'] = True
 
         self.vars[node_id].append(var_info)
         if tag is not None:
@@ -554,6 +557,10 @@ class XuleRuleContext(object):
         self.vars[node_id].pop()
         if len(self.vars[node_id]) == 0:
             del self.vars[node_id]
+
+    def find_for_vars(self):
+        # the [-1] is to get the last value for the variable on the stack.
+        return tuple(x[-1] for x in self.vars.values() if x[-1].get('is_for', False) == True)
 
     def find_var(self, var_name, node_id, constant_only=False):
         """Finds a variable in the variable stack
@@ -807,7 +814,8 @@ class XuleIterationTable:
         :param xule_context: The rule context
         :type xule_context: XuleContext
         """
-        self._ordered_tables = collections.OrderedDict()
+        self._ordered_tables = {}
+        self.is_empty = True
         
         #This is a dictionary of which table the column is in.
         #self._columns = collections.defaultdict(list)
@@ -816,20 +824,20 @@ class XuleIterationTable:
         #self.add_table(0)
         self.main_table_id = None
 
-    @property
-    def current_table(self):
-        if self.is_empty:
-            return None
-        else:
-            #return self._tables[-1]
-            table_processing_id = next(reversed(self._ordered_tables))
-            return self._ordered_tables[table_processing_id]
+    # @property
+    # def current_table(self):
+    #     if self.is_empty:
+    #         return None
+    #     else:
+    #         #return self._tables[-1]
+    #         table_processing_id = next(reversed(self._ordered_tables))
+    #         return self._ordered_tables[table_processing_id]
     
     @property
     def current_alignment(self):
-        for table_processing_id in reversed(self._ordered_tables):
-            if not self._ordered_tables[table_processing_id].is_empty:
-                return self._ordered_tables[table_processing_id].current_alignment
+        for table in reversed(self._ordered_tables.values()):
+            if not table.is_empty:
+                return table.current_alignment
         return None
         
         '''
@@ -847,10 +855,6 @@ class XuleIterationTable:
         return None
     
     @property
-    def is_empty(self):
-        return len(self._ordered_tables) == 0
-
-    @property
     def tags(self):
         if self.is_empty:
             return {}
@@ -863,7 +867,7 @@ class XuleIterationTable:
     @property
     def facts(self):
         if self.is_empty:
-            return collections.OrderedDict()
+            return {}
         else:
             return self.current_table.facts
     @facts.setter
@@ -1032,6 +1036,8 @@ class XuleIterationTable:
         child_table.tags = self.tags.copy()
         table_processing_id = self.xule_context.get_processing_id(table_id)
         self._ordered_tables[table_processing_id] = child_table
+        self.is_empty = False
+        self.current_table = child_table
 
         if parent_table is not None:
             child_table.dependent_alignment = parent_table.dependent_alignment
@@ -1063,8 +1069,11 @@ class XuleIterationTable:
                 del self._columns[column_key]
             '''
         #remove the table
-        del self._ordered_tables[table_processing_id]        
-    
+        # del self._ordered_tables[table_processing_id]        
+        del self._ordered_tables[table_processing_id]
+        self.is_empty = len(self._ordered_tables) == 0
+        self.current_table = self._ordered_tables[next(reversed(self._ordered_tables))] if self._ordered_tables else None
+
     def is_table_empty(self, table_id):
         table_processing_id = self.xule_context.get_processing_id(table_id)
         return table_processing_id not in self._ordered_tables or self._ordered_tables[table_processing_id].is_empty
@@ -1138,7 +1147,7 @@ class XuleIterationSubTable:
         
         self.tags = dict()
         #self.facts = []
-        self.facts = collections.OrderedDict()
+        self.facts = {}
         self.aligned_result_only = False
         self.used_expressions = set()
         
@@ -1274,7 +1283,7 @@ class XuleIterationSubTable:
             #reset tags and facts
             self.tags = dict()
             #self.facts = []
-            self.facts = collections.OrderedDict()
+            self.facts = {}
             #reset used columns for the next iteration
             self._used_columns = set()
         

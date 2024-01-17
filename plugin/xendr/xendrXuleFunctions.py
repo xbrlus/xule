@@ -7,7 +7,10 @@ Reivision number: $Change: $
 '''
 from arelle.ModelInstanceObject import ModelFact
 from arelle.ModelInstanceObject import ModelResource
+from arelle import ModelObject
 import json
+from .xendrCommon import XendrException
+from .XendrVars import save_arelle_model
 
 def get_footnotes_from_fact_ids(xule_context, *args):
     from .xule import XuleValue as xv
@@ -65,6 +68,7 @@ def get_internal_model_id(xule_context, *args):
     
 def format_footnote_info(xule_context, *args):
     from .xule import XuleValue as xv
+    from .xule.XuleRunTime import XuleProcessingError
     if args[0].type != 'footnote':
         raise XuleProcessingError(_(f"Function xendr-format-footnote() requires a footnote object as the argument, but found {args[0].type}"), xule_context)
     footnote_info = {'type': args[0].value[xv.FOOTNOTE_TYPE],
@@ -72,4 +76,16 @@ def format_footnote_info(xule_context, *args):
                      'fact': args[0].value[xv.FOOTNOTE_FACT].objectId(),
                      'arcrole': args[0].value[xv.FOOTNOTE_ARCROLE]}
     return xv.XuleValue(xule_context, json.dumps(footnote_info), 'string')
+
+def property_xendr_model_object(xule_context, object_value, *args):
+    from .xule import XuleValue as xv
+    if object_value.type == 'none':
+        return xv.XuleValue(xule_context, None, 'none')
     
+    if object_value.is_fact:
+        #raise XendrException(f"Cannot save {object_value.type} as an internal object")
+
+        save_arelle_model(object_value.fact.modelXbrl)
+        return xv.XuleValue(xule_context, json.dumps((id(object_value.fact.modelXbrl), object_value.fact.objectId())), 'string')
+    else:
+        return object_value

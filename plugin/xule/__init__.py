@@ -21,9 +21,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23587 $
+$Change: 23660 $
 DOCSKIP
 """
+import sys
+
 from .XuleProcessor import process_xule
 from . import XuleRunTime as xrt
 from . import XuleRuleSet as xr
@@ -444,6 +446,13 @@ def xuleCmdOptions(parser):
                                action="store",
                                help=_("This will save the result from pyparsing as a json file. This is the raw parse results before post parsing. Used for debugging purpsoses."))
 
+        parserGroup.add_option("--xule-compile-workers",
+                               action="store",
+                               dest="xule_compile_workers",
+                               default=1,
+                               type="int",
+                               help=_("Controls the number of worker processes used to compile XULE rule files in parallel. A value of 0 will use the number of machine processors."))
+
     parserGroup.add_option("--xule-rule-set",
                       action="store",
                       dest="xule_rule_set",
@@ -703,10 +712,20 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, 'xule_max_excel_files') < 1:
         parser.error(_("--xule-max-excel-files must be greater than 0, found {}".format(getattr(options, 'xule_max_excel_files'))))
 
+    if getattr(options, 'xule_compile_workers') < 0:
+        parser.error(_("Workers (--xule-compile-workers) value must be a positive number or 0 (uses number of CPUs)."))
+    elif getattr(options, 'xule_compile_workers') != 1:
+        if getattr(sys, "frozen", False):
+            parser.error(_("Multiple workers (--xule-compile-workers) requires running Arelle from source."))
+        try:
+            from arelle.PluginUtils import PluginProcessPoolExecutor
+        except ModuleNotFoundError:
+            parser.error(_("Multiprocessing plugin support was introduced in Arelle 2.17.3. Update to a newer version of Arelle to use multiple workers (--xule-compile-workers)."))
+
     # compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
-        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"), getattr(options, "xule_max_recurse_depth"))
+        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"), getattr(options, "xule_max_recurse_depth"), getattr(options, "xule_compile_workers"))
         #xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
     
     # add packages
@@ -874,8 +893,8 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     if getattr(options, "xule_run", None):
         runXule(cntlr, options, modelXbrl)
 
-def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None):
-    xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type, max_recurse_depth)
+def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None, xule_compile_workers=1):
+    xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type, max_recurse_depth, xule_compile_workers)
 
 def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
         try:

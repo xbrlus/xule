@@ -7,7 +7,7 @@ The XuleProcessor module is the main module for processing a rule set against an
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23612 $
+$Change: 23694 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -105,7 +105,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         fact_index_end = datetime.datetime.today()
         global_context.message_queue.print("Index build time %s." % (fact_index_end - fact_index_start))
 
-    # Determine is constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
+    # Determine if constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
     # environment.
     if getattr(global_context.options, "xule_precalc_constants", False):
         constant_start = datetime.datetime.today()
@@ -919,6 +919,12 @@ def get_local_cache_key(rule_part, xule_context):
                 if var_info['calculated']:
                     dep_var_index.add((var_info['name'], var_info['value']))
 
+    # specail handling for for loops. This ensures that the for variable is included in the cache key. If the body of the for
+    # loop did not use the for variable it would not in the list dependent vars list for the expression and so it would not
+    # be included in the cache key.
+    for for_var in xule_context.find_for_vars():
+        dep_var_index.add((for_var['name'], for_var['value']))
+
     alignment = xule_context.iteration_table.current_alignment if rule_part['has_alignment'] else None
 
     cache_key = (rule_part['node_id'], frozenset(dep_var_index), alignment)
@@ -1090,8 +1096,10 @@ def evaluate_output_rule(output_rule, xule_context):
             if xule_value.type != 'unbound' and not (
                     xule_context.iteration_table.current_alignment is None and xule_context.aligned_result_only):
                 # Determine if a message should be sent
-
                 xule_context.iter_message_count += 1
+                # produce file output
+                result_file(output_rule, xule_value, xule_context)
+
                 messages = dict()
                 # Process each of the results in the rule. The Results are the messages that are produced.
                 for rule_result in output_rule.get('results', list()):
@@ -1693,7 +1701,8 @@ def evaluate_for(for_expr, xule_context):
                              for_expr['forLoopExpr']['node_id'],
                              for_expr['forVar'],  # tagged - all variables are automatically tagged
                              for_loop_var,
-                             'single')
+                             'single',
+                             True)
 
         try:
             body_values = evaluate_for_body_detail(for_expr['forBodyExpr'],
@@ -1967,7 +1976,7 @@ def evaluate_add(add_expr, xule_context):
         right_expr = right['rightExpr']
 
         if left.type not in (
-        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
+        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'dictionary', 'unbound', 'none'):
             raise XuleProcessingError(_("Left side of a {} operation cannot be {}.".format(operator, left.type)),
                                       xule_context)
 
@@ -1981,7 +1990,7 @@ def evaluate_add(add_expr, xule_context):
                 right = xis.stop_value
 
         if right.type not in (
-        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
+        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'dictionary', 'unbound', 'none'):
             raise XuleProcessingError(_("Right side of a {} operation cannot be {}.".format(operator, right.type)),
                                       xule_context)
 
@@ -2021,11 +2030,19 @@ def evaluate_add(add_expr, xule_context):
                     # use union for sets
                     # left = XuleValue(xule_context, left_compute_value | right_compute_value, 'set')
                     left = XuleUtility.add_sets(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type == 'dictionary':
+                    left = XuleUtility.add_dictionaries(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type in ('set', 'list'):
+                    raise XuleProcessingError(_("Cannot add a dictionary and a %s" % right.type), xule_context)
                 else:
                     left = XuleValue(xule_context, left_compute_value + right_compute_value, combined_type)
             elif '-' in operator:
                 if left.type == 'set' and right.type == 'set':
                     left = XuleUtility.subtract_sets(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type == 'dictionary':
+                    left = XuleUtility.subtract_dictionaries(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type in ('set', 'list'):
+                    left = XuleUtility.subtract_keys_from_dictionary(xule_context, left, right)
                 else:
                     left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
             else:
@@ -2724,7 +2741,7 @@ def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filter
 
 
 def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non_align_aspects, align_aspects,
-                           nested_filters, aspect_vars, pre_matched_used_expressoins_ids, xule_context):
+                           nested_filters, aspect_vars, pre_matched_used_expressions_ids, xule_context):
     """Apply the where portion of the factset"""
     results = XuleValueSet()
     default_used_expressions = set()
@@ -3009,7 +3026,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                                 new_fact_value.facts = xule_context.iteration_table.facts.copy()
                                 new_fact_value.tags = xule_context.iteration_table.tags.copy()
                                 # new_fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids + xule_context.used_vars)
-                                new_fact_value.used_expressions = pre_matched_used_expressoins_ids | xule_context.used_expressions
+                                new_fact_value.used_expressions = pre_matched_used_expressions_ids | xule_context.used_expressions
                                 results.append(new_fact_value)
                             '''It may be that the false value should also be included with an unbound value'''
                         else:
@@ -3033,13 +3050,13 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                     xule_context.del_arg(var_name, declaration_id)
                 # remove where table (if this is the result of an exception the where table may be left behind)
                 xule_context.iteration_table.del_table(where_table.table_id)
-                # restore aligned results, used_vars and used_expressoins
+                # restore aligned results, used_vars and used_expressions
                 # xule_context.aligned_result_only = save_aligned_result_only
                 # xule_context.used_vars = save_used_vars
                 xule_context.used_expressions = save_used_expressions
         else:
             # fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids)
-            fact_value.used_expressions = pre_matched_used_expressoins_ids
+            fact_value.used_expressions = pre_matched_used_expressions_ids
             results.append(fact_value)
 
     return results, default_used_expressions
@@ -4178,18 +4195,24 @@ def regular_function(xule_context, function_ref, function_info):
 
     function_args = []
     for function_arg in function_ref['functionArgs']:
-        # for i in range(len(function_ref.functionArgs)):
-        if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
-            try:
-                arg = evaluate(function_arg, xule_context)
-            except XuleIterationStop as xis:
-                arg = xis.stop_value
+        if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
+            # the function arguments will be evaluated by the function instead of pre-evaluated here
+            function_args.append(function_arg)
         else:
-            arg = evaluate(function_arg, xule_context)
+            if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
+                try:
+                    arg = evaluate(function_arg, xule_context)
+                except XuleIterationStop as xis:
+                    arg = xis.stop_value
+            else:
+                arg = evaluate(function_arg, xule_context)
 
-        function_args.append(arg)
+            function_args.append(arg)
 
-    return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+    if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args, evaluate_function=evaluate, iteration_stop=XuleIterationStop)
+    else:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
 
 
 def user_defined_function(xule_context, function_ref):
@@ -4612,6 +4635,7 @@ FUNCTION_DEFAULT_TYPE = 4
 # non aggregate only
 FUNCTION_ALLOW_UNBOUND_ARGS = 3
 FUNCTION_RESULT_NUMBER = 4
+FUNCTION_POST_EVALUATE_ARGS = 5
 
 
 def built_in_functions():
@@ -5119,7 +5143,56 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
     return trace_info
 
+def result_file(rule_ast, xule_value, xule_context):
 
+    file_content = None
+    file_location = None
+    file_append = None
+
+    for result_ast in rule_ast.get('results', tuple()):
+        if result_ast.get('resultName') in ('file-content', 'file-location', 'file-append'):
+            try:
+                message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
+                message_context.tags['rule-value'] = xule_value
+                message_context.tags['alignment'] = func_alignment(xule_context)
+                message_context.result_alignment = func_alignment(xule_context)
+                saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache', False)
+                xule_context.global_context.options.xule_no_cache = True
+                result = evaluate(result_ast['resultExpr'], message_context)
+                if result_ast.get('resultName') == 'file-content':
+                    file_content = result
+                elif result_ast.get('resultName') == 'file-location':
+                    file_location = result
+                else: # This is file-append
+                    file_append = result
+            finally:
+                xule_context.global_context.options.xule_no_cache = saved_no_cache
+
+    if file_content is None or file_location is None:
+        return # there is nothing to do. 
+
+    if file_location.type != 'string':
+        raise XuleProcessingError(_(f"The file-location needs to be a string, but it is a {file_location.type}"), xule_context)
+
+    if file_content.type not in ('none', 'string'):
+        raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
+
+    if file_append is not None and file_append.type != 'bool':
+        raise XuleProcessingError(_(f"file-append must be a boolean, found {file_append.type}"))
+
+    # Write the file
+    if file_location.value in xule_context.global_context.output_files or (file_append is not None and file_append.value):
+        open_mode = 'a'
+    else:
+        open_mode = 'w'
+        xule_context.global_context.output_files.add(file_location.value)
+
+    try:
+        with open(file_location.value, open_mode, encoding='utf8') as ofile:
+            ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
+    except FileNotFoundError:
+        raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
+    
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     # validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
