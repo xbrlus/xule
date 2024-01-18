@@ -72,6 +72,7 @@ document-namespace 'http://fasb.org/2023/arcrole/accounting'
 document-imported-in 'us-gaap-metaModel-entire-' + $TAXONOMY_YEAR + '.xsd'
 arcrole-uri 'http://www.xbrl.org/2023/arcrole/concept-dimensional-equivalent'
 arcrole-used-on list('Definition').to-xodel
+arcrole-definition 'Indicate the equivalent line item axis and member that represents the fact value of another concept.'
 arcrole-cycles-allowed 'undirected'
 arcrole-id 'concept-dimensional-equivalent'
 

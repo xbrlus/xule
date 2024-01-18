@@ -2,6 +2,7 @@
   <xs:annotation>
     <xs:appinfo>
       <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/concept-dimensional-equivalent" cyclesAllowed="undirected" id="concept-dimensional-equivalent">
+        <linkbase:definition>Indicate the equivalent line item axis and member that represents the fact value of another concept.</linkbase:definition>
         <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
       </linkbase:arcroleType>
     </xs:appinfo>
