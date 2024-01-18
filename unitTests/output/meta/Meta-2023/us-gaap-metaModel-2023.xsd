@@ -1,11 +1,11 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:us-gaap-metamodel="http://fasb.org/us-gaap-metaModel/2023" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" xmlns:generic="http://xbrl.org/2008/generic" targetNamespace="http://fasb.org/us-gaap-metaModel/2023" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:us-gaap-metamodel="http://fasb.org/us-gaap-metaModel/2023" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" xmlns:generic="http://xbrl.org/2008/generic" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://fasb.org/us-gaap-metaModel/2023" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:annotation>
     <xs:appinfo>
       <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="us-gaap-metaModel-2023-lab.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
       <linkbase:roleType roleURI="http://xbrl.us/metaModel/role" id="role">
         <linkbase:definition>MetaModel of US GAAP Taxonomy</linkbase:definition>
-        <linkbase:usedOn>linkbase:definitionLink</linkbase:usedOn>
         <linkbase:usedOn>generic:link</linkbase:usedOn>
+        <linkbase:usedOn>linkbase:definitionLink</linkbase:usedOn>
       </linkbase:roleType>
     </xs:appinfo>
   </xs:annotation>

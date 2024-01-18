@@ -1,0 +1,15 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:accounting="http://fasb.org/2023/arcrole/accounting" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://fasb.org/2023/arcrole/accounting" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2021/arcrole/trait-concept" cyclesAllowed="undirected" id="trait-concept">
+        <linkbase:definition>Indicates the relationship between a source duration trait domain member and a target concept. Trait concepts are abstract concepts with a domain item type. Trait-concept relationships describe the qualities or states of being of a target concept. Trait source concepts define a single trait such as Operating, Financing, Investing, Current, Noncurrent, Estimated Accrual, Continuing, Discontinued etc. The arc allows specific accounting or non-accounting traits to be associated with a target concept using the definition linkbase, thus allowing the attributes to be explicitly stated rather than being included as adjectives in the concepts name or label. This arc can be used in conjunction with the class-subclass arcrole. A subclass of a class concept assigned a trait will inherit that trait. For example if concept "Cash" is the target of a trait-concept arc with a source concept of "Current", then the subclass of the "Cash" concept "Cash In Bank" would also inherit the "Current" trait.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/concept-dimensional-equivalent" cyclesAllowed="undirected" id="concept-dimensional-equivalent">
+        <linkbase:definition>Indicate the equivalent line item axis and member that represents the fact value of another concept.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+</xs:schema>

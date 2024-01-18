@@ -63,11 +63,11 @@ package-name  $PACKAGE_NAME
 document-uri 'us-gaap-metaModel-' + $TAXONOMY_YEAR + '.xsd'
 role $role.to-xodel
 
-output create_arcroles
+output create_arcrole_dim_equiv
 true
 
 package-name  $PACKAGE_NAME
-document-uri 'dim-equiv-arcrole-2023.xsd'
+document-uri 'accounting-arcroles-2023.xsd'
 document-namespace 'http://fasb.org/2023/arcrole/accounting'
 document-imported-in 'us-gaap-metaModel-entire-' + $TAXONOMY_YEAR + '.xsd'
 arcrole-uri 'http://www.xbrl.org/2023/arcrole/concept-dimensional-equivalent'
@@ -75,6 +75,20 @@ arcrole-used-on list('Definition').to-xodel
 arcrole-definition 'Indicate the equivalent line item axis and member that represents the fact value of another concept.'
 arcrole-cycles-allowed 'undirected'
 arcrole-id 'concept-dimensional-equivalent'
+
+output create_arcrole_trait-concept
+true
+
+package-name  $PACKAGE_NAME
+document-uri 'accounting-arcroles-2023.xsd'
+document-namespace 'http://fasb.org/2023/arcrole/accounting'
+document-imported-in 'us-gaap-metaModel-entire-' + $TAXONOMY_YEAR + '.xsd'
+arcrole-uri 'http://www.xbrl.org/2021/arcrole/trait-concept'
+arcrole-used-on list('Definition').to-xodel
+arcrole-definition 'Indicates the relationship between a source duration trait domain member and a target concept. Trait concepts are abstract concepts with a domain item type. Trait-concept relationships describe the qualities or states of being of a target concept. Trait source concepts define a single trait such as Operating, Financing, Investing, Current, Noncurrent, Estimated Accrual, Continuing, Discontinued etc. The arc allows specific accounting or non-accounting traits to be associated with a target concept using the definition linkbase, thus allowing the attributes to be explicitly stated rather than being included as adjectives in the concepts name or label. This arc can be used in conjunction with the class-subclass arcrole. A subclass of a class concept assigned a trait will inherit that trait. For example if concept "Cash" is the target of a trait-concept arc with a source concept of "Current", then the subclass of the "Cash" concept "Cash In Bank" would also inherit the "Current" trait.'
+arcrole-cycles-allowed 'undirected'
+arcrole-id 'trait-concept'
+
 
 
 output create_relationships
@@ -87,7 +101,7 @@ for $metaRelationships in $metaNetworks.relationships
         $role-short-name = (split($relationship.arcrole-uri,'/')).last
         $location = 'us-gaap-' +  $role-short-name + '-' + $TAXONOMY_YEAR + '.xml';
         $docNamespace = 'http://fasb.org/us-gaap-' + (split($relationship.arcrole-uri,'/')).last + '/' + $TAXONOMY_YEAR + ''
-        $arcrole-uri = if $relationship.arcrole-uri == 'http://xbrl.org/int/dim/arcrole/domain-member'
+        $arcrole-uri = if $relationship.arcrole-uri == 'http://xbrl.org/int/dim/arcrole/domain-member' or $relationship.arcrole-uri == 'http://www.xbrl.org/2021/arcrole/trait-concept'
                             $relationship.arcrole-uri
                        else
                             'http://www.xbrl.org/2023/arcrole/' + $role-short-name

@@ -8,14 +8,14 @@
     <link:loc xlink:label="ns13_LiquidityTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_LiquidityTrait" xlink:type="locator"/>
     <link:loc xlink:label="ns13_LiquidityDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_LiquidityDomain" xlink:type="locator"/>
     <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/trait-domain" xlink:type="arc" xlink:from="ns13_LiquidityTrait" xlink:to="ns13_LiquidityDomain" order="1"/>
-    <link:loc xlink:label="ns13_RecodedValueTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecodedValueTrait" xlink:type="locator"/>
-    <link:loc xlink:label="ns13_RecordedValueDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedValueDomain" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/trait-domain" xlink:type="arc" xlink:from="ns13_RecodedValueTrait" xlink:to="ns13_RecordedValueDomain" order="1"/>
-    <link:loc xlink:label="ns13_OperatingActivitiesTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_OperatingActivitiesTrait" xlink:type="locator"/>
-    <link:loc xlink:label="ns12_SegmentOperatingActivitiesDomain" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_SegmentOperatingActivitiesDomain" xlink:type="locator"/>
-    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/trait-domain" xlink:type="arc" xlink:from="ns13_OperatingActivitiesTrait" xlink:to="ns12_SegmentOperatingActivitiesDomain" order="1"/>
     <link:loc xlink:label="ns13_RelatedPartyTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RelatedPartyTrait" xlink:type="locator"/>
     <link:loc xlink:label="ns12_RelatedPartyDomain" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_RelatedPartyDomain" xlink:type="locator"/>
     <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/trait-domain" xlink:type="arc" xlink:from="ns13_RelatedPartyTrait" xlink:to="ns12_RelatedPartyDomain" order="1"/>
+    <link:loc xlink:label="ns13_OperatingActivitiesTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_OperatingActivitiesTrait" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_SegmentOperatingActivitiesDomain" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_SegmentOperatingActivitiesDomain" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/trait-domain" xlink:type="arc" xlink:from="ns13_OperatingActivitiesTrait" xlink:to="ns12_SegmentOperatingActivitiesDomain" order="1"/>
+    <link:loc xlink:label="ns13_RecodedValueTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecodedValueTrait" xlink:type="locator"/>
+    <link:loc xlink:label="ns13_RecordedValueDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedValueDomain" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://www.xbrl.org/2023/arcrole/trait-domain" xlink:type="arc" xlink:from="ns13_RecodedValueTrait" xlink:to="ns13_RecordedValueDomain" order="1"/>
   </link:definitionLink>
 </link:linkbase>
