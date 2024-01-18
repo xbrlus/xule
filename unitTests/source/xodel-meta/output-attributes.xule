@@ -65,12 +65,13 @@ output-attribute role-name
 output-attribute role-uri
 output-attribute role-definition
 output-attribute role-used-on
-// Arcrol
+// Arcrole
 output-attribute arcrole
 output-attribute arcrole-uri
 output-attribute arcrole-definition
 output-attribute arcrole-used-on
 output-attribute arcrole-cycles-allowed
+output-attribute arcrole-id 
 // Relationship
 output-attribute relationship
 output-attribute relationship-source

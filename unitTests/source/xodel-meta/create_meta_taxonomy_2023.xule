@@ -8,6 +8,8 @@ package-name $PACKAGE_NAME
 package-url 'https://taxonomies.xbrl.us/us-gaap/' + $TAXONOMY_YEAR + '/meta/'
 document-uri 'us-gaap-metaModel-entire-' + $TAXONOMY_YEAR + '.xsd'
 document-namespace 'http://fasb.org/us-gaap-metaModel-entire/' + $TAXONOMY_YEAR + ''
+/**document-import list('https://www.xbrl.org/lrr/arcrole/accounting-arcrole-2023-01-04.xsd')**/
+import2-url 'https://www.xbrl.org/lrr/arcrole/accounting-arcrole-2023-01-04.xsd'
 document-package-entry-point true
 document-package-entry-point-description 'META MODEL FOR THE US_GAAP ' + $TAXONOMY_YEAR + ' Taxonomy '
 document-package-entry-point-language 'en'
@@ -61,6 +63,18 @@ package-name  $PACKAGE_NAME
 document-uri 'us-gaap-metaModel-' + $TAXONOMY_YEAR + '.xsd'
 role $role.to-xodel
 
+output create_arcroles
+true
+
+package-name  $PACKAGE_NAME
+document-uri 'dim-equiv-arcrole-2023.xsd'
+document-namespace 'http://fasb.org/2023/arcrole/accounting'
+document-imported-in 'us-gaap-metaModel-entire-' + $TAXONOMY_YEAR + '.xsd'
+arcrole-uri 'http://www.xbrl.org/2023/arcrole/concept-dimensional-equivalent'
+arcrole-used-on list('Definition').to-xodel
+arcrole-cycles-allowed 'undirected'
+arcrole-id 'concept-dimensional-equivalent'
+
 
 output create_relationships
 $metaNetworks = filter $META.networks where $item.role.uri == 'http://xbrl.us/metaModel/role'
@@ -69,8 +83,13 @@ for $metaRelationships in $metaNetworks.relationships
     for $relationship in $metaRelationships
         $sourceNamespace = $relationship.source-name.namespace-uri.substring(1,last-index-of($relationship.source-name.namespace-uri,'4') - 1) + '3';
         $targetNamespace = $relationship.target-name.namespace-uri.substring(1,last-index-of($relationship.target-name.namespace-uri,'4') - 1) + '3';
-        $location = 'us-gaap-' + (split($relationship.arcrole-uri,'/')).last + '-' + $TAXONOMY_YEAR + '.xml';
+        $role-short-name = (split($relationship.arcrole-uri,'/')).last
+        $location = 'us-gaap-' +  $role-short-name + '-' + $TAXONOMY_YEAR + '.xml';
         $docNamespace = 'http://fasb.org/us-gaap-' + (split($relationship.arcrole-uri,'/')).last + '/' + $TAXONOMY_YEAR + ''
+        $arcrole-uri = if $relationship.arcrole-uri == 'http://xbrl.org/int/dim/arcrole/domain-member'
+                            $relationship.arcrole-uri
+                       else
+                            'http://www.xbrl.org/2023/arcrole/' + $role-short-name
         $relationship
 
 package-name $PACKAGE_NAME
@@ -79,6 +98,7 @@ document-namespace  $docNamespace
 document-imported-in 'us-gaap-metaModel-entire-' + $TAXONOMY_YEAR + '.xsd'
 relationship-source  qname($sourceNamespace, $relationship.source-name.local-name).to-xodel
 relationship-target  qname($targetNamespace, $relationship.target-name.local-name).to-xodel
+relationship-arcrole  $arcrole-uri
 relationship $relationship.to-xodel
 
 output create_labels

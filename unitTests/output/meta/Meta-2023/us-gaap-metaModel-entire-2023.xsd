@@ -12,5 +12,6 @@
       <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-trait-domain-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
     </xs:appinfo>
   </xs:annotation>
+  <xs:import namespace="http://fasb.org/2023/arcrole/accounting" schemaLocation="dim-equiv-arcrole-2023.xsd"/>
   <xs:import namespace="http://fasb.org/us-gaap-metaModel/2023" schemaLocation="us-gaap-metaModel-2023.xsd"/>
 </xs:schema>

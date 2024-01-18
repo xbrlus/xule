@@ -493,3 +493,18 @@ output DUC103
 /* ABCDEF */
 
   'abcdef'.upper-case
+
+output STRIN001
+/*  */
+
+  'abcdef'.last
+
+output STRIN002
+/*  */
+
+  'abcdef'[3]
+
+output STRIN003
+/*  */
+
+  'abcdef'.first
