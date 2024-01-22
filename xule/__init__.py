@@ -984,6 +984,8 @@ def xuleValidate(val):
     global _cntlr
     global _xule_validators
 
+    # If the controller is not there, pull it from the model. this happens when running as a web service in multi processing mode.
+    _cntlr = _cntlr or val.modelXbrl.modelManager.cntlr
     options = XuleVars.get(_cntlr, 'options')
     if options is None:
         options = EmptyOptions()
