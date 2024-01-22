@@ -213,7 +213,7 @@ def get_grammar():
     stringExpr = Suppress(Literal('{')) + blockExpr + Suppress(Literal('}'))
     singleQuoteString = Suppress(Literal("'")) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex("[^\\\\'{]"))).set_results_name('value') + nodeName('baseString'))) + Suppress(Literal("'"))
     doubleQuoteString = Suppress(Literal('"')) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex('[^\\\\"{]'))).set_results_name('value') + nodeName('baseString'))) + Suppress(Literal('"'))
-    stringLiteral = Group(Suppress(Opt(White())) + Group(singleQuoteString | doubleQuoteString).set_results_name('stringList') + Suppress(Opt(White())) + nodeName('string')).leave_whitespace()
+    stringLiteral = Group((Suppress(Opt(White())) + Group(singleQuoteString | doubleQuoteString).set_results_name('stringList') + Suppress(Opt(White())) + nodeName('string'))).leave_whitespace()
 
     #boolean literals
     booleanLiteral = Group((CaselessKeyword("true") | CaselessKeyword("false")).set_results_name("value") + nodeName('boolean'))
@@ -265,7 +265,7 @@ def get_grammar():
     qNameLocalName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
                            "\uF900-\uFDCF\uFDF0-\uFFFD_]"
                            "([A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
-                           "\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]|(\\\\.))"
+                           "\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]|(\\\.))"
                            "*)"
                   ).set_parse_action(lambda s, l, t: [t[0].replace('\\','')]) #parse action removes the escape backslash character
     prefix = qNameLocalName
@@ -352,7 +352,7 @@ def get_grammar():
                     Opt(coveredDims) +
                     Opt(covered)) + 
 #                   (ZeroOrMore(Group(aspectFilter)).set_results_name('aspectFilters') ) +
-                    Opt(Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).set_results_name('aspectFilters')) +
+                    Opt((Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).set_results_name('aspectFilters'))) +
 #                     Opt((whereClause) | blockExpr.set_results_name('innerExpr')
                     Opt(~ where + blockExpr.set_results_name('innerExpr') ) +
                     Opt(whereClause)
@@ -461,7 +461,7 @@ def get_grammar():
               ) 
               
     forExpr = Group(#with parens around the for control
-               (Suppress(forOp) + 
+               ((Suppress(forOp) + 
                 #for loop control: for var name and loop expression
                 Suppress(lParen) + 
                 Combine(Suppress(varIndicator) + ~White() + simpleName.set_results_name("forVar")) + 
@@ -470,17 +470,17 @@ def get_grammar():
                 Suppress(rParen) +
                 #for body expression
                 blockExpr.set_results_name("forBodyExpr") + 
-                nodeName('forExpr')) |
+                nodeName('forExpr'))) |
                
                #without parens around the for control
-               (Suppress(forOp) + 
+               ((Suppress(forOp) + 
                 #for loop control
                 Combine(Suppress(varIndicator) + ~White() + simpleName.set_results_name("forVar")) + 
                 Suppress(inOp) + 
                 blockExpr.set_results_name("forLoopExpr") +
                 #for body expression
                 blockExpr.set_results_name("forBodyExpr") + 
-                nodeName('forExpr'))
+                nodeName('forExpr')))
                )
     
     listLiteral =  Group( 
@@ -555,8 +555,8 @@ def get_grammar():
 #                       nodeName('unaryExpr')) | taggedExpr
                        
     indexExpr = Group(taggedExpr.set_results_name('expr') +
-                      OneOrMore(Suppress(lSquare) + blockExpr + 
-                                      Suppress(rSquare) ).set_results_name('indexes') +
+                      OneOrMore((Suppress(lSquare) + blockExpr + 
+                                      Suppress(rSquare) )).set_results_name('indexes') +
                       nodeName('indexExpr')) | taggedExpr
     
     propertyExpr = Group(indexExpr.set_results_name('expr') +
@@ -585,9 +585,9 @@ def get_grammar():
                            nodeName('varDeclaration')
                            )
 
-    blockExpr << (Group(OneOrMore(Group(varDeclaration)).set_results_name('varDeclarations') + 
+    blockExpr << (Group((OneOrMore(Group(varDeclaration)).set_results_name('varDeclarations') + 
                         expr.set_results_name('expr') +
-                        nodeName('blockExpr')) | expr)
+                        nodeName('blockExpr'))) | expr)
     
     #nsURI is based on XML char (http://www.w3.org/TR/xml11/#NT-Char) excluding the space character
     nsURI = Regex("["
