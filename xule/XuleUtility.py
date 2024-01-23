@@ -179,35 +179,40 @@ def resolve_role(role_value, role_type, dts, xule_context):
             return role_value.value.localName
         # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
         short_attribute_name = 'xule_{}_short'.format(role_type)
+        short_role_dict = collections.defaultdict(list)
         if not hasattr(dts, short_attribute_name):
             if role_type == 'arcrole':
-                setattr(dts, short_attribute_name, XuleProperties.CORE_ARCROLES.copy())
+                short_dict_seed = XuleProperties.CORE_ARCROLES.copy()
                 dts_roles = dts.arcroleTypes
             else:
-                setattr(dts, short_attribute_name, {'link': 'http://www.xbrl.org/2003/role/link'})
+                short_dict_seed = {'link': 'http://www.xbrl.org/2003/role/link'}
                 dts_roles = dts.roleTypes
+            # convert the seed dictionary to a defaultdict(list)
+            for k, v in short_dict_seed.items():
+                short_role_dict[k] = [v,]
+            setattr(dts, short_attribute_name, short_role_dict)
             
-            short_role_dict = getattr(dts, short_attribute_name)
+            # add the roles or arcroles in the DTS to the short_role_dict
             for role in dts_roles:
                 short_name = role.split('/')[-1] if '/' in role else role
-                if short_name in short_role_dict:
-                    short_role_dict[short_name] = None # indicates that there is a dup shortname
-                else:
-                    short_role_dict[short_name] = role
+                short_role_dict[short_name].append(role)
         
         short_role_dict = getattr(dts, short_attribute_name)
+        # the role comes across as a qname - this a bit of a hack
         short_name = role_value.value.localName
         if short_name not in short_role_dict:
-            return None
+            return () # an empty tuple
             #raise XuleProcessingError(_("The {} short name '{}' does not match any arcrole.".format(role_type, short_name)))
-        if short_name in (XuleProperties.CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
-            raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
-                                        "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
-                                        .format(role=role_type, 
-                                                tax_role=getattr(dts, short_attribute_name)[short_name], 
-                                                core_role=XuleProperties.CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
-        if short_name in short_role_dict and short_role_dict[short_name] is None:
-            raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
+        
+        # if short_name in (XuleProperties.CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
+        #     raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
+        #                                 "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
+        #                                 .format(role=role_type, 
+        #                                         tax_role=getattr(dts, short_attribute_name)[short_name], 
+        #                                         core_role=XuleProperties.CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
+        
+        # if short_name in short_role_dict and short_role_dict[short_name] is None:
+        #     raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
         
         return short_role_dict[short_name]
 

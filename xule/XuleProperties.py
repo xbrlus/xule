@@ -424,7 +424,14 @@ def property_networks(xule_context, object_value, *args):
         elif arcrole_value.type in ('uri', 'string'):
             arcrole = arcrole_value.value
         elif arcrole_value.type == 'qname':
-            arcrole = XuleUtility.resolve_role(arcrole_value, 'arcrole', object_value.value, xule_context)
+            arcroles = XuleUtility.resolve_role(arcrole_value, 'arcrole', object_value.value, xule_context)
+            if len(arcroles) == 0:
+                arcrole = None
+            elif len(arcroles) > 1:
+                newline = '\n'
+                raise XuleProcessingError(_(f"More than 1 arcrole was resolved with the short arcrole name of {arcrole_value.value.localName}. In the .networks() property only 1 arcrole can be passed. The arcroles found were {newline}{newline.join(arcroles)}"), xule_context)
+            else:
+                arcrole = arcroles[0]
         elif arcrole_value.type == 'none':
             arcrole = None
         else:
@@ -439,7 +446,14 @@ def property_networks(xule_context, object_value, *args):
         elif role_value.type in ('uri', 'string'):
             role = role_value.value
         elif role_value.type == 'qname':
-            role = XuleUtility.resolve_role(role_value, 'role', object_value.value, xule_context)
+            roles = XuleUtility.resolve_role(role_value, 'role', object_value.value, xule_context)
+            if len(roles) == 0:
+                role = None
+            elif len(roles) > 1:
+                newline = '\n'
+                raise XuleProcessingError(_(f"More than 1 role was resolved with the short role name of {role_value.value.localName}. In the .networks() property only 1 role can be passed. The roles found where {newline}{newline.join(roles)}"), xule_context)
+            else:
+                role = roles[0]
         else:
             raise XuleProcessingError(_("The second argument (role) of the networks property must be a uri, found '{}'.".format(role_value.type)), xule_context)
     else:
