@@ -176,13 +176,13 @@ def resolve_role(role_value, role_type, dts, xule_context):
         raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
     else:
         if role_type == 'arcrole' and role_value.value.localName in xc.DIMENSION_PSEDDO_ARCROLES:
-            return role_value.value.localName
+            return (role_value.value.localName,) # return a tuple 
         # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
         short_attribute_name = 'xule_{}_short'.format(role_type)
         short_role_dict = collections.defaultdict(list)
         if not hasattr(dts, short_attribute_name):
             if role_type == 'arcrole':
-                short_dict_seed = XuleProperties.CORE_ARCROLES.copy()
+                short_dict_seed = {k: v for k, v in XuleProperties.CORE_ARCROLES.items() if (k[0], None, None, None) in dts.baseSets}
                 dts_roles = dts.arcroleTypes
             else:
                 short_dict_seed = {'link': 'http://www.xbrl.org/2003/role/link'}
