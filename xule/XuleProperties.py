@@ -1892,9 +1892,18 @@ def property_entry_point(xule_context, object_value, *args):
         for item in documentlist:
             uri_list[item.uri] = item
     elif dtstype == Type.INLINEXBRLDOCUMENTSET:
-        for topitem in documentlist:
-            for item in topitem.referencesDocument:
-                uri_list[item.uri] = item
+        # In a later version of Arelle, the .referencesDocument property of the ModelDocument
+        # is not set, so the schema cannot be found from the htm file of a inline xbrl document set. To get around this, the get_taxonomy_entry_point_doc() will return the inline document and the schema.
+        inline_documents = [x for x in documentlist if x.type == Type.INLINEXBRL]
+        schema_documents = [ x for x in documentlist if x.type == Type.SCHEMA]
+        if all((len(x.referencesDocument) == 0 for x in inline_documents)) and len(schema_documents) > 0:
+            # Here there are inline documents and none of them have a reference to a schema document, but there is a schema document, so take the first schema document
+            uri_list = {x.uri: x for x in schema_documents}
+        else:
+            # the inline document should have the reference to the schema
+            for topitem in inline_documents:
+                for item in topitem.referencesDocument:
+                    uri_list[item.uri] = item
     else:
         uri_list[documentlist.uri] = documentlist
     
@@ -1921,9 +1930,18 @@ def property_entry_point_namespace(xule_context, object_value, *args):
         for item in documentlist:
             namespaces[item.uri] = item.targetNamespace
     elif dtstype == Type.INLINEXBRLDOCUMENTSET:
-        for topitem in documentlist:
-            for item in topitem.referencesDocument:
-                namespaces[item.uri] = item.targetNamespace
+        # In a later version of Arelle, the .referencesDocument property of the ModelDocument
+        # is not set, so the schema cannot be found from the htm file of a inline xbrl document set. To get around this, the get_taxonomy_entry_point_doc() will return the inline document and the schema.
+        inline_documents = [x for x in documentlist if x.type == Type.INLINEXBRL]
+        schema_documents = [ x for x in documentlist if x.type == Type.SCHEMA]
+        if all((len(x.referencesDocument) == 0 for x in inline_documents)) and len(schema_documents) > 0:
+            # Here there are inline documents and none of them have a reference to a schema document, but there is a schema document, so take the first schema document
+            namespaces = {x.uri: x.targetNamespace for x in schema_documents}
+        else:
+            # the inline document should have the reference to the schema
+            for topitem in inline_documents:
+                for item in topitem.referencesDocument:
+                    namespaces[item.uri] = item.targetNamespace
     else:
         namespaces[documentlist.uri] = documentlist.targetNamespace
     
