@@ -1891,8 +1891,11 @@ def property_entry_point_namespace(xule_context, object_value, *args):
             namespaces[item.uri] = item.targetNamespace
     elif dtstype == Type.INLINEXBRLDOCUMENTSET:
         for topitem in documentlist:
-            for item in topitem.referencesDocument:
-                namespaces[item.uri] = item.targetNamespace
+            if topitem.type == Type.SCHEMA:
+                namespaces[topitem.uri] = topitem.targetNamespace
+            else:
+                for item in topitem.referencesDocument:
+                    namespaces[item.uri] = item.targetNamespace
     else:
         namespaces[documentlist.uri] = documentlist.targetNamespace
     
