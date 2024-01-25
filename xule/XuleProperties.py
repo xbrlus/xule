@@ -427,11 +427,11 @@ def property_networks(xule_context, object_value, *args):
             arcroles = XuleUtility.resolve_role(arcrole_value, 'arcrole', object_value.value, xule_context)
             if len(arcroles) == 0:
                 arcrole = None
-            elif len(arcroles) > 1:
-                newline = '\n'
-                raise XuleProcessingError(_(f"More than 1 arcrole was resolved with the short arcrole name of {arcrole_value.value.localName}. In the .networks() property only 1 arcrole can be passed. The arcroles found were {newline}{newline.join(arcroles)}"), xule_context)
+            # elif len(arcroles) > 1:
+            #     newline = '\n'
+            #     raise XuleProcessingError(_(f"More than 1 arcrole was resolved with the short arcrole name of {arcrole_value.value.localName}. In the .networks() property only 1 arcrole can be passed. The arcroles found were {newline}{newline.join(arcroles)}"), xule_context)
             else:
-                arcrole = arcroles[0]
+                arcrole = arcroles
         elif arcrole_value.type == 'none':
             arcrole = None
         else:
