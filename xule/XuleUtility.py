@@ -182,7 +182,7 @@ def resolve_role(role_value, role_type, dts, xule_context):
         short_role_dict = collections.defaultdict(list)
         if not hasattr(dts, short_attribute_name):
             if role_type == 'arcrole':
-                short_dict_seed = {k: v for k, v in XuleProperties.CORE_ARCROLES.items() if (k[0], None, None, None) in dts.baseSets}
+                short_dict_seed = {k: v for k, v in XuleProperties.CORE_ARCROLES.items() if (v, None, None, None) in dts.baseSets}
                 dts_roles = dts.arcroleTypes
             else:
                 short_dict_seed = {'link': 'http://www.xbrl.org/2003/role/link'}
