@@ -424,7 +424,14 @@ def property_networks(xule_context, object_value, *args):
         elif arcrole_value.type in ('uri', 'string'):
             arcrole = arcrole_value.value
         elif arcrole_value.type == 'qname':
-            arcrole = XuleUtility.resolve_role(arcrole_value, 'arcrole', object_value.value, xule_context)
+            arcroles = XuleUtility.resolve_role(arcrole_value, 'arcrole', object_value.value, xule_context)
+            if len(arcroles) == 0:
+                arcrole = None
+            elif len(arcroles) > 1:
+                newline = '\n'
+                raise XuleProcessingError(_(f"More than 1 arcrole was resolved with the short arcrole name of {arcrole_value.value.localName}. In the .networks() property only 1 arcrole can be passed. The arcroles found were {newline}{newline.join(arcroles)}"), xule_context)
+            else:
+                arcrole = arcroles[0]
         elif arcrole_value.type == 'none':
             arcrole = None
         else:
@@ -439,7 +446,17 @@ def property_networks(xule_context, object_value, *args):
         elif role_value.type in ('uri', 'string'):
             role = role_value.value
         elif role_value.type == 'qname':
-            role = XuleUtility.resolve_role(role_value, 'role', object_value.value, xule_context)
+            roles = XuleUtility.resolve_role(role_value, 'role', object_value.value, xule_context)
+            if len(roles) == 0:
+                role = None
+            else:
+                role = roles
+
+            # elif len(roles) > 1:
+            #     newline = '\n'
+            #     raise XuleProcessingError(_(f"More than 1 role was resolved with the short role name of {role_value.value.localName}. In the .networks() property only 1 role can be passed. The roles found where {newline}{newline.join(roles)}"), xule_context)
+            # else:
+            #     role = roles[0]
         else:
             raise XuleProcessingError(_("The second argument (role) of the networks property must be a uri, found '{}'.".format(role_value.type)), xule_context)
     else:
@@ -1958,6 +1975,7 @@ def property_decimals(xule_context, object_value, *args):
     
 
 def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
+    # arcrole and role can be None, a single URI or a collection of URIs.
     networks = set()
     dts = dts_value.value
     network_infos = get_base_set_info(dts, arcrole, role, link, arc)
@@ -1993,16 +2011,17 @@ def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, ar
     return frozenset(networks)
 
 def get_base_set_info(dts, arcrole=None, role=None, link=None, arc=None):
-#     return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
-#                                        (True if role is None else x[NETWORK_ROLE] == role) and
-#                                        (True if link is None else x[NETWORK_LINK] == link) and
-#                                        (True if arc is None else x[NETWORK_ARC] == arc)]
+    # arcrole and role can be None, a single URI or a collection of URIs
+    if arcrole is not None and not isinstance(arcrole, (list, set, tuple)):
+        arcrole = (arcrole,) # make it a tuple of 1 item
+    if role is not None and not isinstance(role, (list, set, tuple)):
+        role = (role,) # make it a tuple of 1 item
 
     info = list()
     for x in dts.baseSets:
         keep = True
-        if x[NETWORK_ARCROLE] is None or (x[NETWORK_ARCROLE] != arcrole and arcrole is not None): keep = False
-        if x[NETWORK_ROLE] is None or (x[NETWORK_ROLE] != role and role is not None): keep = False
+        if x[NETWORK_ARCROLE] is None or (arcrole is not None and x[NETWORK_ARCROLE] not in arcrole): keep = False
+        if x[NETWORK_ROLE] is None or (role is not None and x[NETWORK_ROLE] not in role): keep = False
         if x[NETWORK_LINK] is None or (x[NETWORK_LINK] != link and link is not None): keep = False
         if x[NETWORK_ARC] is None or (x[NETWORK_ARC] != arc and arc is not None): keep = False
 
