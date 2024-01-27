@@ -163,7 +163,10 @@ def process_xodel(cntlr, options, modelXbrl):
     _CNTLR = cntlr
     global _ARELLE_MODEL
     _ARELLE_MODEL = modelXbrl
-    from .xule.XuleProperties import add_property
+    try:
+        from .xule.XuleProperties import add_property
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleProperties import add_property
     add_property('to-xodel', property_to_xodel, 0, tuple() )
     add_property('reprefix', property_reprefix, -1, ('qname', ))
     # Run Xule rules
@@ -172,7 +175,10 @@ def process_xodel(cntlr, options, modelXbrl):
     #build taxonomy model
     # buile_taxonomy_model will add the taxonomies to the XodelModelManager
     build_taxonomy_model(log_capture, options, cntlr, modelXbrl)
-    from . import serializer
+    try:
+        from . import serializer
+    except (ModuleNotFoundError, ImportError):
+        import serializer
     serializer._OPTIONS = options
     for name, dts in XodelModelManager.get_all_models().items():
         dts.set_default_documents(name)
@@ -194,7 +200,10 @@ def run_xule(cntlr, options, modelXbrl):
     cntlr.logger.addHandler(log_capture_handler)
 
     # Call the xule processor to run the rules
-    from .xule import __pluginInfo__ as xule_plugin_info
+    try:
+        from .xule import __pluginInfo__ as xule_plugin_info
+    except (ModuleNotFoundError, ImportError):
+        from xule import __pluginInfo__ as xule_plugin_info
     call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
 
     run_options = copy.deepcopy(options)
@@ -3049,7 +3058,10 @@ class XodelModelManager:
             raise XodelException(f"Cannot create taxonomy {model_name} because it alreay exists")
         else:
             # Get new model
-            from .SimpleXBRLModel import SXM
+            try:
+                from .SimpleXBRLModel import SXM
+            except (ModuleNotFoundError, ImportError):
+                from SimpleXBRLModel import SXM
 
             new_model: SXM.SXMDTS = SXM.SXMDTS()
             XodelModelManager._models[model_name]: SXM.SXMDTS = new_model

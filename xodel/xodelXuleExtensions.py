@@ -22,7 +22,10 @@ def property_to_xodel(xule_context, object_value, *args, _intermediate=False):
     # (sets, list or dictionaries) then there needs to be recursion. The value passed up should be a
     # python collection (list or dictionary) until the final value is sent to the original caller, which
     # will be a string.
-    from .xule import XuleValue as xv
+    try:
+        from .xule import XuleValue as xv
+    except (ModuleNotFoundError, ImportError):
+        from xule import XuleValue as xv
 
     basic = True
     if object_value.type == 'entity':
@@ -98,8 +101,14 @@ def property_reprefix(xule_context, object_value, *args):
     '''
     This property will generate a new qname by applying the prefix that is passed. The prefix will match a prefix in the rule set
     '''
-    from .xule.XuleRunTime import XuleProcessingError
-    from .xule import XuleValue as xv
+    try:
+        from .xule.XuleRunTime import XuleProcessingError
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleRunTime import XuleProcessingError
+    try:
+        from .xule import XuleValue as xv
+    except (ModuleNotFoundError, ImportError):
+        from xule import XuleValue as xv
 
     if len(args) == 0:
         prefix = '*' # this is the default prefix
