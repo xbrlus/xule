@@ -9,8 +9,16 @@ Reivision number: $Change: $
 import calendar
 
 def date_month_ends(xule_context, *args):
-    from .xule import XuleValue as xv
-    from .xule.XuleRunTime import XuleProcessingError
+    try:
+        from .xule import XuleValue as xv
+    except (ModuleNotFoundError, ImportError):
+        from xule import XuleValue as xv
+    
+    try:
+        from .xule.XuleRunTime import XuleProcessingError
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleRunTime import XuleProcessingError
+        
     try:
         raw_values = tuple(calendar.monthrange(int(args[0].value), x)[1] for x in range(1,13))
     except:

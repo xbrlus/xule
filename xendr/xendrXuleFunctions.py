@@ -13,8 +13,14 @@ from .xendrCommon import XendrException
 from .XendrVars import save_arelle_model
 
 def get_footnotes_from_fact_ids(xule_context, *args):
-    from .xule import XuleValue as xv
-    from .xule.XuleRunTime import XuleProcessingError
+    try:
+        from .xule import XuleValue as xv
+    except (ModuleNotFoundError, ImportError):
+        from xule import XuleValue as xv
+    try:
+        from .xule.XuleRunTime import XuleProcessingError
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleRunTime import XuleProcessingError
     # This function will take a string containing object ids and convert them to a list of 
     # footnote objects. the object ids are separated by whitespace
     # This is used for Xendr when processing footnotes
@@ -59,16 +65,28 @@ def get_footnotes_from_fact_ids(xule_context, *args):
     return xv.XuleValue(xule_context, tuple(footnotes), 'list', shadow_collection=shadow)
 
 def get_internal_model_id(xule_context, *args):
-    from .xule import XuleValue as xv
-    from .xule.XuleRunTime import XuleProcessingError
+    try:
+        from .xule import XuleValue as xv
+    except (ModuleNotFoundError, ImportError):
+        from xule import XuleValue as xv
+    try:
+        from .xule.XuleRunTime import XuleProcessingError
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleRunTime import XuleProcessingError
     if args[0].fact is None:
         return xv.XuleValue(xule_context, None, 'none')
     else:
         return xv.XuleValue(xule_context, args[0].fact.objectId(), 'string')
     
 def format_footnote_info(xule_context, *args):
-    from .xule import XuleValue as xv
-    from .xule.XuleRunTime import XuleProcessingError
+    try:
+        from .xule import XuleValue as xv
+    except (ModuleNotFoundError, ImportError):
+        from xule import XuleValue as xv
+    try:
+        from .xule.XuleRunTime import XuleProcessingError
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleRunTime import XuleProcessingError
     if args[0].type != 'footnote':
         raise XuleProcessingError(_(f"Function xendr-format-footnote() requires a footnote object as the argument, but found {args[0].type}"), xule_context)
     footnote_info = {'type': args[0].value[xv.FOOTNOTE_TYPE],
@@ -78,7 +96,10 @@ def format_footnote_info(xule_context, *args):
     return xv.XuleValue(xule_context, json.dumps(footnote_info), 'string')
 
 def property_xendr_model_object(xule_context, object_value, *args):
-    from .xule import XuleValue as xv
+    try:
+        from .xule import XuleValue as xv
+    except (ModuleNotFoundError, ImportError):
+        from xule import XuleValue as xv
     if object_value.type == 'none':
         return xv.XuleValue(xule_context, None, 'none')
     

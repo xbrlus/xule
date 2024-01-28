@@ -32,8 +32,12 @@ def cmdUtilityRun(cntlr, options, **kwargs):
     # second import works for that. It has something to do with the way the plugins are imported.
     try:
         from .xule.XuleFunctions import add_normal_function
-    except:
-        from ..xule.XuleFunctions import add_normal_function
+    except (ModuleNotFoundError, ImportError):
+        try:
+            from ..xule.XuleFunctions import add_normal_function
+        except (ModuleNotFoundError, ImportError):
+            from xule.XuleFunctions import add_normal_function
+    
     add_normal_function('date-month-ends', xuleDateFunctions.date_month_ends, 1)
 
 def dummy(*args, **kwrgs):
