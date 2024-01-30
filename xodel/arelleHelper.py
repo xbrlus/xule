@@ -627,7 +627,7 @@ def open_arelle_model(cntlr, uri):
 def find_arelle_model(url, cntlr, current_arelle_model):
     # Get or create the arelle_model for the url
     arelle_model = None
-    if url == current_arelle_model.modelDocument.uri:
+    if current_arelle_model is not None and url == current_arelle_model.modelDocument.uri:
         arelle_model = current_arelle_model
     else:
         # check if the document is already open

@@ -57,6 +57,7 @@ class XuleMessageQueue():
     """
     _queue = None
     _model = None
+    _cntlr = None
     _multi = False
     _is_async = False
     _printlist = None
@@ -65,14 +66,16 @@ class XuleMessageQueue():
     use self.log to print to the queue
     use self._model to print directly
     '''
-    def __init__(self, model, multi=False, is_async=False, cid=None):
+    def __init__(self, model, multi=False, is_async=False, cntlr=None):
         if multi:
             self._queue = M_Queue()
         if model is not None:
             self._model = model
+        if cntlr is not None:
+            self._cntlr = cntlr
         self._multi = multi
         self._is_async = is_async
-        self._cid = cid
+        self._cid = cid=id(cntlr)
         self._printlist = []
         #if not hasattr(self._model, "logger"):
         #    print("Error during XuleMessageQueue init.  No logger available")
@@ -155,16 +158,20 @@ class XuleMessageQueue():
             args['modelObject'] = self._model.modelObjects[args['xuleObjectIndex']]
             del args['xuleObjectIndex']
 
-        if self._model is None:
+        if self._model is None and self._cntlr is None:
+            # There is no where to log the message, so just print it
             print("[%s] [%s] %s" % (level, codes, msg))
-        elif level == "ERROR":
-            self._model.error(codes, msg, **args)
-        elif level == "INFO":
-            self._model.info(codes, msg, **args)
-        elif level == "WARNING":
-            self._model.warning(codes, msg, **args)
+        elif self._model is None:
+            self._cntlr.addToLog(msg, codes, args, level=level)
         else:
-            self._model.log(level, codes, msg, **args)
+            if level == "ERROR":
+                self._model.error(codes, msg, **args)
+            elif level == "INFO":
+                self._model.info(codes, msg, **args)
+            elif level == "WARNING":
+                self._model.warning(codes, msg, **args)
+            else:
+                self._model.log(level, codes, msg, **args)
 
 
     @property
@@ -222,7 +229,7 @@ class XuleGlobalContext(object):
         self.output_files = set() # list of files that are created
         
         # Set up various queues
-        self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cid=id(self.cntlr))
+        self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cntlr)
         self.calc_constants_queue = Queue()
         self.rules_queue = M_Queue()    
 
