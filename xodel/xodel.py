@@ -2951,6 +2951,8 @@ def set_document(rule_name, log_rec, sxm_object_or_objects):
     else:
         sxm_objects = (sxm_object_or_objects,) # convert to a tuple with a single value
     
+    if len(sxm_objects) == 0:
+        return # There is nothing to do
     doc = sxm_objects[0].dts.get('Document', uri)
     for sxm_object in sxm_objects:
         sxm_object.document = doc

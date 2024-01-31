@@ -718,19 +718,19 @@ def add_roles(sxm_dts, arelle_model):
 
     for model_role in arelle_model.roleTypes.values():
         model_role = model_role[0] # Arelle will list multiple roles for the same role uri if it is defined in mulitple documents, but we only care about the first one.
-        new_role = new_role_from_arelle(sxm_dts, model_role, arelle_model.modelManager.cntlr)
-
-        if new_role.document is None:
-            new_role.document = get_document_from_arelle(sxm_dts, model_role.modelDocument.uri)
+        if sxm_dts.get('Role', model_role.roleURI) is None:
+            new_role = new_role_from_arelle(sxm_dts, model_role, arelle_model.modelManager.cntlr)
+            if new_role.document is None:
+                new_role.document = get_document_from_arelle(sxm_dts, model_role.modelDocument.uri)
 
 def add_arcroles(sxm_dts, arelle_model):
 
     for model_arcrole in arelle_model.arcroleTypes.values():
         model_arcrole = model_arcrole[0] # Arelle will list multiple arcroles for the same role uri if it is defined in mulitple documents, but we only care about the first one.
-        new_arcrole = new_arcrole_from_arelle(sxm_dts, model_arcrole, arelle_model.modelManager.cntlr)
-
-        if new_arcrole.document is None:
-            new_arcrole.document = get_document_from_arelle(sxm_dts, model_arcrole.modelDocument.uri)
+        if sxm_dts.get('Arcrole', model_arcrole.arcroleURI) is None:
+            new_arcrole = new_arcrole_from_arelle(sxm_dts, model_arcrole, arelle_model.modelManager.cntlr)
+            if new_arcrole.document is None:
+                new_arcrole.document = get_document_from_arelle(sxm_dts, model_arcrole.modelDocument.uri)
 
 def add_labels(sxm_dts, arelle_model):
     label_network = arelle_model.relationshipSet(_CONCEPT_LABEL)
