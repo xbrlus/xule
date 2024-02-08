@@ -4,6 +4,7 @@ An open-source XBRL processor for business rules, rendering and custom data repo
 
 Interactive Example - Running XULE in Arelle
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xbrlus/xule/jupyter?filepath=sample.ipynb)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/xbrlus/xule/blob/jupyter/sample.ipynb)
 
 ## License and Patent
 
