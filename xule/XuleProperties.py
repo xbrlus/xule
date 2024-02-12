@@ -2959,10 +2959,10 @@ PROPERTIES = {
               'regex-match-string-all': (property_regex_match_string_all, -2, ('string', 'uri'), False),
 
               # inline properties
-              'inline-parents': (property_inline_parents, 0, ('fact',), False),
-              'inline-ancestors': (property_inline_ancestors, 0, ('fact',), False),
-              'inline-children': (property_inline_children, 0, ('fact',), False),
-              'inline-descendants': (property_inline_descendants, 0, ('fact',), False),
+              'inline-parents': (property_inline_parents, 0, ('fact',), True),
+              'inline-ancestors': (property_inline_ancestors, 0, ('fact',), True),
+              'inline-children': (property_inline_children, 0, ('fact',), True),
+              'inline-descendants': (property_inline_descendants, 0, ('fact',), True),
 
               # Debugging properties
               '_type': (property_type, 0, (), False),
