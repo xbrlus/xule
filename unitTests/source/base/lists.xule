@@ -123,6 +123,6 @@ output LM022
   list('lang',  $x)
 
 output LM023
-/* list(1,2,3) */
+/* list(1, 2, 3) */
 
   list(1,2,3) + none

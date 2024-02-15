@@ -50,7 +50,7 @@ output DO109
   forever
 
 output DO110
-/* inf */
+/* 3652058 */
 
   forever.days
 
@@ -65,17 +65,17 @@ output DO112
   duration('2022-01-01', '2022-03-31').days
 
 output DO113
-/* 4 days */
+/* 4 days, 0:00:00 */
 
   time-span('P4D')
 
 output DO114
-/* 7 days */
+/* 7 days, 0:00:00 */
 
   time-span('P4D') + time-span('P3D')
 
 output DO115
-/* 1 day */
+/* 1 day, 0:00:00 */
 
   time-span('P4D') - time-span('P3D')
 

@@ -80,7 +80,7 @@ output DAVG103
   list(12, -12).avg
 
 output DAVG104
-/* 0.62 */
+/* 0.62 (rounded 4d) */
 
   list(0.12, 1.12).avg
 
@@ -90,7 +90,7 @@ output DAVG105
   list().avg
 
 output DAVG106
-/* 3.85 */
+/* 3.85 (rounded 4d) */
 
   set(1.1,2.2,3.3,4.4,5.5,6.6).avg
 
@@ -100,17 +100,17 @@ output DAVG107
   112.avg
 
 output DAVG108
-/* rule DAVG108: Rule: DAVG108 - Statistic properties expect nuemric inputs, found 'string'. */
+/* rule DAVG108: Rule: DAVG108 - Statistic properties expect numeric inputs, found 'string'. */
 
   list(1.12, 'cat').avg
 
 output DAVG109
-/* rule DAVG109: Rule: DAVG109 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule DAVG109: Rule: DAVG109 - Statistic properties expect numeric inputs, found 'none'. */
 
   list(none,none,3).avg
 
 output AVG101
-/* 29.833333 */
+/* 29.8333 (rounded 4d) */
 
   avg(list(12, 1, 55, 6, 105, 0))
 
@@ -125,7 +125,7 @@ output AVG103
   avg(list(12, -12))
 
 output AVG104
-/* 0.62 */
+/* 0.62 (rounded 4d) */
 
   avg(list(0.12, 1.12))
 
@@ -135,7 +135,7 @@ output AVG191
   avg(0.12, 1.12)
 
 output AVG192
-/* rule AVG192: Rule: AVG192 - Statistic properties expect nuemric inputs, found 'string'. */
+/* rule AVG192: Rule: AVG192 - Statistic properties expect numeric inputs, found 'string'. */
 
   avg(list(1.12, 'cat'))
 
@@ -175,7 +175,7 @@ output MOD102
   mod(9, 4)
 
 output MOD109
-/* rule MOD109: integer division or modulo by zero */
+/* rule MOD109: integer modulo by zero */
 
   mod(9, 0)
 
@@ -210,12 +210,12 @@ output DPOW102
   2.power(-3)
 
 output DPOW103
-/* list(1, 4, 10.89) */
+/* list(1, 4, 10.89 (rounded 4d)) */
 
   list(1,2,3.3).power(2.0)
 
 output DPOW104
-/* list(0.008264, 0.002066, 0.000918) */
+/* list(0.008264462809917356, 0.002066115702479339, 0.0009182736455463728) */
 
   list(11,22,33).power(-2)
 
@@ -270,7 +270,7 @@ output POW103
   power(0.5, 3)
 
 output POW104
-/* 1.861646 */
+/* 1.8616 (rounded 4d) */
 
   power(500, 0.1)
 
@@ -360,12 +360,12 @@ output SIG104
   signum('cat')
 
 output SIG105
-/* [xule:error] rule SIG105: Rule: SIG105 - The first argument of function 'signum' must be int, float, decimal, fact, found 'none'. */
+/* rule SIG105: Rule: SIG105 - The first argument of function 'signum' must be int, float, decimal, fact, found 'none'. */
 
   signum(none)
 
 output SIG106
-/* [xule:error] rule SIG106: Rule: SIG106 - The first argument of function 'signum' must be int, float, decimal, fact, found 'set'. */
+/* rule SIG106: Rule: SIG106 - The first argument of function 'signum' must be int, float, decimal, fact, found 'set'. */
 
   signum(set(10,-10,0,3))
 
@@ -390,7 +390,7 @@ output TRUN104
   trunc(none,2)
 
 output TRUN105
-/* rule TRUN105: [<class 'decimal.ConversionSyntax'>] */
+/* rule TRUN105: [<class 'decimal.ConversionSyntax'> */
 
   trunc('cat',2)
 

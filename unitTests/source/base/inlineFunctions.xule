@@ -40,7 +40,7 @@ output INLIN008
   {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
 
 output INLIN009
-/* No iteration */
+/* skip */
 
   {@instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
 
@@ -50,7 +50,7 @@ output INLIN010
   list({ covered @instance=$INSTANCE3 where $fact.inline-negated == true}).count
 
 output INLIN011
-/* list(None, None, None, 0001742770, --12-31, 2022, FY, VIOT, CN, CN, 104,539,463, 105,516,779, 102,854,550, 103,214,547, False) */
+/* list(False, 103,214,547, 102,854,550, 105,516,779, 104,539,463, CN, CN, VIOT, FY, --12-31, 2022, 0001742770, None, None, None) */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-hidden == true})
 
@@ -120,7 +120,7 @@ output INLIN024
   { @instance=$INSTANCE_XML @concept.local-name='Assets' }.inline-ancestors
 
 output INLIN025
-/* no iteration */
+/* skip */
 
   { @instance=$INSTANCE_XML @concept.local-name='Assets'  where $fact.inline-parents.length > 0}
 

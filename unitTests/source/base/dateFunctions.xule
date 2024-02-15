@@ -35,7 +35,7 @@ output FDATE107
   list(duration('2022-01-01', '2022-03-31'), duration('2022-01-01', '2022-06-30')).days
 
 output FDATE108
-/* set(180, 89) */
+/* set(89, 180) */
 
   set(duration('2022-01-01', '2022-03-31'), duration('2022-01-01', '2022-06-30')).days
 
@@ -155,7 +155,7 @@ output FDATE131
   list(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
 
 output FDATE132
-/* set(2022) */
+/* set(2,022) */
 
   set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
 
@@ -315,7 +315,7 @@ output DUR101
   duration('2022-03-01', '2022-06-30') < duration('2022-05-01', '2022-12-31')
 
 output DUR102
-/* rule DUR0102 Rule: DUR096 - Property 'contains' is not a property of a 'duration'. */
+/* rule DUR102: Rule: DUR102 - Property 'contains' is not a property of a 'duration'. */
 
   duration('2022-01-01', '2022-09-30').contains(duration('2022-03-01', '2022-06-30'))
 
@@ -360,7 +360,7 @@ output MON002
   month(date('1999-12-31'))
 
 output MON091
-/* rule MON091: Rule: MON091 - The 'month' function must have at least one argumenrt, found None. */
+/* rule MON091: Rule: MON091 - The 'month' function must have at least one argument, found none. */
 
   month()
 
@@ -400,17 +400,17 @@ output TSP107
   time-span('PT12H')
 
 output TSP191
-/* rule TSP191: Rule: TSP191 - Function 'time-span' expects a string, fount 'qname'. */
+/* rule TSP191: Rule: TSP191 - The first argument of function 'time-span' must be string, duration, found 'qname'. */
 
   time-span(P4D)
 
 output TSP192
-/* rule TSP192: Rule: TSP192 - The 'time-span' function must have only 1 argument, found 0. */
+/* rule TSP192: Rule: TSP192 - The 'time-span' function must have at least one argument, found none. */
 
   time-span()
 
 output TSP193
-/* rule TSP193: Rule: TSP193 - Function 'time-span' expects a string, fount 'qname'. */
+/* rule TSP193: Rule: TSP193 - The first argument of function 'time-span' must be string, duration, found 'qname'. */
 
   time-span(cat)
 

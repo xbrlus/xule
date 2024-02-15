@@ -90,7 +90,7 @@ output FACT018
   max(list([covered @instance = $INSTANCE1 @PaymentsToAcquireProductiveAssets])).id
 
 output FACT019
-/* None or 45436 */
+/* 1137000000 */
 
   max(list([covered @instance = $INSTANCE1 where $fact.id == 'id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmJhYzQxYmIzNDhjZjQ0MWJhYWQ3ZTY5ZTUxMWQ2ZWM1L3RhYmxlcmFuZ2U6YmFjNDFiYjM0OGNmNDQxYmFhZDdlNjllNTExZDZlYzVfNDItMjktMS0xLTMwNA_cb64a33c-b936-4561-82a2-870970bbe9a4']))
 
@@ -100,7 +100,7 @@ output FACT020
   max(list([covered @instance = $INSTANCE1 @Assets])).instance.facts.count
 
 output FACT021
-/* FACT021 - Property 'name' is not a property of a 'cube' */
+/* rule FACT021: Rule: FACT021 - Property 'name' is not a property of a 'cube'. */
 
   max(list([covered @instance = $INSTANCE1 @Assets])).cubes.name
 

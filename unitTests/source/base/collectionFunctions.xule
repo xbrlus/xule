@@ -525,7 +525,7 @@ output DTS003
   dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).to-set
 
 output DTS004
-/* set(a, b, a, b) */
+/* set(a, a, b, b) */
 
   set('a', a, b, 'b').to-set
 

@@ -285,7 +285,7 @@ output TAXPROP010
   $INSTANCE1.entry-point
 
 output CUBEPROP010
-/* rule CUBEPROP010: Rule: CUBEPROP010 - Property 'cube' must have 2 arguments. Found 1. */
+/* rule CUBEPROP010: Rule: CUBEPROP010 - The .cube property must have 2 arguments unless it is for a 'dimension'. Found 'taxonomy' */
 
   $US-GAAP-2020.cube(StatementTable)
 
@@ -724,12 +724,12 @@ output TAXPROP093
   $PRES_RELATIONSHIP.arcrole
 
 output TAXPROP094
-/* http://www.xbrl.org/2003/arcrole/parent-child */
+/* http://www.xbrl.org/2003/arcrole/parent-child - Parent/Child relationship */
 
   arcrole(sum($PRES_RELATIONSHIP))
 
 output TAXPROP095
-/* http://www.xbrl.org/2003/arcrole/parent-child */
+/* http://www.xbrl.org/2003/arcrole/parent-child - Parent/Child relationship */
 
   sum($PRES_RELATIONSHIP).arcrole
 

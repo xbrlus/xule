@@ -65,7 +65,7 @@ output VE111
   first-value([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree],none,[@instance = $INSTANCE1 @Assets])
 
 output VE112
-/* No Iteration */
+/* skip */
 
   first-value(skip,none,none)
 

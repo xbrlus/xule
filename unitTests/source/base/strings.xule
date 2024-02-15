@@ -130,7 +130,7 @@ output DLO102
   'abcdef'.lower-case
 
 output DLO111
-/* set(dog, hello kitty, cat) */
+/* set(cat, dog, hello kitty) */
 
   set('HELLO KITTY','DOG', 'cAT').lower-case
 
@@ -185,7 +185,7 @@ output DNU112
   list().number
 
 output DNU114
-/* set(3.14, -3, 22) */
+/* set(-3, 3.14, 22) */
 
   set('3.14', '22', '-3', '22').number
 

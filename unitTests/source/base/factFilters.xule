@@ -325,7 +325,7 @@ output NOFILT003
   set({covered @instance = $INSTANCE1}).count
 
 output NOFILT004
-/* 135 */
+/* 315 */
 
   set([covered @instance = $INSTANCE1]).count
 
