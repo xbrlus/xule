@@ -1470,6 +1470,12 @@ def property_cube(xule_context, object_value, *args):
         elif args[1].type == 'qname':
             # get the taxonomy from the object_value, which is the taxonomy.
             drs_role = XuleUtility.resolve_role(args[1], 'role', object_value.value, xule_context)
+            if len(drs_role) == 1:
+                drs_role = drs_role[0]
+            elif len(drs_role) == 0:
+                raise XuleProcessingError(_("No role is found for the property 'cube'. Searching for a role that ends with '{}'".format(args[1].value.localName)), xule_context)
+            else:
+                raise XuleProcessingError(_("More than role is found for roles ending with '{}'. The property 'cube' can only take 1 role.".format(args[1].value.localName)), xule_context)
         else:
             raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
 
@@ -2394,6 +2400,12 @@ def property_effective_weight_network(xule_context, object_value, *args):
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
         elif args[2].type == 'qname':
             role = XuleUtility.resolve_role(args[2], 'role', object_value.value, xule_context)
+            if len(role) == 1:
+                role = role[0]
+            elif len(role) == 0:
+                raise XuleProcessingError(_("The role '{}' provided for the property 'effective-weight-network' resolves to more than 1 role. This property can only take 1 roles".format(args[2].value.localName)), xule_context)
+            else:
+                raise XuleProcessingError(_("The role '{}' provided for the property 'effective-weight-network' does not resolve to any role".format(args[2].value.localName)), xule_context)
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
         elif args[2].type in ('set', 'list'):
             networks = args[2].value
