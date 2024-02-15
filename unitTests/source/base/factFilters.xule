@@ -5,7 +5,7 @@ output CFILT101
   set([covered @instance = $INSTANCE1 @Assets]).concept.balance
 
 output CFILT102
-/* [ERROR] [xule:error] rule CFILT102: Rule: CFILT102 - Property 'balance' is not a property of a 'decimal'. */
+/* rule CFILT102: Rule: CFILT102 - Property 'balance' is not a property of a 'decimal'. */
 
   set([covered @instance = $INSTANCE1  @Assets]).balance
 
@@ -55,12 +55,12 @@ output CFILT111
   $a = $US-GAAP-2020.concepts.to-list;  $a[2].name.local-name
 
 output CFILT112
-/* [ERROR] [xule:error] rule CFILT112: 'all' */
+/* rule CFILT112: 'all' */
 
   $a = set([covered @instance = $INSTANCE1 @]);  $a[2].name
 
 output CFILT113
-/* [ERROR] [xule:error] rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'None' */
+/* rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'None' */
 
   $a = taxonomy().concepts.to-set;  $a[2].name
 
@@ -70,7 +70,7 @@ output CFILT114
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.concept.period-type
 
 output CFILT115
-/* [ERROR] [xule:error] rule CFILT115: Rule: CFILT115 - Property 'period-type' is not a property of a 'decimal'. */
+/* rule CFILT115: Rule: CFILT115 - Property 'period-type' is not a property of a 'decimal'. */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.period-type
 
@@ -250,7 +250,7 @@ output PFILT103
   list([covered @instance = $INSTANCE1 @period = date('2020-12-31')]).count
 
 output PFILT104
-/* [ERROR] [xule:error] rule PFILT104: Rule: PFILT104 - Function 'cats' not found */
+/* rule PFILT104: Rule: PFILT104 - Function 'cats' not found */
 
   [@period = cats('2020-12-31')]
 
@@ -285,12 +285,12 @@ output PFILT110
   list({covered @instance = $FOREVER_INSTANCE @period = forever})
 
 output PFILT111
-/* [ERROR] [xule:error] rule PFILT111: Rule: PFILT111 - Factset aspect property 'year' is not a valid property of aspect 'period'. */
+/* rule PFILT111: Rule: PFILT111 - Factset aspect property 'year' is not a valid property of aspect 'period'. */
 
   list([covered @instance = $INSTANCE1 @period.year = '2020']).count
 
 output PFILT112
-/* [ERROR] [xule:error] rule PFILT112: Rule: PFILT112 - Factset aspect property 'end.year' is not a valid property of aspect 'period'. */
+/* rule PFILT112: Rule: PFILT112 - Factset aspect property 'end.year' is not a valid property of aspect 'period'. */
 
   list([covered @instance = $INSTANCE1 @period.end.year = '2020']).count
 
@@ -300,7 +300,7 @@ output PFILT113
   list([covered @instance = $INSTANCE1 @period.end = date('2020-12-31')]).count
 
 output PFILT114
-/* [ERROR] [xule:error] rule PFILT114: Rule: PFILT114 - Property 'end' is not a property of a 'decimal'. */
+/* rule PFILT114: Rule: PFILT114 - Property 'end' is not a property of a 'decimal'. */
 
   list([covered @instance = $INSTANCE1 where $fact.end.year == '2020']).count
 

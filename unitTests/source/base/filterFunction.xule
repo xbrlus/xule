@@ -113,7 +113,7 @@ output FIL121
 filter $source where $item > [@instance = $INSTANCE1 @Assets]
 
 output FIL122
-/* [ERROR] [xule:error] rule FIL122: '>' not supported between instances of 'int' and 'frozenset' */
+/* rule FIL122: '>' not supported between instances of 'int' and 'frozenset' */
 
   $source = list(1,2,240000000000)
 filter $source where $item > filter set([covered @instance = $INSTANCE1 @Assets])

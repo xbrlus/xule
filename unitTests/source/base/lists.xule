@@ -25,22 +25,22 @@ output LM005
   list(1,2,3,skip)
 
 output LM006
-/* [ERROR] [xule:error] rule LM006: unsupported operand type(s) for -: 'tuple' and 'tuple' */
+/* rule LM006: unsupported operand type(s) for -: 'tuple' and 'tuple' */
 
   list(1,2,3) - list(1,2)
 
 output LM007
-/* [ERROR] [xule:error] rule LM007: Rule: LM007 - The left operand of '*' is not numeric, found 'list' */
+/* rule LM007: Rule: LM007 - The left operand of '*' is not numeric, found 'list' */
 
   list(1,2,3) * list(1,2)
 
 output LM008
-/* [ERROR] [xule:error] rule LM008: Rule: LM008 - Intersection can only operatate on sets. The left side is a 'list'. */
+/* rule LM008: Rule: LM008 - Intersection can only operatate on sets. The left side is a 'list'. */
 
   list(2,3,5) & list(1,2,3,4)
 
 output LM009
-/* [ERROR] [xule:error] rule LM009: unsupported operand type(s) for -: 'tuple' and 'tuple' */
+/* rule LM009: unsupported operand type(s) for -: 'tuple' and 'tuple' */
 
   list() - list('a','b','c','d') 
 

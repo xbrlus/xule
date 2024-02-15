@@ -165,7 +165,7 @@ output FACT033
   (first(list([covered @instance = $INSTANCE1 @Assets]))).is-nil
 
 output FACT034
-/* [ERROR] [xule:error] rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'. */
+/* rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'. */
 
   'hello'.is-nil
 
@@ -210,7 +210,7 @@ output FACT042
   max(list([covered @instance = $INSTANCE1 @Assets])).entity.id
 
 output FACT043
-/* [ERROR] [xule:error] rule FACT043: Rule: FACT043 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'. */
+/* rule FACT043: Rule: FACT043 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'. */
 
   count(list([covered @instance = $INSTANCE1 @Assets @unit.numerator = unit(iso4217:USD)]))
 
@@ -228,3 +228,18 @@ output FACT046
 /* set(828,867,000) */
 
   max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact
+
+output FACT047
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1  where $fact.period in list(date('2021-06-30'))]))
+
+output FACT048
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1  @period in list(date('2021-06-30'))]))
+
+output FACT049
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1  where $fact.period == date('2021-06-30')]))

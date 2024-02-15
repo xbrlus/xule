@@ -40,7 +40,7 @@ output BOL107
   true != false
 
 output BOL108
-/* [ERROR] [xule:error] rule BOL108: Rule: BOL108 - Left side of a + operation cannot be bool. */
+/* rule BOL108: Rule: BOL108 - Left side of a + operation cannot be bool. */
 
   false + false
 
@@ -60,7 +60,7 @@ output BOL111
   true or false
 
 output BOL112
-/* [ERROR] [xule:error] rule BOL112: Rule: BOL112 - Right side of a + operation cannot be bool. */
+/* rule BOL112: Rule: BOL112 - Right side of a + operation cannot be bool. */
 
   none + false
 

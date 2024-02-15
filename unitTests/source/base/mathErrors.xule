@@ -1,10 +1,10 @@
 /* MathErrors */
 output ME101
-/* [ERROR] [xule:error] rule ME101: Rule: ME101 - The left operand of '/' is not numeric, found 'string' */
+/* rule ME101: Rule: ME101 - The left operand of '/' is not numeric, found 'string' */
 
   '3' / 3
 
 output ME102
-/* [ERROR] [xule:error] rule ME102: Rule: ME102 - Divide by zero error. */
+/* rule ME102: Rule: ME102 - Divide by zero error. */
 
   7 / 0

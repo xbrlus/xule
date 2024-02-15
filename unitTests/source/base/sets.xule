@@ -122,7 +122,7 @@ output SM024
   set(1,2,3,skip)
 
 output SM025
-/* [ERROR] [xule:error] rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int' */
+/* rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int' */
 
   set(1,2,3[1])
 

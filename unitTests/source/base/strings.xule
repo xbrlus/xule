@@ -30,12 +30,12 @@ output DIO102
   'Hello Mr Stains-o-there'.index-of('o')
 
 output DIO191
-/* [ERROR] [xule:error] rule DIO191: Rule: DIO191 - Property 'index-of' must have 1 arguments. Found 0. */
+/* rule DIO191: Rule: DIO191 - Property 'index-of' must have 1 arguments. Found 0. */
 
   'Hello Mr Stains-o-there'.index-of
 
 output DIO192
-/* [ERROR] [xule:error] rule DIO192: Rule: DIO192 - Property 'index-of' must have 1 arguments. Found 0. */
+/* rule DIO192: Rule: DIO192 - Property 'index-of' must have 1 arguments. Found 0. */
 
   'Hello Mr Stains-o-there'.index-of()
 
@@ -70,22 +70,22 @@ output LIO103
   last-index-of('Hello Mr Stains', 'z')
 
 output LIO104
-/* [ERROR] [xule:error] rule LIO104: Rule: LIO104 - The 'last-index-of' function must have at least one argumenrt, found None. */
+/* rule LIO104: Rule: LIO104 - The 'last-index-of' function must have at least one argument, found none. */
 
   last-index-of()
 
 output LIO105
-/* [ERROR] [xule:error] rule LIO105: Rule: LIO105 - Property 'last-index-of' must have 1 arguments. Found 0. */
+/* rule LIO105: Rule: LIO105 - Property 'last-index-of' must have 1 arguments. Found 0. */
 
   last-index-of('Hello Mr Stains')
 
 output LIO106
-/* [ERROR] [xule:error] rule LIO106: Rule: LIO106 - Property 'last-index-of' must have 1 arguments. Found 2. */
+/* rule LIO106: Rule: LIO106 - Property 'last-index-of' must have 1 arguments. Found 2. */
 
   last-index-of('Hello Mr Stains', 'o', 'o')
 
 output LIO107
-/* [ERROR] [xule:error] rule LIO107: Rule: LIO107 - The first argument of function 'last-index-of' must be string, uri, found 'list'. */
+/* rule LIO107: Rule: LIO107 - The first argument of function 'last-index-of' must be string, uri, found 'list'. */
 
   last-index-of(list('Hello Mr Stains'), 'o')
 
@@ -135,7 +135,7 @@ output DLO111
   set('HELLO KITTY','DOG', 'cAT').lower-case
 
 output LOW101
-/* xule is my favorite language. yeah!' */
+/* xule is my favorite language. yeah! */
 
   lower-case('XULE is my favorite language. Yeah!')
 
@@ -195,17 +195,17 @@ output DNU116
   set().number
 
 output DNU191
-/* [ERROR] [xule:error] rule DNU191: Rule: DNU191 - Cannot convert 'z67' to a number */
+/* rule DNU191: Rule: DNU191 - Cannot convert 'z67' to a number */
 
   'z67'.number
 
 output DNU192
-/* [ERROR] [xule:error] rule DNU192: Rule: DNU192 - Cannot convert '' to a number */
+/* rule DNU192: Rule: DNU192 - Cannot convert '' to a number */
 
   ''.number
 
 output NUM101
-/* 15.01111 */
+/* 15.0111 (rounded 4d) */
 
   number('15.01111')
 
@@ -220,12 +220,12 @@ output NUM103
   number('-22')
 
 output NUM104
-/* [ERROR] [xule:error] rule NUM104: Rule: NUM104 - Cannot convert '' to a number */
+/* rule NUM104: Rule: NUM104 - Cannot convert '' to a number */
 
   number('')
 
 output NUM105
-/* [ERROR] [xule:error] rule NUM105: Rule: NUM105 - The first argument of function 'number' must be int, float, decimal, fact, found 'None'. */
+/* rule NUM105: Rule: NUM105 - The first argument of function 'number' must be int, float, decimal, fact, found 'None'. */
 
   number(none)
 
@@ -320,17 +320,17 @@ output DSP104
   list('cat','dog','mouse','bat').split('a')
 
 output DSP191
-/* [ERROR] [xule:error] rule DSP191: Rule: DSP191 - The separator argument for property 'string' must be a 'string', found 'int' */
+/* rule DSP191: Rule: DSP191 - The separator argument for property 'string' must be a 'string', found 'int' */
 
   'The quick fox jumped over the lazy dogs back'.split(3)
 
 output DSP192
-/* [ERROR] [xule:error] rule DSP192: 'int' object has no attribute 'split' */
+/* rule DSP192: 'int' object has no attribute 'split' */
 
   2.split('.')
 
 output DSP193
-/* [ERROR] [xule:error] rule DSP193: Rule: DSP193 - Property 'split' is not a property of a 'qname'. */
+/* rule DSP193: Rule: DSP193 - Property 'split' is not a property of a 'qname'. */
 
   katteringram.split('r')
 
@@ -340,7 +340,7 @@ output DST101
   27.string
 
 output DST102
-/* 2734.56789 */
+/* 2,734.5679 (rounded 4d) */
 
   2734.56789.string
 
@@ -355,22 +355,22 @@ output DST104
   2734.56789.plain-string
 
 output STR101
-/* '5' */
+/* 5 */
 
   string(5)
 
 output STR102
-/* 'cat' */
+/* cat */
 
   string('cat')
 
 output STR103
-/* 'cat' */
+/* cat */
 
   plain-string('cat')
 
 output STR104
-/* 'cat' */
+/* 2734.56789 */
 
   plain-string(2734.56789)
 
@@ -440,7 +440,7 @@ output DTR105
   '(' +  trim(' item ') + ')'
 
 output DTR106
-/* [ERROR] [xule:error] rule DTR106: Rule: DTR106 - The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type 'qname' */
+/* rule DTR106: Rule: DTR106 - The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type 'qname' */
 
   '(' + ' item '.trim(both) + ')'
 
@@ -465,17 +465,17 @@ output TRIM103
   '(' +  trim(' item ', 'both') + ')'
 
 output TRIM104
-/* [ERROR] [xule:error] rule TRIM104: Rule: TRIM104 - The argument for property 'trim' must be one of 'left', 'right' or 'both', found 'None' */
+/* rule TRIM104: Rule: TRIM104 - The argument for property 'trim' must be one of 'left', 'right' or 'both', found 'None' */
 
   '(' +  trim(' item ', 'none') + ')'
 
 output SUMSTRING101
-/* [ERROR] [xule:error] rule SUMSTRING101: Rule: SUMSTRING101 - The first argument of function 'sum' must be set, list, found 'string'. */
+/* rule SUMSTRING101: Rule: SUMSTRING101 - The first argument of function 'sum' must be set, list, found 'string'. */
 
   sum('hello')
 
 output COUNTSTRING101
-/* [ERROR] [xule:error] rule COUNTSTRING101: Rule: COUNTSTRING101 - The first argument of function 'count' must be set, list, found 'string'. */
+/* rule COUNTSTRING101: Rule: COUNTSTRING101 - The first argument of function 'count' must be set, list, found 'string'. */
 
   count('hello')
 
@@ -495,16 +495,16 @@ output DUC103
   'abcdef'.upper-case
 
 output STRIN001
-/*  */
+/* rule STRIN001: Rule: STRIN001 - Property 'last' is not a property of a 'string'. */
 
   'abcdef'.last
 
 output STRIN002
-/*  */
+/* rule STRIN002: Rule: STRIN002 - The 'index' property or index expression '[ */
 
   'abcdef'[3]
 
 output STRIN003
-/*  */
+/* rule STRIN003: Rule: STRIN003 - Property 'first' is not a property of a 'string'. */
 
   'abcdef'.first

@@ -20,7 +20,7 @@ output XU104
   1.25 + 6
 
 output XU105
-/*  cat */
+/* cat */
 
   'c' + 'a' + 't'
 
@@ -30,7 +30,7 @@ output XU106
   2 - 7
 
 output XU107
-/* 3.5 */
+/* 3.5 (rounded 4d) */
 
   10.2 - 6.7
 
@@ -75,17 +75,17 @@ output XU115
   14 / 7
 
 output XU116
-/* 0.179104 */
+/* 0.1791 (rounded 4d) */
 
   1.2 / 6.7
 
 output XU117
-/* 1.492537 */
+/* 1.4925 (rounded 4d) */
 
   10 / 6.7
 
 output XU118
-/* 205.708333 */
+/* 205.7083 (rounded 4d) */
 
   1234.25 / 6
 
@@ -115,7 +115,7 @@ output XU123
   none + 2.345
 
 output XU124
-/*  a String */
+/* a String */
 
   none + 'a String'
 
@@ -160,7 +160,7 @@ output XU132
   '3' + 3
 
 output XU133
-/* [ERROR] [xule:error] rule XU133: unsupported operand type(s) for -: 'XuleString' and 'str' */
+/* rule XU133: unsupported operand type(s) for -: 'XuleString' and 'str' */
 
   '3' - 3
 

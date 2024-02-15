@@ -19,6 +19,9 @@
 		},
 		{
 			"path": "source/xodel-meta"
+		},
+		{
+			"path": "source/obligor"
 		}
 	]
 }
