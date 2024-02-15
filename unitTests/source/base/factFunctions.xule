@@ -220,7 +220,7 @@ output FACT044
   max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator.local-name
 
 output FACT045
-/* iso4217 */
+/* http://www.xbrl.org/2003/iso4217 */
 
   max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator.namespace-uri
 

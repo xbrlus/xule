@@ -899,7 +899,7 @@ output TAXPROP125
   $US-GAAP-2020.networks(concept-reference).count
 
 output TAXPROP126
-/* none */
+/* set(none) */
 
   $PRES_RELATIONSHIP.weight
 

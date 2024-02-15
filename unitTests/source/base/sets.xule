@@ -40,7 +40,7 @@ output SM008
   set(none) + set(1,2,3,4)
 
 output SM009
-/* [ERROR] 0x8A000000 - All items must be of same type in expression */
+/* rule SM009: Rule: SM009 - Incompatabile operands set + list. */
 
   set(1,2,3,4) + list('a','b','c',4) + list(1,2,3,4)
 
@@ -92,7 +92,7 @@ output SM018
   '' in set()
 
 output SM019
-/*  true */
+/*  false */
 
   set(1) in set(1,'b','c')
 

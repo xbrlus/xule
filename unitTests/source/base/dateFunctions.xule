@@ -200,7 +200,7 @@ output DAT091
   date
 
 output DAT092
-/* rule DAT092: Rule: DAT092 - The 'date' function must have only 1 argument, found 0. */
+/* rule DAT092: Rule: DAT092 - The 'date' function must have at least one argument, found none. */
 
   date()
 
@@ -245,7 +245,7 @@ output DAY002
   day(date('1999-12-31'))
 
 output DAY091
-/* rule DAY091: Rule: DAY091 - The 'day' function must have at least one argumenrt, found None. */
+/* rule DAY091: Rule: DAY091 - The 'day' function must have at least one argument, found none. */
 
   day()
 
@@ -317,7 +317,7 @@ output DUR101
 output DUR102
 /* rule DUR0102 Rule: DUR096 - Property 'contains' is not a property of a 'duration'. */
 
-  duration('2022-01-01', '2022-09-31').contains(duration('2022-03-01', '2022-06-30'))
+  duration('2022-01-01', '2022-09-30').contains(duration('2022-03-01', '2022-06-30'))
 
 output FVR001
 /* forever */
@@ -390,7 +390,7 @@ output TSP105
   time-span('P4W')
 
 output TSP106
-/* [ERROR][xule:error] rule TSP106: Rule: TSP106 - Could not convert 'P4W2D' into a time-period. */
+/* rule TSP106: Rule: TSP106 - Could not convert 'P4W2D' into a time-period. */
 
   time-span('P4W2D')
 
@@ -435,7 +435,7 @@ output YER002
   year(date('1999-12-31'))
 
 output YER091
-/* rule YER091: Rule: YER091 - The 'year' function must have at least one argumenrt, found None. */
+/* rule YER091: Rule: YER091 - The 'year' function must have at least one argument, found none. */
 
   year()
 

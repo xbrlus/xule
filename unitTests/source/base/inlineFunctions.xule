@@ -50,7 +50,7 @@ output INLIN010
   list({ covered @instance=$INSTANCE3 where $fact.inline-negated == true}).count
 
 output INLIN011
-/* 14 */
+/* list(None, None, None, 0001742770, --12-31, 2022, FY, VIOT, CN, CN, 104,539,463, 105,516,779, 102,854,550, 103,214,547, False) */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-hidden == true})
 
@@ -65,7 +65,7 @@ output INLIN013
   list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}).count
 
 output INLIN014
-/* list(September 2021, September 2023, January 2015) */
+/* list(January 2015, September 2021, September 2023) */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}.inline-display-value)
 

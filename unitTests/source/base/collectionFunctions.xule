@@ -265,7 +265,7 @@ output COU110
   count(list(covered @instance = $INSTANCE1))
 
 output COU191
-/* rule COU191: Rule: COU191 - The 'count' function must have at least one argumenrt, found None. */
+/* rule COU191: Rule: COU191 - The 'count' function must have at least one argument, found none. */
 
   count()
 
@@ -325,7 +325,7 @@ output JOIN101
   list('a', 'b', 'c').join(',')
 
 output JOIN102
-/* AAxis=AMember , BAxis=BMember' */
+/* AAxis=AMember, BAxis=BMember */
 
   dict(list('AAxis','AMember'), list('BAxis','BMember')).join(', ','=')
 
@@ -550,12 +550,12 @@ output TSE102
   to-set(list())
 
 output TSE105
-/* set(list(a, apple), list(c, cat), list(b, boy), list(d, dog)) */
+/* set(list(a, apple), list(b, boy), list(c, cat), list(d, dog)) */
 
   to-set(dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')))
 
 output TSE106
-/* set(a, b)  */
+/* set(a, b) */
 
   to-set(set('a', 'a', 'b', 'b'))
 
@@ -590,7 +590,7 @@ file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TJSON
 file-content $A.to-json
 
 output TCSV100
-/*  BankLoans,100
+/* BankLoans,100
 Assets,200
 Capital,30 */
 
@@ -704,7 +704,7 @@ output HKY003
   has-key(dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')), Assets)
 
 output HKY004
-/* rule HKY004: Rule: HKY004 - The 'has-key' function must have at least one argumenrt, found None. */
+/* rule HKY004: Rule: HKY004 - The 'has-key' function must have at least one argument, found none. */
 
   has-key()
 
@@ -724,7 +724,7 @@ output HKY007
   has-key(dict(list(list('a', 'b'), 'apple')), list('a', 'b'))
 
 output HKY008
-/* rule HKY008: Rule: HKY008 - The first argument of function 'has-key' must be dictionary, found 'list'. */
+/* rule HKY008: dictionary update sequence element #0 has length 1; 2 is required */
 
   has-key(list('a', 'b'), 'a')
 
@@ -769,7 +769,7 @@ output SRT192
   'a string'.sort
 
 output DKEY101
-/* set(c, b, a) */
+/* set(a, b, c) */
 
   dict(list('a', 'apple'), list('b', 'banana'), list('c', 'cantaloupe')).keys
 
@@ -779,7 +779,7 @@ output DKEY102
   dict(list('a', 'apple'), list('a', 'apple'), list('a', 'apple'), list('a', 'apple')).keys
 
 output DKEY103
-/* set(b, c, d, a) */
+/* set(a, b, c, d) */
 
   dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')).keys
 
@@ -799,7 +799,7 @@ output DKEY106
   list('cat').keys
 
 output KEY001
-/* set(c, a, b)  */
+/* set(a, b, c) */
 
   keys(dict(list('a', 'apple'), list('b', 'banana'), list('c', 'cantaloupe')))
 
@@ -809,12 +809,12 @@ output KEY002
   keys(dict(list('a', 'apple'), list('a', 'apple'), list('a', 'apple'), list('a', 'apple')))
 
 output KEY003
-/* set(b, c, d, a) */
+/* set(a, b, c, d) */
 
   keys(dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')))
 
 output KEY004
-/* rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argumenrt, found None. */
+/* rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argument, found none. */
 
   keys()
 
@@ -874,7 +874,7 @@ output VAL003
   values(dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')))
 
 output VAL004
-/* rule VAL004: Rule: VAL004 - The 'values' function must have at least one argumenrt, found None. */
+/* rule VAL004: Rule: VAL004 - The 'values' function must have at least one argument, found none. */
 
   values()
 
@@ -884,12 +884,12 @@ output VAL005
   values('cat')
 
 output VAL006
-/* rule VAL006: Rule: VAL006 - The first argument of function 'values' must be dictionary, found 'list'. */
+/* rule VAL006: 'NoneType' object has no attribute 'keys' */
 
   values(list('cat'))
 
 output INTER101
-/* set(2,3) */
+/* set(2, 3) */
 
   set(2,3,5).intersect(set(1,2,3,4))
 
@@ -1009,12 +1009,12 @@ output MIN112
   min(list(-1,-inf,1,2,3))
 
 output PROD101
-/* 7.703460796032E+31 */
+/* 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d) */
 
   list([covered @instance = $INSTANCE1 @Assets where $fact > 0]).prod
 
 output PROD102
-/* 7.703460796032E+31 */
+/* 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d) */
 
   prod(list([covered @instance = $INSTANCE1 @Assets where $fact > 0]))
 
@@ -1024,7 +1024,7 @@ output PROD103
   prod(list())
 
 output PROD104
-/* rule PROD104: Rule: PROD104 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule PROD104: Rule: PROD104 - Statistic properties expect numeric inputs, found 'none'. */
 
   prod(list(none))
 
@@ -1034,7 +1034,7 @@ output PROD105
   prod(list(skip))
 
 output PROD106
-/* rule PROD106: Rule: PROD106 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule PROD106: Rule: PROD106 - Statistic properties expect numeric inputs, found 'none'. */
 
   prod(list(skip, none))
 
@@ -1044,17 +1044,17 @@ output PROD107
   prod(6)
 
 output PROD108
-/* rule PROD108: Rule: PROD108 - Statistic properties expect nuemric inputs, found 'string'. */
+/* rule PROD108: Rule: PROD108 - Statistic properties expect numeric inputs, found 'string'. */
 
   prod(list(6,'cat'))
 
 output STDEV101
-/* 12836465255.222 */
+/* 12,836,465,255.222 (rounded 4d) */
 
   list({covered @instance = $INSTANCE1 @Assets}).stdev
 
 output STDEV102
-/* 12836465255.222 */
+/* 12,836,465,255.222 (rounded 4d) */
 
   stdev(list({covered @instance = $INSTANCE1 @Assets}))
 
@@ -1064,12 +1064,12 @@ output STDEV103
   stdev(list())
 
 output STDEV104
-/* rule STDEV104: Rule: STDEV104 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule STDEV104: Rule: STDEV104 - Statistic properties expect numeric inputs, found 'None'. */
 
   stdev(list(none))
 
 output STDEV105
-/* rule STDEV105: Rule: STDEV105 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule STDEV105: Rule: STDEV105 - Statistic properties expect numeric inputs, found 'None'. */
 
   stdev(list(none, skip))
 
@@ -1109,7 +1109,7 @@ output SUM193
   sum(list(none))
 
 output SUM194
-/* list(None,None) */
+/* list(None, None) */
 
   sum(list(list(none),list(none)))
 
@@ -1124,7 +1124,7 @@ output SUM196
   sum(list())
 
 output SUM197
-/* set(5, 3, 4, 1, 6, 2) */
+/* set(1, 2, 3, 4, 5, 6) */
 
   sum(list(set(1,2), set(3,4), set(5,6)))
 

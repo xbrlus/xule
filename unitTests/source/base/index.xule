@@ -105,7 +105,7 @@ output DIX091
   list(a,b,c,d,e,g).index(0)
 
 output DIX092
-/* rule DIX092: Rule: DIX092 - Property 'index' is not a property of a 'set'. */
+/* rule DIX092: Rule: DIX092 - The 'index' property or index expression '[ */
 
   set(a,b,c,d,e,g).index(0)
 

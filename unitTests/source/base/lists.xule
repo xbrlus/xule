@@ -1,6 +1,6 @@
 /* Lists */
 output LM001
-/* list(1,2,3,4,a,b,c,4,1,2,3,4) */
+/* list(1, 2, 3, 4, a, b, c, 4, 1, 2, 3, 4) */
 
   list(1,2,3,4) + list('a','b','c',4) + list(1,2,3,4)
 
@@ -15,12 +15,12 @@ output LM003
   'n' in list('a','b','c','d')
 
 output LM004
-/* list(1,2,3,None) */
+/* list(1, 2, 3, None) */
 
   list(1,2,3,none)
 
 output LM005
-/* list(1,2,3) */
+/* list(1, 2, 3) */
 
   list(1,2,3,skip)
 
