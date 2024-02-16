@@ -335,7 +335,7 @@ output CUBEPROP019
   $US-GAAP-2020.cubes.primary-concepts.sum.length
 
 output CUBEPROP020
-/* rule TAXPROP019: Rule: TAXPROP019 - 'closed' is not a valid property. */
+/* rule CUBEPROP020: Rule: CUBEPROP020 - 'closed' is not a valid property. */
 
   $CUBE.closed
 
