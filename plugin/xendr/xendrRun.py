@@ -1196,11 +1196,17 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     used_unit_ids = set()
 
     # Xendr needs to add a xule function to convert modelObject ids to footnotes
-    from .xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
+    try:
+        from .xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
     add_normal_function_to_xule(XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME, xxf.get_footnotes_from_fact_ids, 1)
     add_normal_function_to_xule(XENDR_OBJECT_ID_XULE_FUNCTION_NAME, xxf.get_internal_model_id, 1)
     add_normal_function_to_xule(XENDR_FORMAT_FOOTNOTE, xxf.format_footnote_info, 1)
-    from .xule.XuleProperties import add_property as add_property_to_xule
+    try:
+        from .xule.XuleProperties import add_property as add_property_to_xule
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleProperties import add_property as add_property_to_xule
     add_property_to_xule('xendr-object-id', xxf.property_xendr_model_object, 0, ())
   
     template_number = 0
@@ -1363,11 +1369,12 @@ def run_xule_rules(cntlr, options, modelXbrl, taxonomy_set, rule_names, rule_set
         cntlr.logger.addHandler(log_capture_handler)
 
         # Call the xule processor to run the rules
-        from .xule import __pluginInfo__ as xule_plugin_info
+        try:
+            from .xule import __pluginInfo__ as xule_plugin_info
+        except (ModuleNotFoundError, ImportError):
+            from xule import __pluginInfo__ as xule_plugin_info
         call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
 
-
-        #call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
         run_options = deepcopy(options)
         if xule_args is None:
             xule_args = []
