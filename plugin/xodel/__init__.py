@@ -24,10 +24,12 @@ limitations under the License.
 $Change: $
 DOCSKIP
 """
-
+from arelle import PluginManager
 from .xodel import process_xodel
 
 import optparse
+
+_PLUGINS = {}
 
 def cmdLineOptionExtender(parser, *args, **kwargs):
     
@@ -59,12 +61,45 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                             action="store_true",
                             help=_("Indicates to output the xule log"))
     
+    parserGroup.add_option("--xodel-compile",
+                           action="store",
+                           help=_("Causes Xodel to compile the supplied rule set. This is the same as --xule-compile. However, --xodel-compile ensures that the rule set is compiled before xodel is run. This is necessary when compiling and runing Xodel in the same command."))
+    
 def cmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
     parser = optparse.OptionParser()
 
     if options.xodel_location is not None and options.xule_rule_set is None:
         parser.error("Xince and Xodel requires a xule rule set (--xule-rule-set)")
+
+    # Cannot have both --xule-compile and --xodel-compile
+    if options.xule_compile is not None and options.xodel_compile is not None:
+        parser.error("--xule-compile and --xodel-compile cannot be used togher. Only use --xodel-compile")
+
+    # Cannot use --xule-compile is there is no -f entry file
+    if options.xule_compile is not None and options.entrypointFile is None:
+        parser.error("--xule-compile cannot be used if there is not -f entry point file. Use --xodel-compile instead")
+
+    if options.entrypointFile is None:
+        # init the serializer - this may not have been done 
+        try:
+            from .serializer import __pluginInfo__ as serializer_info
+        except (ModuleNotFoundError, ImportError):
+            from serializer import __pluginInfo__ as serializer_info
+        serializer_info['Serializer.Init'](cntlr)
+
+        # compile the rules is needed
+        if options.xodel_compile is not None:
+            try:
+                from .xule import __pluginInfo__ as xule_plugin_info
+            except (ModuleNotFoundError, ImportError):
+                from xule import __pluginInfo__ as xule_plugin_info
+            
+            compile_method = xule_plugin_info['Xule.compile']
+            compile_method(options.xodel_compile, options.xule_rule_set, 'pickle', getattr(options, "xule_max_recurse_depth"))
+
+        # try running the xule processor - This is when rules are run without an instance document
+        cmdLineXbrlLoaded(cntlr, options, None)
 
 def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     # Model is create (file loaded) now ready to create an instance
