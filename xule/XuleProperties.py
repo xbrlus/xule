@@ -230,8 +230,6 @@ def property_to_csv(xule_context, object_value, *args):
     
     return xv.XuleValue(xule_context, csv_string, 'string')
 
-
-
 def unfreeze_shadow(cur_val, for_json=False):
     if cur_val.type == 'list':
         return [unfreeze_shadow(x) for x in cur_val.value]
@@ -245,6 +243,24 @@ def unfreeze_shadow(cur_val, for_json=False):
         return {unfreeze_shadow(k): unfreeze_shadow(v) for k, v in cur_val.value}
     else:
         return cur_val.value
+
+def property_to_spreadsheet(xule_context, object_value, *args):
+
+    # verify that the dictionary entries are lists
+    xule_data = {k: v for k, v in object_value.value}
+    for key, vals in xule_data.items():
+        if key.type != 'string':
+            raise XuleProcessingError(_(f"to-spreadheet expectes a dictionary with each key as the sheet name. The key must be a string. Found {key.type}."), xule_context)
+            
+        if vals.type != 'list':
+            raise XuleProcessingError(_(f"to-spreadsheet expects a dictionary with each key as a sheet and the value a list of lists. Sheet {key} does not contain a list"), xule_context)
+        else:
+            for val in vals.value:
+                if val.type != 'list':
+                    raise XuleProcessingError(_(f"to-spreadsheet expects a dictionary with each key as a sheet and the value a list of lists. Sheet {key} does not contain a list of lists"), xule_context)
+    
+    return xv.XuleValue(xule_context, object_value.value, 'spreadsheet',  shadow_collection=object_value.shadow_collection)
+
 
 def property_to_xince(xule_context, object_value, *args, _intermediate=False):
     # _intermediate is used when recursing. The final value will be a string. But if there are collections
@@ -2804,6 +2820,7 @@ PROPERTIES = {
               'is-superset': (property_is_superset, 1, ('set',), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False), 
               'to-csv': (property_to_csv, -1, ('list',), False), 
+              'to-spreadsheet': (property_to_spreadsheet, 0, ('dictionary'), False),
               'to-xince': (property_to_xince, 0, (), False),          
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, -1, ('list', 'set'), False),
