@@ -5224,7 +5224,7 @@ def write_excel(file_location, file_content, open_mode, xule_context):
         # the workbook will have a default sheet named 'Sheet'. We ware removing it so the workbook is empty.
         wb.remove(wb.get_sheet_by_name('Sheet'))
 
-    data = file_content.shadow_dictionary
+    data = file_content.value
     for sheet_name in sorted(data.keys()):
         content = data[sheet_name]
         if sheet_name in wb.get_sheet_names():

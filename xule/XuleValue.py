@@ -129,14 +129,14 @@ class XuleValue:
                 self.shadow_collection = tuple(shadow)
             else:
                 self.shadow_collection = frozenset(shadow)
-        elif self.type in ('dictionary', 'spreadsheet') and self.shadow_collection is None:
+        elif self.type == 'dictionary' and self.shadow_collection is None:
             shadow = self.shadow_dictionary
             self.shadow_collection = frozenset(shadow.items())
         elif self.type == 'string': # make all strings XuleStrings
             self.value = XuleString(self.value)
     @property
     def shadow_dictionary(self):
-        if self.type in ('dictionary', 'spreadsheet'):
+        if self.type == 'dictionary':
             if not hasattr(self, '_shadow_dictionary'):
                 self._shadow_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v.shadow_collection if v.type in ('set', 'list', 'dictionary') else v.value for k, v in self.value}
             return self._shadow_dictionary

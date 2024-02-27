@@ -247,19 +247,28 @@ def unfreeze_shadow(cur_val, for_json=False):
 def property_to_spreadsheet(xule_context, object_value, *args):
 
     # verify that the dictionary entries are lists
+    result = dict()
     xule_data = {k: v for k, v in object_value.value}
     for key, vals in xule_data.items():
         if key.type != 'string':
             raise XuleProcessingError(_(f"to-spreadheet expectes a dictionary with each key as the sheet name. The key must be a string. Found {key.type}."), xule_context)
-            
+        result[key.value] = []  
         if vals.type != 'list':
             raise XuleProcessingError(_(f"to-spreadsheet expects a dictionary with each key as a sheet and the value a list of lists. Sheet {key} does not contain a list"), xule_context)
         else:
             for val in vals.value:
                 if val.type != 'list':
                     raise XuleProcessingError(_(f"to-spreadsheet expects a dictionary with each key as a sheet and the value a list of lists. Sheet {key} does not contain a list of lists"), xule_context)
-    
-    return xv.XuleValue(xule_context, object_value.value, 'spreadsheet',  shadow_collection=object_value.shadow_collection)
+                row = []
+                for item in val.value:
+                    if item.type == 'qname':
+                        new_item = str(item.value)
+                    else:
+                        new_item = item.value
+                    row.append(new_item)
+                result[key.value].append(row)
+
+    return xv.XuleValue(xule_context, result, 'spreadsheet')
 
 
 def property_to_xince(xule_context, object_value, *args, _intermediate=False):
