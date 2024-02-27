@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23714 $
+$Change: 23724 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -49,6 +49,7 @@ from threading import Thread
 from . import XuleFunctions
 from . import XuleProperties
 import os
+from openpyxl import load_workbook, Workbook
 
 def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
     """Run xule rules against a filing.
@@ -5193,7 +5194,7 @@ def result_file(rule_ast, xule_value, xule_context):
     if file_location.type != 'string':
         raise XuleProcessingError(_(f"The file-location needs to be a string, but it is a {file_location.type}"), xule_context)
 
-    if file_content.type not in ('none', 'string'):
+    if file_content.type not in ('none', 'string', 'spreadsheet'):
         raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
 
     if file_append is not None and file_append.type != 'bool':
@@ -5206,12 +5207,41 @@ def result_file(rule_ast, xule_value, xule_context):
         open_mode = 'w'
         xule_context.global_context.output_files.add(file_location.value)
 
-    try:
-        with open(file_location.value, open_mode, encoding='utf8') as ofile:
-            ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
-    except FileNotFoundError:
-        raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
+    if file_content.type == 'spreadsheet':
+        write_excel(file_location, file_content, open_mode, xule_context)
+    else:
+        try:
+            with open(file_location.value, open_mode, encoding='utf8') as ofile:
+                ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
+        except FileNotFoundError:
+            raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
     
+def write_excel(file_location, file_content, open_mode, xule_context):
+    if open_mode == 'a' and os.path.exists(file_location.value):
+        wb = load_workbook(file_location.value)
+    else:
+        wb = Workbook()
+        # the workbook will have a default sheet named 'Sheet'. We ware removing it so the workbook is empty.
+        wb.remove(wb.get_sheet_by_name('Sheet'))
+
+    data = file_content.shadow_dictionary
+    for sheet_name in sorted(data.keys()):
+        content = data[sheet_name]
+        if sheet_name in wb.get_sheet_names():
+            ws = wb[sheet_name]
+        else:
+            ws = wb.create_sheet(sheet_name)
+        
+        for row in content:
+            ws.append(row)
+
+    # Save the workbook
+    if len(wb.get_sheet_names()) == 0:
+        # There has to be at least 1 sheet in order to save the workbook
+        wb.create_sheet('Sheet')
+    wb.save(file_location.value)
+
+
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     # validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
