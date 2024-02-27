@@ -589,6 +589,8 @@ def func_excel_data(xule_context, *args):
                     
                     if type(item.value) == datetime.datetime:
                         v = item.value.isoformat()
+                    elif item.value is None:
+                        v = ''
                     else:
                         v = str(item.value)
 
