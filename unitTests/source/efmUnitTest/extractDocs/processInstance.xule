@@ -1,0 +1,106 @@
+output-attribute file-content
+output-attribute file-location
+output-attribute file-append
+
+output record_testcase
+list($TEST_CASE_ID)
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/testcase.csv'
+file-append true
+
+output get_schema
+list($TEST_CASE_ID, taxonomy().entry-point, taxonomy().entry-point-namespace)
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/schema.csv'
+file-append true
+
+
+output get_concepts
+for $extension in  $EXTENSION_CONCEPTS
+    list($TEST_CASE_ID, $extension.document-location.substring($extension.document-location.index-of('/conf/')+1), $extension.namespace-uri, $extension.name.local-name, $extension.period-type, $extension.data-type.name.namespace-uri, $extension.data-type.name.local-name, $extension.attribute(qname(none, 'id')), $extension.substitution, $extension.attribute(qname(none, 'nillable')), $extension.is-abstract, $extension.balance, $extension.attribute(qname(none, 'default')))
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/concepts.csv'
+file-append true
+
+output get_roles
+for $role in (filter taxonomy().roles where not $item.uri.lower-case.contains('xbrl.sec.gov/dei/'))
+    list($TEST_CASE_ID, $role.document-location.substring($role.document-location.index-of('/conf/')+1),$role.uri,$role.description,$role.used-on.to-list.sort('asc'))
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/roles.csv'
+file-append true
+
+output get_relationships
+for $network in taxonomy().networks
+    for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('definitionArc','presentationArc','calculationArc') and not ($item.document-location.contains('xbrl.fasb.org') or  $item.document-location.contains('/xbrl.sec.gov')))
+        list($TEST_CASE_ID, $relationship.document-location.substring($relationship.document-location.index-of('/conf/')+1),$relationship.role.uri,$relationship.arcrole-uri,$relationship.link-name,$relationship.source.namespace-uri,$relationship.source-name.local-name, $relationship.target.namespace-uri, $relationship.target-name.local-name, $relationship.order, $relationship.weight, $relationship.preferred-label)
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/relationships.csv'
+file-append true
+
+output get_namespace_location
+
+$namespaceLocations = set(for $network in taxonomy().networks
+                            for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('definitionArc','presentationArc','calculationArc'))
+                                for $loc in list($relationship.source, $relationship.target)
+                                    list($TEST_CASE_ID, $loc.namespace-uri, $loc.document-location.substring($loc.document-location.string.index-of('/conf/')+1)));
+
+$namespaceLocations.to-list
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/namespaceLocations.csv'
+file-append true
+
+
+output get_labels
+
+for $network in taxonomy().networks
+                            for $relationship in (filter $network.relationships where $item.arc-name.local-name in set('labelArc'))
+                                for $label in ($relationship.source.all-labels)
+                                    list($TEST_CASE_ID, $label.document-location.substring($label.document-location.index-of('/conf/')+1), $relationship.source-name.namespace-uri,$relationship.source-name.local-name, $label.role, $label.text, $label.lang)
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv'
+file-append true
+
+output get_facts
+for $fact in list({covered @})
+        list($TEST_CASE_ID, $fact.document-location.substring($fact.document-location.index-of('/conf/')+1), $fact, $fact.concept.name.local-name, $fact.unit.numerator.namespace-uri, $fact.unit.numerator.local-name, sortDimensions($fact), $fact.entity.scheme, $fact.entity.id, $fact.period.to-xince, $fact.id, $fact.concept.name.namespace-uri)
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/facts.csv'
+file-append true
+
+
+output get_fact_footnotes
+for $fact in list({covered @ where $fact.footnotes.length > 0})
+    for $footnote in $fact.footnotes
+        list($TEST_CASE_ID, $fact.document-location.substring($fact.document-location.index-of('/conf/')+1), $fact.id, $footnote.arcrole, $footnote.content.to-xince, $footnote.lang, $footnote.role)
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/footnotes.csv'
+file-append true
+
+
+output get_fact_dimensions
+$dimensionSet = set(for $fact in list({covered @ where $fact.dimensions.length > 0})
+    $factDimensions = $fact.dimensions
+    for $dimensionKey in $factDimensions.keys
+        list($TEST_CASE_ID, sortDimensions($fact), $dimensionKey.name.namespace-uri, $dimensionKey.name.local-name, $factDimensions[$dimensionKey].name.namespace-uri, $factDimensions[$dimensionKey].name.local-name))
+for $dimension in $dimensionSet 
+    $dimension 
+
+file-content $rule-value.to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/dimensions.csv'
+file-append true
+
+
+
+function sortDimensions($fact)
+    $factDimensions = $fact.dimensions
+    $dimsList = list(for $dimensionKey in $factDimensions.keys
+                        list($dimensionKey.name,  $factDimensions[$dimensionKey].name))
+    $dim = list(for $listToString in $dimsList.sort('ASC')
+            $listToString.join('='))
+    $dim.join('|')

@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23694 $
+$Change: 23724 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -49,6 +49,7 @@ from threading import Thread
 from . import XuleFunctions
 from . import XuleProperties
 import os
+from openpyxl import load_workbook, Workbook
 
 def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
     """Run xule rules against a filing.
@@ -2646,9 +2647,9 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                     # Allow @table.drs-role to take a short role name
                     elif index_key == ('property', 'cube', 'drs-role'):
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                            member_values = {convert_value_to_role(filter_member, xule_context), }
+                            member_values = set(convert_value_to_role(filter_member, xule_context))
                         else:
-                            member_values = {convert_value_to_role(x, xule_context) for x in filter_member.value}
+                            member_values = set().union(*[set(convert_value_to_role(x, xule_context)) for x in filter_member.value])
                     else:
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = {filter_member.value, }
@@ -3191,7 +3192,7 @@ def evaluate_navigate(nav_expr, xule_context):
         # Default to the taxonomy of the instance
         dts = xule_context.model
 
-        # Set up the variables for the results of the traversal
+    # Set up the variables for the results of the traversal
     return_by_networks = nav_expr.get('return', dict()).get('byNetwork', False)
     if return_by_networks:
         results_by_networks = dict()
@@ -3209,41 +3210,44 @@ def evaluate_navigate(nav_expr, xule_context):
     # This checks if there was 'from' concept in the expression, but no concepts were return. Same for the 'to' concept in the expression. Then there is not navigation to do
     if (nav_from_concepts is None or len(nav_from_concepts) > 0) and (
             nav_to_concepts is None or len(nav_to_concepts) > 0):
-        arcrole = nav_get_role(nav_expr, 'arcrole', dts, xule_context)
-        role = nav_get_role(nav_expr, 'role', dts, xule_context)
+        arcroles = nav_get_role(nav_expr, 'arcrole', dts, xule_context)
+        roles = nav_get_role(nav_expr, 'role', dts, xule_context)
         link_qname = evaluate(nav_expr['linkbase'], xule_context).value if 'linkbase' in nav_expr else None
         arc_qname = None  # This is always none.
         dimension_arcroles = None
-
+        relationship_sets = list()
         # Find the relationships
-        if (('arcrole' in nav_expr and arcrole is None) or
-                ('role' in nav_expr and role is None) or
+        if not (('arcrole' in nav_expr and arcroles is None) or
+                ('role' in nav_expr and roles is None) or
                 ('linkbase' in nav_expr and link_qname is None)):
-            # There are no networks to navigate
-            relationship_sets = list()
-        else:
+            # if the arcrole, or linkbase was provided, but it was None, then there are no relationshp sets to process and the relationships_sets will be left empty.
+
             # get the relationships
             if nav_expr.get('dimensional'):
-                drs_role = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
-                table_concepts = nav_get_element(nav_expr, 'cube', dts, xule_context)
-                if arcrole is not None:
-                    dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole, }))
-                #                 relationship_sets = [XuleUtility.dimension_set(dts, x) for x in XuleUtility.base_dimension_sets(dts) if ((drs_role is None or x[XuleUtility.DIMENSION_SET_ROLE] == drs_role) and
-                #                                                                                                                          (table_concepts is None or x[XuleUtility.DIMENSION_SET_HYPERCUBE] in table_concepts))]
-                relationship_sets = [XuleDimensionCube(dts, *x) for x in XuleDimensionCube.base_dimension_sets(dts) if
-                                     ((drs_role is None or x[XuleDimensionCube.DIMENSION_SET_ROLE] == drs_role) and
-                                      (table_concepts is None or x[
-                                          XuleDimensionCube.DIMENSION_SET_HYPERCUBE] in table_concepts))]
+                drs_roles = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
+                for drs_role in (drs_roles or (None,)):
+                    table_concepts = nav_get_element(nav_expr, 'cube', dts, xule_context)
+                    if arcroles is not None and len(arcroles) > 1:
+                        raise XuleProcessingError(_(f"Dimensional navigation can only work with a single arcrole supplied. found {len(arcroles)}: {', '.join(arcroles)}"), xule_context)
+                    arcrole = (arcroles or (None,))[0]
+                    if arcrole is not None:
+                        dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole, }))
+                    relationship_sets += [XuleDimensionCube(dts, *x) for x in XuleDimensionCube.base_dimension_sets(dts) if
+                                        ((drs_role is None or x[XuleDimensionCube.DIMENSION_SET_ROLE] == drs_role) and
+                                        (table_concepts is None or x[
+                                            XuleDimensionCube.DIMENSION_SET_HYPERCUBE] in table_concepts))]
             else:
-                relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
-                relationship_sets = [
-                    dts.relationshipSet(
-                        relationship_set_info[XuleProperties.NETWORK_ARCROLE],
-                        relationship_set_info[XuleProperties.NETWORK_ROLE],
-                        relationship_set_info[XuleProperties.NETWORK_LINK],
-                        relationship_set_info[XuleProperties.NETWORK_ARC]
-                    ) for relationship_set_info in relationship_set_infos
-                ]
+                for arcrole in (arcroles or (None,)):
+                    for role in (roles or (None,)):
+                        relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
+                        relationship_sets += [
+                            dts.relationshipSet(
+                                relationship_set_info[XuleProperties.NETWORK_ARCROLE],
+                                relationship_set_info[XuleProperties.NETWORK_ROLE],
+                                relationship_set_info[XuleProperties.NETWORK_LINK],
+                                relationship_set_info[XuleProperties.NETWORK_ARC]
+                            ) for relationship_set_info in relationship_set_infos
+                        ]
 
         direction = nav_expr['direction']
         include_start = nav_expr.get('includeStart', False)
@@ -3504,15 +3508,31 @@ def nav_get_role(nav_expr, role_type, dts, xule_context):
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
     if role_type in nav_expr:
-        role_value = evaluate(nav_expr[role_type], xule_context)
-        if role_value.type in ('string', 'uri'):
-            return role_value.value
-        elif role_value.type == 'qname':
-            return XuleUtility.resolve_role(role_value, role_type, dts, xule_context)
-        elif role_value.type == 'role':
-            return role_value.value.roleURI
+        expr_role_value = evaluate(nav_expr[role_type], xule_context)
+        if expr_role_value.type in ('set', 'list'):
+            role_values = expr_role_value.value
         else:
-            raise XuleProcessingError(_("Navigation is expecting a role (role, string, uri, or short role name), found '{}'.".format(role_value.type)), xule_context)
+            role_values = (expr_role_value,) # a tuple of 1
+
+        # return value will be a list of the role/arcrole uris
+        return_values = []
+        errors = []
+        for role_value in role_values:
+            if role_value.type in ('string', 'uri'):
+                return_values.append(role_value.value)
+            elif role_value.type == 'qname':
+                return_values.extend(XuleUtility.resolve_role(role_value, role_type, dts, xule_context))
+            elif role_value.type == 'role':
+                return_values.append(role_value.value.roleURI)
+            else:
+                errors.append("Navigation is expecting a role (role, string, uri, or short role name), found '{}'.".format(role_value.type))
+
+        if len(errors) > 0:
+            raise XuleProcessingError(_('\n'.join(errors)), xule_context)
+        if len(return_values) == 0:
+            return None
+        else:
+            return return_values
     else:
         return None  # There is no arcrole on the navigation expression
 
@@ -4953,13 +4973,13 @@ def convert_value_to_qname(value, model, xule_context):
 
 def convert_value_to_role(value, xule_context):
     if value.type in ('string', 'uri'):
-        return value.value
+        return [value.value,]
     elif value.type == 'qname':
         return XuleUtility.resolve_role(value, 'role', xule_context.model, xule_context)
     elif value.type == 'role':
-        return value.value.roleURI
+        return [value.value.roleURI,]
     elif value.type in ('unbound', 'none'):
-        return None
+        return [] # empty list
     else:
         raise XuleProcessingError(
             _("The value for a role or arc role must be a string, uri or short role name, found '%s'." % value.type),
@@ -5174,7 +5194,7 @@ def result_file(rule_ast, xule_value, xule_context):
     if file_location.type != 'string':
         raise XuleProcessingError(_(f"The file-location needs to be a string, but it is a {file_location.type}"), xule_context)
 
-    if file_content.type not in ('none', 'string'):
+    if file_content.type not in ('none', 'string', 'spreadsheet'):
         raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
 
     if file_append is not None and file_append.type != 'bool':
@@ -5187,12 +5207,41 @@ def result_file(rule_ast, xule_value, xule_context):
         open_mode = 'w'
         xule_context.global_context.output_files.add(file_location.value)
 
-    try:
-        with open(file_location.value, open_mode, encoding='utf8') as ofile:
-            ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
-    except FileNotFoundError:
-        raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
+    if file_content.type == 'spreadsheet':
+        write_excel(file_location, file_content, open_mode, xule_context)
+    else:
+        try:
+            with open(file_location.value, open_mode, encoding='utf8') as ofile:
+                ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
+        except FileNotFoundError:
+            raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
     
+def write_excel(file_location, file_content, open_mode, xule_context):
+    if open_mode == 'a' and os.path.exists(file_location.value):
+        wb = load_workbook(file_location.value)
+    else:
+        wb = Workbook()
+        # the workbook will have a default sheet named 'Sheet'. We ware removing it so the workbook is empty.
+        wb.remove(wb.get_sheet_by_name('Sheet'))
+
+    data = file_content.shadow_dictionary
+    for sheet_name in sorted(data.keys()):
+        content = data[sheet_name]
+        if sheet_name in wb.get_sheet_names():
+            ws = wb[sheet_name]
+        else:
+            ws = wb.create_sheet(sheet_name)
+        
+        for row in content:
+            ws.append(row)
+
+    # Save the workbook
+    if len(wb.get_sheet_names()) == 0:
+        # There has to be at least 1 sheet in order to save the workbook
+        wb.create_sheet('Sheet')
+    wb.save(file_location.value)
+
+
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     # validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))

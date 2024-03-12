@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23694 $
+$Change: 23724 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -30,6 +30,7 @@ from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelRelationship
 from arelle.ValidateXbrlDimensions import loadDimensionDefaults
 from arelle.Validate import validate
+from arelle.XmlValidate import XsdPattern
 from lxml import etree
 import datetime
 import decimal
@@ -128,14 +129,14 @@ class XuleValue:
                 self.shadow_collection = tuple(shadow)
             else:
                 self.shadow_collection = frozenset(shadow)
-        elif self.type == 'dictionary' and self.shadow_collection is None:
+        elif self.type in ('dictionary', 'spreadsheet') and self.shadow_collection is None:
             shadow = self.shadow_dictionary
             self.shadow_collection = frozenset(shadow.items())
         elif self.type == 'string': # make all strings XuleStrings
             self.value = XuleString(self.value)
     @property
     def shadow_dictionary(self):
-        if self.type == 'dictionary':
+        if self.type in ('dictionary', 'spreadsheet'):
             if not hasattr(self, '_shadow_dictionary'):
                 self._shadow_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v.shadow_collection if v.type in ('set', 'list', 'dictionary') else v.value for k, v in self.value}
             return self._shadow_dictionary
@@ -1632,13 +1633,15 @@ TYPE_SYSTEM_TO_XULE = {int: 'int',
                        gMonthDay: 'model_g_month_day',
                        gYearMonth: 'model_g_year_month',
                        AnyURI: 'uri',
-                       Fraction: 'fraction'}
+                       Fraction: 'fraction',
+                       XsdPattern: 'xsd_pattern'}
 
 TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'instant'),
                             'model_g_year': (model_to_xule_model_g_year, 'int'),
                             'model_g_month_day': (model_to_xule_model_g_month_day, 'string'),
                             'model_g_year_month': (model_to_xule_model_g_year_month, 'string'),
-                            'iso_duration': (lambda x,c: x.sourceValue, 'string')}
+                            'iso_duration': (lambda x,c: x.sourceValue, 'string'),
+                            'xsd_pattern': (lambda x,c: x.pattern, 'string')}
 
 '''The TYPE_MAP shows conversions between xule types. The first entry is the common conversion when comparing
    2 values, the second entry (if present) is a reverse conversion.

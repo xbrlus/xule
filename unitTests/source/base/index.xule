@@ -30,27 +30,27 @@ output SLO106
   dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))['kitten']
 
 output SLO107
-/* [ERROR] [xule:error] rule SLO107: Rule: SLO107 - Index value of 0 is out of range for the list with length of 3 */
+/* rule SLO107: Rule: SLO107 - Index value of 0 is out of range for the list with length of 3 */
 
   list('a.a', 'b.b', 'c.c')[0]
 
 output SLO108
-/* [ERROR] [xule:error] rule SLO108: Rule: SLO108 - Index value of 4 is out of range for the list with length of 3 */
+/* rule SLO108: Rule: SLO108 - Index value of 4 is out of range for the list with length of 3 */
 
   list('a.a', 'b.b', 'c.c')[4]
 
 output SLO109
-/* [ERROR] [xule:error] rule SLO109: Rule: SLO109 - Index value of 1 is out of range for the list with length of 0 */
+/* rule SLO109: Rule: SLO109 - Index value of 1 is out of range for the list with length of 0 */
 
   list()[1]
 
 output SLO110
-/* [ERROR] [xule:error] rule SLO110: Rule: SLO110 - Index value of 1 is out of range for the list with length of 0 */
+/* rule SLO110: Rule: SLO110 - Index value of 1 is out of range for the list with length of 0 */
 
   list([@instance = $INSTANCE1 @Assets])[1]
 
 output SLO111
-/* [ERROR] [xule:error] rule SLO111: Rule: SLO111 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'set' */
+/* rule SLO111: Rule: SLO111 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'set' */
 
   set('a.a', 'b.b', 'c.c')[2]
 
@@ -100,31 +100,31 @@ output DIX025
   dict(list('0', 'zero string'), list(Liabilities, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(Assets)
 
 output DIX091
-/* [ERROR] [xule:error] rule DIX091: Rule: DIX091 - Index value of 0 is out of range for the list with length of 6 */
+/* rule DIX091: Rule: DIX091 - Index value of 0 is out of range for the list with length of 6 */
 
   list(a,b,c,d,e,g).index(0)
 
 output DIX092
-/* [ERROR] [xule:error] rule DIX092: Rule: DIX092 - Property 'index' is not a property of a 'set'. */
+/* rule DIX092: Rule: DIX092 - The 'index' property or index expression '[ */
 
   set(a,b,c,d,e,g).index(0)
 
 output DIX093
-/* [ERROR] [xule:error] rule DIX093: Rule: DIX093 - Property 'index' must have 1 arguments. Found 0. */
+/* rule DIX093: Rule: DIX093 - Property 'index' must have 1 arguments. Found 0. */
 
   list(a,b,c,d,e,g).index()
 
 output DIX094
-/* [ERROR] [xule:error] rule DIX094: Rule: DIX094 - Property 'index' must have 1 arguments. Found 2. */
+/* rule DIX094: Rule: DIX094 - Property 'index' must have 1 arguments. Found 2. */
 
   list(a,b,c,d,e,g).index(1,2)
 
 output DIX095
-/* [ERROR] [xule:error] rule DIX095: Rule: DIX095 - Index of a list must be a number, found string */
+/* rule DIX095: Rule: DIX095 - Index of a list must be a number, found string */
 
   list(a,b,c,d,e,g).index('cat')
 
 output DIX096
-/* [ERROR] [xule:error] rule DIX096: Rule: DIX096 - Property 'index' must have 1 arguments. Found 0. */
+/* rule DIX096: Rule: DIX096 - Property 'index' must have 1 arguments. Found 0. */
 
   list(a,b,c,d,e,g).index

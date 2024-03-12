@@ -5,6 +5,6 @@ output FUN101
   cat(4,5+1)
 
 output FUN102
-/* [ERROR] [xule:error] rule FUN102: Rule: FUN102 - Function 'cats' not found */
+/* rule FUN102: Rule: FUN102 - Function 'cats' not found */
 
   cats(4,5+1)

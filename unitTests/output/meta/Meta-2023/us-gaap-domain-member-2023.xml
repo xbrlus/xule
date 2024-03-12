@@ -1,0 +1,44 @@
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
+  <link:roleRef roleURI="http://xbrl.us/metaModel/role" xlink:href="us-gaap-metaModel-2023.xsd#role" xlink:type="simple"/>
+  <link:arcroleRef arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" xlink:type="simple"/>
+  <link:definitionLink xlink:role="http://xbrl.us/metaModel/role" xlink:type="extended">
+    <link:loc xlink:label="ns13_CarryingValue" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_CarryingValue" xlink:type="locator"/>
+    <link:loc xlink:label="ns13_RecordedAtAmortizedCostMember" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtAmortizedCostMember" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_CarryingValue" xlink:to="ns13_RecordedAtAmortizedCostMember" order="2"/>
+    <link:loc xlink:label="ns13_ActivityTypeDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_ActivityTypeDomain" xlink:type="locator"/>
+    <link:loc xlink:label="ns13_FinancingActivity" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_FinancingActivity" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_ActivityTypeDomain" xlink:to="ns13_FinancingActivity" order="2"/>
+    <link:loc xlink:label="ns13_OperatingActivity" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_OperatingActivity" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_ActivityTypeDomain" xlink:to="ns13_OperatingActivity" order="3"/>
+    <link:loc xlink:label="ns12_SegmentOperatingActivitiesDomain" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_SegmentOperatingActivitiesDomain" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_SegmentContinuingOperationsMember" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_SegmentContinuingOperationsMember" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns12_SegmentOperatingActivitiesDomain" xlink:to="ns12_SegmentContinuingOperationsMember" order="1"/>
+    <link:loc xlink:label="ns13_RecordedValueDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedValueDomain" xlink:type="locator"/>
+    <link:loc xlink:label="ns13_RecordedAsEstimate" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAsEstimate" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_RecordedValueDomain" xlink:to="ns13_RecordedAsEstimate" order="4"/>
+    <link:loc xlink:label="ns13_InvestingActivity" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_InvestingActivity" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_ActivityTypeDomain" xlink:to="ns13_InvestingActivity" order="1"/>
+    <link:loc xlink:label="ns12_RelatedPartyDomain" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_RelatedPartyDomain" xlink:type="locator"/>
+    <link:loc xlink:label="ns12_RelatedPartyMember" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_RelatedPartyMember" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns12_RelatedPartyDomain" xlink:to="ns12_RelatedPartyMember" order="1"/>
+    <link:loc xlink:label="ns13_RecordedAtHistoricalCost" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtHistoricalCost" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_RecordedValueDomain" xlink:to="ns13_RecordedAtHistoricalCost" order="3"/>
+    <link:loc xlink:label="ns13_CarryingValue_1" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_CarryingValue" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_RecordedValueDomain" xlink:to="ns13_CarryingValue_1" order="1"/>
+    <link:loc xlink:label="ns13_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_CarryingValue" xlink:to="ns13_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" order="3"/>
+    <link:loc xlink:label="ns13_LiquidityDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_LiquidityDomain" xlink:type="locator"/>
+    <link:loc xlink:label="ns13_CurrentTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_CurrentTrait" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_LiquidityDomain" xlink:to="ns13_CurrentTrait" order="1"/>
+    <link:loc xlink:label="ns12_NonrelatedPartyMember" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_NonrelatedPartyMember" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns12_RelatedPartyDomain" xlink:to="ns12_NonrelatedPartyMember" order="2"/>
+    <link:loc xlink:label="ns13_ReportedAtFairValue" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_ReportedAtFairValue" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_CarryingValue" xlink:to="ns13_ReportedAtFairValue" order="1"/>
+    <link:loc xlink:label="ns12_SegmentDiscontinuedOperationsMember" xlink:href="https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd#us-gaap_SegmentDiscontinuedOperationsMember" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns12_SegmentOperatingActivitiesDomain" xlink:to="ns12_SegmentDiscontinuedOperationsMember" order="2"/>
+    <link:loc xlink:label="ns13_RecordedAtLowerOfCarryingValueOrFairValue" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtLowerOfCarryingValueOrFairValue" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_RecordedValueDomain" xlink:to="ns13_RecordedAtLowerOfCarryingValueOrFairValue" order="2"/>
+    <link:loc xlink:label="ns13_Noncurrent" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_Noncurrent" xlink:type="locator"/>
+    <link:definitionArc xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="arc" xlink:from="ns13_LiquidityDomain" xlink:to="ns13_Noncurrent" order="2"/>
+  </link:definitionLink>
+</link:linkbase>

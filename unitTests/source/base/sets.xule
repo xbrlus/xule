@@ -5,7 +5,7 @@ output SM001
   set('a','b','c') + set('a', 'm', 'n')
 
 output SM002
-/* set(A, B, C, D, a, b, c, d) */
+/* set(a, b, c, d, A, B, C, D) */
 
   set('a','b','c','d') + set('A','B','C','D')
 
@@ -40,12 +40,12 @@ output SM008
   set(none) + set(1,2,3,4)
 
 output SM009
-/* [ERROR] 0x8A000000 - All items must be of same type in expression */
+/* rule SM009: Rule: SM009 - Incompatabile operands set + list. */
 
   set(1,2,3,4) + list('a','b','c',4) + list(1,2,3,4)
 
 output SM010
-/* set(2,3) */
+/* set(2, 3) */
 
   set(2,3,5) & set(1,2,3,4)
 
@@ -70,7 +70,7 @@ output SM014
   set() - set('a','b','c','d') 
 
 output SM015
-/* set(EarningsPerShareBasic, BankLoans, Assets, DebtAndCapitalLeaseObligations) */
+/* set(Assets, BankLoans, DebtAndCapitalLeaseObligations, EarningsPerShareBasic) */
 
   $A = set(Assets,BankLoans,Capital); 
  $B = set(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic);
@@ -92,7 +92,7 @@ output SM018
   '' in set()
 
 output SM019
-/*  true */
+/*  false */
 
   set(1) in set(1,'b','c')
 
@@ -117,12 +117,12 @@ output SM023
   '' not in set()
 
 output SM024
-/* set(3,2,1) */
+/* set(1, 2, 3) */
 
   set(1,2,3,skip)
 
 output SM025
-/* [ERROR] [xule:error] rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int' */
+/* rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int' */
 
   set(1,2,3[1])
 
@@ -220,7 +220,7 @@ output SM040
   set('d').is-superset(set())
 
 output SM041
-/* set(a, e, b, c, d) */
+/* set(a, b, c, d, e) */
 
   $A = set(a,b,c); 
 $B = set(c,d,e);
@@ -234,7 +234,7 @@ $B = set();
 $A.union($B)
 
 output SM043
-/* set(2,3) */
+/* set(2, 3) */
 
   set(2,3,5) intersect set(1,2,3,4)
 
@@ -249,7 +249,7 @@ output SM045
   set('a','b','c','d').intersect(set('A','B','C','D'))
 
 output SM046
-/* set(2,3) */
+/* set(2, 3) */
 
   set(2,3,5).intersect(set(1,2,3,4))
 
@@ -269,7 +269,7 @@ output SM049
   set().difference(set('a','b','c','d'))
 
 output SM050
-/* set(EarningsPerShareBasic, BankLoans, Assets, DebtAndCapitalLeaseObligations) */
+/* set(Assets, BankLoans, DebtAndCapitalLeaseObligations, EarningsPerShareBasic) */
 
   $A = set(Assets,BankLoans,Capital); 
  $B = set(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic);
@@ -279,3 +279,8 @@ output SM051
 /* set(list(BankLoans, Assets, Capital), list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic), list(Assets, BankLoans, Capital)) */
 
   set(list(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic),list(Assets,BankLoans,Capital),list(Assets,BankLoans,Capital),list(BankLoans,Assets,Capital))
+
+output SM052
+/* set(1, 2, 3) */
+
+  set(1,2,3) + none

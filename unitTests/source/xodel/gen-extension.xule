@@ -80,7 +80,7 @@ output-attribute relationship-type
 output-attribute relationship-linkrole-uri
 output-attribute relationship-role
 output-attribute relationship-arcrole
-output-attribute relationship-attribute
+output-attribute relationship-attributes
 output-attribute relationship-id
 // Label
 output-attribute label
@@ -93,6 +93,14 @@ output-attribute label-concept-name
 output-attribute import-url
 output-attribute import2-url
 
+//Reference
+output-attribute reference-role
+output-attribute reference-concept-name
+output-attribute reference-parts
+
+//Parts
+output-attribute part-name
+output-attribute part-data-type
 
 namespace http://fasb.org/us-gaap/2023
 

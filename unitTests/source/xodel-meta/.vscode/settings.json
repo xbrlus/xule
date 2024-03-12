@@ -1,0 +1,34 @@
+{
+    "xule.autoImports": [
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel-meta/base-taxonomy-2024.xule",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel-meta/constants.xule",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel-meta/namespace.xule",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel-meta/output-attributes.xule"
+    ],
+    "xule.namespaces.definitions": [
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-us-gaap-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-xbrl-sec-gov-dei-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-srt-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-xbrl-sec-gov-country-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-xbrl-sec-gov-currency-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-us-types-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-srt-types-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-xbrl-sec-gov-ecd-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0001-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0004-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0005-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0006-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0008-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0009-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0015-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0033-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0036-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0041-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0043-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0044-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0048-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0060-2024.json",
+        "../../../../xule.dqc/dqc_us_rules/taxonomy/us/2024/http-fasb-org-dqcrules-0079-2024.json"
+    ]
+}

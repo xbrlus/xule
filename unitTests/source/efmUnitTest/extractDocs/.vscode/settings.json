@@ -1,0 +1,16 @@
+{
+    "xule.autoImports": [
+        "namespace.xule",
+        "base-taxonomy.xule",
+        "constants.xule"
+        
+    ],
+    "xule.namespaces.definitions": [
+        "/Users/campbellpryde/Documents/GitHub/filer_membership/taxonomies/2023/http-fasb-org-us-gaap-2023.json",
+        "/Users/campbellpryde/Documents/GitHub/filer_membership/taxonomies/2023/http-xbrl-sec-gov-dei-2023.json",
+        "/Users/campbellpryde/Documents/GitHub/filer_membership/taxonomies/2023/http-fasb-org-srt-2023.json",
+        "/Users/campbellpryde/Documents/GitHub/filer_membership/taxonomies/2023/http-xbrl-sec-gov-country-2023.json",
+        "/Users/campbellpryde/Documents/GitHub/filer_membership/taxonomies/2023/http-fasb-org-us-types-2023.json",
+        "/Users/campbellpryde/Documents/GitHub/filer_membership/taxonomies/2023/http-fasb-org-srt-types-2023.json"
+    ]
+}

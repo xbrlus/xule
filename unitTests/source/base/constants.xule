@@ -93,6 +93,11 @@
   constant $INSTANCE_XML = instance('http://www.sec.gov/Archives/edgar/data/320193/000032019319000010/aapl-20181229.xml')
 
 
+/* Constant representing an XBRL instance */
+
+  constant $INSTANCE_SHORT_DATE = instance('https://www.sec.gov/Archives/edgar/data/7431/000095017023054703/awi-20230930.htm')
+
+
 /* output-attribute file content to allow production of csv and json */
 
   output-attribute file-content

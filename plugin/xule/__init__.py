@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23660 $
+$Change: 23703 $
 DOCSKIP
 """
 import sys
@@ -984,6 +984,8 @@ def xuleValidate(val):
     global _cntlr
     global _xule_validators
 
+    # If the controller is not there, pull it from the model. this happens when running as a web service in multi processing mode.
+    _cntlr = _cntlr or val.modelXbrl.modelManager.cntlr
     options = XuleVars.get(_cntlr, 'options')
     if options is None:
         options = EmptyOptions()

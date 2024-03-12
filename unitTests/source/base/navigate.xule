@@ -350,7 +350,7 @@ output NAX071
   count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths link-name).values)
 
 output NAX072
-/* 94 */
+/* 1 */
 
   count(Navigate summation-item descendants role 'http://fasb.org/us-gaap/role/statement/StatementOfOtherComprehensiveIncomeAlternative' taxonomy $US-GAAP-2020  returns by network (role-uri, target-name, role-description).values)
 

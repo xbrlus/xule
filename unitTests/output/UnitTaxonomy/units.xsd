@@ -1,133 +1,81 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:utr="http://www.xbrl.org/2009/utr" xmlns:type="http://www.xbrl.org/dtr/type/2022-03-31" targetNamespace="http://www.xbrl.org/2009/utr" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:units="http://www.xbrl.org/2023/units" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://www.xbrl.org/2023/units" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:annotation>
     <xs:appinfo>
-      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="units_lab.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
-      <ns0:roleType xmlns:ns0="http://www.xbrl.org/2003/linkbase" roleURI="http://www.xbrl.org/2023/role/symbol" id="symbol">
-        <ns0:definition>Defines the label role for the symbol associated with the unit</ns0:definition>
-      </ns0:roleType>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_def.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/converted-convertee" cyclesAllowed="none" id="converted-convertee">
+        <linkbase:definition>Defines the unit conversion factor to a unit from another unit. The conversion factor is defined as an attibute of the arc called conversionFactor</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-cubed" cyclesAllowed="none" id="datatype-cubed">
+        <linkbase:definition>Defines the datatype derived by cubing another datatype. For example volume is derived from length cubed.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-denominator" cyclesAllowed="none" id="datatype-denominator">
+        <linkbase:definition>Defines the datatype denominator of a datatype that comprises two or more units for example flowItemType may have a denominator of timeDurationItemType.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-multiplier" cyclesAllowed="none" id="datatype-multiplier">
+        <linkbase:definition>Defines the datatype multiplier of a datatype that comprises two or more units for example areaItemType may have a multiplier of lengthItemType.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-numerator" cyclesAllowed="none" id="datatype-numerator">
+        <linkbase:definition>Defines the datatype numerator of a datatype that comprises two or more units for example flowItemType may have a numerator of volumeItemType.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-squared" cyclesAllowed="none" id="datatype-squared">
+        <linkbase:definition>Defines the datatype derived by squaring another datatype. For example area is derived from length squared.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-cubed" cyclesAllowed="none" id="unit-cubed">
+        <linkbase:definition>Defines the unit derived by cubing another unit. For example cubic foot and feet.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-denominator" cyclesAllowed="none" id="unit-denominator">
+        <linkbase:definition>Defines the unit denominator of another unit that comprises two or more units for example gallons per hour may have a denominator of hour.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-multiplied" cyclesAllowed="none" id="unit-multiplied">
+        <linkbase:definition>Defines the unit multiplier of a unit that comprises two or more units for example mw may have a multiplier of w and m.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-numerator" cyclesAllowed="none" id="unit-numerator">
+        <linkbase:definition>Defines the unit numerator of another unit that comprises two or more units for example gallons per hour may have a numerator of gallons.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-squared" cyclesAllowed="none" id="unit-squared">
+        <linkbase:definition>Defines the unit derived by squaring another unit. For example square miles and miles.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/conversionPresentation" id="conversionPresentation">
+        <linkbase:definition>Defines the label role for the conversion presentation associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/symbol" id="symbol">
+        <linkbase:definition>Defines the label role for the symbol associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/versionDate" id="versionDate">
+        <linkbase:definition>Defines the label role for the version date associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="https://www.xbrl.org/2023/roles/currency-presentation" id="currency-presentation">
+        <linkbase:definition>Currency List</linkbase:definition>
+        <linkbase:usedOn>linkbase:presentationLink</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="https://www.xbrl.org/2023/roles/datatype-presentation" id="datatype-presentation">
+        <linkbase:definition>Data Type List</linkbase:definition>
+        <linkbase:usedOn>linkbase:presentationLink</linkbase:usedOn>
+      </linkbase:roleType>
     </xs:appinfo>
   </xs:annotation>
-  <xs:import namespace="http://www.xbrl.org/2003/iso4217" schemaLocation="alt-currency-unit.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="datatype-units.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/taxonomy/int/currency/YYYY-MM-DD/currency-en" schemaLocation="https://www.xbrl.org/taxonomy/int/currency/current/CR/2023-08-23/currency-en.xsd"/>
-  <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude.xsd"/>
-  <xs:element name="A" id="si_A" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Ah" id="non-si_Ah" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="B" id="non-si_B" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Bar" id="non-si_Bar" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Bcf" id="non-si_Bcf" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Bcfe" id="non-si_Bcfe" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Boe" id="non-si_Boe" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Btu" id="non-si_Btu" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="C" id="si_C" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Cal" id="non-si_Cal" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Celsius" id="si_Celsius" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="D" id="non-si_D" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Degree" id="non-si_Degree" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="F" id="non-si_F" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GB" id="non-si_GB" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GJ" id="si_GJ" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GT" id="non-si_GT" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GV" id="si_GV" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GW" id="si_GW" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GWM" id="si_GWM" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GWh" id="si_GWh" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Gt" id="non-si_Gt" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="GtCO2e" id="non-si_GtCO2e" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="H" id="non-si_H" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Hz" id="si_Hz" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="J" id="si_J" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="K" id="si_K" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="M" id="non-si_M" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MB" id="non-si_MB" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MBbls" id="non-si_MBbls" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MBoe" id="non-si_MBoe" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MJ" id="si_MJ" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MM" id="non-si_MM" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MMBTU" id="non-si_MMBTU" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MMBbls" id="non-si_MMBbls" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MMBoe" id="non-si_MMBoe" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MMcf" id="non-si_MMcf" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MMcfe" id="non-si_MMcfe" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MT" id="non-si_MT" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MV" id="si_MV" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MVA" id="si_MVA" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MW" id="si_MW" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MWM" id="si_MWM" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MWd" id="non-si_MWd" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MWh" id="si_MWh" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Mcf" id="non-si_Mcf" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Mcfe" id="non-si_Mcfe" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Mt" id="non-si_Mt" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="MtCO2e" id="non-si_MtCO2e" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Mvar" id="non-si_Mvar" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="N" id="si_N" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="PB" id="non-si_PB" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Pa" id="si_Pa" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Q" id="non-si_Q" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Rate" id="xbrl_Rate" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="S" id="si_S" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="T" id="non-si_T" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="TB" id="non-si_TB" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="TJ" id="si_TJ" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="TW" id="si_TW" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="TWh" id="si_TWh" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Tcf" id="non-si_Tcf" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Tcfe" id="non-si_Tcfe" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="V" id="si_V" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="VA" id="si_VA" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="VAh" id="non-si_VAh" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="W" id="si_W" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="WK" id="non-si_WK" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Wh" id="non-si_Wh" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="Y" id="non-si_Y" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="acre" id="non-si_acre" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="aft" id="non-si_aft" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="atm" id="non-si_atm" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="bbl" id="non-si_bbl" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="bu" id="non-si_bu" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="cm" id="si_cm" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="dm" id="si_dm" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="dth" id="non-si_dth" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="ft" id="non-si_ft" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="ft3" id="non-si_ft3" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="ft_lb" id="non-si_ft_lb" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="g" id="si_g" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="gal" id="non-si_gal" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="ha" id="si_ha" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="hp" id="non-si_hp" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="in" id="non-si_in" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kB" id="non-si_kB" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kJ" id="si_kJ" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kT" id="non-si_kT" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kV" id="si_kV" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kW" id="si_kW" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kWh" id="si_kWh" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kg" id="si_kg" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="km" id="si_km" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="kt" id="non-si_kt" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="ktCO2e" id="non-si_ktCO2e" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="l" id="si_l" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="lb" id="non-si_lb" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="m" id="si_m" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="m3" id="si_m3" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="mJ" id="si_mJ" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="mi" id="non-si_mi" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="mm" id="si_mm" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="nmi" id="non-si_nmi" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="oz" id="non-si_oz" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="ozt" id="non-si_ozt" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="psi" id="non-si_psi" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="rad" id="si_rad" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="sqft" id="non-si_sqft" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="sqkm" id="si_sqkm" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="sqm" id="si_sqm" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="sqmi" id="non-si_sqmi" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="sqyd" id="non-si_sqyd" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="t" id="non-si_t" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="tCO2e" id="non-si_tCO2e" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="var" id="non-si_var" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
-  <xs:element name="yd" id="non-si_yd" type="type:domainItemType" abstract="true" nillable="true" substitutionGroup="xbrli:item" xbrli:periodType="duration"/>
+  <xs:import namespace="http://www.xbrl.org/2003/iso4217" schemaLocation="alt-curr/alt-currency-unit.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/iso-currency-units" schemaLocation="currency/iso-currency-units.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/datatype-units" schemaLocation="datatype-units/datatype-units.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/concept/2022-03-31" schemaLocation="dtr/dtr-types.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude/magnitude.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/units-parts" schemaLocation="unit-part.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2009/utr" schemaLocation="utr-units/utr-units.xsd"/>
 </xs:schema>

@@ -10,7 +10,7 @@ output DO101
   date('2022-02-02T12:00:00') + time-span('PT12H')
 
 output DO102
-/* [ERROR] [xule:error] rule DO102: Rule: DO102 - Incompatabile operands time-period + instant. */
+/* rule DO102: Rule: DO102 - Incompatabile operands time-period + instant. */
 
   time-span('P4D') + date('2020-01-01')
 
@@ -20,27 +20,27 @@ output DO103
   date('2020-01-01') - time-span('P4D')
 
 output DO104
-/* [ERROR] [xule:error] rule DO104: Rule: DO104 - Incompatabile operands time-period - instant. */
+/* rule DO104: Rule: DO104 - Incompatabile operands time-period - instant. */
 
   time-span('P4D') - date('2020-01-01')
 
 output DO105
-/* [ERROR] [xule:error] rule DO105: 'datetime.timedelta' object has no attribute 'strftime' */
+/* rule DO105: 'datetime.timedelta' object has no attribute 'strftime' */
 
   date('2022-01-01') - date('2020-01-01')
 
 output DO106
-/* [ERROR] [xule:error] rule DO106: 'datetime.timedelta' object has no attribute 'strftime' */
+/* rule DO106: 'datetime.timedelta' object has no attribute 'strftime' */
 
   date('2020-01-01') - date('2022-01-01')
 
 output DO107
-/* [ERROR] [xule:error] rule DO107: Rule: DO107 - Left side of a + operation cannot be duration. */
+/* rule DO107: Rule: DO107 - Left side of a + operation cannot be duration. */
 
   duration('2022-01-01', '2022-03-31') + time-span('P1Y')
 
 output DO108
-/* [ERROR] [xule:error] rule DO108: Rule: DO108 - Left side of a - operation cannot be duration. */
+/* rule DO108: Rule: DO108 - Left side of a - operation cannot be duration. */
 
   duration('2022-01-01', '2022-03-31') - time-span('P1Y')
 
@@ -50,7 +50,7 @@ output DO109
   forever
 
 output DO110
-/* inf */
+/* 3652058 */
 
   forever.days
 
@@ -65,27 +65,27 @@ output DO112
   duration('2022-01-01', '2022-03-31').days
 
 output DO113
-/* 4 days */
+/* 4 days, 0:00:00 */
 
   time-span('P4D')
 
 output DO114
-/* 7 days */
+/* 7 days, 0:00:00 */
 
   time-span('P4D') + time-span('P3D')
 
 output DO115
-/* 1 day */
+/* 1 day, 0:00:00 */
 
   time-span('P4D') - time-span('P3D')
 
 output DO116
-/* [ERROR] [xule:error] rule DO116: Rule: DO116 - Left side of a - operation cannot be duration. */
+/* rule DO116: Rule: DO116 - Left side of a - operation cannot be duration. */
 
   duration('2022-01-01', '2022-03-31') - duration('2022-02-01', '2022-03-31')
 
 output DO117
-/* [ERROR] [xule:error] rule DO117: Rule: DO117 - The left operand of '*' is not numeric, found 'time-period' */
+/* rule DO117: Rule: DO117 - The left operand of '*' is not numeric, found 'time-period' */
 
   time-span('P4D') * 2
 
@@ -98,3 +98,46 @@ output DO119
 /* 178 */
 
   duration('2022-01-01', '2022-03-31').days * 2
+
+output DO120
+/* 2023-05-30
+2023-03-30
+2023-08-30 */
+
+  [@instance = $INSTANCE_SHORT_DATE @us-gaap-2023:DividendsPayableDateToBePaidMonthAndYear] + '-30'
+
+output DO121
+/* 2023-05-30
+2023-03-30
+2023-08-30 */
+
+  [@instance = $INSTANCE_SHORT_DATE @us-gaap-2023:DividendsPayableDateToBePaidMonthAndYear].string + '-30'
+
+output DO122
+/* 2023-05-30
+2023-03-30
+2023-08-30
+rule DO122: Rule: DO122 - Error converting date: '-30' */
+
+  $date = [nonils @instance = $INSTANCE_SHORT_DATE @us-gaap-2023:DividendsPayableDateToBePaidMonthAndYear]
+date($date + '-30' )
+
+output DO123
+/* 2023-05-31
+2023-03-31
+2023-08-31 */
+
+  $string = [nonils @instance = $INSTANCE_SHORT_DATE @us-gaap-2023:DividendsPayableDateToBePaidMonthAndYear] + '-01'
+if $string == '-01' skip else date($string) + time-span('P1M')
+
+output DO124
+/* 42704 */
+
+  $string = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
+$string + time-span('P1M')
+
+output DO125
+/* 42674 */
+
+  $string = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
+date($string )

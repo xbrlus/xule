@@ -5,7 +5,7 @@ output INFO0001
   rule-name()
 
 output INFO0002
-/* [ERROR] [xule:error] rule INFO0002: Rule: INFO0002 - The 'alignment' function must have only 0 argument, found 1. */
+/* rule INFO0002: Rule: INFO0002 - The 'alignment' function must have only 0 argument, found 1. */
 
   alignment([covered @instance = $INSTANCE1 @concept.local-name = 'Assets' @period=date('2020-12-31')])
 

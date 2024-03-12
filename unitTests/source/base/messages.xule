@@ -108,3 +108,11 @@ output MESS009
                     $report);
 for $x in $valuesList
     $x
+
+output MESS010
+/* {{a x},{a y},{b x},{b y}} */
+
+    for $a in list('a', 'b')
+        for $b in list('x', 'y')
+            1
+message '{$a} {$b}'

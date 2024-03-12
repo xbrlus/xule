@@ -15,7 +15,7 @@ output LIST003
   list('one Item')
 
 output LIST004
-/* list(a, list, of strings,  leading and trailing space , end)  */
+/* list(a, list, of strings,  leading and trailing space , end) */
 
   list('a','list', 'of strings', ' leading and trailing space ', 'end')
 
@@ -35,12 +35,12 @@ output LIST007
   list(none)
 
 output LIST008
-/* list('2017','2016','2015') */
+/* list(2017, 2016, 2015) */
 
   list('2017','2016','2015')
 
 output LIST009
-/* list(Assets, Land,Cash, AccountsReceivable) */
+/* list(Assets, Land, Cash, Liabilities) */
 
   list(Assets, Land,Cash, Liabilities)
 
@@ -50,7 +50,7 @@ output LIST010
   list('a','b','c') == list('b','c','a')
 
 output LIST011
-/* True */
+/* FALSE */
 
   list('a','b','c') == set('a','b','c')
 
@@ -85,12 +85,12 @@ output LIST017
   first-value(first(list([covered @instance = $INSTANCE1 @AssetsAbstract])))
 
 output SET101
-/* set(4, 1, 2, 3)  */
+/* set(1, 2, 3, 4) */
 
   set(1,2,3,4)
 
 output SET102
-/* set(b, b, a, a) */
+/* set(a, Assets, b, Liabilities) */
 
   set('a', Assets, Liabilities, 'b')
 
@@ -100,7 +100,7 @@ output SET103
   set(none)
 
 output SET104
-/* set()  */
+/* set() */
 
   set()
 
@@ -132,7 +132,7 @@ $B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
 $A == $B
 
 output DICT002
-/* True */
+/* FALSE */
 
   $A = dict(list('AAxis','AMember'), list('BAxis','CMember'));
 $B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
@@ -144,3 +144,35 @@ output DICT003
   $A = dict(list('CAxis','AMember'), list('BAxis','CMember'));
 $B = dict(list('AAxis','AMember'), list('BAxis','BMember'));
 $A == $B
+
+output DICT004
+/* dictionary(BAxis=BMember,AAxis=AMember,YAxis=YMember) */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = dict(list('YAxis','YMember'));
+$A + $B
+
+
+output DICT005
+/* dictionary(AAxis=AMember) */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = dict(list('BAxis','BMember'));
+$A - $B
+
+output DICT006
+/* dictionary(AAxis=AMember) */
+
+  $A = dict(list('AAxis','AMember'), list('BAxis','BMember'));
+$B = list('BAxis');
+$A - $B
+
+output DICT007
+/* dictionary(AAxis=AMember,BAxis=BMember) */
+
+  sum(list(dict(list('AAxis','AMember')), dict(list('BAxis','BMember'))))
+
+output DICT008
+/* dictionary(AAxis=AMember,BAxis=BMember) */
+
+  dict(list('AAxis','AMember'), list('BAxis','BMember')) + none

@@ -411,6 +411,14 @@ def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
 
         write(dts, package_name or 'taxonomy_package.zip', cntlr)
 
+def init_SXM(cntlr):
+    global _CNTLR
+    _CNTLR = cntlr
+
+    # Get the Simple XBRL Model Module.
+    global _SXM
+    _SXM = getPluginObject(cntlr, 'SimpleXBRLModel', 'SXM.getModule')()
+
 def write(dts, package_name, cntlr):
 
     package_folder = _PACKAGE_FOLDER or posixpath.splitext(posixpath.basename(package_name))[0]
@@ -1225,4 +1233,5 @@ __pluginInfo__ = {
     'CntlrCmdLine.Options': cmdLineOptionExtender,
     'CntlrCmdLine.Utility.Run': cmdUtilityRun,
     'CntlrCmdLine.Xbrl.Run': cmndLineXbrlRun,
+    'Serializer.Init': init_SXM
 }

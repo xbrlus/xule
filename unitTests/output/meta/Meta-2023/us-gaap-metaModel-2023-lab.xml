@@ -1,0 +1,82 @@
+<link:linkbase xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://xbrl.org/2008/generic" xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd">
+  <link:labelLink xlink:role="http://www.xbrl.org/2003/role/link" xlink:type="extended">
+    <link:loc xlink:label="ns13_LiquidityTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_LiquidityTrait" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_LiquidityTrait" xlink:to="lbl_lab_ns13_LiquidityTrait"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_LiquidityTrait" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Liquidity [Trait]</link:label>
+    <link:loc xlink:label="ns13_RecordedAsEstimate" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAsEstimate" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecordedAsEstimate" xlink:to="lbl_lab_ns13_RecordedAsEstimate"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecordedAsEstimate" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded as Estimate [Member]</link:label>
+    <link:loc xlink:label="ns13_Noncurrent" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_Noncurrent" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_Noncurrent" xlink:to="lbl_lab_ns13_Noncurrent"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_Noncurrent" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Noncurrent [Member]</link:label>
+    <link:loc xlink:label="ns13_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" xlink:to="lbl_lab_ns13_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecordedAtAmortizedCostAfterAllowanceForCreditLossMember" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded at Amortized Cost After Allowance for Credit Loss [Member]</link:label>
+    <link:loc xlink:label="ns13_OperatingActivitiesTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_OperatingActivitiesTrait" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_OperatingActivitiesTrait" xlink:to="lbl_lab_ns13_OperatingActivitiesTrait"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_OperatingActivitiesTrait" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Operating Activities [Trait]</link:label>
+    <link:loc xlink:label="ns13_RecordedAtAmortizedCostMember" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtAmortizedCostMember" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecordedAtAmortizedCostMember" xlink:to="lbl_lab_ns13_RecordedAtAmortizedCostMember"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecordedAtAmortizedCostMember" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded at Amortized Cost [Member]</link:label>
+    <link:loc xlink:label="ns13_OperatingActivity" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_OperatingActivity" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_OperatingActivity" xlink:to="lbl_lab_ns13_OperatingActivity"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_OperatingActivity" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Operating Activity [Member]</link:label>
+    <link:loc xlink:label="ns13_Reclassification" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_Reclassification" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_Reclassification" xlink:to="lbl_lab_ns13_Reclassification"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_Reclassification" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Reclassification [Member]</link:label>
+    <link:loc xlink:label="ns13_RecordedAtHistoricalCost" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtHistoricalCost" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecordedAtHistoricalCost" xlink:to="lbl_lab_ns13_RecordedAtHistoricalCost"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecordedAtHistoricalCost" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded at Historical Cost [Member]</link:label>
+    <link:loc xlink:label="ns13_RecodedValueTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecodedValueTrait" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecodedValueTrait" xlink:to="lbl_lab_ns13_RecodedValueTrait"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecodedValueTrait" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recoded Value [Trait]</link:label>
+    <link:loc xlink:label="ns13_RecordedAtLowerOfCarryingValueOrFairValue" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtLowerOfCarryingValueOrFairValue" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecordedAtLowerOfCarryingValueOrFairValue" xlink:to="lbl_lab_ns13_RecordedAtLowerOfCarryingValueOrFairValue"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecordedAtLowerOfCarryingValueOrFairValue" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded at Lower of Amortized Cost or Fair Value [Member]</link:label>
+    <link:loc xlink:label="ns13_RecordedAtLowerOfCarryingValueOrFairValueLessCostToSell" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedAtLowerOfCarryingValueOrFairValueLessCostToSell" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecordedAtLowerOfCarryingValueOrFairValueLessCostToSell" xlink:to="lbl_lab_ns13_RecordedAtLowerOfCarryingValueOrFairValueLessCostToSell"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecordedAtLowerOfCarryingValueOrFairValueLessCostToSell" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded at Lower of Carrying Value or Fair Value, Less Cost to Sell [Member]</link:label>
+    <link:loc xlink:label="ns13_RecordedValueDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RecordedValueDomain" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RecordedValueDomain" xlink:to="lbl_lab_ns13_RecordedValueDomain"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RecordedValueDomain" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded Value [Domain]</link:label>
+    <link:loc xlink:label="ns13_RelatedPartyTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RelatedPartyTrait" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RelatedPartyTrait" xlink:to="lbl_lab_ns13_RelatedPartyTrait"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RelatedPartyTrait" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Related Party [Trait]</link:label>
+    <link:loc xlink:label="ns13_ActivityTypeDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_ActivityTypeDomain" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_ActivityTypeDomain" xlink:to="lbl_lab_ns13_ActivityTypeDomain"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_ActivityTypeDomain" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Activity Type [Domain]</link:label>
+    <link:loc xlink:label="ns13_Remeasurement" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_Remeasurement" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_Remeasurement" xlink:to="lbl_lab_ns13_Remeasurement"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_Remeasurement" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Remeasurement [Member]</link:label>
+    <link:loc xlink:label="ns13_ActivityTypeTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_ActivityTypeTrait" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_ActivityTypeTrait" xlink:to="lbl_lab_ns13_ActivityTypeTrait"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_ActivityTypeTrait" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Activity Type [Trait]</link:label>
+    <link:loc xlink:label="ns13_ReportedAtFairValue" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_ReportedAtFairValue" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_ReportedAtFairValue" xlink:to="lbl_lab_ns13_ReportedAtFairValue"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_ReportedAtFairValue" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Reported at Fair Value [Member]</link:label>
+    <link:loc xlink:label="ns13_Allocation" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_Allocation" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_Allocation" xlink:to="lbl_lab_ns13_Allocation"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_Allocation" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Allocation [Member]</link:label>
+    <link:loc xlink:label="ns13_RestrictedMember" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_RestrictedMember" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_RestrictedMember" xlink:to="lbl_lab_ns13_RestrictedMember"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_RestrictedMember" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Restricted [Member]</link:label>
+    <link:loc xlink:label="ns13_CarryingValue" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_CarryingValue" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_CarryingValue" xlink:to="lbl_lab_ns13_CarryingValue"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_CarryingValue" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Recorded at Carrying Value [Member]</link:label>
+    <link:loc xlink:label="ns13_UnrestrictedMember" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_UnrestrictedMember" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_UnrestrictedMember" xlink:to="lbl_lab_ns13_UnrestrictedMember"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_UnrestrictedMember" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Unrestricted [Member]</link:label>
+    <link:loc xlink:label="ns13_CurrentTrait" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_CurrentTrait" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_CurrentTrait" xlink:to="lbl_lab_ns13_CurrentTrait"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_CurrentTrait" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Current [Member]</link:label>
+    <link:loc xlink:label="ns13_FinancingActivity" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_FinancingActivity" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_FinancingActivity" xlink:to="lbl_lab_ns13_FinancingActivity"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_FinancingActivity" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Financing Activity [Member]</link:label>
+    <link:loc xlink:label="ns13_InvestingActivity" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_InvestingActivity" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_InvestingActivity" xlink:to="lbl_lab_ns13_InvestingActivity"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_InvestingActivity" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Investing Activity [Member]</link:label>
+    <link:loc xlink:label="ns13_LiquidityDomain" xlink:href="us-gaap-metaModel-2023.xsd#us-gaap-metaModel_LiquidityDomain" xlink:type="locator"/>
+    <link:labelArc xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:type="arc" xlink:from="ns13_LiquidityDomain" xlink:to="lbl_lab_ns13_LiquidityDomain"/>
+    <link:label xlink:type="resource" xlink:label="lbl_lab_ns13_LiquidityDomain" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Liquidity [Domain]</link:label>
+  </link:labelLink>
+</link:linkbase>
