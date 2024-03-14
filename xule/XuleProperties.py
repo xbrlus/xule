@@ -2117,11 +2117,12 @@ def property_min(xule_context, object_value, *args):
     
     return min_value
 
-def property_count(xule_context, object_value, *args):
-    count_value = xv.XuleValue(xule_context, len(object_value.value), 'int')
-    count_value.tags = object_value.tags
-    count_value.facts = object_value.facts
-    return count_value
+# This is really the same as property_length
+# def property_count(xule_context, object_value, *args):
+#     count_value = xv.XuleValue(xule_context, len(object_value.value), 'int')
+#     count_value.tags = object_value.tags
+#     count_value.facts = object_value.facts
+#     return count_value
 
 def property_first(xule_context, object_value, *args):
     if len(object_value.value) == 0:
@@ -2966,7 +2967,7 @@ PROPERTIES = {
               'any': (property_any, 0, ('set', 'list'), False),
               'first': (property_first, 0, ('set', 'list'), False),
               'last': (property_last, 0, ('set', 'list'), False),
-              'count': (property_count, 0, ('set', 'list'), False),
+              'count': (property_length, 0, ('set', 'list', 'dictionary'), False),
               'sum': (property_sum, 0, ('set', 'list'), False),
               'max': (property_max, 0, ('set', 'list'), False),
               'min': (property_min, 0, ('set', 'list'), False),           
