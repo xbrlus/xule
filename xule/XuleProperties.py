@@ -1719,6 +1719,14 @@ def property_mod(xule_context, object_value, *args):
     combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(object_value, args[0], xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
 
+def property_repeat(xule_context, object_value, *args):
+    try:
+        count = int(args[0].value)
+    except (ValueError, TypeError):
+        raise XuleProcessingError(_(f"The argument for the .replace() property must be a number, found {args[0].type}"), xule_context)
+
+    return xv.XuleValue(xule_context, object_value.value * count, 'string')
+
 def property_substring(xule_context, object_value, *args):     
     if len(args) == 0:
         raise XuleProcessingError(_("Substring reuqires at least 1 argument, found none."), xule_context)
@@ -2873,7 +2881,6 @@ PROPERTIES = {
               'substitution': (property_substitution, 0, ('concept', 'part-element', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
-
               'min-exclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'minExclusive'),
               'max-exclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'maxExclusive'),
               'min-inclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'minInclusive'),
@@ -2943,6 +2950,7 @@ PROPERTIES = {
               'number': (property_number, 0, ('int', 'float', 'decimal', 'fact'), False),
               'int': (property_int, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
               'decimal': (property_decimal, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
+              'repeat': (property_repeat, 1, ('string', 'uri'), False),
               'substring': (property_substring, -2, ('string', 'uri'), False),
               'index-of': (property_index_of, 1, ('string', 'uri'), False),
               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
