@@ -51,7 +51,7 @@ from . import XuleProperties
 import os
 from openpyxl import load_workbook, Workbook
 
-def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
+def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is_validator=False):
     """Run xule rules against a filing.
     
     :param rule_set: An opened rule set
@@ -115,8 +115,13 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         constant_time = constant_end - constant_start
         global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
 
+    # Determine if constants should be outputed
+    if getattr(global_context.options, "xule_output_constants") is not None:
+        output_constant(global_context, cntlr)
+
+    if getattr(global_context.options, "xule_run", False) or is_validator:
     # global_context.message_queue.logging("Processing Filing...")
-    evaluate_rule_set(global_context)
+        evaluate_rule_set(global_context)
 
     if getattr(global_context.options, "xule_time", None) is not None:
         total_end = datetime.datetime.today()
@@ -136,6 +141,29 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
 
     return saved_taxonomies
 
+def output_constant(global_context, cntlr):
+    # Change the message format for the log handler so it only outputs the message
+    save_log_handler = cntlr.logHandler
+    new_log_handler = copy.copy(save_log_handler)
+    import logging
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(message)s')
+    new_log_handler.setFormatter(formatter)
+    cntlr.logger.removeHandler(cntlr.logHandler)
+    cntlr.logger.addHandler(new_log_handler)
+
+    for constant_name_raw in getattr(global_context.options, "xule_output_constants").split(','):
+        constant_name = constant_name_raw.strip()
+        if constant_name != '':
+            const_info = precalc_constant(global_context, constant_name)
+            if const_info is None: # The constant was not found
+                cntlr.addToLog(f"Constant {constant_name} does not exist", 'warning')
+            else:
+                for alignment, values in const_info['value'].values.items():
+                    for val in values:
+                        cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+
+    cntlr.logger.addHandler(save_log_handler)
 
 def evaluate_rule_set(global_context):
     """Process the rule set.
@@ -1631,7 +1659,7 @@ def process_precalc_constants(global_context):
     global_context.message_queue.logging("Precalcing non-instance constants")
     for constant_name, cat_constant in global_context.rule_set.catalog['constants'].items():
         if ('unused' not in cat_constant and
-                not cat_constant['dependencies']['instance']):
+            not cat_constant['dependencies']['instance']):
 
             const_context = XuleRuleContext(global_context, constant_name, cat_constant['file'])
             const_info = const_context.find_var(constant_name, cat_constant['node_id'])
@@ -1639,6 +1667,20 @@ def process_precalc_constants(global_context):
                 calc_constant(const_info, const_context)
             # Clean up
             del const_context
+
+def precalc_constant(global_context, constant_name):
+        try:
+            cat_constant = global_context.rule_set.catalog['constants'][constant_name]
+        except KeyError:
+            return # There is no constant to calc
+        
+        const_context = XuleRuleContext(global_context, constant_name, cat_constant['file'])
+        const_info = const_context.find_var(constant_name, cat_constant['node_id'])
+        if not const_info['calculated']:
+            calc_constant(const_info, const_context)
+        # Clean up
+        del const_context
+        return const_info
 
 def evaluate_if(if_expr, xule_context):
     """Evaluator for if expressions

@@ -369,7 +369,7 @@ def isXuleDirect(cntlr):
     if _is_xule_direct is None:
         _is_xule_direct = False
         for plugin_command in getattr(XuleVars.get(cntlr, 'options'), 'plugins', '').split('|'):
-            if plugin_command.lower().endswith('xule'):
+            if plugin_command.lower().strip().endswith('xule'):
                 _is_xule_direct = True
 
     return _is_xule_direct
@@ -609,7 +609,12 @@ def xuleCmdOptions(parser):
                         action="store_true",
                         dest="xule_precalc_constants",
                         help=_("Pre-calculate constants that do not depend on the instance."))
-
+    
+    parserGroup.add_option("--xule-output-constants",
+                           action="store",
+                           dest="xule_output_constants",
+                           help=_("Comma separated list of constant names to output."))
+    
     parserGroup.add_option("--xule-exclude-nils",
                         action="store_true",
                         dest="xule_exclude_nils",
@@ -874,7 +879,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 for k, v in file_info.items():
                                     if k != 'file' and k.strip().lower().startswith('xule'): # Only change xule options
                                         setattr(new_options, k.strip().lower(), v)
-                                if getattr(new_options, 'xule_run'):
+                                if getattr(new_options, 'xule_run') or getattr(new_options, 'xule_output_constants') is not None:
                                     xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
                                 elif getattr(new_options, 'validate'):
                                     for xule_validator in _xule_validators:
@@ -890,13 +895,13 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
     
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
-    if getattr(options, "xule_run", None):
+    if getattr(options, "xule_run", None) or getattr(options, "xule_output_constants") is not None:
         runXule(cntlr, options, modelXbrl)
 
 def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None, xule_compile_workers=1):
     xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type, max_recurse_depth, xule_compile_workers)
 
-def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
+def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name, is_validator=False):
         try:
             if getattr(options, "xule_multi", True) and \
                     getattr(cntlr, "rule_set", None) is not None:
@@ -945,7 +950,8 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                                             modelXbrl,
                                             cntlr,
                                             options,
-                                            _saved_taxonomies
+                                            _saved_taxonomies,
+                                            is_validator
                                             )
                 # Save one loaded taxonomy
                 new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
@@ -1008,7 +1014,7 @@ def xuleValidate(val):
             # This is run on the command line or web server
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
             if not getattr(options, "xule_run", False) and len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
-                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
+                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], is_validator=True)
 
     if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
         # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
