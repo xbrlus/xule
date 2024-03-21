@@ -28,11 +28,18 @@ class SemanticHashException(Exception):
         return _('[{0}] exception: {1}').format(self.code, self.message % self.kwargs)
 
 def semanticHashOptions(parser):
-	# extend command line options with a save DTS option
-    parserGroup = optparse.OptionGroup(parser,
-                                    "Semantic Hash",
-                                    "Calculates the semantic hash of an XBRL document. Currently only supports instance documents.")
-    
+    # extend command line options to compile rules
+    if isinstance(parser, optparse.OptionParser):
+        # This is the normal optparse.OptionsParser object.
+        parserGroup = optparse.OptionGroup(parser,
+                                           "Semantic Hash",
+                                           "Calculates the semantic hash of an XBRL document. Currently only supports instance documents.")
+        parser.add_option_group(parserGroup)
+    else:
+        # This is a fake parser object (which does not support option groups). This is sent when arelle is in GUI
+        # mode or running as a webserver
+        parserGroup = parser
+
     parserGroup.add_option("--semantic-hash",
 					  action="store_true",
 					  help=_("Flag to return the semantic hash as a hex digest"))
@@ -112,7 +119,7 @@ def semanticStringHashFact(fact):
     if fact.isTuple:
         return semanticHashTuple(fact)
     else:
-        fact_name = semanticFormat('QNAME', fact.elementQname.clarkNotation)
+        fact_name = semanticFormat('QNAME', fact.qname.clarkNotation)
         entity = semanticFormat('ENTITY', '{}{}'.format(semanticFormat('ENTITYSCHEME', fact.context.entityIdentifier[0]),
                                                         semanticFormat('ENTITYIDENTIFER', fact.context.entityIdentifier[1])))
         period = semanticHashPeriod(fact.context)
@@ -364,7 +371,7 @@ def canonicalizeNormalizedString(string_value):
 
 def canonicalizeTime(string_value, date_shift=False):
     day_offset = 0
-    re_match = re.fullmatch('(?P<hour>\d\d):(?P<minute>\d\d):(?P<second>\d+(\.\d*)?)((?P<tz_direction>[-+])(?P<tz_time>\d\d:\d\d)|(?P<utc>Z))?', string_value)
+    re_match = re.fullmatch(r'(?P<hour>\d\d):(?P<minute>\d\d):(?P<second>\d+(\.\d*)?)((?P<tz_direction>[-+])(?P<tz_time>\d\d:\d\d)|(?P<utc>Z))?', string_value)
     if re_match is None:
         raise SemanticHashException("sh", _("Cannot canonicalize time {}".format(string_value)))
     time_dict = re_match.groupdict()
@@ -394,7 +401,7 @@ def canonicalizeTime(string_value, date_shift=False):
         return return_string
 
 def canonicalizeDateTime(string_value):
-    re_match = re.fullmatch('(?P<year>-?\d\d\d\d\d*)-(?P<month>\d\d)-(?P<day>\d\d)(T(?P<time>.*))?', string_value)
+    re_match = re.fullmatch(r'(?P<year>-?\d\d\d\d\d*)-(?P<month>\d\d)-(?P<day>\d\d)(T(?P<time>.*))?', string_value)
     if re_match is None:
         raise SemanticHashException("sh", _("Cannot canonicalize dateTime {}".format(string_value)))
     day_offset = 0

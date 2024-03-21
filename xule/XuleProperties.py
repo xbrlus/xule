@@ -24,6 +24,7 @@ DOCSKIP
 """
 
 from .XuleRunTime import XuleProcessingError
+# from .XuleSemanticHash import semanticStringHashFact
 from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
@@ -38,6 +39,7 @@ import collections
 import csv
 import datetime
 import decimal
+import hashlib
 import io
 import itertools
 import json
@@ -657,7 +659,15 @@ def property_id(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, object_value.fact.id, 'string')
     else: #none value
         return object_value 
-    
+
+def property_sid(xule_context, object_value, *args):
+    '''This property gets a semantic id for a fact. This is a way of detecting if 2 facts are really the same.
+       It will use the conceptt, unit, entity, period, defined dimensions and decimals to identify the fact.
+    '''
+    from semanticHash import semanticStringHashFact
+    semantic_hash_string = semanticStringHashFact(object_value.fact)
+    return xv.XuleValue(xule_context, hashlib.sha256(semantic_hash_string.encode()).hexdigest(), 'string')
+
 def property_scale(xule_context, object_value, *args):
     if object_value.is_fact:
         if hasattr(object_value.fact, 'scaleInt') and object_value.fact.scaleInt is not None:
@@ -2859,6 +2869,7 @@ PROPERTIES = {
               'entity': (property_entity, 0, ('fact',), True),
               'namespace-map': (property_namespace_map, 0, ('fact',), True),
               'id': (property_id, 0, ('entity','unit','fact', 'concept', 'part-element'), True),
+              'sid': (property_sid, 0, ('fact',), True),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),

@@ -1088,6 +1088,7 @@ __pluginInfo__ = {
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
     'copyright': '(c) 2017-2018',
+    'import': 'semanticHash',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     'CntlrWinMain.Menu.Tools': xuleMenuTools,
