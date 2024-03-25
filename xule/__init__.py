@@ -974,7 +974,8 @@ def callXuleProcessor(cntlr, modelXbrl, rule_set_location, options):
                                         modelXbrl,
                                         cntlr,
                                         options,
-                                        _saved_taxonomies
+                                        _saved_taxonomies,
+                                        is_validator=True # This will run xule if there is not a --xule-run option
                                         )
         # Save one loaded taxonomy
         new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
