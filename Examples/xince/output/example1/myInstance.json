@@ -1,0 +1,32 @@
+{
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2021/xbrl-json",
+    "features": {
+      "xbrl:canonicalValues": true
+    },
+    "namespaces": {
+      "iso4217": "http://www.xbrl.org/2003/iso4217",
+      "xbrl": "https://xbrl.org/2021",
+      "us-gaap": "http://fasb.org/us-gaap/2023",
+      "ns": "http://test/report"
+    },
+    "linkGroups": {
+      "_": "http://www.xbrl.org/2003/role/link"
+    },
+    "taxonomy": [
+      "https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-std-2023.xsd"
+    ]
+  },
+  "facts": {
+    "f": {
+      "value": "1230000.0",
+      "decimals": -6,
+      "dimensions": {
+        "concept": "us-gaap:Assets",
+        "entity": "ns:CompanyX",
+        "period": "2024-12-31T00:00:00",
+        "unit": "iso4217:JPY"
+      }
+    }
+  }
+}
