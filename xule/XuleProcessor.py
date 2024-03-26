@@ -2121,14 +2121,10 @@ def evaluate_comp(comp_expr, xule_context):
             left_compute_value = XulePeriodComp(left_compute_value)
             right_compute_value = XulePeriodComp(right_compute_value)
 
-        if left.type in ('list', 'set'):
+        if left.type in ('list', 'set', 'dictionary'):
             left_compute_value = left.shadow_collection
-        if left.type == 'dictionary':
-            left_compute_value = dict(left.shadow_collection)
-        if right.type in ('list', 'set'):
+        if right.type in ('list', 'set', 'dictionary'):
             right_compute_value = right.shadow_collection
-        if right.type == 'dictionary':
-            right_compute_value = dict(right.shadow_collection)
 
         if operator == '==':
             interim_value = XuleValue(xule_context, left_compute_value == right_compute_value, 'bool')
