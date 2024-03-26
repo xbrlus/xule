@@ -11,6 +11,24 @@ The XINCE Examples have the following folder structure:
 ## Example 1. - Create Single Fact Instance
 This example creates a single fact instance using the US-GAAP taxonomy.
 
+To create the model.zip file run the following command to compile the file:
+
+```sh
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile ./source/example1  --plugins "xule" --xule-rule-set ./model/example1/xince-example1-model.zip  --xule-max-recurse-depth=25000
+```
+
+To create the instance run the following command:
+
+```sh
+python ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|xodel' --xule-time .005 --xule-debug --noCertificateCheck --logFile ./log/example1/xince-example1-log.xml --xule-rule-set ./model/example1/xince-example1-model.zip --logNoRefObjectProperties --xodel-location ./output/example1 --xodel-show-xule-log
+```
+
+This will create a json instance. To create an xml instance the following argument can be added:
+```sh
+--xince-file-type=xml
+```
+
+
 
 ## License and Patent
 
