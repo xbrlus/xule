@@ -243,3 +243,17 @@ output FACT049
 /* 45436000000 */
 
   max(list([covered @instance = $INSTANCE1  where $fact.period == date('2021-06-30')]))
+
+output FACT050
+/*  */
+
+  $DebitEntries = set({covered @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 0}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+$totalDebitTravelExpenses
+
+output FACT051
+/*  */
+
+  $DebitEntries = set({covered @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 100}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+$totalDebitTravelExpenses

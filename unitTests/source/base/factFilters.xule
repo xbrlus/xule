@@ -309,6 +309,21 @@ output PFILT115
 
   list([covered @instance = $INSTANCE1 where $fact.period.end.year == '2020']).count
 
+output PFILT116
+/*  */
+
+  list({covered @instance = $INSTANCE1 @period.days = 91}).count
+
+output PFILT117
+/*  */
+
+  list({covered @instance = $INSTANCE1 @@period.days = 91}).count
+
+output PFILT118
+/*  */
+
+  list({covered @instance = $INSTANCE1 where $fact.period.days > 91 }).count
+
 output NOFILT001
 /* 1579 */
 
@@ -569,7 +584,7 @@ output NILSFILT002
   list({covered nonils @instance = $INSTANCE1}).count
 
 output UNITFILT020
-/* 1471 */
+/* rule UNITFILT020: Rule: UNITFILT020 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'. */
 
   list({covered @instance = $INSTANCE1  @unit.numerator = unit(iso4217:USD)}).count
 

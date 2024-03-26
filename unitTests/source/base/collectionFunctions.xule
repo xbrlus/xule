@@ -643,6 +643,15 @@ $A.to-csv
 file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV105.csv'
 file-content $rule-value
 
+output TSPT001
+/*  */
+
+  $A = dict(list('mysheet1',list(list('Liabilities', 100),list('AssetsCurrent', 200),list('AssetsNoncurrent', 30)))
+,list('mysheet2',list(list('Liabilities', 100),list('AssetsCurrent', 200),list('AssetsNoncurrent', 30)))); 
+$A.to-spreadsheet
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TSPT001.xlsx'
+file-content $rule-value
+
 output DHK001
 /* True */
 
