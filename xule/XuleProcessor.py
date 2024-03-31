@@ -4806,8 +4806,12 @@ def process_factset_aspects(factset, xule_context):
                                     raise XuleProcessingError(_("Found facset aspect that uses a namespace group prefix in the aspect name, but there are multiple concepts that are not all dimensions or all non dimensions. This is not allowed"), xule_context)
 
             if aspect_filter_model_concept is None:
+                if aspect_name.type == 'groupQname':
+                    missing_concept_name = f"{aspect_name.value[0].value}:{aspect_name.value[1]}"
+                else:
+                    missing_concept_name = aspect_name.value.clarkNotation
                 raise XuleProcessingError(
-                    _("Error while processing factset aspect. Concept %s not found." % aspect_name.value.clarkNotation),
+                    _("Error while processing factset aspect. Concept %s not found." % missing_concept_name),
                     xule_context)
             if aspect_filter_model_concept.isDimensionItem:
                 # This is a dimension aspect
