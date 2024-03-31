@@ -2409,9 +2409,7 @@ def evaluate_factset_detail(factset, xule_context):
         and then aligning them, it would allow the expression to iterate over one operand result set and evaluate for each result of the other operand. 
         By pushing the filter, first, only the aligned results will come back. 
     """
-    f_start = datetime.datetime.today()
-
-    #     #The no alignment flag indicates that the results of the factset should all have none alignment. It is set by the 'values' expression.
+    #The no alignment flag indicates that the results of the factset should all have none alignment. It is set by the 'values' expression.
 
     saved_used_expressions = xule_context.used_expressions
     xule_context.used_expressions = set()
@@ -4741,6 +4739,9 @@ def process_factset_aspects(factset, xule_context):
     for aspect_filter in factset.get('aspectFilters', list()):
         aspect_name = evaluate(aspect_filter['aspectName'], xule_context)
         # Check if @instance. If so, change the model
+        # Also, preprocess the @dimesnions
+        # The @dimensions is a dictionary of key = diemsnion name and value = the member. Prepopulate the aspect_dictionary. If there
+        # is another aspect filter for something in the @dimensions dictionary, then it will overrite that value in the aspect_dictionary
         if aspect_name.type == 'aspect_name' and aspect_name.value == 'instance':
             instance = evaluate(aspect_filter['aspectExpr'], xule_context)
             if aspect_filter['aspectOperator'] == '=':
@@ -4757,6 +4758,34 @@ def process_factset_aspects(factset, xule_context):
                         models.append(sub_instance.value)
                     else:
                         raise XuleProcessingError(_("Value of the @instance aspect of a factset must be an instance, found {}".format(sub_instance.type)), xule_context)
+        elif aspect_name.type == 'qname' and aspect_name.value.localName == 'dimensions' and aspect_name.value.prefix is None:
+            # We are going to prepopulate the aspect_dictionary (either aligned or non_aligned.
+            # Need to determine is this is aligned or non aligned
+            aspect_dictionary = non_align_aspects if aspect_filter['coverType'] == 'covered' else align_aspects
+            dimensions_value = evaluate(aspect_filter['aspectExpr'], xule_context)
+            if dimensions_value.type != 'dictionary':
+                raise XuleProcessingError(_(f"The value of the @dimensions filter must be a dictionary, found {aspect_dictionary.type}"), xule_context)
+            for dimension_value, member_value in dimensions_value.value:
+                x = 1
+                # dimension_value and member_value may be concepts or qnames. The dimension_value must be qname. I will make
+                # the member_value a qname as well. This will better support filtering where the dimesnion dictionary comes from
+                # one taxonomy but the factset is for another.
+                if dimension_value.type in ('qname', 'groupQname'):
+                    dimension_name = dimension_value.value
+                elif dimension_value.type == 'concept':
+                    dimension_name = dimension_value.value.qname
+                else:
+                    raise XuleProcessingError(_(f"The key of the @dimensions dictionary filter must be a qname or a concept, found {dimension_value.type}"), xule_context)
+                aspect_info = ('explicit_dimension', dimension_name,  None, '=', None)
+
+                if member_value.type in ('qname', 'groupQname'):
+                    member_qname_value = member_value
+                elif member_value.type == 'concept':
+                    member_qname_value = XuleValue(xule_context, member_value.value.qname, 'qname')
+                else:
+                    raise XuleProcessingError(_(f"The value of the @dimensions dictionary filter must be a qname or a concept, found {member_value.type}"), xule_context)
+                aspect_dictionary[aspect_info] = member_qname_value
+                
         else:
             aspects[aspect_name] = aspect_filter
     '''COULD CHECK FOR DUPLICATE ASPECTS IN THE FACTSET'''
