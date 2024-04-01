@@ -310,17 +310,17 @@ output PFILT115
   list([covered @instance = $INSTANCE1 where $fact.period.end.year == '2020']).count
 
 output PFILT116
-/*  */
+/* 432 */
 
   list({covered @instance = $INSTANCE1 @period.days = 91}).count
 
 output PFILT117
-/*  */
+/* 219 */
 
   list({covered @instance = $INSTANCE1 @@period.days = 91}).count
 
 output PFILT118
-/*  */
+/* 598 */
 
   list({covered @instance = $INSTANCE1 where $fact.period.days > 91 }).count
 
@@ -592,3 +592,15 @@ output UNITFILT021
 /* 1449 */
 
   list({covered @instance = $INSTANCE1  @unit in list(unit(iso4217:USD))}).count
+
+output DIMFILT006
+/*  */
+
+  $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
+list({covered @instance = $INSTANCE1 @dimensions = $Rev}).count
+
+output DIMFILT007
+/*  */
+
+  $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
+list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @dimensions = *}).count

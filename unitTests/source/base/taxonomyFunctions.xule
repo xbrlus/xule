@@ -134,6 +134,11 @@ output CONPROP024
 
   $US-GAAP-2020.concept(Assets).clark
 
+output CONPROP025
+/* False */
+
+  $US-GAAP-2020.concept(Assets).has-enumerations
+
 output LABPROP001
 /* http://www.xbrl.org/2003/role/label */
 
@@ -942,3 +947,21 @@ output TAXPROP134
 /* 61 */
 
   count($US-GAAP-2020.part-elements)
+
+output TAXPROP135
+/* set(list(-1, 
+http://www.xbrl.org/2003/arcrole/summation-item
+http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect
+link:calculationLink
+link:calculationArc
+False
+# of relationships: 763
+)) */
+
+  $x = 'http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect'
+$US-GAAP-2020.effective-weight-network(NetCashProvidedByUsedInOperatingActivities,IncomeLossFromEquityMethodInvestments,$x)
+
+output TAXPROP136
+/* 0 */
+
+  count($US-GAAP-2020.elements)
