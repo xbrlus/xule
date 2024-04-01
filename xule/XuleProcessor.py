@@ -4848,6 +4848,8 @@ def process_factset_aspects(factset, xule_context):
                                aspect_filter['node_id'], xule_context)
                 aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'explicit_dimension', aspect_name.value,
                                                                models, xule_context)
+                # Need to clear the filter if it is already in the aspect_dictionary. This can happen if the @dimensions is used and an @xbrl-dimension=member for the same dimension.
+                remove_existing_aspects(aspect_info[1], non_align_aspects, align_aspects)
                 if aspect_info is not None:
                     aspect_dictionary[aspect_info] = aspect_value
             else:
@@ -4902,6 +4904,17 @@ def process_factset_aspects(factset, xule_context):
     #                     add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname, aspect_var_name, aspect_filter['node_id'], xule_context)
 
     return (non_align_aspects, align_aspects, aspect_vars, models)
+
+def remove_existing_aspects(dim_name, non_align_aspects, align_aspect):
+    '''This is used to remove an aspect if it is in the aspect filters more than once.
+       This can happen if the @dimensions is used and there is an aspect filter for one of the dimension in the @dimensions.
+       In this case, the specified dimension (i.e. @dimension-name=member) is used in place of the the dimension in the @dimensions'''
+    existing_keys = {x for x in non_align_aspects.keys() if x[1] == dim_name}
+    for existing_key in existing_keys:
+        del non_align_aspects[existing_key]
+    existing_keys = {x for x in align_aspect.keys() if x[1] == dim_name}
+    for existing_key in existing_keys:
+        del align_aspect[existing_key]
 
 def aspect_in_filters(aspect_type, aspect_name, filters):
     """Checks if an aspect is in the existing set of filters
