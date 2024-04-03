@@ -286,7 +286,8 @@ class XuleGlobalContext(object):
         if taxonomy_url not in self.other_taxonomies:
             start = datetime.datetime.today()
             rules_taxonomy_filesource = FileSource.openFileSource(taxonomy_url, self.cntlr)            
-            modelManager = ModelManager.initialize(self.cntlr)
+            #modelManager = ModelManager.initialize(self.cntlr)
+            modelManager = self.cntlr.modelManager
             modelXbrl = modelManager.load(rules_taxonomy_filesource)
             if 'IOerror' in modelXbrl.errors:
                 raise XuleProcessingError(_("Taxonomy {} not found.".format(taxonomy_url)))
