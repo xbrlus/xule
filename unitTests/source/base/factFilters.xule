@@ -604,3 +604,39 @@ output DIMFILT007
 
   $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
 list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @dimensions = *}).count
+
+output DIMFILT008
+/*  */
+
+  $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
+list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @dimensions = none}).count
+
+output DIMFILT009
+/* 0 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = '2023-01-01'}).count
+
+output DIMFILT010
+/* 1 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = date('2023-01-01')}).count
+
+output DIMFILT011
+/* 0 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligation @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = none}).count
+
+output DIMFILT012
+/* 8 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = *})
+
+output DIMFILT013
+/* 8 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis})
+
+output DIMFILT014
+/* 7 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligation @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).count

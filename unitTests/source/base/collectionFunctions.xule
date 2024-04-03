@@ -270,12 +270,12 @@ output COU191
   count()
 
 output COU192
-/* rule COU192: Rule: COU192 - The first argument of function 'count' must be set, list, found 'decimal'. */
+/* rule COU192: Rule: COU192 - The first argument of function 'count' must be set, list, dictionary, found 'decimal'. */
 
   count(@instance = $INSTANCE1)
 
 output COU193
-/* rule COU193: Rule: COU193 - The first argument of function 'count' must be set, list, found 'dictionary'. */
+/* 4 */
 
   count(dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')))
 

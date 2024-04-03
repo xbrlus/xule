@@ -98,6 +98,11 @@
   constant $INSTANCE_SHORT_DATE = instance('https://www.sec.gov/Archives/edgar/data/7431/000095017023054703/awi-20230930.htm')
 
 
+/* Constant representing an XBRL instance */
+
+  constant $INSTANCE_TYPED_DIM = instance('https://www.sec.gov/Archives/edgar/data/790051/000079005121000116/csl-20210331.htm')
+
+
 /* output-attribute file content to allow production of csv and json */
 
   output-attribute file-content

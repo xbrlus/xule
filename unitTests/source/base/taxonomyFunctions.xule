@@ -962,6 +962,6 @@ False
 $US-GAAP-2020.effective-weight-network(NetCashProvidedByUsedInOperatingActivities,IncomeLossFromEquityMethodInvestments,$x)
 
 output TAXPROP136
-/* 0 */
+/* rule TAXPROP136: Rule: TAXPROP136 - 'elements' is not a valid property. */
 
   count($US-GAAP-2020.elements)

@@ -27,22 +27,22 @@ output INLIN005
 output INLIN006
 /* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock) */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
 
 output INLIN007
 /* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription) */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
 
 output INLIN008
 /* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription) */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
 
 output INLIN009
 /* skip */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
 
 output INLIN010
 /* 109 */
@@ -127,4 +127,4 @@ output INLIN025
 output INLIN026
 /* list() */
 
-  {@instance=$INSTANCE_XML @concept.local-name='Assets'}.inline-children.concept.name
+  { @instance=$INSTANCE_XML @concept.local-name='Assets'}.inline-children.concept.name
