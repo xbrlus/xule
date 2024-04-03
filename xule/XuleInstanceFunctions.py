@@ -24,7 +24,8 @@ def func_instance(xule_context, *args):
         
         start = datetime.datetime.today()
         instance_filesource = FileSource.openFileSource(instance_url.value, xule_context.global_context.cntlr)            
-        modelManager = ModelManager.initialize(xule_context.global_context.cntlr)
+        #modelManager = ModelManager.initialize(xule_context.global_context.cntlr)
+        modelManager = xule_context.global_context.cntlr.modelManager
         instance_model = modelManager.load(instance_filesource)
         if 'IOerror' in instance_model.errors:
             raise XuleProcessingError(_("Instance {} not found.".format(instance_url)))
