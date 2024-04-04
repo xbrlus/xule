@@ -2958,7 +2958,7 @@ PROPERTIES = {
               'trunc': (property_trunc, -1, ('int', 'float', 'decimal', 'fact'), False),
               'round': (property_round, 1, ('int', 'float', 'decimal', 'fact'), False),
               'mod': (property_mod, 1 ,('int', 'float', 'decimal', 'fact'), False),
-              'number': (property_number, 0, ('int', 'float', 'decimal', 'fact'), False),
+              'number': (property_number, 0, ('string', 'int', 'float', 'decimal', 'fact'), False),
               'int': (property_int, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
               'decimal': (property_decimal, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
               'repeat': (property_repeat, 1, ('string', 'uri'), False),
