@@ -78,7 +78,10 @@ def property_contains(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, search_value in object_value.shadow_collection, 'bool')
     elif object_value.type in ('string', 'uri'):
         if search_item.type in ('string', 'uri'):
-            return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
+            if search_item.value == '':
+                return xv.XuleValue(xule_context, False, 'bool')
+            else:
+                return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
         elif search_item.type == 'none':
             return xv.XuleValue(xule_context, False, 'bool')
         else: 
@@ -1765,23 +1768,33 @@ def property_index_of(xule_context, object_value, *args):
     cast_value = xv.xule_cast(object_value, 'string', xule_context)
  
     arg_result = args[0]
+    if arg_result.type == 'none':
+            return xv.XuleValue(xule_context, 0, 'int')
     if xv.xule_castable(arg_result, 'string', xule_context):
         index_string = xv.xule_cast(arg_result, 'string', xule_context)
     else:
         raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
-     
-    return xv.XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
+    
+    if index_string == '':
+        return xv.XuleValue(xule_context, 0, 'int')
+    else:
+        return xv.XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
  
 def property_last_index_of(xule_context, object_value, *args):
     cast_value = xv.xule_cast(object_value, 'string', xule_context)
      
     arg_result = args[0]
+    if arg_result.type == 'none':
+            return xv.XuleValue(xule_context, 0, 'int')
     if xv.xule_castable(arg_result, 'string', xule_context):
         index_string = xv.xule_cast(arg_result, 'string', xule_context)
     else:
         raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
-     
-    return xv.XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
+    
+    if index_string == '':
+        return xv.XuleValue(xule_context, 0, 'int')
+    else:
+        return xv.XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
  
 def property_lower_case(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, xv.xule_cast(object_value, 'string', xule_context).lower(), 'string')
