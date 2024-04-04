@@ -85,7 +85,7 @@ def property_contains(xule_context, object_value, *args):
         elif search_item.type == 'none':
             return xv.XuleValue(xule_context, False, 'bool')
         else: 
-            raise XuleProcessingError(_(f"The search item for property 'contains' or 'in' must be a string, uri or none, but found '{search_time.type}"), xule_context)
+            raise XuleProcessingError(_(f"The search item for property 'contains' or 'in' must be a string, uri or none, but found '{search_item.type}"), xule_context)
     else:
         raise XuleProcessingError(_("Property 'contains' or 'in' expression cannot operate on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
 
