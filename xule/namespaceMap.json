@@ -1,0 +1,8 @@
+{
+	"^http://fasb\\.org/([^/]+)/((\\d{4})-\\d{2}-\\d{2})$": "http://xbrl.fasb.org/us-gaap/{2}/elts/{0}-{1}.xsd",
+	"^http://xbrl\\.ifrs\\.org/taxonomy/(\\d{4}-\\d{2}-\\d{2})/ifrs-full$": "http://xbrl.ifrs.org/taxonomy/{0}/full_ifrs/full_ifrs-cor_{0}.xsd",
+	"^http://xbrl\\.sec\\.gov/([^/]+)/((\\d{4})-\\d{2}-\\d{2})": "http://xbrl.sec.gov/{0}/{2}/{0}-{1}.xsd",
+	"^http://www\\.xbrl\\.org/dtr/type/non-numeric$": "http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd",
+	"^http://www\\.xbrl\\.org/dtr/type/numeric$": "http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd",
+	"^http://www\\.xbrl\\.org/2013/enumeration$": "http://www.xbrl.org/dtr/type/enumeration-2013-06-30.xsd"
+}
