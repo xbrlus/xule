@@ -19,6 +19,26 @@ output CON102
 
   contains('a frog and a house', 'hout')
 
+output CON103
+/* FALSE */
+
+  contains('a frog and a house', none)
+
+output CON104
+/* rule CON104: Rule: CON104 - The first argument of function 'contains' must be set, list, string, uri, found 'none'. */
+
+  contains(none, none)
+
+output CON105
+/* rule CON105: Rule: CON105 - The first argument of function 'contains' must be set, list, string, uri, found 'none'. */
+
+  contains(none, 'hou')
+
+output CON106
+/* TRUE */
+
+  contains('a frog and a house', '')
+
 output DIO101
 /* 3 */
 
@@ -48,6 +68,26 @@ output IXO102
 /* 0 */
 
   index-of('a frog and a house', 'hout')
+
+output IXO103
+/* rule IXO103: Rule: IXO103 - The argument for property 'index-of' must be castable to a 'string', found 'none' */
+
+  index-of('a frog and a house', none)
+
+output IXO104
+/* rule IXO104: Rule: IXO104 - The first argument of function 'index-of' must be string, uri, found 'none'. */
+
+  index-of(none, 'hout')
+
+output IXO105
+/* 1 */
+
+  index-of('a frog and a house', '')
+
+output IXO106
+/* 0 */
+
+  index-of('', 'hout')
 
 output DLI101
 /* 17 */
@@ -89,6 +129,11 @@ output LIO107
 
   last-index-of(list('Hello Mr Stains'), 'o')
 
+output LIO108
+/*  */
+
+  last-index-of('Hello Mr Stains', none)
+
 output LEN101
 /* 0 */
 
@@ -118,6 +163,11 @@ output LEN106
 /* 0 */
 
   length('')
+
+output LEN107
+/* rule LEN107: Rule: LEN107 - The first argument of function 'length' must be string, uri, set, list, dictionary, found 'none'. */
+
+  length(none)
 
 output DLO101
 /* abcdef */
@@ -403,6 +453,31 @@ output INTRSF002
 /* 44075 */
 
   '01-septembre-2020'.inline-transform(ixt:date-day-monthname-year-fr, 'date')
+
+output INTRSF003
+/* None */
+
+  none.inline-transform(ixt:date-day-monthname-year-fr, 'date')
+
+output INTRSF004
+/* rule INTRSF004: Rule: INTRSF004 - The transform name of the inline-transform property must be a qname. found 'none' */
+
+  '01-septembre-2020'.inline-transform(none, 'date')
+
+output INTRSF005
+/* rule INTRSF005: Rule: INTRSF005 - The return type of the inline-transform property must be a string. Found '{}' */
+
+  '01-septembre-2020'.inline-transform(ixt:date-day-monthname-year-fr, none)
+
+output INTRSF006
+/* rule INTRSF006: Unable to convert '' using transform '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}date-day-monthname-year-fr'. */
+
+  ''.inline-transform(ixt:date-day-monthname-year-fr)
+
+output INTRSF007
+/* 44075 */
+
+  inline-transform('01-septembre-2020',ixt:date-day-monthname-year-fr)
 
 output TOQ101
 /* Assets1 */

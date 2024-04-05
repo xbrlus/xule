@@ -139,6 +139,11 @@ output CONPROP025
 
   $US-GAAP-2020.concept(Assets).has-enumerations
 
+output CONPROP026
+/*  */
+
+  clark(none)
+
 output LABPROP001
 /* http://www.xbrl.org/2003/role/label */
 

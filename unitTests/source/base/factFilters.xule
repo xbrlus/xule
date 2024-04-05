@@ -624,19 +624,39 @@ output DIMFILT010
 output DIMFILT011
 /* 0 */
 
-  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligation @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = none}).count
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = none}).count
 
 output DIMFILT012
-/* 8 */
+/* list(17,500,000, 22,100,000, 20,900,000, 19,900,000, 19,000,000, 18,000,000, 143,500,000, None) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = *})
 
 output DIMFILT013
-/* 8 */
+/* list(None) */
 
-  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis})
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis})
 
 output DIMFILT014
-/* 7 */
+/* list(18,000,000, 17,500,000, 143,500,000, 22,100,000, 20,900,000, 19,900,000, 19,000,000) */
 
-  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligation @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).count
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligation @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis})
+
+output DIMFILT015
+/* list(None) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1})
+
+output DIMFILT016
+/* list(None) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=*})
+
+output DIMFILT017
+/* list() */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=AcquiredFiniteLivedIntangibleAssetsWeightedAverageUsefulLife @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis})
+
+output DIMFILT018
+/* 3785000000 */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @@srt:ProductOrServiceAxis = *}))

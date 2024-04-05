@@ -82,14 +82,14 @@
 [BOL130] False
 [BOL131] False
 [BOL132] True
-[ADICT001] dictionary(a=list(list(a, b, c), list(a, x, y)),h=list(list(h, i, j)),e=list(list(e, f, g)))
-[ADICT002] dictionary(a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g)),h=list(list(h, i, j)))
-[ADICT003] dictionary(list(h, None)=list(list(h, i, j)),list(a, d)=list(list(a, b, c, d)),list(e, None)=list(list(e, f, g)),list(a, None)=list(list(a, x, y)))
-[ADICT004] dictionary(h=list(list(h, i, j)),a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g)))
+[ADICT001] dictionary(h=list(list(h, i, j)),a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g)))
+[ADICT002] dictionary(a=list(list(a, x, y), list(a, b, c)),h=list(list(h, i, j)),e=list(list(e, f, g)))
+[ADICT003] dictionary(list(a, d)=list(list(a, b, c, d)),list(h, None)=list(list(h, i, j)),list(e, None)=list(list(e, f, g)),list(a, None)=list(list(a, x, y)))
+[ADICT004] dictionary(a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g)),h=list(list(h, i, j)))
 [ADICT005] dictionary(None=list(list(a, b, c), list(e, f, g), list(h, i, j), list(r, dictionary(a=1), x, y)))
 [xule:error] rule ADICT006: Rule: ADICT006 - agg-to-dict requires at least 1 key location argument, found 0
 [xule:error] rule ADICT007: Rule: ADICT007 - agg-to-dict requires at least 1 key location argument, found 0
-[ADICT008] dictionary(a=list(list(a, 1)),b=list(list(b, 2)),c=list(list(c, 3)))
+[ADICT008] dictionary(b=list(list(b, 2)),c=list(list(c, 3)),a=list(list(a, 1)))
 [ALL101] True
 [ALL102] False
 [ALL103] False
@@ -151,7 +151,7 @@
 [xule:error] rule DCOU106: Rule: DCOU106 - Property 'count' is not a property of a 'instance'.
 [DCOU107] 4
 [DCOU108] 18,274
-[DDC010] dictionary(c=cat,d=dog,a=advark)
+[DDC010] dictionary(d=dog,a=advark,c=cat)
 [xule:error] rule DDC091: Rule: DDC091 - Arguments for the dict() function must be lists of key/value pairs, found string
 [DDC092] dictionary()
 [DDC093] dictionary(c=cat)
@@ -164,20 +164,20 @@
 [DHK094] True
 [xule:error] rule DHK095: Rule: DHK095 - Property 'has-key' is not a property of a 'string'.
 [DHK096] True
-[DIC001] dictionary(c=cat,b=bat,z=zebra,a=albatross,m=monkey)
+[DIC001] dictionary(m=monkey,z=zebra,b=bat,a=albatross,c=cat)
 [DIC002] dictionary(a=first)
 [xule:error] rule DIC091: Rule: DIC091 - Arguments for the dict() function must be lists of key/value pairs, found set
 [DIC092] dictionary()
 [DIC093] dictionary()
 [xule:error] rule DIC094: Rule: DIC094 - Arguments for the dict() function must be lists of key/value pairs, found float
-[DKEY101] set(c, a, b)
+[DKEY101] set(b, c, a)
 [DKEY102] set(a)
-[DKEY103] set(c, a, d, b)
+[DKEY103] set(c, a, b, d)
 [DKEY104] None
 [xule:error] rule DKEY105: Rule: DKEY105 - Property 'keys' is not a property of a 'string'.
 [xule:error] rule DKEY106: Rule: DKEY106 - Property 'keys' is not a property of a 'string'.
 [DLA001] 5
-[DLA002] 4
+[DLA002] 11
 [DLA003] z
 [DLA004] None
 [DLA005] None
@@ -193,15 +193,15 @@
 [DTL010] list(a, b, c, d, e)
 [DTL011] list(a, b, c, d, e)
 [DTL012] list()
-[DTS001] set(4, 3, 2, 1, 5)
+[DTS001] set(3, 2, 1, 5, 4)
 [DTS002] set()
-[DTS003] set(list(b, boy), list(c, cat), list(d, dog), list(a, apple))
-[DTS004] set(b, a, b, a)
+[DTS003] set(list(c, cat), list(a, apple), list(d, dog), list(b, boy))
+[DTS004] set(a, b, a, b)
 [DTS005] 18,274
 [xule:error] rule DTS006: Rule: DTS006 - Property 'to-set' is not a property of a 'string'.
 [FIRST001] 1
-[FIRST002] 4
-[FIRST003] 2
+[FIRST002] 1
+[FIRST003] 3
 [FIRST004] None
 [FIRST005] None
 [HKY001] True
@@ -212,19 +212,19 @@
 [HKY006] False
 [HKY007] True
 [xule:error] rule HKY008: dictionary update sequence element #0 has length 1; 2 is required
-[INTER101] set(3, 2)
+[INTER101] set(2, 3)
 [JOIN101] a,b,c
 [JOIN102] AAxis=AMember, BAxis=BMember
 [JOIN103] a,b,c
-[KEY001] set(a, c, b)
+[KEY001] set(b, a, c)
 [KEY002] set(a)
-[KEY003] set(d, a, c, b)
+[KEY003] set(d, b, a, c)
 [xule:error] rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argument, found none.
 [xule:error] rule KEY005: Rule: KEY005 - The first argument of function 'keys' must be dictionary, found 'string'.
 [xule:error] rule KEY006: cannot unpack non-iterable XuleValue object
 [LAST001] 5
-[LAST002] 11
-[LAST003] 2
+[LAST002] 1
+[LAST003] z
 [LAST004] None
 [LAST005] None
 [xule:error] rule LAST006: Rule: LAST006 - The first argument of function 'last' must be set, list, found 'dictionary'.
@@ -239,6 +239,8 @@
 [MAX109] None
 [MAX110] inf
 [MAX111] 3
+[MAX112] dog
+[MAX113] us-gaap:Assets
 [MIN101] 2
 [MIN102] 0
 [MIN103] -1
@@ -251,6 +253,9 @@
 [MIN110] 1
 [MIN111] -inf
 [MIN112] -inf
+[MIN113] apple
+[MIN114] us-gaap:Assets
+[xule:error] rule MIN115: Rule: MIN115 - Property 'concept' is not a property of a 'int'.
 [PROD101] 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d)
 [PROD102] 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d)
 [PROD103] 1
@@ -285,16 +290,17 @@
 [SUM194] list(None, None)
 [SUM195] list(None)
 [SUM196] None
-[SUM197] set(4, 6, 3, 2, 5, 1)
+[SUM197] set(2, 3, 5, 1, 6, 4)
 [SUM198] None
 [xule:error] rule SUM199: Rule: SUM199 - The first argument of function 'sum' must be set, list, found 'dictionary'.
 [xule:error] rule SUM200: Rule: SUM200 - The first argument of function 'sum' must be set, list, found 'dictionary'.
 [xule:error] rule SUM201: Rule: SUM201 - The first argument of function 'sum' must be set, list, found 'dictionary'.
 [SUM202] 6
 [SUM203] 6
-[SUM204] set(2, 1, 4, 6, 3, 5)
+[SUM204] set(2, 1, 4, 5, 3, 6)
 [SUM205] list(1, 2, 3, 2, 3, 4, 4, 5, 6)
 [SUM206] None
+[xule:error] rule SUM207: unsupported operand type(s) for +: 'int' and 'NoneType'
 [TCSV100] BankLoans,100
 Assets,200
 Capital,30
@@ -315,12 +321,12 @@ c",1,lmnop,yes
 AssetsCurrent,200
 AssetsNoncurrent,30
 
-[TJSON100] {"BankLoans": 100, "Assets": 200, "Capital": 30}
-[TJSON101] {"Capital": 30, "Assets": 200, "BankLoans": 100}
-[TJSON102] {"Capital": 30, "BankLoans": 100, "Assets": 200}
+[TJSON100] {"Capital": 30, "BankLoans": 100, "Assets": 200}
+[TJSON101] {"BankLoans": 100, "Assets": 200, "Capital": 30}
+[TJSON102] {"BankLoans": 100, "Capital": 30, "Assets": 200}
 [TSE101] set(5, 2, 3, 1, 4)
 [TSE102] set()
-[TSE105] set(list(c, cat), list(a, apple), list(b, boy), list(d, dog))
+[TSE105] set(list(a, apple), list(d, dog), list(b, boy), list(c, cat))
 [TSE106] set(b, a)
 [TSE111] 18,274
 [xule:error] rule TSE191: Rule: TSE191 - The first argument of function 'to-set' must be list, set, dictionary, found 'string'.
@@ -340,10 +346,10 @@ AssetsNoncurrent,30
 [DICT001] True
 [DICT002] False
 [DICT003] False
-[DICT004] dictionary(AAxis=AMember,YAxis=YMember,BAxis=BMember)
+[DICT004] dictionary(BAxis=BMember,YAxis=YMember,AAxis=AMember)
 [DICT005] dictionary(AAxis=AMember)
 [DICT006] dictionary(AAxis=AMember)
-[DICT007] dictionary(BAxis=BMember,AAxis=AMember)
+[DICT007] dictionary(AAxis=AMember,BAxis=BMember)
 [DICT008] dictionary(BAxis=BMember,AAxis=AMember)
 [LIST001] list(1, 2, 3, 4, 5)
 [LIST002] list(a, b, c)
@@ -358,8 +364,8 @@ AssetsNoncurrent,30
 [LIST011] False
 [LIST012] list()
 [LIST013] None
-[SET101] set(2, 3, 1, 4)
-[SET102] set(Liabilities, Assets, a, b)
+[SET101] set(1, 4, 2, 3)
+[SET102] set(b, Assets, a, Liabilities)
 [SET103] set(None)
 [SET104] set()
 [SET105] set()
@@ -400,7 +406,7 @@ AssetsNoncurrent,30
 [xule:error] rule DUR102: Rule: DUR102 - Property 'contains' is not a property of a 'duration'.
 [FDATE101] 2
 [FDATE102] list(2, 13, 2)
-[FDATE103] set(13, 2)
+[FDATE103] set(2, 13)
 [xule:error] rule FDATE104: Rule: FDATE104 - Property 'day' is not a property of a 'duration'.
 [xule:error] rule FDATE105: Rule: FDATE105 - Property 'day' is not a property of a 'string'.
 [FDATE106] 89
@@ -411,8 +417,8 @@ AssetsNoncurrent,30
 [FDATE111] 2020-03-31
 [FDATE112] 2020-01-01
 [xule:error] rule FDATE113: Rule: FDATE113 - Property 'end' is not a property of a 'string'.
-[FDATE114] set(2020-03-31, 2022-01-01)
-[FDATE115] set(2022-01-01, 2020-06-30)
+[FDATE114] set(2022-01-01, 2020-03-31)
+[FDATE115] set(2020-06-30, 2022-01-01)
 [FDATE116] list(2020-03-31, 2022-01-01)
 [xule:error] rule FDATE117: Rule: FDATE117 - Property 'end' is not a property of a 'qname'.
 [FDATE118] 2
@@ -527,11 +533,11 @@ AssetsNoncurrent,30
 [FACT033] False
 [xule:error] rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'.
 [FACT035] set(set(srt:ProductOrServiceAxis))
-[FACT036] set(list(fcx:CopperInConcentratesMember), list(fcx:PurchasedCopperMember), list(fcx:OtherProductsOrServicesMember), list(fcx:RefinedCopperProductsMember), list(us-gaap:GoldMember), list(fcx:MolybdenumMember), list(fcx:CopperCathodeMember))
+[FACT036] set(list(fcx:CopperCathodeMember), list(fcx:MolybdenumMember), list(fcx:CopperInConcentratesMember), list(us-gaap:GoldMember), list(fcx:PurchasedCopperMember), list(fcx:RefinedCopperProductsMember), list(fcx:OtherProductsOrServicesMember))
 [FACT037] iso4217:USD
 [FACT038] list()
-[FACT039] dictionary(period=2021-06-30,entity=http://www.sec.gov/CIK=0000831259,concept=us-gaap:Assets,unit=USD)
-[FACT040] dictionary(iso4217=http://www.xbrl.org/2003/iso4217,xsi=http://www.w3.org/2001/XMLSchema-instance,ix=http://www.xbrl.org/2013/inlineXBRL,fcx=http://www.fcx.com/20210630,xbrli=http://www.xbrl.org/2003/instance,dei=http://xbrl.sec.gov/dei/2020-01-31,us-gaap=http://fasb.org/us-gaap/2020-01-31,srt=http://fasb.org/srt/2020-01-31,None=http://www.w3.org/1999/xhtml,link=http://www.xbrl.org/2003/linkbase,xbrldi=http://xbrl.org/2006/xbrldi,utr=http://www.xbrl.org/2009/utr,xlink=http://www.w3.org/1999/xlink,ixt=http://www.xbrl.org/inlineXBRL/transformation/2015-02-26,ixt-sec=http://www.sec.gov/inlineXBRL/transformation/2015-08-31,country=http://xbrl.sec.gov/country/2020-01-31)
+[FACT039] dictionary(period=2021-06-30,entity=http://www.sec.gov/CIK=0000831259,unit=USD,concept=us-gaap:Assets)
+[FACT040] dictionary(country=http://xbrl.sec.gov/country/2020-01-31,dei=http://xbrl.sec.gov/dei/2020-01-31,iso4217=http://www.xbrl.org/2003/iso4217,xbrldi=http://xbrl.org/2006/xbrldi,ixt-sec=http://www.sec.gov/inlineXBRL/transformation/2015-08-31,ix=http://www.xbrl.org/2013/inlineXBRL,srt=http://fasb.org/srt/2020-01-31,xsi=http://www.w3.org/2001/XMLSchema-instance,us-gaap=http://fasb.org/us-gaap/2020-01-31,fcx=http://www.fcx.com/20210630,None=http://www.w3.org/1999/xhtml,xbrli=http://www.xbrl.org/2003/instance,xlink=http://www.w3.org/1999/xlink,link=http://www.xbrl.org/2003/linkbase,ixt=http://www.xbrl.org/inlineXBRL/transformation/2015-02-26,utr=http://www.xbrl.org/2009/utr)
 [FACT041] http://www.sec.gov/CIK
 [FACT042] 0000831259
 [xule:error] rule FACT043: Rule: FACT043 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'.
@@ -544,13 +550,13 @@ AssetsNoncurrent,30
 [xule:error] rule FACT050: 'all'
 [xule:error] rule FACT051: 'all'
 [FIL101] set(2, 3)
-[FIL102] set(cat, cup)
+[FIL102] set(cup, cat)
 [FIL103] set(CAT, CUP)
-[FIL104] set(CAT, CUP, DOG)
-[FIL105] set(2, 6, 3)
-[FIL106] set(6, 3, 2)
-[FIL107] set(3, 4)
-[FIL108] set(debit, credit)
+[FIL104] set(DOG, CAT, CUP)
+[FIL105] set(6, 3, 2)
+[FIL106] set(3, 2, 6)
+[FIL107] set(4, 3)
+[FIL108] set(credit, debit)
 [FIL109] list(2, 2, 3)
 [FIL110] list(cat, cup)
 [FIL111] list(CAT, CUP)
@@ -568,9 +574,9 @@ AssetsNoncurrent,30
 [FIL121] list(240,000,000,000)
 [xule:error] rule FIL122: '>' not supported between instances of 'int' and 'frozenset'
 [FIL123] list(6,000,001, 6,000,002, 6,000,003)
+[FIL123] list(3,000,001, 3,000,002, 3,000,003)
 [FIL123] list(6,000,001, 6,000,002, 6,000,003)
 [FIL123] list(4,000,001, 4,000,002, 4,000,003)
-[FIL123] list(3,000,001, 3,000,002, 3,000,003)
 [FIL124] 3
 [FIL125] 2
 [FORL101] 1
@@ -606,9 +612,9 @@ AssetsNoncurrent,30
 [xule:error] rule SLO107: Rule: SLO107 - Index value of 0 is out of range for the list with length of 3
 [xule:error] rule SLO108: Rule: SLO108 - Index value of 4 is out of range for the list with length of 3
 [xule:error] rule SLO109: Rule: SLO109 - Index value of 1 is out of range for the list with length of 0
+[SLO110] 45,436,000,000
 [SLO110] 42,144,000,000
 [SLO110] 40,230,000,000
-[SLO110] 45,436,000,000
 [xule:error] rule SLO110: Rule: SLO110 - Index value of 1 is out of range for the list with length of 0
 [xule:error] rule SLO111: Rule: SLO111 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'set'
 [INFO0001] INFO0001
@@ -653,10 +659,10 @@ AssetsNoncurrent,30
 [INLIN007] list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription)
 [INLIN008] list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription)
 [INLIN010] 109
-[INLIN011] list(--12-31, CN, False, 0001742770, 2022, FY, VIOT, CN, 104,539,463, 105,516,779, 102,854,550, 103,214,547, None, None, None)
+[INLIN011] list(FY, None, None, None, 0001742770, --12-31, 2022, VIOT, CN, CN, 104,539,463, 105,516,779, 102,854,550, 103,214,547, False)
 [INLIN012] 6
 [INLIN013] 3
-[INLIN014] list(September 2023, September 2021, January 2015)
+[INLIN014] list(January 2015, September 2021, September 2023)
 [INLIN015] 0
 [INLIN016] 0
 [INLIN017] 0
@@ -696,21 +702,21 @@ AssetsNoncurrent,30
 [LM015] False
 [LM016] True
 [LM017] True
+[LM018] list(45,436,000,000)
 [LM018] list(42,144,000,000)
 [LM018] list(40,230,000,000)
-[LM018] list(45,436,000,000)
 [LM019] list(lang, 42,144,000,000)
 [LM019] list(lang, 40,230,000,000)
 [LM019] list(lang, 45,436,000,000)
+[LM020] list(lang, 45,436,000,000)
 [LM020] list(lang, 42,144,000,000)
 [LM020] list(lang, 40,230,000,000)
-[LM020] list(lang, 45,436,000,000)
+[LM021] list(lang, 45,436,000,000)
 [LM021] list(lang, 42,144,000,000)
 [LM021] list(lang, 40,230,000,000)
-[LM021] list(lang, 45,436,000,000)
+[LM022] list(lang, list(45,436,000,000))
 [LM022] list(lang, list(42,144,000,000))
 [LM022] list(lang, list(40,230,000,000))
-[LM022] list(lang, list(45,436,000,000))
 [LM023] list(1, 2, 3)
 [XU001] 1,234
 [XU002] 1.234
@@ -724,12 +730,19 @@ AssetsNoncurrent,30
 [xule:error] rule ME101: Rule: ME101 - The left operand of '/' is not numeric, found 'string'
 [xule:error] rule ME102: Rule: ME102 - Divide by zero error.
 [MESS001] pass -  The value is 3
+[MESS002] pass -  The value of Assets is 45,436,000,000
 [MESS002] pass -  The value of Assets is 42,144,000,000
 [MESS002] pass -  The value of Assets is 40,230,000,000
-[MESS002] pass -  The value of Assets is 45,436,000,000
+[MESS003] The value of us-gaap:Assets is None or 45,436,000,000.
 [MESS003] The value of us-gaap:Assets is None or 42,144,000,000.
 [MESS003] The value of us-gaap:Assets is None or 40,230,000,000.
-[MESS003] The value of us-gaap:Assets is None or 45,436,000,000.
+[MESS004] The value of us-gaap:Assets is 45,436,000,000.
+
+Attribute Tests
+Assets
+debit
+-6
+2021-06-30
 [MESS004] The value of us-gaap:Assets is 42,144,000,000.
 
 Attribute Tests
@@ -744,13 +757,14 @@ Assets
 debit
 -6
 2020-06-30
-[MESS004] The value of us-gaap:Assets is 45,436,000,000.
+[MESS005] The value of Assets is 69,937,000,000. 
+The components are us-gaap:Assets with a value of 45,436,000,000 and us-gaap:Liabilities with a value of 24,501,000,000
 
 Attribute Tests
-Assets
-debit
--6
-2021-06-30
+
+f1 decimals:-6
+f2 decimals:-6
+
 [MESS005] The value of Assets is 65,620,000,000. 
 The components are us-gaap:Assets with a value of 42,144,000,000 and us-gaap:Liabilities with a value of 23,476,000,000
 
@@ -766,14 +780,6 @@ Attribute Tests
 
 f1 decimals:-6
 f2 decimals:None
-
-[MESS005] The value of Assets is 69,937,000,000. 
-The components are us-gaap:Assets with a value of 45,436,000,000 and us-gaap:Liabilities with a value of 24,501,000,000
-
-Attribute Tests
-
-f1 decimals:-6
-f2 decimals:-6
 
 [MESS006] 6 + 7 = 13
 [MESS007] pass -  The value of value list equals list(7, 8, 7, 8) for 7.  The value of $x should only be 7 or 8.
@@ -983,10 +989,11 @@ False
 [AVG104] 0.62 (rounded 4d)
 [xule:error] rule AVG191: Rule: AVG191 - The first argument of function 'avg' must be set, list, found 'float'.
 [xule:error] rule AVG192: Rule: AVG192 - Statistic properties expect numeric inputs, found 'string'.
+[xule:error] rule AVG193: Rule: AVG193 - Statistic properties expect numeric inputs, found 'none'.
 [DABS101] 10
 [DABS102] 10
 [DABS103] list(1, 3, 2, 1.1)
-[DABS104] set(1, 2, 3)
+[DABS104] set(2, 3, 1)
 [DABS105] set()
 [xule:error] rule DABS106: Rule: DABS106 - Property 'abs' is not a property of a 'qname'.
 [xule:error] rule DABS107: Rule: DABS107 - Property 'abs' is not a property of a 'qname'.
@@ -1011,8 +1018,8 @@ False
 [DPOW102] 0.125
 [DPOW103] list(1, 4, 10.89 (rounded 4d))
 [DPOW104] list(0.008264462809917356, 0.002066115702479339, 0.0009182736455463728)
-[DPOW105] set(1,089, 484, 121)
-[DPOW106] set(4, 36, 9, 25, 1)
+[DPOW105] set(121, 1,089, 484)
+[DPOW106] set(25, 4, 36, 9, 1)
 [xule:error] rule DPOW107: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str'
 [xule:error] rule DPOW108: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str'
 [xule:error] rule DPOW109: unsupported operand type(s) for ** or pow(): 'XuleString' and 'str'
@@ -1025,9 +1032,16 @@ False
 [INT005] 21
 [INT006] 21
 [INT007] -33
+[xule:error] rule INT008: cannot convert float infinity to integer
+[xule:error] rule INT009: Rule: INT009 - The first argument of function 'int' must be int, float, decimal, string, fact, found 'none'.
 [LOG101] 2
 [LOG102] None
 [xule:error] rule LOG103: Rule: LOG103 - The first argument of function 'log10' must be int, float, decimal, found 'none'.
+[LOG104] inf
+[LOG105] list(0.301 (rounded 4d), 0.6021 (rounded 4d), 0.7782 (rounded 4d))
+[LOG106] set(0.7782 (rounded 4d), 0.301 (rounded 4d), 0.6021 (rounded 4d))
+[xule:error] rule LOG107: Rule: LOG107 - The first argument of function 'log10' must be int, float, decimal, found 'list'.
+[xule:error] rule LOG108: Rule: LOG108 - Property 'log10' is not a property of a 'list'.
 [MOD101] 0
 [MOD102] 1
 [xule:error] rule MOD109: integer modulo by zero
@@ -1039,12 +1053,18 @@ False
 [POW102] 27
 [POW103] 0.125
 [POW104] 1.8616 (rounded 4d)
-[RAND101] 0.7359 (rounded 4d)
-[RAND102] 2.0044 (rounded 4d)
-[RAND103] 0.3249 (rounded 4d)
-[RAND104] -0.7064 (rounded 4d)
-[RAND105] 0.6151 (rounded 4d)
-[RAND106] list(0.1103 (rounded 4d), 1, 1.5794 (rounded 4d))
+[xule:error] rule POW105: Rule: POW105 - The first argument of function 'power' must be int, float, decimal, found 'none'.
+[xule:error] rule POW106: Rule: POW106 - The 'power' property requires a numeric argument, found 'none'
+[POW107] inf
+[POW108] 1
+[POW109] 0
+[POW110] inf
+[RAND101] 0.2722 (rounded 4d)
+[RAND102] 5.6596 (rounded 4d)
+[RAND103] 0.951 (rounded 4d)
+[RAND104] -2.7669 (rounded 4d)
+[RAND105] 0.3968 (rounded 4d)
+[RAND106] list(0.6401 (rounded 4d), 1, 1.8961 (rounded 4d))
 [xule:error] rule RAND107: Rule: RAND107 - 'random' is not a valid property.
 [ROUN101] list(1.03, 21.34)
 [ROUN102] 21.34
@@ -1052,31 +1072,41 @@ False
 [xule:error] rule ROUN105: Rule: ROUN105 - The first argument of function 'round' must be int, float, decimal, fact, found 'none'.
 [ROUN106] 0
 [xule:error] rule ROUN107: type XuleString doesn't define __round__ method
+[xule:error] rule ROUN108: Rule: ROUN108 - The argument to the 'round' property must be a number, found none.
+[xule:error] rule ROUN109: Rule: ROUN109 - Property 'round' must have 1 arguments. Found 0.
 [SIG101] 1
 [SIG102] -1
 [SIG103] 0
 [xule:error] rule SIG104: '<' not supported between instances of 'XuleString' and 'int'
 [xule:error] rule SIG105: Rule: SIG105 - The first argument of function 'signum' must be int, float, decimal, fact, found 'none'.
 [xule:error] rule SIG106: Rule: SIG106 - The first argument of function 'signum' must be int, float, decimal, fact, found 'set'.
+[SIG107] list(1, -1, 0, 1)
 [TRUN101] 10.01
 [TRUN102] 123,000
 [TRUN103] 102.23
 [xule:error] rule TRUN104: Rule: TRUN104 - The first argument of function 'trunc' must be int, float, decimal, fact, found 'none'.
 [xule:error] rule TRUN105: [<class 'decimal.ConversionSyntax'>]
 [TRUN106] 100
+[TRUN107] 100.23
+[TRUN108] 0
+[TRUN109] 0
+[TRUN110] inf
+[xule:error] rule TRUN111: cannot convert Infinity to integer
+[xule:error] rule TRUN112: Rule: TRUN112 - For the trunc() property, the places argument must be an integer value, found 2.5
+[TRUN113] list(100.23, 100.12, 100.99)
 [XU200] 7
 [XU201] 6
 [XU202] 12
-[XU203] set(1, 3, 2, 4)
+[XU203] set(1, 4, 2, 3)
 [XU204] set(3, 1, 2, 4)
 [XU205] set(4)
 [XU206] set(4)
-[XU207] set(3, 2, 1, 4)
+[XU207] set(3, 1, 2, 4)
 [XU208] set()
 [XU209] set(4, 3)
 [XU210] set()
 [XU211] set(3)
-[XU212] set(3, 1, 5, 4, 2)
+[XU212] set(5, 4, 2, 3, 1)
 [XU213] set(5)
 [RES001] 3214
 [RES002] list(list(ISHARES MSCI CHILE ETF, MSCI CHILE ETF, 464286640, 2,674,884), list(ISHARES MSCI PACIFIC EX JAPAN ETF, MSCI PAC JP ETF, 464286665, 498,160), list(ISHARES LATIN AMERICA  ETF, LATN AMER 40 ETF, 464287390, 2,000,516), list(ISHARES EUROPE ETF TRUST, EUROPE ETF, 464287861, 590,137), list(ISHARES MSCI JAPAN ETF, MSCI JPN ETF NEW, 46434G822, 706,801), list(SPDR S&P  ETF TRUST, TR UNIT, 78462F103, 3,597,218))
@@ -1084,21 +1114,21 @@ False
 [RES004] list(list(10-K))
 [RES005] list(Commitments and Contingencies, Guarantees and Product Liability (Details) - USD ($), 12 Months Ended, )
 [RES006] list(Document and Entity Information - USD ($), 12 Months Ended, , , )
-[SM001] set(a, n, c, m, b)
-[SM002] set(a, b, C, c, B, D, d, A)
-[SM003] set(3, 1, 2, 4)
-[SM004] set(a, e, g, b, i, c, f, h, j, d)
-[SM005] set(2, 3, 4, 1)
+[SM001] set(c, b, n, m, a)
+[SM002] set(b, d, B, c, C, A, a, D)
+[SM003] set(3, 2, 4, 1)
+[SM004] set(i, f, b, g, h, j, c, e, d, a)
+[SM005] set(3, 4, 1, 2)
 [SM006] set(1, 2, 3, 4)
 [SM007] set()
-[SM008] set(1, 2, None, 3, 4)
+[SM008] set(None, 3, 4, 1, 2)
 [xule:error] rule SM009: Rule: SM009 - Incompatabile operands set + list.
-[SM010] set(3, 2)
+[SM010] set(2, 3)
 [SM011] set()
-[SM012] set(b, c)
-[SM013] set(a, c, b, d)
+[SM012] set(c, b)
+[SM013] set(c, a, d, b)
 [SM014] set()
-[SM015] set(BankLoans, DebtAndCapitalLeaseObligations, EarningsPerShareBasic, Assets)
+[SM015] set(Assets, BankLoans, DebtAndCapitalLeaseObligations, EarningsPerShareBasic)
 [SM016] True
 [SM017] False
 [SM018] False
@@ -1107,20 +1137,20 @@ False
 [SM021] False
 [SM022] True
 [SM023] True
-[SM024] set(1, 3, 2)
+[SM024] set(2, 3, 1)
 [xule:error] rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int'
+[SM026] set(45,436,000,000)
 [SM026] set(42,144,000,000)
 [SM026] set(40,230,000,000)
-[SM026] set(45,436,000,000)
 [SM027] set(lang, 42,144,000,000)
 [SM027] set(lang, 40,230,000,000)
-[SM027] set(lang, 45,436,000,000)
-[SM028] set(42,144,000,000, lang)
-[SM028] set(lang, 40,230,000,000)
+[SM027] set(45,436,000,000, lang)
 [SM028] set(lang, 45,436,000,000)
+[SM028] set(lang, 42,144,000,000)
+[SM028] set(40,230,000,000, lang)
+[SM029] set(lang, 45,436,000,000)
 [SM029] set(lang, 42,144,000,000)
-[SM029] set(lang, 40,230,000,000)
-[SM029] set(45,436,000,000, lang)
+[SM029] set(40,230,000,000, lang)
 [SM030] True
 [SM031] True
 [SM032] True
@@ -1132,18 +1162,18 @@ False
 [SM038] False
 [SM039] True
 [SM040] True
-[SM041] set(a, b, d, c, e)
+[SM041] set(e, a, b, d, c)
 [SM042] set()
-[SM043] set(3, 2)
+[SM043] set(2, 3)
 [SM044] set()
 [SM045] set()
-[SM046] set(2, 3)
+[SM046] set(3, 2)
 [SM047] set(b, c)
-[SM048] set(d, b, c, a)
+[SM048] set(d, b, a, c)
 [SM049] set()
-[SM050] set(Assets, DebtAndCapitalLeaseObligations, BankLoans, EarningsPerShareBasic)
-[SM051] set(list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic), list(Assets, BankLoans, Capital), list(BankLoans, Assets, Capital))
-[SM052] set(1, 2, 3)
+[SM050] set(EarningsPerShareBasic, Assets, DebtAndCapitalLeaseObligations, BankLoans)
+[SM051] set(list(Assets, BankLoans, Capital), list(BankLoans, Assets, Capital), list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic))
+[SM052] set(3, 1, 2)
 [SK100] 2
 [SK102] list(3)
 [SK103] 3
@@ -1154,6 +1184,9 @@ False
 [SK108] list(3)
 [CON101] True
 [CON102] False
+[xule:error] rule CON104: Rule: CON104 - The first argument of function 'contains' must be set, list, string, uri, found 'none'.
+[xule:error] rule CON105: Rule: CON105 - The first argument of function 'contains' must be set, list, string, uri, found 'none'.
+[CON106] True
 [xule:error] rule COUNTSTRING101: Rule: COUNTSTRING101 - The first argument of function 'count' must be set, list, dictionary, found 'string'.
 [DCO101] True
 [DCO102] False
@@ -1164,7 +1197,7 @@ False
 [DLI101] 17
 [DLO101] abcdef
 [DLO102] abcdef
-[DLO111] set(cat, hello kitty, dog)
+[DLO111] set(dog, cat, hello kitty)
 [DNU101] 67
 [DNU102] 12,345
 [DNU103] 12.345
@@ -1172,13 +1205,13 @@ False
 [DNU105] inf
 [DNU111] list(3.14, 22, -3)
 [DNU112] list()
-[DNU114] set(22, -3, 3.14)
+[DNU114] set(-3, 3.14, 22)
 [DNU116] set()
 [xule:error] rule DNU191: Rule: DNU191 - Cannot convert 'z67' to a number
 [xule:error] rule DNU192: Rule: DNU192 - Cannot convert '' to a number
 [DSP101] list(The, quick, fox, jumped, over, the, lazy, dogs, back)
 [DSP102] list(The quick fox jumped over the lazy dogs back)
-[DSP103] set(list(mouse), list(c, t), list(b, t), list(dog))
+[DSP103] set(list(mouse), list(dog), list(b, t), list(c, t))
 [DSP104] list(list(c, t), list(dog), list(mouse), list(b, t))
 [xule:error] rule DSP191: Rule: DSP191 - The separator argument for property 'string' must be a 'string', found 'int'
 [xule:error] rule DSP192: 'int' object has no attribute 'split'
@@ -1200,14 +1233,24 @@ False
 [DUC103] ABCDEF
 [INTRSF001] 2020-09-01
 [INTRSF002] 2020-09-01
+[INTRSF003] None
+[xule:error] rule INTRSF004: Rule: INTRSF004 - The transform name of the inline-transform property must be a qname. found 'none'
+[xule:error] rule INTRSF005: Rule: INTRSF005 - The return type of the inline-transform property must be a string. Found '{}'
+[xule:error] rule INTRSF006: Unable to convert '' using transform '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}date-day-monthname-year-fr'.
+[INTRSF007] 2020-09-01
 [IXO101] 14
 [IXO102] 0
+[xule:error] rule IXO103: Rule: IXO103 - The argument for property 'index-of' must be castable to a 'string', found 'none'
+[xule:error] rule IXO104: Rule: IXO104 - The first argument of function 'index-of' must be string, uri, found 'none'.
+[IXO105] 1
+[IXO106] 0
 [LEN101] 0
 [LEN102] 1
 [LEN103] 3
 [LEN104] 18
 [LEN105] 1
 [LEN106] 0
+[xule:error] rule LEN107: Rule: LEN107 - The first argument of function 'length' must be string, uri, set, list, dictionary, found 'none'.
 [LIO101] 12
 [LIO102] 3
 [LIO103] 0
@@ -1215,6 +1258,7 @@ False
 [xule:error] rule LIO105: Rule: LIO105 - Property 'last-index-of' must have 1 arguments. Found 0.
 [xule:error] rule LIO106: Rule: LIO106 - Property 'last-index-of' must have 1 arguments. Found 2.
 [xule:error] rule LIO107: Rule: LIO107 - The first argument of function 'last-index-of' must be string, uri, found 'list'.
+[xule:error] rule LIO108: Rule: LIO108 - The argument for property 'last-index-of' must be castable to a 'string', found 'none'
 [LOW101] xule is my favorite language. yeah!
 [LOW102] 
 [LOW103] 123,000
@@ -1228,14 +1272,14 @@ False
 [NUM108] inf
 [NUM109] nan
 [NUM110] nan
-[REGEX001] dictionary(match-count=1,match=de,groups=list(),start=4,end=5)
-[REGEX002] list(dictionary(match=de,groups=list(),end=5,start=4,match-count=1))
+[REGEX001] dictionary(end=5,match-count=1,match=de,groups=list(),start=4)
+[REGEX002] list(dictionary(match=de,match-count=1,start=4,groups=list(),end=5))
 [REGEX003] de
 [REGEX004] d
 [REGEX005] list(cd, fg, cd, fg)
 [REGEX006] list(d, g, d, g)
-[REGEX007] dictionary(match-count=1,start=4,match=de,end=5,groups=list())
-[REGEX008] list(dictionary(groups=list(),match=de,start=4,match-count=1,end=5))
+[REGEX007] dictionary(groups=list(),match=de,start=4,match-count=1,end=5)
+[REGEX008] list(dictionary(match-count=1,groups=list(),start=4,end=5,match=de))
 [REGEX009] de
 [STR101] 5
 [STR102] cat
@@ -1287,6 +1331,7 @@ ref:Paragraph - 32
 [xule:error] rule CONPROP023: Rule: CONPROP023 - The argument for the 'attribute' property must be a qname, found 'string'
 [CONPROP024] {http://fasb.org/us-gaap/2020-01-31}Assets
 [CONPROP025] False
+[xule:error] rule CONPROP026: Rule: CONPROP026 - The first argument of function 'clark' must be qname, concept, part-element, fact, reference-part, found 'none'.
 [xule:error] rule CUBEPROP010: Rule: CUBEPROP010 - The .cube property must have 2 arguments unless it is for a 'dimension'. Found 'taxonomy'
 [CUBEPROP011] us-gaap:ScheduleOfFairValueOffBalanceSheetRisksTable
 [CUBEPROP012] us-gaap:ScheduleOfFairValueOffBalanceSheetRisksTable
@@ -1309,11 +1354,11 @@ ref:Paragraph - 32
 [LABPROP003] en-US
 [LABPROP004] set((http://www.xbrl.org/2003/role/totalLabel) (en-US) Assets, Total, (http://www.xbrl.org/2003/role/documentation) (en-US) Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events., (http://www.xbrl.org/2003/role/label) (en-US) Assets)
 [LABPROP005] (http://www.xbrl.org/2003/role/label) (en-US) Assets
-[REFPROP001] set(list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, ref:Subparagraph, codification-part:URI), list(cn-part:SourceName, cn-part:TaxonomyVersion, cn-part:ChangeDate, cn-part:ModifiedReferences), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, codification-part:URI))
-[REFPROP002] set(list(FASB, Accounting Standards Codification, 280, 10, 50, 22, http://asc.fasb.org/extlink&oid=120311839&loc=d3e8736-108599), list(Reference Project, 2018, 2017-11, true), list(VIEs:Taxonomy Technical Improvement, 2020, 2019-12, true), list(FASB, Accounting Standards Codification, 810, 10, 50, 3, (bb), http://asc.fasb.org/extlink&oid=121559654&loc=d3e5710-111685), list(FASB, Accounting Standards Codification, 323, 10, 50, 3, (c), http://asc.fasb.org/extlink&oid=114001798&loc=d3e33918-111571), list(FASB, Accounting Standards Codification, 810, 10, 45, 25, (a), http://asc.fasb.org/extlink&oid=116870748&loc=SL6758485-165988), list(FASB, Accounting Standards Codification, 280, 10, 50, 30, (c), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8906-108599), list(FASB, Accounting Standards Codification, 280, 10, 50, 32, (d), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8933-108599), list(FASB, Accounting Standards Codification, 825, 10, 50, 28, (f), http://asc.fasb.org/extlink&oid=75031198&loc=d3e14064-108612), list(FASB, Accounting Standards Codification, 944, 210, S99, 1, (SX 210.7-03(a)(12)), http://asc.fasb.org/extlink&oid=120400017&loc=d3e572229-122910), list(FASB, Accounting Standards Codification, 942, 210, S99, 1, (SX 210.9-03(11)), http://asc.fasb.org/extlink&oid=120398452&loc=d3e534808-122878), list(FASB, Accounting Standards Codification, 235, 10, S99, 1, (SX 210.4-08(g)(1)(ii)), http://asc.fasb.org/extlink&oid=120395691&loc=d3e23780-122690))
+[REFPROP001] set(list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, codification-part:URI), list(ref:Publisher, ref:Name, codification-part:Topic, codification-part:SubTopic, ref:Section, ref:Paragraph, ref:Subparagraph, codification-part:URI), list(cn-part:SourceName, cn-part:TaxonomyVersion, cn-part:ChangeDate, cn-part:ModifiedReferences))
+[REFPROP002] set(list(FASB, Accounting Standards Codification, 235, 10, S99, 1, (SX 210.4-08(g)(1)(ii)), http://asc.fasb.org/extlink&oid=120395691&loc=d3e23780-122690), list(Reference Project, 2018, 2017-11, true), list(FASB, Accounting Standards Codification, 280, 10, 50, 32, (d), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8933-108599), list(VIEs:Taxonomy Technical Improvement, 2020, 2019-12, true), list(FASB, Accounting Standards Codification, 825, 10, 50, 28, (f), http://asc.fasb.org/extlink&oid=75031198&loc=d3e14064-108612), list(FASB, Accounting Standards Codification, 942, 210, S99, 1, (SX 210.9-03(11)), http://asc.fasb.org/extlink&oid=120398452&loc=d3e534808-122878), list(FASB, Accounting Standards Codification, 280, 10, 50, 22, http://asc.fasb.org/extlink&oid=120311839&loc=d3e8736-108599), list(FASB, Accounting Standards Codification, 810, 10, 45, 25, (a), http://asc.fasb.org/extlink&oid=116870748&loc=SL6758485-165988), list(FASB, Accounting Standards Codification, 323, 10, 50, 3, (c), http://asc.fasb.org/extlink&oid=114001798&loc=d3e33918-111571), list(FASB, Accounting Standards Codification, 944, 210, S99, 1, (SX 210.7-03(a)(12)), http://asc.fasb.org/extlink&oid=120400017&loc=d3e572229-122910), list(FASB, Accounting Standards Codification, 280, 10, 50, 30, (c), http://asc.fasb.org/extlink&oid=120311839&loc=d3e8906-108599), list(FASB, Accounting Standards Codification, 810, 10, 50, 3, (bb), http://asc.fasb.org/extlink&oid=121559654&loc=d3e5710-111685))
 [REFPROP003] set(list(http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31, http://fasb.org/codification-part/2020-01-31, http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://www.xbrl.org/2006/ref, http://fasb.org/codification-part/2020-01-31), list(http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31, http://fasb.org/cn-part/2020-01-31))
-[REFPROP004] set(list(Publisher, Name, Topic, SubTopic, Section, Paragraph, Subparagraph, URI), list(SourceName, TaxonomyVersion, ChangeDate, ModifiedReferences), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, URI))
-[REFPROP005] set(list(1, 2, 3, 4, 5, 6, 7), list(1, 2, 3, 4, 5, 6, 7, 8), list(1, 2, 3, 4))
+[REFPROP004] set(list(SourceName, TaxonomyVersion, ChangeDate, ModifiedReferences), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, URI), list(Publisher, Name, Topic, SubTopic, Section, Paragraph, Subparagraph, URI))
+[REFPROP005] set(list(1, 2, 3, 4, 5, 6, 7, 8), list(1, 2, 3, 4), list(1, 2, 3, 4, 5, 6, 7))
 [REFPROP006] set(http://fasb.org/srt/role/changeNote/changeNote
 	cn-part:SourceName: VIEs:Taxonomy Technical Improvement
 	cn-part:TaxonomyVersion: 2020
@@ -1325,8 +1370,8 @@ ref:Paragraph - 32
 	cn-part:ChangeDate: 2017-11
 	cn-part:ModifiedReferences: true
 )
-[REFPROP007] set(FASB, None)
-[REFPROP008] set(us-gaap:StockholdersEquity, us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest, us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests, us-gaap:ClassOfStockDomain, us-gaap:RedeemablePreferredStockMember, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDueAggregateDifference, us-gaap:ScheduleOfEquityMethodInvestmentsTable, us-gaap:FairValueOptionAggregateDifferencesLongTermDebtInstruments, us-gaap:FairValueOptionAggregateDifferencesLoansAndLongTermReceivables, us-gaap:CostOfRevenue, us-gaap:AssetsCurrent, us-gaap:Liabilities, us-gaap:FairValueOptionReasonsForElection, us-gaap:FairValueOptionReasonsForPartialElection, us-gaap:GrossProfit, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeAxis, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOrGroupOfInvesteesMember, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateDifference, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOtherMember, us-gaap:NetIncomeLoss, us-gaap:FairValueOptionRelationToBalanceSheetPartialElection, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeDomain, us-gaap:AssetsNoncurrent, us-gaap:LiabilitiesNoncurrent, us-gaap:DescriptionOfHybridInstrumentsAccountedForAtFairValue, us-gaap:Revenues, us-gaap:LiabilitiesCurrent, us-gaap:MinorityInterest, us-gaap:FairValueOptionQuantitativeDisclosuresTextBlock, us-gaap:LiabilitiesAndStockholdersEquity, us-gaap:Assets, us-gaap:FairValueOptionIneligibleItemsAggregateCarryingAmount, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDue, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatus, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatusAggregatedDifference, us-gaap:FairValueOptionRelationToMeasurementInputs, us-gaap:EquityMethodInvestmentsPolicy, us-gaap:StatementClassOfStockAxis, us-gaap:ProfitLoss, us-gaap:RepurchaseAgreementsValuationPolicy, us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest)
+[REFPROP007] set(None, FASB)
+[REFPROP008] set(us-gaap:Liabilities, us-gaap:FairValueOptionReasonsForElection, us-gaap:FairValueOptionReasonsForPartialElection, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateDifference, us-gaap:GrossProfit, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOrGroupOfInvesteesMember, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeAxis, us-gaap:FairValueOptionRelationToBalanceSheetPartialElection, us-gaap:NetIncomeLoss, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeOtherMember, us-gaap:EquityMethodInvestmentNonconsolidatedInvesteeDomain, us-gaap:LiabilitiesNoncurrent, us-gaap:AssetsCurrent, us-gaap:LiabilitiesCurrent, us-gaap:DescriptionOfHybridInstrumentsAccountedForAtFairValue, us-gaap:Revenues, us-gaap:FairValueOptionQuantitativeDisclosuresTextBlock, us-gaap:MinorityInterest, us-gaap:AssetsNoncurrent, us-gaap:LiabilitiesAndStockholdersEquity, us-gaap:FairValueOptionIneligibleItemsAggregateCarryingAmount, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDue, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatus, us-gaap:FairValueOptionRelationToMeasurementInputs, us-gaap:FairValueOptionLoansHeldAsAssetsAggregateAmountInNonaccrualStatusAggregatedDifference, us-gaap:EquityMethodInvestmentsPolicy, us-gaap:StatementClassOfStockAxis, us-gaap:ProfitLoss, us-gaap:ClassOfStockDomain, us-gaap:RepurchaseAgreementsValuationPolicy, us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest, us-gaap:StockholdersEquity, us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest, us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests, us-gaap:RedeemablePreferredStockMember, us-gaap:CostOfRevenue, us-gaap:FairValueOptionLoansHeldAsAssets90DaysOrMorePastDueAggregateDifference, us-gaap:Assets, us-gaap:ScheduleOfEquityMethodInvestmentsTable, us-gaap:FairValueOptionAggregateDifferencesLongTermDebtInstruments, us-gaap:FairValueOptionAggregateDifferencesLoansAndLongTermReceivables)
 [TAXPROP001] https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd
 [TAXPROP002] https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd
 [xule:error] rule TAXPROP003: Rule: TAXPROP003 - The 'entry-point' function must have at least one argument, found none.
@@ -1352,20 +1397,20 @@ False
 Cube: us-gaap:ScheduleOfRevenuesFromExternalCustomersAndLongLivedAssetsTable
 DRS Role: http://fasb.org/us-gaap/role/disclosure/SegmentReportingScheduleOfRevenuesFromExternalCustomersAndLongLivedAssetsTable
 Members:
-	srt:AsiaPacificMember
-	srt:SouthAmericaMember
+	srt:EuropeMember
 	srt:SegmentGeographicalDomain (DOMAIN) (DEFAULT)
+	srt:AsiaMember
 	srt:NorthAmericaMember
 	srt:LatinAmericaMember
-	srt:AsiaMember
-	srt:EuropeMember
 	srt:AmericasMember
+	srt:AsiaPacificMember
 	srt:CentralAmericaMember
+	us-gaap:EMEAMember
 	us-gaap:MiddleEastMember
 	us-gaap:EuropeanUnionMember
-	us-gaap:EMEAMember
-	us-gaap:NonUsMember
 	srt:AfricaMember
+	us-gaap:NonUsMember
+	srt:SouthAmericaMember
 
 [TAXPROP026] srt:SegmentGeographicalDomain
 [TAXPROP027] srt:SegmentGeographicalDomain
@@ -1515,21 +1560,21 @@ False
 [xule:error] rule TAXPROP136: Rule: TAXPROP136 - 'elements' is not a valid property.
 [VE102] False
 [VE104] True
+[VE105] 45,436,000,000
 [VE105] 42,144,000,000
 [VE105] 40,230,000,000
-[VE105] 45,436,000,000
+[VE106] 45,436,000,000
 [VE106] 42,144,000,000
 [VE106] 40,230,000,000
-[VE106] 45,436,000,000
+[VE107] 45,436,000,000
 [VE107] 42,144,000,000
 [VE107] 40,230,000,000
-[VE107] 45,436,000,000
+[VE108] 45,436,000,000
 [VE108] 42,144,000,000
 [VE108] 40,230,000,000
-[VE108] 45,436,000,000
+[VE111] 45,436,000,000
 [VE111] 42,144,000,000
 [VE111] 40,230,000,000
-[VE111] 45,436,000,000
 [VE113] 1
 [VE114] 1
 [VE115] None
@@ -1537,23 +1582,23 @@ False
 [VE117] 3
 [VE118] None
 [VE119] 2
+[VE125] 45,436,000,000
 [VE125] 42,144,000,000
 [VE125] 40,230,000,000
-[VE125] 45,436,000,000
+[VE126] 45,436,000,000
 [VE126] 42,144,000,000
 [VE126] 40,230,000,000
-[VE126] 45,436,000,000
+[VE127] 45,436,000,000
 [VE127] 42,144,000,000
 [VE127] 40,230,000,000
-[VE127] 45,436,000,000
+[VE128] 45,436,000,000
 [VE128] 42,144,000,000
 [VE128] 40,230,000,000
-[VE128] 45,436,000,000
 [VE129] None
 [VE130] None
+[VE131] 45,436,000,000
 [VE131] 42,144,000,000
 [VE131] 40,230,000,000
-[VE131] 45,436,000,000
 [VE132] None
 [VE133] 1
 [VE134] 1
@@ -1574,15 +1619,15 @@ False
 [CFILT108] set(-6)
 [CFILT109] -6
 [CFILT110] Assets
-[CFILT111] SalesTypeAndDirectFinancingLeasesProfitLoss
+[CFILT111] GainLossOnDerivativeInstrumentsMember
 [xule:error] rule CFILT112: 'all'
 [xule:error] rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'none'
 [CFILT114] set(instant)
 [xule:error] rule CFILT115: Rule: CFILT115 - Property 'period-type' is not a property of a 'decimal'.
 [CFILT116] set(xbrli:item)
 [CFILT117] set(xbrli:item)
-[CFILT118] set(16,848,000,000, 1,777,000,000, 271,000,000, 45,436,000,000, 1,631,000,000, 42,144,000,000, 10,590,000,000, 7,895,000,000, 8,795,000,000, 259,000,000, 180,000,000, 1,117,000,000, 2,635,000,000, 10,146,000,000, 5,288,000,000, 18,461,000,000, 40,230,000,000, 1,740,000,000, 2,579,000,000, 8,515,000,000, 5,334,000,000, 1,795,000,000, 726,000,000, 2,697,000,000, 5,198,000,000, 7,923,000,000)
-[CFILT119] set(40,230,000,000, 45,436,000,000, 42,144,000,000)
+[CFILT118] set(2,697,000,000, 18,461,000,000, 1,740,000,000, 8,515,000,000, 726,000,000, 5,334,000,000, 1,795,000,000, 5,198,000,000, 16,848,000,000, 1,777,000,000, 7,923,000,000, 180,000,000, 2,579,000,000, 271,000,000, 1,631,000,000, 42,144,000,000, 10,590,000,000, 7,895,000,000, 259,000,000, 8,795,000,000, 45,436,000,000, 1,117,000,000, 2,635,000,000, 10,146,000,000, 40,230,000,000, 5,288,000,000)
+[CFILT119] set(40,230,000,000, 42,144,000,000, 45,436,000,000)
 [CFILT120] 632
 [CFILT121] 315
 [CFILT122] 315
@@ -1653,11 +1698,22 @@ False
 [xule:error] rule DIMFILT007: 'aspectExpr'
 [xule:error] rule DIMFILT008: 'dict' object has no attribute 'type'
 [DIMFILT009] 0
-[DIMFILT010] 1
+[DIMFILT010] 2
 [DIMFILT011] 0
-[DIMFILT012] list(20,900,000, 19,900,000, 19,000,000, 18,000,000, 143,500,000, None, 17,500,000, 22,100,000)
-[DIMFILT013] list(None)
-[DIMFILT014] 7
+[DIMFILT012] list(P1Y, 20,900,000, P9M, 143,500,000, 19,000,000, P1Y, None, 17,500,000, P1Y, 22,100,000, 19,900,000, P1Y, 18,000,000, P1Y)
+[DIMFILT013] list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None)
+[DIMFILT014] list(17,500,000, 20,900,000, 22,100,000, 19,900,000, 143,500,000, 18,000,000, 19,000,000)
+[DIMFILT015] list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None)
+[DIMFILT016] list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None)
+[DIMFILT017] list(P9Y, P9Y, P5Y)
+[DIMFILT018] 456,000,000
+[DIMFILT018] 3,785,000,000
+[DIMFILT018] 532,000,000
+[DIMFILT018] 1,115,000,000
+[DIMFILT018] 528,000,000
+[DIMFILT018] 1,517,000,000
+[DIMFILT018] 2,769,000,000
+[DIMFILT018] None
 [INSFILT001] 1,739
 [INSFILT002] (602)
 [INSFILT003] 1,577
@@ -1688,27 +1744,27 @@ False
 [xule:error] rule PFILT114: Rule: PFILT114 - Property 'end' is not a property of a 'decimal'.
 [PFILT115] 133
 [PFILT116] 432
-[PFILT117] 219
-[PFILT117] 219
-[PFILT117] 219
+[PFILT117] 213
+[PFILT117] 213
+[PFILT117] 213
 [PFILT118] 598
-[UNITFILT001] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [UNITFILT001] False with alignment dictionary(period=2021-01-01 to 2021-07-01,entity=http://www.sec.gov/CIK=0000831259)
+[UNITFILT001] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [UNITFILT002] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [UNITFILT003] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [UNITFILT004] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
-[UNITFILT005] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [UNITFILT005] False with alignment dictionary(period=2021-01-01 to 2021-07-01,entity=http://www.sec.gov/CIK=0000831259)
-[UNITFILT006] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
+[UNITFILT005] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [UNITFILT006] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)
+[UNITFILT006] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
 [UNITFILT007] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
 [UNITFILT008] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
-[UNITFILT009] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
 [UNITFILT009] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)
-[UNITFILT010] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
+[UNITFILT009] False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
+[UNITFILT010] True with alignment dictionary(unit=USD,entity=http://www.sec.gov/CIK=0000831259)
+[UNITFILT011] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-07-01)
 [UNITFILT011] True with alignment dictionary(period=2021-01-01,entity=http://www.sec.gov/CIK=0000831259,unit=USD)
 [UNITFILT011] True with alignment dictionary(unit=USD,entity=http://www.sec.gov/CIK=0000831259,period=2020-07-01)
-[UNITFILT011] True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-07-01)
 [UNITFILT012] 44
 [UNITFILT013] 1,535
 [UNITFILT014] 1,579

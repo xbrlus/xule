@@ -153,3 +153,8 @@ output PMN131
 /* list() */
 
   list({covered @instance=$INSTANCE3 @concept=us-gaap-2022:Assets where none > 0})
+
+output PMN132
+/* skip */
+
+  none / 7

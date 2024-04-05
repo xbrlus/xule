@@ -100,7 +100,7 @@
 
 /* Constant representing an XBRL instance */
 
-  constant $INSTANCE_TYPED_DIM = instance('https://www.sec.gov/Archives/edgar/data/790051/000079005121000116/csl-20210331.htm')
+  constant $INSTANCE_TYPED_DIM = instance('https://www.sec.gov/Archives/edgar/data/790051/000079005121000116/csl-20210331_htm.xml')
 
 
 /* output-attribute file content to allow production of csv and json */

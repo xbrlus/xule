@@ -957,6 +957,16 @@ output MAX111
 
   max(list(-inf,1,2,3))
 
+output MAX112
+/* dog */
+
+  max(list('apple','cat','dog'))
+
+output MAX113
+/* us-gaap:Assets */
+
+  list([covered @instance = $INSTANCE1 @Assets where $fact > 0]).max.concept.name
+
 output MIN101
 /* 2 */
 
@@ -1016,6 +1026,21 @@ output MIN112
 /* -inf */
 
   min(list(-1,-inf,1,2,3))
+
+output MIN113
+/* apple */
+
+  min(list('apple','cat','dog'))
+
+output MIN114
+/* us-gaap:Assets */
+
+  list([covered @instance = $INSTANCE1 @Assets where $fact > 0]).min.concept.name
+
+output MIN115
+/* 33 */
+
+  list([covered @instance = $INSTANCE1 @Assets where $fact > 0],100,33).min.concept.name
 
 output PROD101
 /* 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d) */
@@ -1181,6 +1206,11 @@ output SUM206
 /* None */
 
   sum(list(skip))
+
+output SUM207
+/* 6 */
+
+  sum(list(1, 2, 3, none))
 
 output RNG001
 /* list(1, 2, 3, 4, 5) */
