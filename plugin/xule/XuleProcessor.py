@@ -96,7 +96,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         fact_index_start = datetime.datetime.today()
 
     # Create the processing context to build the index
-    xule_context = XuleRuleContext(global_context)
+    xule_context = XuleRuleContext(global_context, cache_size_bytes=getattr(global_context.options, 'xule_cache_size_bytes', 1_000_000_000))
     # Build an index on the facts in the model.
     xmi.index_model(xule_context)
     # Clean up
