@@ -1208,7 +1208,7 @@ output SUM206
   sum(list(skip))
 
 output SUM207
-/* 6 */
+/* rule SUM207: unsupported operand type(s) for +: 'int' and 'NoneType' */
 
   sum(list(1, 2, 3, none))
 

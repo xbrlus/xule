@@ -234,6 +234,11 @@ output DAT098
 
   date('2020-01-03') < date('2020-01-07')
 
+output DAT099
+/* rule DAT099: Rule: DAT099 - The first argument of function 'date' must be string, instant, found 'none' */
+
+  date(none)
+
 output DAY001
 /* 2 */
 
@@ -319,6 +324,46 @@ output DUR102
 
   duration('2022-01-01', '2022-09-30').contains(duration('2022-03-01', '2022-06-30'))
 
+output DUR103
+/* rule DUR103: Rule: DUR103 - 'duration' is not a valid property. */
+
+  '2022-01-01'.duration('2022-06-30')
+
+output DUR104
+/* 0 */
+
+  duration('2022-03-31', '2022-03-31').time-span
+
+output DUR105
+/* 1 day, 0:00:00 */
+
+  duration('2022-03-31', '2022-04-01').time-span
+
+output DUR106
+/* 0 */
+
+  duration('2022-03-31', '2022-03-31T24:00:00').time-span
+
+output DUR107
+/* 0 */
+
+  (duration('2022-03-31', '2022-03-31T24:00:00').time-span + time-span('P0D'))
+
+output DUR108
+/* 44651 */
+
+  date('2022-03-31T24:00:00') + time-span('P0D')
+
+output DUR109
+/* 2022-03-31 to 2022-03-31 */
+
+  duration(date('2022-03-31'), date('2022-03-31'))
+
+output DUR110
+/* 2022-03-31 to 2022-03-31 */
+
+  duration(date('2022-03-31'), date('2022-03-31T24:00:00')).days
+
 output FVR001
 /* forever */
 
@@ -369,15 +414,25 @@ output MON092
 
   month('2020-01-02')
 
+output MON093
+/* rule MON093: Rule: MON093 - The first argument of function 'month' must be instant, found 'none'. */
+
+  month(none)
+
+output MON094
+/* 12 */
+
+  date('2021-12-03').month
+
 output TSP101
 /* 4 days, 0:00:00 */
 
   time-span('P4D')
 
 output TSP102
-/* 4 days, 0:00:00 */
+/* rule TSP102: Rule: TSP102 - The first argument of function 'time-span' must be string, duration, found 'none'. */
 
-  time-span('P4D')
+  time-span(none)
 
 output TSP104
 /* 428 days, 0:00:00 */
@@ -423,6 +478,21 @@ output TSP195
 /* 89 days, 0:00:00 */
 
   duration('2022-01-01', '2022-03-31').time-span
+
+output TSP196
+/* 4 days, 0:00:00 */
+
+  'P4D'.time-span
+
+output TSP197
+/* time-period */
+
+  'P4D'.time-span._type
+
+output TSP198
+/* 4 */
+
+  'P4D'.time-span.days
 
 output YER001
 /* 2021 */

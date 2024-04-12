@@ -62,7 +62,7 @@ output CFILT112
 output CFILT113
 /* rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'None' */
 
-  $a = taxonomy().concepts.to-set;  $a[2].name
+  $a = $INSTANCE1.taxonomy().concepts.to-set;  $a[2].name
 
 output CFILT114
 /* set(instant) */
@@ -270,7 +270,7 @@ output PFILT107
   list({covered @instance = $FOREVER_INSTANCE @period != *}).count
 
 output PFILT108
-/* 2254 */
+/* 2253 */
 
   list({covered @instance = $FOREVER_INSTANCE @period = *}).count
 
@@ -584,6 +584,102 @@ output CUBEFILT006
 
   list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).count
 
+output CUBEFILT007
+/* 58 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube != none}).count
+
+output CUBEFILT008
+/* 58 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube = *}).count
+
+output CUBEFILT009
+/* 179 */
+
+  list({covered @instance = $INSTANCE1 @cube = none}).count
+
+output CUBEFILT010
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).count
+
+output CUBEFILT011
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube=$INSTANCE1.taxonomy.cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')}).count
+
+output CUBEFILT012
+/* 179 */
+
+  list({covered @instance = $INSTANCE1 @cube=taxonomy().cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')}).count
+
+output CUBEFILT013
+/* us-gaap:StatementTable - http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited - 1004005 - Statement - Consolidated Statements of Cash Flows (Unaudited) */
+
+  $INSTANCE1.taxonomy().cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')
+
+output CUBEFILT014
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube=$INSTANCE1.taxonomy().cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')}).count
+
+output CUBEFILT015
+/* 243 */
+
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES}.cubes.cube-concept)
+
+output CUBEFILT016
+/* 28 */
+
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube not in $STATEMENT_CUBES}.cubes.cube-concept)
+
+output CUBEFILT017
+/* 1185 */
+
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}.cubes.cube-concept)
+
+output CUBEFILT018
+/* 28 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable  @cube in $NOTES_CUBES}.cubes.cube-concept).count
+
+output CUBEFILT019
+/* 243 */
+
+  list({covered @instance = $INSTANCE1 @cube in $NOTES_CUBES @cube in $STATEMENT_CUBES}).count
+
+output CUBEFILT020
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.cube-concept)
+
+output CUBEFILT021
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.drs-role().uri)
+
+output CUBEFILT022
+/* 14 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).sid
+
+output CUBEFILT023
+/* 243 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable}).count
+
+output CUBEFILT024
+/* set(us-gaap:StatementTable) */
+
+  $STATEMENT_CUBES.cube-concept
+
+output CUBEFILT025
+/* 0 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube = none}).count
+
+
 output DIMFILT001
 /* 3785000000 */
 
@@ -635,7 +731,7 @@ output UNITFILT021
   list({covered @instance = $INSTANCE1  @unit in list(unit(iso4217:USD))}).count
 
 output DIMFILT006
-/*  */
+/* rule DIMFILT006: 'dict' object has no attribute 'type' */
 
   $Rev = list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions)
 list({covered @instance = $INSTANCE1 @dimensions in $Rev}).count
@@ -658,7 +754,7 @@ output DIMFILT009
   list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = '2023-01-01'}).count
 
 output DIMFILT010
-/* 1 */
+/* 2 */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = date('2023-01-01')}).count
 
@@ -688,22 +784,29 @@ output DIMFILT015
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1})
 
 output DIMFILT016
-/* list(None) */
+/* list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=*})
 
 output DIMFILT017
-/* list() */
+/* list(P9Y, P5Y, P9Y) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=AcquiredFiniteLivedIntangibleAssetsWeightedAverageUsefulLife @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis})
 
 output DIMFILT018
-/*  */
+/* 112 */
 
   $Rev = list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions)
 list(for $dim in $Rev {covered @instance = $INSTANCE1 @dimensions = $dim}).count
 
 output DIMFILT019
-/* 3785000000 */
+/* [DIMFILT019] 3,785,000,000
+[DIMFILT019] 1,115,000,000
+[DIMFILT019] 532,000,000
+[DIMFILT019] 456,000,000
+[DIMFILT019] 528,000,000
+[DIMFILT019] 1,517,000,000
+[DIMFILT019] 2,769,000,000
+[DIMFILT019] None */
 
   max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @@srt:ProductOrServiceAxis = *}))

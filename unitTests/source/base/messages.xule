@@ -116,3 +116,57 @@ output MESS010
         for $b in list('x', 'y')
             1
 message '{$a} {$b}'
+
+output MESS011
+/* Rule MESS011:  */
+
+  $myValue = 3;
+true
+message
+'{if $myValue == 3 'pass - ' else 'fail - '} The value is {$myValue}'
+severity true
+
+output MESS012
+/* pass -  The value is 3 */
+
+  $myValue = 3;
+true
+message
+'{if $myValue == 3 'pass - ' else 'fail - '} The value is {$myValue}'
+severity error
+
+output MESS013
+/* pass -  The value is 3 */
+
+  $myValue = 3;
+true
+message
+'{if $myValue == 3 'pass - ' else 'fail - '} The value is {$myValue}'
+severity 'error'
+
+output MESS014
+/*  */
+
+  $myValue = 3;
+true
+message
+'{if $myValue == 3 'pass - ' else 'fail - '} The value is {$myValue}'
+severity info
+
+output MESS015
+/*  */
+
+  $myValue = 3;
+true
+message
+'{if $myValue == 3 'pass - ' else 'fail - '} The value is {$myValue}'
+severity 'info'
+
+output MESS016
+/*  */
+
+  $myValue = 3;
+true
+message
+'{if $myValue == 3 'pass - ' else 'fail - '} The value is {$myValue}'
+severity hello

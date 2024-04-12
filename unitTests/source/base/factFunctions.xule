@@ -245,15 +245,30 @@ output FACT049
   max(list([covered @instance = $INSTANCE1  where $fact.period == date('2021-06-30')]))
 
 output FACT050
-/*  */
+/* 25661000000 */
 
-  $DebitEntries = set({covered @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 0}.dimensions())
-$totalDebitTravelExpenses = sum(list({covered @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+  $DebitEntries = set({covered @instance = $INSTANCE1  @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 0}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
 $totalDebitTravelExpenses
 
 output FACT051
+/* 25661000000 */
+
+  $DebitEntries = set({covered @instance = $INSTANCE1 @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 100}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+$totalDebitTravelExpenses
+
+output FACT052
+/* 3903000000 */
+
+  {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}
+
+output FACT053
+/* set(us-gaap:ScheduleOfCashAndCashEquivalentsTable, us-gaap:StatementTable) */
+
+  {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}.cubes.cube-concept
+
+output FACT054
 /*  */
 
-  $DebitEntries = set({covered @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 100}.dimensions())
-$totalDebitTravelExpenses = sum(list({covered @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
-$totalDebitTravelExpenses
+  first($INSTANCE1.facts.sid)

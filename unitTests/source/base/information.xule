@@ -112,6 +112,11 @@ output INFO0022
   max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator._type
 
 output INFO0023
+/* duration */
+
+  forever._type
+
+output INFO0024
 /* INFO0012.v1 */
 
   rule-name()
