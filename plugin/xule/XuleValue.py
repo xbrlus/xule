@@ -69,6 +69,9 @@ class XuleValueSet:
         
         if values is not None:
             self.append(values)
+
+    def __contains__(self, value):
+        return value in self.values
             
     def __iter__(self):
         for val in self.values:
