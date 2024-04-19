@@ -2431,7 +2431,8 @@ def evaluate_factset_detail(factset, xule_context):
 
     # If the the factset is dependent, then we only need to find facts that also match the current alignment. Create filters based on the current alignment.
     dependent_filters = list()
-    if not factset.get('covered') and factset['is_dependent']:
+    # the first part of this if statement is dtermining if the factset has alignment or not. 
+    if (not factset.get('covered') or any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'})) and factset['is_dependent']:
         if xule_context.dependent_alignment is None:
             # The table may acquire the dependent alignment after evaluating the aspect filters
             xule_context.iteration_table.current_table.make_dependent()
@@ -2531,12 +2532,10 @@ def evaluate_factset_detail(factset, xule_context):
         '''The current list of facts and tags are not inlcuded on the default None fact in a factset. This was causing problems with a exists() and missing().
         The default None fact in the missing would have the tags and facts from the first evaluation, but then these would be applied on consequent
         iterations where the tags from the first iteration would overwrite the tags on the consequent iterations.'''
-        # default_value.facts = xule_context.facts
-        # default_value.tags = xule_context.tags
-        # default_value.used_vars = get_used_vars(xule_context, xule_context.used_vars)
         default_value.used_expressions = used_expressions | default_where_used_expressions
-        # print("default fact", factset['exprName'], factset['node_id'], len(xule_context.used_expressions), len(default_value.used_expressions))
-        if not factset.get('covered'):
+        # Added the second part of this 'if' statement to catch covered factsets that also have @@ which really makes them not covered.
+        # This determines if the factset has alignment or not. Maybe - this could just look at the 'has_alignment' on the factset ???
+        if not factset.get('covered') or any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'}):
             default_value.aligned_result_only = True
         results.append(default_value)
 
