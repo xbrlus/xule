@@ -463,6 +463,13 @@ def xuleCmdOptions(parser):
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
     
+    parserGroup.add_option("--xule-cache-size-bytes",
+                        action="store",
+                        dest="xule_cache_size_bytes",
+                        default=1_000_000_000,
+                        type="int",
+                        help=_("The maximum size of the per-rule expression cache in bytes."))
+
     parserGroup.add_option("--xule-max-rule-iterations",
                         action="store",
                         dest="xule_max_rule_iterations",
