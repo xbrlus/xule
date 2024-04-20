@@ -25,6 +25,7 @@ limitations under the License.
 $Change$
 DOCSKIP
 """
+from .XuleCache import XuleCache
 from .XuleRunTime import XuleProcessingError
 from .XuleValue import XuleValue, XuleValueSet
 from . import XuleUtility as xu
@@ -32,7 +33,7 @@ from arelle import FileSource
 from arelle import ModelManager
 from queue import Queue
 from multiprocessing import Queue as M_Queue, Manager, cpu_count
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 import datetime
 from time import sleep
 import copy
@@ -352,7 +353,7 @@ class XuleRuleContext(object):
     _VAR_TYPE_CONSTANT = 2
     _VAR_TYPE_ARG = 3
 
-    def __init__(self, global_context, rule_name=None, cat_file_num=None):
+    def __init__(self, global_context, rule_name=None, cat_file_num=None, cache_size_bytes=1_000_000_000):
         """Rule Context constructor
         
         :param global_context: The global context
@@ -378,7 +379,7 @@ class XuleRuleContext(object):
         self.trace = collections.deque()
         self.in_where_alignment = None
         self.build_table = False
-        self.local_cache = {}
+        self.local_cache = XuleCache(max_size_bytes=cache_size_bytes)
         self.look_for_alignment = False
         self.where_table_ids = None
         self.where_dependent_iterables = None
