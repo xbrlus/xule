@@ -3399,6 +3399,10 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
         inner_children = list()
 
         child = rel.toModelObject if direction == 'down' else rel.fromModelObject
+        if not isinstance(child, ModelConcept):
+            # only navigate concept to concept relationships
+            continue
+
         rel_info = {'relationship': rel}
 
         if first_time:
