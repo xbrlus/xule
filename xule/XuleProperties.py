@@ -2312,6 +2312,19 @@ def property_agg_to_dict(xule_context, object_value, *args):
         result_dict_value.facts = facts
     return result_dict_value
 
+def property_denone(xule_context, object_value, *args):
+    all_value = True
+    if object_value.type == 'set':
+        new_value_content =frozenset({x for x in object_value.value if x.type != 'none'})
+    else: # list
+        new_value_content = tuple(x for x in object_value.value if x.type != 'none')
+    
+    new_value = xv.XuleValue(xule_context, new_value_content, object_value.type)
+
+    new_value.tags = object_value.tags
+    new_value.facts = object_value.facts
+    return new_value
+
 def property_number(xule_context, object_value, *args):
 
     if object_value.type in ('int', 'float', 'decimal'):
@@ -3011,6 +3024,7 @@ PROPERTIES = {
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
               'agg-to-dict': (property_agg_to_dict, -1000, ('set', 'list'), False),
+              'denone': (property_denone, 0, ('set', 'list'), False),
               'cube': (property_cube, -2, ('taxonomy', 'dimension'), False),
               'cubes': (property_cubes, 0, ('taxonomy','fact'), False),
               'drs-role': (property_drs_role, 0, ('cube',), False),
