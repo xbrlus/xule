@@ -133,14 +133,14 @@ if $string == '-01' skip else date($string) + time-span('P1M')
 output DO124
 /* 42704 */
 
-  $string = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
-$string + time-span('P1M')
+  $date = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
+$date + time-span('P1M')
 
 output DO125
 /* 42674 */
 
-  $string = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
-date($string )
+  $date = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
+date($date )
 
 output DO126
 /* 2958465 */

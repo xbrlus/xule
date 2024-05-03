@@ -145,7 +145,7 @@ message
 severity 'error'
 
 output MESS014
-/*  */
+/* pass -  The value is 3 */
 
   $myValue = 3;
 true
@@ -154,7 +154,7 @@ message
 severity info
 
 output MESS015
-/*  */
+/* pass -  The value is 3 */
 
   $myValue = 3;
 true
@@ -163,7 +163,7 @@ message
 severity 'info'
 
 output MESS016
-/*  */
+/* Rule MESS013:  */
 
   $myValue = 3;
 true

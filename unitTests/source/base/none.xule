@@ -142,7 +142,7 @@ output PMN128
 output PMN129
 /* True */
 
-  none >= none
+  none != none
 
 output PMN130
 /* list() */
@@ -158,3 +158,83 @@ output PMN132
 /* skip */
 
   none / 7
+
+output PMN133
+/* None */
+
+  none.union(set(1,2,3))
+
+output PMN134
+/* rule PMN134: Rule: PMN134 - Intersection can only operatate on sets. The left side is a 'unbound'. */
+
+  none & (set(1,2,3))
+
+output PMN135
+/* set(2, 3, 1) */
+
+  none + (set(1,2,3))
+
+output PMN136
+/* set(2, 3, 1) */
+
+  none - (set(1,2,3))
+
+output PMN137
+/* set(2, 3, 1) */
+
+  set(1,2,3) - none
+
+output PMN138
+/* rule PMN136: Rule: PMN136 - Intersection can only operatate on sets. The left side is a 'unbound'. */
+
+  none intersect (set(1,2,3))
+
+output PMN139
+/* none */
+
+  none.is-subset(set(1,2,3))
+
+output PMN140
+/* none */
+
+  none.is-superset(set(1,2,3))
+
+output PMN141
+/* none */
+
+  none.difference(set(1,2,3))
+
+output PMN142
+/* none */
+
+  none.symmetric-difference(set(1,2,3))
+
+output PMN143
+/* none */
+
+  none <= set(1,2,3)
+
+output PMN144
+/* none */
+
+  none >= set(1,2,3)
+
+output PMN145
+/* rule PMN145: Rule: PMN145 - Symetric difference can only operatate on sets. The left side is a 'unbound'. */
+
+  none ^ set(1,2,3)
+
+output PMN146
+/* dictionary(YAxis=YMember) */
+
+  dict(list('YAxis','YMember')) + none
+
+output PMN147
+/* dictionary(YAxis=YMember) */
+
+  none + dict(list('YAxis','YMember'))
+
+output PMN148
+/* dictionary(AAxis=AMember,BAxis=BMember) */
+
+  none - dict(list('AAxis','AMember'), list('BAxis','BMember'))

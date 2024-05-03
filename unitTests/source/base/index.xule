@@ -54,6 +54,11 @@ output SLO111
 
   set('a.a', 'b.b', 'c.c')[2]
 
+output SLO112
+/* b */
+
+  list('a', 'b', 'c')[2]
+
 output DIX010
 /* c */
 

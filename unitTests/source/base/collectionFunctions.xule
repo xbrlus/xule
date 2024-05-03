@@ -225,7 +225,7 @@ output DCOU106
   @instance = $INSTANCE1.count
 
 output DCOU107
-/* rule DCOU107: Rule: DCOU107 - Property 'count' is not a property of a 'dictionary'. */
+/* 4 */
 
   dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).count
 
@@ -333,6 +333,11 @@ output JOIN103
 /*  a,b,c */
 
   join(list('a', 'b', 'c'),',')
+
+output JOIN104
+/*  abc */
+
+  list('a', 'b', 'c').join('')
 
 output DCO010
 /*  true */
@@ -463,6 +468,11 @@ output DDC093
 /* dictionary(c=cat)  */
 
   set(list('c','cat'),list('a','advark', 'extra')).to-dict
+
+output DDC094
+/* dictionary(a=advark,c=cat,d=dog) */
+
+  list(list('c','cat'),list('a','advark'),list('d','dog')).to-dict
 
 output DIC001
 /* dictionary(c=cat,a=albatross,m=monkey,b=bat,z=zebra) */
@@ -737,6 +747,11 @@ output HKY008
 
   has-key(list('a', 'b'), 'a')
 
+output HKY009
+/*  true */
+
+  'a' in dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog'))
+
 output SRT101
 /* list(Mouse, cat, chicken, cow, dog, horse, shrew)  */
 
@@ -901,6 +916,16 @@ output INTER101
 /* set(2, 3) */
 
   set(2,3,5).intersect(set(1,2,3,4))
+
+output INTER102
+/* set(2, 3) */
+
+  set(2,3,5).intersect(list(1,2,3,4))
+
+output INTER103
+/* rule INTER103: Rule: INTER103 - Intersection can only operatate on sets. The right side is a 'list'. */
+
+  set(2,3,5) intersect list(1,2,3,4)
 
 output MAX101
 /* 2 */

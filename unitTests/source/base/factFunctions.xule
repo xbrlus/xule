@@ -269,6 +269,16 @@ output FACT053
   {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}.cubes.cube-concept
 
 output FACT054
-/*  */
+/* rule FACT054: invalid literal for int() with base 10: '(ixTransformValueError)' */
 
   first($INSTANCE1.facts.sid)
+
+output FACT055
+/*  */
+
+  {covered @instance = $INSTANCE3 @concept=us-gaap-2022:Assets}.footnotes
+
+output FACT056
+/* None */
+
+  none.is-nil

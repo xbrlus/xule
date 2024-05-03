@@ -217,7 +217,7 @@ output DAT094
 output DAT095
 /* 43832 */
 
-  date('2020-01-02')
+  date('2020-01' + '-02')
 
 output DAT096
 /* TRUE */
@@ -238,6 +238,11 @@ output DAT099
 /* rule DAT099: Rule: DAT099 - The first argument of function 'date' must be string, instant, found 'none' */
 
   date(none)
+
+output DAT100
+/* none */
+
+  none.date
 
 output DAY001
 /* 2 */

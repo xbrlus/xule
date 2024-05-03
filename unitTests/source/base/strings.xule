@@ -130,7 +130,7 @@ output LIO107
   last-index-of(list('Hello Mr Stains'), 'o')
 
 output LIO108
-/*  */
+/* rule LIO108: Rule: LIO108 - The argument for property 'last-index-of' must be castable to a 'string', found 'none' */
 
   last-index-of('Hello Mr Stains', none)
 
@@ -168,6 +168,31 @@ output LEN107
 /* rule LEN107: Rule: LEN107 - The first argument of function 'length' must be string, uri, set, list, dictionary, found 'none'. */
 
   length(none)
+
+output LEN108
+/* rule LEN108: object of type 'int' has no len() */
+
+  length(123456)
+
+output LEN109
+/* 7 */
+
+  length('A123456')
+
+output LEN110
+/* 7 */
+
+  length(123456.string)
+
+output LEN111
+/* 11 */
+
+  length(string(123456789))
+
+output LEN112
+/* 9 */
+
+  length(plain-string(123456789))
 
 output DLO101
 /* abcdef */

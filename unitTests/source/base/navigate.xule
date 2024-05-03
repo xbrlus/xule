@@ -716,3 +716,18 @@ output NAX142
 /* list(1, 1) */
 
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns navigation-depth
+
+output NAVCUBE001
+/*  */
+
+  navigate dimensions children cube ScheduleOfFairValueOffBalanceSheetRisksTable taxonomy $US-GAAP-2020
+
+output NAVCUBE002
+/*  */
+
+  (navigate dimensions dimension-domain descendants  cube ScheduleOfFairValueOffBalanceSheetRisksTable taxonomy $US-GAAP-2020)
+
+output NAVCUBE003
+/*  */
+
+  navigate parents  cube $CUBE taxonomy $US-GAAP-2020 

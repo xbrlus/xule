@@ -47,12 +47,12 @@ output LM009
 output LM010
 /*  True */
 
-  'a' in list('a','b','c','d') 
+  'd' in list('a','b','c','d') 
 
 output LM011
 /*  False */
 
-  'n' in list('a','b','c','d') 
+  'k' in list('a','b','c','d') 
 
 output LM012
 /*  False */
