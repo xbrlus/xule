@@ -19,11 +19,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23724 $
+$Change: 23750 $
 DOCSKIP
 """
 
 from .XuleRunTime import XuleProcessingError
+# from .XuleSemanticHash import semanticStringHashFact
 from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
@@ -38,6 +39,7 @@ import collections
 import csv
 import datetime
 import decimal
+import hashlib
 import io
 import itertools
 import json
@@ -76,7 +78,14 @@ def property_contains(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, search_value in object_value.shadow_collection, 'bool')
     elif object_value.type in ('string', 'uri'):
         if search_item.type in ('string', 'uri'):
-            return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
+            if search_item.value == '':
+                return xv.XuleValue(xule_context, False, 'bool')
+            else:
+                return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
+        elif search_item.type == 'none':
+            return xv.XuleValue(xule_context, False, 'bool')
+        else: 
+            raise XuleProcessingError(_(f"The search item for property 'contains' or 'in' must be a string, uri or none, but found '{search_item.type}"), xule_context)
     else:
         raise XuleProcessingError(_("Property 'contains' or 'in' expression cannot operate on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
 
@@ -247,19 +256,28 @@ def unfreeze_shadow(cur_val, for_json=False):
 def property_to_spreadsheet(xule_context, object_value, *args):
 
     # verify that the dictionary entries are lists
+    result = dict()
     xule_data = {k: v for k, v in object_value.value}
     for key, vals in xule_data.items():
         if key.type != 'string':
             raise XuleProcessingError(_(f"to-spreadheet expectes a dictionary with each key as the sheet name. The key must be a string. Found {key.type}."), xule_context)
-            
+        result[key.value] = []  
         if vals.type != 'list':
             raise XuleProcessingError(_(f"to-spreadsheet expects a dictionary with each key as a sheet and the value a list of lists. Sheet {key} does not contain a list"), xule_context)
         else:
             for val in vals.value:
                 if val.type != 'list':
                     raise XuleProcessingError(_(f"to-spreadsheet expects a dictionary with each key as a sheet and the value a list of lists. Sheet {key} does not contain a list of lists"), xule_context)
-    
-    return xv.XuleValue(xule_context, object_value.value, 'spreadsheet',  shadow_collection=object_value.shadow_collection)
+                row = []
+                for item in val.value:
+                    if item.type == 'qname':
+                        new_item = str(item.value)
+                    else:
+                        new_item = item.value
+                    row.append(new_item)
+                result[key.value].append(row)
+
+    return xv.XuleValue(xule_context, result, 'spreadsheet')
 
 
 def property_to_xince(xule_context, object_value, *args, _intermediate=False):
@@ -648,7 +666,15 @@ def property_id(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, object_value.fact.id, 'string')
     else: #none value
         return object_value 
-    
+
+def property_sid(xule_context, object_value, *args):
+    '''This property gets a semantic id for a fact. This is a way of detecting if 2 facts are really the same.
+       It will use the conceptt, unit, entity, period, defined dimensions and decimals to identify the fact.
+    '''
+    from semanticHash import semanticStringHashFact
+    semantic_hash_string = semanticStringHashFact(object_value.fact)
+    return xv.XuleValue(xule_context, hashlib.sha256(semantic_hash_string.encode()).hexdigest(), 'string')
+
 def property_scale(xule_context, object_value, *args):
     if object_value.is_fact:
         if hasattr(object_value.fact, 'scaleInt') and object_value.fact.scaleInt is not None:
@@ -1710,6 +1736,14 @@ def property_mod(xule_context, object_value, *args):
     combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(object_value, args[0], xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
 
+def property_repeat(xule_context, object_value, *args):
+    try:
+        count = int(args[0].value)
+    except (ValueError, TypeError):
+        raise XuleProcessingError(_(f"The argument for the .replace() property must be a number, found {args[0].type}"), xule_context)
+
+    return xv.XuleValue(xule_context, object_value.value * count, 'string')
+
 def property_substring(xule_context, object_value, *args):     
     if len(args) == 0:
         raise XuleProcessingError(_("Substring reuqires at least 1 argument, found none."), xule_context)
@@ -1734,23 +1768,33 @@ def property_index_of(xule_context, object_value, *args):
     cast_value = xv.xule_cast(object_value, 'string', xule_context)
  
     arg_result = args[0]
+    if arg_result.type == 'none':
+            return xv.XuleValue(xule_context, 0, 'int')
     if xv.xule_castable(arg_result, 'string', xule_context):
         index_string = xv.xule_cast(arg_result, 'string', xule_context)
     else:
         raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
-     
-    return xv.XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
+    
+    if index_string == '':
+        return xv.XuleValue(xule_context, 0, 'int')
+    else:
+        return xv.XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
  
 def property_last_index_of(xule_context, object_value, *args):
     cast_value = xv.xule_cast(object_value, 'string', xule_context)
      
     arg_result = args[0]
+    if arg_result.type == 'none':
+            return xv.XuleValue(xule_context, 0, 'int')
     if xv.xule_castable(arg_result, 'string', xule_context):
         index_string = xv.xule_cast(arg_result, 'string', xule_context)
     else:
         raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
-     
-    return xv.XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
+    
+    if index_string == '':
+        return xv.XuleValue(xule_context, 0, 'int')
+    else:
+        return xv.XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
  
 def property_lower_case(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, xv.xule_cast(object_value, 'string', xule_context).lower(), 'string')
@@ -2108,11 +2152,12 @@ def property_min(xule_context, object_value, *args):
     
     return min_value
 
-def property_count(xule_context, object_value, *args):
-    count_value = xv.XuleValue(xule_context, len(object_value.value), 'int')
-    count_value.tags = object_value.tags
-    count_value.facts = object_value.facts
-    return count_value
+# This is really the same as property_length
+# def property_count(xule_context, object_value, *args):
+#     count_value = xv.XuleValue(xule_context, len(object_value.value), 'int')
+#     count_value.tags = object_value.tags
+#     count_value.facts = object_value.facts
+#     return count_value
 
 def property_first(xule_context, object_value, *args):
     if len(object_value.value) == 0:
@@ -2266,6 +2311,19 @@ def property_agg_to_dict(xule_context, object_value, *args):
     if len(facts) > 0:
         result_dict_value.facts = facts
     return result_dict_value
+
+def property_denone(xule_context, object_value, *args):
+    all_value = True
+    if object_value.type == 'set':
+        new_value_content =frozenset({x for x in object_value.value if x.type != 'none'})
+    else: # list
+        new_value_content = tuple(x for x in object_value.value if x.type != 'none')
+    
+    new_value = xv.XuleValue(xule_context, new_value_content, object_value.type)
+
+    new_value.tags = object_value.tags
+    new_value.facts = object_value.facts
+    return new_value
 
 def property_number(xule_context, object_value, *args):
 
@@ -2841,6 +2899,7 @@ PROPERTIES = {
               'entity': (property_entity, 0, ('fact',), True),
               'namespace-map': (property_namespace_map, 0, ('fact',), True),
               'id': (property_id, 0, ('entity','unit','fact', 'concept', 'part-element'), True),
+              'sid': (property_sid, 0, ('fact',), True),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
@@ -2863,7 +2922,6 @@ PROPERTIES = {
               'substitution': (property_substitution, 0, ('concept', 'part-element', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
-
               'min-exclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'minExclusive'),
               'max-exclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'maxExclusive'),
               'min-inclusive': (property_type_facet, 0, ('type','part-element', 'concept', 'fact'), True, 'minInclusive'),
@@ -2930,9 +2988,10 @@ PROPERTIES = {
               'trunc': (property_trunc, -1, ('int', 'float', 'decimal', 'fact'), False),
               'round': (property_round, 1, ('int', 'float', 'decimal', 'fact'), False),
               'mod': (property_mod, 1 ,('int', 'float', 'decimal', 'fact'), False),
-              'number': (property_number, 0, ('int', 'float', 'decimal', 'fact'), False),
+              'number': (property_number, 0, ('string', 'int', 'float', 'decimal', 'fact'), False),
               'int': (property_int, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
               'decimal': (property_decimal, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
+              'repeat': (property_repeat, 1, ('string', 'uri'), False),
               'substring': (property_substring, -2, ('string', 'uri'), False),
               'index-of': (property_index_of, 1, ('string', 'uri'), False),
               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
@@ -2957,7 +3016,7 @@ PROPERTIES = {
               'any': (property_any, 0, ('set', 'list'), False),
               'first': (property_first, 0, ('set', 'list'), False),
               'last': (property_last, 0, ('set', 'list'), False),
-              'count': (property_count, 0, ('set', 'list'), False),
+              'count': (property_length, 0, ('set', 'list', 'dictionary'), False),
               'sum': (property_sum, 0, ('set', 'list'), False),
               'max': (property_max, 0, ('set', 'list'), False),
               'min': (property_min, 0, ('set', 'list'), False),           
@@ -2965,6 +3024,7 @@ PROPERTIES = {
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
               'agg-to-dict': (property_agg_to_dict, -1000, ('set', 'list'), False),
+              'denone': (property_denone, 0, ('set', 'list'), False),
               'cube': (property_cube, -2, ('taxonomy', 'dimension'), False),
               'cubes': (property_cubes, 0, ('taxonomy','fact'), False),
               'drs-role': (property_drs_role, 0, ('cube',), False),

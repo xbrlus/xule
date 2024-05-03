@@ -274,9 +274,9 @@ output FACT054
   first($INSTANCE1.facts.sid)
 
 output FACT055
-/*  */
+/* set() */
 
-  {covered @instance = $INSTANCE3 @concept=us-gaap-2022:Assets}.footnotes
+  first(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:Assets}.footnotes))
 
 output FACT056
 /* None */

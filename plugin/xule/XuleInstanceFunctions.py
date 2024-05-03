@@ -1,3 +1,28 @@
+"""XuleInstanceFunctions
+
+Xule is a rule processor for XBRL (X)brl r(ULE). 
+
+DOCSKIP
+See https://xbrl.us/dqc-license for license information.  
+See https://xbrl.us/dqc-patent for patent infringement notice.
+Copyright (c) 2017 - 2024 XBRL US, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+$Change: 23747 $
+DOCSKIP
+"""
+
 from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
 from .XuleModelIndexer import index_model
@@ -24,7 +49,8 @@ def func_instance(xule_context, *args):
         
         start = datetime.datetime.today()
         instance_filesource = FileSource.openFileSource(instance_url.value, xule_context.global_context.cntlr)            
-        modelManager = ModelManager.initialize(xule_context.global_context.cntlr)
+        #modelManager = ModelManager.initialize(xule_context.global_context.cntlr)
+        modelManager = xule_context.global_context.cntlr.modelManager
         instance_model = modelManager.load(instance_filesource)
         if 'IOerror' in instance_model.errors:
             raise XuleProcessingError(_("Instance {} not found.".format(instance_url)))

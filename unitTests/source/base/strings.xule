@@ -658,3 +658,33 @@ output STRIN003
 /* rule STRIN003: Rule: STRIN003 - Property 'first' is not a property of a 'string'. */
 
   'abcdef'.first
+
+output REPEAT001
+/* 3333 */
+
+  '3'.repeat(4)
+
+output REPEAT002
+/* 3333 */
+
+  3.repeat(4)
+
+output REPEAT003
+/* 3333 */
+
+  3.4.repeat(4)
+
+output REPEAT004
+/* 3333 */
+
+  repeat('3',4)
+
+output REPEAT005
+/* none */
+
+  none.repeat(4)
+
+output REPEAT006
+/* none */
+
+  repeat(none,4)
