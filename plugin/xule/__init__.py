@@ -560,8 +560,9 @@ def xuleCmdOptions(parser):
     parserGroup.add_option("--xule-max-recurse-depth",
                             action="store",
                             type="int",
+                            default=10000,
                             dest="xule_max_recurse_depth",
-                            help=_("The recurse depth for python. The default is 2500. If there is a 'RecursionError: maximum recursion depth exceeded' "
+                            help=_("The recurse depth for python. The default is 10000. If there is a 'RecursionError: maximum recursion depth exceeded' "
                                    "error this argument can be used to increase the max recursion depth."))
     parserGroup.add_option("--xule-stack-size",
                           type="int",

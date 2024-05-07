@@ -640,7 +640,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 parse_node['number'] = 'multi'
                 if parse_node.get('covered') == True:
                     # The factset will not have alignment if there are no @@ filters. If there are it really isn't covered.
-                    if any({True for x in parse_node['aspectFilters'] if x['coverType'] == 'uncovered'}):
+                    if 'aspectFilters' in parse_node and any({True for x in parse_node['aspectFilters'] if x['coverType'] == 'uncovered'}):
                         parse_node['has_alignment'] = True
                     else:
                         parse_node['has_alignment'] = False
