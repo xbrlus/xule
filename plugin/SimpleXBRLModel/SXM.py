@@ -1650,7 +1650,7 @@ class SXMConcept(SXMElement, SXMAttributedBase):
         if period_type is None:
             raise SXMException(f"For concept '{name.clark}', period type is required")
         if period_type not in ('instant', 'duration'):
-            raise SXMException(f"For cocnept '{name.clark}', invalid period type '{period_type}'")
+            raise SXMException(f"For concept '{name.clark}', invalid period type '{period_type}'")
         if balance_type not in ('debit', 'credit', None):
             raise SXMException(f"For concept '{name.clark}', invalid balance type '{balance_type}'")
         

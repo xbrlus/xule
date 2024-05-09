@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23660 $
+$Change: 23738 $
 DOCSKIP
 """
 from arelle.ModelValue import QName
@@ -106,7 +106,9 @@ class XuleValidate:
             qnames_by_ns[qname.namespaceURI][qname.localName] = top_names
         
         for namespace in qnames_by_ns.keys():
-            if namespace in utr_namespaces:
+            if namespace is None:
+                continue
+            elif namespace in utr_namespaces:
                 defined_names = utr_namespaces[namespace]
                 if namespace == 'http://www.xbrl.org/2003/instance':
                     defined_names |= self.xbrli_names
@@ -127,7 +129,8 @@ class XuleValidate:
     
     def _get_utr_namespaces(self):
         # Get UTR
-        modelManager = ModelManager.initialize(self.cntlr)
+        #modelManager = ModelManager.initialize(self.cntlr)
+        modelManager = self.cntlr.modelManager
         modelUtr = modelManager.create()
         loadUtr(modelUtr)
         
@@ -155,7 +158,8 @@ class XuleValidate:
         """
         start = datetime.datetime.today()
         rules_taxonomy_filesource = FileSource.openFileSource(taxonomy_url, self.cntlr)            
-        modelManager = ModelManager.initialize(self.cntlr)
+        #modelManager = ModelManager.initialize(self.cntlr)
+        modelManager = self.cntlr.modelManager
         modelXbrl = modelManager.load(rules_taxonomy_filesource)
         if len({'IOerror','FileNotLoadable'} & set(modelXbrl.errors)) > 0:
             modelXbrl.error("TaxonomyLoadError","Cannot open file {} with namespace {}.".format(taxonomy_url, namespace))

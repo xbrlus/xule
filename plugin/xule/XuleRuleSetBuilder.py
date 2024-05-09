@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23660 $
+$Change: 23744 $
 DOCSKIP
 """
 import pickle
@@ -639,7 +639,11 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 parse_node['is_iterable'] = True
                 parse_node['number'] = 'multi'
                 if parse_node.get('covered') == True:
-                    parse_node['has_alignment'] = False
+                    # The factset will not have alignment if there are no @@ filters. If there are it really isn't covered.
+                    if 'aspectFilters' in parse_node and any({True for x in parse_node['aspectFilters'] if x['coverType'] == 'uncovered'}):
+                        parse_node['has_alignment'] = True
+                    else:
+                        parse_node['has_alignment'] = False
                 else:
                     parse_node['has_alignment'] = True
                 
@@ -648,14 +652,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 factset_var_def_ids = [parse_node['whereExpr']['node_id']] if 'whereExpr' in parse_node else []
                 if 'aspectFilters' in parse_node:
                     factset_var_def_ids += [aspectFilter['node_id'] for aspectFilter in parse_node['aspectFilters']]
-
-#                 for x in parse_node['var_refs']:
-#                     if x[0] in factset_var_def_ids:
-#                         remove_refs.add(x)
                 
-                #parse_node['var_refs'] -= remove_refs
                 parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] not in factset_var_def_ids]
-                #parse_node['dependent_vars'] -= remove_refs
                 parse_node['dependent_vars'] = [x for x in parse_node['dependent_vars'] if x[0] not in factset_var_def_ids]
 
 #             '''NEED TO CHECK IF THIS SHOULD BE UPDATED FOR FACTSETS WITHIN FACTSET'''
