@@ -2478,7 +2478,7 @@ def property_effective_weight_network(xule_context, object_value, *args):
         elif args[2].type in ('uri', 'string'):
             role = args[2].value
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
-            networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
+            networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2'], role)
         elif args[2].type == 'qname':
             role = XuleUtility.resolve_role(args[2], 'role', object_value.value, xule_context)
             if len(role) == 1:
@@ -2488,7 +2488,7 @@ def property_effective_weight_network(xule_context, object_value, *args):
             else:
                 raise XuleProcessingError(_("The role '{}' provided for the property 'effective-weight-network' does not resolve to any role".format(args[2].value.localName)), xule_context)
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
-            networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
+            networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2'], role)
         elif args[2].type in ('set', 'list'):
             networks = args[2].value
         else:
