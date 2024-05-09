@@ -737,13 +737,13 @@ output DIMFILT006
 list({covered @instance = $INSTANCE1 @dimensions in $Rev}).count
 
 output DIMFILT007
-/*  rule DIMFILT007: 'aspectExpr' */
+/* 28 */
 
   $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
 list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @dimensions = *}).count
 
 output DIMFILT008
-/* rule DIMFILT008: 'dict' object has no attribute 'type' */
+/* 0 */
 
   $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
 list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @dimensions = none}).count

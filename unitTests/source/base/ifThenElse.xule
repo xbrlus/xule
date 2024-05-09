@@ -15,11 +15,41 @@ output IFEL003
   if none true else false
 
 output IFEL004
-/* None */
+/* skip */
 
-  if true none else false
+  if (none or false) true else false
 
 output IFEL005
 /* TRUE */
 
+  if (none or true) true else false
+
+output IFEL006
+/* TRUE */
+
+  if (none or not false) true else false
+
+output IFEL007
+/* FALSE */
+
+  if (none == true) true else false
+
+output IFEL008
+/* FALSE */
+
+  if (none and false) true else false
+
+output IFEL009
+/* None */
+
+  if true none else false
+
+output IFEL010
+/* TRUE */
+
   if false skip else true
+
+output IFEL011
+/* skip */
+
+  if none ([@instance = $INSTANCE1 @Assets]) else  ([@instance = $INSTANCE1 @Liabilities])

@@ -354,6 +354,21 @@ output CUBEPROP021
 
   count($US-GAAP-2020.cubes)
 
+output TAXPROP011
+/*  */
+
+  $US-GAAP-2020.concepts.length
+
+output TAXPROP012
+/*  */
+
+  concepts($US-GAAP-2020).length
+
+output TAXPROP020
+/*  */
+
+  $US-GAAP-2024.effective-weight(us-gaap-2024:EffectiveIncomeTaxRateContinuingOperations,us-gaap-2024:EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate)
+
 output TAXPROP021
 /* -1 */
 
@@ -967,6 +982,11 @@ False
 $US-GAAP-2020.effective-weight-network(NetCashProvidedByUsedInOperatingActivities,IncomeLossFromEquityMethodInvestments,$x)
 
 output TAXPROP136
+/*  rule TAXPROP136: Rule: TAXPROP136 - 'data-types' is not a valid property. */
+
+  count($US-GAAP-2020.data-types)
+
+output TAXPROP137
 /* rule TAXPROP136: Rule: TAXPROP136 - 'elements' is not a valid property. */
 
   count($US-GAAP-2020.elements)

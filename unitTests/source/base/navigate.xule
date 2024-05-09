@@ -718,16 +718,81 @@ output NAX142
   navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns navigation-depth
 
 output NAVCUBE001
-/*  */
+/* list(us-gaap:FairValueOffBalanceSheetRisksDisclosureInformationLineItems, us-gaap:FinancialInstrumentAxis) */
 
   navigate dimensions children cube ScheduleOfFairValueOffBalanceSheetRisksTable taxonomy $US-GAAP-2020
 
 output NAVCUBE002
-/*  */
+/* list(us-gaap:TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain) */
 
   (navigate dimensions dimension-domain descendants  cube ScheduleOfFairValueOffBalanceSheetRisksTable taxonomy $US-GAAP-2020)
 
 output NAVCUBE003
+/* list() */
+
+  navigate dimensions parents  cube ScheduleOfFairValueOffBalanceSheetRisksTable taxonomy $US-GAAP-2020 
+
+output NAVCUBE004
+/* list(us-gaap:FairValueOffBalanceSheetRisksDisclosureInformationLineItems, us-gaap:FairValueDisclosureOffbalanceSheetRisksAmountAsset, us-gaap:FairValueDisclosureOffbalanceSheetRisksAmountLiability, us-gaap:FairValueDisclosureOffbalanceSheetRisksFaceAmountAsset, us-gaap:FairValueDisclosureOffbalanceSheetRisksFaceAmountLiability, us-gaap:FairValueDisclosureOffBalanceSheetRisksDescription, us-gaap:FinancialInstrumentAxis, us-gaap:TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain, us-gaap:AccruedLiabilitiesMember, us-gaap:CommitmentsToExtendCreditMember, us-gaap:CommoditiesInvestmentMember, us-gaap:DerivativeMember, us-gaap:ForwardContractsMember, us-gaap:OptionMember, us-gaap:BondOptionMember, us-gaap:StockOptionMember, us-gaap:CommodityOptionMember, us-gaap:CreditDefaultOptionMember, us-gaap:InterestRateCapMember, us-gaap:InterestRateFloorMember, us-gaap:SwaptionMember, us-gaap:ForeignExchangeOptionMember, us-gaap:CreditSpreadOptionMember, us-gaap:SwapMember, us-gaap:EquitySwapMember, us-gaap:CurrencySwapMember, us-gaap:InterestRateSwapMember, us-gaap:BasisSwapMember, us-gaap:CreditDefaultSwapMember, us-gaap:WarrantMember, us-gaap:FutureMember, us-gaap:DJIAIndexFutureMember, us-gaap:NASDAQIndexFutureMember, us-gaap:EurodollarFutureMember, us-gaap:EuriborFutureMember, us-gaap:BondFutureMember, us-gaap:SingleStockFutureMember, us-gaap:ForeignExchangeFutureMember, us-gaap:OptionOnSecuritiesMember, us-gaap:EnergyRelatedDerivativeMember, us-gaap:ExchangeTradedOptionsMember, us-gaap:ForeignExchangeForwardMember, us-gaap:TotalReturnSwapMember, us-gaap:VarianceSwapMember, us-gaap:InterestRateSwaptionMember, us-gaap:CreditDefaultSwaptionMember, us-gaap:CapitalSupportAgreementMember, us-gaap:DebtMember, us-gaap:DepositsMember, us-gaap:EquityFundsMember, us-gaap:FairValueOptionOtherEligibleItemsMember, us-gaap:FirmCommitmentNotRecognizedAtInceptionFairValueOptionMember, us-gaap:WrittenLoanCommitmentFairValueOptionMember, us-gaap:InsuranceContractRightsAndObligationsFairValueOptionMember, us-gaap:WarrantyRightsAndObligationsFairValueOptionMember, us-gaap:SeparatedHostFinancialInstrumentFairValueOptionMember, us-gaap:HedgeFundsMember, us-gaap:HedgeFundsEquityMember, us-gaap:HedgeFundsEventDrivenMember, us-gaap:HedgeFundsGlobalOpportunityMember, us-gaap:HedgeFundsMultistrategyMember, us-gaap:HedgeFundsEquityLongShortMember, us-gaap:InterestRateLockCommitmentsMember, us-gaap:LoanOriginationCommitmentsMember, us-gaap:LoanPurchaseCommitmentsMember, us-gaap:LongTermDebtMember, us-gaap:PolicyLoansMember, us-gaap:PrivateEquityFundsMember, us-gaap:PrivateEquityFundsDomesticMember, us-gaap:PrivateEquityFundsForeignMember, us-gaap:RealEstateFundsMember, us-gaap:SeniorDebtObligationsMember, us-gaap:ShortTermDebtMember, us-gaap:UnusedLinesOfCreditMember, us-gaap:VentureCapitalFundsMember) */
+
+  navigate dimensions descendants  cube ScheduleOfFairValueOffBalanceSheetRisksTable taxonomy $US-GAAP-2020 
+
+output NAVCUBE005
+/* rule NAVCUBE005: In navigation, expecting a concept or qname, but found cube. */
+
+  navigate dimensions children cube $CUBE taxonomy $US-GAAP-2020 
+
+output NAVLINK001
 /*  */
 
-  navigate parents  cube $CUBE taxonomy $US-GAAP-2020 
+  navigate children from Assets linkbase link:calculationLink taxonomy $US-GAAP-2020
+
+output NAV001
+/* set(152200 - Statement - Statement of Cash Flows) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns set role-description
+
+output NAV002
+/* list(152200 - Statement - Statement of Cash Flows, 152200 - Statement - Statement of Cash Flows) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns list role-description
+
+output NAV003
+/* list(list(152200 - Statement - Statement of Cash Flows, 152200 - Statement - Statement of Cash Flows, 152200 - Statement - Statement of Cash Flows, 152200 - Statement - Statement of Cash Flows)) */
+
+  navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns list paths role-description
+
+output NAV004
+/* list(list(us-gaap:PaymentsForProceedsFromOtherDeposits, us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, -1), list(us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, us-gaap:NetCashProvidedByUsedInOperatingActivities, 1), list(us-gaap:NetCashProvidedByUsedInOperatingActivities, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, 1), list(us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease, 1)) */
+
+  navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns (source-name, target-name, weight)
+
+output NAV005
+/* set(list(us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease, 1), list(us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, us-gaap:NetCashProvidedByUsedInOperatingActivities, 1), list(us-gaap:PaymentsForProceedsFromOtherDeposits, us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, -1), list(us-gaap:NetCashProvidedByUsedInOperatingActivities, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, 1)) */
+
+  navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns set (source-name, target-name, weight)
+
+output NAV006
+/* list(list(us-gaap:PaymentsForProceedsFromOtherDeposits, us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, -1), list(us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, us-gaap:NetCashProvidedByUsedInOperatingActivities, 1), list(us-gaap:NetCashProvidedByUsedInOperatingActivities, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, 1), list(us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease, 1)) */
+
+  navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns list (source-name, target-name, weight)
+
+output NAV007
+/* list(list(list(us-gaap:PaymentsForProceedsFromOtherDeposits, us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, -1), list(us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, us-gaap:NetCashProvidedByUsedInOperatingActivities, 1), list(us-gaap:NetCashProvidedByUsedInOperatingActivities, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, 1), list(us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease, 1))) */
+
+  navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns list paths (source-name, target-name, weight)
+
+output NAV008
+/* [NAV008] list(dictionary(weight=-1,target-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities,source-name=us-gaap:PaymentsForProceedsFromOtherDeposits), dictionary(target-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,weight=1,source-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities), dictionary(target-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,source-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,weight=1), dictionary(weight=1,source-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,target-name=us-gaap:CashAndCash */
+
+  navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns (source-name, target-name, weight) as dictionary
+
+output NAV009
+/*  */
+
+  navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns list paths (source-name, target-name, weight) as dictionary
+
+output NAV010
+/* list(list(us-gaap:PaymentsForProceedsFromOtherDeposits, us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, -1), list(us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities, us-gaap:NetCashProvidedByUsedInOperatingActivities, 1), list(us-gaap:NetCashProvidedByUsedInOperatingActivities, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, 1), list(us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease, 1)) */
+
+  navigate summation-item descendants from us-gaap-2024:EffectiveIncomeTaxRateContinuingOperations taxonomy $US-GAAP-2024 returns (source-name, target-name, weight)

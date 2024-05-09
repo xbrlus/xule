@@ -596,7 +596,7 @@ output TJSON102
 
   $A = dict(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
 to-json($A)
-file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TJSON102.json'
+file-location '~/Documents/GitHub/xule/unitTests/output/TJSON102.json'
 file-content $A.to-json
 
 output TCSV100
@@ -606,7 +606,7 @@ Capital,30 */
 
   $A = list(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
 to-csv($A,',')
-file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
 file-content $A.to-csv(',')
 
 output TCSV101
@@ -616,7 +616,7 @@ AssetsNoncurrent,30 */
 
   $A = list(list('Liabilities', 100),list('AssetsCurremt', 200),list('AssetsNoncurrent', 30)); 
 to-csv($A,',')
-file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
 file-content $A.to-csv(',')
 
 output TCSV102
@@ -626,7 +626,7 @@ output TCSV102
          list('ab','cd','ef'),
          list(1.2,3.1))
 file-content $rule-value.to-csv
-file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV102.csv'
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV102.csv'
 
 output TCSV103
 /* 1x2x3x4
@@ -650,7 +650,7 @@ AssetsNoncurrent,30 */
 
   $A = list(list(Liabilities, 100),list(AssetsCurrent, 200),list(AssetsNoncurrent, 30)); 
 $A.to-csv
-file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV105.csv'
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV105.csv'
 file-content $rule-value
 
 output TSPT001
@@ -659,7 +659,7 @@ output TSPT001
   $A = dict(list('mysheet1',list(list('Liabilities', 100),list('AssetsCurrent', 200),list('AssetsNoncurrent', 30)))
 ,list('mysheet2',list(list('Liabilities', 100),list('AssetsCurrent', 200),list('AssetsNoncurrent', 30)))); 
 $A.to-spreadsheet
-file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TSPT001.xlsx'
+file-location '~/Documents/GitHub/xule/unitTests/output/TSPT001.xlsx'
 file-content $rule-value
 
 output DHK001

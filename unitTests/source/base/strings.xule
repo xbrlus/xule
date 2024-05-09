@@ -665,12 +665,12 @@ output REPEAT001
   '3'.repeat(4)
 
 output REPEAT002
-/* 3333 */
+/* rule REPEAT002: 'int' object has no attribute 'replace' */
 
   3.repeat(4)
 
 output REPEAT003
-/* 3333 */
+/* rule REPEAT003: Rule: REPEAT003 - Property 'repeat' is not a property of a 'float'. */
 
   3.4.repeat(4)
 
@@ -685,6 +685,16 @@ output REPEAT005
   none.repeat(4)
 
 output REPEAT006
-/* none */
+/* testtest */
+
+  'test'.repeat(2)
+
+output REPEAT007
+/*  */
+
+  'test'.repeat(-2)
+
+output REPEAT008
+/* rule REPEAT006: Rule: REPEAT006 - The first argument of function 'repeat' must be string, uri, found 'none'. */
 
   repeat(none,4)

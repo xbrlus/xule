@@ -20,9 +20,19 @@
   constant $US-GAAP-2023 = taxonomy('https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-all-2023.xsd')
 
 
+/* Constant representing the us-gaap 2023 taxonomy */
+
+  constant $US-GAAP-2024 = taxonomy('https://xbrl.fasb.org/us-gaap/2024/entire/us-gaap-entryPoint-std-2024.xsd')
+
+
 /* Constant representing a BS relationship */
 
   constant $NETWORK_BS = networks($US-GAAP-2020,parent-child,'http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified')
+
+
+/* Constant representing a BS relationship */
+
+  constant $NETWORK_BS_2024 = networks($US-GAAP-2020,parent-child,'http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified')
 
 
 /* Constant defining a cube */
