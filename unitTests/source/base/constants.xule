@@ -32,7 +32,7 @@
 
 /* Constant representing a BS relationship */
 
-  constant $NETWORK_BS_2024 = networks($US-GAAP-2020,parent-child,'http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified')
+  constant $NETWORK_BS_2024 = networks($US-GAAP-2024,parent-child,'http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified')
 
 
 /* Constant defining a cube */

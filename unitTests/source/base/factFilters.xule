@@ -410,6 +410,11 @@ output INSFILT005
 
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true @concept.is-monetary = false}).count
 
+output INSFILT006
+/*  */
+
+  (filter ($INSTANCE1.facts.sort) where $item.is-monetary == true).count
+
 output UNITFILT001
 /* {{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)},
 {False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259)}} */

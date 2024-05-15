@@ -53,3 +53,8 @@ output IFEL011
 /* skip */
 
   if none ([@instance = $INSTANCE1 @Assets]) else  ([@instance = $INSTANCE1 @Liabilities])
+
+output IFEL012
+/* rule IFEL012: Rule: IFEL012 - If condition is not a boolean, found 'string' */
+
+  if 'cat' 1 else 2

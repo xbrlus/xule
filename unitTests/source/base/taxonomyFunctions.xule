@@ -990,3 +990,23 @@ output TAXPROP137
 /* rule TAXPROP136: Rule: TAXPROP136 - 'elements' is not a valid property. */
 
   count($US-GAAP-2020.elements)
+
+output TAXPROP138
+/* Parent/Child relationship */
+
+  sum($NETWORK_BS).arcrole-description
+
+output TAXPROP139
+/* https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd */
+
+  $US-GAAP-2020.uri
+
+output TAXPROP140
+/* 20401 */
+
+  count($US-GAAP-2020.concept-names)
+
+output TAXPROP141
+/* 225 */
+
+  $US-GAAP-2020.namespaces
