@@ -1,0 +1,85 @@
+# This file gives instructions on what needs to be changed when converting a fresh copy 
+# of Arelle to one that's compatible with the Xule Server
+
+
+Two Files need to be changed located in the arelle/arelle server: CntrlWebMain.py and ModelManager.py
+
+
+CntrlWebMain.py
+
+1) Add the variable p_output to the global line and initialize (about line 23):
+
+    global imagesDir, cntlr, optionsPrototype, p_Output
+    p_Output = output
+
+2) Change app.run line (approx line 92) to include numthreads variable:
+
+        app.run(host=host, port=port or 80, server=server, numthreads=int(getattr(options, "xule_numthreads", 1)))
+
+3) Add "def runprocess" function above the "def runOptionsAndGetResult" function:
+
+def runprocess(cntlr, options, sourceZipStream, media, output, thread_id):
+    success = cntlr.run(options, sourceZipStream)
+    output[str(thread_id) + 'success'] = success
+    
+    if media == "xml":
+        result = cntlr.logHandler.getXml()
+    elif media == "json":
+        result = cntlr.logHandler.getJson()
+    elif media == "text":
+        result = cntlr.logHandler.getText()
+    else:
+        result = cntlr.logHandler.getLines()
+    output[str(thread_id) + 'result'] = result
+    
+   
+4) Add multiprocessing lines at the beginning of "def runOptionsAndGetResult":
+
+    print("starting run, thread id: %s" % (str(threading.current_thread().ident)))
+    from multiprocessing import Process
+    p = Process(target=runprocess, args=(cntlr, options, sourceZipStream, media, p_Output, threading.current_thread().ident,))
+    p.start()
+    p.join()    
+    successful = p_Output[str(threading.current_thread().ident) + 'success']
+    #True #cntlr.run(options, sourceZipStream)
+    print("finished run")    
+
+5) Remove the cntrl.run line:
+
+successful = cntlr.run(options, sourceZipStream, responseZipStream)
+
+6) swap out the cntlr.logHandler sections to use p_Output threads instead and add the managed list clearing section:
+
+    elif media == "xml":
+        result = p_Output[str(threading.current_thread().ident) + 'result']
+    elif media == "json":
+        result = p_Output[str(threading.current_thread().ident) + 'result']
+    elif media == "text":
+        _logFormat = request.query.logFormat
+        if _logFormat:
+            _stdLogFormatter = cntlr.logHandler.formatter
+            cntlr.logHandler.formatter = LogFormatter(_logFormat)
+        result = p_Output[str(threading.current_thread().ident) + 'result']
+        if _logFormat:
+            cntlr.logHandler.formatter = _stdLogFormatter
+            del _stdLogFormatter # dereference
+    else:
+        #result = htmlBody(tableRows(cntlr.logHandler.getLines(), header=_("Messages")))
+        result = htmlBody(tableRows(p_Output[str(threading.current_thread().ident) + 'result'], header=_("Messages")))
+        
+    if str(threading.current_thread().ident) + 'result' in p_Output.keys():
+        del(p_Output[str(threading.current_thread().ident) + 'result'])
+    if str(threading.current_thread().ident) + 'success' in p_Output.keys():
+        del(p_Output[str(threading.current_thread().ident) + 'success'])
+        
+    print("Thread: %s; List: %s" % (str(threading.current_thread().ident), str(p_Output.keys())))        
+        
+    return result
+
+
+ModelManager.py
+
+1) In the "def close" function (apprx line 211), comment out the gc.collect line:
+
+            # Manual garbage collection takes too much time
+            #gc.collect()
