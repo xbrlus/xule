@@ -32,4 +32,5 @@ DIMENSION_PSEUD0_ARCROLE_PART = 1
 
 # Rule set mapping 
 NAMESPACE_MAP = 'namespaceMap.json'
+VERSION_JSON_FILE = 'version.json'
 RULE_SET_COMPATIBILITY_FILE = 'rulesetCompatibility.json'

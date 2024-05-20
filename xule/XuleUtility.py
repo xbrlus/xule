@@ -39,30 +39,43 @@ XuleValue = None
 XuleProperties = None
 
 
-def version(plugin_init_files=__file__):
-    change_numbers = set()
+def version(ruleset_version=False):
+    # version_type determines if looking at the processor version or the ruleset builder version.
+    current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    version_file_name = os.path.join(current_dir, xc.VERSION_JSON_FILE)   
 
-    if plugin_init_files == __file__:
-        xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_files), '*.py'))
-        files_to_check = glob.glob(xule_mod_pattern)
-    elif isinstance(plugin_init_files, str):
-        files_to_check = (plugin_init_files,) # change the string to a tuple
-    else:
-        files_to_check = plugin_init_files
+    if not os.path.isfile(version_file_name):
+        raise xrt.XuleProcessingError("Cannot find verison file for '{}'.".format(version_file_name))
+    try:
+        with open(version_file_name, 'r') as version_file:
+            version_json =  json.load(version_file)
+            return version_json.get('ruleset_version' if ruleset_version else 'version')
+    except ValueError:
+        raise XuleProcessingError(_("Version file does not appear to be a valid JSON file. File: {}".format(xc.version_file_name))) 
 
-    for mod_file_name in files_to_check:
-        with open(mod_file_name, 'r') as mod_file:
-            file_text = mod_file.read()
-            match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
-            if match is not None:
-                change_numbers.add(int(match.group(1)))
+    # change_numbers = set()
+
+    # if plugin_init_files == __file__:
+    #     xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_files), '*.py'))
+    #     files_to_check = glob.glob(xule_mod_pattern)
+    # elif isinstance(plugin_init_files, str):
+    #     files_to_check = (plugin_init_files,) # change the string to a tuple
+    # else:
+    #     files_to_check = plugin_init_files
+
+    # for mod_file_name in files_to_check:
+    #     with open(mod_file_name, 'r') as mod_file:
+    #         file_text = mod_file.read()
+    #         match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
+    #         if match is not None:
+    #             change_numbers.add(int(match.group(1)))
     
-    if len(change_numbers) == 0:
-        return ''
-    else:
-        return str(max(change_numbers))
+    # if len(change_numbers) == 0:
+    #     return ''
+    # else:
+    #     return str(max(change_numbers))
     
-    return ''
+    # return ''
 
 def _imports():
     """Imports

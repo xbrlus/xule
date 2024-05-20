@@ -545,8 +545,8 @@ class XuleRuleSet(object):
     def verify_verson_compatability(self):
         if not (self.catalog.get('xule_compiled_version') is not None and int(self.catalog.get('xule_compiled_version')) in xu.get_rule_set_compatibility_version()):
             
-            raise XuleRuleCompatibilityError("The rule set version '{}' is not compatible with version {} of the Xule Rule Processor".format(
-                self.catalog.get('xule_compiled_version'), xu.version())
+            raise XuleRuleCompatibilityError("The rule set version '{}' is not compatible with version {} of the Xule Rule Processor. Compatible ruleset versions from the ruleset compatibility file are: {}".format(
+                self.catalog.get('xule_compiled_version'), xu.version(), xu.get_rule_set_compatibility_version())
             )
 
                 

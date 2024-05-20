@@ -103,7 +103,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                             "constants": {},
                             "output_attributes": {},
                             "version": None,
-                            "xule_compiled_version": xu.version(PARSER_FILES)
+                            "xule_compiled_version": xu.version(ruleset_version=True)
                             }
             
             self._open_for_add = True
@@ -132,7 +132,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         self.catalog['constants'] = {}
         self.catalog['output_attributes'] = {}
         self.catalog['version'] = None
-        self.catalog['xule_compiled_version'] = xu.version(PARSER_FILES)
+        self.catalog['xule_compiled_version'] = xu.version(ruleset_version=True)
     
     def close(self):
         """Close the ruleset"""
