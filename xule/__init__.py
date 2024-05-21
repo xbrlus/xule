@@ -879,7 +879,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 input_file_name = input_file_name.strip()
                                 print("Processing filing", input_file_name)
                                 filing_filesource = FileSource.openFileSource(input_file_name, cntlr)
-                                modelManager = ModelManager.initialize(cntlr)
+                                #modelManager = ModelManager.initialize(cntlr)
+                                modelManager = cntlr.modelManager
                                 modelXbrl = modelManager.load(filing_filesource)
                                 # Update options
                                 new_options = copy.copy(options)
@@ -891,7 +892,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                     xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
                                 elif getattr(new_options, 'validate'):
                                     for xule_validator in _xule_validators:
-                                        runXule(_cntlr, new_options, modelXbrl, xule_validator['map_name'])
+                                        runXule(_cntlr, new_options, modelXbrl, xule_validator['map_name'], True)
                                 modelXbrl.close()
         else:
             if options.entrypointFile is None:
