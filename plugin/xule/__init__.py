@@ -21,11 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-<<<<<<< HEAD
 $Change: 23748 $
-=======
-$Change$
->>>>>>> old/main
 DOCSKIP
 """
 import sys
@@ -564,15 +560,9 @@ def xuleCmdOptions(parser):
     parserGroup.add_option("--xule-max-recurse-depth",
                             action="store",
                             type="int",
-<<<<<<< HEAD
                             default=10000,
                             dest="xule_max_recurse_depth",
                             help=_("The recurse depth for python. The default is 10000. If there is a 'RecursionError: maximum recursion depth exceeded' "
-=======
-                            dest="xule_max_recurse_depth",
-                            default=10000,
-                            help=_("The recurse depth for python. If there is a 'RecursionError: maximum recursion depth exceeded' "
->>>>>>> old/main
                                    "error this argument can be used to increase the max recursion depth."))
     parserGroup.add_option("--xule-stack-size",
                           type="int",
