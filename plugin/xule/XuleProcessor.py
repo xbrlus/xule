@@ -21,11 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-<<<<<<< HEAD
 $Change: 23749 $
-=======
-$Change$
->>>>>>> old/main
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -3285,7 +3281,6 @@ def evaluate_navigate(nav_expr, xule_context):
                 from_concepts = nav_from_concepts
 
             for from_concept in from_concepts:
-<<<<<<< HEAD
                 #             if direction == 'self':
                 #                 # include_start is always False for the self direction since the self concept is always included.
                 #                 for rel in relationship_set.fromModelObject(from_concept):
@@ -3293,8 +3288,6 @@ def evaluate_navigate(nav_expr, xule_context):
                 #                 for rel in relationship_set.toModelObject(from_concept):
                 #                     result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context)
                 #                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list
-=======
->>>>>>> old/main
                 if direction == 'descendants':
                     for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept,
                                             nav_to_concepts, int(nav_expr['depth']), return_names, dimension_arcroles):
@@ -3739,11 +3732,7 @@ def nav_decorate_component_value(rel, direction, component_name, is_start, xule_
                     return (None, 'none', component_name)
                 else:
                     return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction,
-<<<<<<< HEAD
                                                                                                component_name,
-=======
-                                                                                               component_name, is_start, 
->>>>>>> old/main
                                                                                                xule_context)
     else:
         # Could be an arc attribute name (qname)
@@ -3787,11 +3776,7 @@ def nav_decorate_component_target(rel, direction, component_name, is_start, xule
                 return (rel['relationship'].toModelObject.qname, 'qname', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_source(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_source(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     if component_name == 'source':
         if direction == 'up':
             return (rel['relationship'].toModelObject, 'concept', component_name)
@@ -3804,30 +3789,18 @@ def nav_decorate_component_source(rel, direction, component_name, is_start, xule
             return (rel['relationship'].fromModelObject.qname, 'qname', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_order(rel, direction, component_name, xule_context):
     return (rel['relationship'].orderDecimal, 'decimal', component_name)
 
 
 def nav_decorate_component_weight(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_order(rel, direction, component_name, is_start, xule_context):
-    return (rel['relationship'].orderDecimal, 'decimal', component_name)
-
-
-def nav_decorate_component_weight(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     if rel['relationship'].weightDecimal is None:
         return (None, 'none', component_name)
     else:
         return (rel['relationship'].weightDecimal, 'decimal', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_preferred_label_role(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_preferred_label_role(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     if rel['relationship'].preferredLabel is not None:
         #return (rel['relationship'].preferredLabel, 'uri', component_name)
 
@@ -3836,11 +3809,7 @@ def nav_decorate_component_preferred_label_role(rel, direction, component_name, 
         return (None, 'none', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_preferred_label(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_preferred_label(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     if rel['relationship'].preferredLabel is not None:
         label = XuleProperties.get_label(xule_context, rel['relationship'].toModelObject, rel['relationship'].preferredLabel, None)
         if label is None:
@@ -3851,19 +3820,11 @@ def nav_decorate_component_preferred_label(rel, direction, component_name, is_st
         return (None, 'none', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_relationship(rel, direction, component_name, xule_context):
     return (rel['relationship'], 'relationship', component_name)
 
 
 def nav_decorate_component_role(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_relationship(rel, direction, component_name, is_start, xule_context):
-    return (rel['relationship'], 'relationship', component_name)
-
-
-def nav_decorate_component_role(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     role = get_role(rel['relationship'], xule_context)
     return (role, 'role', component_name)
 
@@ -3876,31 +3837,19 @@ def get_role(relationship, xule_context):
         return XuleRole(role_uri)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_role_uri(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_role_uri(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     role_uri = rel['relationship'].linkrole
 
     return (role_uri, 'uri', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_role_description(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_role_description(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     role = get_role(rel['relationship'], xule_context)
 
     return (role.definition, 'string', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_arcrole(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_arcrole(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     arcrole = get_arcrole(rel['relationship'], xule_context)
     return (arcrole, 'role', component_name)
 
@@ -3913,33 +3862,20 @@ def get_arcrole(relationship, xule_context):
         return XuleArcrole(arcrole_uri)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_arcrole_uri(rel, direction, component_name, xule_context):
     return (rel['relationship'].arcrole, 'uri', component_name)
 
 
 def nav_decorate_component_arcrole_description(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_arcrole_uri(rel, direction, component_name, is_start, xule_context):
-    return (rel['relationship'].arcrole, 'uri', component_name)
-
-
-def nav_decorate_component_arcrole_description(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     arcrole = get_arcrole(rel['relationship'], xule_context)
     return (arcrole.definition, 'string', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_cycles_allowed(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_cycles_allowed(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     arcrole = get_arcrole(rel['relationship'], xule_context)
     return (arcrole.cyclesAllowed, 'string', component_name)
 
 
-<<<<<<< HEAD
 def nav_decorate_component_link_name(rel, direction, component_name, xule_context):
     return (rel['relationship'].linkQname, 'qname', component_name)
 
@@ -3949,17 +3885,6 @@ def nav_decorate_component_arc_name(rel, direction, component_name, xule_context
 
 
 def nav_decorate_component_network(rel, direction, component_name, xule_context):
-=======
-def nav_decorate_component_link_name(rel, direction, component_name, is_start, xule_context):
-    return (rel['relationship'].linkQname, 'qname', component_name)
-
-
-def nav_decorate_component_arc_name(rel, direction, component_name, is_start, xule_context):
-    return (rel['relationship'].qname, 'qname', component_name)
-
-
-def nav_decorate_component_network(rel, direction, component_name, is_start, xule_context):
->>>>>>> old/main
     return (rel['network'], 'network', component_name)
 
 
@@ -4058,7 +3983,6 @@ NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
                               'preferred-label-role': (nav_decorate_component_preferred_label_role, False),
                               'preferred-label': (nav_decorate_component_preferred_label, False),
                               'relationship': (nav_decorate_component_relationship, False),
-<<<<<<< HEAD
                               'role': (nav_decorate_component_role, False),
                               'role-uri': (nav_decorate_component_role_uri, False),
                               'role-description': (nav_decorate_component_role_description, False),
@@ -4069,18 +3993,6 @@ NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
                               'link-name': (nav_decorate_component_link_name, False),
                               'arc-name': (nav_decorate_component_arc_name, False),
                               'network': (nav_decorate_component_network, False),
-=======
-                              'role': (nav_decorate_component_role, True),
-                              'role-uri': (nav_decorate_component_role_uri, True),
-                              'role-description': (nav_decorate_component_role_description, True),
-                              'arcrole': (nav_decorate_component_arcrole, True),
-                              'arcrole-uri': (nav_decorate_component_arcrole_uri, True),
-                              'arcrole-description': (nav_decorate_component_arcrole_description, True),
-                              'arcrole-cycles-allowed': (nav_decorate_component_cycles_allowed, True),
-                              'link-name': (nav_decorate_component_link_name, True),
-                              'arc-name': (nav_decorate_component_arc_name, True),
-                              'network': (nav_decorate_component_network, True),
->>>>>>> old/main
                               'cycle': (nav_decorate_component_cycle, True),
                               'navigation-order': (nav_decorate_component_navigation_order, True),
                               'navigation-depth': (nav_decorate_component_navigation_depth, True),
