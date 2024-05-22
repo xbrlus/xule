@@ -210,8 +210,12 @@ def semanticHashObject(model_obj, obj_map):
     elif isinstance(model_obj, ModelResource):
         return semanticStringHashResource(model_obj)
     else:
-        raise SemanticHashException("sh:UnknownResourceType",
-                            _("Found resource of unknown type: {}".format(type(model_obj).__name__)))
+        if type(model_obj) is None or type(model_obj).__name == 'NoneType':
+            return semanticFormat('VALUE', '')
+        else:
+            raise SemanticHashException("sh:UnknownResourceType",
+                                _("Found resource of unknown type: {}".format(type(model_obj).__name)))
+
 
 def semanticStringHashResource(resource):
     res_element = semanticFormat('QNAME', resource.qname.clarkNotation)
