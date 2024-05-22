@@ -1,0 +1,84 @@
+/var/log/xbrlus_custom/arelle/arelle_usgaap-2014.log {
+        weekly
+        missingok
+        rotate 5
+        size 10M
+        compress
+        notifempty
+        #create 640 root adm
+        #sharedscripts
+        postrotate
+               /etc/init.d/xule restart usgaap-2014 > /dev/null
+        endscript
+}
+
+/var/log/xbrlus_custom/arelle/arelle_usgaap-2015.log {
+        weekly
+        missingok
+        rotate 5
+        size 10M
+        compress
+        notifempty
+        #create 640 root adm
+        #sharedscripts
+        postrotate
+               /etc/init.d/xule restart usgaap-2015 > /dev/null
+        endscript
+}
+
+/var/log/xbrlus_custom/arelle/arelle_usgaap-2015.log {
+        weekly
+        missingok
+        rotate 5
+        size 10M
+        compress
+        notifempty
+        #create 640 root adm
+        #sharedscripts
+        postrotate
+               /etc/init.d/xule restart usgaap-2015 > /dev/null
+        endscript
+}
+
+/var/log/xbrlus_custom/arelle/arelle_usgaap-2016.log {
+        weekly
+        missingok
+        rotate 5
+        size 10M
+        compress
+        notifempty
+        #create 640 root adm
+        #sharedscripts
+        postrotate
+               /etc/init.d/xule restart usgaap-2016 > /dev/null
+        endscript
+}
+
+/var/log/xbrlus_custom/arelle/arelle_corpactions-2011.log {
+        weekly
+        missingok
+        rotate 5
+        size 10M
+        compress
+        notifempty
+        #create 640 root adm
+        #sharedscripts
+        postrotate
+               /etc/init.d/xule restart corpactions-2011 > /dev/null
+        endscript
+}
+
+/var/log/xbrlus_custom/arelle/arelle_corpactions-2012.log {
+        weekly
+        missingok
+        rotate 5
+        size 10M
+        compress
+        notifempty
+        #create 640 root adm
+        #sharedscripts
+        postrotate
+               /etc/init.d/xule restart corpactions-2012 > /dev/null
+        endscript
+}
+

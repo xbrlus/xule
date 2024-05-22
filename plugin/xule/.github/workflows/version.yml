@@ -1,0 +1,56 @@
+on:
+    push:
+        paths:
+            - plugin/xule/Xule*.py
+            - plugin/xule/xule_grammar.py
+jobs:
+    xule-version:
+      name: Xule Version
+      runs-on: ubuntu-latest
+      permissions:
+        # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+        contents: write
+      steps:
+        - name: Calc version number
+          # This complicated expression calcs the new version number and stores it in an environment variable named VERSION
+          run: echo "VERSION=$(( ${{ github.run_number}} + 30000))" >> $GITHUB_ENV
+
+        - name: Print version number
+          run: echo "Version=${{ env.VERSION }}" >> $GITHUB_STEP_SUMMARY
+
+        - name: Check out files
+          uses: actions/checkout@v4
+
+        - name: Update version number
+          uses: jossef/action-set-json-field@v2.1
+          with:
+              file: plugin/xule/version.json
+              field: version
+              value: ${{ env.VERSION }}
+
+        - name: Get changed files
+          id: changed-files
+          uses: tj-actions/changed-files@v44
+
+        - name: List all changed files
+          #run: echo ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+          run: |
+            for file in ${{ steps.changed-files.outputs.all_changed_and_modified_files }}; do
+              echo "$file was changed"
+            done
+
+        - name: Update ruleset version
+          if: > 
+            contains(steps.changed-files.outputs.all_changed_files, 'xule_grammar.py') || 
+            contains(steps.changed-files.outputs.all_changed_files, 'XuleParser.py') ||
+            contains(steps.changed-files.outputs.all_changed_files, 'XuleRuleSet.py') ||
+            contains(steps.changed-files.outputs.all_changed_files, 'XuleRuleSetBuilder.py') 
+          uses: jossef/action-set-json-field@v2.1
+          with:
+              file: plugin/xule/version.json
+              field: ruleset_version
+              value: ${{ env.VERSION }}
+
+        - name: Commit version files
+          uses: stefanzweifel/git-auto-commit-action@v5
+          
