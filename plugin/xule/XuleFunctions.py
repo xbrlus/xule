@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23726 $
+$Change$
 DOCSKIP
 """
 
@@ -1080,7 +1080,7 @@ def func_symmetric_difference(xule_context, *args):
 
 def func_version(xule_context, *args):
     '''Get the version number of the rule set'''
-    version = xule_context.global_context.catalog.get('version', None)
+    version = xule_context.global_context.catalog.get('xule_compiled_version', None)
     if version is None:
         return xv.XuleValue(xule_context, None, 'none')
     else:

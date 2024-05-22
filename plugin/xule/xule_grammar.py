@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23705 $
+$Change$
 DOCSKIP
 """
 from pyparsing import (Word, CaselessKeyword,
@@ -394,7 +394,8 @@ def get_grammar():
                        # The dimension and arcrole need the FollowedBy() look ahead. I'm not sure why, but it is because these are optional and the direction is reuired.
                        # Without the FollowedBy() look ahead, 'navigate self' fails because the parser thinks 'navigate' is a qname and then does not know what to 
                        # do with 'self'.
-                       Opt(CaselessKeyword('dimensions').set_parse_action(lambda: True).set_results_name('dimensional') + (FollowedBy(blockExpr | directionLiteral) )) +
+                       Opt((CaselessKeyword('dimensions').set_parse_action(lambda: True).set_results_name('dimensional') |
+                            (CaselessKeyword('across') + CaselessKeyword('networks')).set_parse_action(lambda: True).set_results_name('acrossNetworks'))+ (FollowedBy(blockExpr | directionLiteral) )) +
                        Opt(blockExpr.set_results_name('arcrole') + FollowedBy(directionLiteral)) +  
                        directionLiteral +
                        Opt(Group(CaselessKeyword('include') + CaselessKeyword('start')).set_parse_action(lambda: True).set_results_name('includeStart')) +

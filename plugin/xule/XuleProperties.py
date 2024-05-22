@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23750 $
+$Change$
 DOCSKIP
 """
 
@@ -2441,6 +2441,11 @@ def property_effective_weight(xule_context, object_value, *args):
         if len(network.value[1].fromModelObject(top)) > 0 and len(network.value[1].toModelObject(bottom)) > 0:
             weights.add( numpy.sum([numpy.prod(x) for x in traverse_for_weight(network.value[1], top, bottom)]))
 
+    # This is the calc2 summation-item arcrole
+    for network in get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2']):
+        if len(network.value[1].fromModelObject(top)) > 0 and len(network.value[1].toModelObject(bottom)) > 0:
+            weights.add( numpy.sum([numpy.prod(x) for x in traverse_for_weight(network.value[1], top, bottom)]))
+
     if len(weights) == 1:
         return xv.XuleValue(xule_context, next(iter(weights)), 'float')
     else:
@@ -2469,9 +2474,11 @@ def property_effective_weight_network(xule_context, object_value, *args):
         elif args[2].type == 'role':
             role = args[2].value.roleURI
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
+            networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2'], role)
         elif args[2].type in ('uri', 'string'):
             role = args[2].value
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
+            networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2'], role)
         elif args[2].type == 'qname':
             role = XuleUtility.resolve_role(args[2], 'role', object_value.value, xule_context)
             if len(role) == 1:
@@ -2481,6 +2488,7 @@ def property_effective_weight_network(xule_context, object_value, *args):
             else:
                 raise XuleProcessingError(_("The role '{}' provided for the property 'effective-weight-network' does not resolve to any role".format(args[2].value.localName)), xule_context)
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
+            networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2'], role)
         elif args[2].type in ('set', 'list'):
             networks = args[2].value
         else:
@@ -3083,6 +3091,7 @@ CORE_ARCROLES = {
                 ,'concept-reference':'http://www.xbrl.org/2003/arcrole/concept-reference'
                 ,'parent-child':'http://www.xbrl.org/2003/arcrole/parent-child'
                 ,'summation-item':'http://www.xbrl.org/2003/arcrole/summation-item'
+                ,'summation-item2':'https://xbrl.org/2023/arcrole/summation-item'
                 ,'general-special':'http://www.xbrl.org/2003/arcrole/general-special'
                 ,'essence-alias':'http://www.xbrl.org/2003/arcrole/essence-alias'
                 ,'similar-tuples':'http://www.xbrl.org/2003/arcrole/similar-tuples'
