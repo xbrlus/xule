@@ -1,0 +1,149 @@
+#! /bin/bash
+
+# @parameter $1 = changelist number.  If not the latest, enter the number here
+# @parameter $2 = if exists and is "skip" then sync but skip compiling
+
+# the client space should define what directories are available
+# SYNCDIR is where the rules are located
+
+
+
+compile_taxonomy() {
+  taxonomy=$1
+#  echo "Compiling $taxonomy"
+  echo "Deleting $taxonomy pik files"
+  rm -fR "$PIKDIR/$taxonomy"
+  mkdir -p "$PIKDIR/$taxonomy"
+
+  echo "Compiling $taxonomy files"
+  YEAR=`echo $taxonomy | sed 's,.*-\(.*\),\1,'`
+  /usr/bin/python $ARELLE/arelle/plugin/xule/XuleParser.py $RULESDIR/$taxonomy $PIKDIR/$taxonomy
+  /usr/bin/python3 $ARELLE/arelleCmdLine.py --plugins xule --xule-add-taxonomy $TAXONOMYDIR/$taxonomy --xule-taxonomy-entry "XBRL US Entry Points - LOCAL/xbrl-us-us-gaap-entryPoint-std-$YEAR-01-31.xsd" --xule-rule-set $PIKDIR/$taxonomy
+
+  echo "Finished compiling $taxonomy"
+  echo "=========="
+}
+
+
+
+
+
+
+
+##is the directory that the perforce files are stored for comparison.  (do not modify them)
+
+#SYNCDIR=/opt/perforce/files
+SYNCDIR=/srv/arelle/xbrlus/rules
+CLIENTSPACE=rulefiles
+SCRIPTDIR=/opt/perforce/scripts
+P4=/opt/perforce/bin/p4
+
+SKIPCOMPILE=false
+
+source $SCRIPTDIR/.p4settings
+
+if [ "$1" != "" ];then
+  REV="@$1"
+else
+  REV=""
+fi
+
+if [ "$2" == "skip" ];then
+  SKIPCOMPILE=true
+fi
+
+if [ ! -d $SYNCDIR ];then
+        echo "Sync directory doesn't exist.  Change"
+        exit
+fi
+
+
+# make sure temp directory defined
+host=$(hostname)
+response=$(cat $SCRIPTDIR/p4config|sed "s,{roottmp},$SYNCDIR,"| sed "s,{hostname},$host," | $P4 client -i)
+#check if above worked
+# sync
+response=$($P4 sync -n -m 1 $REV 2>&1)
+echo "Sync Response: $response"
+if [[ "$response" =~ "up-to-date" ]];then
+        echo "Files not changed.  Exiting"
+        exit
+fi
+
+echo "Starting update"
+
+echo "Updating files"
+# The following only works if there's one level of files
+changeddirs=($($P4 sync -n $REV| sed "s,.*\(updating\|added as\|deleted as\) $SYNCDIR/\(.*\)/.*,\2 ," | sort | uniq))
+
+for dir in ${changeddirs[@]}
+do
+        # delete existing backups
+        if [ -d "$SYNCDIR/${dir}.bak" ];then
+                echo "Archiving ${dir}.bak"
+                rm -fR "$SYNCDIR/${dir}.bak"
+        fi
+        cp -a "$SYNCDIR/$dir" "$SYNCDIR/${dir}.bak"
+done
+
+response=$($P4 sync $REV 2>&1)
+echo "Files updated"
+
+# Fixing files
+
+for dir in ${changeddirs[@]}
+do
+        echo "Fixing files in directory: $dir"
+
+        chmod -R +w $SYNCDIR/$dir
+        for file in `ls $SYNCDIR/$dir/*.xsr`
+        do
+                vim -es $file +"%s/\r/\r/g" +wq
+        done
+        sed -i -e  "s/\[primary/\[lineItem/g" $SYNCDIR/$dir/*.xsr
+        chmod -R -w $SYNCDIR/$dir
+done
+
+ARELLE=/srv/arelle
+RULESDIR=/srv/arelle/xbrlus/rules
+PIKDIR=/srv/arelle/xbrlus/pik
+TAXONOMYDIR=/srv/arelle/xbrlus/taxonomies
+# recompiles
+
+if [[ "$SKIPCOMPILE" == "false" && -d "$ARELLE" ]]; then
+pid=""
+for taxonomy in ${changeddirs[@]};do
+  echo "Compiling $taxonomy"
+   compile_taxonomy $taxonomy &
+   pid="$pid $!"
+#  echo "Deleting $taxonomy pik files"
+#  rm -fR "$PIKDIR/$taxonomy"
+#  mkdir -p "$PIKDIR/$taxonomy"
+
+#  echo "Compiling $taxonomy files"
+#  YEAR=`echo $taxonomy | sed 's,.*-\(.*\),\1,'`
+#  /usr/bin/python $ARELLE/arelle/plugin/xule/XuleParser.py $RULESDIR/$taxonomy $PIKDIR/$taxonomy
+#  /usr/bin/python3 $ARELLE/arelleCmdLine.py --plugins xule --xule-add-taxonomy $TAXONOMYDIR/$taxonomy --xule-taxonomy-entry "XBRL US Entry Points - LOCAL/xbrl-us-us-gaap-entryPoint-std-$YEAR-01-31.xsd" --xule-rule-set $PIKDIR/$taxonomy
+
+#  echo "Finished compiling $taxonomy"
+#  echo "=========="
+done
+
+pids=($pid)
+# checks each pid in sequence if its complete
+for $pid in ${pids[@]};do
+  while [ "`ps|grep $pid`" != "" ];do
+    sleep 30
+  done
+done
+
+
+echo "*************"
+#echo exists
+else
+        echo "Arelle doesn't exist, skipping compile"
+fi
+
+echo "Finished Update"
+
+echo "Finished Update" | mail -s "Update finished" marc.ward@xbrl.us
