@@ -1,1 +1,11 @@
 .DS_Store
+*private/
+xbrlusD*
+plugin/validate/FERC.py
+plugin/xule/.github/workflows
+plugin/xule/init_files
+plugin/xule/xulecat
+plugin/xule2
+xuleDateFunctions
+JapanEDINET*.py
+saveXuleQNames.py
