@@ -2432,7 +2432,7 @@ def evaluate_factset_detail(factset, xule_context):
     # If the the factset is dependent, then we only need to find facts that also match the current alignment. Create filters based on the current alignment.
     dependent_filters = list()
     # the first part of this if statement is dtermining if the factset has alignment or not. 
-    if (not factset.get('covered') or any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'})) and factset['is_dependent']:
+    if (not factset.get('covered') or ('aspectFilters' in factset and any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'}))) and factset['is_dependent']:
         if xule_context.dependent_alignment is None:
             # The table may acquire the dependent alignment after evaluating the aspect filters
             xule_context.iteration_table.current_table.make_dependent()
@@ -2535,7 +2535,7 @@ def evaluate_factset_detail(factset, xule_context):
         default_value.used_expressions = used_expressions | default_where_used_expressions
         # Added the second part of this 'if' statement to catch covered factsets that also have @@ which really makes them not covered.
         # This determines if the factset has alignment or not. Maybe - this could just look at the 'has_alignment' on the factset ???
-        if not factset.get('covered') or any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'}):
+        if not factset.get('covered') or ('aspectFilters' in factset and any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'})):
             default_value.aligned_result_only = True
         results.append(default_value)
 
