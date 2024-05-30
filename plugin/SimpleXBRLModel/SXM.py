@@ -2234,7 +2234,7 @@ def _resolve_name_in_target_to_clark(name, node):
 
 def _resolve_clark_to_qname(name, dts):
     '''Convert a clark notation qname to a SXMQName'''
-    match = re.match('^{([^}]+)}(.*)$', name)
+    match = re.match(r'^{([^}]+)}(.*)$', name)
     if match is None:
         raise SXMException(f"QName '{name}' is not a valid clark notation")
     return dts.new('QName', match.group(1), match.group(2))
