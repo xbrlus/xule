@@ -680,7 +680,7 @@ class SXMDocument(_SXMDTSBase):
     def _next_id(self, seed):
         if len(seed) == 0:
             seed = 'id'
-        elif re.match('^[0-9-\.]', seed) is not None: # ids cannot start with a number - or . This should be more robust matching for NCNAME
+        elif re.match(r'^[0-9-\.]', seed) is not None: # ids cannot start with a number - or . This should be more robust matching for NCNAME
             seed = 'id_{}'.format(seed)
         if self._seeds[seed] == 0:
             self._seeds[seed] += 1
