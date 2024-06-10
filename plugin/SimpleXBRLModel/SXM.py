@@ -680,7 +680,7 @@ class SXMDocument(_SXMDTSBase):
     def _next_id(self, seed):
         if len(seed) == 0:
             seed = 'id'
-        elif re.match('^[0-9-\.]', seed) is not None: # ids cannot start with a number - or . This should be more robust matching for NCNAME
+        elif re.match(r'^[0-9-\.]', seed) is not None: # ids cannot start with a number - or . This should be more robust matching for NCNAME
             seed = 'id_{}'.format(seed)
         if self._seeds[seed] == 0:
             self._seeds[seed] += 1
@@ -2234,7 +2234,7 @@ def _resolve_name_in_target_to_clark(name, node):
 
 def _resolve_clark_to_qname(name, dts):
     '''Convert a clark notation qname to a SXMQName'''
-    match = re.match('^{([^}]+)}(.*)$', name)
+    match = re.match(r'^{([^}]+)}(.*)$', name)
     if match is None:
         raise SXMException(f"QName '{name}' is not a valid clark notation")
     return dts.new('QName', match.group(1), match.group(2))

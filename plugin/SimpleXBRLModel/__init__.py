@@ -1,6 +1,6 @@
 """__init__.py
 
-Simple XBRL odel
+Simple XBRL Model
 
 This is the package init file.
 
@@ -70,7 +70,7 @@ __pluginInfo__ = {
     'description': 'T',
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
-    'copyright': '(c) 2017-2020',
+    'copyright': '(c) 2017-present',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     #'CntlrWinMain.Menu.Tools': sxmMenuTools,
