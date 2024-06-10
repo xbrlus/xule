@@ -96,7 +96,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
         fact_index_start = datetime.datetime.today()
 
     # Create the processing context to build the index
-    xule_context = XuleRuleContext(global_context, cache_size_bytes=getattr(global_context.options, 'xule_cache_size_bytes', global_context.options.xule_cache_size_bytes))
+    xule_context = XuleRuleContext(global_context, cache_size_bytes=getattr(global_context.options, 'xule_cache_size_bytes', getattr(global_context.options, 'xule_cache_size_bytes', 1_000_000)))
     # Build an index on the facts in the model.
     xmi.index_model(xule_context)
     # Clean up
@@ -116,7 +116,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
         global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
 
     # Determine if constants should be outputed
-    if getattr(global_context.options, "xule_output_constants") is not None:
+    if getattr(global_context.options, "xule_output_constants", None) is not None:
         output_constant(global_context, cntlr)
 
     if getattr(global_context.options, "xule_run", False) or is_validator:

@@ -1017,7 +1017,7 @@ def xuleValidate(val):
                     # valiation. In this case, there really wasn't a model to validate.
                     val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
                     val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
-                    runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
+                    runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], True)
                     val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
                     val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name']))) 
         else:
