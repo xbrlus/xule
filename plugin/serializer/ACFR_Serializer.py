@@ -1282,7 +1282,7 @@ __pluginInfo__ = {
     'description': "This plug-in organizes the taxonomy files and creates a Taxonomy Package for ACFR taxonomies",
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
-    'copyright': '(c) Copyright 2022 XBRL US Inc., All rights reserved.',
+    'copyright': '(c) Copyright 2022 - present XBRL US Inc., All rights reserved.',
     'import': 'serializer',
     # classes of mount points (required)
     'CntlrCmdLine.Options': dummy,
