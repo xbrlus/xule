@@ -1342,6 +1342,19 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     # Code snippet to unescape the "greater than" signs in the .css that the lxml is escaping.
     output_string = re.sub('<style>(.*?)</style>',fix_style, output_string, 1, re.DOTALL)
 
+    # If the xendr_inline_css_type is 'element', then inline the css
+    if options.xendr_inline_css_type == 'element':
+        try:
+            import css_inline
+        except ModuleNotFoundError:
+            raise XendrException("Not able to inline css at the element level. Need to install the css_inline python module.")
+        output_string = css_inline.inline(output_string)
+        # This is necessary because the css_inline.inline() unescapes some characters that need to be escaped in order to write the file out. Otherwise I was getting this error:
+        #  UnicodeEncodeError: 'ascii' codec can't encode character '\u2610' in position 12642: ordinal not in range(128)
+        from lxml import html
+        tree = html.fromstring(output_string)
+        output_string = etree.tostring(tree).decode(encoding="utf-8")
+
     responseZipStream = kwargs.get("responseZipStream")
     if responseZipStream is not None:
         _zip = zipfile.ZipFile(responseZipStream, "a", zipfile.ZIP_DEFLATED, True)
@@ -1447,7 +1460,7 @@ def add_css(main_html, template_catalog, options):
     head = main_html.find('xhtml:head', XULE_NAMESPACE_MAP)
     if options.xendr_css_file:
         # Then the file name is identified by this option.
-        if options.xendr_inline_css:
+        if options.xendr_inline_css or options.xendr_inline_css_type is not None:
             # the contents of the file should be copied
             try:
                 with open(options.xendr_css_file, 'r') as css_file:
