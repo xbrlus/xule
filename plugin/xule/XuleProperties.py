@@ -3073,6 +3073,8 @@ PROPERTIES = {
               '_list-properties': (property_list_properties, 0, ('unbound',), True),
               }
 
+from . import XulePropertiesTrait
+PROPERTIES.update(XulePropertiesTrait.trait_properties())
 
 #Network tuple
 NETWORK_INFO = 0
