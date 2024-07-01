@@ -23,6 +23,7 @@ $Change$
 DOCSKIP
 """
 from arelle.ModelRelationshipSet import ModelRelationshipSet
+from arelle import ModelManager
 import collections
 import json 
 import os
@@ -34,10 +35,29 @@ from contextlib import contextmanager
 from . import XuleConstants as xc
 from . import XuleRunTime as xrt
 from .XuleRunTime import XuleProcessingError
+
 # XuleValue is a module. It is imported in the _imports() function to avoid a circular relative import error.
 XuleValue = None
 XuleProperties = None
 
+class XuleVars:
+    
+    class XuleVarContainer:
+        pass
+
+    @classmethod
+    def set(cls, cntlr, name, value):
+        if not hasattr(cntlr, 'xule_vars'):
+            cntlr.xule_vars = dict()
+        
+        cntlr.xule_vars[name] = value
+    
+    @classmethod
+    def get(cls, cntlr, name):
+        if hasattr(cntlr, 'xule_vars'):
+            return cntlr.xule_vars.get(name)
+        else:
+            return None
 
 def version(ruleset_version=False):
     # version_type determines if looking at the processor version or the ruleset builder version.
@@ -442,3 +462,13 @@ def get_rule_set_compatibility_version():
             return compatibility_json.get('versionControl')
     except ValueError:
         raise XuleProcessingError(_("Rule set compatibility file does not appear to be a valid JSON file. File: {}".format(xc.RULE_SET_COMPATIBILITY_FILE))) 
+    
+def get_model_manager_for_import(cntlr):
+    import_model_manager = XuleVars.get(cntlr, 'importModelManager')
+    if import_model_manager is None:
+        import_model_manager = ModelManager.initialize(cntlr)
+        import_model_manager.loadCustomTransforms()
+        #import_model_manager.customTransforms = cntlr.modelManager.customTransforms
+        XuleVars.set(cntlr, 'importModelManager', import_model_manager)
+
+    return import_model_manager

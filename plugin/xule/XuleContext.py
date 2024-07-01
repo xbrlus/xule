@@ -30,7 +30,6 @@ from .XuleRunTime import XuleProcessingError
 from .XuleValue import XuleValue, XuleValueSet
 from . import XuleUtility as xu
 from arelle import FileSource
-from arelle import ModelManager
 from queue import Queue
 from multiprocessing import Queue as M_Queue, Manager, cpu_count
 from collections import defaultdict, OrderedDict
@@ -288,8 +287,9 @@ class XuleGlobalContext(object):
             start = datetime.datetime.today()
             rules_taxonomy_filesource = FileSource.openFileSource(taxonomy_url, self.cntlr)            
             #modelManager = ModelManager.initialize(self.cntlr)
-            modelManager = self.cntlr.modelManager
-            modelXbrl = modelManager.load(rules_taxonomy_filesource)
+            #modelManager = self.cntlr.modelManager
+            import_model_manager = xu.get_model_manager_for_import(self.cntlr)
+            modelXbrl = import_model_manager.load(rules_taxonomy_filesource)
             if 'IOerror' in modelXbrl.errors:
                 raise XuleProcessingError(_("Taxonomy {} not found.".format(taxonomy_url)))
             end = datetime.datetime.today()
