@@ -446,8 +446,8 @@ class XuleValue:
                 reference_string += '\t' + str(part.qname) + ': ' + part.textValue + '\n'
             return reference_string
         elif self.type == 'role':
-            role_string = getattr(self.value, 'roleURI', None) or getattr(self.value, 'arcroleURI', None)
-            role_string += ' - ' + self.value.definition
+            role_string = getattr(self.value, 'roleURI', None) or getattr(self.value, 'arcroleURI', None) or 'None'
+            role_string += ' - ' + (self.value.definition or 'None')
             return role_string
         elif self.type == 'footnote':
             footnote_string = f'arcrole: {self.value[FOOTNOTE_ARCROLE]}\nrole: {self.value[FOOTNOTE_ROLE]}\n'
