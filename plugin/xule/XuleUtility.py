@@ -185,6 +185,8 @@ def resolve_role(role_value, role_type, dts, xule_context):
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
     _imports()
+    if dts is None:
+        raise XuleProcessingError(("Not able to resolve role/arcrole '{}' when there is no taxonomy".format(role_value.value.localName)))
     if role_value.value.prefix is not None:
         raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
     else:
