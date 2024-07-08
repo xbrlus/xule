@@ -57,3 +57,6 @@ python3.12 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule|xodel|seriali
 
 
 
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule/savexuleqnames' --xule-qnames-format json --xule-qnames-dir '/Users/campbellpryde/Documents/GitHub/ferc-renderer/taxonomy/form1/2024/'  -f 'https://eCollection.ferc.gov/taxonomy/form1/2024-04-01/form/form1/form-1_2024-04-01.xsd' --noCertificateCheck
+
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule/savexuleqnames' --xule-qnames-format json --xule-qnames-dir '/Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/taxonomy/ifrs/2024/'  -f 'https://xbrl.ifrs.org/taxonomy/2024-03-27/full_ifrs_entry_point_2024-03-27.xsd' --noCertificateCheck

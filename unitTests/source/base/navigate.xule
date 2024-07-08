@@ -783,7 +783,7 @@ output NAV007
   navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns list paths (source-name, target-name, weight)
 
 output NAV008
-/* [NAV008] list(dictionary(weight=-1,target-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities,source-name=us-gaap:PaymentsForProceedsFromOtherDeposits), dictionary(target-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,weight=1,source-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities), dictionary(target-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,source-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,weight=1), dictionary(weight=1,source-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,target-name=us-gaap:CashAndCash */
+/* list(dictionary(weight=-1,target-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities,source-name=us-gaap:PaymentsForProceedsFromOtherDeposits), dictionary(target-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,weight=1,source-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities), dictionary(target-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,source-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,weight=1), dictionary(weight=1,source-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,target-name=us-gaap:CashAndCash */
 
   navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns (source-name, target-name, weight) as dictionary
 

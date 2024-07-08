@@ -37,7 +37,7 @@ output FIL107
 output FIL108
 /* set(credit, debit) */
 
-  filter set($US-GAAP-2020.concept(Assets), $US-GAAP-2020.concept(Liabilities)) returns $item.balance
+  
 
 output FIL109
 /* list(2, 2, 3) */
