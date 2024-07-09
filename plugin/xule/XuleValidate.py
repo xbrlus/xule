@@ -159,7 +159,8 @@ class XuleValidate:
         start = datetime.datetime.today()
         rules_taxonomy_filesource = FileSource.openFileSource(taxonomy_url, self.cntlr)            
         #modelManager = ModelManager.initialize(self.cntlr)
-        modelManager = self.cntlr.modelManager
+        #modelManager = self.cntlr.modelManager
+        modelManager = xu.get_model_manager_for_import(self.cntlr)
         modelXbrl = modelManager.load(rules_taxonomy_filesource)
         if len({'IOerror','FileNotLoadable'} & set(modelXbrl.errors)) > 0:
             modelXbrl.error("TaxonomyLoadError","Cannot open file {} with namespace {}.".format(taxonomy_url, namespace))
