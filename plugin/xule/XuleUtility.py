@@ -23,6 +23,7 @@ $Change$
 DOCSKIP
 """
 from arelle.ModelRelationshipSet import ModelRelationshipSet
+from arelle import ModelManager
 import collections
 import json 
 import os
@@ -34,10 +35,29 @@ from contextlib import contextmanager
 from . import XuleConstants as xc
 from . import XuleRunTime as xrt
 from .XuleRunTime import XuleProcessingError
+
 # XuleValue is a module. It is imported in the _imports() function to avoid a circular relative import error.
 XuleValue = None
 XuleProperties = None
 
+class XuleVars:
+    
+    class XuleVarContainer:
+        pass
+
+    @classmethod
+    def set(cls, cntlr, name, value):
+        if not hasattr(cntlr, 'xule_vars'):
+            cntlr.xule_vars = dict()
+        
+        cntlr.xule_vars[name] = value
+    
+    @classmethod
+    def get(cls, cntlr, name):
+        if hasattr(cntlr, 'xule_vars'):
+            return cntlr.xule_vars.get(name)
+        else:
+            return None
 
 def version(ruleset_version=False):
     # version_type determines if looking at the processor version or the ruleset builder version.
@@ -185,6 +205,8 @@ def resolve_role(role_value, role_type, dts, xule_context):
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
     _imports()
+    if dts is None:
+        raise XuleProcessingError(("Not able to resolve role/arcrole '{}' when there is no taxonomy".format(role_value.value.localName)))
     if role_value.value.prefix is not None:
         raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
     else:
@@ -442,3 +464,13 @@ def get_rule_set_compatibility_version():
             return compatibility_json.get('versionControl')
     except ValueError:
         raise XuleProcessingError(_("Rule set compatibility file does not appear to be a valid JSON file. File: {}".format(xc.RULE_SET_COMPATIBILITY_FILE))) 
+    
+def get_model_manager_for_import(cntlr):
+    import_model_manager = XuleVars.get(cntlr, 'importModelManager')
+    if import_model_manager is None:
+        import_model_manager = ModelManager.initialize(cntlr)
+        import_model_manager.loadCustomTransforms()
+        #import_model_manager.customTransforms = cntlr.modelManager.customTransforms
+        XuleVars.set(cntlr, 'importModelManager', import_model_manager)
+
+    return import_model_manager

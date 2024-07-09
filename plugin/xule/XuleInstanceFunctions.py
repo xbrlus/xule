@@ -26,7 +26,8 @@ DOCSKIP
 from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
 from .XuleModelIndexer import index_model
-from arelle import ModelXbrl, ModelDocument, FileSource, ModelManager, ModelValue
+from .XuleUtility import get_model_manager_for_import
+from arelle import ModelXbrl, ModelDocument, FileSource, ModelValue
 from arelle.PrototypeInstanceObject import DimValuePrototype
 import datetime
 import os.path
@@ -50,8 +51,9 @@ def func_instance(xule_context, *args):
         start = datetime.datetime.today()
         instance_filesource = FileSource.openFileSource(instance_url.value, xule_context.global_context.cntlr)            
         #modelManager = ModelManager.initialize(xule_context.global_context.cntlr)
-        modelManager = xule_context.global_context.cntlr.modelManager
-        instance_model = modelManager.load(instance_filesource)
+        #modelManager = xule_context.global_context.cntlr.modelManager
+        import_model_manager = get_model_manager_for_import(xule_context.global_context.cntlr)
+        instance_model = import_model_manager.load(instance_filesource)
         if 'IOerror' in instance_model.errors:
             raise XuleProcessingError(_("Instance {} not found.".format(instance_url)))
         end = datetime.datetime.today()
@@ -100,7 +102,8 @@ def func_new_instance(xule_context, *args):
             raise XuleProcessingError(_("List of arcrole/role refs for new_instance() fucntion must be a set, list, string or uri, found{}".format(args[2].type)), xule_context)
 
     # Create the model
-    model_manager = xule_context.model.modelManager
+    #model_manager = xule_context.model.modelManager
+    model_manager = get_model_manager_for_import(xule_context.global_context.cntlr)
     # Need a filesource for the new instance document. Creating a temporary directory to put the file in
     temp_directory = tempfile.TemporaryDirectory()
     inst_file_name = os.path.join(temp_directory.name, f'{inst_name}.json')
