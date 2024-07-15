@@ -383,14 +383,31 @@ class XuleValue:
             return list_value
         
         elif self.type == 'set':
-            set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in self.value]) + ")" 
+            # Try and sort the set so the output is more consistent
+            try:
+                vals = sorted([x for x in self.value], key=lambda y: y.value)
+            except TypeError: # could not sort the values
+                try:
+                    vals = sorted([x for x in self.value], key=lambda y: str(y.value))
+                except TypeError:
+                    vals = self.value
+            set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in vals]) + ")" 
             return set_value
         
         elif self.type == 'dictionary': 
-            dict_content = ','.join('='.join((key.format_value(), val.format_value())) for (key,val) in self.value)
+            # Try and sort the dictionary so the output is more consistent
+            try:
+                keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: y.value)
+            except TypeError:
+                try:
+                    keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: str(y.value))
+                except TypeError:
+                    keys = self.value_dictionary.keys()
+
+            dict_content = ','.join('='.join((k.format_value(), self.value_dictionary[k].format_value())) for k in keys)
+
             dict_value = "dictionary(" + dict_content + ")"
             return dict_value
-            #return pprint.pformat(self.system_value)
         
         elif self.type in ('concept', 'part-element'):
             return str(self.value.qname)
