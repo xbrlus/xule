@@ -62,10 +62,43 @@ class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
     ENUM_SET_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType'
 
+class SortedValuesList(list):
+    def __init__(self, iterable=[]):
+        super().__init__(iterable)
+        self.sort()
+    
+    def sort(self, key=None, reverse=False):
+        if key is not None:
+            super().sort(key=key, reverse=reverse)
+        else:
+            try:
+                super().sort(key=lambda x: x.value, reverse=reverse)
+            except TypeError: # could not sort the values
+                try:
+                    super().sort(key=lambda x: str(x.value), reverse=reverse)
+                except TypeError:
+                    pass
+
+    def append(self, item):
+        super().append(item)
+        self.sort()
+
+    def extend(self, iterable):
+        super().extend(iterable)
+        self.sort()
+
+    def insert(self, index, item):
+        super().insert(index, item)
+        self.sort()
+
+class SortedDefaultDict(collections.defaultdict):
+    def __iter__(self):
+        for k in sorted(super().keys(), key=lambda x: x):
+            yield k
 
 class XuleValueSet:
     def __init__(self, values=None):
-        self.values = collections.defaultdict(list)
+        self.values = SortedDefaultDict(SortedValuesList)
         
         if values is not None:
             self.append(values)
