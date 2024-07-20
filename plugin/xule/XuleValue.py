@@ -93,8 +93,16 @@ class SortedValuesList(list):
 
 class SortedDefaultDict(collections.defaultdict):
     def __iter__(self):
-        for k in sorted(super().keys(), key=lambda x: x):
-            yield k
+        try:
+            for k in sorted(super().keys(), key=lambda x: x):
+                yield k
+        except TypeError:
+            try:
+                for k in sorted(super().keys(), key=lambda x: str(x)):
+                    yield k
+            except TypeError:
+                for k in super().keys():
+                    yield k
 
 class XuleValueSet:
     def __init__(self, values=None):
