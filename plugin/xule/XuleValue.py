@@ -58,6 +58,13 @@ FOOTNOTE_TYPE = 3
 FOOTNOTE_CONTENT = 4
 FOOTNOTE_FACT = 5
 
+#Controller
+_CNTLR = None
+
+def init_cntlr(cntlr):
+    global _CNTLR
+    _CNTLR = cntlr
+
 class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
     ENUM_SET_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType'
@@ -65,31 +72,68 @@ class SpecialItemTypes(Enum):
 class SortedValuesList(list):
     def __init__(self, iterable=[]):
         super().__init__(iterable)
-        self.sort()
+        self.is_sorted = False
     
     def sort(self, key=None, reverse=False):
-        if key is not None:
-            super().sort(key=key, reverse=reverse)
-        else:
-            try:
-                super().sort(key=lambda x: x.value, reverse=reverse)
-            except TypeError: # could not sort the values
+        if not self.is_sorted:
+            if key is not None:
+                super().sort(key=key, reverse=reverse)
+            else:
                 try:
-                    super().sort(key=lambda x: str(x.value), reverse=reverse)
-                except TypeError:
-                    pass
+                    super().sort(key=lambda x: x.value, reverse=reverse)
+                except TypeError: # could not sort the values
+                    try:
+                        super().sort(key=lambda x: str(x.value), reverse=reverse)
+                    except TypeError:
+                        pass
+        self.is_sorted = True
+        
 
     def append(self, item):
         super().append(item)
-        self.sort()
+        self.is_sorted = False
 
     def extend(self, iterable):
         super().extend(iterable)
-        self.sort()
+        self.is_sorted = False
 
     def insert(self, index, item):
         super().insert(index, item)
+        self.is_sorted = False
+
+    def __getitem__(self, index):
+        self.sort() # make sure the list is sorted
+        return super().__getitem__(index)
+
+    def __setitem__(self, index, value):
+        # Assign the new value using the base class's implementation
+        super().__setitem__(index, value)
+        # Ensure the list remains sorted after the change
+        self.is_sorted = False
+
+    def __delitem__(self,key):
         self.sort()
+        super().__delitem__(key)
+
+    def __iter__(self):
+        self.sort()
+        return super().__iter__()
+
+    def pop(self, index=-1):
+        self.sort()
+        return super().pop(index)
+    
+    def index(self, value, start=0, end=None):
+        self.sort()
+        return super().index(value, start, end)
+    
+    def remove(self, value):
+        self.sort()
+        return super().remove(value)
+    
+    def clear(self):
+        super().clear()
+        self.is_sorted = False
 
 class SortedDefaultDict(collections.defaultdict):
     def __iter__(self):
@@ -106,7 +150,14 @@ class SortedDefaultDict(collections.defaultdict):
 
 class XuleValueSet:
     def __init__(self, values=None):
-        self.values = SortedDefaultDict(SortedValuesList)
+
+        options = XuleUtility.XuleVars.get(_CNTLR, 'options')
+        if options is not None and options.get('xule_ordered_iterations', False):
+            self.values = SortedDefaultDict(SortedValuesList)
+        else:
+            self.values = collections.defaultdict(list)
+
+        #self.values = SortedDefaultDict(SortedValuesList)
         
         if values is not None:
             self.append(values)
