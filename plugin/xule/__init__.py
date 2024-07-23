@@ -499,6 +499,11 @@ def xuleCmdOptions(parser):
                       dest="xule_trace_count",
                       help=_("Name of the file to write a trace count."))
     
+    parserGroup.add_option("--xule-ordered-iterations",
+                      action="store_true",
+                      dest="xule_ordered_iterations",
+                      help=_("Indicates that the iterations should be ordered consistently. This may affect performance"))
+
     parserGroup.add_option("--xule-debug",
                      action="store_true",
                      dest="xule_debug",

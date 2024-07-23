@@ -68,6 +68,9 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
     processing of the rules.
     """
 
+    # Save the controller in XuleValue
+    init_cntlr(cntlr)
+
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options)
     if saved_taxonomies is not None and len(saved_taxonomies) > 0:
         global_context.other_taxonomies = saved_taxonomies
