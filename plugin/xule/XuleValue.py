@@ -152,7 +152,7 @@ class XuleValueSet:
     def __init__(self, values=None):
 
         options = XuleUtility.XuleVars.get(_CNTLR, 'options')
-        if options is not None and options.get('xule_ordered_iterations', False):
+        if options is not None and getattr(options, 'xule_ordered_iterations', False):
             self.values = SortedDefaultDict(SortedValuesList)
         else:
             self.values = collections.defaultdict(list)

@@ -501,7 +501,7 @@ def xuleCmdOptions(parser):
     
     parserGroup.add_option("--xule-ordered-iterations",
                       action="store_true",
-                      dest="xule_ordered_iteraitons",
+                      dest="xule_ordered_iterations",
                       help=_("Indicates that the iterations should be ordered consistently. This may affect performance"))
 
     parserGroup.add_option("--xule-debug",

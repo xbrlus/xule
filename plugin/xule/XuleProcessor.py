@@ -69,7 +69,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
     """
 
     # Save the controller in XuleValue
-    init_cntrl(cntlr)
+    init_cntlr(cntlr)
 
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options)
     if saved_taxonomies is not None and len(saved_taxonomies) > 0:
