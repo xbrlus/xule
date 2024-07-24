@@ -95,7 +95,13 @@ class SerializerException(Exception):
 
 class NSMap:
     def __init__(self, init_map):
-        # init_map must be a dictionary keyed by prefix. The value
+        # init_map must be a dictionary keyed by prefix. The value is a dictionary with the keys 'ns' and 'location'. 'location' is optional
+        # Validate init_map
+        for k, v in init_map.items():
+            if 'ns' not in v:
+                raise SerializerException("Namespace map must have a 'ns' key for prefix {}".format(k))
+            if not isinstance(v['ns'], str):
+                raise SerializerException("Namespace must be a string. Found {}".format(v['ns']))
         self.map = init_map.copy() # make a copy so changes to the orignal dont affect this object
 
     @property
@@ -109,13 +115,13 @@ class NSMap:
     def copy(self):
         return NSMap(self.map) # the initiator makes a copy of the map
 
-    def get_or_add_prefix(self, ns, location=None):
+    def get_or_add_prefix(self, ns, location=None, prefix=None):
         if self.prefix(ns) is None:
             # need to add the namespace and assign a prefix
             # first option for a prefix is to take the last part of the namespace
             # that doesn't look like a date
             url_parts = ns.lower().split('/')
-            prefix = None
+            #prefix = None
             for part in reversed(url_parts):
                 if re.fullmatch(r'\d{4}-\d{2}-\d{2}', part): # This looks like a date
                     continue
@@ -143,6 +149,11 @@ class NSMap:
             return prefix
         else:
             return self.prefix(ns)
+
+    def extend(self, other):
+        for k, v in other.map.items():
+            if k not in self.map:
+                self.map[k] = v
 
     def schema_locations(self, start_document):
         # Returns a space separated list of namespaces and locations. Used for the schemaLocation attribute
@@ -195,13 +206,19 @@ _STANDARD_LINKBASE_NS = NSMap({'link': {'ns': 'http://www.xbrl.org/2003/linkbase
                                         'location': 'http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd'},
                               'xlink': {'ns': 'http://www.w3.org/1999/xlink'},
                               'xsi': {'ns': 'http://www.w3.org/2001/XMLSchema-instance'},
-                              'gen': {'ns': 'http://xbrl.org/2008/generic',
-                                      'location': 'http://www.xbrl.org/2008/generic-link.xsd'},
+                            #   'gen': {'ns': 'http://xbrl.org/2008/generic',
+                            #           'location': 'http://www.xbrl.org/2008/generic-link.xsd'},
                               })
 
 _TAXONOMY_PACKAGE_NS = NSMap({'tp': {'ns': 'http://xbrl.org/2016/taxonomy-package'}})
 
 _CATALOG_NS = NSMap({'ct': {'ns': 'urn:oasis:names:tc:entity:xmlns:xml:catalog'}})
+
+
+_GENERIC_NAMESPACES = {'http://xbrl.org/2008/generic': {'prefix': 'gen', 'location': 'http://www.xbrl.org/2008/generic-link.xsd'},
+                       'http://xbrl.org/2008/label': {'prefix': 'label', 'location': 'http://www.xbrl.org/2008/generic-label.xsd'},
+                       'http://xbrl.org/2008/reference': {'prefix': 'ref', 'location': 'http://www.xbrl.org/2008/generic-reference.xsd'}
+}
 
 # Utility to find another plugin
 def getSerizlierPlugins(cntlr):
@@ -476,6 +493,15 @@ def serialize_document(document, serialization_type='xml'):
         return '' # there is nothing serialization
 
 def serialize_linkbase(document):
+    linkbase_node, linkbase_namespaces = serialize_linkbase_contents(document)
+    # Add schemaLocation to the linkbase. This is done at the end because reference parts
+    # may have added namespaces to inlcude
+    linkbase_node.set('{{{}}}schemaLocation'.format(linkbase_namespaces.namespace('xsi')), linkbase_namespaces.schema_locations(document))
+    etree.cleanup_namespaces(linkbase_node, linkbase_namespaces.ns_by_prefix, linkbase_namespaces.ns_by_prefix.keys())
+    return etree.tostring(linkbase_node, pretty_print=True)
+
+def serialize_linkbase_contents(document):
+
     namespaces = _STANDARD_LINKBASE_NS.copy()
 
     linkbase = etree.Element(_LINKBASE,
@@ -591,12 +617,11 @@ def serialize_linkbase(document):
     for extended_link, _locators in cubes.values():
         linkbase.append(extended_link)
 
-    # Add schemaLocation to the linkbase. This is done at the end because reference parts
-    # may have added namespaces to inlcude
-    linkbase.set('{{{}}}schemaLocation'.format(namespaces.namespace('xsi')), namespaces.schema_locations(document))
+    for gen_ns, gen_info in _GENERIC_NAMESPACES.items():
+        if linkbase.find(f'.//x:*', namespaces={'x': gen_ns}) is not None:
+            namespaces.get_or_add_prefix(gen_ns, gen_info['location'], gen_info['prefix'])
 
-    etree.cleanup_namespaces(linkbase, namespaces.ns_by_prefix, namespaces.ns_by_prefix.keys())
-    return etree.tostring(linkbase, pretty_print=True)
+    return linkbase, namespaces
 
 def serialize_relationship(extended_link, locators, rel, namespaces, document):
     
@@ -870,14 +895,18 @@ def serialize_schema(document):
             roles.add(role_element)
             needed_namespaces |= add_namespaces
 
-    if (len(document.linkbase_refs) + len(roles) + len(arcroles) > 0) or document.description is not None:
+    # Check for linkbase content
+    linkbase_node, linkbase_namespaces = serialize_linkbase_contents(document)
+    namespaces.extend(linkbase_namespaces)
+
+    if (len(document.linkbase_refs) + len(roles) + len(arcroles) + len(linkbase_node) > 0) or document.description is not None:
         annotation_element = etree.Element(_ANNOTATION_ELEMENT, nsmap=namespaces.ns_by_prefix)
         schema.append(annotation_element)
         if document.description is not None:
             description_element = etree.Element(_DOCUMENTATION_ELEMENT, nsmap=namespaces.ns_by_prefix)
             description_element.text = document.description
             annotation_element.append(description_element)
-        if (len(document.linkbase_refs) + len(roles) + len(arcroles) > 0):
+        if (len(document.linkbase_refs) + len(roles) + len(arcroles) + len(linkbase_node) > 0):
             app_info_element = etree.Element(_APP_INFO_ELEMENT, nsmap=namespaces.ns_by_prefix)
             annotation_element.append(app_info_element)
             for linkbase in sorted(document.linkbase_refs, key=lambda x: x.uri):
@@ -886,6 +915,9 @@ def serialize_schema(document):
                 app_info_element.append(arcrole)
             for role in sorted(roles, key=lambda x: x.get('roleURI')):
                 app_info_element.append(role)
+            if len(linkbase_node) > 0:
+                app_info_element.append(linkbase_node)
+                needed_namespaces.add(linkbase_namespaces.namespace('link'))
 
     # add imports for namespaces that were added from the contents
     for namespace in needed_namespaces:
