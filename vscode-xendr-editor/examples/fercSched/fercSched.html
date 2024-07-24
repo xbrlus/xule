@@ -1,0 +1,1283 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2024-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 256</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+</head>
+
+<xendr:global>
+    constant $bonds = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:BondObligationsAxis=*])),3)
+    constant $reacquired_bonds = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:ReAcquiredBondObligationsAxis=*])),3)
+    constant $advances = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:AdvancesFromAssociatedCompaniesAxis=*])),3)
+    constant $other_debt = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:OtherLongTermDebtAxis=*])),3)
+</xendr:global>
+
+<body class="xbrl" id="ScheduleLongTermDebtAbstract">
+    <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace><br/>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>This report is:</xendr:template-display>
+                    </xendr:replace>
+                        <br/>
+                        (1)
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> An Original']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" "<![CDATA[
+                            '<span class=\"checkbox\">&#9745;</span> An Original']]>" else "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> An Original']]>"
+                            </xendr:expression>
+                        <xendr:template-display>
+                                <input type="checkbox"/> An Original
+                        </xendr:template-display>
+                    </xendr:replace>
+                    <br/>
+                        (2)
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide"> if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" "<![CDATA[
+                            '<span class=\"checkbox\">&#9745;</span> A Resubmission']]>" else "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>"
+                                </xendr:expression>
+                            <xendr:template-display>
+                                    <input type="checkbox" checked = "checked"/> A Resubmission
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>04/26/2019</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    End of: <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>2018</xendr:template-display>
+                    </xendr:replace>
+                    <span>/</span>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Q4</xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td colspan="14" class="xbrl">
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                            Long-Term Debt (Accounts 221, 222, 223, and 224)
+                        </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="14">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <ol>
+                            <li>Report by balance sheet account the particulars (details) concerning long-term debt included in Accounts 221, Bonds, 222, Reacquired Bonds, 223, Advances from Associated Companies, and 224, Other long-Term Debt.</li>
+                            <li>In column (a), for new issues, give Commission authorization numbers and dates.</li>
+                            <li>For bonds assumed by the respondent, include in column (a) the name of the issuing company as well as a description of the bonds.</li>
+                            <li>For advances from Associated Companies, report separately advances on notes and advances on open accounts.  Designate demand notes as such.  Include in column (a) names of associated companies from which advances were received.</li>
+                            <li>For receivers, certificates, show in column (a) the name of the court -and date of court order under which such certificates were issued.</li>
+                            <li>In column (b) show the principal amount of bonds or other long-term debt originally issued.</li>
+                            <li>In column (c) show the expense, premium or discount with respect to the amount of bonds or other long-term debt originally issued.</li>
+                            <li>For column (c) the total expenses should be listed first for each issuance, then the amount of premium (in parentheses) or discount. Indicate the premium or discount with a notation, such as (P) or (D).  The expenses, premium or discount should not be netted.</li>
+                            <li>Furnish in a footnote particulars (details) regarding the treatment of unamortized debt expense, premium or discount associated with issues redeemed during the year.  Also, give in a footnote the date of the Commission’s authorization of treatment other than as specified by the Uniform System of Accounts.</li>
+                            <li>Identify separate undisposed amounts applicable to issues which were redeemed in prior years.</li>
+                            <li>Explain any debits and credits other than debited to Account 428, Amortization and Expense, or credited to Account 429, Premium on Debt - Credit.</li>
+                            <li>In a footnote, give explanatory (details) for Accounts 223 and 224 of net changes during the year.  With respect to long-term advances, show for each company:  (a) principal advanced during year, (b) interest added to principal amount, and (c) principle repaid during year.  Give Commission authorization numbers and dates.</li>
+                            <li>If the respondent has pledged any of its long-term debt securities give particulars (details) in a footnote including name of pledgee and purpose of the pledge.</li>
+                            <li>If the respondent has any long-term debt securities which have been nominally issued and are nominally outstanding at end of year, describe such securities in a footnote.</li>
+                            <li>If interest expense was incurred during the year on any obligations retired or reacquired before end of year, include such interest expense in column (i).  Explain in a footnote any difference between the total of column (i) and the total of Account 427, interest on Long-Term Debt and Account 430, Interest on Debt to Associated Companies.</li>
+                            <li>Give particulars (details) concerning any long-term debt authorized by a regulatory commission but not yet issued.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+       <tr class="col-heading-row">
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="LongTermDebtHeadings">
+                    <xendr:expression class="hide" name="LongTermDebtHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "256 - Schedule - Long-Term Debt - Bonds 221")
+
+                            $heading = list(for $ref in $headings
+                                list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+
+                                $heading_dict = dict(for $row in $heading
+                                        list("("+$row[1]+")",list($row[2],if $row[3] == none "" else taxonomy().concept(to-qname($row[3]))))
+                                );
+                                for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center">
+                        <div class="tooltip">
+                                <div class="tooltiptext">
+                                        <xendr:replace>
+                                                <xendr:expression class="hide" name="LongTermDebtHeadings" part="3">if $heading_dict[$row][2] != "" $heading_dict[$row][2].name.local-name else "" </xendr:expression>
+                                            </xendr:replace>
+                                </div>
+                            <xendr:replace>
+                                <xendr:expression class="hide" html="true" name="LongTermDebtHeadings" part="1">$heading_dict[$row][1]</xendr:expression>
+                                <xendr:template-display>
+                                    Nature of Payment
+                                </xendr:template-display>
+                            </xendr:replace>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="LongTermDebtHeadings" part="2"> $row </xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                    </xendr:replace></div>
+                </td>
+        </tr>
+
+         <!-- Bonds (Account 221) Heading -->
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OutstandingBondsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                         Bonds (Account 221)
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <!-- Bonds (Account 221) -->
+        <tr class="schedule-row" xendr:repeat="BondsLineItems">
+            <xendr:expression class="hide" name="BondsLineItems">// adding a comment
+            /** comment within XULE expression
+            **/
+            $data2 =   list(for $i in range(3)
+                            list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:BondObligationsAxis=*})) > 0
+
+                    list({covered @ferc:BondObligationsAxis=*  {list(
+
+                        first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                        first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondsPrincipalAmountIssued @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondIssuanceExpense @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondsPremium @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondsDiscount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:Bonds @unit @period=$currentInstant}))),
+
+                        first-value-or-none(first(list({@ferc:InterestExpenseBonds @unit @period=$currentDuration})))
+
+                )}})
+                else $data2;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+            </xendr:expression>
+
+            <td class="xbrl line-number"><xendr:lineNumber name="BondsLineItems"><xendr:startNumber>2</xendr:startNumber></xendr:lineNumber>
+                <xendr:template-display>2</xendr:template-display>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="BondsLineItems" fact="true" part="2"> $row[2] </xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Fixed Rate Senior Notes - 5.625%
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number"><xendr:replace><xendr:expression  class="hide"  name="BondsLineItems" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Account 221
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $10,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl gray-out"></td> <!-- Total Expense, Premium or Discount (only for historical data section) -->
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $1,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $75,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="7">$row[7]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $75,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:date-month-day-year" part="8">$row[8]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        03/28/2016
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:date-month-day-year" part="9">$row[9]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        03/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:date-month-day-year" part="10">$row[10]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    03/28/2017
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:date-month-day-year" part="11">$row[11]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        02/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="12">$row[12]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $104,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="BondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="13">$row[13]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $10,000
+                </xendr:template-display>
+            </td>
+        </tr>
+    <!-- Subtotal for Bonds (Account 221) -->
+        <tr>
+            <td class="xbrl line-number">
+                    <xendr:replace><xendr:expression class="hide">
+                        $bonds_heading = 1
+                        $bonds_subtotal = 1
+
+                        $bonds_heading + $bonds + $bonds_subtotal
+                    </xendr:expression></xendr:replace>
+                        <xendr:template-display>
+                            1
+                        </xendr:template-display>
+            </td>
+            <td class="xbrl description_items">Subtotal</td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:BondsPrincipalAmountIssued @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $22,025,000
+                        </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:BondIssuanceExpense @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $2,065,800
+                        </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:BondsPremium @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $2,065,800
+                        </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:BondsDiscount @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $1,092,000
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:Bonds @period=$currentInstant]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $147,642,716
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+            <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:InterestExpenseBonds @period=$currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $10,345
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+
+        </tr>
+            <!-- Reacquired Bonds (Account 222) Heading -->
+            <tr>
+            <td class="xbrl line-number"><xendr:replace><xendr:expression class="hide">
+                    $heading = 2
+                    $subtotal = 1
+
+                    $heading + $bonds + $subtotal </xendr:expression></xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OutstandingReacquiredBondsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                                Reacquired Bonds (Account 222)
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <!-- Reacquired Bonds (Account 222) -->
+        <tr class="schedule-row" xendr:repeat="ReacquiredBondsLineItems">
+            <xendr:expression class="hide" name="ReacquiredBondsLineItems">// adding a comment
+            /** comment within XULE expression
+            **/
+            $data2 =   list(for $i in range(3)
+                            list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:ReAcquiredBondObligationsAxis=*})) > 0
+
+                    list({covered @ferc:ReAcquiredBondObligationsAxis=*  {list(
+
+                        first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                        first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReacquiredBondsPrincipalAmount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReacquiredBondsIssuanceExpense @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReaquiredBondsPremium @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReaquiredBondsDiscount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReacquiredBonds @unit @period=$currentInstant}))),
+
+                        first-value-or-none(first(list({@ferc:InterestExpenseReacquiredBonds @unit @period=$currentDuration})))
+                )}})
+                else $data2;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+            </xendr:expression>
+            <td class="xbrl line-number"><xendr:lineNumber name="ReacquiredBondsLineItems">
+                    <xendr:startNumber>
+                            $heading = 2;
+                            $subtotal = 1;
+
+
+                            $heading + $bonds + 1 + $subtotal
+                    </xendr:startNumber></xendr:lineNumber>
+                <xendr:template-display>1</xendr:template-display>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="ReacquiredBondsLineItems" fact="true" part="2"> $row[2] </xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Fixed Rate Senior Notes - 5.625%
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number"><xendr:replace><xendr:expression  class="hide"  name="ReacquiredBondsLineItems" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Account 222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $10,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl gray-out"></td> <!-- Reacquired Bonds - Total expense, premium or Discount - The column is only for historical. -->
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $1,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $75,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="7">$row[7]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $75,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:date-month-day-year" part="8">$row[8]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        03/28/2016
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:date-month-day-year" part="9">$row[9]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        03/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:date-month-day-year" part="10">$row[10]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    03/28/2017
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:date-month-day-year" part="11">$row[11]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        02/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="12">$row[12]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $104,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="ReacquiredBondsLineItems" fact="true" format="ixt4:num-dot-decimal" part="13">$row[13]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $10,000
+                </xendr:template-display>
+            </td>
+        </tr>
+        <!-- Subtotal for Reacquired Bonds (Account 222) -->
+        <tr>
+                <td class="xbrl line-number">
+                        <xendr:replace><xendr:expression class="hide">
+                                $heading = 2;
+                                $subtotal = 2;
+
+
+                                $heading + $bonds + $reacquired_bonds + $subtotal
+                            </xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                    1
+                                </xendr:template-display>
+                </td>
+                <td class="xbrl description_items">Subtotal</td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ReacquiredBondsPrincipalAmount @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $22,025,000
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ReacquiredBondsIssuanceExpense @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $2,065,800
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ReaquiredBondsPremium @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $1,092,000
+                                </xendr:template-display>
+                        </xendr:replace>
+                </td>
+                <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ReaquiredBondsDiscount @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $1,092,000
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ReacquiredBonds @period=$currentInstant]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $147,642,716
+                                </xendr:template-display>
+                        </xendr:replace>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:InterestExpenseReacquiredBonds @period=$currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $10,345
+                                </xendr:template-display>
+                        </xendr:replace>
+                </td>
+            </tr>
+    <!-- Advances from asociated Companies (Account 223) Heading -->
+    <tr>
+            <td class="xbrl line-number"><xendr:replace><xendr:expression class="hide">
+                    $heading = 3
+                    $subtotal = 2
+
+
+                    $heading + $bonds + $reacquired_bonds + $subtotal </xendr:expression></xendr:replace>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OutstandingDebtAdvancesFromAssociatedCompaniesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                                Advances from Associated Companies (Account 223)
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <!-- Advances from ssociated Companies (Account 223)  -->
+        <tr class="schedule-row" xendr:repeat="AdvancesLineItems">
+            <xendr:expression class="hide" name="AdvancesLineItems">// adding a comment
+            /** comment within XULE expression
+            **/
+            $data2 =   list(for $i in range(3)
+                            list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:AdvancesFromAssociatedCompaniesAxis=*})) > 0
+
+                    list({covered @ferc:AdvancesFromAssociatedCompaniesAxis=*  {list(
+
+                        first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                        first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesPrincipalAmountIssued @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesIssuanceExpense @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesPremium @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesDiscount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompanies @unit @period=$currentInstant}))),
+
+                        first-value-or-none(first(list({@ferc:InterestExpenseDebtAdvancesFromAssociatedCompanies @unit @period=$currentDuration})))
+
+                )}})
+                else $data2;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+            </xendr:expression>
+            <td class="xbrl line-number"><xendr:lineNumber name="AdvancesLineItems"><xendr:startNumber>
+                    $heading = 3;
+                    $subtotal = 2;
+
+
+                    $heading + $bonds + $reacquired_bonds + $subtotal +1
+            </xendr:startNumber></xendr:lineNumber>
+                <xendr:template-display>3</xendr:template-display>
+            </td>
+            <td class="xbrl description_items"><xendr:replace> <xendr:expression  class="hide"  name="AdvancesLineItems" fact="true" part="2"> $row[2] </xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Fixed Rate Senior Notes - 5.625%
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number"><xendr:replace><xendr:expression  class="hide"  name="AdvancesLineItems" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Account 222
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $10,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $1,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $75,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:num-dot-decimal" part="7">$row[7]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $75,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:date-month-day-year" part="8">$row[8]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        03/28/2016
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:date-month-day-year" part="9">$row[9]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        03/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:date-month-day-year" part="10">$row[10]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    03/28/2017
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:date-month-day-year" part="11">$row[11]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        02/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:num-dot-decimal" part="12">$row[12]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $104,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="AdvancesLineItems" fact="true" format="ixt4:num-dot-decimal" part="13">$row[13]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $10,000
+                </xendr:template-display>
+            </td>
+        </tr>
+            <!-- Subtotal for Advances from Associated Companies (Account 2230 -->
+            <tr>
+                    <td class="xbrl line-number">
+                            <xendr:replace><xendr:expression class="hide">
+                            $heading = 3
+                            $subtotal = 3
+
+
+
+                            $heading + $bonds + $reacquired_bonds + $advances + $subtotal
+
+                            </xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                        3
+                                </xendr:template-display>
+                    </td>
+                    <td class="xbrl description_items">Subtotal</td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesPrincipalAmountIssued @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $22,025,000
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesIssuanceExpense @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $2,065,800
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesPremium @period = $currentDuration]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            $1,092,000
+                                    </xendr:template-display>
+                            </xendr:replace>
+                    </td>
+                    <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesDiscount @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $1,092,000
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:AdvancesFromAssociatedCompanies @period=$currentInstant]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            $147,642,716
+                                    </xendr:template-display>
+                            </xendr:replace>
+                    </td>
+                    <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:InterestExpenseDebtAdvancesFromAssociatedCompanies @period=$currentDuration]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            $10,345
+                                    </xendr:template-display>
+                            </xendr:replace>
+                    </td>
+                </tr>
+        <!-- Other Long Term Debt (Account 224)  -->
+        <tr>
+                <td class="xbrl line-number"><xendr:replace><xendr:expression class="hide">
+                        $heading = 4
+                        $subtotal = 3
+
+
+                        $heading + $bonds + $reacquired_bonds + $advances + $subtotal </xendr:expression></xendr:replace>
+                </td>
+                <td class="xbrl description_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide">
+                            taxonomy().concept(ferc:OtherLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                        </xendr:expression>
+                        <div>
+                            <xendr:template-display>
+                                    Other Long Term Debt (Account 224)
+                            </xendr:template-display>
+                        </div>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+            </tr>
+         <!-- Other Long Term Debt (Account 224)  -->
+         <tr class="schedule-row" xendr:repeat="OtherLongTermDebtLineItems">
+                <xendr:expression class="hide" name="OtherLongTermDebtLineItems">// adding a comment
+                /** comment within XULE expression
+                **/
+                $data2 =   list(for $i in range(3)
+                list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+);
+
+                $data = if count(list({covered @ferc:OtherLongTermDebtAxis=*})) > 0
+
+                        list({covered @ferc:OtherLongTermDebtAxis=*  {list(
+
+                            first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                            first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtPrincipalAmountIssued @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtIssuanceExpense @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtPremium @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtDiscount @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebt @unit @period=$currentInstant}))),
+
+                            first-value-or-none(first(list({@ferc:InterestExpenseOtherLongTermDebt @unit @period=$currentDuration}))),
+                    )}})
+                    else $data2;
+
+
+                    $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+                </xendr:expression>
+                <td class="xbrl line-number"><xendr:lineNumber name="OtherLongTermDebtLineItems"><xendr:startNumber>
+                        $heading = 4;
+                        $subtotal = 3;
+
+
+                        $heading + $bonds + $reacquired_bonds + $advances + $subtotal +1
+                </xendr:startNumber></xendr:lineNumber>
+                    <xendr:template-display>1</xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="OtherLongTermDebtLineItems" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            Fixed Rate Senior Notes - 5.625%
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl account-number"><xendr:replace><xendr:expression  class="hide"  name="OtherLongTermDebtLineItems" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            Account 222
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            $10,000,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            $1,000,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            $75,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="7">$row[7]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            $75,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="8">$row[8]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            03/28/2016
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="9">$row[9]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            03/28/2021
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="10">$row[10]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        03/28/2017
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="11">$row[11]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            02/28/2021
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="12">$row[12]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            $104,000,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="OtherLongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="13">$row[13]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            $10,000
+                    </xendr:template-display>
+                </td>
+            </tr>
+            <!-- Subtotal for Other Long Term Debt (Account 224) -->
+            <tr>
+                    <td class="xbrl line-number">
+                            <xendr:replace><xendr:expression class="hide">
+                                $heading = 4;
+                                $subtotal = 4;
+
+
+                                $heading + $bonds + $reacquired_bonds + $advances + $other_debt + $subtotal
+                            </xendr:expression></xendr:replace>
+                                <xendr:template-display>
+                                        3
+                                </xendr:template-display>
+                    </td>
+                    <td class="xbrl description_items">Subtotal</td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OtherLongTermDebtPrincipalAmountIssued @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $22,025,000
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OtherLongTermDebtIssuanceExpense @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $2,065,800
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OtherLongTermDebtPremium @period = $currentDuration]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            $1,092,000
+                                    </xendr:template-display>
+                            </xendr:replace>
+                    </td>
+                    <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OtherLongTermDebtDiscount @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $1,092,000
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl gray-out"></td>
+                    <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OtherLongTermDebt @period=$currentInstant]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            $147,642,716
+                                    </xendr:template-display>
+                            </xendr:replace>
+                    </td>
+                    <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:InterestExpenseOtherLongTermDebt @period=$currentDuration]))
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            $10,345
+                                    </xendr:template-display>
+                            </xendr:replace>
+                    </td>
+                </tr>
+        <!-- Long Term Debt (Account 224) for Historical Data  -->
+        <tr class="schedule-row" xendr:repeat="LongTermDebtHeader">
+            <xendr:expression class="hide" name="LongTermDebtHeader">
+                $Historicalheader = list(if count(list({covered @ferc:ClassOrSeriesOfObligationAndNameOfStockExchangeAxis=*})) > 0
+                            "Long Term Debt (Historical Data)"
+                        else
+                             skip);
+                for $row in $Historicalheader
+            </xendr:expression>
+            <td class="xbrl" colspan="14">
+                <xendr:replace>
+                        <xendr:expression class="hide"  name="LongTermDebtHeader" part="1"> $row </xendr:expression>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="LongTermDebtLineItems">
+            <xendr:expression class="hide" name="LongTermDebtLineItems">// adding a comment
+            /** comment within XULE expression
+            **/
+
+            $data = if count(list({covered @ferc:ClassOrSeriesOfObligationAndNameOfStockExchangeAxis=*})) > 0
+
+                    list({covered @ferc:ClassOrSeriesOfObligationAndNameOfStockExchangeAxis=*  {list(
+                    first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+                    first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+                    none, /** WHERE ACCOUNT NUMBER WOULD NORMALLY BE **/
+                    first-value-or-none(first(list({@ferc:LongTermDebtPrincipalAmountIssued @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:LongTermDebtIssuanceExpensePremiumOrDiscount @unit @period=$currentDuration}))),
+                    none, /** WHERE DISCOUNT WOULD BE AS SPLIT OUT* NOW*/
+                    first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:LongTermDebtOutstanding @unit @period=$currentInstant}))),
+                    first-value-or-none(first(list({@ferc:InterestExpenseOnLongTermDebtIssued @unit @period=$currentDuration})))
+
+                )}})
+                else skip;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+
+            </xendr:expression>
+            <td class="xbrl line-number"><xendr:lineNumber name="LongTermDebtLineItems"><xendr:startNumber>1</xendr:startNumber></xendr:lineNumber>
+                <xendr:template-display>1</xendr:template-display>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="LongTermDebtLineItems" fact="true" part="2">$row[2] </xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Fixed Rate Senior Notes - 5.625%
+                </xendr:template-display>
+            </td>
+            <td class="xbrl account-number">
+            </td>
+
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression  class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="3">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $32,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="4">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        $10,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl gray-out"></td> <!-- Expense column - only for new filing -->
+            <td class="xbrl gray-out"></td> <!-- Premium column - only for new filing -->
+            <td class="xbrl gray-out"></td> <!-- Discount - only for new filing -->
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="5">$row[7]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    03/28/2016
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="6">$row[8]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    03/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="7">$row[9]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    03/28/2017
+                </xendr:template-display>
+            </td>
+            <td class="xbrl date_items"><xendr:replace><xendr:expression class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:date-month-day-year" part="8">$row[10]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    02/28/2021
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="9">$row[11]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $104,000,000
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="LongTermDebtLineItems" fact="true" format="ixt4:num-dot-decimal" part="10">$row[12]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $10,000
+                </xendr:template-display>
+            </td>
+        </tr>
+        <!-- Total for historical data -->
+        <tr>
+                <td class="xbrl line-number">33</td>
+                <td class="xbrl description_items">TOTAL</td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:LongTermDebtPrincipalAmountIssued @period=$currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $147,642,716
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl monetary_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:LongTermDebtIssuanceExpensePremiumOrDiscount @period=$currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $147,642,716
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:LongTermDebtOutstanding @period = $currentInstant]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $2,025,000,000
+                                </xendr:template-display>
+                        </xendr:replace>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:InterestExpenseOnLongTermDebtIssued @period=$currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $147,642,716
+                                </xendr:template-display>
+                        </xendr:replace>
+                </td>
+            </tr>
+    </table>
+    <br/>
+<div class="schedule-footer">
+    <div>FERC FORM No.
+            <xendr:replace>
+                <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                <xendr:template-display>2/3-Q</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                </xendr:expression>
+                <xendr:template-display>
+                        12-96
+                </xendr:template-display>
+            </xendr:replace>
+    </div>
+    <div class="center-text">Page
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            256
+                    </xendr:template-display>
+            </xendr:replace>
+    </div>
+</div>
+</body>
+</html>

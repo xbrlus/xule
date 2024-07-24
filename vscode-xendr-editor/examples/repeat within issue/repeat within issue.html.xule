@@ -1,0 +1,346 @@
+ namespace http://www.w3.org/1999/xhtml namespace xule = http://xbrl.us/xendr/2.0/template namespace ixt1 = http://www.xbrl.org/inlineXBRL/transformation/2010-04-20 namespace ixt4 = http://www.xbrl.org/inlineXBRL/transformation/2020-02-12 namespace ferc = http://ferc.gov/form/2024-04-01/ferc namespace ferc-part = http://www.ferc.gov/form/parts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output o19                                        
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    
+
+
+
+
+output o26                                                    [@ferc:RespondentLegalName @period=$currentDuration]
+                    
+
+
+
+
+
+output o33                                        
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    
+
+
+
+
+
+output o41                                                     if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" "<![CDATA[
+                        '<span class=\"checkbox\">&#9745;</span> A Resubmission']]>" else "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>"
+                            
+
+
+
+
+
+
+
+output o53                                                     if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" "<![CDATA[
+                        '<span class=\"checkbox\">&#9745;</span> A Resubmission']]>" else "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>"
+                            
+
+
+
+
+
+
+
+output o65                                        
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    
+
+
+
+
+output o72                                                                                      [@ferc:ReportDate @period=$currentDuration]
+                    
+
+
+
+
+
+output o79                                        
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    
+
+
+
+
+output o86                                                    [@ferc:ReportYear @period=$currentDuration]
+                    
+
+
+
+
+output o92                                                    [@ferc:ReportPeriod @period=$currentDuration]
+                    
+
+
+
+
+
+
+
+
+
+output o103                                               taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Schedule").text
+                            
+
+
+
+
+
+
+
+
+
+output o114                                                   
+                        taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output HGPSHeadings                                                       
+                                $plantSet = set({covered @ferc:PlantNameAxis = *}.dimension(ferc:PlantNameAxis));
+                                $plants =  if $plantSet.length == 0 
+                                                list(none,none)
+                                            else  
+                                                $plantSet
+
+
+                                $headings = list(for $plant in $plants 
+                                                list($plant, 
+                                                    first(list([covered @ferc:PlantName @ferc:PlantNameAxis = $plant]))
+                                                )
+                                );
+                                
+                                for $row in $headings.sort 
+                                        
+                         list(
+
+
+
+                                                                                               $row[2])
+
+
+
+
+
+
+
+
+
+output HydroelectricPlant                                               
+    $data = navigate parent-child descendants from ferc:SteamElectricGeneratingPlantStatisticsLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleSteamElectricGeneratingPlantStatistics" returns list (target-name, preferred-label, result-order);
+    $plantSet = set({covered @ferc:PlantNameAxis = *}.dimension(ferc:PlantNameAxis)).sort;
+    $plants =  if $plantSet.length == 0 
+                    list(none,none)
+                else  
+                    $plantSet
+
+    $data-labels = list(for $row in $data
+        if $row[3] > 2
+            $concept = taxonomy().concept($row[1]);
+            $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "402 - Schedule - Steam-Electric Generating Plant Statistics (Large Plants)" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+            $current = list(for $plant in $plants
+
+                    if exists([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plant]) and not $plant == none
+					        first(list([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plant]))
+					else
+                        if exists([covered @concept = $row[1] @period = $currentInstant @ferc:PlantNameAxis = $plant]) and not $plant == none
+                            first(list([covered @concept = $row[1] @period = $currentInstant @ferc:PlantNameAxis = $plant]))
+                        else
+                            none);
+            list($concept,
+                $concept.label($row[2].role.uri).text,  //Title of Account
+                $current)
+            else
+                skip
+                );
+            
+    
+        for $data-label in $data-labels  
+
+            
+                 list(
+
+
+
+
+
+
+
+                                                                                                                         $data-label[1].name.local-name,
+
+
+
+                                                                                                      $data-label[2],
+                                                                                             if $data-label[1].is-abstract "sch-title" else "",
+
+
+
+
+
+
+                                                                       
+                                for $plantID in $data-label[3]
+                             list(
+
+                                                                                                    $plantID,
+                                                                 if $data-label[1].is-numeric "ixt4:num-dot-decimal" else none,
+                                                                                 if $data-label[1].is-abstract "gray-out" else "",
+                                               if $data-label[1].name in list(ferc:SteamTransferredCredit) "-" else none))
+
+
+
+
+
+
+
+
+
+
+
+output SteamPlant2                                           
+                $data = navigate parent-child descendants from ferc:SteamElectricGeneratingPlantStatisticsLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleSteamElectricGeneratingPlantStatisticsFuelStatistics" returns list (target-name, preferred-label, result-order);
+                $plantSet = set({covered @ferc:PlantNameAxis = *}.dimension(ferc:PlantNameAxis)).sort;
+
+                
+                $fuelHeaders = list("Coal","Gas","Oil","Nuclear");
+                $plants =  if $plantSet.length == 0 
+                                list(none,none)
+                            else  
+                                $plantSet
+                $fuelHeadersByPlant = list(list(taxonomy().concept(ferc:FuelKindAxis),
+                                                "Plant Name",
+                                                sum(list(for $plantFuel in $plants.sort
+                                                            list(for $fuel in set({covered @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis = *}.dimension(ferc:FuelKindAxis)).sort
+                                                                    first(list([covered @ferc:PlantName @ferc:PlantNameAxis = $plantFuel])) 
+                                                                )
+                                                        )
+                                                    )
+                                                )
+                                            );
+
+                $data-set = list(for $row in $data
+                    if $row[3] > 0
+                        $concept = taxonomy().concept($row[1]);
+                        $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "402 - Schedule - Steam-Electric Generating Plant Statistics (Large Plants) - Fuel Statistics" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+                        
+                        $current = list(for $plantFuel in $plants.sort
+                                            list(for $fuel in set({covered @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis = *}.dimension(ferc:FuelKindAxis)).sort
+                                            if exists([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis=$fuel]) and not $plantFuel == none
+                                                        first(list([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis=$fuel]))
+                                                else
+                                                    none )
+                                                );
+
+
+                        list($concept,
+                            $concept.label($row[2].role.uri).text,  //Title of Account
+                            sum($current)
+                            )
+                        else
+                            skip
+                            );
+                        
+
+                    for $datum in ( $fuelHeadersByPlant  + $data-set) 
+
+        
+             list(
+
+                                                                              35,
+
+
+
+
+
+                                                                                                              $datum[1].name.local-name,
+
+
+
+                                                                                           $datum[2],
+                                                                                  if $datum[1].is-abstract "sch-title" else "",
+                                                                                  if $datum[2]=="Plant Name" "col-heading-row" else "",
+
+
+
+
+
+
+                                                                    
+                            for $plantID2 in $datum[3]
+                         list(
+
+                                                                                     $plantID2,
+                                                                             if $datum[1].is-numeric "numeric_items" else none,
+                                                             if $datum[1].is-numeric "ixt4:num-dot-decimal" else none,
+                                                          if $datum[1].is-abstract false else true,
+                                           if $datum[1].name in list(ferc:SteamTransferredCredit) "-" else none))
+
+
+
+
+
+
+
+
+
+
+
+output o328                                                       first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        
+
+
+
+
+output o335                                           " (" + taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        
+
+
+
+
+
+
+
+
+output o345                                           taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        

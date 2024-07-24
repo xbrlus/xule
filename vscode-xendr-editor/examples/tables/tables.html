@@ -1,0 +1,23 @@
+<html xmlns:xendr="http://xbrl.us/xendr/2.0/template">
+    <table>
+        <tr xendr:repeat="MyTable">
+            <xendr:expression class="hide" name="MyTable">
+                $table = list(for $x in range(4)
+                list(for $y in range(3)
+                        $x + $y)
+            )
+                for $row in $table
+            </xendr:expression>
+            <td xendr:repeat="MyCol" xendr:repeatWithin="MyTable">
+                <xendr:expression class="hide" name="MyCol">
+                for $col in $row
+                </xendr:expression>
+                <xendr:replace>
+                    <xendr:expression class="hide" name="MyCol">$col
+                    </xendr:expression>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+</html>
+

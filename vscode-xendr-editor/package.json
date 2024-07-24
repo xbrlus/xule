@@ -1,0 +1,55 @@
+{
+	"publisher": "xbrlus",
+	"name": "xendr",
+	"displayName": "XENDR Editor",
+	"description": "A language syntax highlighter and code completion extension for editing XENDR files, a XULE output that produces inline XBRL from existing taxonomies and instance documents in CSV, HTML, XML or JSON formats.",
+	"author": {"name": "Strumenta s.r.l.", "url": "https://strumenta.com"},
+	"version": "1.0.8",
+	"icon": "logo.png",
+	"license": "MIT",
+	"repository": { "type": "git", "url": "https://github.com/xbrlus/xendr-editor" },
+	"activationEvents": ["onLanguage:html"],
+	"main": "distribution/client.js",
+	"contributes":
+	{
+		"grammars":
+		[
+			{
+				"injectTo": ["text.html"],
+				"scopeName": "source.xendr",
+				"path": "./syntaxes/xendr.tmLanguage.json"
+			}
+		]
+	},
+	"scripts":
+	{
+		"all": "npm run build && npm run launchPlayground",
+		"build": "npm install && npm run generateParser && npm run bundle",
+		"generateParser": "antlr4ts -Dlanguage=TypeScript source/antlr/*.g4 -no-listener",
+		"bundle": "npm run bundleClient && npm run bundleServer",
+		"bundleClient": "npx esbuild --bundle source/client.ts --external:vscode --platform=node --outfile=distribution/client.js --sourcemap --minify",
+		"bundleServer": "npx esbuild --bundle source/server.ts --external:vscode --platform=node --outfile=distribution/server.js --sourcemap --minify",
+		"launchPlayground": "node -e \"require('child_process').spawn('code', ['--extensionDevelopmentPath', process.cwd(), require('path').join(process.cwd(), 'examples')])\"",
+		"package": "vsce package",
+		"clean": "git clean -fdX"
+	},
+	"dependencies":
+	{
+		"vscode-languageclient": "9.0.1",
+		"vscode-languageserver": "9.0.1",
+		"antlr4ts": "0.5.0-alpha.4"
+	},
+	"devDependencies":
+	{
+		"@types/node": "20.14.9",
+		"@types/vscode": "1.75.1",
+		"esbuild": "0.21.5",
+		"antlr4ts-cli": "0.5.0-alpha.4",
+		"@vscode/vsce": "2.29.0"
+	},
+	"engines":
+	{
+		"vscode": "^1.75.1"
+	},
+	"extensionDependencies": ["xbrlus.xule"]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2024-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<xendr:global>
+    constant $bonds = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:BondObligationsAxis=*])),3)
+</xendr:global>
+
+</html>

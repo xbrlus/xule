@@ -1,0 +1,1275 @@
+ namespace http://www.w3.org/1999/xhtml namespace xendr = http://xbrl.us/xendr/2.0/template namespace ixt1 = http://www.xbrl.org/inlineXBRL/transformation/2010-04-20 namespace ixt4 = http://www.xbrl.org/inlineXBRL/transformation/2020-02-12 namespace ferc = http://ferc.gov/form/2024-04-01/ferc namespace ferc-part = http://www.ferc.gov/form/parts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+    constant $bonds = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:BondObligationsAxis=*])),3)
+    constant $reacquired_bonds = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:ReAcquiredBondObligationsAxis=*])),3)
+    constant $advances = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:AdvancesFromAssociatedCompaniesAxis=*])),3)
+    constant $other_debt = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:OtherLongTermDebtAxis=*])),3)
+
+
+
+
+
+
+
+output o28                                             taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+output o32                                                         [@ferc:RespondentLegalName @period=$currentDuration]
+
+
+
+
+
+output o38                                             taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+
+
+output o44                                                             if missing({covered @concept=ferc:SubmissionType}) "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> An Original']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" "<![CDATA[
+                            '<span class=\"checkbox\">&#9745;</span> An Original']]>" else "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> An Original']]>"
+                            
+
+
+
+
+
+
+
+output o56                                                              if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" "<![CDATA[
+                            '<span class=\"checkbox\">&#9745;</span> A Resubmission']]>" else "<![CDATA[
+                            '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>"
+                                
+
+
+
+
+
+
+output o67                                         taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+output o71                                                                                               [@ferc:ReportDate @period=$currentDuration]
+
+
+
+
+output o76                                         taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+output o80                                                         [@ferc:ReportYear @period=$currentDuration]
+
+
+
+
+output o85                                                         [@ferc:ReportPeriod @period=$currentDuration]
+
+
+
+
+
+
+
+
+
+output o95                                             taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                        
+
+
+
+
+
+
+
+
+
+output o106                                                    taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output LongTermDebtHeadings                                                    
+                            $headings = filter (taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "256 - Schedule - Long-Term Debt - Bonds 221")
+
+                            $heading = list(for $ref in $headings
+                                list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+
+                                $heading_dict = dict(for $row in $heading
+                                        list("("+$row[1]+")",list($row[2],if $row[3] == none "" else taxonomy().concept(to-qname($row[3]))))
+                                );
+                                for $row in $heading_dict.keys.sort
+                     list(
+
+
+
+
+                                                                                                                    if $heading_dict[$row][2] != "" $heading_dict[$row][2].name.local-name else "" ,
+
+
+
+                                                                                                                $heading_dict[$row][1],
+
+
+
+
+
+
+
+
+                                                                                                 $row )
+
+
+
+
+
+
+
+
+
+
+
+
+output o175                                        
+                        taxonomy().concept(ferc:OutstandingBondsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output BondsLineItems                                            // adding a comment
+            /** comment within XULE expression
+            **/
+            $data2 =   list(for $i in range(3)
+                            list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:BondObligationsAxis=*})) > 0
+
+                    list({covered @ferc:BondObligationsAxis=*  {list(
+
+                        first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                        first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondsPrincipalAmountIssued @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondIssuanceExpense @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondsPremium @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:BondsDiscount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:Bonds @unit @period=$currentInstant}))),
+
+                        first-value-or-none(first(list({@ferc:InterestExpenseBonds @unit @period=$currentDuration})))
+
+                )}})
+                else $data2;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+             list(
+
+                                                                                                    2,
+
+
+                                                                                                                                           $row[2] ,
+
+
+
+
+                                                                                                                                       $row[3],
+
+
+
+
+                                                                                                                                                                    $row[4],
+
+
+
+
+
+                                                                                                                                                                    $row[5],
+
+
+
+
+                                                                                                                                                                    $row[6],
+
+
+
+
+                                                                                                                                                                    $row[7],
+
+
+
+
+                                                                                                                                                                    $row[8],
+
+
+
+
+                                                                                                                                                                    $row[9],
+
+
+
+
+                                                                                                                                                                     $row[10],
+
+
+
+
+                                                                                                                                                                     $row[11],
+
+
+
+
+                                                                                                                                                                     $row[12],
+
+
+
+
+                                                                                                                                                                     $row[13])
+
+
+
+
+
+
+
+
+output o321                                                       
+                        $bonds_heading = 1
+                        $bonds_subtotal = 1
+
+                        $bonds_heading + $bonds + $bonds_subtotal
+                    
+
+
+
+
+
+
+
+
+output o335                                                                                      max(list([covered @concept=ferc:BondsPrincipalAmountIssued @period = $currentDuration]))
+                        
+
+
+
+
+
+
+
+
+output o345                                                                                      max(list([covered @concept=ferc:BondIssuanceExpense @period = $currentDuration]))
+                        
+
+
+
+
+
+
+
+output o354                                                                                      max(list([covered @concept=ferc:BondsPremium @period = $currentDuration]))
+                        
+
+
+
+
+
+
+
+output o363                                                                                          max(list([covered @concept=ferc:BondsDiscount @period = $currentDuration]))
+                            
+
+
+
+
+
+
+
+
+
+
+
+output o376                                                                                          max(list([covered @concept=ferc:Bonds @period=$currentInstant]))
+                            
+
+
+
+
+
+
+
+output o385                                                                                          max(list([covered @concept=ferc:InterestExpenseBonds @period=$currentDuration]))
+                            
+
+
+
+
+
+
+
+
+
+output o396                                                                            
+                    $heading = 2
+                    $subtotal = 1
+
+                    $heading + $bonds + $subtotal 
+
+
+
+output o404                                        
+                        taxonomy().concept(ferc:OutstandingReacquiredBondsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output ReacquiredBondsLineItems                                            // adding a comment
+            /** comment within XULE expression
+            **/
+            $data2 =   list(for $i in range(3)
+                            list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:ReAcquiredBondObligationsAxis=*})) > 0
+
+                    list({covered @ferc:ReAcquiredBondObligationsAxis=*  {list(
+
+                        first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                        first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReacquiredBondsPrincipalAmount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReacquiredBondsIssuanceExpense @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReaquiredBondsPremium @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReaquiredBondsDiscount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:ReacquiredBonds @unit @period=$currentInstant}))),
+
+                        first-value-or-none(first(list({@ferc:InterestExpenseReacquiredBonds @unit @period=$currentDuration})))
+                )}})
+                else $data2;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+             list(
+
+                                       
+                            $heading = 2;
+                            $subtotal = 1;
+
+
+                            $heading + $bonds + 1 + $subtotal
+                    ,
+
+
+                                                                                                                                                     $row[2] ,
+
+
+
+
+                                                                                                                                                 $row[3],
+
+
+
+
+                                                                                                                                                                              $row[4],
+
+
+
+
+
+                                                                                                                                                                              $row[5],
+
+
+
+
+                                                                                                                                                                              $row[6],
+
+
+
+
+                                                                                                                                                                              $row[7],
+
+
+
+
+                                                                                                                                                                              $row[8],
+
+
+
+
+                                                                                                                                                                              $row[9],
+
+
+
+
+                                                                                                                                                                               $row[10],
+
+
+
+
+                                                                                                                                                                               $row[11],
+
+
+
+
+                                                                                                                                                                               $row[12],
+
+
+
+
+                                                                                                                                                                               $row[13])
+
+
+
+
+
+
+
+
+output o555                                                           
+                                $heading = 2;
+                                $subtotal = 2;
+
+
+                                $heading + $bonds + $reacquired_bonds + $subtotal
+                            
+
+
+
+
+
+
+
+
+output o570                                                                                          max(list([covered @concept=ferc:ReacquiredBondsPrincipalAmount @period = $currentDuration]))
+                            
+
+
+
+
+
+
+
+
+output o580                                                                                          max(list([covered @concept=ferc:ReacquiredBondsIssuanceExpense @period = $currentDuration]))
+                            
+
+
+
+
+
+
+
+output o589                                                                                              max(list([covered @concept=ferc:ReaquiredBondsPremium @period = $currentDuration]))
+                                
+
+
+
+
+
+
+
+output o598                                                                                          max(list([covered @concept=ferc:ReaquiredBondsDiscount @period = $currentDuration]))
+                            
+
+
+
+
+
+
+
+
+
+
+
+output o611                                                                                              max(list([covered @concept=ferc:ReacquiredBonds @period=$currentInstant]))
+                                
+
+
+
+
+
+
+
+output o620                                                                                              max(list([covered @concept=ferc:InterestExpenseReacquiredBonds @period=$currentDuration]))
+                                
+
+
+
+
+
+
+
+
+output o630                                                                            
+                    $heading = 3
+                    $subtotal = 2
+
+
+                    $heading + $bonds + $reacquired_bonds + $subtotal 
+
+
+
+output o639                                        
+                        taxonomy().concept(ferc:OutstandingDebtAdvancesFromAssociatedCompaniesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output AdvancesLineItems                                            // adding a comment
+            /** comment within XULE expression
+            **/
+            $data2 =   list(for $i in range(3)
+                            list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:AdvancesFromAssociatedCompaniesAxis=*})) > 0
+
+                    list({covered @ferc:AdvancesFromAssociatedCompaniesAxis=*  {list(
+
+                        first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                        first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesPrincipalAmountIssued @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesIssuanceExpense @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesPremium @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompaniesDiscount @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                        first-value-or-none(first(list({@ferc:AdvancesFromAssociatedCompanies @unit @period=$currentInstant}))),
+
+                        first-value-or-none(first(list({@ferc:InterestExpenseDebtAdvancesFromAssociatedCompanies @unit @period=$currentDuration})))
+
+                )}})
+                else $data2;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+             list(
+                                                                                                       
+                    $heading = 3;
+                    $subtotal = 2;
+
+
+                    $heading + $bonds + $reacquired_bonds + $subtotal +1
+            ,
+
+
+                                                                                                                                               $row[2] ,
+
+
+
+
+                                                                                                                                          $row[3],
+
+
+
+
+                                                                                                                                                                       $row[4],
+
+
+
+
+
+                                                                                                                                                                       $row[5],
+
+
+
+
+                                                                                                                                                                       $row[6],
+
+
+
+
+                                                                                                                                                                       $row[7],
+
+
+
+
+                                                                                                                                                                       $row[8],
+
+
+
+
+                                                                                                                                                                       $row[9],
+
+
+
+
+                                                                                                                                                                        $row[10],
+
+
+
+
+                                                                                                                                                                        $row[11],
+
+
+
+
+                                                                                                                                                                        $row[12],
+
+
+
+
+                                                                                                                                                                        $row[13])
+
+
+
+
+
+
+
+
+output o790                                                               
+                            $heading = 3
+                            $subtotal = 3
+
+
+
+                            $heading + $bonds + $reacquired_bonds + $advances + $subtotal
+
+                            
+
+
+
+
+
+
+
+
+output o807                                                                                              max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesPrincipalAmountIssued @period = $currentDuration]))
+                                
+
+
+
+
+
+
+
+
+output o817                                                                                              max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesIssuanceExpense @period = $currentDuration]))
+                                
+
+
+
+
+
+
+
+output o826                                                                                                  max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesPremium @period = $currentDuration]))
+                                    
+
+
+
+
+
+
+
+output o835                                                                                              max(list([covered @concept=ferc:AdvancesFromAssociatedCompaniesDiscount @period = $currentDuration]))
+                                
+
+
+
+
+
+
+
+
+
+
+
+output o848                                                                                                  max(list([covered @concept=ferc:AdvancesFromAssociatedCompanies @period=$currentInstant]))
+                                    
+
+
+
+
+
+
+
+output o857                                                                                                  max(list([covered @concept=ferc:InterestExpenseDebtAdvancesFromAssociatedCompanies @period=$currentDuration]))
+                                    
+
+
+
+
+
+
+
+
+output o867                                                                                
+                        $heading = 4
+                        $subtotal = 3
+
+
+                        $heading + $bonds + $reacquired_bonds + $advances + $subtotal 
+
+
+
+output o876                                            
+                            taxonomy().concept(ferc:OtherLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1LongTermDebt").text
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output OtherLongTermDebtLineItems                                                // adding a comment
+                /** comment within XULE expression
+                **/
+                $data2 =   list(for $i in range(3)
+                list($i,none,none,none,none,none,none,none,none,none,none,none,none)
+);
+
+                $data = if count(list({covered @ferc:OtherLongTermDebtAxis=*})) > 0
+
+                        list({covered @ferc:OtherLongTermDebtAxis=*  {list(
+
+                            first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+
+                            first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:RelatedAccountNumber @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtPrincipalAmountIssued @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtIssuanceExpense @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtPremium @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebtDiscount @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+
+                            first-value-or-none(first(list({@ferc:OtherLongTermDebt @unit @period=$currentInstant}))),
+
+                            first-value-or-none(first(list({@ferc:InterestExpenseOtherLongTermDebt @unit @period=$currentDuration}))),
+                    )}})
+                    else $data2;
+
+
+                    $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+                 list(
+                                                                                                                    
+                        $heading = 4;
+                        $subtotal = 3;
+
+
+                        $heading + $bonds + $reacquired_bonds + $advances + $subtotal +1
+                ,
+
+
+                                                                                                                                                          $row[2],
+
+
+
+
+                                                                                                                                                       $row[3],
+
+
+
+
+                                                                                                                                                                                    $row[4],
+
+
+
+
+
+                                                                                                                                                                                    $row[5],
+
+
+
+
+                                                                                                                                                                                    $row[6],
+
+
+
+
+                                                                                                                                                                                    $row[7],
+
+
+
+
+                                                                                                                                                                                    $row[8],
+
+
+
+
+                                                                                                                                                                                    $row[9],
+
+
+
+
+                                                                                                                                                                                     $row[10],
+
+
+
+
+                                                                                                                                                                                     $row[11],
+
+
+
+
+                                                                                                                                                                                     $row[12],
+
+
+
+
+                                                                                                                                                                                     $row[13])
+
+
+
+
+
+
+
+
+output o1026                                                              
+                                $heading = 4;
+                                $subtotal = 4;
+
+
+                                $heading + $bonds + $reacquired_bonds + $advances + $other_debt + $subtotal
+                            
+
+
+
+
+
+
+
+
+output o1041                                                                                             max(list([covered @concept=ferc:OtherLongTermDebtPrincipalAmountIssued @period = $currentDuration]))
+                                
+
+
+
+
+
+
+
+
+output o1051                                                                                             max(list([covered @concept=ferc:OtherLongTermDebtIssuanceExpense @period = $currentDuration]))
+                                
+
+
+
+
+
+
+
+output o1060                                                                                                 max(list([covered @concept=ferc:OtherLongTermDebtPremium @period = $currentDuration]))
+                                    
+
+
+
+
+
+
+
+output o1069                                                                                             max(list([covered @concept=ferc:OtherLongTermDebtDiscount @period = $currentDuration]))
+                                
+
+
+
+
+
+
+
+
+
+
+
+output o1082                                                                                                 max(list([covered @concept=ferc:OtherLongTermDebt @period=$currentInstant]))
+                                    
+
+
+
+
+
+
+
+output o1091                                                                                                 max(list([covered @concept=ferc:InterestExpenseOtherLongTermDebt @period=$currentDuration]))
+                                    
+
+
+
+
+
+
+
+
+output LongTermDebtHeader                                            
+                $Historicalheader = list(if count(list({covered @ferc:ClassOrSeriesOfObligationAndNameOfStockExchangeAxis=*})) > 0
+                            "Long Term Debt (Historical Data)"
+                        else
+                             skip);
+                for $row in $Historicalheader
+             list(
+
+
+                                                                                            $row )
+
+
+
+
+output LongTermDebtLineItems                                            // adding a comment
+            /** comment within XULE expression
+            **/
+
+            $data = if count(list({covered @ferc:ClassOrSeriesOfObligationAndNameOfStockExchangeAxis=*})) > 0
+
+                    list({covered @ferc:ClassOrSeriesOfObligationAndNameOfStockExchangeAxis=*  {list(
+                    first-value-or-none(first(list({@ferc:OrderNumber @unit=* @period=$currentDuration})),0),
+                    first-value-or-none(first(list({@ferc:ClassAndSeriesOfObligationCouponRateDescription @unit @period=$currentDuration}))),
+                    none, /** WHERE ACCOUNT NUMBER WOULD NORMALLY BE **/
+                    first-value-or-none(first(list({@ferc:LongTermDebtPrincipalAmountIssued @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:LongTermDebtIssuanceExpensePremiumOrDiscount @unit @period=$currentDuration}))),
+                    none, /** WHERE DISCOUNT WOULD BE AS SPLIT OUT* NOW*/
+                    first-value-or-none(first(list({@ferc:NominalDateOfIssue @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:DateOfMaturity @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:AmortizationPeriodStartDate @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:AmortizationPeriodEndDate @unit @period=$currentDuration}))),
+                    first-value-or-none(first(list({@ferc:LongTermDebtOutstanding @unit @period=$currentInstant}))),
+                    first-value-or-none(first(list({@ferc:InterestExpenseOnLongTermDebtIssued @unit @period=$currentDuration})))
+
+                )}})
+                else skip;
+
+
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none,none,none,none,none,none,none,none)
+                    skip
+                else
+                    $x
+                );
+
+                for $row in $uniqueData.sort
+
+
+
+             list(
+                                                                                                           1,
+
+
+                                                                                                                                                 $row[2] ,
+
+
+
+
+
+
+
+                                                                                                                                                                            $row[4],
+
+
+
+
+                                                                                                                                                                           $row[5],
+
+
+
+
+
+
+
+                                                                                                                                                                           $row[7],
+
+
+
+
+                                                                                                                                                                           $row[8],
+
+
+
+
+                                                                                                                                                                           $row[9],
+
+
+
+
+                                                                                                                                                                           $row[10],
+
+
+
+
+                                                                                                                                                                           $row[11],
+
+
+
+
+                                                                                                                                                                            $row[12])
+
+
+
+
+
+
+
+
+
+
+
+
+output o1213                                                                                         max(list([covered @concept=ferc:LongTermDebtPrincipalAmountIssued @period=$currentDuration]))
+                            
+
+
+
+
+
+
+
+output o1222                                                                                         max(list([covered @concept=ferc:LongTermDebtIssuanceExpensePremiumOrDiscount @period=$currentDuration]))
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output o1238                                                                                             max(list([covered @concept=ferc:LongTermDebtOutstanding @period = $currentInstant]))
+                                
+
+
+
+
+
+
+
+output o1247                                                                                             max(list([covered @concept=ferc:InterestExpenseOnLongTermDebtIssued @period=$currentDuration]))
+                                
+
+
+
+
+
+
+
+
+
+
+
+output o1260                                               first(list([@ferc:FormType @period=$currentDuration]))
+
+
+
+
+output o1265                                   " (" + taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                
+
+
+
+
+
+
+
+output o1274                                       taxonomy().concept(ferc:ScheduleLongTermDebtAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    

@@ -1,0 +1,22 @@
+ namespace xule = http://xbrl.us/xendr/2.0/template namespace xendr = http://xbrl.us/xendr/2.0/template namespace http://xbrl.us/xendr/2.0/template
+
+
+output o4                 
+            "inside xendr scope"
+        
+
+output o8                
+            "inside xule scope"
+        
+
+
+
+
+
+
+
+
+
+output o20          
+            "inside non-prefix scope"
+        

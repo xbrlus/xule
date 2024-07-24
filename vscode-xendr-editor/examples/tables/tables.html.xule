@@ -1,0 +1,17 @@
+ namespace xendr = http://xbrl.us/xendr/2.0/template
+
+
+output MyTable                                            
+                $table = list(for $x in range(4)
+                list(for $y in range(3)
+                        $x + $y)
+            )
+                for $row in $table
+            
+
+                                                            
+                for $col in $row
+                
+
+                                                                $col
+                    
