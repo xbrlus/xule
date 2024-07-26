@@ -163,6 +163,8 @@ def process_xodel(cntlr, options, modelXbrl):
     _CNTLR = cntlr
     global _ARELLE_MODEL
     _ARELLE_MODEL = modelXbrl
+    global _OPTIONS
+    _OPTIONS = options
     try:
         from .xule.XuleProperties import add_property
     except (ModuleNotFoundError, ImportError):
@@ -954,7 +956,7 @@ def context_hash(entity, period, dimensions):
         for dim, mem in dimensions.items():
             dims.append( (dim.qname.clarkNotation, mem.qname.clarkNotation if dim.isExplicitDimension else mem) )
 
-    return hash( (entity.scheme, entity.identifier, repr(period), tuple(dims)) )
+    return hash( (entity.scheme, entity.identifier, repr(period), tuple(sorted(dims))) )
 
 def get_xml_unit(instance_name, units, nsmap, unit):
     if repr(unit) not in units:
@@ -1645,6 +1647,7 @@ _TYPE_VERIFICATION_FUNCTION = {
 # XODEL Constants
 _CNTLR = None
 _ARELLE_MODEL=None
+_OPTIONS = None
 
 _STANDARD_LINK_NAMES = {'presentation': '{http://www.xbrl.org/2003/linkbase}presentationLink',
                         'definition': '{http://www.xbrl.org/2003/linkbase}definitionLink',
@@ -2518,12 +2521,19 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if arcrole is None:
         raise XodelException(f"Arcrole {rel_info['arcrole']} is not defined in the taxonomy")
 
+    if 'preferred_label' in rel_info:
+        preferred_label = taxonomy.get('Role', rel_info['preferred_label'])
+        if preferred_label is None:
+            raise XodelException(f"Preferred label role {rel_info['preferred-label']} is not defined in the taxonomy")
+    else:
+        preferred_label = None
+
     # Need to get or create the SXMNetwork
     network = taxonomy.get('Network', link_name, arc_name, arcrole, role) or \
               taxonomy.new('Network', link_name, arc_name, arcrole, role)
     # Add the relationship
     return taxonomy.new('Relationship', network, source_concept, target_concept, rel_info.get('order', 1),
-                                 rel_info.get('weight'), rel_info.get('preferred-label'), rel_info.get('attributes', dict()))
+                                 rel_info.get('weight'), preferred_label, rel_info.get('attributes', dict()))
 
 def process_cube(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     '''
@@ -3065,7 +3075,7 @@ class XodelModelManager:
             except (ModuleNotFoundError, ImportError):
                 from SimpleXBRLModel import SXM
 
-            new_model: SXM.SXMDTS = SXM.SXMDTS()
+            new_model: SXM.SXMDTS = SXM.SXMDTS(getattr(_OPTIONS, 'noCertificateCheck', None), getattr(_OPTIONS, 'httpUserAgent', None))
             XodelModelManager._models[model_name]: SXM.SXMDTS = new_model
             return new_model
 

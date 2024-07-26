@@ -3,6 +3,7 @@ import copy
 import decimal
 import inspect
 import re
+import ssl
 import urllib.request
 import urllib.error
 import arelle.XbrlConst as xc
@@ -590,12 +591,16 @@ class SXMDocument(_SXMDTSBase):
         if sxm_object not in self._ids:
             if self.is_absolute:
                 # The ids are already set. Need to find the sxm_object in the document to get the id
-                # TODO - 
                 if self._xml is None:
                     # Need to get the actual document
                     try:
-                        response = urllib.request.urlopen(self.uri)
-                        self._xml = etree.parse(response)
+                        # Create an SSL context that does not verify certificates if no certificate check is true
+                        context = ssl._create_unverified_context() if self.dts.no_certificate_check else None
+                        headers = {'User-Agent': self.dts.user_agent} if self.dts.user_agent else dict()
+                        req = urllib.request.Request(self.uri,
+                                                        headers=headers)
+                        with urllib.request.urlopen(req, context=context) as response:
+                            self._xml = etree.parse(response)
                     except (urllib.error.HTTPError, urllib.error.URLError):
                         raise SXMException(f"Cannot open file {self.uri}")
                     except etree.XMLSyntaxError:
@@ -827,9 +832,11 @@ class SXMPackageEntryPoint(_SXMDTSBase):
         
 class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
 
-    def __init__(self):
+    def __init__(self, no_certificate_check=False, user_agent=None):
         _validate_init_arguments()
         super().__init__()
+        self.no_certificate_check = no_certificate_check
+        self.user_agent = user_agent
         self.concepts: Dict[SXMQName, SXMConcept] = dict()
         self.elements: Dict[SXMQName, SXMElement] = dict()
         self.networks = dict()
@@ -2227,9 +2234,9 @@ def _resolve_qname_to_clark(name, node):
         raise SXMException(f"QName cannot be resolved for name '{name}'")
     return f'{{{namespace}}}{local_name}'
 
-def _resolve_name_in_target_to_clark(name, node):
-    '''This method converts a name defined in a schema to a clark notation qname
-       It uses the target namespace'''
+# def _resolve_name_in_target_to_clark(name, node):
+#     '''This method converts a name defined in a schema to a clark notation qname
+#        It uses the target namespace'''
     
 
 def _resolve_clark_to_qname(name, dts):
