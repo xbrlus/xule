@@ -1,8 +1,11 @@
 on:
     push:
+        branches:
+            - master
         paths:
             - plugin/xule/Xule*.py
             - plugin/xule/xule_grammar.py
+            - plugin/xule/__init__.py
 jobs:
     xule-version:
       name: Xule Version
