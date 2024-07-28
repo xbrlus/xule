@@ -1,0 +1,25 @@
+<html xmlns:xule="http://xbrl.us/xendr/2.0/template">
+    <section xmlns:xendr="http://xbrl.us/xendr/2.0/template">
+
+        <xendr:expression>
+            "inside xendr scope"
+        </xendr:expression>
+
+        <xule:expression>
+            "inside xule scope"
+        </xule:expression>
+
+    </section>
+
+    <xendr:expression>
+        "ignored because outside of xendr scope"
+    </xendr:expression>
+
+    <section xmlns="http://xbrl.us/xendr/2.0/template">
+
+        <expression>
+            "inside non-prefix scope"
+        </expression>
+
+    </section>
+</html>

@@ -1,0 +1,16 @@
+ namespace xendr = http://xbrl.us/xendr/2.0/template
+
+                   constant $global = "global" 
+
+
+output o6 list(            "expression with dynamic attributes" ,
+                     "html" ,
+                      "class" ,
+                     "sign" ,
+                       "format" ,
+                      "scale" ,
+                     "fact" ,
+                          "attribute" )
+
+
+output o16         "showIf" 

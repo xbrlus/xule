@@ -1,0 +1,185 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"scopeName": "source.xendr",
+	"injectionSelector": "L:text.html",
+	"patterns": [
+		{
+			"begin": "(<)\\s*(([a-z]+:)?(expression|sign|scale|fact|class|format|global|footnote|attribute|startNumber|showIf)|([a-z]+:html))( |>)",
+			"end": "(</)\\s*(([a-z]+:)?(expression|sign|scale|fact|class|format|global|footnote|attribute|startNumber|showIf)|([a-z]+:html))\\s*(>)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.tag.begin.html"
+				},
+				"2": {
+					"name": "entity.name.tag.html"
+				},
+				"6": {
+					"name": "punctuation.definition.tag.end.html"
+				}
+			},
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.tag.begin.html"
+				},
+				"2": {
+					"name": "entity.name.tag.html"
+				},
+				"3": {
+					"name": "entity.name.tag.html"
+				},
+				"6": {
+					"name": "punctuation.definition.tag.end.html"
+				}
+			},
+			"patterns": [
+				{
+					"match": "(\\w+)\\s*=\\s*(\".*?\")(>)?",
+					"captures": {
+						"1": {
+							"name": "entity.other.attribute-name.html"
+						},
+						"2": {
+							"name": "string.quoted.double.html"
+						},
+						"3": {
+							"name": "punctuation.definition.tag.end.html"
+						}
+					}
+				},
+				{
+					"patterns": [
+						{
+							"name": "keyword.control.xule",
+							"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}>]))((?<![a-zA-Z]])-)?(assert|constant|else|false|filter|for|function|if|message|namespace|navigate|output-attribute|output|namespace-group)(?!-)\\b"
+						},
+						{
+							"name": "keyword.control.xule",
+							"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}>]))((?<![a-zA-Z]])-)?(returns|rule-focus|rule-name-prefix|satisfied|severity|skip|true|unsatisfied|where|file-content|file-location)(?!-)\\b"
+						},
+						{
+							"name": "keyword.operator.xule",
+							"match": "@|#|\\b==\\b|\\b!=\\b"
+						}
+					]
+				},
+				{
+					"patterns": [
+						{
+							"name": "other",
+							"captures": {
+								"3": {
+									"name": "support.function.xule"
+								}
+							},
+							"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}>]))((?<![a-zA-Z]])-)?(abs|and|as|date|descendants|dict|dimensions|duration|exists|first)(?!-)\\b"
+						},
+						{
+							"name": "other",
+							"captures": {
+								"3": {
+									"name": "support.function.xule"
+								}
+							},
+							"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}>]))((?<![a-zA-Z]])-)?(from|in|index-of|json-data|length|list|name|namespace-uri)(?!-)\\b"
+						},
+						{
+							"name": "other",
+							"captures": {
+								"3": {
+									"name": "support.function.xule"
+								}
+							},
+							"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}>]))((?<![a-zA-Z]])-)?(none|not|or|qname|role|round|rule-name|set|skip|substring|taxonomy|time-span)(?!-)\\b"
+						},
+						{
+							"name": "support.function.xule",
+							"match": "(?i)(?<=.)(dimensions|index-of|join|length|number|period(-type)?|split|substring|unit)(?!-)\\b"
+						}
+					]
+				},
+				{
+					"patterns": [
+						{
+							"name": "other",
+							"captures": {
+								"1": {
+									"name": "variable.xule"
+								}
+							},
+							"match": "(\\$.+?)(?=[\\s=,;.'\"()\\[\\]{}<*+-/])"
+						}
+					]
+				},
+				{
+					"name": "string.quoted.double.xule",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.xule",
+							"match": "\\\\."
+						},
+						{
+							"include": "#string-interpolation"
+						}
+					]
+				},
+				{
+					"name": "string.quoted.single.xule",
+					"begin": "'",
+					"end": "'",
+					"patterns": [
+						{
+							"name": "constant.character.escape.xule",
+							"match": "\\\\."
+						},
+						{
+							"include": "#string-interpolation"
+						}
+					]
+				},
+				{
+					"name": "meta.embedded.line.xule",
+					"begin": "(\\{)",
+					"end": "(\\})",
+					"beginCaptures": {
+						"1": {
+							"name": "constant.character.format.placeholder.other.xule"
+						}
+					},
+					"endCaptures": {
+						"1": {
+							"name": "constant.character.format.placeholder.other.xule"
+						}
+					},
+					"patterns": [
+						{
+							"include": "source.xule"
+						}
+					]
+				},
+				{
+					"patterns": [
+						{
+							"name": "string.unquoted.xule",
+							"match": "http[s]?://\\S+"
+						}
+					]
+				},
+				{
+					"name": "comment.block.xule",
+					"begin": "/\\*",
+					"end": "\\*/"
+				},
+				{
+					"patterns": [
+						{
+							"name": "comment.line.xule",
+							"match": "//[^\n\r]*"
+						}
+					]
+				}
+			]
+		}
+	]
+}

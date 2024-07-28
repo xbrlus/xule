@@ -1,0 +1,208 @@
+ namespace http://www.w3.org/1999/xhtml namespace xule = http://xbrl.us/xendr/2.0/template namespace ixt1 = http://www.xbrl.org/inlineXBRL/transformation/2010-04-20 namespace ixt4 = http://www.xbrl.org/inlineXBRL/transformation/2020-02-12 namespace ferc = http://ferc.gov/form/2024-04-01/ferc namespace ferc-part = http://www.ferc.gov/form/parts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+output o23                                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+
+output o28                                                    [@ferc:RespondentLegalName @period=$currentDuration]
+
+
+
+
+
+output o34                                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+
+
+output o40                                                        if missing({covered @concept=ferc:SubmissionType}) "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> An Original']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" "<![CDATA[
+                        '<span class=\"checkbox\">&#9745;</span> An Original']]>" else "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> An Original']]>"
+                        
+
+
+
+
+
+
+
+output o52                                                         if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" "<![CDATA[
+                        '<span class=\"checkbox\">&#9745;</span> A Resubmission']]>" else "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>"
+                            
+
+
+
+
+
+
+output o63                                    taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+
+output o68                                                        [@ferc:ReportDate @period=$currentDuration]
+
+
+
+
+output o73                                    taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+
+
+
+
+output o78                                                    [@ferc:ReportYear @period=$currentDuration]
+
+
+
+
+output o83                                                    [@ferc:ReportPeriod @period=$currentDuration]
+
+
+
+
+
+
+
+
+
+output o93                                        taxonomy().concept(ferc:ScheduleListOfSchedulesF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FTableOfContents").text
+
+
+
+
+
+
+
+
+output ListHeadings                                                   
+                            $headings = filter (taxonomy().concept(ferc:Form1FAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "F1F - 000 - Schedule - Table Of Contents") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                     list(
+
+                                                                               $heading_dict[$row],
+
+
+
+
+
+
+                                                                                   $row )
+
+
+
+
+
+
+
+output ListLineItems                                               
+                    $data = navigate parent-child descendants from ferc:Form1FAbstract role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1F/TableOfContents" where $relationship.preferred-label in list("http://ferc.gov/form/2020-01-01/roles/label/F1FTableOfContents","http://ferc.gov/form/2020-01-01/roles/label/F1FSubstitutePages") returns list (target, preferred-label, navigation-depth);
+    $data-labels = list(for $row in filter $data where $item[1].is-abstract
+            
+                $concept = $row[1];
+                $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "F1F - 000 - Schedule - Table Of Contents" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+                $part = $concept.label("http://ferc.gov/form/2020-01-01/roles/label/F1FPart").text;
+                $page =  if $row[3] > 1
+                                ""
+                            else
+                               $concept.label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text;
+            
+                
+            
+                list($concept,
+                $concept.label($row[2].role.uri).text, //Title of Account
+                if exists($page) $page else "",  //Page Ref
+                $part,
+                
+
+                ));
+                
+    for $rowl in $data-labels
+
+                 list(
+
+
+                                                                                          $rowl[4],
+
+
+
+
+
+
+                                                                                                        $rowl[1].name.local-name,
+
+
+
+                                                                                     $rowl[2],
+                                                        if $rowl[1].is-abstract "sch-title" else "" ,
+
+
+
+
+
+
+
+
+
+                                                                                    $rowl[3],
+                                                                                   '#' + $rowl[1].name.local-name )
+
+
+
+
+
+
+
+
+
+
+
+
+output o192                                               first(list([@ferc:FormType @period=$currentDuration]))
+
+
+
+
+output o197                                           " (" + taxonomy().concept(ferc:Form1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                        
+
+
+
+
+
+
+
+
+output o207                                           taxonomy().concept(ferc:Form1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                        

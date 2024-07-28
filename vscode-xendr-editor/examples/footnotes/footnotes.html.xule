@@ -1,0 +1,21 @@
+ namespace xule = http://xbrl.us/xendr/2.0/template namespace xendr = http://xbrl.us/xendr/2.0/template constant $footnoteFacts = list()
+
+
+
+
+
+output ft1                                       
+            for $fact in $footnoteFacts
+                for $footnote in $fact.footnotes
+         list(
+
+
+
+
+                                      $footnote,
+
+
+
+                                                 
+                $footnote.lang
+            )

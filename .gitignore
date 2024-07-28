@@ -3,9 +3,15 @@
 gen/
 .vscode-test/
 out/
-**/node_modules/
+node_modules
 dist/
 package-lock.json
+
+distribution
+source/antlr/*.ts
+source/antlr/*.interp
+source/antlr/*.tokens
+#*.vsix
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

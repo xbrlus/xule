@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xule="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2024-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1 - 402</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+   
+</head>
+
+<body class="xbrl" id="ScheduleSteamElectricGeneratingPlantStatisticsAbstract">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+                <br/>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>This report is:</xule:template-display>
+                </xule:replace>
+                <br/>
+                (1)
+                <xule:replace>
+                    <xule:expression html="true" class="hide"> if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" "<![CDATA[
+                        '<span class=\"checkbox\">&#9745;</span> A Resubmission']]>" else "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>"
+                            </xule:expression> 
+                    <xule:template-display>
+                        <input type="checkbox" /> An Original
+                    </xule:template-display>
+                </xule:replace>
+                <br/>
+                (2)
+                <xule:replace>
+                    <xule:expression html="true" class="hide"> if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>" else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" "<![CDATA[
+                        '<span class=\"checkbox\">&#9745;</span> A Resubmission']]>" else "<![CDATA[
+                        '<span class=\"checkbox\">&#9744;</span> A Resubmission']]>"
+                            </xule:expression> 
+                    <xule:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Date of Report:</xule:template-display>
+                </xule:replace>
+                <br/>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>04/26/2019</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Year/Period of Report:</xule:template-display>
+                </xule:replace>
+                <br/>
+                End of: <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>2018</xule:template-display>
+                </xule:replace>
+                <span>/</span>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>Q4</xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td class="xbrl" >
+                <xule:replace>
+                            <xule:expression class="hide">taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Schedule").text
+                            </xule:expression>
+                            <xule:template-display>
+                                STEAM-ELECTRIC GENERATING PLANT STATISTICS (Large Plants)
+                            </xule:template-display>
+                    </xule:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl">
+                <xule:replace>
+                    <xule:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xule:expression>
+                    <xule:template-display>
+                        <p>1.  Report data for plant in Service only.    2.  Large plants are steam plants with installed capacity (name plate rating) of 25,000 Kw or more.  Report in this page gas-turbine and internal combustion plants of 10,000 Kw or more, and nuclear plants.    3.  Indicate by a footnote any plant leased or operated as a joint facility.    4.  If net peak demand for 60 minutes is not available, give data which is available, specifying period.    5.  If any employees attend more than one plant, report on line 11 the approximate average number of employees assignable to each plant.    6.  If gas is used and purchased on a therm basis report the Btu content or the gas and the quantity of fuel burned converted to Mct.    7.  Quantities of fuel burned (Line 38) and average cost per unit of fuel burned (Line 41) must be consistent with charges to expense accounts 501 and 547 (Line 42) as show on Line 20.    8.  If more than one fuel is burned in a plant furnish only the composite heat rate for all fuels burned.</p>
+<p>9.  Items under Cost of Plant are based on U. S. of A. Accounts.  Production expenses do not include Purchased Power, System Control and Load Dispatching, and Other Expenses Classified as Other Power Supply Expenses.    10.  For IC and GT plants, report Operating Expenses, Account Nos. 547 and 549 on Line 25 ""Electric Expenses,"" and Maintenance Account Nos. 553 and 554 on Line 32, ""Maintenance of Electric Plant."" Indicate plants designed for peak load service.  Designate automatically operated plants.    11.  For a plant equipped with combinations of fossil fuel steam, nuclear steam, hydro, internal combustion or gas-turbine equipment, report each as a separate plant.  However, if a gas-turbine unit functions in a combined  cycle operation with a conventional steam unit, include the gas-turbine with the steam plant.    12.  If a nuclear power generating plant, briefly explain by footnote (a) accounting method for cost of power generated including any excess costs attributed to research and development; (b) types of cost units used for the various components of fuel cost; and (c) any other informative data concerning plant type fuel used, fuel enrichment type and quantity for the report period and other physical and operating characteristics of plant.</p>
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+       <tr class="col-heading-row">     
+                <td class="col-heading xbrl">Line No.</td>
+                <td class="col-heading xbrl">
+                    
+                    <div style="text-align: center">   
+                           Item
+                    </div>
+
+                    <div style="text-align: center">
+                                (a)
+                    </div>
+                </td>
+                <td class="col-heading xbrl" xule:repeat="HGPSHeadings">
+                        <xule:expression class="hide" name="HGPSHeadings">
+                                $plantSet = set({covered @ferc:PlantNameAxis = *}.dimension(ferc:PlantNameAxis));
+                                $plants =  if $plantSet.length == 0 
+                                                list(none,none)
+                                            else  
+                                                $plantSet
+
+
+                                $headings = list(for $plant in $plants 
+                                                list($plant, 
+                                                    first(list([covered @ferc:PlantName @ferc:PlantNameAxis = $plant]))
+                                                )
+                                );
+                                
+                                for $row in $headings.sort 
+                                        
+                        </xule:expression>
+                        <div style="text-align: center">
+                            <div> Plant Name:</div>
+                            <xule:replace>
+                        <xule:expression class="hide" name="HGPSHeadings" part="1" fact="true">$row[2]</xule:expression>
+                        <xule:template-display>
+                            123344
+                        </xule:template-display>
+                    </xule:replace>
+                </div>
+                </td>
+               
+            </tr>
+       <tr class="schedule-row" xule:repeat="HydroelectricPlant">
+                <xule:expression class="hide" name="HydroelectricPlant">
+    $data = navigate parent-child descendants from ferc:SteamElectricGeneratingPlantStatisticsLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleSteamElectricGeneratingPlantStatistics" returns list (target-name, preferred-label, result-order);
+    $plantSet = set({covered @ferc:PlantNameAxis = *}.dimension(ferc:PlantNameAxis)).sort;
+    $plants =  if $plantSet.length == 0 
+                    list(none,none)
+                else  
+                    $plantSet
+
+    $data-labels = list(for $row in $data
+        if $row[3] > 2
+            $concept = taxonomy().concept($row[1]);
+            $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "402 - Schedule - Steam-Electric Generating Plant Statistics (Large Plants)" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+            $current = list(for $plant in $plants
+
+                    if exists([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plant]) and not $plant == none
+					        first(list([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plant]))
+					else
+                        if exists([covered @concept = $row[1] @period = $currentInstant @ferc:PlantNameAxis = $plant]) and not $plant == none
+                            first(list([covered @concept = $row[1] @period = $currentInstant @ferc:PlantNameAxis = $plant]))
+                        else
+                            none);
+            list($concept,
+                $concept.label($row[2].role.uri).text,  //Title of Account
+                $current)
+            else
+                skip
+                );
+            
+    
+        for $data-label in $data-labels  
+
+            
+                </xule:expression>
+                        <td class="xbrl line-number">
+                            <xule:lineNumber name="HydroelectricPlant"></xule:lineNumber>
+                        </td> 
+                        <td class="xbrl description_items">
+                                <div class="tooltip">
+                                        <div class="tooltiptext">
+                                                <xule:replace>
+                                                        <xule:expression class="hide" name="HydroelectricPlant" part="1">$data-label[1].name.local-name</xule:expression>
+                                                    </xule:replace>
+                                        </div>
+                                     <xule:replace>
+                                    <xule:expression class="hide" name="HydroelectricPlant" part="2"> $data-label[2]</xule:expression>
+                                    <xule:class location="parent" name="HydroelectricPlant"> if $data-label[1].is-abstract "sch-title" else ""</xule:class>
+                                </xule:replace>
+                                <xule:template-display></xule:template-display>
+                                </div>
+                        </td> 
+
+                        <td class="numeric_items xbrl" xule:repeatWithin="HydroelectricPlant" xule:repeat="plant">
+                            <xule:expression class="hide" name="plant">
+                                for $plantID in $data-label[3]
+                            </xule:expression>
+                            <xule:replace>
+                                    <xule:expression class="hide" name="plant" fact="true" part="3">$plantID</xule:expression>
+                                    <xule:format  name="plant" > if $data-label[1].is-numeric "ixt4:num-dot-decimal" else none</xule:format>
+                                    <xule:class location="parent" name="plant" > if $data-label[1].is-abstract "gray-out" else ""</xule:class>
+                                    <xule:sign>if $data-label[1].name in list(ferc:SteamTransferredCredit) "-" else none</xule:sign>
+                            </xule:replace>
+                        </td>
+
+                                    
+        </tr>
+     
+    </table>
+    <table class="xbrl" width="100%">
+       
+
+   <tr class="schedule-row" xule:repeat="SteamPlant2">
+            <xule:expression class="hide" name="SteamPlant2">
+                $data = navigate parent-child descendants from ferc:SteamElectricGeneratingPlantStatisticsLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleSteamElectricGeneratingPlantStatisticsFuelStatistics" returns list (target-name, preferred-label, result-order);
+                $plantSet = set({covered @ferc:PlantNameAxis = *}.dimension(ferc:PlantNameAxis)).sort;
+
+                
+                $fuelHeaders = list("Coal","Gas","Oil","Nuclear");
+                $plants =  if $plantSet.length == 0 
+                                list(none,none)
+                            else  
+                                $plantSet
+                $fuelHeadersByPlant = list(list(taxonomy().concept(ferc:FuelKindAxis),
+                                                "Plant Name",
+                                                sum(list(for $plantFuel in $plants.sort
+                                                            list(for $fuel in set({covered @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis = *}.dimension(ferc:FuelKindAxis)).sort
+                                                                    first(list([covered @ferc:PlantName @ferc:PlantNameAxis = $plantFuel])) 
+                                                                )
+                                                        )
+                                                    )
+                                                )
+                                            );
+
+                $data-set = list(for $row in $data
+                    if $row[3] > 0
+                        $concept = taxonomy().concept($row[1]);
+                        $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "402 - Schedule - Steam-Electric Generating Plant Statistics (Large Plants) - Fuel Statistics" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+                        
+                        $current = list(for $plantFuel in $plants.sort
+                                            list(for $fuel in set({covered @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis = *}.dimension(ferc:FuelKindAxis)).sort
+                                            if exists([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis=$fuel]) and not $plantFuel == none
+                                                        first(list([covered @concept = $row[1] @period = $currentDuration @ferc:PlantNameAxis = $plantFuel @ferc:FuelKindAxis=$fuel]))
+                                                else
+                                                    none )
+                                                );
+
+
+                        list($concept,
+                            $concept.label($row[2].role.uri).text,  //Title of Account
+                            sum($current)
+                            )
+                        else
+                            skip
+                            );
+                        
+
+                    for $datum in ( $fuelHeadersByPlant  + $data-set) 
+
+        
+            </xule:expression>
+                    <td class="xbrl line-number">
+                        <xule:lineNumber name="SteamPlant2"><xule:startNumber>35</xule:startNumber></xule:lineNumber>
+                    </td> 
+                    <td class="xbrl description_items">
+                            <div class="tooltip">
+                                    <div class="tooltiptext">
+                                            <xule:replace>
+                                                    <xule:expression class="hide" name="SteamPlant2" part="1">$datum[1].name.local-name</xule:expression>
+                                                </xule:replace>
+                                    </div>
+                                 <xule:replace>
+                                <xule:expression class="hide" name="SteamPlant2"  part="2">$datum[2]</xule:expression>
+                                <xule:class location="parent" name="SteamPlant2" >if $datum[1].is-abstract "sch-title" else ""</xule:class>
+                                <xule:class location="parent" name="SteamPlant2" >if $datum[2]=="Plant Name" "col-heading-row" else ""</xule:class>
+                            </xule:replace>
+                            <xule:template-display></xule:template-display>
+                            </div>
+                    </td> 
+
+                   <td class="xbrl" xule:repeatWithin="SteamPlant2" xule:repeat="plant2">
+                        <xule:expression class="hide" name="plant2">
+                            for $plantID2 in $datum[3]
+                        </xule:expression>
+                        <xule:replace>
+                                <xule:expression class="hide" name="plant2" part="3">$plantID2</xule:expression>
+                                <xule:class location="parent" name="plant2" >if $datum[1].is-numeric "numeric_items" else none</xule:class>
+                                <xule:format  name="plant2" >if $datum[1].is-numeric "ixt4:num-dot-decimal" else none</xule:format>
+                                <xule:fact name="plant2" >if $datum[1].is-abstract false else true</xule:fact>
+                                <xule:sign>if $datum[1].name in list(ferc:SteamTransferredCredit) "-" else none</xule:sign>
+                        </xule:replace>
+                    </td>                           
+    </tr>
+
+
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xule:replace>
+                        <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xule:expression>
+                        <xule:template-display>1</xule:template-display>
+                </xule:replace>
+                <span> </span>
+                <xule:replace>
+                        <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xule:expression>
+                        <xule:template-display>
+                                (REV. 12-03)
+                        </xule:template-display>
+                </xule:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:ScheduleSteamElectricGeneratingPlantStatisticsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xule:expression>
+                        <xule:template-display>
+                        402
+                        </xule:template-display>
+                </xule:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

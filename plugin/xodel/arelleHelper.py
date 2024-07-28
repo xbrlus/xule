@@ -303,7 +303,7 @@ def extract_rel_info(model_rel, dts):
     rel_info['type'] = resolve_clark_to_qname(model_rel.linkQname.clarkNotation, dts)
     rel_info['arcrole'] = model_rel.arcrole
     rel_info['attributes'] = {resolve_clark_to_qname(k, dts):v for k, v in model_rel.arcElement.attrib.items()
-                               if k not in ('order', 'weight', 'preferredLabel',
+                               if k not in ('order', 'weight', 'preferredLabel', 'priority', 
                                             '{http://www.w3.org/1999/xlink}arcrole',
                                             '{http://www.w3.org/1999/xlink}from',
                                             '{http://www.w3.org/1999/xlink}to',
@@ -777,7 +777,7 @@ def add_networks(sxm_dts, arelle_model):
             to_concept = sxm_dts.get('Concept', resolve_clark_to_qname(rel.toModelObject.qname.clarkNotation, sxm_dts))
             attribs = dict()
             for att_clark, att_value in rel.arcElement.attrib.items():
-                if att_clark in ('order', 'weight', 'preferredLabel', 'use'):
+                if att_clark in ('order', 'weight', 'preferredLabel', 'use', 'priority'):
                     continue
                 att_qname = resolve_clark_to_qname(att_clark, sxm_dts)
                 if att_qname.namespace == 'http://www.w3.org/1999/xlink':

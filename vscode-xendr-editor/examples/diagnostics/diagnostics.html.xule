@@ -1,0 +1,12 @@
+ namespace xendr = http://xbrl.us/xendr/2.0/template
+
+                  
+        constant $redeclarationShowsError = "error"
+        constant $redeclarationShowsError = "error"
+    
+
+output o8              $undeclaredVariableShowsWarning 
+
+output o10             "incomplete expression shows syntax error" + 
+
+output o12             unknownFunctionShowsWarning() 

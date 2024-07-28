@@ -1,0 +1,6 @@
+{
+	"files.exclude":
+	{
+		"**/*.html.xule": false
+	}
+}

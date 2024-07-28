@@ -84,25 +84,6 @@ except NameError:
 class EmptyOptions:
     pass
 
-class XuleVars:
-    
-    class XuleVarContainer:
-        pass
-
-    @classmethod
-    def set(cls, cntlr, name, value):
-        if not hasattr(cntlr, 'xule_vars'):
-            cntlr.xule_vars = dict()
-        
-        cntlr.xule_vars[name] = value
-    
-    @classmethod
-    def get(cls, cntlr, name):
-        if hasattr(cntlr, 'xule_vars'):
-            return cntlr.xule_vars.get(name)
-        else:
-            return None
-
 def xuleMenuTools(cntlr, menu):
     import tkinter
     
@@ -118,7 +99,7 @@ def xuleMenuTools(cntlr, menu):
         activate_xule_label = "Activate"
         def turnOnXule():
             # The validation menu hook is hit before the tools menu hook. the XuleVars for 'validate_menu' is set in the validation menu hook.
-            validate_menu = XuleVars.get(cntlr, 'validate_menu')
+            validate_menu = xu.XuleVars.get(cntlr, 'validate_menu')
             addValidateMenuTools(cntlr, validate_menu, 'Xule', _xule_rule_set_map_name)
             menu.delete('Xule')
             xule_menu = addMenuTools(cntlr, menu, 'Xule', '', __file__, _xule_rule_set_map_name, _latest_map_name)
@@ -127,7 +108,7 @@ def xuleMenuTools(cntlr, menu):
                 validate_menu.delete('Xule Rules')
                 menu.delete('Xule')
                 new_xule_menu = tkinter.Menu(menu, tearoff=0)
-                new_xule_menu.add_command(label=activate_xule_label, underline=0, command=XuleVars.get(cntlr, 'activate_xule_function'))
+                new_xule_menu.add_command(label=activate_xule_label, underline=0, command=xu.XuleVars.get(cntlr, 'activate_xule_function'))
                 menu.add_cascade(label=_("Xule"), menu=new_xule_menu, underline=0)
                 cntlr.config['xule_activated'] = False
                 
@@ -136,7 +117,7 @@ def xuleMenuTools(cntlr, menu):
         
         xule_menu = tkinter.Menu(menu, tearoff=0)
         xule_menu.add_command(label=activate_xule_label, underline=0, command=turnOnXule)
-        XuleVars.set(cntlr, 'activate_xule_function', turnOnXule)
+        xu.XuleVars.set(cntlr, 'activate_xule_function', turnOnXule)
     
         menu.add_cascade(label=_("Xule"), menu=xule_menu, underline=0)
         
@@ -339,7 +320,7 @@ def addMenuTools(cntlr, menu, name, version_prefix, version_file, map_name, clou
 
 def xuleValidateMenuTools(cntlr, validateMenu, *args, **kwargs):
     # Save the validationMenu object. 
-    XuleVars.set(cntlr, 'validate_menu', validateMenu)
+    xu.XuleVars.set(cntlr, 'validate_menu', validateMenu)
     
 def addValidateMenuTools(cntlr, validateMenu, name, map_name):
     # Extend menu with an item for the save infoset plugin
@@ -368,7 +349,7 @@ def isXuleDirect(cntlr):
     global _is_xule_direct
     if _is_xule_direct is None:
         _is_xule_direct = False
-        for plugin_command in getattr(XuleVars.get(cntlr, 'options'), 'plugins', '').split('|'):
+        for plugin_command in getattr(xu.XuleVars.get(cntlr, 'options'), 'plugins', '').split('|'):
             if plugin_command.lower().strip().endswith('xule'):
                 _is_xule_direct = True
 
@@ -518,6 +499,11 @@ def xuleCmdOptions(parser):
                       dest="xule_trace_count",
                       help=_("Name of the file to write a trace count."))
     
+    parserGroup.add_option("--xule-ordered-iterations",
+                      action="store_true",
+                      dest="xule_ordered_iterations",
+                      help=_("Indicates that the iterations should be ordered consistently. This may affect performance"))
+
     parserGroup.add_option("--xule-debug",
                      action="store_true",
                      dest="xule_debug",
@@ -672,7 +658,7 @@ def xuleCmdOptions(parser):
                                help=_("Validate ruleset"))
 
 def saveOptions(cntlr, options, **kwargs):
-    XuleVars.set(cntlr, 'options', options)
+    xu.XuleVars.set(cntlr, 'options', options)
     # Save the options in the xuleparser
     if xp is not None:
         xp.setOptions(options)
@@ -879,8 +865,10 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 input_file_name = input_file_name.strip()
                                 print("Processing filing", input_file_name)
                                 filing_filesource = FileSource.openFileSource(input_file_name, cntlr)
+                                # TODO - #29 
                                 #modelManager = ModelManager.initialize(cntlr)
-                                modelManager = cntlr.modelManager
+                                #modelManager = cntlr.modelManager
+                                modelManager = xu.get_model_manager_for_import(cntlr)
                                 modelXbrl = modelManager.load(filing_filesource)
                                 # Update options
                                 new_options = copy.copy(options)
@@ -1002,7 +990,7 @@ def xuleValidate(val):
 
     # If the controller is not there, pull it from the model. this happens when running as a web service in multi processing mode.
     _cntlr = _cntlr or val.modelXbrl.modelManager.cntlr
-    options = XuleVars.get(_cntlr, 'options')
+    options = xu.XuleVars.get(_cntlr, 'options')
     if options is None:
         options = EmptyOptions()
 
@@ -1036,7 +1024,7 @@ def xuleTestXbrlLoaded(modelTestcase, modelXbrl, testVariation):
     global _test_start
     global _test_variation_name
     
-    if getattr(XuleVars.get(_cntlr,'options'), 'xule_test_debug', False):
+    if getattr(xu.XuleVars.get(_cntlr,'options'), 'xule_test_debug', False):
         _test_start = datetime.datetime.today()
         _test_variation_name = testVariation.id
         print('{}: Testcase variation {} started'.format(_test_start.isoformat(sep=' '), testVariation.id))
@@ -1046,7 +1034,7 @@ def xuleTestValidated(modelTestcase, modelXbrl):
     global _test_start
     global _test_variation_name
     
-    if getattr(XuleVars.get(_cntlr, 'options'), 'xule_test_debug', False):
+    if getattr(xu.XuleVars.get(_cntlr, 'options'), 'xule_test_debug', False):
         if _test_start is not None:            
             test_end = datetime.datetime.today()
             print("{}: Test variation {} finished. in {} ".format(test_end.isoformat(sep=' '), _test_variation_name, (test_end - _test_start)))

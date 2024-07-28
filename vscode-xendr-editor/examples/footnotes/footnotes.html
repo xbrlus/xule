@@ -1,0 +1,28 @@
+<html xmlns:xule="http://xbrl.us/xendr/2.0/template" xmlns:xendr="http://xbrl.us/xendr/2.0/template">
+<xendr:footnoteFacts>
+<table>
+    <tr>FOOTNOTES</tr>
+    <tr xule:repeat="ft1">
+        <xule:footnotes name="ft1" groups="1">
+        <xule:expression class="hide" name="ft1">
+            for $fact in $footnoteFacts
+                for $footnote in $fact.footnotes
+        </xule:expression>
+        <td>
+            <xule:footnoteNumber name="ft1" footnote-style="roman"/>
+        </td>
+        <td>
+            <xule:footnote name="ft1">$footnote</xule:footnote>
+        </td>
+        <td>
+            <xule:replace>
+            <xule:expression name="ft1" part="1">
+                $footnote.lang
+            </xule:expression>
+            </xule:replace>
+        </td>
+        </xule:footnotes>
+    </tr>
+</table>
+</xendr:footnoteFacts>
+</html>

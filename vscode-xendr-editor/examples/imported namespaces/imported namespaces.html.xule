@@ -1,0 +1,11 @@
+ namespace http://www.w3.org/1999/xhtml namespace xendr = http://xbrl.us/xendr/2.0/template namespace ixt1 = http://www.xbrl.org/inlineXBRL/transformation/2010-04-20 namespace ixt4 = http://www.xbrl.org/inlineXBRL/transformation/2020-02-12 namespace ferc = http://ferc.gov/form/2024-04-01/ferc namespace ferc-part = http://www.ferc.gov/form/parts
+
+
+
+
+
+
+
+
+              
+    constant $bonds = first-value(count(list([covered @ferc:ClassAndSeriesOfObligationCouponRateDescription @ferc:BondObligationsAxis=*])),3)

@@ -1,0 +1,11 @@
+.vscode
+antlr
+documentation
+examples
+node_modules
+source
+.gitignore
+.vscodeignore
+package-lock.json
+*.vsix
+**/*.map

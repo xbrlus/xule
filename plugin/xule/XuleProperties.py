@@ -2495,7 +2495,7 @@ def property_effective_weight_network(xule_context, object_value, *args):
             raise XuleProcessingError(_("The optional network argument for the 'effective-weight-network' property must be one of 'network, role, uri, role uri string, short role name or set/list of networks', found '{}'".format(args[2].type)), xule_context)
         
         bad_networks = tuple("\tArc role: {}, Role: {}".format(x.value[NETWORK_INFO][NETWORK_ARCROLE], x.value[NETWORK_INFO][NETWORK_ROLE]) 
-                             for x in networks if x.value[NETWORK_INFO][NETWORK_ARCROLE] != CORE_ARCROLES['summation-item'])
+                             for x in networks if x.value[NETWORK_INFO][NETWORK_ARCROLE] not in (CORE_ARCROLES['summation-item'], CORE_ARCROLES['summation-item2']))
         
         if len(bad_networks) > 0:
             raise XuleProcessingError(_("Network passed to 'effective-weight-network' is not a summation-item network. "
@@ -2504,6 +2504,7 @@ def property_effective_weight_network(xule_context, object_value, *args):
 
     else:
         networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'])
+        networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2'])
     
     if top is None or bottom is None:
         # The top or bottom is not in the taxonomy
@@ -3073,6 +3074,8 @@ PROPERTIES = {
               '_list-properties': (property_list_properties, 0, ('unbound',), True),
               }
 
+from . import XulePropertiesTrait
+PROPERTIES.update(XulePropertiesTrait.trait_properties())
 
 #Network tuple
 NETWORK_INFO = 0

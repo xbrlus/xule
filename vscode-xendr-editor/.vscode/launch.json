@@ -1,0 +1,32 @@
+{
+	"version": "0.2.0",
+	"configurations":
+	[
+		{
+			"name": "Launch playground",
+			"preLaunchTask": "build",
+			"request": "launch",
+			"type": "extensionHost",
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+			"presentation": {	"hidden": true }
+		},
+		{
+			"name": "Attach to Language Server",
+			"type": "node",
+			"request": "attach",
+			"port": 9229,
+			"timeout": 100000,
+			"restart": true,
+			"sourceMaps": true,
+			"presentation": { "hidden": true }
+		}
+	],
+	"compounds":
+	[
+		{
+			"name": "Playground",
+			"configurations": ["Launch playground", "Attach to Language Server"],
+			"stopAll": true
+		}
+	]
+}

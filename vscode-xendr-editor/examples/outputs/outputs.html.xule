@@ -1,0 +1,27 @@
+ namespace xendr = http://xbrl.us/xendr/2.0/template
+
+output o3          "unnamed"
+
+output singleExpression                       "single expression"
+
+                                         constant $x = 0
+
+
+output listExpression list(                     "expression",
+                     1+1,
+                    1+1)
+
+
+output parts                       for $x in list(1,2) list(
+                                            2,
+                                            3,
+
+                                                "parts have higher priority than list expressions",
+                         1+1)
+
+
+
+output repeatWithin                                  for $row in list(1,2)
+
+                                                for $col in $row 
+                                                $col 

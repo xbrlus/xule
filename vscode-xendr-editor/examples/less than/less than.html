@@ -1,0 +1,30 @@
+<html xmlns:xendr="http://xbrl.us/xendr/2.0/template">
+
+	<xendr:expression>1 &lt; 1</xendr:expression>
+
+    <xendr:expression name="singleExpression">1 &lt; 1</xendr:expression>
+
+    <xendr:global name="singleStatement">constant $x = 1 &lt; 1</xendr:global>
+
+    <xendr:replace>
+        <xendr:expression name="listExpression">1 &lt; 1</xendr:expression>
+        <xendr:class>1 &lt; 1</xendr:class>
+        <xendr:html>1 &lt; 1</xendr:html>
+    </xendr:replace>
+
+    <xendr:expression name="parts">for $x in list(1,1 &lt; 1)</xendr:expression>
+    <xendr:expression name="parts" part="2">1 &lt; 1</xendr:expression>
+    <xendr:expression name="parts" part="3">3</xendr:expression>
+    <xendr:replace>
+        <xendr:expression name="parts" part="4">"parts have higher priority than list expressions"</xendr:expression>
+        <xendr:attribute>1+1</xendr:attribute>
+    </xendr:replace>
+
+	<tr xendr:repeat="repeatWithin">
+		<xendr:expression class="hide" name="repeatWithin">for $row in list(1,1 &lt; 1)</xendr:expression>
+		<td xendr:repeat="repeat" xendr:repeatWithin="repeatWithin">
+			<xendr:expression class="hide" name="repeat">for $col in $row</xendr:expression>
+			<xendr:expression class="hide" name="repeat">1 &lt; 1</xendr:expression>
+		</td>
+	</tr>
+</html>
