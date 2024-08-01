@@ -2521,8 +2521,8 @@ def process_relationship(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if arcrole is None:
         raise XodelException(f"Arcrole {rel_info['arcrole']} is not defined in the taxonomy")
 
-    if 'preferred_label' in rel_info:
-        preferred_label = taxonomy.get('Role', rel_info['preferred_label'])
+    if 'preferred-label' in rel_info:
+        preferred_label = taxonomy.get('Role', rel_info['preferred-label'])
         if preferred_label is None:
             raise XodelException(f"Preferred label role {rel_info['preferred-label']} is not defined in the taxonomy")
     else:
