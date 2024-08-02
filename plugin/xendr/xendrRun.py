@@ -1277,7 +1277,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
                 rule_meta_data = {'substitutions': meta_substitutions,
                                     'line-numbers': meta_line_number_subs}
 
-            rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'], catalog_item['xule-rule-set'])
+            rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'] + list(rule_meta_data['showifs'].keys()), catalog_item['xule-rule-set'])
             
             # Substitute template
             template_number += 1
