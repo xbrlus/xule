@@ -282,7 +282,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             # Check if the result is a fact
             content = None
             current_footnote_ids = []
-            parent_classes = []
+            # parent_classes = []
             if is_actual_fact(json_result, modelXbrl):
                 # get modelFact
                 if json_result['fact'] is not None:
@@ -384,9 +384,21 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             if sub_node is not None:
                 sub_parent = sub_node.getparent()
                 sub_parent.replace(sub_node, span)
-                # Add classes to the parent
-                if len(classes_from_result['parent']) + len(parent_classes) > 0:
-                    sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent'] + parent_classes))
+                # Add classes to the parent or grand parent
+                if len(classes_from_result['parent']) > 0:
+                    class_node = sub_parent
+                    classes_to_add = classes_from_result['parent']
+                elif len(classes_from_result['grand']) > 0:
+                    class_node = sub_parent.getparent()
+                    classes_to_add = classes_from_result['grand']
+                else:
+                    class_node = None
+                if class_node is not None:
+                    class_node.set('class', ' '.join(class_node.get('class','').split() + classes_to_add))
+
+                # # Add classes to the parent
+                # if len(classes_from_result['parent']) + len(parent_classes) > 0:
+                #     sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent'] + parent_classes))
                 # Add colspans to the parent
                 if json_result.get('colspan') is not None:
                     sub_parent.set('colspan', str(json_result['colspan']).strip())
