@@ -366,16 +366,16 @@ def build_xule_rules(template_tree, template_file_name, xule_node_locations):
 def build_template_show_if(xule_rules, next_rule_number, template_tree, template_file_name, node_pos):
     '''Conditional Template Rules
 
-    This funciton finds the xule:showif rule, if there is one, and creates the xule rule for it.
+    This funciton finds the xule:showIf rule, if there is one, and creates the xule rule for it.
     '''
     meta_data = collections.defaultdict(list)
     xule_rules = list()
-    # The <xule:showif> must be a node under the html body node.
-    for showif_node in template_tree.findall('xhtml:body/xule:showif', XULE_NAMESPACE_MAP):
+    # The <xule:showIf> must be a node under the html body node.
+    for showif_node in template_tree.findall('xhtml:body/xule:showIf', XULE_NAMESPACE_MAP):
         rule_name = _RULE_NAME_PREFIX + str(next_rule_number)
         next_rule_number += 1 
         
-        comment_text = '    //xule:showif rule\n    // {} - line {}'.format(template_file_name, showif_node.sourceline)
+        comment_text = '    //xendr:showIf rule\n    // {} - line {}'.format(template_file_name, showif_node.sourceline)
         rule_body = showif_node.text.strip()
         xule_rules.append('output {rule_name}\n{comment}\n{rule_body}'\
                           ''.format(rule_name=rule_name,
