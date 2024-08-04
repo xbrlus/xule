@@ -1361,11 +1361,12 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
         except ModuleNotFoundError:
             raise XendrException("Not able to inline css at the element level. Need to install the css_inline python module.")
         output_string = css_inline.inline(output_string)
-        # This is necessary because the css_inline.inline() unescapes some characters that need to be escaped in order to write the file out. Otherwise I was getting this error:
-        #  UnicodeEncodeError: 'ascii' codec can't encode character '\u2610' in position 12642: ordinal not in range(128)
-        from lxml import html
-        tree = html.fromstring(output_string)
-        output_string = etree.tostring(tree).decode(encoding="utf-8")
+        # # This is necessary because the css_inline.inline() unescapes some characters that need to be escaped in order to write the file out. Otherwise I was getting this error:
+        # #  UnicodeEncodeError: 'ascii' codec can't encode character '\u2610' in position 12642: ordinal not in range(128)
+        # from lxml import html
+        # tree = html.fromstring(output_string)
+        
+        # output_string = etree.tostring(tree).decode(encoding="utf-8")
 
     responseZipStream = kwargs.get("responseZipStream")
     if responseZipStream is not None:
@@ -1376,7 +1377,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
             _zip.close()
             responseZipStream.seek(0)
     else:
-        with open(inline_name, 'w') as output_file:
+        with open(inline_name, 'w', encoding='utf-8') as output_file:
             output_file.write(output_string)
 
     cntlr.addToLog(_("Rendered template as '{}'".format(inline_name)), 'info')
