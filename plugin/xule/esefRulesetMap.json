@@ -1,5 +1,5 @@
 {
-    "https://www.esma.europa.eu/taxonomy/2022-03-24/esef_cor": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v23/dqc_us_rules/dqc-esef-2022-V23-ruleset.zip",
-    "https://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v23/dqc_us_rules/dqc-esef-2021-V23-ruleset.zip",
-    "https://www.esma.europa.eu/taxonomy/2020-03-16/esef_cor": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v23/dqc_us_rules/dqc-esef-2020-V23-ruleset.zip"
+    "https://www.esma.europa.eu/taxonomy/2022-03-24/esef_cor": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v24/dqc_us_rules/dqc-esef-2022-V24-ruleset.zip",
+    "https://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v24/dqc_us_rules/dqc-esef-2021-V24-ruleset.zip",
+    "https://www.esma.europa.eu/taxonomy/2020-03-16/esef_cor": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v24/dqc_us_rules/dqc-esef-2020-V24-ruleset.zip"
     }
