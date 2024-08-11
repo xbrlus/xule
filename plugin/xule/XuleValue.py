@@ -58,14 +58,106 @@ FOOTNOTE_TYPE = 3
 FOOTNOTE_CONTENT = 4
 FOOTNOTE_FACT = 5
 
+#Controller
+_CNTLR = None
+
+def init_cntlr(cntlr):
+    global _CNTLR
+    _CNTLR = cntlr
+
 class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
     ENUM_SET_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType'
 
+class SortedValuesList(list):
+    def __init__(self, iterable=[]):
+        super().__init__(iterable)
+        self.is_sorted = False
+    
+    def sort(self, key=None, reverse=False):
+        if not self.is_sorted:
+            if key is not None:
+                super().sort(key=key, reverse=reverse)
+            else:
+                try:
+                    super().sort(key=lambda x: x.value, reverse=reverse)
+                except TypeError: # could not sort the values
+                    try:
+                        super().sort(key=lambda x: str(x.value), reverse=reverse)
+                    except TypeError:
+                        pass
+        self.is_sorted = True
+        
+
+    def append(self, item):
+        super().append(item)
+        self.is_sorted = False
+
+    def extend(self, iterable):
+        super().extend(iterable)
+        self.is_sorted = False
+
+    def insert(self, index, item):
+        super().insert(index, item)
+        self.is_sorted = False
+
+    def __getitem__(self, index):
+        self.sort() # make sure the list is sorted
+        return super().__getitem__(index)
+
+    def __setitem__(self, index, value):
+        # Assign the new value using the base class's implementation
+        super().__setitem__(index, value)
+        # Ensure the list remains sorted after the change
+        self.is_sorted = False
+
+    def __delitem__(self,key):
+        self.sort()
+        super().__delitem__(key)
+
+    def __iter__(self):
+        self.sort()
+        return super().__iter__()
+
+    def pop(self, index=-1):
+        self.sort()
+        return super().pop(index)
+    
+    def index(self, value, start=0, end=None):
+        self.sort()
+        return super().index(value, start, end)
+    
+    def remove(self, value):
+        self.sort()
+        return super().remove(value)
+    
+    def clear(self):
+        super().clear()
+        self.is_sorted = False
+
+class SortedDefaultDict(collections.defaultdict):
+    def __iter__(self):
+        try:
+            for k in sorted(super().keys(), key=lambda x: x):
+                yield k
+        except TypeError:
+            try:
+                for k in sorted(super().keys(), key=lambda x: str(x)):
+                    yield k
+            except TypeError:
+                for k in super().keys():
+                    yield k
 
 class XuleValueSet:
     def __init__(self, values=None):
-        self.values = collections.defaultdict(list)
+
+        options = XuleUtility.XuleVars.get(_CNTLR, 'options')
+        if options is not None and getattr(options, 'xule_ordered_iterations', False):
+            self.values = SortedDefaultDict(SortedValuesList)
+        else:
+            self.values = collections.defaultdict(list)
+
+        #self.values = SortedDefaultDict(SortedValuesList)
         
         if values is not None:
             self.append(values)
@@ -383,14 +475,31 @@ class XuleValue:
             return list_value
         
         elif self.type == 'set':
-            set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in self.value]) + ")" 
+            # Try and sort the set so the output is more consistent
+            try:
+                vals = sorted([x for x in self.value], key=lambda y: y.value)
+            except TypeError: # could not sort the values
+                try:
+                    vals = sorted([x for x in self.value], key=lambda y: str(y.value))
+                except TypeError:
+                    vals = self.value
+            set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in vals]) + ")" 
             return set_value
         
         elif self.type == 'dictionary': 
-            dict_content = ','.join('='.join((key.format_value(), val.format_value())) for (key,val) in self.value)
+            # Try and sort the dictionary so the output is more consistent
+            try:
+                keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: y.value)
+            except TypeError:
+                try:
+                    keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: str(y.value))
+                except TypeError:
+                    keys = self.value_dictionary.keys()
+
+            dict_content = ','.join('='.join((k.format_value(), self.value_dictionary[k].format_value())) for k in keys)
+
             dict_value = "dictionary(" + dict_content + ")"
             return dict_value
-            #return pprint.pformat(self.system_value)
         
         elif self.type in ('concept', 'part-element'):
             return str(self.value.qname)
@@ -446,8 +555,8 @@ class XuleValue:
                 reference_string += '\t' + str(part.qname) + ': ' + part.textValue + '\n'
             return reference_string
         elif self.type == 'role':
-            role_string = getattr(self.value, 'roleURI', None) or getattr(self.value, 'arcroleURI', None)
-            role_string += ' - ' + self.value.definition
+            role_string = getattr(self.value, 'roleURI', None) or getattr(self.value, 'arcroleURI', None) or 'None'
+            role_string += ' - ' + (self.value.definition or 'None')
             return role_string
         elif self.type == 'footnote':
             footnote_string = f'arcrole: {self.value[FOOTNOTE_ARCROLE]}\nrole: {self.value[FOOTNOTE_ROLE]}\n'

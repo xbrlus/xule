@@ -26,6 +26,7 @@ DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
 from .XuleFunctions import func_alignment
+from .XuleRelattionshipSet import XuleRelationshipSet
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
 from .XuleValue import *
 from . import XuleConstants as xc
@@ -67,6 +68,9 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
     The most import item is the processor context. The context saves the state of the processor throughout the 
     processing of the rules.
     """
+
+    # Save the controller in XuleValue
+    init_cntlr(cntlr)
 
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options)
     if saved_taxonomies is not None and len(saved_taxonomies) > 0:
@@ -3272,6 +3276,10 @@ def evaluate_navigate(nav_expr, xule_context):
 
         direction = nav_expr['direction']
         include_start = nav_expr.get('includeStart', False)
+
+        if nav_expr.get('acrossNetworks', False):
+            # merge all the relationship sets into 1 pseudo relationship set
+            relationship_sets = [XuleRelationshipSet(dts, relationship_sets),]
 
         for relationship_set in relationship_sets:
             if nav_from_concepts is None:
