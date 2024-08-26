@@ -1,4 +1,4 @@
-import { CompletionContext, CompletionItem, CompletionList, DiagnosticChangeEvent, DiagnosticCollection, ExtensionContext, Position, TextDocument, TextDocumentChangeEvent, Uri, commands, languages, workspace } from "vscode";
+import { CompletionContext, CompletionItem, CompletionList, DiagnosticChangeEvent, DiagnosticCollection, ExtensionContext, Position, TextDocument, Uri, commands, languages, workspace } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from "vscode-languageclient/node";
 
 let diagnosticCollection: DiagnosticCollection;
@@ -27,8 +27,6 @@ export function activate(context: ExtensionContext)
 	diagnosticCollection = languages.createDiagnosticCollection("xendrDiagnostics");
 
 	languages.onDidChangeDiagnostics(onDidChangeDiagnostics);
-
-	workspace.onDidChangeTextDocument(onDidChangeDocument);
 
 	context.subscriptions.push(client, diagnosticCollection);
 }
@@ -79,15 +77,5 @@ function onDidChangeDiagnostics(event: DiagnosticChangeEvent)
 			let htmlUri = Uri.parse(uriString.substring(0, uriString.lastIndexOf(".xule")));
 			diagnosticCollection.set(htmlUri, diagnostics);
 		}
-	}
-}
-
-function onDidChangeDocument(event: TextDocumentChangeEvent)
-{
-	let document = event.document;
-
-	if (document.uri.path.endsWith(".html.xule"))
-	{
-		document.save();
 	}
 }

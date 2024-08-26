@@ -4,7 +4,7 @@
 	"displayName": "XENDR Editor",
 	"description": "A language syntax highlighter and code completion extension for editing XENDR files, a XULE output that produces inline XBRL from existing taxonomies and instance documents in CSV, HTML, XML or JSON formats.",
 	"author": {"name": "Strumenta s.r.l.", "url": "https://strumenta.com"},
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"icon": "logo.png",
 	"license": "MIT",
 	"repository": { "type": "git", "url": "https://github.com/xbrlus/xendr-editor" },
