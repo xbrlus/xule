@@ -1,7 +1,7 @@
 name: xule sample
 
 dependencies:
-  - python<=3.10.6
+  - python>=3.10.6
   - regex
   - lxml>=4.6.3
   - isodate==0.6.0
