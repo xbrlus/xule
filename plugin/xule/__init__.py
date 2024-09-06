@@ -507,7 +507,7 @@ def xuleCmdOptions(parser):
     parserGroup.add_option("--xule-rule-stats-file",
                         action="store",
                         dest="xule_rule_stats_file",
-                        help=_("Name of file to store rule run statistics."))
+                        help=_("Name of file to store rule run statistics. The file will be a JSON file"))
     
     parserGroup.add_option("--xule-rule-stats-log",
                         action="store_true",

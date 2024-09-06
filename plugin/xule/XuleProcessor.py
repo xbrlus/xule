@@ -270,6 +270,14 @@ def evaluate_rule_set(global_context):
             # clean up
             del xule_context
 
+    # output stats
+    if getattr(global_context.options, "xule_rule_stats_file", None) is not None:
+        stats_file_name = getattr(global_context.options, "xule_rule_stats_file")
+        if not stats_file_name.endswith('.json'):
+            stats_file_name = stats_file_name + '.json'
+        with open(stats_file_name, 'w') as stats_file:
+            json.dump(global_context.stats, stats_file)
+
     # Display timing information
     if getattr(global_context.options, "xule_time", None) is not None:
         global_context.message_queue.print("Total number of rules processed: %i" % len(times))
@@ -1059,7 +1067,7 @@ def evaluate_output_rule(output_rule, xule_context):
 def handle_stats(xule_context, rule_start, rule_end, rule_type):
 
     if (getattr(xule_context.global_context.options, "xule_rule_stats_log", False) or 
-        getattr(xule_context.global_context.options, "xule_rule_stats", None) is not None):
+        getattr(xule_context.global_context.options, "xule_rule_stats_file", None) is not None):
 
         stats = {'rule_name': xule_context.rule_name,
                  'rule_type': rule_type,
@@ -1081,8 +1089,8 @@ def handle_stats(xule_context, rule_start, rule_end, rule_type):
                                                         filing_url=xule_context.model.modelDocument.uri if xule_context.model is not None else '',
                                                         **stats)
         
-        if getattr(xule_context.global_context.options, "xule_rule_stats", None) is not None:
-            xule_context.global_context.options.xule_rule_stats.append(stats)
+        if getattr(xule_context.global_context.options, "xule_rule_stats_file", None) is not None:
+            xule_context.global_context.stats.append(stats)
 
 def evaluate_bool_literal(literal, xule_context):
     """Evaluator for literal boolean expressions
