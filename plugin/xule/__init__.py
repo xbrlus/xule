@@ -504,6 +504,16 @@ def xuleCmdOptions(parser):
                       dest="xule_ordered_iterations",
                       help=_("Indicates that the iterations should be ordered consistently. This may affect performance"))
 
+    parserGroup.add_option("--xule-rule-stats-file",
+                        action="store",
+                        dest="xule_rule_stats_file",
+                        help=_("Name of file to store rule run statistics. The file will be a JSON file"))
+    
+    parserGroup.add_option("--xule-rule-stats-log",
+                        action="store_true",
+                        dest="xule_rule_stats_log",
+                        help=_("Output rule run statistics to the log."))
+
     parserGroup.add_option("--xule-debug",
                      action="store_true",
                      dest="xule_debug",
