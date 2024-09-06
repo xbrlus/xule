@@ -41,8 +41,6 @@ from arelle.ModelObject import ModelObject
 from arelle.XmlValidate import VALID
 import decimal
 import datetime
-import math
-import re
 from aniso8601 import parse_duration, parse_datetime, parse_date
 import collections
 import copy
@@ -51,6 +49,7 @@ from . import XuleFunctions
 from . import XuleProperties
 import os
 from openpyxl import load_workbook, Workbook
+import json
 
 def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is_validator=False):
     """Run xule rules against a filing.
@@ -284,138 +283,6 @@ def evaluate_rule_set(global_context):
         for slow_rule in slow_rules:
             global_context.message_queue.print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
             # global_context.message_queue.print("Global expression cache size: %i" % len(global_context.expression_cache))
-
-
-# def index_model(xule_context):
-#     """Index the facts in the Arelle model
-    
-#     :param xule_context: The rule context
-#     :type xule_context: XuleRuleContext
-#     :returns: A dictionary of the facts. The dictionary is keyed by index keys.
-#     :rtype: dict
-    
-#     This fucntion goes through all the facts in the Arelle model and organizes them by potential index keys. The index is used
-#     for factset evaluation. The keys are the aspects of the facts. Additional keys are based on properties of the aspects 
-#     (i.e. concept.is-monetary).
-#     """
-
-#     fact_index = collections.defaultdict(lambda: collections.defaultdict(set))
-
-#     facts_to_index = collections.defaultdict(list)
-#     if xule_context.model is not None and not xule_context.fact_index:
-#         for model_fact in xule_context.model.factsInInstance:
-#             if not fact_is_complete(model_fact):
-#                 # Fact is incomplete. This can be caused by a filing that is still in the process of being built.
-#                 # Ignore the fact and continue validating the rest of the filing.
-#                 continue
-#             all_aspects = list()
-#             all_aspects.append((('builtin', 'concept'), model_fact.qname))
-
-#             period = model_to_xule_period(model_fact.context, xule_context)
-#             all_aspects.append((('builtin', 'period'), period))
-
-#             if model_fact.isNumeric:
-#                 unit = model_to_xule_unit(model_fact.unit, xule_context)
-#                 all_aspects.append((('builtin', 'unit'), unit))
-
-#             entity = model_to_xule_entity(model_fact.context, xule_context)
-#             all_aspects.append((('builtin', 'entity'), entity))
-
-#             for dim, mem in sorted(model_fact.context.qnameDims.items()):
-#                 if mem.isExplicit:
-#                     all_aspects.append((('explicit_dimension', dim), mem.memberQname))
-#                 else:
-#                     all_aspects.append((('explicit_dimension', dim), mem.typedMember.xValue))
-
-#             all_aspects = tuple(all_aspects)
-
-#             if getattr(xule_context.global_context.options, "xule_include_dups", False):
-#                 facts_to_index[all_aspects].append(model_fact)
-#             else:
-#                 # Need to eliminate duplicate facts.
-#                 # Duplicate facts are facts that have the same aspects and same value (taking accuracy into account for numeric facts). If there are duplicates
-#                 # with different values, then the duplicate is not eliminated.
-#                 if all_aspects in facts_to_index:
-#                     # there is a fact already
-#                     found_match = False
-#                     for position in range(len(facts_to_index[all_aspects])):
-#                         saved_fact = facts_to_index[all_aspects][position]
-#                         if model_fact.isNumeric:
-#                             saved_value, saved_decimals, cur_value, cur_decimals = get_decimalized_value(saved_fact,
-#                                                                                                          model_fact,
-#                                                                                                          xule_context)
-#                             if cur_value == saved_value:
-#                                 found_match = True
-#                                 if cur_decimals > saved_decimals:
-#                                     facts_to_index[all_aspects][position] = model_fact
-#                                 # otherwise, the saved fact is the better fact to index
-#                         else:
-#                             # fact is non numeric
-#                             if model_fact.xValue == saved_fact.xValue:
-#                                 found_match = True
-
-#                     if not found_match:
-#                         # this is a duplicate with a different value
-#                         facts_to_index[all_aspects].append(model_fact)
-#                 else:
-#                     # First time adding fact
-#                     facts_to_index[all_aspects].append(model_fact)
-
-#         # add the facts to the fact index.
-#         for all_aspects, facts in facts_to_index.items():
-#             for model_fact in facts:
-#                 for aspect in all_aspects:
-#                     # aspect[0] is the aspect(dimension) name. aspect[1] is the aspect(dimension) value
-#                     fact_index[aspect[0]][aspect[1]].add(model_fact)
-#                 for property in index_properties(model_fact):
-#                     fact_index[property[0]][property[1]].add(model_fact)
-
-#         # get all the facts
-#         all_facts = {fact for facts in facts_to_index.values() for fact in facts}
-
-#         # for each aspect add a set of facts that don't have that aspect with a key value of None
-#         for aspect_key in fact_index:
-#             fact_index[aspect_key][None] = all_facts - set(it.chain.from_iterable(fact_index[aspect_key].values()))
-
-#         # save the list of all facts.
-#         fact_index['all'] = all_facts
-
-#         # Save the fact index
-#         xule_context.global_context.fact_index = fact_index
-
-#         # Create table index properties
-#         index_table_properties(xule_context)
-
-#         # Add the None facts for the table properites. These are the facts that don't have the property.
-#         for aspect_key in fact_index:
-#             if aspect_key != 'all' and None not in fact_index[aspect_key]:
-#                 fact_index[aspect_key][None] = all_facts - set(it.chain.from_iterable(fact_index[aspect_key].values()))
-
-
-# def index_properties(model_fact):
-#     """Calculate the properties for the fact.
-    
-#     :param model_fact: The fact
-#     :type model_value: ModelFact
-#     :returns: A list of properties to add to the fact index. The items of the list are 2 item tuples of property identifier and property value.
-#     :rtype: list
-#     """
-#     prop_list = list()
-#     for property_key, property_function in _FACT_INDEX_PROPERTIES.items():
-#         property_value = property_function(model_fact)
-#         if property_value is not None:
-#             prop_list.append((property_key, property_value))
-
-#     for attribute in model_fact.concept.elementAttributesTuple:
-#         # Create an aspect property for the concept aspect for any additional xml attributes that are on the concept.
-#         # attribute[0] is the attribute name. For qnames this will be in clarknotation
-#         # attribute[1] is the attribute value
-#         if attribute[0] not in ('id', 'name', 'substitutionGroup', 'type', '{http://www.xbrl.org/2003/instance}balance',
-#                                 '{http://www.xbrl.org/2003/instance}periodType'):
-#             prop_list.append((('property', 'concept', 'attribute', qname(attribute[0])), attribute[1]))
-
-#     return prop_list
-
 
 def index_property_start(model_fact):
     if model_fact.context.isStartEndPeriod:
@@ -983,12 +850,13 @@ def evaluate_assertion(assert_rule, xule_context):
 
     # Keep evaluating the rule while there are iterations. This is done in a While True loop so there is always at least one iteration. This is for rules that 
     # do not have iterable expressions in them (i.e. 1 + 2).
+    rule_start = datetime.datetime.today()
     while True:
         xule_context.iter_count += 1
         try:
             xule_value = evaluate(assert_rule['body'], xule_context)
         except XuleIterationStop:
-            xule_context.iter_pass_count += 1
+            xule_context.iter_skip_count += 1
             pass
         except:
             xule_context.iter_except_count += 1
@@ -1076,23 +944,8 @@ def evaluate_assertion(assert_rule, xule_context):
         else:
             xule_context.reset_iteration()
 
-'''
-def x(xule_context):
-    result = dict()
-    for cinfo in xule_context.global_context.constant_store.values():
-        if cinfo['calculated']:
-            for alignment, vals in cinfo['value'].values.items():
-                for val in vals:
-                    for tname, tval in val.tags.items():
-                        if tname == 'ConceptName':
-                            result[cinfo['name']] = tval.value
-    return result
-
-def y(xule_context, const_name):
-    for cinfo in xule_context.global_context.constant_store.values():
-        if cinfo['name'] == const_name:
-            return cinfo['value']
-'''
+    # Rule Statistics
+    handle_stats(xule_context, rule_start, datetime.datetime.today(), 'assert')  
 
 def evaluate_output_rule(output_rule, xule_context):
     """Evaluator for an output rule.
@@ -1109,12 +962,13 @@ def evaluate_output_rule(output_rule, xule_context):
     """
     # Keep evaluating the rule while there are iterations. This is done in a While True loop so there is always at least one iteration. This is for rules that 
     # do not have iterable expressions in them (i.e. 1 + 2).
+    rule_start = datetime.datetime.today()
     while True:
         xule_context.iter_count += 1
         try:
             xule_value = evaluate(output_rule['body'], xule_context)
         except XuleIterationStop:
-            xule_context.iter_pass_count += 1
+            xule_context.iter_skip_count += 1
             pass
         except:
             xule_context.iter_except_count += 1
@@ -1199,6 +1053,36 @@ def evaluate_output_rule(output_rule, xule_context):
         else:
             xule_context.reset_iteration()
 
+    # Rule Statistics
+    handle_stats(xule_context, rule_start, datetime.datetime.today(), 'output')    
+
+def handle_stats(xule_context, rule_start, rule_end, rule_type):
+
+    if (getattr(xule_context.global_context.options, "xule_rule_stats_log", False) or 
+        getattr(xule_context.global_context.options, "xule_rule_stats", None) is not None):
+
+        stats = {'rule_name': xule_context.rule_name,
+                 'rule_type': rule_type,
+                'start_time': rule_start.isoformat(),
+                'end_time': rule_end.isoformat(),
+                'time': str(rule_end - rule_start),
+                'total': xule_context.iter_count,
+                'pass': xule_context.iter_pass_count,
+                'skip': xule_context.iter_skip_count,
+                'message': xule_context.iter_message_count,
+                'misaligned': xule_context.iter_misaligned_count,
+                'except': xule_context.iter_except_count
+        }
+
+        if getattr(xule_context.global_context.options, "xule_rule_stats_log", False):
+            xule_context.global_context.message_queue.log('INFO',
+                                                        f"stats-{xule_context.rule_name}",
+                                                        json.dumps(stats),
+                                                        filing_url=xule_context.model.modelDocument.uri if xule_context.model is not None else '',
+                                                        **stats)
+        
+        if getattr(xule_context.global_context.options, "xule_rule_stats", None) is not None:
+            xule_context.global_context.options.xule_rule_stats.append(stats)
 
 def evaluate_bool_literal(literal, xule_context):
     """Evaluator for literal boolean expressions
