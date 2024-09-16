@@ -4364,11 +4364,14 @@ def evaluate_property(property_expr, xule_context):
         property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
 
         # Check if the property can operate on a set or list.
-        if object_value.type not in ('set', 'list') or (object_value.type in ('set', 'list') and (
-            len({'set', 'list'} & set(property_info[XuleProperties.PROP_OPERAND_TYPES])) > 0) or
-            (object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES])) or (
-                # property operates on all types, so should operate on the list or set
-            len(property_info[XuleProperties.PROP_OPERAND_TYPES]) == 0):
+        if (object_value.type not in ('set', 'list') or # It's not a collection so the property should not operate on a collection
+            (object_value.type in ('set', 'list') and (
+            len({'set', 'list'} & set(property_info[XuleProperties.PROP_OPERAND_TYPES])) > 0) or # It's a collection but the property is for a collection
+            (object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES])) or # It's a fact and the property works for a fact
+            (
+            # property operates on all types, so should operate on the list or set
+            len(property_info[XuleProperties.PROP_OPERAND_TYPES]) == 0)
+            ):
             object_value = process_property(current_property_expr, object_value, property_info, xule_context)
         else:
             # This is a set or list. The property is not for a set or list, so try to create a new set or list after applying the property to the members.
@@ -4412,15 +4415,14 @@ def process_property(current_property_expr, object_value, property_info, xule_co
                     object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
                     any([xule_castable(object_value, allowable_type, xule_context) for allowable_type in
                          property_info[XuleProperties.PROP_OPERAND_TYPES]]) or
+                    'noncollection' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
                     (object_value.type in ('none', 'unbound') and property_info[XuleProperties.PROP_UNBOUND_ALLOWED])):
-                # print(current_property_expr['node_id'])
+       
                 raise XuleProcessingError(
                     _("Property '%s' is not a property of a '%s'.") % (current_property_expr['propertyName'],
                                                                        object_value.type),
                     xule_context)
-
-                # property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
-
+            
     if property_info[XuleProperties.PROP_ARG_NUM] is not None:
         property_args = current_property_expr.get('propertyArgs', [])
         if property_info[XuleProperties.PROP_ARG_NUM] >= 0 and len(property_args) != property_info[

@@ -2866,7 +2866,8 @@ def property_arcroles(xule_context, object_value, *args):
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
-PROP_OPERAND_TYPES = 2
+PROP_OPERAND_TYPES = 2 # noncollection is a special operand type that indicates that the operand can be any type except a collection
+                       # This is different from an empty tuple which indicates that the operand can be any type including a collection
 PROP_UNBOUND_ALLOWED = 3
 PROP_DATA = 4
 PROP_VERSION = 5
@@ -2894,7 +2895,7 @@ PROPERTIES = {
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
               'has-key': (property_has_key, 1, ('dictionary',), False),
-              'decimals': (property_decimals, 0, (), True),
+              'decimals': (property_decimals, 0, ('noncollection',), True),
               'networks':(property_networks, -2, ('taxonomy',), False),
               'role': (property_role, 0, ('network', 'label', 'footnote', 'reference', 'relationship'), False),
               'role-uri': (property_role_uri, 0, ('network', 'label', 'reference', 'relationship'), False),
@@ -2948,7 +2949,7 @@ PROPERTIES = {
               'is-abstract': (property_is_abstract, 0, ('concept', 'part-element', 'fact'), True),
               'is-nillable': (property_is_nillable, 0, ('concept', 'part-element'), True),
               'is-nil': (property_is_nil, 0, ('fact',), True),
-              'is-fact': (property_is_fact, 0, (), True),
+              'is-fact': (property_is_fact, 0, ('noncollection',), True),
               'inline-scale': (property_scale, 0, ('fact',), True),
               'inline-format': (property_format, 0, ('fact',), True),
               'inline-display-value': (property_display_value, 0, ('fact',), True),
@@ -3012,15 +3013,15 @@ PROPERTIES = {
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
-              'string': (property_string, 0, (), False),
-              'plain-string': (property_plain_string, 0, (), False),
+              'string': (property_string, 0, ('noncollection',), False),
+              'plain-string': (property_plain_string, 0, ('noncollection',), False),
               'trim': (property_trim, -1, ('string', 'uri'), False),
               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
               'entry-point': (property_entry_point, 0, ('taxonomy',), False),
               'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
               'effective-weight': (property_effective_weight, 2, ('taxonomy',), False),
               'effective-weight-network': (property_effective_weight_network, -3, ('taxonomy',), False),
-              'document-location': (property_document_location, 0, (), False),
+              'document-location': (property_document_location, 0, ('noncollection',), False),
               'all': (property_all, 0, ('set', 'list'), False),
               'any': (property_any, 0, ('set', 'list'), False),
               'first': (property_first, 0, ('set', 'list'), False),
