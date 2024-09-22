@@ -58,3 +58,23 @@ output IFEL012
 /* rule IFEL012: Rule: IFEL012 - If condition is not a boolean, found 'string' */
 
   if 'cat' 1 else 2
+
+output IFEL013
+/* FALSE */
+
+  if list([covered @instance = $INSTANCE1 @concept.local-name = 'hello']).length > 0 true else false
+
+output IFEL014
+/* skip */
+
+  if [covered @instance = $INSTANCE1 @concept.local-name = 'hello'] true else false
+
+output IFEL015
+/* TRUE */
+
+  if missing([covered @instance = $INSTANCE1 @concept.local-name = 'hello']) true else false
+
+output IFEL016
+/* FALSE */
+
+  if exists([covered @instance = $INSTANCE1 @concept.local-name = 'hello']) true else false

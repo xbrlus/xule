@@ -31,3 +31,48 @@ output FORL105
   list(for $i in Assets
                     $i
                 )
+
+output FORL106
+/* true, true, true, true */
+
+  for $i in list([@instance = $INSTANCE1 @concept = Assets]).is-numeric
+                    $i
+
+output FORL107
+/* true, true, true */
+
+  for $i in list([@instance = $INSTANCE1 @concept = Assets])
+                    $i.is-numeric
+
+output FORL108
+/* true, true, true */
+
+  for $i in list([covered @instance = $INSTANCE1 @concept = Assets]).is-numeric
+                    $i
+
+output FORL109
+/* rule FORL109: Rule: FORL109 - For loop requires a set or list, found 'string'. */
+
+  for $i in list([@instance = $INSTANCE1 @concept = Assets]).string
+                    $i
+
+output FORL110
+/* [FORL110] list(45,436,000,000)
+[FORL110] list(40,230,000,000)
+[FORL110] list(42,144,000,000) */
+
+  list([@instance = $INSTANCE1 @concept = Assets]).string
+
+output FORL111
+/* [xule:error] rule FORL111: Rule: FORL111 - For loop requires a set or list, found 'string'. */
+
+  for $i in list(1,2,3).string
+                    $i
+
+output FORL112
+/* [FORL112] 45,436,000,000
+[FORL112] 40,230,000,000
+[FORL112] 42,144,000,000 */
+
+  for $i in list([@instance = $INSTANCE1 @concept = Assets])
+                    $i

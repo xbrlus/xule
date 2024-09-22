@@ -9,6 +9,11 @@ output FACT002
 
   first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).decimals
 
+output FACT002a
+/* None */
+
+  list({covered @instance = $INSTANCE1 @Assets}).decimals
+
 output FACT003
 /* 45436000000 */
 
