@@ -365,7 +365,7 @@ output DUR109
   duration(date('2022-03-31'), date('2022-03-31'))
 
 output DUR110
-/* 2022-03-31 to 2022-03-31 */
+/* 0 */
 
   duration(date('2022-03-31'), date('2022-03-31T24:00:00')).days
 

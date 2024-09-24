@@ -616,7 +616,7 @@ AssetsNoncurrent,30 */
 
   $A = list(list('Liabilities', 100),list('AssetsCurremt', 200),list('AssetsNoncurrent', 30)); 
 to-csv($A,',')
-file-location '~/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV101.csv'
 file-content $A.to-csv(',')
 
 output TCSV102
@@ -651,6 +651,14 @@ AssetsNoncurrent,30 */
   $A = list(list(Liabilities, 100),list(AssetsCurrent, 200),list(AssetsNoncurrent, 30)); 
 $A.to-csv
 file-location '~/Documents/GitHub/xule/unitTests/output/TCSV105.csv'
+file-content $rule-value
+
+output TCSV106
+/* file */
+
+  $A = list([covered @instance = $INSTANCE1 @concept.balance = none])
+list(for $line in $A list($line.concept.name)).to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV106.csv'
 file-content $rule-value
 
 output TSPT001
@@ -748,7 +756,7 @@ output HKY008
   has-key(list('a', 'b'), 'a')
 
 output HKY009
-/*  true */
+/* FALSE */
 
   'a' in dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog'))
 
@@ -1065,7 +1073,7 @@ output MIN114
 output MIN115
 /* 33 */
 
-  list([covered @instance = $INSTANCE1 @Assets where $fact > 0],100,33).min.concept.name
+  list([covered @instance = $INSTANCE1 @Assets where $fact > 0],100,33).min
 
 output PROD101
 /* 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d) */

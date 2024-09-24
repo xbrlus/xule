@@ -10,7 +10,7 @@ output FACT002
   first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).decimals
 
 output FACT002a
-/* None */
+/* Should return asset value decimals */
 
   list({covered @instance = $INSTANCE1 @Assets}).decimals
 
@@ -164,6 +164,11 @@ output FACT032
 
   none.is-fact
 
+output FACT032a
+/*  */
+
+  list([covered @instance = $INSTANCE1 @Assets]).is-fact
+
 output FACT033
 /* FALSE */
 
@@ -274,7 +279,7 @@ output FACT053
   {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}.cubes.cube-concept
 
 output FACT054
-/* rule FACT054: invalid literal for int() with base 10: '(ixTransformValueError)' */
+/* e9d58db97c5df6ee0050cc253e9fde04c4888540ea55d1dc02b4f83207bed2af */
 
   first($INSTANCE1.facts.sid)
 

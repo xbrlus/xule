@@ -140,7 +140,7 @@ output CONPROP025
   $US-GAAP-2020.concept(Assets).has-enumerations
 
 output CONPROP026
-/*  */
+/* Rule: CONPROP026 - The first argument of function 'clark' must be qname, concept, part-element, fact, reference-part, found 'none'. */
 
   clark(none)
 
@@ -365,7 +365,7 @@ output TAXPROP012
   concepts($US-GAAP-2020).length
 
 output TAXPROP020
-/*  */
+/* 1 */
 
   $US-GAAP-2024.effective-weight(us-gaap-2024:EffectiveIncomeTaxRateContinuingOperations,us-gaap-2024:EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate)
 
