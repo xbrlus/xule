@@ -25,12 +25,12 @@ output CFILT105
   $a = [covered @instance = $INSTANCE1 @Assets];  set($a.data-type)
 
 output CFILT106
-/* set(None) */
+/* set(set(-6)) */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]);  set($a.decimals)
 
 output CFILT107
-/* None */
+/* set(-6) */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.decimals
 
@@ -270,7 +270,7 @@ output PFILT107
   list({covered @instance = $FOREVER_INSTANCE @period != *}).count
 
 output PFILT108
-/* 2253 */
+/* 2254 */
 
   list({covered @instance = $FOREVER_INSTANCE @period = *}).count
 
@@ -363,24 +363,29 @@ output PFILT124
   list({covered-dims @instance = $INSTANCE1 @@period.days = 91 @entity @unit @concept}).count
 
 output NOFILT001
-/* 1579 */
+/* 1589 */
 
   list(covered @instance = $INSTANCE1).count
 
 output NOFILT002
-/* 1579 */
+/* 1589 */
 
   list({covered @instance = $INSTANCE1 @}).count
 
 output NOFILT003
-/* 632 */
+/* 637 */
 
   set({covered @instance = $INSTANCE1}).count
 
 output NOFILT004
-/* 315 */
+/* 320 */
 
   set([covered @instance = $INSTANCE1]).count
+
+output NOFILT005
+/* 1589 */
+
+  list({covered @ @instance = $INSTANCE1}).count
 
 output INSFILT001
 /* 1739 */
@@ -403,7 +408,7 @@ output INSFILT004
   (filter ($INSTANCE1.facts.sort) where $item.concept.is-numeric == true and $item.concept.is-monetary != true).count
 
 output INSFILT005
-/* 86 */
+/* 87 */
 
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true @concept.is-monetary = false}).count
 
@@ -654,12 +659,12 @@ output CUBEFILT019
 output CUBEFILT020
 /* 96 */
 
-  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.cube-concept)
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.cube-concept).length
 
 output CUBEFILT021
 /* 96 */
 
-  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.drs-role().uri)
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.drs-role().uri).length
 
 output CUBEFILT022
 /* 14 */
