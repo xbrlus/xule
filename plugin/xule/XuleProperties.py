@@ -78,10 +78,7 @@ def property_contains(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, search_value in object_value.shadow_collection, 'bool')
     elif object_value.type in ('string', 'uri'):
         if search_item.type in ('string', 'uri'):
-            if search_item.value == '':
-                return xv.XuleValue(xule_context, False, 'bool')
-            else:
-                return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
+            return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
         elif search_item.type == 'none':
             return xv.XuleValue(xule_context, False, 'bool')
         else: 
