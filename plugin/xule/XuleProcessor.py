@@ -2586,7 +2586,10 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
         if first:
             # there were no apsects to start the matching, so use the full set
             # pre_matched_model_facts = xule_context.model.factsInInstance
-            pre_matched_model_facts = fact_index['all']
+            try:
+                pre_matched_model_facts = fact_index['all']
+            except KeyError: # This only happens because there is no model.
+                pre_matched_model_facts = set()
         
         pre_matched_facts |= pre_matched_model_facts
 
