@@ -4067,10 +4067,17 @@ def property_as_function(xule_context, function_ref):
     property_object = evaluate(function_ref['functionArgs'][0], xule_context)
 
     if len(property_info[XuleProperties.PROP_OPERAND_TYPES]) > 0:
+        # if not (property_object.type in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+        #         property_object.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+        #         any([xule_castable(property_object, allowable_type, xule_context) for allowable_type in
+        #              property_info[XuleProperties.PROP_OPERAND_TYPES]])):
+
         if not (property_object.type in property_info[XuleProperties.PROP_OPERAND_TYPES] or
                 property_object.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
                 any([xule_castable(property_object, allowable_type, xule_context) for allowable_type in
-                     property_info[XuleProperties.PROP_OPERAND_TYPES]])):
+                        property_info[XuleProperties.PROP_OPERAND_TYPES]]) or
+                'noncollection' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+                (property_object.type in ('none', 'unbound') and property_info[XuleProperties.PROP_UNBOUND_ALLOWED])):
             raise XuleProcessingError(
                 _("The first argument of function '{}' must be {}, found '{}'.".format(function_ref['functionName'],
                                                                                        ', '.join(property_info[
