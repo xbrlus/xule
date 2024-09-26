@@ -1009,4 +1009,4 @@ output TAXPROP140
 output TAXPROP141
 /* 225 */
 
-  $US-GAAP-2020.namespaces
+  $US-GAAP-2020.namespaces.length
