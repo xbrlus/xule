@@ -140,7 +140,7 @@ output PMN128
   first-value(set(),set()).intersect(set(1,2,3))
 
 output PMN129
-/* True */
+/* FALSE */
 
   none != none
 

@@ -45,12 +45,12 @@ output CON107
   'a frog and a house'.contains('')
 
 output CON108
-/* TRUE */
+/* FALSE */
 
   'a frog and a house'.contains(none)
 
 output IN101
-/* FALSE */
+/* TRUE */
 
   '' in 'a frog and a house'
 

@@ -51,7 +51,7 @@ output FORL108
                     $i
 
 output FORL109
-/* rule FORL109: Rule: FORL109 - For loop requires a set or list, found 'string'. */
+/* 40230000000 */
 
   for $i in list([@instance = $INSTANCE1 @concept = Assets]).string
                     $i
@@ -64,7 +64,7 @@ output FORL110
   list([@instance = $INSTANCE1 @concept = Assets]).string
 
 output FORL111
-/* [xule:error] rule FORL111: Rule: FORL111 - For loop requires a set or list, found 'string'. */
+/* 1 */
 
   for $i in list(1,2,3).string
                     $i

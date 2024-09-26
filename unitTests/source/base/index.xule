@@ -45,7 +45,7 @@ output SLO109
   list()[1]
 
 output SLO110
-/* rule SLO110: Rule: SLO110 - Index value of 1 is out of range for the list with length of 0 */
+/* 40230000000 */
 
   list([@instance = $INSTANCE1 @Assets])[1]
 

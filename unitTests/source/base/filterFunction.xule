@@ -144,7 +144,7 @@ output FIL126
   filter dict(list('a',2),list('b',3),list('c',4)) where $item['a'] == 2 
 
 output FIL127
-/* 5 */
+/* set(3, 4) */
 
   $item = filter (filter set(1,2,3,4,5) where $item > 2) where $item < 5
 $item
