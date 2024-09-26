@@ -1982,6 +1982,8 @@ def evaluate_add(add_expr, xule_context):
                     left = XuleUtility.subtract_dictionaries(xule_context, left, right)
                 elif left.type == 'dictionary' and right.type in ('set', 'list'):
                     left = XuleUtility.subtract_keys_from_dictionary(xule_context, left, right)
+                elif left.type == 'list' or right.type == 'list':
+                    raise XuleProcessingError(_("Lists cannot be subtracted"), xule_context)
                 else:
                     left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
             else:
