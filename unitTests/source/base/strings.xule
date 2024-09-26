@@ -44,6 +44,11 @@ output CON107
 
   'a frog and a house'.contains('')
 
+output IN101
+/* FALSE */
+
+  '' in 'a frog and a house'
+
 output DIO101
 /* 3 */
 
