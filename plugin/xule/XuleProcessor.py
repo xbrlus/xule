@@ -1973,6 +1973,8 @@ def evaluate_add(add_expr, xule_context):
                     left = XuleUtility.add_dictionaries(xule_context, left, right)
                 elif left.type == 'dictionary' and right.type in ('set', 'list'):
                     raise XuleProcessingError(_("Cannot add a dictionary and a %s" % right.type), xule_context)
+                elif left.type == 'instant' and right.type == 'instant':
+                    raise XuleProcessingError(_("Dates cannot be added"), xule_context)
                 else:
                     left = XuleValue(xule_context, left_compute_value + right_compute_value, combined_type)
             elif '-' in operator:
@@ -1985,6 +1987,8 @@ def evaluate_add(add_expr, xule_context):
                 elif left.type == 'list' or right.type == 'list':
                     raise XuleProcessingError(_("Lists cannot be subtracted"), xule_context)
                 else:
+                    if left.type == 'instant' and right.type == 'instant':
+                        combined_type = 'time-period'
                     left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
             else:
                 raise XuleProcessingError(
