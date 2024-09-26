@@ -210,7 +210,7 @@ output DCOU103
   set().count
 
 output DCOU104
-/* 1579 */
+/* 1589 */
 
   list(covered @instance = $INSTANCE1).count
 
@@ -260,7 +260,7 @@ output COU105
   count(list(none))
 
 output COU110
-/* 1579 */
+/* 1589 */
 
   count(list(covered @instance = $INSTANCE1))
 
