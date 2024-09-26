@@ -35,17 +35,17 @@ output CON105
   contains(none, 'hou')
 
 output CON106
-/* FALSE */
+/* TRUE */
 
   contains('a frog and a house', '')
 
 output CON107
-/* FALSE */
+/* TRUE */
 
   'a frog and a house'.contains('')
 
 output IN101
-/* FALSE */
+/* TRUE */
 
   '' in 'a frog and a house'
 
