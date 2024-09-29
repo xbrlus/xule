@@ -25,12 +25,12 @@ output DO104
   time-span('P4D') - date('2020-01-01')
 
 output DO105
-/* rule DO105: 'datetime.timedelta' object has no attribute 'strftime' */
+/* 731 days, 0:00:00 */
 
   date('2022-01-01') - date('2020-01-01')
 
 output DO106
-/* rule DO106: 'datetime.timedelta' object has no attribute 'strftime' */
+/* -731 days, 0:00:00 */
 
   date('2020-01-01') - date('2022-01-01')
 

@@ -305,7 +305,7 @@ output DLEN104
   dict(list('a','item a'), list('b','item b'), list('c','item c')).length
 
 output DLEN105
-/* 18276 */
+/* 20399 */
 
   $US-GAAP-2020.concepts.length
 

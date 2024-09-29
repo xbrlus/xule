@@ -552,7 +552,7 @@ output UNITFILT019
   list({covered @instance = $INSTANCE1  where ($fact.unit.denominator == none and $fact.unit.numerator == unit(iso4217:USD))}).count
 
 output MULTIIN001
-/* 3215 */
+/* 3234 */
 
   list(covered @instance in list($INSTANCE1, $INSTANCE2)).count
 
@@ -717,12 +717,12 @@ output NOTINFILT001
   list({covered @instance = $INSTANCE1 @concept not in list(Assets,Liabilities) where $fact.dimensions.length > 0 }).length
 
 output NILSFILT001
-/* 1579 */
+/* 1589 */
 
   list({covered nonils @instance = $INSTANCE1 @concept.substitution = xbrli:item}).count
 
 output NILSFILT002
-/* 1579 */
+/* 1589 */
 
   list({covered nonils @instance = $INSTANCE1}).count
 
