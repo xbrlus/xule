@@ -68,7 +68,7 @@ def property_concepts_by_trait(xule_context, object_value, *args):
 
     tax_concepts = _get_concepts_for_taxonomy(object_value.value)
 
-    for trait_value in traits:
+    for i, trait_value in enumerate(traits):
         if trait_value.type == 'concept':
             trait = trait_value.value.qname
         elif trait_value.type == 'qname':
@@ -76,7 +76,10 @@ def property_concepts_by_trait(xule_context, object_value, *args):
         else:
             raise xp.XuleProcessingError(_(f"The argument to the 'concepts-by-trait' property must be a concept or a qname, found {trait_value.type}."), xule_context)
 
-        result_concepts.update(tax_concepts.get(trait, set()))
+        if i == 0:
+            result_concepts.update(tax_concepts.get(trait, set())) # use update to make a copy
+        else:
+            result_concepts &= (tax_concepts.get(trait, set())) # intersection
 
     return_values = frozenset(xv.XuleValue(xule_context, con, 'concept') for con in result_concepts)
 
