@@ -634,17 +634,17 @@ output CUBEFILT014
 output CUBEFILT015
 /* 243 */
 
-  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES}.cubes.cube-concept)
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES}.cubes.cube-concept).length
 
 output CUBEFILT016
 /* 28 */
 
-  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube not in $STATEMENT_CUBES}.cubes.cube-concept)
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube not in $STATEMENT_CUBES}.cubes.cube-concept).length
 
 output CUBEFILT017
 /* 1185 */
 
-  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}.cubes.cube-concept)
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}.cubes.cube-concept).length
 
 output CUBEFILT018
 /* 28 */
