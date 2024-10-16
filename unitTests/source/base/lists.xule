@@ -40,7 +40,7 @@ output LM008
   list(2,3,5) & list(1,2,3,4)
 
 output LM009
-/* rule LM006: Rule: LM006 - Lists cannot be subtracted */
+/* rule LM009: Rule: LM009 - Lists cannot be subtracted */
 
   list() - list('a','b','c','d') 
 

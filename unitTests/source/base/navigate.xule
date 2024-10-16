@@ -788,7 +788,7 @@ output NAV008
   navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns (source-name, target-name, weight) as dictionary
 
 output NAV009
-/*  */
+/* list(list(dictionary(source-name=us-gaap:PaymentsForProceedsFromOtherDeposits,target-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities,weight=-1), dictionary(source-name=us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities,target-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,weight=1), dictionary(source-name=us-gaap:NetCashProvidedByUsedInOperatingActivities,target-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,weight=1), dictionary(source-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect,target-name=us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease,weight=1))) */
 
   navigate summation-item ancestors from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns list paths (source-name, target-name, weight) as dictionary
 

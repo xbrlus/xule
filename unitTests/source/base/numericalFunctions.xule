@@ -205,7 +205,7 @@ output MOD102
   mod(9, 4)
 
 output MOD109
-/* rule MOD109: integer modulo by zero */
+/* rule MOD109: Rule: MOD109 - Divide by zero error in property/function mod() */
 
   mod(9, 0)
 
@@ -220,7 +220,7 @@ output MOD112
   mod(9.0, 4.0)
 
 output MOD119
-/* rule MOD119: float modulo */
+/* rule MOD109: Rule: MOD109 - Divide by zero error in property/function mod() */
 
   mod(9.0, 0.0)
 

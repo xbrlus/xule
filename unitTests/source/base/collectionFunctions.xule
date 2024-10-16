@@ -756,7 +756,7 @@ output HKY008
   has-key(list('a', 'b'), 'a')
 
 output HKY009
-/* FALSE */
+/* rule HKY009: Rule: HKY009 - Property 'contains' or 'in' expression cannot operate on a 'dictionary' and 'string' */
 
   'a' in dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog'))
 

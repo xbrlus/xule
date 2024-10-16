@@ -75,7 +75,7 @@ output PMN115
   none > 0
 
 output PMN116
-/* rule PMN116: argument of type 'NoneType' is not iterable */
+/* rule PMN116: Rule: PMN116 - Property 'contains' or 'in' expression cannot operate on a 'none' and 'none' */
 
   none in none
 

@@ -55,7 +55,7 @@ output IN101
   '' in 'a frog and a house'
 
 output IN102
-/* rule IN102: 'in <string>' requires string as left operand, not NoneType */
+/* FALSE */
 
   none in 'a frog and a house'
 

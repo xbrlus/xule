@@ -300,7 +300,7 @@ output DUR096
   duration('2022-01-01', '2022-03-31').contains(duration('2022-03-01', '2022-06-30'))
 
 output DUR097
-/* rule DUR097: argument of type 'XulePeriodComp' is not iterable */
+/* rule DUR097: Rule: DUR097 - Property 'contains' or 'in' expression cannot operate on a 'duration' and 'duration' */
 
   duration('2022-03-01', '2022-06-30') in duration('2022-01-01', '2022-03-31')
 
