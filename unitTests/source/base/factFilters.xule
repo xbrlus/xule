@@ -322,7 +322,7 @@ output PFILT117
 rule-suffix if $alignment == none 'FIX' else $alignment['period'].end.year
 
 output PFILT118
-/* 598 */
+/* 607 */
 
   list({covered @instance = $INSTANCE1 where $fact.period.days > 91 }).count
 
@@ -512,37 +512,37 @@ output UNITFILT011
   '{$rule-value} with alignment {$alignment}'
 
 output UNITFILT012
-/* 44 */
+/* 52 */
 
   list({covered @instance = $INSTANCE1  @unit = none}).count
 
 output UNITFILT013
-/* 1535 */
+/* 1537 */
 
   list({covered @instance = $INSTANCE1  @unit != none}).count
 
 output UNITFILT014
-/* 1579 */
+/* 1589 */
 
   list({covered @instance = $INSTANCE1  @unit}).count
 
 output UNITFILT015
-/* 1535 */
+/* 1537 */
 
   list({covered @instance = $INSTANCE1  @unit = *}).count
 
 output UNITFILT016
-/* 1449 */
+/* 1450 */
 
   list({covered @instance = $INSTANCE1  @unit = unit(iso4217:USD)}).count
 
 output UNITFILT017
-/* 1471 */
+/* 1472 */
 
   list({covered @instance = $INSTANCE1  where $fact.unit.numerator == unit(iso4217:USD)}).count
 
 output UNITFILT018
-/* 44 */
+/* 52 */
 
   list({covered @instance = $INSTANCE1  where $fact.unit.denominator == none}).count
 
@@ -712,7 +712,7 @@ output DIMFILT005
   max(list([covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis = *]))
 
 output NOTINFILT001
-/* 1138 */
+/* 1139 */
 
   list({covered @instance = $INSTANCE1 @concept not in list(Assets,Liabilities) where $fact.dimensions.length > 0 }).length
 
@@ -732,7 +732,7 @@ output UNITFILT020
   list({covered @instance = $INSTANCE1  @unit.numerator = unit(iso4217:USD)}).count
 
 output UNITFILT021
-/* 1449 */
+/* 1450 */
 
   list({covered @instance = $INSTANCE1  @unit in list(unit(iso4217:USD))}).count
 

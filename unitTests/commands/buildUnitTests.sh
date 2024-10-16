@@ -199,6 +199,12 @@ curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx
 sed -e "s/\"//g" x.csv > $SCRIPT_DIR/../source/base/taxonomyFunctions.xule
 rm x.csv
 
+#traits
+curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=1139345486&single=true&output=csv" --output x.csv
+
+sed -e "s/\"//g" x.csv > $SCRIPT_DIR/../source/base/traits.xule
+rm x.csv
+
 #valueExists
 curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=1419652766&single=true&output=csv" --output x.csv
 

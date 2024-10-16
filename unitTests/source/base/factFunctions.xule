@@ -10,7 +10,7 @@ output FACT002
   first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).decimals
 
 output FACT002a
-/* Should return asset value decimals */
+/* list(-6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6) */
 
   list({covered @instance = $INSTANCE1 @Assets}).decimals
 
@@ -165,7 +165,7 @@ output FACT032
   none.is-fact
 
 output FACT032a
-/*  */
+/* list(True, True, True) */
 
   list([covered @instance = $INSTANCE1 @Assets]).is-fact
 
@@ -242,7 +242,17 @@ output FACT046
 output FACT047
 /* 45436000000 */
 
+  max(list([covered @instance = $INSTANCE1  where $fact.period.end in list(date('2021-06-30'))]))
+
+output FACT047a
+/* 45436000000 */
+
   max(list([covered @instance = $INSTANCE1  where $fact.period in list(date('2021-06-30'))]))
+
+output FACT047b
+/* 45436000000 */
+
+  list([covered @instance = $INSTANCE1  where $fact.period in list(date('2021-06-30'))])
 
 output FACT048
 /* 45436000000 */

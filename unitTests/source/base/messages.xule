@@ -163,7 +163,7 @@ message
 severity 'info'
 
 output MESS016
-/* Rule MESS013:  */
+/* Rule MESS016:  */
 
   $myValue = 3;
 true

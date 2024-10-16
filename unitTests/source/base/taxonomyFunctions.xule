@@ -140,7 +140,7 @@ output CONPROP025
   $US-GAAP-2020.concept(Assets).has-enumerations
 
 output CONPROP026
-/* Rule: CONPROP026 - The first argument of function 'clark' must be qname, concept, part-element, fact, reference-part, found 'none'. */
+/* none */
 
   clark(none)
 
@@ -355,12 +355,12 @@ output CUBEPROP021
   count($US-GAAP-2020.cubes)
 
 output TAXPROP011
-/*  */
+/* 20399 */
 
   $US-GAAP-2020.concepts.length
 
 output TAXPROP012
-/*  */
+/* 20399 */
 
   concepts($US-GAAP-2020).length
 
@@ -624,7 +624,7 @@ output TAXPROP068
   source($PRES_RELATIONSHIP)
 
 output TAXPROP069
-/*  set(us-gaap:NotesAndLoansReceivableNetNoncurrentAbstract) */
+/* set(us-gaap:NotesAndLoansReceivableNetNoncurrentAbstract) */
 
   $PRES_RELATIONSHIP.source-name
 
@@ -704,7 +704,7 @@ output TAXPROP084
   order($PRES_RELATIONSHIP)
 
 output TAXPROP085
-/* set(None)  */
+/* set(None) */
 
   $PRES_RELATIONSHIP.preferred-label
 

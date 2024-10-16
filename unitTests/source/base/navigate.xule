@@ -1,6 +1,6 @@
 /* Navigate */
 output NAX001
-/* 158686 */
+/* 84993 */
 
   count(navigate descendants taxonomy $US-GAAP-2020)
 
@@ -40,7 +40,7 @@ output NAX008
   count(navigate parent-child descendants from IncomeStatementAbstract to CostsAndExpensesAbstract taxonomy $US-GAAP-2020)
 
 output NAX009
-/* 96757 */
+/* 23064 */
 
   count(navigate children taxonomy $US-GAAP-2020)
 
@@ -540,7 +540,7 @@ output NAX109
   count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths order)
 
 output NAX110
-/*  set(list(1)) */
+/* set(list(1)) */
 
   (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths navigation-depth)
 
@@ -565,7 +565,7 @@ output NAX114
   count(Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths source)
 
 output NAX115
-/* set(list(None))  */
+/* set(list(None)) */
 
   (Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths preferred-label-role)
 

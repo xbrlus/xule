@@ -55,7 +55,7 @@ output IN101
   '' in 'a frog and a house'
 
 output IN102
-/* FALSE */
+/* rule IN102: 'in <string>' requires string as left operand, not NoneType */
 
   none in 'a frog and a house'
 
@@ -90,7 +90,7 @@ output IXO102
   index-of('a frog and a house', 'hout')
 
 output IXO103
-/* rule IXO103: Rule: IXO103 - The argument for property 'index-of' must be castable to a 'string', found 'none' */
+/* 0 */
 
   index-of('a frog and a house', none)
 
@@ -150,7 +150,7 @@ output LIO107
   last-index-of(list('Hello Mr Stains'), 'o')
 
 output LIO108
-/* rule LIO108: Rule: LIO108 - The argument for property 'last-index-of' must be castable to a 'string', found 'none' */
+/* 0 */
 
   last-index-of('Hello Mr Stains', none)
 
