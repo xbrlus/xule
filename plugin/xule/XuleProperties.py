@@ -1732,7 +1732,7 @@ def property_mod(xule_context, object_value, *args):
     
     # Catch potention div by 0 error
     if args[0].value == 0:
-        raise XuleProcessingError(_("Divide by zero error in propeerty/function mod()"), xule_context)
+        raise XuleProcessingError(_("Divide by zero error in property/function mod()"), xule_context)
     
     combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(object_value, args[0], xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
