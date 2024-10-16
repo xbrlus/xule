@@ -2037,7 +2037,8 @@ def evaluate_comp(comp_expr, xule_context):
             #interim_value = XuleValue(xule_context, left_compute_value in right_compute_value, 'bool')
         elif operator == 'not in':
             positive_value = XuleProperties.property_contains(xule_context, right, left)
-            interim_value = positive_value.value = not positive_value.value
+            interim_value = positive_value
+            interim_value.value = not interim_value.value
             #interim_value = XuleValue(xule_context, left_compute_value not in right_compute_value, 'bool')
         elif operator in ('<', '>'):
             if left.type == 'none' or right.type == 'none':
