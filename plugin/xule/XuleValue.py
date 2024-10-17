@@ -424,13 +424,26 @@ class XuleValue:
     def format_value(self):
             
         if self.type in ('float', 'decimal'):
-            format_rounded = "{0:,.4f}".format(self.value)
+
+            options = XuleUtility.XuleVars.get(_CNTLR, 'options')
+            if options is None:
+                decimals = 4
+            else:
+                round_to_decimals = getattr(options, 'xule_round_to_decimals', '4')
+                if round_to_decimals.lower() == 'inf':
+                    return str(self.value)
+                else:
+                    decimals = int(round_to_decimals)
+            
+            format_string = f"{{0:,.{decimals}f}}"
+
+            format_rounded = format_string.format(self.value)
             reduced_round = self._reduce_number(format_rounded)
             format_orig = "{0:,}".format(self.value)
             reduced_orig = self._reduce_number(format_orig)
             
             if reduced_round != reduced_orig:
-                reduced_round += " (rounded 4d)" 
+                reduced_round += f" (rounded {decimals}d)" 
                 
             return reduced_round
         
