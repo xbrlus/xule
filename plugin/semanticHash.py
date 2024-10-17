@@ -57,7 +57,7 @@ def semanticHashUtilityRun(cntlr, options, *arg, **kwargs):
 def semanticHashRun(cntlr, options, modelXbrl, *args, **kwargs):
 
     # if the semantic hash options are used, then get the canonical string
-    if getattr(options, "semantic_hash", False) or getattr(options, "semantic_hash_string") is not None:
+    if getattr(options, "semantic_hash", False) or getattr(options, "semantic_hash_string", None) is not None:
         semanticHashDocument(modelXbrl)
 
 def semanticHashDocument(model_xbrl):
