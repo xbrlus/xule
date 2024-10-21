@@ -19,10 +19,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23339 $
+$Change$
 DOCSKIP
 """
 from arelle.ModelRelationshipSet import ModelRelationshipSet
+from arelle import ModelManager
 import collections
 import json 
 import os
@@ -34,35 +35,67 @@ from contextlib import contextmanager
 from . import XuleConstants as xc
 from . import XuleRunTime as xrt
 from .XuleRunTime import XuleProcessingError
+
 # XuleValue is a module. It is imported in the _imports() function to avoid a circular relative import error.
 XuleValue = None
 XuleProperties = None
 
-
-def version(plugin_init_files=__file__):
-    change_numbers = set()
-
-    if plugin_init_files == __file__:
-        xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_files), '*.py'))
-        files_to_check = glob.glob(xule_mod_pattern)
-    elif isinstance(plugin_init_files, str):
-        files_to_check = (plugin_init_files,) # change the string to a tuple
-    else:
-        files_to_check = plugin_init_files
-
-    for mod_file_name in files_to_check:
-        with open(mod_file_name, 'r') as mod_file:
-            file_text = mod_file.read()
-            match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
-            if match is not None:
-                change_numbers.add(int(match.group(1)))
+class XuleVars:
     
-    if len(change_numbers) == 0:
-        return ''
-    else:
-        return str(max(change_numbers))
+    class XuleVarContainer:
+        pass
+
+    @classmethod
+    def set(cls, cntlr, name, value):
+        if not hasattr(cntlr, 'xule_vars'):
+            cntlr.xule_vars = dict()
+        
+        cntlr.xule_vars[name] = value
     
-    return ''
+    @classmethod
+    def get(cls, cntlr, name):
+        if hasattr(cntlr, 'xule_vars'):
+            return cntlr.xule_vars.get(name)
+        else:
+            return None
+
+def version(ruleset_version=False):
+    # version_type determines if looking at the processor version or the ruleset builder version.
+    current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    version_file_name = os.path.join(current_dir, xc.VERSION_JSON_FILE)   
+
+    if not os.path.isfile(version_file_name):
+        raise xrt.XuleProcessingError("Cannot find verison file for '{}'.".format(version_file_name))
+    try:
+        with open(version_file_name, 'r') as version_file:
+            version_json =  json.load(version_file)
+            return version_json.get('ruleset_version' if ruleset_version else 'version')
+    except ValueError:
+        raise XuleProcessingError(_("Version file does not appear to be a valid JSON file. File: {}".format(xc.version_file_name))) 
+
+    # change_numbers = set()
+
+    # if plugin_init_files == __file__:
+    #     xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_files), '*.py'))
+    #     files_to_check = glob.glob(xule_mod_pattern)
+    # elif isinstance(plugin_init_files, str):
+    #     files_to_check = (plugin_init_files,) # change the string to a tuple
+    # else:
+    #     files_to_check = plugin_init_files
+
+    # for mod_file_name in files_to_check:
+    #     with open(mod_file_name, 'r') as mod_file:
+    #         file_text = mod_file.read()
+    #         match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
+    #         if match is not None:
+    #             change_numbers.add(int(match.group(1)))
+    
+    # if len(change_numbers) == 0:
+    #     return ''
+    # else:
+    #     return str(max(change_numbers))
+    
+    # return ''
 
 def _imports():
     """Imports
@@ -101,6 +134,36 @@ def subtract_sets(xule_context, left, right):
             new_shadow.add(item.shadow_collection if item.type in ('set', 'list', 'dictionary') else item.value)
             
     return XuleValue.XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
+
+def add_dictionaries(xule_context, left, right):
+    _imports()
+    left_dict = {k:v for k, v in left.value}
+
+    for k, v in right.value:
+        if k.value not in left.shadow_dictionary:
+            left_dict[k] = v
+
+    return XuleValue.XuleValue(xule_context, frozenset(left_dict.items()), 'dictionary')
+
+def subtract_dictionaries(xule_context, left, right):
+    left_dict = {k.value:(k, v) for k, v in left.value}
+
+    for k, v in right.value:
+        if k.value in left_dict:
+            _x, left_compare_value, right_compare_value = XuleValue.combine_xule_types(v, left_dict[k.value][1], xule_context)
+            if left_compare_value == right_compare_value:
+                del left_dict[k.value]
+
+    return XuleValue.XuleValue(xule_context, frozenset(left_dict.values()), 'dictionary')
+
+def subtract_keys_from_dictionary(xule_context, left, right):
+    left_dict = {k.value:(k, v) for k, v in left.value}
+
+    for k in right.value:
+        if k.value in left_dict:
+            del left_dict[k.value] 
+    
+    return XuleValue.XuleValue(xule_context, frozenset(left_dict.values()), 'dictionary')
 
 def symetric_difference(xule_context, left, right):
     _imports()
@@ -142,42 +205,49 @@ def resolve_role(role_value, role_type, dts, xule_context):
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
     _imports()
+    if dts is None:
+        raise XuleProcessingError(("Not able to resolve role/arcrole '{}' when there is no taxonomy".format(role_value.value.localName)))
     if role_value.value.prefix is not None:
         raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
     else:
         if role_type == 'arcrole' and role_value.value.localName in xc.DIMENSION_PSEDDO_ARCROLES:
-            return role_value.value.localName
+            return (role_value.value.localName,) # return a tuple 
         # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
         short_attribute_name = 'xule_{}_short'.format(role_type)
+        short_role_dict = collections.defaultdict(list)
         if not hasattr(dts, short_attribute_name):
             if role_type == 'arcrole':
-                setattr(dts, short_attribute_name, XuleProperties.CORE_ARCROLES.copy())
+                short_dict_seed = {k: v for k, v in XuleProperties.CORE_ARCROLES.items() if (v, None, None, None) in dts.baseSets}
                 dts_roles = dts.arcroleTypes
             else:
-                setattr(dts, short_attribute_name, {'link': 'http://www.xbrl.org/2003/role/link'})
+                short_dict_seed = {'link': 'http://www.xbrl.org/2003/role/link'}
                 dts_roles = dts.roleTypes
+            # convert the seed dictionary to a defaultdict(list)
+            for k, v in short_dict_seed.items():
+                short_role_dict[k] = [v,]
+            setattr(dts, short_attribute_name, short_role_dict)
             
-            short_role_dict = getattr(dts, short_attribute_name)
+            # add the roles or arcroles in the DTS to the short_role_dict
             for role in dts_roles:
                 short_name = role.split('/')[-1] if '/' in role else role
-                if short_name in short_role_dict:
-                    short_role_dict[short_name] = None # indicates that there is a dup shortname
-                else:
-                    short_role_dict[short_name] = role
+                short_role_dict[short_name].append(role)
         
         short_role_dict = getattr(dts, short_attribute_name)
+        # the role comes across as a qname - this a bit of a hack
         short_name = role_value.value.localName
         if short_name not in short_role_dict:
-            return None
+            return () # an empty tuple
             #raise XuleProcessingError(_("The {} short name '{}' does not match any arcrole.".format(role_type, short_name)))
-        if short_name in (XuleProperties.CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
-            raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
-                                        "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
-                                        .format(role=role_type, 
-                                                tax_role=getattr(dts, short_attribute_name)[short_name], 
-                                                core_role=XuleProperties.CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
-        if short_name in short_role_dict and short_role_dict[short_name] is None:
-            raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
+        
+        # if short_name in (XuleProperties.CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
+        #     raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
+        #                                 "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
+        #                                 .format(role=role_type, 
+        #                                         tax_role=getattr(dts, short_attribute_name)[short_name], 
+        #                                         core_role=XuleProperties.CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
+        
+        # if short_name in short_role_dict and short_role_dict[short_name] is None:
+        #     raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
         
         return short_role_dict[short_name]
 
@@ -394,3 +464,13 @@ def get_rule_set_compatibility_version():
             return compatibility_json.get('versionControl')
     except ValueError:
         raise XuleProcessingError(_("Rule set compatibility file does not appear to be a valid JSON file. File: {}".format(xc.RULE_SET_COMPATIBILITY_FILE))) 
+    
+def get_model_manager_for_import(cntlr):
+    import_model_manager = XuleVars.get(cntlr, 'importModelManager')
+    if import_model_manager is None:
+        import_model_manager = ModelManager.initialize(cntlr)
+        import_model_manager.loadCustomTransforms()
+        #import_model_manager.customTransforms = cntlr.modelManager.customTransforms
+        XuleVars.set(cntlr, 'importModelManager', import_model_manager)
+
+    return import_model_manager

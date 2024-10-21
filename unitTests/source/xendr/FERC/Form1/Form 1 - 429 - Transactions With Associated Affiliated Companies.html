@@ -1,0 +1,415 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1/F1F - 429</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+</head>
+
+<body class="xbrl" id="ScheduleTransactionsWithAssociatedAffiliatedCompaniesAbstract">
+        <table class="schedule-header xbrl" width="100%">
+                <tr>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>This report is:</xendr:template-display>
+                        </xendr:replace><br/>
+                            
+                            (1) 
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                                        </xendr:expression>  
+                                    <xendr:template-display>
+                                            <input type="checkbox"/> An Original
+                                    </xendr:template-display>
+                                </xendr:replace><br/>
+                                
+                            (2)
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                            </xendr:expression> 
+                                        <xendr:template-display>
+                                                <input type="checkbox" checked = "checked"/> A Resubmission
+                                        </xendr:template-display>
+                                </xendr:replace> 
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Date of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                            <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                                <xendr:template-display>04/26/2019</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                        End of: <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>2018</xendr:template-display>
+                        </xendr:replace>
+                        <span>/</span>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Q4</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                </tr>
+            </table>
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td class="xbrl" colspan="5"><xendr:replace>
+                <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleTransactionsWithAssociatedAffiliatedCompaniesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                </xendr:expression>
+                <xendr:template-display>
+                    TRANSACTIONS WITH ASSOCIATED (AFFILIATED) COMPANIES
+                </xendr:template-display>
+            </xendr:replace>
+            
+        </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="5">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleTransactionsWithAssociatedAffiliatedCompaniesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            <ol>
+                                    <li>Report below the information called for concerning all non-power goods or services received from or provided to associated (affiliated) companies.</li>
+                                    <li>The reporting threshold for reporting purposes is $250,000. The threshold applies to the annual amount billed to the respondent or billed to an associated/affiliated company for non-power goods and services. The good or service must be specific in nature. Respondents should not attempt to include or aggregate amounts in a nonspecific category such as "general".</li>
+                                    <li>Where amounts billed to or received from the associated (affiliated) company are based on an allocation process, explain in a footnote.</li>
+                                    
+                            </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings">
+                    <xendr:expression class="hide" name="ColumnHeadings">
+                        $headings = filter (taxonomy().concept(ferc:ScheduleTransactionsWithAssociatedAffiliatedCompaniesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "429 - Schedule - Transactions with Associated (Affiliated) Companies") 
+
+                        $headings = list(for $ref in $headings 
+                        list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                        $heading_dict = dict(for $row in $headings
+                                list("("+$row[1]+")",$row[2])
+                        );
+                        for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+    
+                
+                <div style="text-align: center"><xendr:replace>
+                <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                <xendr:template-display>
+                    Description of Non-Power Good or Service
+                </xendr:template-display>
+                </xendr:replace>
+                </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                </xendr:replace></div>
+            </td>
+        </tr>
+        <!-- Line 1 -->
+        <tr class="schedule-row">
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items abstract">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:TransactionWithAssociatedAffiliatedCompaniesLineItems).label("http://ferc.gov/form/2020-01-01/roles/label/F1TransactionsWithAssociatedCompanies").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Non-power Goods or Services Provided by Affiliated
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <!-- Line 2-18 -->
+        <tr class="schedule-row" xendr:repeat="Transactions">
+            <xendr:expression class="hide" name="Transactions">// adding a comment
+                
+            $data2 =   list(for $i in range(2,18)
+                                list($i,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:NonPowerGoodsOrServicesProvidedByAffiliatedCompanyAxis=*})) > 0  
+            
+            
+                list({covered @ferc:NonPowerGoodsOrServicesProvidedByAffiliatedCompanyAxis=*  {list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:DescriptionOfNonPowerGoodOrService @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DescriptionOfNonPowerGoodOrService @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:NameOfAssociatedAffiliatedCompany @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:NameOfAssociatedAffiliatedCompany @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:AccountsChargedOrCreditedTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:AccountsChargedOrCreditedTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:DueToOrChargedByTheTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DueToOrChargedByTheTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}))
+                    else 
+                        none
+                )}})
+                else $data2;
+            
+                $uniqueData = list(for $x in  $data
+                    if $x == list(0,none,none,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+
+                    for $row in $uniqueData.sort      
+
+            </xendr:expression>
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="Transactions">
+                    <xendr:startNumber>2</xendr:startNumber>
+                </xendr:lineNumber>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="Transactions" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Customer &amp; Market Services    
+                </xendr:template-display>
+            </td>
+            <td class="description_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Transactions" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        XYZ Energy Carolinas, LLC
+                </xendr:template-display>
+            </td>
+            <td class="account-number xbrl"><xendr:replace><xendr:expression class="hide"  name="Transactions" fact="true" part="4">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    Various
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="Transactions" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $3,472,555
+                </xendr:template-display>
+            </td>
+        </tr> 
+        <!-- Line 19 Total from Line 1-18 -->
+        <tr class="schedule-row">
+            <td class="xbrl line-number">19</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:DueToOrChargedByTheTransactionsWithAssociatedAffiliatedCompanies).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Total
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:DueToOrChargedByTheTransactionsWithAssociatedAffiliatedCompanies @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $4,600,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+        </tr>
+        <!-- Line 20 Heading -->
+        <tr class="schedule-row"> 
+            <td class="xbrl line-number">20</td>
+            <td class="xbrl description_items abstract">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:TransactionsProvidedForAffiliatedCompaniesLineItems).label("http://ferc.gov/form/2020-01-01/roles/label/F1TransactionsWithAssociatedCompanies").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Non-power Goods or Services Provided for Affiliated
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+                      
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+        </tr>
+        <!-- Line 21-41 -->
+        <tr class="schedule-row" xendr:repeat="Transactions2">
+            <xendr:expression class="hide" name="Transactions2">// adding a comment
+                
+            $data2 =   list(for $i in range(21,41)
+                                list($i,none,none,none,none)
+            );
+
+            $data = if count(list({covered @ferc:NonPowerGoodsOrServicesProvidedForAffiliatedCompanyAxis=*})) > 0  
+            
+            
+                list({covered @ferc:NonPowerGoodsOrServicesProvidedForAffiliatedCompanyAxis=*  {list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:DescriptionOfNonPowerGoodOrService @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DescriptionOfNonPowerGoodOrService @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:NameOfAssociatedAffiliatedCompany @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:NameOfAssociatedAffiliatedCompany @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:AccountsChargedOrCreditedTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:AccountsChargedOrCreditedTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}))
+                    else
+                        none,
+                    if list({@ferc:DueFromOrCreditedByTheTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:DueFromOrCreditedByTheTransactionsWithAssociatedAffiliatedCompanies @unit @period=$currentDuration}))
+                    else 
+                        none
+                )}})
+                else $data2;
+            
+                $uniqueData = list(for $x in  $data
+                if $x == list(0,none,none,none,none)
+                    skip
+                else 
+                    $x
+                );
+
+                for $row in $uniqueData.sort   
+
+            </xendr:expression>
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="Transactions2">
+                    <xendr:startNumber>21</xendr:startNumber>
+                </xendr:lineNumber>
+            </td>
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="Transactions2" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        Other Goods and Services    
+                </xendr:template-display>
+            </td>
+            <td class="description_items xbrl"><xendr:replace><xendr:expression class="hide"  name="Transactions2" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        ABC Transmission Company
+                </xendr:template-display>
+            </td>
+            <td class="account-number xbrl"><xendr:replace><xendr:expression class="hide"  name="Transactions2" fact="true" part="4">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    Various
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="Transactions2" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    $1,729,061
+                </xendr:template-display>
+            </td>
+        </tr> 
+        <!-- Line 42 Total Line -->
+        <tr class="schedule-row">
+            <td class="xbrl line-number">42</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:DueFromOrCreditedByTheTransactionsWithAssociatedAffiliatedCompanies).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <div>
+                        <xendr:template-display>
+                            Total
+                        </xendr:template-display>
+                    </div>
+                </xendr:replace>
+            </td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl gray-out"></td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:DueFromOrCreditedByTheTransactionsWithAssociatedAffiliatedCompanies @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                                $6,800,000 
+                        </xendr:template-display>
+                </xendr:replace>  
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleTransactionsWithAssociatedAffiliatedCompaniesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (NEW)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleTransactionsWithAssociatedAffiliatedCompaniesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        429
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

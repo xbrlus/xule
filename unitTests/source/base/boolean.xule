@@ -40,7 +40,7 @@ output BOL107
   true != false
 
 output BOL108
-/* [ERROR] [xule:error] rule BOL108: Rule: BOL108 - Left side of a + operation cannot be bool. */
+/* rule BOL108: Rule: BOL108 - Left side of a + operation cannot be bool. */
 
   false + false
 
@@ -60,12 +60,12 @@ output BOL111
   true or false
 
 output BOL112
-/* [ERROR] [xule:error] rule BOL112: Rule: BOL112 - Right side of a + operation cannot be bool. */
+/* rule BOL112: Rule: BOL112 - Right side of a + operation cannot be bool. */
 
   none + false
 
 output BOL113
-/* skip iteration */
+/* skip */
 
   none and true
 
@@ -75,7 +75,7 @@ output BOL114
   none and false
 
 output BOL115
-/* skip iteration */
+/* skip */
 
   none and none
 
@@ -90,12 +90,12 @@ output BOL117
   none or true
 
 output BOL118
-/* skip iteration */
+/* skip */
 
   none or false
 
 output BOL119
-/* skip iteration */
+/* skip */
 
   none or none
 
@@ -158,3 +158,8 @@ output BOL131
 /* False */
 
   missing(list(none))
+
+output BOL132
+/* True */
+
+  true >= false

@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1F - 001</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+
+</head>
+
+<body class="xbrl">
+        <div id="ScheduleIdentificationF1FAbstract"></div>        
+        <table class="xbrl" width="100%">
+        
+        
+                <tr class="sch-title">
+                        <td colspan="3" class="xbrl">
+                                <xendr:replace>
+                                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleIdentificationF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                                        </xendr:expression>
+                                        <xendr:template-display>
+                                                PART I: IDENTIFICATION
+                                        </xendr:template-display>
+                                </xendr:replace>
+                            </td>
+          
+        </tr>
+         <!-- <td class="xbrl" colspan="3">PART I: IDENTIFICATION</td>-->
+        <tr>
+            <td class="combinedField xbrl" colspan="2">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    01 Exact Legal Name of Respondent
+                            </xendr:template-display>
+                     </xendr:replace>
+                            <p></p>
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" name="RespondentLegalName" part="1">[@ferc:RespondentLegalName]
+                            </xendr:expression>
+                            <xendr:template-display>
+                                01 Exact Legal Name of Respondent
+                            </xendr:template-display>
+                    </xendr:replace>
+                              
+            </td>
+            <td class="combinedField xbrl" colspan="1">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ReportYear).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                02 Year/ Period of Report
+                            </xendr:template-display>
+                    </xendr:replace>
+                    <p></p>
+                <br></br>
+                End of: 
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:PreviousNameAndDateOfChangeAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        03 Previous Name and Date of Change <i>(if name changed during year)</i>
+                                </xendr:template-display>
+                         </xendr:replace>
+                        <p></p>
+                         <xendr:replace>
+                                <xendr:expression class="hide" fact="true" part="1">[@ferc:PreviousName @period=$currentDuration]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                       FERC Test 1 Company
+                                </xendr:template-display>
+                        </xendr:replace>
+                        <span>/</span>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">[@ferc:NameChangeDate @period=$currentDuration]</xendr:expression>
+                                <xendr:template-display>2018-09-04</xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:AddressOfPrincipalOfficeAtEndOfPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        04 Address of Principal Office at End of Year <i>(Street, City, State, Zip Code)</i>
+                                </xendr:template-display>
+                         </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">[@concept=ferc:AddressOfPrincipalOfficeAtEndOfPeriod]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        4580 Olympic Boulevard, Erlanger, KY 41018
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="2">
+                        <xendr:replace>
+                                <xendr:expression class="hide" >taxonomy().concept(ferc:NameOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        05 Name of Contact Person
+                                </xendr:template-display>
+                         </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">[@concept=ferc:NameOfContactPerson]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Anna Anderson 
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:TitleOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        06 Title of Contact Person
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">[@concept=ferc:TitleOfContactPerson]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Accounting Analyst II
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:AddressOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        07 Address of Contact Person<i> (Street, City, State, Zip Code)</i>
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">[@concept=ferc:AddressOfContactPerson]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        550 South Tryon Street, Charlotte, NC 28202
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:TelephoneOfContactPerson).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        08 Telephone of Contact Person, <i>Including Area Code</i>
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">[@concept=ferc:TelephoneOfContactPerson]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        (980) 373-2179  
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Identification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        09 This Report is
+                                </xendr:template-display>
+                            </xendr:replace>
+                                
+                                <br></br>
+                                (1) 
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                                        </xendr:expression>  
+                                    <xendr:template-display>
+                                            <input type="checkbox"/> An Original
+                                    </xendr:template-display>
+                                </xendr:replace>
+                                <br></br>
+                            (2)
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                            </xendr:expression> 
+                                        <xendr:template-display>
+                                                <input type="checkbox" checked = "true"/> A Resubmission
+                                        </xendr:template-display>
+                                </xendr:replace>               
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        10 Date of Report <i>(Mo, Da, Yr)</i>
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">first(list([@concept=ferc:ReportDate]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        04/26/2019
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="2">
+                        <xendr:replace>
+                                <xendr:expression class="hide" >taxonomy().concept(ferc:NameOfOfficerWithCustodyOfCorporateBooks).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        11 Name of Officer Having Custody of the Books of Account
+                                </xendr:template-display>
+                         </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@concept=ferc:NameOfOfficerWithCustodyOfCorporateBooks]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Anna Anderson 
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:OfficerTitle).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        12 Title of Officer
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@concept=ferc:OfficerTitle]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        CFO
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:AddressWhereCorporateBooksAreKept).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        13 Address of Officer Where Books of Account Are Kept <i>(Street, City, State, Zip Code)</i>
+                                </xendr:template-display>
+                         </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@concept=ferc:AddressWhereCorporateBooksAreKept]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        4580 Olympic Boulevard, Erlanger, KY 41018
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+
+        <tr>
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:StateOfIncorporation).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        14 Name of State Where Respondent Is Incorporated
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@concept=ferc:StateOfIncorporation]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        NY
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+               
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:IncorporationDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        15 Date of Incorporation <i>(Mo, Da, Yr)</i>
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" >first(list([@concept=ferc:IncorporationDate]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        04/26/2019
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+                <td class="combinedField xbrl" colspan="1">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:SpecialLawRespondentIncorporatedUnder).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        16 If applicable, Reference to Law Incorporated Under
+                                </xendr:template-display>
+                        </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@concept=ferc:SpecialLawRespondentIncorporatedUnder]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        04/26/2019
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+        <tr>
+                <td class="combinedField xbrl" colspan="3">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:MannerAndExtentOfCorporateControl).label("http://ferc.gov/form/2020-01-01/roles/label/F1FIdentification").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        17  Explanation of Manner and Extent of Corporate Control (If the respondent controls or is controlled by any other corporation, business trust, or similar organization)
+                                </xendr:template-display>
+                         </xendr:replace>
+                            <p></p>
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@concept=ferc:MannerAndExtentOfCorporateControl]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        NA
+                                </xendr:template-display>
+                        </xendr:replace>
+                                  
+                </td>
+        </tr>
+
+        
+    
+    </table>
+    <br/>
+        <div class="schedule-footer">
+                <div>FERC FORM No.
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                                <xendr:template-display>1-F</xendr:template-display>
+                        </xendr:replace>
+                        <span> </span> 
+                        <xendr:replace>
+                                <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleIdentificationF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                                </xendr:expression>
+                                <xendr:template-display>
+                                02-04
+                                </xendr:template-display>
+                        </xendr:replace>
+                                
+                </div>
+                <div class="center-text">Page 
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleIdentificationF1FAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                101
+                                </xendr:template-display>
+                        </xendr:replace>
+                </div> 
+        </div>
+</body>
+
+</html>

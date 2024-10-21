@@ -19,9 +19,9 @@ from .xendrCommon import (XendrException, clean_entities, get_file_or_url,
                           XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME, XENDR_OBJECT_ID_XULE_FUNCTION_NAME,
                           XENDR_FORMAT_FOOTNOTE)
 from . import xendrXuleFunctions as xxf
+from . import XendrVars as xv
 import datetime
 import decimal
-import calendar
 import collections
 import io
 import json
@@ -99,7 +99,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     for rule_name, sub_info in non_repeating + repeating:
         substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
                                                 modelXbrl, main_html, repeating_nodes, xule_node_locations,
-                                                context_ids, unit_ids, footnotes, template_number, used_ids, processed_facts, processed_footnotes)
+                                                context_ids, unit_ids, footnotes, template_number, used_ids, processed_facts, processed_footnotes, cntlr=cntlr)
     # Process the footnotes
     # if the default footnote page option was selected
     if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
@@ -157,7 +157,7 @@ def sort_by_ancestors(key):
 def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, template,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
                     footnotes, template_number, used_ids, processed_facts, processed_footnotes,
-                    all_result_part=None, refs=None, template_nsmap=None, footnote_style=None, footnote_fact_sub_nodes=None):
+                    all_result_part=None, refs=None, template_nsmap=None, footnote_style=None, footnote_fact_sub_nodes=None, cntlr=None):
     # Determine if this is a repeating rule.
     new_nodes = []
     attribute_nodes = []
@@ -235,160 +235,178 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                 if sub_node is not None:
                     sub_nodes[sub['replacement-node']] = sub_node
 
-        if sub_node is not None:
-            for sub_index, sub in enumerate(subs):
-                # The value for the replacement is either text from running the rule or a fact
-                # The sub is a dictionary. If it has a result-text-index key, then the text is taken
-                # If it has a rule-focus-index key, then the value is a fact
+        # if sub_node is not None:
+        for sub_index, sub in enumerate(subs):
+            # The value for the replacement is either text from running the rule or a fact
+            # The sub is a dictionary. If it has a result-text-index key, then the text is taken
+            # If it has a rule-focus-index key, then the value is a fact
 
-                if 'replacement-node' not in sub:
-                    # There is nothing to replace
-                    continue
+            # if 'replacement-node' not in sub:
+            #     # There is nothing to replace
+            #     continue
 
-                possible_footnotes_fact = None
+            possible_footnotes_fact = None
 
-                if isinstance(json_rule_result, list):
-                    json_result = None
-                    for x in json_rule_result:
-                        if x['part'] == sub_index:
-                            json_result = x
-                            break
-                elif sub_index == 0:
-                    json_result = json_rule_result
-                else:
-                    raise XendrException('internal error: expected a list of results from the rule but only got one')
+            if isinstance(json_rule_result, list):
+                json_result = None
+                for x in json_rule_result:
+                    if x['part'] == sub_index:
+                        json_result = x
+                        break
+            elif sub_index == 0:
+                json_result = json_rule_result
+            else:
+                raise XendrException('internal error: expected a list of results from the rule but only got one')
 
-                if 'subs' in sub:
-                    # This is a repeating within a repeating
-                    substitute_rule(rule_name, sub, line_number_subs, json_result['value'], new_tree,
-                        modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
-                        footnotes, template_number, used_ids, processed_facts, processed_footnotes,
-                        all_result_part or json_rule_result, refs or rule_result.refs, template_nsmap=template_nsmap)
-                    continue
+            if 'subs' in sub:
+                # This is a repeating within a repeating
+                substitute_rule(rule_name, sub, line_number_subs, json_result['value'], new_tree,
+                    modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
+                    footnotes, template_number, used_ids, processed_facts, processed_footnotes,
+                    all_result_part or json_rule_result, refs or rule_result.refs, template_nsmap=template_nsmap,
+                    cntlr=cntlr)
+                continue
 
-                classes_from_result = get_classes(json_result)
-                attributes_from_result = get_attributes(json_result)
-                # Add classes that go on the span that will replace the xule:relace node
-                span_classes = classes_from_result.get('self',[])
-                # This is the node that will be replaced
-                sub_node = sub_nodes.get(sub['replacement-node'])
-                if sub_node.tag == '{http://xbrl.us/xendr/2.0/template}footnoteNumber':
-                    # Create a dummy result. There is no rule value for the footnote Number.
-                    json_result = {'type': 's', 'part': sub_index, 'value': ''}
-                # if the json_result is none, there is nothing to substitute.
-                if json_result is None:
-                    continue
-                # Check if the result is a fact
-                content = None
-                current_footnote_ids = []
-                parent_classes = []
-                if is_actual_fact(json_result, modelXbrl):
-                    rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
-                    if rule_focus_index is not None:
-                        #use_refs = refs or rule_result.refs
-                        use_facts = [modelXbrl.modelObject(x['objectId']) for x in refs or rule_result.refs]
-                        # Check if the number of facts in the rule result matches the number of fact in used_refs (rule focus)
-                        if isinstance(json_rule_result, list):
-                            result_fact_count = count_facts_in_result(json_rule_result)
-                            if result_fact_count != len(use_facts):
-                                list_facts = "\n".join([f"{x.concept.qname.localName}: {x.sValue}" for x in use_facts])
-                                modelXbrl.warning("RenderError", "Mismatch between the number of facts returned in the rule result and the number of "
-                                                        "facts in the rule focus. This is likely due to duplicate facts. The facts on the row "
-                                                        "in question are:\n{}".format(list_facts))
-                                break
+            classes_from_result = get_classes(json_result)
+            attributes_from_result = get_attributes(json_result)
+            # Add classes that go on the span that will replace the xule:relace node
+            span_classes = classes_from_result.get('self',[])
+            # This is the node that will be replaced
+            sub_node = sub_nodes.get(sub['replacement-node'])
+            if sub_node.tag == '{http://xbrl.us/xendr/2.0/template}footnoteNumber':
+                # Create a dummy result. There is no rule value for the footnote Number.
+                json_result = {'type': 's', 'part': sub_index, 'value': ''}
+            # if the json_result is none, there is nothing to substitute.
+            if json_result is None:
+                continue
+            # Check if the result is a fact
+            content = None
+            current_footnote_ids = []
+            # parent_classes = []
+            if is_actual_fact(json_result, modelXbrl):
+                # get modelFact
+                if json_result['fact'] is not None:
+                    model_fact = get_model_object(json_result['fact'], cntlr)
 
-                        #fact_object_index = use_refs[rule_focus_index]['objectId']
-                        #model_fact = modelXbrl.modelObject(fact_object_index)
-                        model_fact = use_facts[rule_focus_index]
 
-                        processed_facts.add(model_fact)
-                        expression_node = get_node_by_pos(template, sub['expression-node'])
-                        content, new_fact_id = format_fact(expression_node, 
-                                                            model_fact, 
-                                                            main_html, 
-                                                            # This will check if the html flag is in meta data (sub) or calculated in the result
-                                                            sub.get('html', json_result.get('html', False)), 
-                                                            json_result, 
-                                                            template_nsmap, 
-                                                            used_ids)
-    
-                        # Save the context and unit ids
-                        context_ids.add(model_fact.contextID)
-                        if model_fact.unitID is not None:
-                            unit_ids.add(model_fact.unitID)                               
-                        # Check if there are footnotes
-                        if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
-                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id)
-                        else:
-                            possible_footnotes_fact = model_fact
+                # rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
+                # if rule_focus_index is not None:
+                #     #use_refs = refs or rule_result.refs
+                #     use_facts = [modelXbrl.modelObject(x['objectId']) for x in refs or rule_result.refs]
+                #     # Check if the number of facts in the rule result matches the number of fact in used_refs (rule focus)
+                #     if isinstance(json_rule_result, list):
+                #         result_fact_count = count_facts_in_result(all_result_part or json_rule_result)
+                #         if result_fact_count != len(use_facts):
+                #             list_facts = "\n".join([f"{x.concept.qname.localName}: {x.sValue}" for x in use_facts])
+                #             modelXbrl.warning("RenderError", "Mismatch between the number of facts returned in the rule result and the number of "
+                #                                     "facts in the rule focus. This is likely due to duplicate facts. The facts on the row "
+                #                                     "in question are:\n{}".format(list_facts))
+                #             break
 
-                elif json_result['type'] == 's': # result is a string
-                    # This will check if the html flag is in meta data (sub) or calculated in the result
-                    if sub.get('html', json_result.get('html', False)):
-                    #if sub.get('html', False):
-                        content = etree.fromstring('<div class="sub-html">{}</div>'.format(clean_entities(json_result['value'])))
-                    elif json_result['value'] is not None:
-                        content = json_result['value']
-                elif json_result['type'] == 'fn': # This is a footnote
-                    content = get_footnote_content(footnote_info, footnote_fact_sub_nodes, modelXbrl, used_ids, processed_footnotes, processed_facts, main_html)
+                #     #fact_object_index = use_refs[rule_focus_index]['objectId']
+                #     #model_fact = modelXbrl.modelObject(fact_object_index)
+                #     model_fact = use_facts[rule_focus_index]
 
-                if content is None:
-                    span_classes += ['sub-value', 'sub-no-replacement']
-                else:
-                    span_classes += ['sub-value', 'sub-replacement']
+                    processed_facts.add(model_fact)
+                    expression_node = get_node_by_pos(template, sub['expression-node'])
+                    content, new_fact_id = format_fact(expression_node, 
+                                                        model_fact, 
+                                                        main_html, 
+                                                        # This will check if the html flag is in meta data (sub) or calculated in the result
+                                                        sub.get('html', json_result.get('html', False)), 
+                                                        json_result, 
+                                                        template_nsmap, 
+                                                        used_ids)
 
-                if sub_node.tag == '{http://xbrl.us/xendr/2.0/template}footnoteNumber':
-                    # This is a footnote number
-                    # Get the fact for the footnote. This is in the footnote_info from the <xendr:footnote> node
-                    if footnote_info is None:
-                        footnote_fact = None
+                    # Save the context and unit ids
+                    context_ids.add(model_fact.contextID)
+                    if model_fact.unitID is not None:
+                        unit_ids.add(model_fact.unitID)                               
+                    # Check if there are footnotes
+                    if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
+                        current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id)
                     else:
-                        footnote_fact = footnote_info['fact'] # This is the model object id of the fact
-                    content = get_footnote_number(footnote_fact, footnote_number, sub_node.get('footnote-style'), footnote_fact_sub_nodes, template, rule_name)
-                    footnote_number += 1
+                        possible_footnotes_fact = model_fact
 
-                # If the node is going into an <a> or <span> then it needs to be a <span> otherwise it can be a <div>
-                xhtml_ancestry = {etree.QName(x.tag).localname.lower() for x in sub_node.xpath('ancestor-or-self::*') if etree.QName(x).namespace == _XHTM_NAMESPACE}
+            elif json_result['type'] in ('s', 'f'): # result is a string
+                # This will check if the html flag is in meta data (sub) or calculated in the result
+                if sub.get('html', json_result.get('html', False)):
+                #if sub.get('html', False):
+                    content = etree.fromstring('<div class="sub-html">{}</div>'.format(clean_entities(json_result['value'])))
+                elif json_result['value'] is not None:
+                    content = json_result['value']
+            elif json_result['type'] == 'fn': # This is a footnote
+                content = get_footnote_content(footnote_info, footnote_fact_sub_nodes, modelXbrl, used_ids, processed_footnotes, processed_facts, main_html)
 
-                # Create the replacement node
-                if len({'a','span'} & xhtml_ancestry) > 0: #intersect the two sets
-                    span = etree.Element('span', nsmap=XULE_NAMESPACE_MAP)
+            if content is None:
+                span_classes += ['sub-value', 'sub-no-replacement']
+            else:
+                span_classes += ['sub-value', 'sub-replacement']
+
+            if sub_node.tag == '{http://xbrl.us/xendr/2.0/template}footnoteNumber':
+                # This is a footnote number
+                # Get the fact for the footnote. This is in the footnote_info from the <xendr:footnote> node
+                if footnote_info is None:
+                    footnote_fact = None
                 else:
-                    span = etree.Element('div', nsmap=XULE_NAMESPACE_MAP)
+                    footnote_fact = footnote_info['fact'] # This is the model object id of the fact
+                content = get_footnote_number(footnote_fact, footnote_number, sub_node.get('footnote-style'), footnote_fact_sub_nodes, template, rule_name)
+                footnote_number += 1
 
-                span.set('class', ' '.join(span_classes))
+            # If the node is going into an <a> or <span> then it needs to be a <span> otherwise it can be a <div>
+            xhtml_ancestry = {etree.QName(x.tag).localname.lower() for x in sub_node.xpath('ancestor-or-self::*') if etree.QName(x).namespace == _XHTM_NAMESPACE}
 
-                # handle footnotes for the fact
-                if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
-                    for footnote_id in current_footnote_ids:
-                        footnote_ref = etree.Element('a', attrib={"class": "xbrl footnote-ref", "id":"fr-{}-{}".format(template_number, footnote_id)}, nsmap=XULE_NAMESPACE_MAP)
-                        span.append(footnote_ref)
-                elif possible_footnotes_fact is not None:
-                    # Only need to worry about footnotes if this is in a footnote group
-                    for footnote_group in sub.get('footnote-collectors', tuple()):
-                        footnotes[footnote_group].append((possible_footnotes_fact, span))
+            # Create the replacement node
+            if len({'a','span'} & xhtml_ancestry) > 0: #intersect the two sets
+                span = etree.Element('span', nsmap=XULE_NAMESPACE_MAP)
+            else:
+                span = etree.Element('div', nsmap=XULE_NAMESPACE_MAP)
 
-                if isinstance(content, str):
-                    span.text = content
-                elif etree.iselement(content): 
-                    span.append(content)
-                elif content is not None:
-                    span.text = str(content)
+            span.set('class', ' '.join(span_classes))
 
-                if sub_node is not None:
-                    sub_parent = sub_node.getparent()
-                    sub_parent.replace(sub_node, span)
-                    # Add classes to the parent
-                    if len(classes_from_result['parent']) + len(parent_classes) > 0:
-                        sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent'] + parent_classes))
-                    # Add colspans to the parent
-                    if json_result.get('colspan') is not None:
-                        sub_parent.set('colspan', str(json_result['colspan']).strip())
+            # handle footnotes for the fact
+            if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
+                for footnote_id in current_footnote_ids:
+                    footnote_ref = etree.Element('a', attrib={"class": "xbrl footnote-ref", "id":"fr-{}-{}".format(template_number, footnote_id)}, nsmap=XULE_NAMESPACE_MAP)
+                    span.append(footnote_ref)
+            elif possible_footnotes_fact is not None:
+                # Only need to worry about footnotes if this is in a footnote group
+                for footnote_group in sub.get('footnote-collectors', tuple()):
+                    footnotes[footnote_group].append((possible_footnotes_fact, span))
 
-                    # Add attributes
-                    for att_loc, att in attributes_from_result.items():
-                        for att_name, att_value in att.items():
-                            attribute_nodes.append((att_loc, att_name, att_value, span))
+            if isinstance(content, str):
+                span.text = content
+            elif etree.iselement(content): 
+                span.append(content)
+            elif content is not None:
+                span.text = str(content)
+
+            if sub_node is not None:
+                sub_parent = sub_node.getparent()
+                sub_parent.replace(sub_node, span)
+                # Add classes to the parent or grand parent
+                if len(classes_from_result['parent']) > 0:
+                    class_node = sub_parent
+                    classes_to_add = classes_from_result['parent']
+                elif len(classes_from_result['grand']) > 0:
+                    class_node = sub_parent.getparent()
+                    classes_to_add = classes_from_result['grand']
+                else:
+                    class_node = None
+                if class_node is not None:
+                    class_node.set('class', ' '.join(class_node.get('class','').split() + classes_to_add))
+
+                # # Add classes to the parent
+                # if len(classes_from_result['parent']) + len(parent_classes) > 0:
+                #     sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent'] + parent_classes))
+                # Add colspans to the parent
+                if json_result.get('colspan') is not None:
+                    sub_parent.set('colspan', str(json_result['colspan']).strip())
+
+                # Add attributes
+                for att_loc, att in attributes_from_result.items():
+                    for att_name, att_value in att.items():
+                        attribute_nodes.append((att_loc, att_name, att_value, span))
     
     # Add the new repeating nodes
     for new_node in reversed(new_nodes):
@@ -434,20 +452,25 @@ def is_actual_fact(json_result, model_xbrl):
     else:
         return False
 
-def get_rule_focus_index(json_all_results, current_result):
+# def get_rule_focus_index(json_all_results, current_result):
     
-    if current_result['is-fact'].lower() == 'false':
-        # If the current result isn't really a fact, then there is no rule focus to get
-        return None
+#     if current_result['is-fact'].lower() == 'false':
+#         # If the current result isn't really a fact, then there is no rule focus to get
+#         return None
 
-    if isinstance(json_all_results, list):
-        rule_focus_index, _x = traverse_for_facts(json_all_results, current_result)
-    else:
-        # The results is really just a single dictionary of one results. Just check if the fact is there
-        if current_result['is-fact'].lower() == 'true':
-            rule_focus_index = 0
+#     if isinstance(json_all_results, list):
+#         rule_focus_index, _x = traverse_for_facts(json_all_results, current_result)
+#     else:
+#         # The results is really just a single dictionary of one results. Just check if the fact is there
+#         if current_result['is-fact'].lower() == 'true':
+#             rule_focus_index = 0
 
-    return rule_focus_index if rule_focus_index >= 0 else None  
+#     return rule_focus_index if rule_focus_index >= 0 else None  
+
+def get_model_object(object_string, cntlr):
+    arelle_model_id, object_id = json.loads(object_string)
+    arelle_model = xv.get_arelle_model(cntlr, arelle_model_id)
+    return arelle_model.modelObject(object_id)
 
 def count_facts_in_result(json_all_results):
     if isinstance(json_all_results, list):
@@ -783,7 +806,7 @@ def process_footnotes(rule_meta_data, template, footnote_rules, footnote_facts, 
         substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
                         modelXbrl, main_html, repeating_nodes, xule_node_locations,
                         context_ids, unit_ids, footnotes, template_number, used_ids, processed_facts, processed_footnotes,
-                        footnote_style=footnote_style, footnote_fact_sub_nodes=fact_sub_nodes)
+                        footnote_style=footnote_style, footnote_fact_sub_nodes=fact_sub_nodes,cntlr=cntlr)
 
 def get_footnote_lang(footnote_info, modelXbrl):
     footnote_model = modelXbrl.modelObject(footnote_info['content'])
@@ -1185,11 +1208,19 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     used_unit_ids = set()
 
     # Xendr needs to add a xule function to convert modelObject ids to footnotes
-    from .xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
+    try:
+        from .xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
     add_normal_function_to_xule(XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME, xxf.get_footnotes_from_fact_ids, 1)
     add_normal_function_to_xule(XENDR_OBJECT_ID_XULE_FUNCTION_NAME, xxf.get_internal_model_id, 1)
     add_normal_function_to_xule(XENDR_FORMAT_FOOTNOTE, xxf.format_footnote_info, 1)
-
+    try:
+        from .xule.XuleProperties import add_property as add_property_to_xule
+    except (ModuleNotFoundError, ImportError):
+        from xule.XuleProperties import add_property as add_property_to_xule
+    add_property_to_xule('xendr-object-id', xxf.property_xendr_model_object, 0, ())
+  
     template_number = 0
     used_ids = initialize_used_ids(modelXbrl)
     processed_facts = set() # track which facts have been outputed
@@ -1246,7 +1277,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
                 rule_meta_data = {'substitutions': meta_substitutions,
                                     'line-numbers': meta_line_number_subs}
 
-            rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'], catalog_item['xule-rule-set'])
+            rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'] + list(rule_meta_data['showifs'].keys()), catalog_item['xule-rule-set'])
             
             # Substitute template
             template_number += 1
@@ -1323,6 +1354,20 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     # Code snippet to unescape the "greater than" signs in the .css that the lxml is escaping.
     output_string = re.sub('<style>(.*?)</style>',fix_style, output_string, 1, re.DOTALL)
 
+    # If the xendr_inline_css_type is 'element', then inline the css
+    if options.xendr_inline_css_type == 'element':
+        try:
+            import css_inline
+        except ModuleNotFoundError:
+            raise XendrException("Not able to inline css at the element level. Need to install the css_inline python module.")
+        output_string = css_inline.inline(output_string)
+        # # This is necessary because the css_inline.inline() unescapes some characters that need to be escaped in order to write the file out. Otherwise I was getting this error:
+        # #  UnicodeEncodeError: 'ascii' codec can't encode character '\u2610' in position 12642: ordinal not in range(128)
+        # from lxml import html
+        # tree = html.fromstring(output_string)
+        
+        # output_string = etree.tostring(tree).decode(encoding="utf-8")
+
     responseZipStream = kwargs.get("responseZipStream")
     if responseZipStream is not None:
         _zip = zipfile.ZipFile(responseZipStream, "a", zipfile.ZIP_DEFLATED, True)
@@ -1332,7 +1377,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
             _zip.close()
             responseZipStream.seek(0)
     else:
-        with open(inline_name, 'w') as output_file:
+        with open(inline_name, 'w', encoding='utf-8') as output_file:
             output_file.write(output_string)
 
     cntlr.addToLog(_("Rendered template as '{}'".format(inline_name)), 'info')
@@ -1350,11 +1395,12 @@ def run_xule_rules(cntlr, options, modelXbrl, taxonomy_set, rule_names, rule_set
         cntlr.logger.addHandler(log_capture_handler)
 
         # Call the xule processor to run the rules
-        from .xule import __pluginInfo__ as xule_plugin_info
+        try:
+            from .xule import __pluginInfo__ as xule_plugin_info
+        except (ModuleNotFoundError, ImportError):
+            from xule import __pluginInfo__ as xule_plugin_info
         call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
 
-
-        #call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
         run_options = deepcopy(options)
         if xule_args is None:
             xule_args = []
@@ -1427,7 +1473,7 @@ def add_css(main_html, template_catalog, options):
     head = main_html.find('xhtml:head', XULE_NAMESPACE_MAP)
     if options.xendr_css_file:
         # Then the file name is identified by this option.
-        if options.xendr_inline_css:
+        if options.xendr_inline_css or options.xendr_inline_css_type is not None:
             # the contents of the file should be copied
             try:
                 with open(options.xendr_css_file, 'r') as css_file:
@@ -1465,6 +1511,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
     '''Format the fact to a string value'''
 
     new_fact_id = None
+    scale = None
     try:
         if xule_expression_node is None:
             format = None
@@ -1552,8 +1599,10 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         
             ix_node.set('format', format_inline)
 
-        if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
-            ix_node.set('scale', xule_expression_node.get('scale'))
+        # if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
+        #     ix_node.set('scale', xule_expression_node.get('scale'))
+        if scale is not None:
+            ix_node.set('scale', scale)
 
         # this is the node that will be returned.
         return_node = ix_node

@@ -34,9 +34,9 @@ _version_prefix = '3.0.'
 _description = 'FERC eForms rules validator.'
 _license = 'Apache-2'
 _author = 'XBRL US Inc.'
-_copyright = '(c) 2017-2023'
+_copyright = '(c) 2017-present'
 _rule_set_map_name = 'fercRulesetMap.json'
-_latest_map_name = 'https://github.com/xbrlus/ferc-renderer/raw/master/fercRulesetMap.json' 
+_latest_map_name = 'https://github.com/xbrlus/xule/raw/main/plugin/xule/fercRulesetMap.json' 
 
 """Do not change anything below this line."""
 _xule_plugin_info = None

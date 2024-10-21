@@ -1,0 +1,36 @@
+/**constant $LABELS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels.csv',false, list( 'string','string','string','string','string','string','string'))
+
+constant $TEST_CASE_LIST_LOCATION = '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/testcase.csv'
+
+constant $TEST_CASE_LIST = sum(csv-data($TEST_CASE_LIST_LOCATION ,false, list( 'string')))
+
+constant $TEST_CASE_LIST2 = list('i00200gd','i00201gd','i00202gd','i00203gd','i00204gd')
+
+output convert_labels_json
+$allData =  sum(list(for $unitTest in  $TEST_CASE_LIST2
+                $labels_for_unit_test = filter $LABELS where $item[1] == $unitTest returns $item;                                              
+                dict(list($unitTest, list(for $label in $labels_for_unit_test
+                                        dict(list('location',$label[2]), list('namespace',$label[3]),list('name',$label[4]), list('role-uri',$label[5]), list('label',$label[6]), list('lang',$label[7]))
+                                        )))))
+
+$allData
+file-content $rule-value.to-json
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels2.json'
+file-append false
+
+output convert_labels_json2
+$allData =  sum(list(for $unitTest in  $TEST_CASE_LIST
+                dict(list($unitTest, filter $LABELS where $item[1] == $unitTest returns                                               
+                dict(list('location',$item[2]), list('namespace',$item[3]),list('name',$item[4]), list('role-uri',$item[5]), list('label',$item[6]), list('lang',$item[7]))
+                                        ))))
+$allData
+file-content $rule-value.to-json
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels2.json'
+file-append false
+
+
+output agg_labels
+$LABELS.agg-to-dict(1)
+file-content $rule-value.to-json
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/EFMUnitTests/labels3.json'
+file-append false **/

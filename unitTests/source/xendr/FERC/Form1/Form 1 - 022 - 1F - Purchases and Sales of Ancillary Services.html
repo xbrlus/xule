@@ -1,0 +1,802 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1F/F1 - 022/398</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+
+</head>
+
+<body class="xbrl">
+    <div id="SchedulePurchasesSalesOfAncillaryServicesAbstract"></div>
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br />
+                <p></p>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                <p></p>
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace>
+                <p></p>
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="true" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br />
+                <p></p>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br />
+                <p></p>
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td colspan="8" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SchedulePurchasesSalesOfAncillaryServicesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                PART XXII: PURCHASES AND SALES OF ANCILLARY SERVICES
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="8">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">
+                        taxonomy().concept(ferc:SchedulePurchasesSalesOfAncillaryServicesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <p>Report the amounts for each type of ancillary service shown in column (a) for the year as specified in Order No. 888 and defined in the respondents Open Access Transmission Tariff.<br>
+                                In columns for usage, report usage-related billing determinant and the unit of measure.</br></p>
+                        <ol>
+                            <li>On line 1 columns (b), (c), (d), (e), (f) and (g) report the amount of ancillary services purchased and sold during the year.</li>
+                            <li>On line 2 columns (b) (c), (d), (e), (f), and (g) report the amount of reactive supply and voltage control services purchased and sold during the year.</li>
+                            <li>On line 3 columns (b) (c), (d), (e), (f), and (g) report the amount of regulation and frequency response services purchased and sold during the year.</li>
+                            <li>On line 4 columns (b), (c), (d), (e), (f), and (g) report the amount of energy imbalance services purchased and sold during the year.</li>
+                            <li>On lines 5 and 6, columns (b), (c), (d), (e), (f), and (g) report the amount of operating reserve spinning and supplement services purchased and sold during the period.</li>
+                            <li>On line 7 columns (b), (c), (d), (e), (f), and (g) report the total amount of all other types ancillary services purchased or sold during the year. Include in a footnote and specify the amount for each type of other ancillary service provided.</li>
+                        </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="3">Amount Purchased for the Year </td>
+            <td class="xbrl center-text" colspan="3">Amount Sold for the Year</td>
+        </tr>
+
+        <tr class="col-heading-row">
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl-no-bottom-line" colspan="1"> </td>
+            <td class="xbrl center-text" colspan="3">Usage - Related Billing Determinant </td>
+            <td class="xbrl center-text" colspan="3">Usage - Related Billing Determinant</td>
+        </tr>
+
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line" width="2%">Line No.</td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="ColumnHeadings">
+                <xendr:expression class="hide" name="ColumnHeadings">
+                    $headings = filter (taxonomy().concept(ferc:SchedulePurchasesSalesOfAncillaryServicesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "398 - Schedule - Purchases and Sales of Ancillary Services") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                        </xendr:expression>
+                        <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="ColumnHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                        <xendr:template-display>
+                                Type of Ancillary Service
+                        </xendr:template-display>
+                    </xendr:replace>
+                </div>
+                    <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="ColumnHeadings" part="2">$row</xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                        </xendr:replace></div>
+                </td>
+            </tr>
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SchedulingSystemControlAndDispatchMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1PurchasesandSalesAncillaryServices").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                                Scheduling, System Control and Dispatch
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:SchedulingSystemControlAndDispatchMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:SchedulingSystemControlAndDispatchMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:SchedulingSystemControlAndDispatchMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $341,876,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:SchedulingSystemControlAndDispatchMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                643,877
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:SchedulingSystemControlAndDispatchMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:SchedulingSystemControlAndDispatchMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $5,876,345
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">2</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReactiveSupplyAndVoltageMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1PurchasesandSalesAncillaryServices").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Reactive Supply and Voltage
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:ReactiveSupplyAndVoltageMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                67,876
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:ReactiveSupplyAndVoltageMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $3,987,456
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:ReactiveSupplyAndVoltageMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $3,987,456
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:ReactiveSupplyAndVoltageMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:ReactiveSupplyAndVoltageMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:ReactiveSupplyAndVoltageMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $76,987,099
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">3</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RegulationAndFrequencyResponseMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1PurchasesandSalesAncillaryServices").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Regulation and Frequency Response
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:RegulationAndFrequencyResponseMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                23,986
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:RegulationAndFrequencyResponseMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:RegulationAndFrequencyResponseMember]
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $8,976,675
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AncillaryServicesSoldNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:RegulationAndFrequencyResponseMember]
+                    </xendr:expression>
+                    <xendr:template-display>
+                                7,778
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:RegulationAndFrequencyResponseMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:AncillaryServicesSoldAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:RegulationAndFrequencyResponseMember]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $222,343
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">4</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:EnergyImbalanceMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1PurchasesandSalesAncillaryServices").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Energy Imbalance
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:EnergyImbalanceMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        666,111
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:EnergyImbalanceMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:EnergyImbalanceMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $776,978,999
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:EnergyImbalanceMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                348,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:EnergyImbalanceMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:EnergyImbalanceMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $88,876,007
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">5</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OperatingReserveSpinningMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1PurchasesandSalesAncillaryServices").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Operating Reserve - Spinning
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSpinningMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                33,876
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSpinningMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSpinningMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $76,987,078
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSpinningMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                55,556
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSpinningMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSpinningMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $666,777,222
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">6</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OperatingReserveSupplementMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1PurchasesandSalesAncillaryServices").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Operating Reserve - Supplement
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSupplementMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                45,658
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSupplementMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSupplementMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $7,834,985
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSupplementMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                543,765,824
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSupplementMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OperatingReserveSupplementMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $56,765,349
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">7</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:OtherAncillaryServicesMember).label("http://ferc.gov/form/2020-01-01/roles/label/F1PurchasesandSalesAncillaryServices").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Other
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OtherAncillaryServicesMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OtherAncillaryServicesMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                12,432
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OtherAncillaryServicesMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $87,987,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldNumberOfUnits @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OtherAncillaryServicesMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                49,816
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OtherAncillaryServicesMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldAmount @period = $currentDuration @ferc:AncillaryServicesPurchasesAndSalesAxis=ferc:OtherAncillaryServicesMember]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $82,344,883
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">8</td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:AncillaryServicesPurchasesAndSalesDomain).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                            Total (Lines 1 thru 7)
+                </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnits @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                51,999
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesPurchasedNumberOfUnitsPower @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesPurchasedAmount @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $397,854,206
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldNumberOfUnits  @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                0
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">
+                        first(list([@ferc:AncillaryServicesSoldUnitsOfMeasure @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                1,324,987
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            
+            <td class="xbrl numeric_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        first(list([@ferc:AncillaryServicesSoldAmount @period = $currentDuration]))
+                    </xendr:expression>
+                    <xendr:template-display>
+                                $0
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+        <div>FERC FORM No.
+            <xendr:replace>
+                                <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                                <xendr:template-display> 1-F </xendr:template-display>
+                        </xendr:replace>
+                        <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:SchedulePurchasesSalesOfAncillaryServicesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                            ED 1-05
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SchedulePurchasesSalesOfAncillaryServicesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        26
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+// Instance
+output-attribute instance-name // must be unique 
+output-attribute instance-taxonomy // a single taxonomy or a list of taxonomies
+// Fact
+output-attribute fact-value
+output-attribute fact-is-nil
+output-attribute fact-concept
+output-attribute fact-unit
+output-attribute fact-entity
+output-attribute fact-period
+output-attribute fact-decimals
+output-attribute fact-dimensions
+output-attribute fact-instance
+output-attribute fact-alignment
+output-attribute fact-footnote
+output-attribute fact-id
+// Taxonomy
+output-attribute package-name
+output-attribute package-namespace
+output-attribute package-url
+// Document
+output-attribute document-uri
+output-attribute document-namespace
+output-attribute document-import
+output-attribute document-imported-in
+output-attribute document-package-entry-point
+output-attribute document-package-entry-point-language
+output-attribute document-package-entry-point-name
+output-attribute document-package-entry-point-description
+// Type
+output-attribute type
+output-attribute type-name
+output-attribute type-parent
+output-attribute type-parent-name
+output-attribute type-min-inclusive
+output-attribute type-max-inclusive
+output-attribute type-min-exclusive
+output-attribute type-max-exclusive
+output-attribute type-total-digits
+output-attribute type-fraction-digits
+output-attribute type-length
+output-attribute type-min-length
+output-attribute type-max-length
+output-attribute type-enumerations
+output-attribute type-white-space
+output-attribute type-pattern
+// Concept
+output-attribute concept
+output-attribute concept-name
+output-attribute concept-local-name
+output-attribute concept-namespace
+output-attribute concept-data-type
+output-attribute concept-abstract
+output-attribute concept-nillable
+output-attribute concept-period-type
+output-attribute concept-balance-type
+output-attribute concept-substitution-group
+output-attribute concept-attributes
+output-attribute concept-id
+// Role
+output-attribute role
+output-attribute role-name
+output-attribute role-uri
+output-attribute role-definition
+output-attribute role-used-on
+// Arcrol
+output-attribute arcrole
+output-attribute arcrole-uri
+output-attribute arcrole-definition
+output-attribute arcrole-used-on
+output-attribute arcrole-cycles-allowed
+// Relationship
+output-attribute relationship
+output-attribute relationship-source
+output-attribute relationship-target
+output-attribute relationship-order
+output-attribute relationship-weight
+output-attribute relationship-preferred-label
+output-attribute relationship-type
+output-attribute relationship-linkrole-uri
+output-attribute relationship-role
+output-attribute relationship-arcrole
+output-attribute relationship-attributes
+output-attribute relationship-id
+// Label
+output-attribute label
+output-attribute label-text
+output-attribute label-lang
+output-attribute label-role
+output-attribute label-concept-name
+
+//Import
+output-attribute import-url
+output-attribute import2-url
+
+//Reference
+output-attribute reference-role
+output-attribute reference-concept-name
+output-attribute reference-parts
+
+//Parts
+output-attribute part-name
+output-attribute part-data-type
+
+namespace http://fasb.org/us-gaap/2023
+
+constant $EXTENSION_CONCEPTS = csv-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/xodel/extensions.csv',true, list( 'string', 'string', 'string'))
+
+constant $EXTENSION_TAXONOMY = 'MyTaxonomy'
+
+output create_base_taxonomy
+true
+package-name $EXTENSION_TAXONOMY
+package-url 'https://taxonomies.xbrl.us/xodel/MyTaxonomy'
+document-uri 'abc.xsd'
+document-import list('https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd', 'https://xbrl.fasb.org/srt/2023/elts/srt-2023.xsd', 'https://xbrl.sec.gov/dei/2023/dei-2023.xsd').to-xodel
+document-package-entry-point true
+document-package-entry-point-description 'main entry point'
+document-package-entry-point-language 'en'
+document-package-entry-point-name 'Main'
+
+constant $US-GAAP = taxonomy('https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-2023.xsd')
+
+output create_extension_concepts 
+$baseAsset = $US-GAAP.concept(Assets)
+$UniqueAssets = (filter $EXTENSION_CONCEPTS returns $item[1]).to-set
+for $asset in $UniqueAssets
+    $asset
+
+package-name $EXTENSION_TAXONOMY
+document-uri 'abc.xsd'
+document-namespace 'https://abc.com/2024'
+concept $baseAsset.to-xodel
+concept-namespace 'https://abc.com/2024'
+concept-local-name $rule-value
+
+output create_extension_labels 
+for $label in $EXTENSION_CONCEPTS
+    $label
+package-name $EXTENSION_TAXONOMY
+document-uri 'abc_lab.xml'
+document-imported-in 'abc.xsd'
+label-concept-name qname('https://abc.com/2024', $label[1]).to-xodel
+label-text $label[3]
+label-role 'http://www.xbrl.org/2003/role/' + $label[2]
+label-lang 'en'
+
+output create_presentation_role
+    1
+
+package-name $EXTENSION_TAXONOMY
+document-uri 'abc.xsd'
+role-uri 'https://abc.com/2024/roles/pres'
+role-definition 'This is the presentation role'
+role-used-on list('Presentation').to-xodel
+
+output create_presentation
+$FirstAsset = $EXTENSION_CONCEPTS[1]
+$UniqueAssets = (filter $EXTENSION_CONCEPTS returns $item[1]).to-set
+for $asset in $UniqueAssets
+    if $asset == $FirstAsset[1]
+        skip
+    else
+        1
+
+message "{qname('https://abc.com/2024', $FirstAsset[1]).to-xodel}
+
+{qname('https://abc.com/2024', $asset).to-xodel}"
+
+package-name $EXTENSION_TAXONOMY
+document-uri 'abc_pre.xml'
+document-imported-in 'abc.xsd'
+relationship-source qname('https://abc.com/2024', $FirstAsset[1]).to-xodel
+relationship-target qname('https://abc.com/2024', $asset).to-xodel
+relationship-role 'pres'
+relationship-arcrole 'parent-child'
+relationship-type 'presentation'

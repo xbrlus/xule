@@ -1,6 +1,6 @@
 /* Lists */
 output LM001
-/* list(1,2,3,4,a,b,c,4,1,2,3,4) */
+/* list(1, 2, 3, 4, a, b, c, 4, 1, 2, 3, 4) */
 
   list(1,2,3,4) + list('a','b','c',4) + list(1,2,3,4)
 
@@ -15,44 +15,44 @@ output LM003
   'n' in list('a','b','c','d')
 
 output LM004
-/* list(1,2,3,None) */
+/* list(1, 2, 3, None) */
 
   list(1,2,3,none)
 
 output LM005
-/* list(1,2,3) */
+/* list(1, 2, 3) */
 
   list(1,2,3,skip)
 
 output LM006
-/* [ERROR] [xule:error] rule LM006: unsupported operand type(s) for -: 'tuple' and 'tuple' */
+/* rule LM006: Rule: LM006 - Lists cannot be subtracted */
 
   list(1,2,3) - list(1,2)
 
 output LM007
-/* [ERROR] [xule:error] rule LM007: Rule: LM007 - The left operand of '*' is not numeric, found 'list' */
+/* rule LM007: Rule: LM007 - The left operand of '*' is not numeric, found 'list' */
 
   list(1,2,3) * list(1,2)
 
 output LM008
-/* [ERROR] [xule:error] rule LM008: Rule: LM008 - Intersection can only operatate on sets. The left side is a 'list'. */
+/* rule LM008: Rule: LM008 - Intersection can only operatate on sets. The left side is a 'list'. */
 
   list(2,3,5) & list(1,2,3,4)
 
 output LM009
-/* [ERROR] [xule:error] rule LM009: unsupported operand type(s) for -: 'tuple' and 'tuple' */
+/* rule LM009: Rule: LM009 - Lists cannot be subtracted */
 
   list() - list('a','b','c','d') 
 
 output LM010
 /*  True */
 
-  'a' in list('a','b','c','d') 
+  'd' in list('a','b','c','d') 
 
 output LM011
 /*  False */
 
-  'n' in list('a','b','c','d') 
+  'k' in list('a','b','c','d') 
 
 output LM012
 /*  False */
@@ -121,3 +121,8 @@ output LM022
 
   $x = filter list([@instance = $INSTANCE1 @Assets]) returns $item
   list('lang',  $x)
+
+output LM023
+/* list(1, 2, 3) */
+
+  list(1,2,3) + none

@@ -15,12 +15,12 @@ output FDATE103
   set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).day
 
 output FDATE104
-/* [ERROR] [xule:error] rule FDATE104: Rule: FDATE104 - Property 'day' is not a property of a 'duration'. */
+/* rule FDATE104: Rule: FDATE104 - Property 'day' is not a property of a 'duration'. */
 
   duration('2022-02-02', '2022-02-20').day
 
 output FDATE105
-/* [ERROR] [xule:error] rule FDATE105: Rule: FDATE105 - Property 'day' is not a property of a 'string'. */
+/* rule FDATE105: Rule: FDATE105 - Property 'day' is not a property of a 'string'. */
 
   '2022-02-99'.day
 
@@ -35,7 +35,7 @@ output FDATE107
   list(duration('2022-01-01', '2022-03-31'), duration('2022-01-01', '2022-06-30')).days
 
 output FDATE108
-/* set(180, 89) */
+/* set(89, 180) */
 
   set(duration('2022-01-01', '2022-03-31'), duration('2022-01-01', '2022-06-30')).days
 
@@ -60,7 +60,7 @@ output FDATE112
   date('2020-01-01').end
 
 output FDATE113
-/* [ERROR] [xule:error] rule FDATE113: Rule: FDATE113 - Property 'end' is not a property of a 'string'. */
+/* rule FDATE113: Rule: FDATE113 - Property 'end' is not a property of a 'string'. */
 
   '2020-01-01'.end
 
@@ -80,7 +80,7 @@ output FDATE116
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).end
 
 output FDATE117
-/* [ERROR] [xule:error] rule FDATE117: Rule: FDATE117 - Property 'end' is not a property of a 'qname'. */
+/* rule FDATE117: Rule: FDATE117 - Property 'end' is not a property of a 'qname'. */
 
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01'), Assets).end
 
@@ -100,12 +100,12 @@ output FDATE120
   set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).month
 
 output FDATE121
-/* [ERROR] [xule:error] rule FDATE121: Rule: FDATE121 - Property 'month' is not a property of a 'duration'. */
+/* rule FDATE121: Rule: FDATE121 - Property 'month' is not a property of a 'duration'. */
 
   duration('2022-02-02', '2022-02-20').month
 
 output FDATE122
-/* [ERROR] [xule:error] rule FDATE122: Rule: FDATE122 - Property 'month' is not a property of a 'string'. */
+/* rule FDATE122: Rule: FDATE122 - Property 'month' is not a property of a 'string'. */
 
   '2022-02-99'.month
 
@@ -120,7 +120,7 @@ output FDATE124
   date('2020-01-01').start
 
 output FDATE125
-/* [ERROR] [xule:error] rule FDATE125: Rule: FDATE125 - Property 'start' is not a property of a 'string'. */
+/* rule FDATE125: Rule: FDATE125 - Property 'start' is not a property of a 'string'. */
 
   '2020-01-01'.start
 
@@ -140,7 +140,7 @@ output FDATE128
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).start
 
 output FDATE129
-/* [ERROR] [xule:error] rule FDATE129: Rule: FDATE129 - Property 'start' is not a property of a 'qname'. */
+/* rule FDATE129: Rule: FDATE129 - Property 'start' is not a property of a 'qname'. */
 
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01'), Assets).start
 
@@ -155,12 +155,12 @@ output FDATE131
   list(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
 
 output FDATE132
-/* set(2022) */
+/* set(2,022) */
 
   set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
 
 output FDATE133
-/* [ERROR] [xule:error] rule FDATE133: Rule: FDATE133 - Property 'year' is not a property of a 'duration'. */
+/* rule FDATE133: Rule: FDATE133 - Property 'year' is not a property of a 'duration'. */
 
   duration('2022-02-02', '2022-02-20').year
 
@@ -184,8 +184,13 @@ output DAT004
 
   date('2024-02-29')
 
+output DAT005
+/* 45351 */
+
+  '2024-02-29'.date
+
 output DAT090
-/* [ERROR] [xule:error] rule DAT090: Rule: DAT090 - Error converting date: '2022-02-32' */
+/* rule DAT090: Rule: DAT090 - Error converting date: '2022-02-32' */
 
   date('2022-02-32')
 
@@ -195,24 +200,49 @@ output DAT091
   date
 
 output DAT092
-/* [ERROR] [xule:error] rule DAT092: Rule: DAT092 - The 'date' function must have only 1 argument, found 0. */
+/* rule DAT092: Rule: DAT092 - The 'date' function must have at least one argument, found none. */
 
   date()
 
 output DAT093
-/* [ERROR] [xule:error] rule DAT093: Rule: DAT093 - Error converting date: 'cat' */
+/* rule DAT093: Rule: DAT093 - Error converting date: 'cat' */
 
   date('cat')
 
 output DAT094
-/* [ERROR] [xule:error] rule DAT094: Rule: DAT094 - Error converting date: '2022-02-29' */
+/* rule DAT094: Rule: DAT094 - Error converting date: '2022-02-29' */
 
   date('2022-02-29')
 
 output DAT095
 /* 43832 */
 
-  date('2020-01-02')
+  date('2020-01' + '-02')
+
+output DAT096
+/* TRUE */
+
+  date('2020-01-02') == date('2020-01-02')
+
+output DAT097
+/* TRUE */
+
+  date('2020-01-03') > date('2020-01-02')
+
+output DAT098
+/* TRUE */
+
+  date('2020-01-03') < date('2020-01-07')
+
+output DAT099
+/* rule DAT099: Rule: DAT099 - The first argument of function 'date' must be string, instant, found 'none' */
+
+  date(none)
+
+output DAT100
+/* none */
+
+  none.date
 
 output DAY001
 /* 2 */
@@ -225,12 +255,12 @@ output DAY002
   day(date('1999-12-31'))
 
 output DAY091
-/* [ERROR] [xule:error] rule DAY091: Rule: DAY091 - The 'day' function must have at least one argumenrt, found None. */
+/* rule DAY091: Rule: DAY091 - The 'day' function must have at least one argument, found none. */
 
   day()
 
 output DAY092
-/* [ERROR] [xule:error] rule DAY092: Rule: DAY092 - The first argument of function 'day' must be instant, found 'string'. */
+/* rule DAY092: Rule: DAY092 - The first argument of function 'day' must be instant, found 'string'. */
 
   day('2020-01-02')
 
@@ -240,19 +270,104 @@ output DUR001
   duration('2022-01-01', '2022-03-31')
 
 output DUR091
-/* [ERROR] [xule:error] rule DUR091: Rule: DUR091 - Error converting date: '20220331' */
+/* rule DUR091: Rule: DUR091 - Error converting date: '20220331' */
 
   duration('2022-01-01', '20220331')
 
 output DUR092
-/* [ERROR] [xule:error] rule DUR092: Rule: DUR092 - Error converting date: '2022-01-aa' */
+/* rule DUR092: Rule: DUR092 - Error converting date: '2022-01-aa' */
 
   duration('2022-01-aa', '2022-03-31')
 
 output DUR093
-/* [ERROR] Dates out of order for 'duration()' */
+/* No iteration as is a non existent duration */
 
   duration('2022-03-31', '2022-01-01')
+
+output DUR094
+/* 2022-03-31 to 2022-03-31 */
+
+  duration('2022-03-31T00:00:00', '2022-03-31T00:00:00')
+
+output DUR095
+/* 0 */
+
+  duration('2022-03-31T00:00:00', '2022-03-31T00:00:00').days
+
+output DUR096
+/* rule DUR096: Rule: DUR096 - Property 'contains' is not a property of a 'duration'. */
+
+  duration('2022-01-01', '2022-03-31').contains(duration('2022-03-01', '2022-06-30'))
+
+output DUR097
+/* rule DUR097: Rule: DUR097 - Property 'contains' or 'in' expression cannot operate on a 'duration' and 'duration' */
+
+  duration('2022-03-01', '2022-06-30') in duration('2022-01-01', '2022-03-31')
+
+output DUR098
+/* FALSE */
+
+  duration('2022-03-01', '2022-06-30') == duration('2022-01-01', '2022-03-31')
+
+output DUR099
+/* TRUE */
+
+  duration('2022-03-01', '2022-06-30') < duration('2022-07-01', '2022-12-31')
+
+output DUR100
+/* FALSE */
+
+  duration('2022-03-01', '2022-06-30') > duration('2022-07-01', '2022-12-31')
+
+output DUR101
+/* TRUE */
+
+  duration('2022-03-01', '2022-06-30') < duration('2022-05-01', '2022-12-31')
+
+output DUR102
+/* rule DUR102: Rule: DUR102 - Property 'contains' is not a property of a 'duration'. */
+
+  duration('2022-01-01', '2022-09-30').contains(duration('2022-03-01', '2022-06-30'))
+
+output DUR103
+/* rule DUR103: Rule: DUR103 - 'duration' is not a valid property. */
+
+  '2022-01-01'.duration('2022-06-30')
+
+output DUR104
+/* 0 */
+
+  duration('2022-03-31', '2022-03-31').time-span
+
+output DUR105
+/* 1 day, 0:00:00 */
+
+  duration('2022-03-31', '2022-04-01').time-span
+
+output DUR106
+/* 0 */
+
+  duration('2022-03-31', '2022-03-31T24:00:00').time-span
+
+output DUR107
+/* 0 */
+
+  (duration('2022-03-31', '2022-03-31T24:00:00').time-span + time-span('P0D'))
+
+output DUR108
+/* 44651 */
+
+  date('2022-03-31T24:00:00') + time-span('P0D')
+
+output DUR109
+/* 2022-03-31 to 2022-03-31 */
+
+  duration(date('2022-03-31'), date('2022-03-31'))
+
+output DUR110
+/* 0 */
+
+  duration(date('2022-03-31'), date('2022-03-31T24:00:00')).days
 
 output FVR001
 /* forever */
@@ -274,6 +389,16 @@ output FVR004
 
   forever
 
+output FVR005
+/* rule FVR005: Rule: FVR005 - Property 'date' requires a string or an instant argument, found 'duration' */
+
+  duration('2022-03-31', forever)
+
+output FVR006
+/* rule FVR006: Rule: FVR006 - Property 'date' requires a string or an instant argument, found 'none' */
+
+  duration('2022-03-31', none)
+
 output MON001
 /* 12 */
 
@@ -285,14 +410,24 @@ output MON002
   month(date('1999-12-31'))
 
 output MON091
-/* [ERROR] [xule:error] rule MON091: Rule: MON091 - The 'month' function must have at least one argumenrt, found None. */
+/* rule MON091: Rule: MON091 - The 'month' function must have at least one argument, found none. */
 
   month()
 
 output MON092
-/* [ERROR] [xule:error] rule MON092: Rule: MON092 - The first argument of function 'month' must be instant, found 'string'. */
+/* rule MON092: Rule: MON092 - The first argument of function 'month' must be instant, found 'string'. */
 
   month('2020-01-02')
+
+output MON093
+/* rule MON093: Rule: MON093 - The first argument of function 'month' must be instant, found 'none'. */
+
+  month(none)
+
+output MON094
+/* 12 */
+
+  date('2021-12-03').month
 
 output TSP101
 /* 4 days, 0:00:00 */
@@ -300,9 +435,9 @@ output TSP101
   time-span('P4D')
 
 output TSP102
-/* 4 days, 0:00:00 */
+/* rule TSP102: Rule: TSP102 - The first argument of function 'time-span' must be string, duration, found 'none'. */
 
-  time-span('P4D')
+  time-span(none)
 
 output TSP104
 /* 428 days, 0:00:00 */
@@ -315,7 +450,7 @@ output TSP105
   time-span('P4W')
 
 output TSP106
-/* [ERROR][xule:error] rule TSP106: Rule: TSP106 - Could not convert 'P4W2D' into a time-period. */
+/* rule TSP106: Rule: TSP106 - Could not convert 'P4W2D' into a time-period. */
 
   time-span('P4W2D')
 
@@ -325,22 +460,22 @@ output TSP107
   time-span('PT12H')
 
 output TSP191
-/* [ERROR] [xule:error] rule TSP191: Rule: TSP191 - Function 'time-span' expects a string, fount 'qname'. */
+/* rule TSP191: Rule: TSP191 - The first argument of function 'time-span' must be string, duration, found 'qname'. */
 
   time-span(P4D)
 
 output TSP192
-/* [ERROR] [xule:error] rule TSP192: Rule: TSP192 - The 'time-span' function must have only 1 argument, found 0. */
+/* rule TSP192: Rule: TSP192 - The 'time-span' function must have at least one argument, found none. */
 
   time-span()
 
 output TSP193
-/* [ERROR] [xule:error] rule TSP193: Rule: TSP193 - Function 'time-span' expects a string, fount 'qname'. */
+/* rule TSP193: Rule: TSP193 - The first argument of function 'time-span' must be string, duration, found 'qname'. */
 
   time-span(cat)
 
 output TSP194
-/* [ERROR] [xule:error] rule TSP194: Rule: TSP194 - Could not convert '-P4D' into a time-period. */
+/* rule TSP194: Rule: TSP194 - Could not convert '-P4D' into a time-period. */
 
   time-span('-P4D')
 
@@ -348,6 +483,21 @@ output TSP195
 /* 89 days, 0:00:00 */
 
   duration('2022-01-01', '2022-03-31').time-span
+
+output TSP196
+/* 4 days, 0:00:00 */
+
+  'P4D'.time-span
+
+output TSP197
+/* time-period */
+
+  'P4D'.time-span._type
+
+output TSP198
+/* 4 */
+
+  'P4D'.time-span.days
 
 output YER001
 /* 2021 */
@@ -360,16 +510,16 @@ output YER002
   year(date('1999-12-31'))
 
 output YER091
-/* [ERROR] [xule:error] rule YER091: Rule: YER091 - The 'year' function must have at least one argumenrt, found None. */
+/* rule YER091: Rule: YER091 - The 'year' function must have at least one argument, found none. */
 
   year()
 
 output YER092
-/* [ERROR] [xule:error] rule YER092: Rule: YER092 - The first argument of function 'year' must be instant, found 'string'. */
+/* rule YER092: Rule: YER092 - The first argument of function 'year' must be instant, found 'string'. */
 
   year('2020-01-02')
 
 output YER093
-/* [ERROR] [xule:error] rule YER093: Rule: YER093 - Property 'year' is not a property of a 'string'. */
+/* rule YER093: Rule: YER093 - Property 'year' is not a property of a 'string'. */
 
   '2022-02-99'.year

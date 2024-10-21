@@ -10,16 +10,71 @@ output IFEL002
   if false 1 else if true 'hello' else 3
 
 output IFEL003
-/* No iteration */
+/* skip */
 
   if none true else false
 
 output IFEL004
-/* None */
+/* skip */
 
-  if true none else false
+  if (none or false) true else false
 
 output IFEL005
 /* TRUE */
 
+  if (none or true) true else false
+
+output IFEL006
+/* TRUE */
+
+  if (none or not false) true else false
+
+output IFEL007
+/* FALSE */
+
+  if (none == true) true else false
+
+output IFEL008
+/* FALSE */
+
+  if (none and false) true else false
+
+output IFEL009
+/* None */
+
+  if true none else false
+
+output IFEL010
+/* TRUE */
+
   if false skip else true
+
+output IFEL011
+/* skip */
+
+  if none ([@instance = $INSTANCE1 @Assets]) else  ([@instance = $INSTANCE1 @Liabilities])
+
+output IFEL012
+/* rule IFEL012: Rule: IFEL012 - If condition is not a boolean, found 'string' */
+
+  if 'cat' 1 else 2
+
+output IFEL013
+/* FALSE */
+
+  if list([covered @instance = $INSTANCE1 @concept.local-name = 'hello']).length > 0 true else false
+
+output IFEL014
+/* skip */
+
+  if [covered @instance = $INSTANCE1 @concept.local-name = 'hello'] true else false
+
+output IFEL015
+/* TRUE */
+
+  if missing([covered @instance = $INSTANCE1 @concept.local-name = 'hello']) true else false
+
+output IFEL016
+/* FALSE */
+
+  if exists([covered @instance = $INSTANCE1 @concept.local-name = 'hello']) true else false

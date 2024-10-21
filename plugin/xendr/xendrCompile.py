@@ -70,9 +70,13 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
 
         # xule rule set name
         xule_rule_set_name = os.path.join(temp_dir, 'temp-ruleset.zip')
-        from .xule import __pluginInfo__ as xule_plugin_info
+        try:
+            from .xule import __pluginInfo__ as xule_plugin_info
+        except (ModuleNotFoundError, ImportError):
+            from xule import __pluginInfo__ as xule_plugin_info
+        
         compile_method = xule_plugin_info['Xule.compile']
-        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"))
+        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"), getattr(options, "xule_compile_workers"))
 
         template_catalog.append({'name': template_name,
                             'template': template_file_name,
@@ -277,7 +281,7 @@ def build_constants(options, template_tree):
     constants = []
     # Constants are found in a specified file (xendr-constants.xule is the default) or in the <xule:global> element
     # The default constant file is eliminated. Now if the xendr-constants option is not used there is no default
-    constant_file_name = getattr(options, 'xendr_constants')
+    constant_file_name = getattr(options, 'xendr_global')
     constants = []
     if constant_file_name is not None:
         try:
@@ -362,16 +366,16 @@ def build_xule_rules(template_tree, template_file_name, xule_node_locations):
 def build_template_show_if(xule_rules, next_rule_number, template_tree, template_file_name, node_pos):
     '''Conditional Template Rules
 
-    This funciton finds the xule:showif rule, if there is one, and creates the xule rule for it.
+    This funciton finds the xule:showIf rule, if there is one, and creates the xule rule for it.
     '''
     meta_data = collections.defaultdict(list)
     xule_rules = list()
-    # The <xule:showif> must be a node under the html body node.
-    for showif_node in template_tree.findall('xhtml:body/xule:showif', XULE_NAMESPACE_MAP):
+    # The <xule:showIf> must be a node under the html body node.
+    for showif_node in template_tree.findall('xhtml:body/xule:showIf', XULE_NAMESPACE_MAP):
         rule_name = _RULE_NAME_PREFIX + str(next_rule_number)
         next_rule_number += 1 
         
-        comment_text = '    //xule:showif rule\n    // {} - line {}'.format(template_file_name, showif_node.sourceline)
+        comment_text = '    //xendr:showIf rule\n    // {} - line {}'.format(template_file_name, showif_node.sourceline)
         rule_body = showif_node.text.strip()
         xule_rules.append('output {rule_name}\n{comment}\n{rule_body}'\
                           ''.format(rule_name=rule_name,
@@ -416,15 +420,14 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                               'template-line-number': xule_expression.sourceline,
                               'node-pos': node_pos[replacement_node]}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
-                rule_text = 'output {rule_name}\n{comment}\n{result_text}{rule_focus}'\
+                rule_text = 'output {rule_name}\n{comment}\n{result_text}'\
                     ''.format(rule_name=rule_name,
                               comment=comment_text,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
                                                                                              None,
                                                                                              None,
                                                                                              'f',
-                                                                                             extra_expressions)),
-                              rule_focus='\nrule-focus list(if $rv-0.is-fact $rv-0 else none)' 
+                                                                                             extra_expressions))
                              )
             else: # not a fact
                 sub_content = {'part': None, 
@@ -472,21 +475,28 @@ def format_rule_result_text_part(expression_text, part, value_number, type, extr
     output_dictionary = collections.OrderedDict()
     output_dictionary['type'] = "'{}'".format(type)
     
-
     if part is None:
-        output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-0).string else (none)#rv-0).string'.format(exp=expression_text)
+        value_variable_name = '$rv-0'
     else:
+        value_variable_name = f'$rv-{part}'
         output_dictionary['part'] = part
-        output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=value_number)
+    
+    output_dictionary['value'] = f'first-value-or-none({value_variable_name}).string'
+
+    # if part is None:
+    #     output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-0).string else (none)#rv-0).string'.format(exp=expression_text)
+    # else:
+    #     output_dictionary['part'] = part
+    #     output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=value_number)
+
     if type == 'f':
-        output_dictionary['is-fact'] = 'if exists({exp}) (({exp}).is-fact).string else \'false\''.format(exp=expression_text)
-        if inside:
-            # Inside expressions have an extra component to capture the fact. This is used to build the rule focus.
-            output_dictionary['fact'] = expression_text        
+        # if inside:
+        #     # Inside expressions have an extra component to capture the fact. This is used to build the rule focus.
+            output_dictionary['fact'] = f"({expression_text}).xendr-object-id"       
     # Extra expressions (i.e. class, format, scale)
     for extra_name, extra_expression in extra_expressions.items():
         if extra_name == 'fact':
-            # rename this so it doesn't conflict with the name 'fact' for inside expression. Sell code a few lines up.
+            # rename this so it doesn't conflict with the name 'fact' for inside expression. See code a few lines up.
             extra_name = 'dynamic-fact'
         if isinstance(extra_expression, list):
             output_extra_expressions = "list({})".format(','.join(extra_expression)) if len(extra_expression) > 0 else None
@@ -496,7 +506,9 @@ def format_rule_result_text_part(expression_text, part, value_number, type, extr
             output_dictionary[extra_name] = output_extra_expressions
     
     output_items = ("list('{key}', {val})".format(key=k, val=v) for k, v in output_dictionary.items())
-    output_string = "dict({})".format(', '.join(output_items))
+    # output_string = "dict({})".format(', '.join(output_items))
+    new_line = '\n'
+    output_string = f"{value_variable_name} = {expression_text};{new_line}dict({', '.join(output_items)})"
 
     return output_string
 
@@ -522,7 +534,6 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
     # Sort the part list by the part number
     part_list.sort(key=part_sort)
     result_parts = []
-    rule_focus = []
     comments = []
     preliminary_rule_text = ''
     substitutions = []
@@ -556,8 +567,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
                                                                                             inside)
                                                     )
                 )
-                
-                rule_focus.append('if $rv-{ntn}.is-fact $rv-{ntn} else none'.format(ntn=next_text_number))
+
                 sub_content = {'name': named_rule, 
                                 'part': part, 
                                 'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
@@ -631,8 +641,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
     rule_info = {'rule_name': rule_name,
                  'comments': comments,
                  'preliminary_rule_text': preliminary_rule_text,
-                 'result_parts': result_parts,
-                 'rule_focus': rule_focus}
+                 'result_parts': result_parts}
     
     return rule_info, substitutions, next_rule_number, next_text_number
 
@@ -686,14 +695,14 @@ def build_named_rules(xule_rules, next_rule_number, named_rules, template_tree, 
         result_text = ',\n'.join(["{}".format(expression) for expression in rule_info['result_parts']])
         
         rule_text += '\nlist({}).to-json'.format(result_text)
-        rule_focus = rule_info['rule_focus']
+        # rule_focus = rule_info['rule_focus']
         composite_rule_focus = []
-        if len(rule_focus) > 0:
-            composite_rule_focus.append('list({})'.format(', '.join(rule_focus)))
-        if len(child_focus) > 0:
-            composite_rule_focus.append(' + '.join(child_focus))
-        if len(composite_rule_focus) > 0:
-            rule_text += '\nrule-focus {}'.format(' + '.join(composite_rule_focus))
+        # if len(rule_focus) > 0:
+        #     composite_rule_focus.append('list({})'.format(', '.join(rule_focus)))
+        # if len(child_focus) > 0:
+        #     composite_rule_focus.append(' + '.join(child_focus))
+        # if len(composite_rule_focus) > 0:
+        #     rule_text += '\nrule-focus {}'.format(' + '.join(composite_rule_focus))
 
         xule_rules.append(rule_text)
 
@@ -735,41 +744,51 @@ def add_child_rules(parent_name, hierarchy, next_part_number, next_text_number,n
                                 node_pos)
 
             inside_list_text = ', '.join(["{}".format(expression) for expression in child_rule_info['result_parts'] + next_parts])
-            inside_variable_text = '${inside_name}-val = list({prelim_text}\nlist({value_text}));'.format(
-                                        inside_name=child_name,
+
+            inside_value_text = 'list({prelim_text}\nlist({value_text}))'.format(
                                         prelim_text=child_rule_info['preliminary_rule_text'],
                                         value_text=inside_list_text)
-            inside_value_text = \
-'''
-// Get results
-{variable_text} 
+
+#             inside_variable_text = '${inside_name}-val = list({prelim_text}\nlist({value_text}));'.format(
+#                                         inside_name=child_name,
+#                                         prelim_text=child_rule_info['preliminary_rule_text'],
+#                                         value_text=inside_list_text)
+#             inside_value_text = f'''
+# {inside_variable_text}
+# ${child_name}-val
+# '''
+            
+#             inside_value_text = \
+# '''
+# // Get results
+# {variable_text} 
 
 
-// Find the rule focus facts
-${inside_name}-rf = list(
-    for $res in ${inside_name}-val
-        for $part in $res
-            if $part['type'] == 'f'
-                $part['fact']
-            else    
-                skip
-);
+# // Find the rule focus facts
+# ${inside_name}-rf = list(
+#     for $res in ${inside_name}-val
+#         for $part in $res
+#             if $part['type'] == 'f'
+#                 $part['fact']
+#             else    
+#                 skip
+# );
 
-// Get rid of the 'fact' component of the part
-list(
-    for $res in ${inside_name}-val
-        list(
-            for $part in $res
-                dict(
-                    for $key in $part.keys
-                        if $key != 'fact'
-                            list($key, $part[$key])
-                        else
-                            skip
-                    )
-        )
-)
-'''.format(inside_name=child_name, variable_text=inside_variable_text)
+# // Get rid of the 'fact' component of the part
+# list(
+#     for $res in ${inside_name}-val
+#         list(
+#             for $part in $res
+#                 dict(
+#                     for $key in $part.keys
+#                         if $key != 'fact'
+#                             list($key, $part[$key])
+#                         else
+#                             skip
+#                     )
+#         )
+# )
+# '''.format(inside_name=child_name, variable_text=inside_variable_text)
 
             list_part_text = "dict(list('type', 'l'),  list('part', {}), list('is-fact', 'false'), " \
                              "list('value', {}))".format(next_part_number,

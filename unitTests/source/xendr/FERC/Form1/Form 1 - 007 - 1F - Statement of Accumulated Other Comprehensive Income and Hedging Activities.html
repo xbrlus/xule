@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1F - 007</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+</head>
+
+<body class="xbrl">
+    <div id="ScheduleStatementOfAccumulatedOtherComprehensiveIncomeAndHedgingActivitiesAbstract"></div>
+        <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                    <br></br>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>This report is:</xendr:template-display>
+                    </xendr:replace>
+                    <br></br>
+                        (1) 
+                            <xendr:replace>
+                                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> An Original']]>
+                                    </xendr:expression>  
+                                <xendr:template-display>
+                                        <input type="checkbox"/> An Original
+                                </xendr:template-display>
+                            </xendr:replace>
+                            <br></br>
+                        (2)
+                            <xendr:replace>
+                                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                    '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                    '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                        </xendr:expression> 
+                                    <xendr:template-display>
+                                            <input type="checkbox" checked = "true"/> A Resubmission
+                                    </xendr:template-display>
+                            </xendr:replace> 
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    <br></br>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>04/26/2019</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    <br></br>
+                    End of: <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>2018</xendr:template-display>
+                    </xendr:replace>
+                    <span>/</span>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Q4</xendr:template-display>
+                    </xendr:replace>
+                    
+                     </td>
+                 </tr>
+            </table>
+    
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td colspan="11" class="xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleStatementOfAccumulatedOtherComprehensiveIncomeAndHedgingActivitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                PART VII: STATEMENT OF ACCUMULATED COMPREHENSIVE INCOME AND HEDGING ACTIVITIES
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+    </tr>
+         <tr>
+                <td class="instruction" colspan="11">
+                   <xendr:replace>
+                        <xendr:expression html="true" class="hide">taxonomy().concept(ferc:ScheduleStatementOfAccumulatedOtherComprehensiveIncomeAndHedgingActivitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FInstructions").text
+                        </xendr:expression>
+                        <ol>
+                            <li>Report in columns (b) (c) and (e) the amounts of accumulated other comprehensive income items, on a net-of-tax basis, where appropriate.</li>
+                            <li>Report in columns (f) and (g) the amounts of other categories of other cash flow hedges.</li>
+                            <li>For each category of hedges that have been accounted for as &ldquo;fair value hedges&rdquo;, report the accounts affected and the related amounts in a footnote.</li>
+                        </ol>
+                    </xendr:replace>
+                </td>
+            </tr> 
+            <tr class="col-heading-row">     
+                <td class="col-heading xbrl line-number">Line No.</td>
+                <td class="col-heading xbrl" xendr:repeat="AOCIHeadings">
+                        <xendr:expression class="hide" name="AOCIHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleStatementOfAccumulatedOtherComprehensiveIncomeAndHedgingActivitiesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "122a - Schedule - Statement of Accumulated Other Comprehensive Income, Comprehensive Income, and Hedging Activities" and not ($item.part-by-name(ferc-part:Form).part-value == "Form 1" and $item.part-by-name(ferc-part:Column).part-value == "i"));
+    
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+                                    list("("+$row[1]+")",$row[2])
+                            );
+                            for $row in $heading_dict.keys.sort
+                        </xendr:expression>
+                        <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="AOCIHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                        <xendr:template-display>
+                            Title  of Account
+                        </xendr:template-display>
+                    </xendr:replace>
+                </div>
+                    <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="AOCIHeadings" part="2">$row</xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                        </xendr:replace></div>
+                </td>
+            </tr>
+
+        <tr class="schedule-row" xendr:repeat="movement_prior">
+            <xendr:expression class="hide" name="movement_prior">// adding a comment
+/** Get a list of all the elements in the schedule **/
+$element_population         = navigate parent-child descendants from ferc:ScheduleStatementOfAccumulatedOtherComprehensiveIncomeAndHedgingActivitiesAbstract returns list(target-name, result-order);
+
+/** Set up a variable to record which rows are shaded **/
+$shadeHeader                 = list(true);
+
+/** Identify the  elements that are actually used in the schedule. The elements variable identifies those elements with a row number less than 5 that are prior elements **/
+
+$elements                   = list(for $row in $element_population
+                                $concept = taxonomy().concept($row[1]);
+                                $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "122a - Schedule - Statement of Accumulated Other Comprehensive Income, Comprehensive Income, and Hedging Activities" and  $item.part-by-name(ferc-part:Row).part-value.string 	&lt; "5"  and $item.part-by-name(ferc-part:Period).part-value.string == "Prior"  )).to-list;
+                           
+                                list($row[2],
+                                    $concept,              
+                                    if ($row_num.length > 0)
+                                        ($row_num.part-by-name(ferc-part:Row))[1].part-value
+                                    else
+                                        0,
+                                    if ($row_num.part-by-name(ferc-part:Column).length > 0)
+                                        ($row_num.part-by-name(ferc-part:Column))[1].part-value
+                                    else
+                                        0
+                                )
+                            );
+/** Identify unique elements that are a duratuion element that is not an abstract and sort in the order of the column number. 
+$item[4] is the column number and is used to sort the elements.
+$item[2] is the concept name
+$item[3] is the row number. **/ 
+
+$movement_items                 = list(
+                
+                                    $priorLine = set(for $item in $elements 
+                                                    if  $item[3] 	&lt; 5 and $item[2].period-type == "duration" and $item[2].is-abstract == false 
+                                                    list($item[4],$item[2],$item[3])
+                                                    else
+                                                    skip);
+
+                                    $orders = set(for $x in $priorLine $x[3]+$x[1]).sort;
+                                                    
+                                    $orderedList1 = list(for $order in $orders
+                                                            for $row in $priorLine
+                                                                if $row[3]+$row[1] != $order or $row[3] != 2
+                                                                    skip
+                                                                else
+                                                                    $row[2]);
+                                    
+                                    $orderedList2 = list(for $order in $orders
+                                                            for $row in $priorLine
+                                                                if $row[3]+$row[1] != $order or $row[3] != 3
+                                                                    skip
+                                                                else
+                                                                    $row[2]);
+
+                                    $orderedList3 = list(for $order in $orders
+                                                            for $row in $priorLine
+                                                                if $row[3]+$row[1] != $order or $row[3] != 4
+                                                                    skip
+                                                                else
+                                                                    $row[2]);
+
+                                    /** Add 2 none lists for the two final columns **/
+                                    list($orderedList1 + list(none) + list(none), $orderedList2 + list(none) + list(none), $orderedList3));
+
+/** remove additional list as movement_items as only one item in it list(list(list())) **/
+
+$movement                       = $movement_items[1];
+ 
+/** Create variable of prior durational items with a shade header indicating the final two columns are shaded, add a label and add the prior durational values **/
+$prior_durations_all            = list(for $i in range($movement.length)
+                                    $prior_durations = list(for $c in $movement[$i]
+                                         if count(list([covered @concept = $c @period=$priorDuration])) > 0
+                                              first(list([covered @concept = $c @period=$priorDuration]))
+                                          else
+                                            none);
+                                          $prior_durations_label  = list($movement[$i][1].label("http://ferc.gov/form/2020-01-01/roles/label/F1Prior").text); 
+                                          $shadeHeaderDur  = if $i == $movement.length list(false)  else list(true);       
+                                        
+                                          $shadeHeaderDur + $prior_durations_label + $prior_durations);
+
+ 
+                                        
+$current_durations_all          = list(for $i in range($movement.length)
+                                        $current_durations = list(for $c in $movement[$i]
+                                            if count(list([covered @concept = $c @period=$currentDuration])) > 0
+                                                first(list([covered @concept = $c @period=$currentDuration]))
+                                            else
+                                                none);
+                                            $current_durations_label  = list($movement[$i][1].label("http://ferc.gov/form/2020-01-01/roles/label/F1Current").text); 
+                                                        
+                                            $shadeHeaderDur  = if $i == $movement.length list(false)  else list(true);  
+                                            $shadeHeaderDur + $current_durations_label + $current_durations);
+
+/** OPENING BALANCES **/
+ 
+$openElements                   = list(for $row in $element_population
+                                    $concept = taxonomy().concept($row[1]);
+                                    $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "122a - Schedule - Statement of Accumulated Other Comprehensive Income, Comprehensive Income, and Hedging Activities" and  $item.part-by-name(ferc-part:Row).part-value.string == "1"  and $item.part-by-name(ferc-part:Period).part-value.string == "Prior2"  )).to-list;
+                                    
+                                    list($row[2],
+                                        $concept,
+                                        if ($row_num.length > 0)
+                                                ($row_num.part-by-name(ferc-part:Row))[1].part-value
+                                        else
+                                            "",
+                                        if ($row_num.part-by-name(ferc-part:Column).length > 0)
+                                            ($row_num.part-by-name(ferc-part:Column))[1].part-value
+                                        else
+                                            ""
+                                        ));
+                
+
+$openingPriorBalance            = set(for $x in $openElements 
+	 						        if $x[3] == 1 
+							            list($x[4],$x[2])
+							        else
+							            skip);
+
+$orders                         = set(for $x in $openingPriorBalance $x[1]).sort;
+
+$orderedList                    = list(for $order in $orders
+                                    for $row in $openingPriorBalance
+                                        if $row[1] != $order
+                                            skip
+                                        else
+                                            $row[2]);
+                           
+/** Get the opening balance of prior values  **/
+
+$data_open_prior_values         = list(for $c in $orderedList
+                                    if count(list([covered @concept = $c @period=$prior2Instant])) > 0
+                                        first(list([covered @concept = $c @period=$prior2Instant]))
+                                    else
+                                        none);
+
+$open_prior_label               = list($orderedList[1].label("http://ferc.gov/form/2020-01-01/roles/label/F1BeginningBalance2").text); 
+                                    
+$opening_balance_line_prior     = list($shadeHeader + $open_prior_label + $data_open_prior_values + list(none) + list(none)); 
+
+$data_closing_prior_values      = list(for $c in $orderedList
+                                    if count(list([covered @concept = $c @period=$prior12MonthsInstant])) > 0
+                                        first(list([covered @concept = $c @period=$prior12MonthsInstant]))
+                                    else
+                                        none);
+$data_opening_prior_values      = list(for $c in $orderedList
+                                    if count(list([covered @concept = $c @period=$priorInstant])) > 0
+                                        first(list([covered @concept = $c @period=$priorInstant]))
+                                    else
+                                        none);
+
+$data_closing_current_values    = list(for $c in $orderedList
+                                    if count(list([covered @concept = $c @period=$currentInstant])) > 0
+                                        first(list([covered @concept = $c @period=$currentInstant]))
+                                    else
+                                        none);
+
+$closing_prior_label            = list($orderedList[1].label("http://ferc.gov/form/2020-01-01/roles/label/F1EndingBalance2").text); 
+                            
+$closing_balance_line_prior     = list($shadeHeader + $closing_prior_label + $data_closing_prior_values + list(none) + list(none)); 
+
+$opening_label                  = list($orderedList[1].label("http://ferc.gov/form/2020-01-01/roles/label/F1BeginningBalance").text); 
+
+$opening_balance_line           = list($shadeHeader + $opening_label + $data_opening_prior_values + list(none) + list(none));    
+
+$closing_current_label          = list($orderedList[1].label("http://ferc.gov/form/2020-01-01/roles/label/F1EndingBalance").text); 
+
+$closing_balance_line           = list($shadeHeader + $closing_current_label + $data_closing_current_values + list(none) + list(none));  
+            
+for $row in  ($opening_balance_line_prior + $prior_durations_all + $closing_balance_line_prior + $opening_balance_line + $current_durations_all + $closing_balance_line  )
+
+            </xendr:expression>
+            <td class="xbrl line-number">
+                <xendr:lineNumber name="movement_prior"><xendr:startNumber>1</xendr:startNumber></xendr:lineNumber>/>
+                <xendr:template-display>1</xendr:template-display>
+            </td> 
+            <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="movement_prior" part="2">$row[2]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                    Balance of Account 77 at Beginning of Preceding Year
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="movement_prior" fact="true" format="ixt4:num-dot-decimal" part="3">$row[3]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                        100
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="movement_prior" fact="true"  format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                       200
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="movement_prior" fact="true"  format="ixt4:num-dot-decimal" part="5">$row[5]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                       300
+                </xendr:template-display>
+            </td>
+           <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="movement_prior" fact="true"  format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                       300
+                </xendr:template-display>
+            </td>
+             <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="movement_prior" fact="true" format="ixt4:num-dot-decimal" part="7">$row[7]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                       300
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="movement_prior" fact="true" format="ixt4:num-dot-decimal" part="8">$row[8]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                       300
+                </xendr:template-display>
+            </td>
+            <td class="xbrl numeric_items"><xendr:replace><xendr:expression class="hide"  name="movement_prior" fact="true" format="ixt4:num-dot-decimal" part="9">$row[9]</xendr:expression></xendr:replace>
+                <xendr:template-display>
+                       300
+                </xendr:template-display>
+            </td>
+
+            <td class="xbrl numeric_items"><xendr:replace>
+                <xendr:expression class="hide"  name="movement_prior" fact="true"  format="ixt4:num-dot-decimal" part="10">$row[10]</xendr:expression>
+                <xendr:class location="parent">if $row[1] "gray-out" else ""</xendr:class> 
+            </xendr:replace>
+                
+                <xendr:template-display>
+                       300
+                </xendr:template-display>
+            </td>
+
+            <td class="xbrl numeric_items"><xendr:replace>
+                <xendr:expression class="hide"  name="movement_prior" fact="true"  format="ixt4:num-dot-decimal" part="11">$row[11]</xendr:expression>
+                <xendr:class location="parent">if $row[1] "gray-out" else ""</xendr:class> 
+            </xendr:replace>
+                <xendr:template-display>
+                       300
+                </xendr:template-display>
+            </td>         
+</tr> 
+    </table> 
+    <br/>
+        <div class="schedule-footer">
+            <div>FERC FORM No.
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xendr:expression>
+                        <xendr:template-display>1-F</xendr:template-display>
+                </xendr:replace>
+                <span> </span> 
+                    <xendr:replace>
+                            <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleStatementOfAccumulatedOtherComprehensiveIncomeAndHedgingActivitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FDateRevised").text + ")"
+                            </xendr:expression>
+                            <xendr:template-display>
+                                REV 06-04
+                            </xendr:template-display>
+                    </xendr:replace>
+                                
+            </div>
+            <div class="center-text">Page 
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleStatementOfAccumulatedOtherComprehensiveIncomeAndHedgingActivitiesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FPageRange").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                            222a
+                            </xendr:template-display>
+                    </xendr:replace>
+            </div> 
+
+        </div>
+</body>
+
+</html>

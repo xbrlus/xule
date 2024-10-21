@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:us-gaap="http://fasb.org/us-gaap/2023">
+  <link:schemaRef xlink:href="https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-std-2023.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://test/report">CompanyX</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="jpy">
+    <xbrli:measure>iso4217:JPY</xbrli:measure>
+  </xbrli:unit>
+  <us-gaap:Assets id="f" decimals="-6" contextRef="c" unitRef="jpy">1230000.0</us-gaap:Assets>
+</xbrli:xbrl>

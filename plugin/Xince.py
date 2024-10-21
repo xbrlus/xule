@@ -87,14 +87,14 @@ _TAXONOMY_MODEL_START = '''
 
 _QNAME_MATCH = re.compile('^{(.+)}(.+)$')
 # This unit_match will contain the numerator in group(1) and the denominator in group(4)
-_UNIT_MATCH = re.compile('({[^}]+}[^{]+(\*{[^}]+}[^{]+)*)(/({[^}]+}[^{]+(\*{[^}]+}[^{]+)*))?')
-_HEX_MATCH = re.compile('^[0-9a-fA-F]*$')
-_G_YEAR_MONTH = re.compile('^(\d{4,})-(\d\d)$')
-_G_YEAR = re.compile('^\d{4,}$')
-_G_MONTH_DAY = re.compile('^--\d\d-\d\d((\+|-)\d\d:\d\d)?$')
-_G_DAY = re.compile('^---\d\d((\+|-)\d\d:\d\d)?$')
-_G_MONTH = re.compile('^--\d\d((\+|-)\d\d:\d\d)?$')
-_LANGUAGE = re.compile('^[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*$')
+_UNIT_MATCH = re.compile(r'({[^}]+}[^{]+(\*{[^}]+}[^{]+)*)(/({[^}]+}[^{]+(\*{[^}]+}[^{]+)*))?')
+_HEX_MATCH = re.compile(r'^[0-9a-fA-F]*$')
+_G_YEAR_MONTH = re.compile(r'^(\d{4,})-(\d\d)$')
+_G_YEAR = re.compile(r'^\d{4,}$')
+_G_MONTH_DAY = re.compile(r'^--\d\d-\d\d((\+|-)\d\d:\d\d)?$')
+_G_DAY = re.compile(r'^---\d\d((\+|-)\d\d:\d\d)?$')
+_G_MONTH = re.compile(r'^--\d\d((\+|-)\d\d:\d\d)?$')
+_LANGUAGE = re.compile(r'^[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*$')
 
 # These are for validation of Name and NCName
 _BaseChar ='[\u0041-\u005A]|[\u0061-\u007A]|[\u00C0-\u00D6]|[\u00D8-\u00F6]|[\u00F8-\u00FF]|[\u0100-\u0131]|[\u0134-\u013E]|[\u0141-\u0148]|[\u014A-\u017E]|'
@@ -129,11 +129,11 @@ _Digit = '[\u0030-\u0039]|[\u0660-\u0669]|[\u06F0-\u06F9]|[\u0966-\u096F]|[\u09E
 _Extender ='\u00B7|\u02D0|\u02D1|\u0387|\u0640|\u0E46|\u0EC6|\u3005|[\u3031-\u3035]|[\u309D-\u309E]|[\u30FC-\u30FE]'
 _Letter	=	f'{_BaseChar}|{_Ideographic}'
 
-_NameChar = f"{_Letter}|{_Digit}|\.|-|_|:|{_CombiningChar}|{_Extender}"
+_NameChar = fr"{_Letter}|{_Digit}|\.|-|_|:|{_CombiningChar}|{_Extender}"
 _Name = f"^({_Letter}|_|:)({_NameChar})*$"
 _NAME_MATCH = re.compile(_Name)
 
-_NCNameChar = f"{_Letter}|{_Digit}|\.|-|_|{_CombiningChar}|{_Extender}"
+_NCNameChar = fr"{_Letter}|{_Digit}|\.|-|_|{_CombiningChar}|{_Extender}"
 _NCName = f"^({_Letter}|_)({_NCNameChar})*$"
 _NCNAME_MATCH = re.compile(_NCName)
 
@@ -431,6 +431,10 @@ def cmdUtilityRun(cntlr, options, **kwargs):
 
 def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     # Model is create (file loaded) now ready to create an instance
+
+    modelXbrl.error("XinceDeprecated", "Xince is now a part of the Xodel plugin, please execute using Xodel.")
+
+    return
 
     if options.xince_location is None:
         # nothing to do
@@ -878,7 +882,7 @@ def get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimens
             period_node.append(instant_node)
             if period.start.hour + period.start.minute + period.start.second + period.start.microsecond == 0:
                 # the time is midnight the end of day
-                instant_node.text = (period.start + datetime.timedelta(days=1)).date().isoformat()
+                instant_node.text = (period.start - datetime.timedelta(days=1)).date().isoformat()
             else:
                 instant_node.text = period.start.isoformat()
         else: # duration
@@ -891,7 +895,7 @@ def get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimens
         
             end_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}endDate')
             if period.end.hour + period.end.minute + period.end.second + period.end.microsecond == 0:
-                end_node.text = (period.end + datetime.timedelta(days=1)).date().isoformat()
+                end_node.text = (period.end - datetime.timedelta(days=1)).date().isoformat()
             else:
                 end_node.text = period.end.isoformat()
             period_node.append(end_node)
@@ -1658,8 +1662,8 @@ class _logCaptureHandler(logging.Handler):
 __pluginInfo__ = {
     'name': 'Xince',
     'version': '0.9',
-    'description': "Xince - Xule Instance creator",
-    'copyright': '(c) Copyright 2023 XBRL US Inc., All rights reserved.',
+    'description': "DEPRECATED. Use plugin ""Xode"" instead.",
+    'copyright': '(c) Copyright 2022 XBRL US Inc., All rights reserved.',
     'import': 'xule',
     # classes of mount points (required)
     'CntlrCmdLine.Options': cmdLineOptionExtender,

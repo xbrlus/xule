@@ -1,0 +1,531 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 424</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+
+</head>
+
+<body class="xbrl" id="ScheduleTransmissionLinesAddedAbstract">
+        <table class="schedule-header xbrl" width="100%">
+                <tr>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Name of Respondent:</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                            <xendr:template-display>This report is:</xendr:template-display>
+                        </xendr:replace><br/>
+                            
+                            (1) 
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                                        </xendr:expression>  
+                                    <xendr:template-display>
+                                            <input type="checkbox"/> An Original
+                                    </xendr:template-display>
+                                </xendr:replace><br/>
+                                
+                            (2)
+                                <xendr:replace>
+                                        <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                            </xendr:expression> 
+                                        <xendr:template-display>
+                                                <input type="checkbox" checked = "checked"/> A Resubmission
+                                        </xendr:template-display>
+                                </xendr:replace> 
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Date of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                        
+                            <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                                <xendr:template-display>04/26/2019</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                    <td class="xbrl"><xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                        </xendr:replace><br/>
+                       
+                        End of: <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>2018</xendr:template-display>
+                        </xendr:replace>
+                        <span>/</span>
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>Q4</xendr:template-display>
+                        </xendr:replace>
+                    </td>
+                </tr>
+            </table>
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td class="xbrl" colspan="19"><xendr:replace>
+                <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleTransmissionLinesAddedAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                </xendr:expression>
+                <xendr:template-display>
+                    TRANSMISSION LINES ADDED DURING YEAR
+                </xendr:template-display>
+            </xendr:replace>
+            
+        </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="19">
+                <xendr:replace>
+                    <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleTransmissionLinesAddedAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    <ol>
+                        <li>Report below the information called for concerning Transmission lines added or altered during the year.  It is not necessary to report minor revisions of lines.</li>
+                        <li>Provide separate subheadings for overhead and under- ground construction and show each transmission line separately.  If actual costs of competed construction are not readily available for reporting columns (l) to (o), it is permissible to report in these columns the costs.  Designate, however, if estimated amounts are reported.  Include costs of Clearing Land and Rights-of-Way, and Roads and Trails, in column (l) with appropriate footnote, and costs of Underground Conduit in column (m).</li>
+                        <li>If design voltage differs from operating voltage, indicate such fact by footnote; also where line is other than 60 cycle, 3 phase, indicate such other characteristic.</li>
+                    </ol>
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">
+            <td class="col-heading xbrl-no-bottom-line" colspan="1">
+                
+            </td>
+            <td class="col-heading xbrl" colspan="2">
+                LINE DESIGNATION
+            </td>
+            <td class="col-heading xbrl-no-bottom-line" colspan="1">
+                
+            </td>
+            <td class="col-heading xbrl" colspan="2">
+                SUPPORTING STRUCTURE
+            </td>
+            <td class="col-heading xbrl" colspan="2">
+                CIRCUITS PER STRUCTURE
+            </td>
+            <td class="col-heading xbrl" colspan="3">
+                CONDUCTORS
+            </td>
+            <td class="col-heading xbrl-no-bottom-line" colspan="1">
+                
+            </td>
+            <td class="col-heading xbrl" colspan="5">
+                LINE COST
+            </td>
+            <td class="col-heading xbrl-no-bottom-line" colspan="1"></td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-bottom-top-line line-number">Line No.</td>
+            <td class="col-heading xbrl-no-bottom-top-line" xendr:repeat="RevenueHeadings">
+                    <xendr:expression class="hide" name="RevenueHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleTransmissionLinesAddedAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "424 - Schedule - Transmission Lines Added During Year") 
+    
+                            $heading = list(for $ref in $headings 
+                                list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+        
+                                $heading_dict = dict(for $row in $heading
+                                        list("("+$row[1]+")",list($row[2],if $row[3] == none "" else taxonomy().concept(to-qname($row[3]))))
+                                );
+                                for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center">
+                        <div class="tooltip">
+                                <div class="tooltiptext">
+                                        <xendr:replace>
+                                                <xendr:expression class="hide" name="RevenueHeadings" part="3">if $heading_dict[$row][2] != "" $heading_dict[$row][2].name.local-name else "" </xendr:expression>
+                                            </xendr:replace>
+                                </div>    
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="RevenueHeadings" part="1">$heading_dict[$row][1]</xendr:expression>
+                                <xendr:template-display>
+                                        Zone of Delivery, Rate Schedule
+                                </xendr:template-display>
+                            </xendr:replace>
+                        </div>
+                    </div>
+                </td>
+        
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl-no-top-line line-number"></td>
+            <td class="col-heading xbrl-no-top-line" xendr:repeat="RevenueHeadings2">
+                    <xendr:expression class="hide" name="RevenueHeadings2">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleTransmissionLinesAddedAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "424 - Schedule - Transmission Lines Added During Year") 
+    
+                            $heading = list(for $ref in $headings 
+                                list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value, $ref.part-by-name(ferc-part:ElementName).part-value))
+        
+                                $heading_dict = dict(for $row in $heading
+                                        list("("+$row[1]+")",list($row[2],if $row[3] == none "" else taxonomy().concept(to-qname($row[3]))))
+                                );
+                                for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+
+                    <div style="text-align: center"><xendr:replace>
+                            <xendr:expression class="hide" name="RevenueHeadings2" part="2">$row</xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                    </xendr:replace></div>
+                </td>
+
+        </tr>
+        
+        <tr class="schedule-row" xendr:repeat="TransmissionLinesAdded">
+                <xendr:expression class="hide" name="TransmissionLinesAdded">// adding a comment
+                 
+                $data2 =   list(for $i in range(43)
+                                list($i,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:TransmissionLinesAddedAxis=*})) > 0  
+                
+               
+                    list({covered @ferc:TransmissionLinesAddedAxis=*  {list(
+                    if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                        first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                    else
+                        0,
+                    if list({@ferc:TransmissionLineStartPoint @unit  @period=$currentDuration}).length > 0 
+                        first(list({@ferc:TransmissionLineStartPoint @unit  @period=$currentDuration}))
+                    else 
+                        none,
+                    
+                    if list({@ferc:TransmissionLineEndPoint @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:TransmissionLineEndPoint @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:LengthOfTransmissionLineAdded @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:LengthOfTransmissionLineAdded @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:SupportingStructureOfTransmissionLineType @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:SupportingStructureOfTransmissionLineType @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    
+                    if list({@ferc:AverageNumberOfSupportingStructuresOfTransmissionLinePerMiles @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:AverageNumberOfSupportingStructuresOfTransmissionLinePerMiles @unit  @period=$currentDuration})) 
+                    else
+                        none,
+                    if list({@ferc:NumberOfTransmissionCircuitsPerStructurePresent @unit  @period=$currentDuration}).length > 0 
+                        first(list({@ferc:NumberOfTransmissionCircuitsPerStructurePresent @unit  @period=$currentDuration}))
+                    else 
+                        none,
+                    if list({@ferc:NumberOfTransmissionCircuitsPerStructureUltimate @unit @period=$currentDuration}).length > 0 
+                        first(list({@ferc:NumberOfTransmissionCircuitsPerStructureUltimate @unit @period=$currentDuration}))
+                    else 
+                        none,
+                    if list({@ferc:ConductorSize @unit  @period=$currentDuration}).length > 0
+                        first(list({@ferc:ConductorSize @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:ConductorSpecification @unit  @period=$currentDuration}).length > 0
+                        first(list({@ferc:ConductorSpecification @unit  @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:ConductorConfigurationAndSpacing @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:ConductorConfigurationAndSpacing @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:OperatingVoltageOfTransmissionLine @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:OperatingVoltageOfTransmissionLine @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:CostOfLandAndLandRightsTransmissionLinesAdded @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:CostOfLandAndLandRightsTransmissionLinesAdded @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:CostOfPolesTowersAndFixturesTransmissionLinesAdded @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:CostOfPolesTowersAndFixturesTransmissionLinesAdded @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:CostOfConductorsAndDevicesTransmissionLinesAdded @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:CostOfConductorsAndDevicesTransmissionLinesAdded @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:AssetRetirementCostsTransmissionLinesAdded @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:AssetRetirementCostsTransmissionLinesAdded @unit @period=$currentDuration})) 
+                    else 
+                        none,
+                    if list({@ferc:CostOfTransmissionLinesAdded @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:CostOfTransmissionLinesAdded @unit @period=$currentDuration}))
+                    else 
+                        none,
+                    if list({@ferc:SupportingStructureConstructionType @unit @period=$currentDuration}).length > 0
+                        first(list({@ferc:SupportingStructureConstructionType @unit @period=$currentDuration})) 
+                    else 
+                        none
+                   
+                    )}})
+                    else $data2;
+                
+                    $uniqueData = list(for $x in  $data
+                        if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none, none)
+                            skip
+                        else 
+                            $x
+                        );
+
+                for $row in $uniqueData.sort   
+
+                </xendr:expression>
+                <td class="xbrl line-number"><xendr:lineNumber name="TransmissionLinesAdded"/>
+                    <xendr:template-display>1</xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression  class="hide"  name="TransmissionLinesAdded" fact="true" part="2">$row[2]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        115.21 Gulf
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" part="3">$row[3]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        Forbes
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            2.27
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl account-number"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" part="5">$row[5]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                           SPS
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="6">$row[6]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            13
+                    </xendr:template-display>
+                </td>  
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" part="7">$row[7]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            1
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" part="8">$row[8]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            2
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl account-number"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" part="9">$row[9]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            6W-1192.5
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl account-number"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" part="10">$row[10]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            ACSR
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" part="11">$row[11]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                            Vertical
+                    </xendr:template-display>
+                </td>
+                <td class="numeric_items xbrl"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="12">$row[12]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                       115
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="13">$row[13]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $2,589,016
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="14">$row[14]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $100,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="15">$row[15]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $200,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="16">$row[16]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $300,000
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true" format="ixt4:num-dot-decimal" part="17">$row[17]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $600,060
+                    </xendr:template-display>
+                </td>
+                <td class="xbrl description_items"><xendr:replace><xendr:expression class="hide"  name="TransmissionLinesAdded" fact="true"  part="18">$row[18]</xendr:expression></xendr:replace>
+                    <xendr:template-display>
+                        $600,060
+                    </xendr:template-display>
+                </td>
+
+            </tr>
+            <tr>
+                <td class="xbrl line-number">44</td>
+                <td class="xbrl description_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide">
+                                    taxonomy().concept(ferc:LengthOfTransmissionLineAdded).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                                </xendr:expression>
+                                <div>
+                                    <xendr:template-display>
+                                        TOTAL
+                                    </xendr:template-display>
+                                </div>
+                            </xendr:replace>
+                        </td>
+                <td class="xbrl"></td>
+                <!-- (c) Line Length -->
+                <td class="xbrl numeric_items">
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">max(list([covered @concept=ferc:LengthOfTransmissionLineAdded @period = $currentDuration]))
+                        </xendr:expression>
+                        <xendr:template-display>
+                            3.93
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"></td>
+                <!-- (e) Average Number per Miles-->
+                <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:AverageNumberOfSupportingStructuresOfTransmissionLinePerMiles @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    90.15
+                            </xendr:template-display>
+                    </xendr:replace>  
+                </td>
+                <!-- (f) CIRCUITS PER STRUCTURE: Present -->
+                <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:NumberOfTransmissionCircuitsPerStructurePresent @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    28
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <!-- (g) CIRCUITS PER STRUCTURE: Ultimate -->
+                <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:NumberOfTransmissionCircuitsPerStructureUltimate @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    29
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>  
+                <td class="xbrl"></td>
+                <td class="xbrl"></td>
+                <td class="xbrl"></td>
+                <!-- (k) Voltage KV (Operating) -->
+                <td class="xbrl"></td>
+                <!-- (l) Line Cost: Land and Land Rights-->                
+                <td class="numeric_items xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CostOfLandAndLandRightsTransmissionLinesAdded @period = $currentDuration]))
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        $23,000,000
+                                </xendr:template-display>
+                        </xendr:replace>
+                </td>
+                <!-- (m) Line Cost: Poles, Towers and Fixtures--> 
+                <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CostOfPolesTowersAndFixturesTransmissionLinesAdded @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $24,000,000
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <!-- (n) Line Cost: Conductors and Devices --> 
+                <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CostOfConductorsAndDevicesTransmissionLinesAdded @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $25,000,000
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <!-- (o) Line Cost: Asset Retire. Costs-->
+                <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:AssetRetirementCostsTransmissionLinesAdded @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $26,000,000
+                            </xendr:template-display>
+                        </xendr:replace>
+                </td> 
+                <!-- (p) Line Cost: Total -->
+                <td class="numeric_items xbrl">
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:CostOfTransmissionLinesAdded @period = $currentDuration]))
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    $56,000,000
+                            </xendr:template-display>
+                    </xendr:replace>
+                </td> 
+                <td class="xbrl"></td>
+            </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))       
+                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleTransmissionLinesAddedAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (REV. 12-03)
+                        </xendr:template-display>
+                </xendr:replace> 
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleTransmissionLinesAddedAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        424
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+</html>

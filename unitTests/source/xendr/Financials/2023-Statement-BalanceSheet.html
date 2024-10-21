@@ -21,7 +21,7 @@ xmlns:dei="http://xbrl.sec.gov/dei/2023"
 
 
 <body class="xbrl" id="StatementOfFinancialPositionAbstract">
-
+    
     <table class="fs-statement">
         <tr class="sch-title">
             <td colspan="5" class="fs-statement">
@@ -49,7 +49,7 @@ xmlns:dei="http://xbrl.sec.gov/dei/2023"
     <td colspan="5" class="">
         As of 
         <xendr:replace>
-            <xendr:expression class="hide" fact="true" format='ixt4:date-day-monthname-year-en'> [@dei:DocumentPeriodEndDate @period=$currentDuration]</xendr:expression>
+            <xendr:expression class="hide" fact="true"> [@dei:DocumentPeriodEndDate @period=$currentDuration]</xendr:expression>
             <xendr:template-display>31 2018</xendr:template-display>
         </xendr:replace>
         </td>
@@ -79,62 +79,79 @@ xmlns:dei="http://xbrl.sec.gov/dei/2023"
     </tr>
        <tr class="schedule-row" xendr:repeat="BSLineItems">
                 <xendr:expression class="hide" name="BSLineItems">
-    $data = navigate parent-child descendants from xusss:StatementOfFinancialPositionAbstract role "https://taxonomies.xbrl.us/standardized-statements/roles/StatementOfFinancialPositionClassified" returns list (target-name, preferred-label, navigation-depth);
+    $Balance_Sheet = navigate parent-child descendants from xusss:StatementOfFinancialPositionAbstract role "https://taxonomies.xbrl.us/standardized-statements/roles/StatementOfFinancialPositionClassified" returns list (target-name, preferred-label, navigation-depth);
     
-    $data-labels = list(for $row in $data
-            $concept = taxonomy().concept($row[1]);
-            $current = if list([covered @concept = $row[1] @period = $currentInstant]).length > 0
-            first(list([covered @concept = $row[1] @period = $currentInstant]))
-                else
-                        none
-            $prior = if list([covered @concept = $row[1] @period = $priorInstant]).length > 0
-                    first(list([covered @concept = $row[1] @period = $priorInstant]))
-                else
-                        none
-            
-        
+    $data-labels = list(for $line in $Balance_Sheet
+            $concept = taxonomy().concept($line[1]);
+            $current = first-value-or-none(first(list([covered @concept = $line[1] @period = $currentInstant])));
+            $prior = first-value-or-none(first(list([covered @concept = $line[1] @period = $priorInstant])));
+                    
             list($concept,
-			$concept.label($row[2].role.uri).text, //Title of Account
+			$concept.label($line[2].role.uri).text, //Title of Account
             $current,
             $prior,
-            $row[2].role.uri,
-            $row[3]
+            $line[2].role.uri,
+            $line[3]
             
 				));
-    for $rowl in  $data-labels
+    for $rowj in filter $data-labels where (($item[3] != none and $item[3] != 0 and $item[4] != none and $item[4] != 0) or $item[1].is-abstract)
 
                 </xendr:expression>
                         
                         <td class="fs-statement description_items">
                                 
                                 <xendr:replace>
-                                    <xendr:expression class="hide" name="BSLineItems"  part="2">$rowl[2]</xendr:expression> 
-                                    <xendr:class location="parent">if $rowl[5] == "http://www.xbrl.org/2003/role/totalLabel" "total-row" else ""</xendr:class>
-                                    <xendr:class location="parent">if $rowl[1].is-abstract "sch-title" else ""</xendr:class>
-                                    <xendr:class location="parent">"padding-" + $rowl[6].string</xendr:class>
-                                </xendr:replace>
-                                <xendr:template-display>UTILITY PLANT</xendr:template-display>
-                                
+                                    <xendr:expression class="hide" name="BSLineItems"  part="1">$rowj[2]</xendr:expression> 
+                                    <xendr:class location="parent">if $rowj[5] == "http://www.xbrl.org/2003/role/totalLabel" "total-row" else ""</xendr:class>
+                                    <xendr:class location="parent">if $rowj[1].is-abstract "sch-title" else ""</xendr:class>
+                                    <xendr:class location="parent">"padding-" + $rowj[6].string</xendr:class>
+                                </xendr:replace>       
                         </td> 
-
-                     
-                        
-                        <td class="fs-statement monetary_items">
-                                <xendr:replace>
-                                    <xendr:expression class="hide" name="BSLineItems" scale="6" format="ixt4:num-dot-decimal" fact="true" part="4">$rowl[3]</xendr:expression>
-                                    <xendr:class location="parent">"gray-out"</xendr:class>
-                                    <xendr:class location="parent">if $rowl[5] == "http://www.xbrl.org/2003/role/totalLabel" "total-row" else ""</xendr:class>
-                            </xendr:replace>        
-                        </td> 
-                      
-                        <td class="fs-statement monetary_items">
-                                <xendr:replace><xendr:expression class="hide" name="BSLineItems" scale="6"  format="ixt4:num-dot-decimal" fact="true" part="5">$rowl[4]</xendr:expression>
-                                <xendr:class location="parent">if $rowl[5] == "http://www.xbrl.org/2003/role/totalLabel" "total-row" else ""</xendr:class>
-                                
-                            </xendr:replace>       
-                        </td>                          
+                    
+                        <xendr:footnoteFacts group="1">
+                        <td class="fs-statement monetary_items" xendr:repeatWithin="BSLineItems" xendr:repeat="cols">
+                            <xendr:expression class="hide" name="cols">
+                                for $col in list(3,4)
+                            </xendr:expression>
+                            <xendr:replace>
+                                    <xendr:expression class="hide" name="cols"  part="2" fact="true">$rowj[$col]</xendr:expression>
+                                    <xendr:class location="parent">if $col == 3 "gray-out" else ""</xendr:class>
+                                    <xendr:format name="cols">if $rowj[$col].is-numeric "ixt4:num-dot-decimal" else none</xendr:format>
+                                    <xendr:class location="parent">if $rowj[5] == "http://www.xbrl.org/2003/role/totalLabel" "total-row" else ""</xendr:class>
+                                    <xendr:scale name="cols">if $rowj[$col].is-monetary "6" else none</xendr:scale>
+                            </xendr:replace>
+                        </td>  
+                        </xendr:footnoteFacts>         
         </tr> 
     </table>
+    <table>
+        <tr>FOOTNOTES</tr>
+        <tr xendr:repeat="ft1">
+          <xendr:footnotes name="ft1" groups="1">
+            <xendr:expression class="hide" name="ft1">
+              for $fact in $footnoteFacts
+                  for $footnote in  $fact.footnotes 
+            </xendr:expression>
+            <td>
+                <xendr:footnoteNumber name="ft1" footnote-style="roman"/>
+            </td>
+            <td>
+                <xendr:footnote name="ft1">$footnote</xendr:footnote>
+            </td>
+            <td>
+              
+              <xendr:replace>
+                <xendr:expression name="ft1" part="1">
+                   $footnote.lang
+                </xendr:expression>
+              </xendr:replace>        
+            </td>
+          </xendr:footnotes> 
+        </tr>
+        </table>
+        
+        
+        
 <p></p>
 <div class="schedule-footer">
 

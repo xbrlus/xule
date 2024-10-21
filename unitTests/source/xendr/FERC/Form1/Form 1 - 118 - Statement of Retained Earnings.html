@@ -1,0 +1,469 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1/F3Q - 118</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+<body class="xbrl" id="ScheduleRetainedEarningsAbstract">
+    <xendr:showif>if set('1-F').contains([covered @concept.local-name ='FormType']) 
+        if first(list([covered @ferc:StatementOfRetainedEarningsMajorNonmajor])) == "Major"
+            true
+        else
+            false
+     else
+        true</xendr:showif>
+
+ 
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace>
+                    <br/>
+                    (1) 
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xendr:expression>  
+                            <xendr:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xendr:template-display>
+                        </xendr:replace>
+                        <br/>
+                    (2)
+                        <xendr:replace>
+                                <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xendr:expression> 
+                                <xendr:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xendr:template-display>
+                        </xendr:replace> 
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace>
+                <br></br>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl"><xendr:replace>
+                <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                <br/>
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td colspan="5" class="xbrl">
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleRetainedEarningsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                                Statement of Retained Earnings
+                        </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+                <td class="instruction xbrl" colspan="5">
+                   <xendr:replace>
+                        <xendr:expression html="true" class="hide">taxonomy().concept(ferc:ScheduleRetainedEarningsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                            <ol>
+                                <li>Do not report Lines 49-53 on the quarterly version.</li>
+                                <li>Report all changes in appropriated retained earnings, unappropriated retained earnings, year to date, and unappropriated undistributed subsidiary earnings for the year.</li>
+                                <li>Each credit and debit during the year should be identified as to the retained earnings account in which recorded (Accounts 433, 436 - 439 inclusive).  Show the contra primary account affected in column (b).</li>
+                                <li>State the purpose and amount of each reservation or appropriation of retained earnings.</li>
+                                <li>List first account 439, Adjustments to Retained Earnings, reflecting adjustments to the opening balance of retained earnings.  Follow by credit, then debit items in that order.</li>
+                                <li>Show dividends for each class and series of capital stock.</li>
+                                <li>Show separately the State and Federal income tax effect of items shown in account 439, Adjustments to Retained Earnings.</li>
+                                <li>Explain in a footnote the basis for determining the amount reserved or appropriated.  If such reservation or appropriation is to be recurrent, state the number and annual amounts to be reserved or appropriated as well as the totals eventually to be accumulated.</li>
+                                <li>If any notes appearing in the report to stockholders are applicable to this statement, include them on pages 122-123.</li>
+                                </ol>
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr> 
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="REHeadings">
+                    <xendr:expression class="hide" name="REHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleRetainedEarningsAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "118 - Schedule - Retained Earnings") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center">
+                        <xendr:replace>
+                            <xendr:expression class="hide" name="REHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                            <xendr:template-display>
+                            Item
+                            </xendr:template-display>
+                            </xendr:replace>
+                    </div>
+                    <div style="text-align: center">
+                        <xendr:replace>
+                            <xendr:expression class="hide" name="REHeadings" part="2">$row</xendr:expression>
+                            <xendr:template-display>
+                                (a)
+                            </xendr:template-display>
+                    </xendr:replace>
+                </div>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="CFLineItems">
+            <xendr:expression class="hide" name="CFLineItems">
+$treeElements = navigate parent-child descendants from ferc:RetainedEarningsLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/RetainedEarnings" where not $relationship.target-name.local-name.contains("AccountAffected") returns list (target, preferred-label, result-order);
+
+$data-labels = list(for $row in $treeElements
+        $concept = $row[1];
+        $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "118 - Schedule - Retained Earnings" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label" and "http://ferc.gov/form/2020-01-01/roles/label/" + $item.part-by-name(ferc-part:ColumnName).part-value.string == $row[2].role.uri)).to-list;
+        $conceptPeriod = $concept.period-type;
+        $conceptType = $concept.data-type.name.local-name;
+        $beginningBalance = if $row[2].role.uri == "http://ferc.gov/form/2020-01-01/roles/label/F1BeginningBalance"
+                                true
+                            else
+                                false
+        
+        $beginningRow = if ($row_num.part-by-name(ferc-part:Row)).length > 0
+                                min(($row_num.part-by-name(ferc-part:Row)).part-value)
+                        else 
+                                ""
+        $endingRow = if ($row_num.part-by-name(ferc-part:Row)).length > 0
+                                max(($row_num.part-by-name(ferc-part:Row)).part-value)
+                        else 
+                                ""
+
+        $formFlag  =  if list([covered @concept.local-name ='FormType']).length > 0
+                                set('1/3-Q').contains([covered @concept.local-name ='FormType'])
+                            else
+                                true
+
+        $contraAccount = if $concept.name == ferc:TransfersFromUnappropriatedUndistributedSubsidiaryEarnings
+                            first(list([covered @concept = ferc:TransfersFromUnappropriatedUndistributedSubsidiaryEarningsContraPrimaryAccountAffected @unit @period=$currentDuration]))
+                        else if $concept.name == ferc:UnappropriatedRetainedEarnings
+                            first(list([covered @concept = ferc:UnappropriatedRetainedEarningsContraPrimaryAccountAffected @unit @period=$currentDuration]))
+                        else if $concept.name == ferc:AppropriatedRetainedEarningsAmortizationReserveFederal
+                            first(list([covered @concept = ferc:AppropriatedRetainedEarningsAmortizationReserveFederalContraPrimaryAccountAffected @unit @period=$currentDuration]))
+                        else if $concept.name == ferc:AppropriatedRetainedEarningsIncludingReserveAmortization
+                            first(list([covered @concept = ferc:AppropriatedRetainedEarningsIncludingReserveAmortizationContraPrimaryAccountAffected @unit @period=$currentDuration]))
+                        else if $concept.name == ferc:RetainedEarnings
+                            first(list([covered @concept = ferc:RetainedEarningsPrimaryContraAccountAffected @unit @period=$currentDuration]))
+                        else if $concept.name == ferc:UnappropriatedUndistributedSubsidiaryEarnings
+                            first(list([covered @concept = ferc:UnappropriatedUndistributedSubsidiaryEarningsContraPrimaryAccountAffected @unit @period=$currentDuration]))
+                        else if $concept.name == ferc:EquityInEarningsOfSubsidiaryCompanies
+                            first(list([covered @concept = ferc:EquityInEarningsOfSubsidiaryCompaniesContraPrimaryAccountAffected @unit @period=$currentDuration]))
+                        else if $concept.name == ferc:DividendsReceived
+                            first(list([covered @concept = ferc:DividendsReceivedContraPrimaryAccountAffected @unit @period=$currentDuration]))
+                         else
+                            none
+                            
+        $current = if $conceptType == "monetaryItemType"
+                        if $conceptPeriod == "duration"
+                            if list([covered @concept = $row[1] @period = $currentDuration]).length > 0
+                                first(list([covered @concept = $row[1] @period = $currentDuration]))
+                            else
+                                none
+                        else
+                            if $beginningBalance
+                                if list([covered @concept = $row[1] @period = $priorInstant]).length > 0
+                                    first(list([covered @concept = $row[1] @period = $priorInstant]))
+                                else
+                                    none
+                            else
+                                if list([covered @concept = $row[1] @period = $currentInstant]).length > 0
+                                    first(list([covered @concept = $row[1] @period = $currentInstant]))
+                                else
+                                    none
+                    else    
+                        none
+
+        $prior =   if $conceptType == "monetaryItemType"
+                        if $conceptPeriod == "duration"
+                            if list([covered @concept = $row[1] @period = $priorDuration]).length > 0
+                                    first(list([covered @concept = $row[1] @period = $priorDuration]))
+                            else
+                                    none
+                        else
+                            if $beginningBalance
+                                if list([covered @concept = $row[1] @period = $prior2Instant]).length > 0
+                                    first(list([covered @concept = $row[1] @period = $prior2Instant]))
+                                else
+                                    none
+                            else
+                                if list([covered @concept = $row[1] @period = $prior12MonthsInstant]).length > 0
+                                    first(list([covered @concept = $row[1] @period = $prior12MonthsInstant]))
+                                else
+                                    none
+                    else
+                        none
+
+
+        $sequenceReferences = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/elementSequence") where ($item.part-by-name(ferc-part:ScheduleRole).part-value == "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/RetainedEarnings") returns  $item.part-by-name(ferc-part:SequenceRole).part-value).to-list;
+        
+        
+      
+        /*** $breakdown = list($sequenceReferences.to-list);***/
+        $breakdown = list(
+                    if $sequenceReferences.to-list.length > 0
+                            
+                        $sequenceRole = $sequenceReferences[1];
+
+                        $sequenceElements = navigate parent-child descendants role $sequenceRole returns list(target, preferred-label, result-order);
+
+                        $axis = first(list(for $a in $sequenceElements
+                                    if $a.length > 0
+                                        $conceptRoll = $a[1];
+                                        if $conceptRoll.substitution.local-name == "dimensionItem"
+                                            $conceptRoll
+                                        else  
+                                            skip
+                                    else
+                                        skip)); 
+                            
+                        $lineItemsList = list(for $l in $sequenceElements
+                                                if $l.length > 0
+                                                    $conceptRoll = $l[1];
+                                                    if $conceptRoll.is-abstract
+                                                        skip
+                                                    else  
+                                                        $l 
+                                                else
+                                                    skip
+                                                        );
+                           
+                        $data1 = 
+                                
+                                        list({covered {list(
+                                            if exists({@ferc:OrderNumber @unit=* @period = $currentDuration where $fact.dimension($axis) != none})
+                                                first(list({@ferc:OrderNumber @unit=* @period = $currentDuration where $fact.dimension($axis) != none}))
+                                            else
+                                                0,
+                                            if $beginningBalance
+                                                $beginningRow
+                                            else 
+                                                $endingRow,
+                                            $lineItemsList[3][1],
+                                                
+                                            if exists({@concept = $lineItemsList[2][1] @unit @period = $currentDuration where $fact.dimension($axis) != none}) 
+                                                first(list({@concept = $lineItemsList[2][1] @unit @period = $currentDuration where $fact.dimension($axis) != none}))
+                                            else 
+                                                none,
+                                            if exists({@concept = $lineItemsList[4][1] @unit @period = $currentDuration where $fact.dimension($axis) != none} ) 
+                                                first(list({@concept = $lineItemsList[4][1] @unit @period = $currentDuration where $fact.dimension($axis) != none}))
+                                            else 
+                                                none,
+                                            if exists({@concept = $lineItemsList[3][1] @unit @period = $currentDuration where $fact.dimension($axis) != none} ) 
+                                                first(list({@concept = $lineItemsList[3][1] @unit @period = $currentDuration where $fact.dimension($axis) != none}))
+                                            else 
+                                                if exists({@concept = $lineItemsList[3][1] @unit @period = $currentInstant where $fact.dimension($axis) != none} ) 
+                                                    first(list({@concept = $lineItemsList[3][1] @unit @period = $currentInstant where $fact.dimension($axis) != none}))
+                                                else 
+                                                    none,
+                                            if exists({@concept = $lineItemsList[3][1] @unit @period = $priorDuration where $fact.dimension($axis) != none}) 
+                                                first(list({@concept = $lineItemsList[3][1] @unit @period = $priorDuration where $fact.dimension($axis) != none}))    
+                                            else 
+                                                if exists({@concept = $lineItemsList[3][1] @unit @period = $prior12MonthsInstant where $fact.dimension($axis) != none} ) 
+                                                    first(list({@concept = $lineItemsList[3][1] @unit @period = $prior12MonthsInstant where $fact.dimension($axis) != none}))
+                                                else 
+                                                    none,
+                                            $formFlag
+                                            )}});
+
+                    
+
+                        $data2 = list(for $x in $data1 
+                                    if $x == list(0,$x[2],$x[3],none,none,none, none, $x[8])
+                                        skip
+                                    else
+                                        $x);
+                            
+                        $orders = set(for $x in $data2 $x[1]).sort;
+                        
+                        $orderedData = list(for $order in $orders
+                                            for $row in $data2  
+                                                if $row[1] != $order
+                                                    skip
+                                                else
+                                            $row );
+                
+                        $data = list(for $z in range($orderedData.length)
+                                        $updatedNumber = $orderedData[$z][2].string + "." + $z.string;
+                                        list($orderedData[$z][1],$updatedNumber,$orderedData[$z][3],$orderedData[$z][4],$orderedData[$z][5],$orderedData[$z][6],$orderedData[$z][7],$orderedData[$z][8])
+                                    );
+
+                        for $row in $data
+                            $row      
+                    else    
+                        skip
+        );
+       
+        list(list(
+                0,
+                if $beginningBalance
+                    $beginningRow
+                else 
+                    $endingRow,
+                $concept,
+                $concept.label($row[2].role.uri).text,
+                $contraAccount,
+                $current,
+                $prior,
+                $formFlag
+                )) +  $breakdown
+        );
+        
+for $rows in $data-labels
+        for $rowl in $rows
+            </xendr:expression>
+
+                    <td class="xbrl line-number">
+                        <xendr:replace><xendr:expression class="hide" name="CFLineItems" part="1">$rowl[2]</xendr:expression></xendr:replace>
+                        <xendr:template-display>1</xendr:template-display>
+                    </td> 
+                    <td class="xbrl description_items">
+                            <div class="tooltip">
+                                    <div class="tooltiptext">
+                                            <xendr:replace>
+                                                    <xendr:expression class="hide" name="CFLineItems" part="6">$rowl[3].name.local-name</xendr:expression>
+                                                </xendr:replace>
+                                    </div>
+                            <xendr:replace>
+                                <xendr:expression class="hide" name="CFLineItems"  part="2">$rowl[4]</xendr:expression>
+                                <xendr:class class="hide" location="parent">if $rowl[3].is-abstract "title" else ""</xendr:class>
+                                <xendr:fact  class="hide">if $rowl[4].is-fact "true" else "false"</xendr:fact>
+                            </xendr:replace>
+                            <xendr:template-display>Net Cash Flow from Operating Activities</xendr:template-display>
+                            </div>
+                    </td> 
+
+                     
+                     <td class="account-number xbrl">
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" name="CFLineItems" part="4">$rowl[5]</xendr:expression>
+                            <xendr:class class="hide" location="parent">if $rowl[3].is-abstract "gray-out" else ""</xendr:class>
+                            <xendr:template-display>
+                                    300
+                            </xendr:template-display>
+                     </xendr:replace>        
+                </td> 
+
+                  
+                    <td class="xbrl monetary_items">
+                            <xendr:replace>
+                                <xendr:expression class="hide" fact="true" name="CFLineItems" format="ixt4:num-dot-decimal" part="4">
+                                    if $rowl[2] > 48
+                                        if $rowl[8]
+                                            none
+                                        else 
+                                            $rowl[6]
+                                    else 
+                                        $rowl[6]</xendr:expression>
+                                <xendr:class class="hide" location="parent">if $rowl[3].is-abstract "gray-out" else ""</xendr:class>
+                                <xendr:template-display>
+                                        300
+                                </xendr:template-display>
+                                <xendr:sign>if $rowl[3].name in list(ferc:DividendsDeclaredPreferredStock,ferc:DividendsDeclaredCommonStock,ferc:AdjustmentsToRetainedEarningsDebit,ferc:AppropriationsOfRetainedEarnings,) "-" else none</xendr:sign>
+                         </xendr:replace>        
+                    </td> 
+                    
+                    <td class="xbrl monetary_items">
+                            <xendr:replace><xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="CFLineItems" part="5">
+                                if $rowl[2] > 48
+                                        if $rowl[8] 
+                                            none
+                                        else 
+                                            $rowl[7]
+                                    else 
+                                        $rowl[7]
+                            </xendr:expression>
+                            <xendr:class  class="hide" location="parent">if $rowl[3].is-abstract "gray-out" else ""</xendr:class>
+                            <xendr:template-display>
+                                    300
+                            </xendr:template-display>
+                            <xendr:sign>if $rowl[3].name in list(ferc:DividendsDeclaredPreferredStock,ferc:DividendsDeclaredCommonStock,ferc:AdjustmentsToRetainedEarningsDebit,ferc:AppropriationsOfRetainedEarnings,) "-" else none</xendr:sign>
+                        </xendr:replace>        
+                    </td> 
+    
+    </tr>
+
+    </table>
+<p></p>
+<div class="schedule-footer">
+
+    <div>FERC FORM No. 
+            <xendr:replace>
+                    <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                            
+                                                   </xendr:expression>
+                    <xendr:template-display>1/3-Q</xendr:template-display>
+            </xendr:replace>
+            <span> </span>
+            <xendr:replace>
+                    <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleRetainedEarningsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                    </xendr:expression>
+                    <xendr:template-display>
+                            (12-96)
+                    </xendr:template-display>
+            </xendr:replace>
+                        
+    </div>
+    <div class="center-text">Page 
+            <xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleRetainedEarningsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                    </xendr:expression>
+                    <xendr:template-display>
+                    212
+                    </xendr:template-display>
+            </xendr:replace>
+    </div> 
+</div>
+</body>
+</html>

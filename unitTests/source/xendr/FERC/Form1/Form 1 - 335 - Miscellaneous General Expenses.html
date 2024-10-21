@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1 - 335</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+</head>
+
+<body class="xbrl" id="ScheduleMiscellaneousGeneralExpensesAbstract">
+    <table class="schedule-header xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Name of Respondent:</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>This report is:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                (1)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" /> An Original
+                    </xendr:template-display>
+                </xendr:replace><br/>
+                
+                (2)
+                <xendr:replace>
+                    <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xendr:expression>
+                    <xendr:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>04/26/2019</xendr:template-display>
+                </xendr:replace>
+            </td>
+            <td class="xbrl">
+                <xendr:replace>
+                    <xendr:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                </xendr:replace><br/>
+                
+                End of: <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>2018</xendr:template-display>
+                </xendr:replace>
+                <span>/</span>
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>Q4</xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl" width="100%">
+        <tr class="sch-title">
+            <td class="xbrl" colspan="3">
+                <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleMiscellaneousGeneralExpensesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                                MISCELLANEOUS GENERAL EXPENSES (Account 930.2) (ELECTRIC)
+                            </xendr:template-display>
+                    </xendr:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xendr:repeat="DistributionHeadings">
+                    <xendr:expression class="hide" name="DistributionHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleMiscellaneousGeneralExpensesAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "335 - Schedule - Miscellaneous General Expenses") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xendr:expression>
+                    <div style="text-align: center"><xendr:replace>
+                    <xendr:expression class="hide" name="DistributionHeadings" part="1">$heading_dict[$row]</xendr:expression>
+                    <xendr:template-display>
+                            Description
+                    </xendr:template-display>
+                </xendr:replace>
+            </div>
+                <div style="text-align: center"><xendr:replace>
+                        <xendr:expression class="hide" name="DistributionHeadings" part="2">$row</xendr:expression>
+                        <xendr:template-display>
+                            (a)
+                        </xendr:template-display>
+                    </xendr:replace></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl line-number">1</td>
+            <td class="xbrl description_items">
+                    <div class="tooltip">
+                            <div class="tooltiptext">IndustryAssociationDues</div>
+                     Industry Association Dues
+                    </div>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:IndustryAssociationDues @period = $currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $2,345,678
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+                <td class="xbrl line-number">2</td>
+                <td class="xbrl description_items">
+                    <div class="tooltip">
+                            <div class="tooltiptext">NuclearPowerResearchExpenses</div>
+                         Nuclear Power Research Expenses
+                    </div>
+                </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:NuclearPowerResearchExpenses @period = $currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $55,036
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+                <td class="xbrl line-number">3</td>
+                <td class="xbrl description_items">
+                    <div class="tooltip">
+                            <div class="tooltiptext">OtherExperimentalAndGeneralResearchExpenses</div>                    
+                         Other Experimental and General Research Expenses
+                    </div>
+                </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:OtherExperimentalAndGeneralResearchExpenses @period = $currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $43,761
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+                <td class="xbrl line-number">4</td>
+                <td class="xbrl description_items">
+                    <div class="tooltip">
+                            <div class="tooltiptext">PublicationAndDistributionExpensesForSecuritiesToStockholders</div>
+                         Pub and Dist Info to Stkhldrs...expn servicing outstanding Securities
+                    </div>
+                </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:PublicationAndDistributionExpensesForSecuritiesToStockholders @period = $currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $3,765
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr>
+                <td class="xbrl line-number">5</td>
+                <td class="xbrl description_items">
+                    <div class="tooltip">
+                            <div class="tooltiptext">OtherMiscellaneousGeneralExpenses</div>
+                         Oth Expn greater than or equal to 5,000 show purpose, recipient, amount. Group if less than $5,000
+                    </div>
+                </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:OtherMiscellaneousGeneralExpenses @period = $currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $781,322
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+        <tr class="schedule-row" xendr:repeat="MiscellaneousGeneralExpenses">
+            <xendr:expression class="hide" name="MiscellaneousGeneralExpenses">// adding a comment
+
+                $data2 = list(for $i in range(40)
+                list($i,none,none)
+                );
+
+                $data = if count(list({covered @ferc:MiscellaneousGeneralExpensesAxis=*})) > 0
+
+                list({covered @ferc:MiscellaneousGeneralExpensesAxis=* {list(
+
+                if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0
+                    first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                else
+                    0,
+                if list({@ferc:OtherMiscellaneousGeneralExpensesDescription @unit @period=$currentDuration}).length > 0
+                    first(list({@ferc:OtherMiscellaneousGeneralExpensesDescription @unit @period=$currentDuration}))
+                else
+                    none,
+                if list({@ferc:OtherMiscellaneousGeneralExpenses @unit @period=$currentDuration}).length > 0
+                    first(list({@ferc:OtherMiscellaneousGeneralExpenses @unit @period=$currentDuration}))
+                else
+                    none
+
+                )}})
+                else $data2;
+
+                $uniqueData = list(for $x in  $data
+                    if $x == list(0,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+
+                    for $row in $uniqueData.sort         
+
+
+            </xendr:expression>
+
+            <td class="xbrl line-number">
+                <xendr:lineNumber class="hide" name="MiscellaneousGeneralExpenses">
+                    <xendr:startNumber>6</xendr:startNumber>
+                </xendr:lineNumber>
+                <xendr:template-display>6</xendr:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="MiscellaneousGeneralExpenses" fact="true" part="2">$row[2]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    Various
+                </xendr:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" name="MiscellaneousGeneralExpenses" fact="true" format="ixt4:num-dot-decimal" part="3">$row[3]</xendr:expression>
+                </xendr:replace>
+                <xendr:template-display>
+                    $6,914,831
+                </xendr:template-display>
+            </td>
+        </tr>
+        <!-- Line 46 for Total -->
+        <tr>
+            <td class="xbrl line-number">46</td>
+            <td class="xbrl description_items">
+                <div class="tooltip">
+                    <div class="tooltiptext">MiscellaneousGeneralExpenses</div>
+                     TOTAL
+                </div>
+            </td>
+            <td class="xbrl monetary_items">
+                <xendr:replace>
+                    <xendr:expression class="hide" fact="true" format="ixt4:num-dot-decimal">
+                        [@ferc:MiscellaneousGeneralExpenses @period = $currentDuration]
+                    </xendr:expression>
+                    <xendr:template-display>
+                        $12,765,832
+                    </xendr:template-display>
+                </xendr:replace>
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xendr:replace>
+                        <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xendr:expression>
+                        <xendr:template-display>1</xendr:template-display>
+                </xendr:replace>
+                <span> </span>
+                <xendr:replace>
+                        <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleMiscellaneousGeneralExpensesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xendr:expression>
+                        <xendr:template-display>
+                                (ED. 12-94)
+                        </xendr:template-display>
+                </xendr:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleMiscellaneousGeneralExpensesAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                        335
+                        </xendr:template-display>
+                </xendr:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

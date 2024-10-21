@@ -1,0 +1,81 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:units="http://www.xbrl.org/2023/units" xmlns:linkbase="http://www.xbrl.org/2003/linkbase" targetNamespace="http://www.xbrl.org/2023/units" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_def.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_pre.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:linkbaseRef xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="units_ref.xml" ns0:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns0:type="simple"/>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/converted-convertee" cyclesAllowed="none" id="converted-convertee">
+        <linkbase:definition>Defines the unit conversion factor to a unit from another unit. The conversion factor is defined as an attibute of the arc called conversionFactor</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-cubed" cyclesAllowed="none" id="datatype-cubed">
+        <linkbase:definition>Defines the datatype derived by cubing another datatype. For example volume is derived from length cubed.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-denominator" cyclesAllowed="none" id="datatype-denominator">
+        <linkbase:definition>Defines the datatype denominator of a datatype that comprises two or more units for example flowItemType may have a denominator of timeDurationItemType.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-multiplier" cyclesAllowed="none" id="datatype-multiplier">
+        <linkbase:definition>Defines the datatype multiplier of a datatype that comprises two or more units for example areaItemType may have a multiplier of lengthItemType.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-numerator" cyclesAllowed="none" id="datatype-numerator">
+        <linkbase:definition>Defines the datatype numerator of a datatype that comprises two or more units for example flowItemType may have a numerator of volumeItemType.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/datatype-squared" cyclesAllowed="none" id="datatype-squared">
+        <linkbase:definition>Defines the datatype derived by squaring another datatype. For example area is derived from length squared.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-cubed" cyclesAllowed="none" id="unit-cubed">
+        <linkbase:definition>Defines the unit derived by cubing another unit. For example cubic foot and feet.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-denominator" cyclesAllowed="none" id="unit-denominator">
+        <linkbase:definition>Defines the unit denominator of another unit that comprises two or more units for example gallons per hour may have a denominator of hour.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-multiplied" cyclesAllowed="none" id="unit-multiplied">
+        <linkbase:definition>Defines the unit multiplier of a unit that comprises two or more units for example mw may have a multiplier of w and m.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-numerator" cyclesAllowed="none" id="unit-numerator">
+        <linkbase:definition>Defines the unit numerator of another unit that comprises two or more units for example gallons per hour may have a numerator of gallons.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:arcroleType arcroleURI="http://www.xbrl.org/2023/arcrole/unit-squared" cyclesAllowed="none" id="unit-squared">
+        <linkbase:definition>Defines the unit derived by squaring another unit. For example square miles and miles.</linkbase:definition>
+        <linkbase:usedOn>linkbase:definitionArc</linkbase:usedOn>
+      </linkbase:arcroleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/conversionPresentation" id="conversionPresentation">
+        <linkbase:definition>Defines the label role for the conversion presentation associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/symbol" id="symbol">
+        <linkbase:definition>Defines the label role for the symbol associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="http://www.xbrl.org/2023/role/versionDate" id="versionDate">
+        <linkbase:definition>Defines the label role for the version date associated with the unit</linkbase:definition>
+        <linkbase:usedOn>linkbase:label</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="https://www.xbrl.org/2023/roles/currency-presentation" id="currency-presentation">
+        <linkbase:definition>Currency List</linkbase:definition>
+        <linkbase:usedOn>linkbase:presentationLink</linkbase:usedOn>
+      </linkbase:roleType>
+      <linkbase:roleType roleURI="https://www.xbrl.org/2023/roles/datatype-presentation" id="datatype-presentation">
+        <linkbase:definition>Data Type List</linkbase:definition>
+        <linkbase:usedOn>linkbase:presentationLink</linkbase:usedOn>
+      </linkbase:roleType>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://www.xbrl.org/2003/iso4217" schemaLocation="alt-curr/alt-currency-unit.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/iso-currency-units" schemaLocation="currency/iso-currency-units.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/datatype-units" schemaLocation="datatype-units/datatype-units.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/concept/2022-03-31" schemaLocation="dtr/dtr-types.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/si-prefix" schemaLocation="magnitude/magnitude.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2023/units-parts" schemaLocation="unit-part.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2009/utr" schemaLocation="utr-units/utr-units.xsd"/>
+</xs:schema>

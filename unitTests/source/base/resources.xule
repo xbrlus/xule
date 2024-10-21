@@ -23,3 +23,8 @@ output RES005
 /* list(Commitments and Contingencies, Guarantees and Product Liability (Details) - USD ($), 12 Months Ended, None) */
 
   excel-data('https://www.sec.gov/Archives/edgar/data/1089815/000114036123018265/Financial_Report.xlsx', 'Commitments and Contingencies_2',false, list('string','string','string'))[1]
+
+output RES006
+/* list(Document and Entity Information - USD ($), 12 Months Ended, None, None, None) */
+
+  excel-data('https://www.sec.gov/Archives/edgar/data/1089815/000114036123018265/Financial_Report.xlsx')[1]

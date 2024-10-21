@@ -5,7 +5,7 @@ output CFILT101
   set([covered @instance = $INSTANCE1 @Assets]).concept.balance
 
 output CFILT102
-/* [ERROR] [xule:error] rule CFILT102: Rule: CFILT102 - Property 'balance' is not a property of a 'decimal'. */
+/* rule CFILT102: Rule: CFILT102 - Property 'balance' is not a property of a 'decimal'. */
 
   set([covered @instance = $INSTANCE1  @Assets]).balance
 
@@ -25,12 +25,12 @@ output CFILT105
   $a = [covered @instance = $INSTANCE1 @Assets];  set($a.data-type)
 
 output CFILT106
-/* set(None) */
+/* set(set(-6)) */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]);  set($a.decimals)
 
 output CFILT107
-/* None */
+/* set(-6) */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.decimals
 
@@ -55,14 +55,14 @@ output CFILT111
   $a = $US-GAAP-2020.concepts.to-list;  $a[2].name.local-name
 
 output CFILT112
-/* [ERROR] [xule:error] rule CFILT112: 'all' */
+/* rule CFILT112: 'all' */
 
   $a = set([covered @instance = $INSTANCE1 @]);  $a[2].name
 
 output CFILT113
-/* [ERROR] [xule:error] rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'None' */
+/* rule CFILT113: Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'None' */
 
-  $a = taxonomy().concepts.to-set;  $a[2].name
+  $a = $INSTANCE1.taxonomy().concepts.to-set;  $a[2].name
 
 output CFILT114
 /* set(instant) */
@@ -70,7 +70,7 @@ output CFILT114
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.concept.period-type
 
 output CFILT115
-/* [ERROR] [xule:error] rule CFILT115: Rule: CFILT115 - Property 'period-type' is not a property of a 'decimal'. */
+/* rule CFILT115: Rule: CFILT115 - Property 'period-type' is not a property of a 'decimal'. */
 
   $a = set([covered @instance = $INSTANCE1 @Assets]); $a.period-type
 
@@ -95,17 +95,17 @@ output CFILT119
   set([covered @instance = $INSTANCE1 @Assets])
 
 output CFILT120
-/* 632 */
+/* 637 */
 
   set({covered @instance = $INSTANCE1 @concept}).count
 
 output CFILT121
-/* 315 */
+/* 320 */
 
   set([covered @instance = $INSTANCE1 @concept]).count
 
 output CFILT122
-/* 315 */
+/* 320 */
 
   set([covered @instance = $INSTANCE1 @concept = *]).count
 
@@ -130,17 +130,17 @@ output CFILT126
   list([covered @instance = $INSTANCE1 @concept.period-type = 'instant']).count
 
 output CFILT127
-/* 305 */
+/* 314 */
 
   list([covered @instance = $INSTANCE1 @concept.period-type = duration]).count
 
 output CFILT128
-/* 305 */
+/* 314 */
 
   list([covered @instance = $INSTANCE1 @concept.period-type = Duration]).count
 
 output CFILT129
-/* 305 */
+/* 314 */
 
   list([covered @instance = $INSTANCE1 @concept.period-type = 'duration']).count
 
@@ -165,7 +165,7 @@ output CFILT133
   list([covered @instance = $INSTANCE1 @concept.balance = 'debit']).count
 
 output CFILT134
-/* 84 */
+/* 93 */
 
   list([covered @instance = $INSTANCE1 @concept.balance = none]).count
 
@@ -185,27 +185,27 @@ output CFILT137
   list({covered @instance = $INSTANCE1 @concept.attribute(someattr) = *})
 
 output CFILT138
-/* 1449 */
+/* 1450 */
 
   list({covered @instance = $INSTANCE1 @concept.data-type = xbrli:monetaryItemType}).count
 
 output CFILT139
-/* 1449 */
+/* 1450 */
 
   list({covered @instance = $INSTANCE1 @concept.is-monetary = true}).count
 
 output CFILT140
-/* 1535 */
+/* 1537 */
 
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true}).count
 
 output CFILT141
-/* 1579 */
+/* 1589 */
 
   list({covered @instance = $INSTANCE1 @concept.substitution = xbrli:item}).count
 
 output CFILT142
-/* 21 */
+/* 29 */
 
   list({covered @instance = $INSTANCE1 @concept.namespace-uri = 'http://xbrl.sec.gov/dei/2020-01-31'}).count
 
@@ -215,19 +215,24 @@ output CFILT143
   list({covered @instance = $INSTANCE1 @concept.period-type = instant @concept.balance = debit}).count
 
 output CFILT144
-/* 27 */
+/* 29 */
 
   list({covered @instance = $INSTANCE1 @concept.base-type = xbrli:stringItemType @concept.data-type != us-types:zoneStatusItemType}).count
 
 output CFILT145
-/* 26 */
+/* 29 */
 
-  list({covered @instance = $INSTANCE1 @concept in list(Assets, Land, Cash, AccountsReceivable)}).count
+  list({covered @instance = $INSTANCE1 @concept in list(Assets, Land, Cash, Liabilities)}).count
 
 output CFILT146
-/* 1553 */
+/* 1560 */
 
-  list({covered @instance = $INSTANCE1 @concept not in list(Assets, Land, Cash, AccountsReceivable)}).count
+  list({covered @instance = $INSTANCE1 @concept not in list(Assets, Land, Cash, Liabilities)}).count
+
+output CFILT147
+/* 93 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance != *]).count
 
 output PFILT101
 /* 205 */
@@ -242,32 +247,145 @@ output PFILT102
 output PFILT103
 /* 50 */
 
-  list([covered @instance = $INSTANCE1@period = date('2020-12-31')]).count
+  list([covered @instance = $INSTANCE1 @period = date('2020-12-31')]).count
 
 output PFILT104
-/* [ERROR] [xule:error] rule PFILT104: Rule: PFILT104 - Function 'cats' not found */
+/* rule PFILT104: Rule: PFILT104 - Function 'cats' not found */
 
   [@period = cats('2020-12-31')]
 
+output PFILT105
+/* 1 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = forever}).count
+
+output PFILT106
+/* 1 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = none}).count
+
+output PFILT107
+/* 1 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period != *}).count
+
+output PFILT108
+/* 2254 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = *}).count
+
+output PFILT109
+/* 2254 */
+
+  list({covered @instance = $FOREVER_INSTANCE @period}).count
+
+output PFILT110
+/* list(124,800,000) */
+
+  list({covered @instance = $FOREVER_INSTANCE @period = forever})
+
+output PFILT111
+/* rule PFILT111: Rule: PFILT111 - Factset aspect property 'year' is not a valid property of aspect 'period'. */
+
+  list([covered @instance = $INSTANCE1 @period.year = '2020']).count
+
+output PFILT112
+/* rule PFILT112: Rule: PFILT112 - Factset aspect property 'end.year' is not a valid property of aspect 'period'. */
+
+  list([covered @instance = $INSTANCE1 @period.end.year = '2020']).count
+
+output PFILT113
+/* 50 */
+
+  list([covered @instance = $INSTANCE1 @period.end = date('2020-12-31')]).count
+
+output PFILT114
+/* rule PFILT114: Rule: PFILT114 - Property 'end' is not a property of a 'decimal'. */
+
+  list([covered @instance = $INSTANCE1 where $fact.end.year == '2020']).count
+
+output PFILT115
+/* 133 */
+
+  list([covered @instance = $INSTANCE1 where $fact.period.end.year == '2020']).count
+
+output PFILT116
+/* 432 */
+
+  list({covered @instance = $INSTANCE1 @period.days = 91}).count
+
+output PFILT117
+/* [PFILT117.2021] 219
+[PFILT117.2020] 213 */
+
+  list({covered @instance = $INSTANCE1 @@period.days = 91}).count
+rule-suffix if $alignment == none 'FIX' else $alignment['period'].end.year
+
+output PFILT118
+/* 607 */
+
+  list({covered @instance = $INSTANCE1 where $fact.period.days > 91 }).count
+
+output PFILT119
+/* [PFILT119] period = dictionary(period=2021-04-01 to 2021-07-01) value = 50
+[PFILT119] period = dictionary(period=2020-04-01 to 2020-07-01) value = 47 */
+
+  list([covered @instance = $INSTANCE1 @@period.days = 91]).count
+message
+'period = {$alignment} value = {$rule-value}'
+
+output PFILT120
+/* 97 */
+
+  list([covered @instance = $INSTANCE1 @period.days = 91]).count
+
+output PFILT121
+/* [PFILT121] 50
+[PFILT121] 47 */
+
+  list([covered @instance = $INSTANCE1 @@period.days = 91]).count
+
+output PFILT122
+/* [PFILT122] 50
+[PFILT122] 47 */
+
+  list([@instance = $INSTANCE1 @@period.days = 91 @entity @unit @concept]).count
+
+output PFILT123
+/* [xule:error] rule PFILT123: 'aspectExpr' */
+
+  list({@instance = $INSTANCE1 @@period.days = 91 @entity @unit @concept @dimensions}).count
+
+output PFILT124
+/* [PFILT124] 213
+[PFILT124] 219 */
+
+  list({covered-dims @instance = $INSTANCE1 @@period.days = 91 @entity @unit @concept}).count
+
 output NOFILT001
-/* 1579 */
+/* 1589 */
 
   list(covered @instance = $INSTANCE1).count
 
 output NOFILT002
-/* 1579 */
+/* 1589 */
 
   list({covered @instance = $INSTANCE1 @}).count
 
 output NOFILT003
-/* 632 */
+/* 637 */
 
   set({covered @instance = $INSTANCE1}).count
 
 output NOFILT004
-/* 135 */
+/* 320 */
 
   set([covered @instance = $INSTANCE1]).count
+
+output NOFILT005
+/* 1589 */
+
+  list({covered @ @instance = $INSTANCE1}).count
 
 output INSFILT001
 /* 1739 */
@@ -290,9 +408,14 @@ output INSFILT004
   (filter ($INSTANCE1.facts.sort) where $item.concept.is-numeric == true and $item.concept.is-monetary != true).count
 
 output INSFILT005
-/* 86 */
+/* 87 */
 
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true @concept.is-monetary = false}).count
+
+output INSFILT006
+/* 1577 */
+
+  (filter ($INSTANCE1.facts.sort) where $item.is-monetary == true).count
 
 output UNITFILT001
 /* {{False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)},
@@ -306,7 +429,7 @@ output UNITFILT001
 output UNITFILT002
 /* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
 
   message
   '{$rule-value} with alignment {$alignment}'
@@ -314,7 +437,7 @@ output UNITFILT002
 output UNITFILT003
 /* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period=*])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period=*])))
 
   message
   '{$rule-value} with alignment {$alignment}'
@@ -322,7 +445,7 @@ output UNITFILT003
 output UNITFILT004
 /* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit=* @period=*])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit=* @period=*])))
   
   message
   '{$rule-value} with alignment {$alignment}'
@@ -356,7 +479,7 @@ output UNITFILT007
 output UNITFILT008
 /* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
 
-  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit = * @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
 
   message
   '{$rule-value} with alignment {$alignment}'
@@ -388,8 +511,48 @@ output UNITFILT011
   message
   '{$rule-value} with alignment {$alignment}'
 
+output UNITFILT012
+/* 52 */
+
+  list({covered @instance = $INSTANCE1  @unit = none}).count
+
+output UNITFILT013
+/* 1537 */
+
+  list({covered @instance = $INSTANCE1  @unit != none}).count
+
+output UNITFILT014
+/* 1589 */
+
+  list({covered @instance = $INSTANCE1  @unit}).count
+
+output UNITFILT015
+/* 1537 */
+
+  list({covered @instance = $INSTANCE1  @unit = *}).count
+
+output UNITFILT016
+/* 1450 */
+
+  list({covered @instance = $INSTANCE1  @unit = unit(iso4217:USD)}).count
+
+output UNITFILT017
+/* 1472 */
+
+  list({covered @instance = $INSTANCE1  where $fact.unit.numerator == unit(iso4217:USD)}).count
+
+output UNITFILT018
+/* 52 */
+
+  list({covered @instance = $INSTANCE1  where $fact.unit.denominator == none}).count
+
+output UNITFILT019
+/* 0 */
+
+  list({covered @instance = $INSTANCE1  where ($fact.unit.denominator == none and $fact.unit.numerator == unit(iso4217:USD))}).count
+
 output MULTIIN001
-/* 3215 */
+/* 3234 */
 
   list(covered @instance in list($INSTANCE1, $INSTANCE2)).count
 
@@ -409,17 +572,17 @@ output CUBEFILT002
   list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube not in $STATEMENT_CUBES}).count
 
 output CUBEFILT003
-/* 1185 */
+/* 1187 */
 
   list({covered @instance = $INSTANCE1 @cube not in $STATEMENT_CUBES}).count
 
 output CUBEFILT004
-/* 1185 */
+/* 1187 */
 
   list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}).count
 
 output CUBEFILT005
-/* 1185 */
+/* 1187 */
 
   list({covered @instance = $INSTANCE1 @cube in $NOTES_CUBES}).count
 
@@ -427,3 +590,228 @@ output CUBEFILT006
 /* 14 */
 
   list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).count
+
+output CUBEFILT007
+/* 58 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube != none}).count
+
+output CUBEFILT008
+/* 58 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube = *}).count
+
+output CUBEFILT009
+/* 187 */
+
+  list({covered @instance = $INSTANCE1 @cube = none}).count
+
+output CUBEFILT010
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).count
+
+output CUBEFILT011
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube=$INSTANCE1.taxonomy.cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')}).count
+
+output CUBEFILT012
+/* 187 */
+
+  list({covered @instance = $INSTANCE1 @cube=taxonomy().cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')}).count
+
+output CUBEFILT013
+/* us-gaap:StatementTable - http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited - 1004005 - Statement - Consolidated Statements of Cash Flows (Unaudited) */
+
+  $INSTANCE1.taxonomy().cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')
+
+output CUBEFILT014
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube=$INSTANCE1.taxonomy().cube(StatementTable, 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited')}).count
+
+output CUBEFILT015
+/* 243 */
+
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES}.cubes.cube-concept).length
+
+output CUBEFILT016
+/* 28 */
+
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube not in $STATEMENT_CUBES}.cubes.cube-concept).length
+
+output CUBEFILT017
+/* 1185 */
+
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}.cubes.cube-concept).length
+
+output CUBEFILT018
+/* 28 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable  @cube in $NOTES_CUBES}.cubes.cube-concept).count
+
+output CUBEFILT019
+/* 243 */
+
+  list({covered @instance = $INSTANCE1 @cube in $NOTES_CUBES @cube in $STATEMENT_CUBES}).count
+
+output CUBEFILT020
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.cube-concept).length
+
+output CUBEFILT021
+/* 96 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}.cubes.drs-role().uri).length
+
+output CUBEFILT022
+/* 14 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).sid
+
+output CUBEFILT023
+/* 243 */
+
+  list({covered @instance = $INSTANCE1 @cube.name = StatementTable}).count
+
+output CUBEFILT024
+/* set(us-gaap:StatementTable) */
+
+  $STATEMENT_CUBES.cube-concept
+
+output CUBEFILT025
+/* 0 */
+
+  list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube = none}).count
+
+output DIMFILT001
+/* 3785000000 */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis}))
+
+output DIMFILT002
+/* None */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis !=*}))
+
+output DIMFILT003
+/* None */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis = none}))
+
+output DIMFILT004
+/* 3785000000 */
+
+  max(list([covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis ]))
+
+output DIMFILT005
+/* 3785000000 */
+
+  max(list([covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis = *]))
+
+output NOTINFILT001
+/* 1139 */
+
+  list({covered @instance = $INSTANCE1 @concept not in list(Assets,Liabilities) where $fact.dimensions.length > 0 }).length
+
+output NILSFILT001
+/* 1589 */
+
+  list({covered nonils @instance = $INSTANCE1 @concept.substitution = xbrli:item}).count
+
+output NILSFILT002
+/* 1589 */
+
+  list({covered nonils @instance = $INSTANCE1}).count
+
+output UNITFILT020
+/* rule UNITFILT020: Rule: UNITFILT020 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'. */
+
+  list({covered @instance = $INSTANCE1  @unit.numerator = unit(iso4217:USD)}).count
+
+output UNITFILT021
+/* 1450 */
+
+  list({covered @instance = $INSTANCE1  @unit in list(unit(iso4217:USD))}).count
+
+output DIMFILT006
+/* rule DIMFILT006: 'dict' object has no attribute 'type' */
+
+  $Rev = list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions)
+list({covered @instance = $INSTANCE1 @dimensions in $Rev}).count
+
+output DIMFILT007
+/* 28 */
+
+  $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
+list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @dimensions = *}).count
+
+output DIMFILT008
+/* 0 */
+
+  $Rev = {covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions
+list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @dimensions = none}).count
+
+output DIMFILT009
+/* 0 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = '2023-01-01'}).count
+
+output DIMFILT010
+/* 2 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = date('2023-01-01')}).count
+
+output DIMFILT011
+/* 0 */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = none}).count
+
+output DIMFILT012
+/* list(P1Y, 20,900,000, P9M, 143,500,000, 19,000,000, P1Y, None, 17,500,000, P1Y, 22,100,000, 19,900,000, P1Y, 18,000,000, P1Y) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = *}).sort('asc')
+
+output DIMFILT013
+/* list(P1Y, P1Y, P1Y, None, P1Y, P1Y, P9M) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).sort('asc')
+
+output DIMFILT014
+/* list(18,000,000, 17,500,000, 143,500,000, 22,100,000, 20,900,000, 19,900,000, 19,000,000) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligation @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).sort('asc')
+
+output DIMFILT015
+/* list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1}).sort('asc')
+
+output DIMFILT016
+/* list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=*}).sort('asc')
+
+output DIMFILT017
+/* list(P9Y, P5Y, P9Y) */
+
+  list({covered @instance = $INSTANCE_TYPED_DIM  @concept=AcquiredFiniteLivedIntangibleAssetsWeightedAverageUsefulLife @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).sort('asc')
+
+output DIMFILT018
+/* 112 */
+
+  $Rev = list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax}.dimensions)
+list(for $dim in $Rev {covered @instance = $INSTANCE1 @dimensions = $dim}).count
+
+output DIMFILT019
+/* [DIMFILT019] 456,000,000
+[DIMFILT019] 528,000,000
+[DIMFILT019] 3,785,000,000
+[DIMFILT019] 2,769,000,000
+[DIMFILT019] 532,000,000
+[DIMFILT019] 1,517,000,000
+[DIMFILT019] 1,115,000,000 */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @@srt:ProductOrServiceAxis = *}))

@@ -20,9 +20,29 @@
   constant $US-GAAP-2023 = taxonomy('https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-all-2023.xsd')
 
 
+/* Constant representing the us-gaap 2023 taxonomy */
+
+  constant $US-GAAP-2024 = taxonomy('https://xbrl.fasb.org/us-gaap/2024/entire/us-gaap-entryPoint-std-2024.xsd')
+
+
+/* Constant representing the us-gaap 2023 Meta taxonomy */
+
+  constant $META = taxonomy('https://raw.githubusercontent.com/xbrlus/xule/main/unitTests/output/meta/Meta-2023/us-gaap-metaModel-entire-2023.xsd')
+
+
+/* Constant representing the us-gaap 2024 Meta taxonomy */
+
+  constant $META2024 = taxonomy('https://xbrl.fasb.org/us-gaap/2024/meta/us-gaap-metaModel-entire-2024.xsd')
+
+
 /* Constant representing a BS relationship */
 
   constant $NETWORK_BS = networks($US-GAAP-2020,parent-child,'http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified')
+
+
+/* Constant representing a BS relationship */
+
+  constant $NETWORK_BS_2024 = networks($US-GAAP-2024,parent-child,'http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified')
 
 
 /* Constant defining a cube */
@@ -80,4 +100,34 @@
 
 /* Constant representing an XBRL instance */
 
+  constant $FOREVER_INSTANCE = instance('http://www.sec.gov/Archives/edgar/data/880285/000119312513061014/eep-20121231.xml')
+
+
+/* Constant representing an XBRL instance */
+
   constant $INSTANCE3 = instance('https://www.sec.gov/Archives/edgar/data/1742770/000110465923049651/viot-20221231x20f.htm')
+
+
+/* Constant representing an XBRL instance */
+
+  constant $INSTANCE_XML = instance('http://www.sec.gov/Archives/edgar/data/320193/000032019319000010/aapl-20181229.xml')
+
+
+/* Constant representing an XBRL instance */
+
+  constant $INSTANCE_SHORT_DATE = instance('https://www.sec.gov/Archives/edgar/data/7431/000095017023054703/awi-20230930.htm')
+
+
+/* Constant representing an XBRL instance */
+
+  constant $INSTANCE_TYPED_DIM = instance('https://www.sec.gov/Archives/edgar/data/790051/000079005121000116/csl-20210331_htm.xml')
+
+
+/* output-attribute file content to allow production of csv and json */
+
+  output-attribute file-content
+
+
+/* output-attribute file location to allow production of csv and json */
+
+  output-attribute file-location

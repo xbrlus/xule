@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1/F3Q - 108</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+  
+</head>
+
+<body class="xbrl" id="ScheduleImportantChangesDuringTheQuarterYearAbstract">
+    <table class="schedule-header xbrl" width="100%">
+            <tr>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Name of Respondent:</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl">
+                    <xendr:replace>
+                        <xendr:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                        <xendr:template-display>This report is:</xendr:template-display>
+                    </xendr:replace><br/>
+                        
+                        (1) 
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> An Original']]>
+                            </xendr:expression>  
+                        <xendr:template-display>
+                                <input type="checkbox"/> An Original
+                        </xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                        (2)
+                    <xendr:replace>
+                            <xendr:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                            '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                            '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                </xendr:expression> 
+                            <xendr:template-display>
+                                    <input type="checkbox" checked = "checked"/> A Resubmission
+                            </xendr:template-display>
+                    </xendr:replace> 
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Date of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                        <xendr:replace>
+                            <xendr:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xendr:expression>
+                            <xendr:template-display>04/26/2019</xendr:template-display>
+                    </xendr:replace>
+                </td>
+                <td class="xbrl"><xendr:replace>
+                    <xendr:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xendr:expression>
+                    <xendr:template-display>Year/Period of Report:</xendr:template-display>
+                    </xendr:replace><br/>
+                    
+                    End of: <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>2018</xendr:template-display>
+                    </xendr:replace>
+                    <span>/</span>
+                    <xendr:replace>
+                        <xendr:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xendr:expression>
+                        <xendr:template-display>Q4</xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+        </table>
+        <table class="xbrl" width="100%">
+            <tr class="sch-title">
+                <td colspan="5" class="xbrl">
+                        <xendr:replace>
+                                <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleImportantChangesDuringTheQuarterYearAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        Gas Property And Capacity Leased From Others
+                                </xendr:template-display>
+                        </xendr:replace>
+                    </td>
+        </tr>
+            <tr>
+                <td class="instruction xbrl" colspan="5">
+                    <xendr:replace>
+                        <xendr:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleImportantChangesDuringTheQuarterYearAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                        </xendr:expression>
+                        <xendr:template-display>
+                            <p>Give particulars (details) concerning the matters indicated below. Make the statements explicit and precise, and number them in accordance with the inquiries. Each inquiry should be answered. Enter "none," "not applicable," or "NA" where applicable. If information which answers an inquiry is given elsewhere in the report, make a reference to the schedule in which it appears.</p>
+                        <ol>
+                            <li>Changes in and important additions to franchise rights: Describe the actual consideration given therefore and state from whom the franchise rights were acquired. If acquired without the payment of consideration, state that fact.</li>
+                            <li>Acquisition of ownership in other companies by reorganization, merger, or consolidation with other companies: Give names of companies involved, particulars concerning the transactions, name of the Commission authorizing the transaction, and reference to Commission authorization.</li>
+                            <li>Purchase or sale of an operating unit or system: Give a brief description of the property, and of the transactions relating thereto, and reference to Commission authorization, if any was required. Give date journal entries called for by the Uniform System of Accounts were submitted to the Commission.</li>
+                            <li>Important leaseholds (other than leaseholds for natural gas lands) that have been acquired or given, assigned or surrendered: Give effective dates, lengths of terms, names of parties, rents, and other condition. State name of Commission authorizing lease and give reference to such authorization.</li>
+                            <li>Important extension or reduction of transmission or distribution system: State territory added or relinquished and date operations began or ceased and give reference to Commission authorization, if any was required. State also the approximate number of customers added or lost and approximate annual revenues of each class of service. Each natural gas company must also state major new continuing sources of gas made available to it from purchases, development, purchase contract or otherwise, giving location and approximate total gas volumes available, period of contracts, and other parties to any such arrangements, etc.</li>
+                            <li>Obligations incurred as a result of issuance of securities or assumption of liabilities or guarantees including issuance of short-term debt and commercial paper having a maturity of one year or less. Give reference to FERC or State Commission authorization, as appropriate, and the amount of obligation or guarantee.</li>
+                            <li>Changes in articles of incorporation or amendments to charter: Explain the nature and purpose of such changes or amendments.</li>
+                            <li>State the estimated annual effect and nature of any important wage scale changes during the year.</li>
+                            <li>State briefly the status of any materially important legal proceedings pending at the end of the year, and the results of any such proceedings culminated during the year.</li>
+                            <li>Describe briefly any materially important transactions of the respondent not disclosed elsewhere in this report in which an officer, director, security holder reported on Page 104 or 105 of the Annual Report Form No. 1, voting trustee, associated company or known associate of any of these persons was a party or in which any such person had a material interest.</li>
+                            <li>(Reserved.)</li>
+                            <li>If the important changes during the year relating to the respondent company appearing in the annual report to stockholders are applicable in every respect and furnish the data required by Instructions 1 to 11 above, such notes may be included on this page.</li>
+                            <li>Describe fully any changes in officers, directors, major security holders and voting powers of the respondent that may have occurred during the reporting period.</li>
+                            <li>In the event that the respondent participates in a cash management program(s) and its proprietary capital ratio is less than 30 percent please describe the significant events or transactions causing the proprietary capital ratio to be less than 30 percent, and the extent to which the respondent has amounts loaned or money advanced to its parent, subsidiary, or affiliated companies through a cash management program(s). Additionally, please describe plans, if any to regain at least a 30 percent proprietary ratio.</li>
+                              </ol>
+                        </xendr:template-display>
+                    </xendr:replace>
+                </td>
+            </tr>
+            <tr>
+                <td class="xbrl description_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:StatementAboutImportantChangesDuringTheQuarterYearTextBlock @period=$currentDuration]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        See Notes to Financial Statements, Note 2, 
+                                </xendr:template-display>
+                        </xendr:replace>                   
+                </td>
+            </tr>
+            <tr>
+                <td class="xbrl description_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfChangesInAndImportantAdditionsToFranchiseRightsTextBlock @period=$currentDuration]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        See Notes to Financial Statements, Note 2, 
+                                </xendr:template-display>
+                        </xendr:replace>                   
+                </td>
+            </tr>
+            <tr>
+                <td class="xbrl description_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfAcquisitionOfOwnershipInOtherCompaniesByReorganizationMergerOrConsolidationWithOtherCompaniesTextBlock @period=$currentDuration]
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    See Notes to Financial Statements, Note 3, 
+                            </xendr:template-display>
+                    </xendr:replace>                   
+            </td>
+        </tr>
+        <tr>
+            <td class="xbrl description_items">
+                <xendr:replace>
+                        <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfPurchaseOrSaleOfAnOperatingUnitOrSystemTextBlock @period=$currentDuration]
+                        </xendr:expression>
+                        <xendr:template-display>
+                                See Notes to Financial Statements, Note 5, 
+                        </xendr:template-display>
+                </xendr:replace>                   
+        </td>
+            </tr>
+            <tr>
+                <td class="xbrl description_items">
+                    <xendr:replace>
+                            <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfImportantLeaseholdsThatHaveBeenAcquiredOrGivenAssignedOrSurrenderedTextBlock @period=$currentDuration]
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    See Notes to Financial Statements, Note 4, 
+                            </xendr:template-display>
+                    </xendr:replace>                   
+            </td>
+                </tr>
+                <tr>
+                    <td class="xbrl description_items">
+                        <xendr:replace>
+                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfImportantExtensionOrReductionOfTransmissionOrDistributionSystemTextBlock @period=$currentDuration]
+                                </xendr:expression>
+                                <xendr:template-display>
+                                        See Notes to Financial Statements, Note 3, 
+                                </xendr:template-display>
+                        </xendr:replace>                   
+                </td>
+                    </tr>
+                    <tr>
+                        <td class="xbrl description_items">
+                            <xendr:replace>
+                                    <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfObligationsIncurredOrAssumedByRespondentAsGuarantorForThePerformanceByAnotherOfAnyAgreementOrObligationTextBlock @period=$currentDuration]
+                                    </xendr:expression>
+                                    <xendr:template-display>
+                                            See Notes to Financial Statements, Note 6, 
+                                    </xendr:template-display>
+                            </xendr:replace>                   
+                    </td>
+                        </tr>
+                        <tr>
+                            <td class="xbrl description_items">
+                                <xendr:replace>
+                                        <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfChangesInArticlesOfIncorporationOrAmendmentsToCharterTextBlock @period=$currentDuration]
+                                        </xendr:expression>
+                                        <xendr:template-display>
+                                                See Notes to Financial Statements, Note 6, 
+                                        </xendr:template-display>
+                                </xendr:replace>                   
+                        </td>
+                            </tr>
+                            <tr>
+                                <td class="xbrl description_items">
+                                    <xendr:replace>
+                                            <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfEstimatedAnnualEffectAndNatureOfAnyImportantWageScaleChangesTextBlock @period=$currentDuration]
+                                            </xendr:expression>
+                                            <xendr:template-display>
+                                                    See Notes to Financial Statements, Note 6, 
+                                            </xendr:template-display>
+                                    </xendr:replace>                   
+                            </td>
+                                </tr>
+                                <tr>
+                                    <td class="xbrl description_items">
+                                        <xendr:replace>
+                                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfStatusOfAnyMateriallyImportantLegalProceedingsTextBlock @period=$currentDuration]
+                                                </xendr:expression>
+                                                <xendr:template-display>
+                                                        See Notes to Financial Statements, Note 6, 
+                                                </xendr:template-display>
+                                        </xendr:replace>                   
+                                </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="xbrl">
+                                            <xendr:replace>
+                                                    <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfMateriallyImportantTransactionsOfTheRespondentNotDisclosedElsewhereTextBlock @period=$currentDuration]
+                                                    </xendr:expression>
+                                                    <xendr:template-display>
+                                                            See Notes to Financial Statements, Note 6, 
+                                                    </xendr:template-display>
+                                            </xendr:replace>                   
+                                    </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="xbrl description_items">
+                                                <xendr:replace>
+                                                        <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfEstimatedIncreaseOrDecreaseInAnnualRevenuesCausedByImportantRateChangesTextBlock @period=$currentDuration]
+                                                        </xendr:expression>
+                                                        <xendr:template-display>
+                                                                See Notes to Financial Statements, Note 6, 
+                                                        </xendr:template-display>
+                                                </xendr:replace>                   
+                                        </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="xbrl description_items">
+                                                    <xendr:replace>
+                                                            <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfChangesInOfficersDirectorsMajorSecurityHoldersAndVotingPowersOfTheRespondentTextBlock @period=$currentDuration]
+                                                            </xendr:expression>
+                                                            <xendr:template-display>
+                                                                    See Notes to Financial Statements, Note 6, 
+                                                            </xendr:template-display>
+                                                    </xendr:replace>                   
+                                            </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="xbrl description_items">
+                                                        <xendr:replace>
+                                                                <xendr:expression class="hide" html="true" fact="true">[@concept=ferc:DisclosureOfSignificantEventThatRespondentParticipatesInACashManagementProgramsTextBlock @period=$currentDuration]
+                                                                </xendr:expression>
+                                                                <xendr:template-display>
+                                                                        See Notes to Financial Statements, Note 6, 
+                                                                </xendr:template-display>
+                                                        </xendr:replace>                   
+                                                </td>
+                                                    </tr>
+        </table>
+        <p></p>
+        <div class="schedule-footer">
+
+            <div>FERC FORM No. 
+                    <xendr:replace>
+                            <xendr:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                    
+                                                           </xendr:expression>
+                            <xendr:template-display>1/3-Q</xendr:template-display>
+                    </xendr:replace>
+                    <span> </span>
+                    <xendr:replace>
+                            <xendr:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleImportantChangesDuringTheQuarterYearAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                            </xendr:expression>
+                            <xendr:template-display>
+                                    (12-96)
+                            </xendr:template-display>
+                    </xendr:replace>
+                                
+            </div>
+            <div class="center-text">Page 
+                    <xendr:replace>
+                            <xendr:expression class="hide">taxonomy().concept(ferc:ScheduleImportantChangesDuringTheQuarterYearAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                            </xendr:expression>
+                            <xendr:template-display>
+                            212
+                            </xendr:template-display>
+                    </xendr:replace>
+            </div> 
+        </div>
+        </body>
+        </html>

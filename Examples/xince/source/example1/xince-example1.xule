@@ -1,0 +1,34 @@
+/** Define output attributes **/
+
+output-attribute instance-name
+output-attribute instance-taxonomy 
+output-attribute fact-value
+output-attribute fact-concept
+output-attribute fact-unit
+output-attribute fact-entity
+output-attribute fact-period
+output-attribute fact-decimals
+output-attribute fact-dimensions
+output-attribute fact-instance
+output-attribute fact-alignment
+output-attribute fact-footnote
+output-attribute fact-id
+output-attribute fact-is-nil
+output-attribute file-location
+output-attribute file-content
+
+
+namespace iso4217 = http://www.xbrl.org/2003/iso4217
+namespace us-gaap = http://fasb.org/us-gaap/2023
+
+output createInstance
+true
+instance-name  'myInstance'
+instance-taxonomy 'https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-std-2023.xsd'
+fact-value 1230000
+fact-concept '\{http://fasb.org/us-gaap/2023\}Assets'
+fact-unit unit(iso4217:JPY).to-xince
+fact-entity entity('http://test/report','CompanyX').to-xince
+fact-period date('2024-12-31').to-xince
+fact-decimals -6
+fact-instance 'myInstance'

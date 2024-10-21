@@ -20,7 +20,7 @@ output XU104
   1.25 + 6
 
 output XU105
-/*  cat */
+/* cat */
 
   'c' + 'a' + 't'
 
@@ -30,7 +30,7 @@ output XU106
   2 - 7
 
 output XU107
-/* 3.5 */
+/* 3.5 (rounded 4d) */
 
   10.2 - 6.7
 
@@ -75,17 +75,17 @@ output XU115
   14 / 7
 
 output XU116
-/* 0.179104 */
+/* 0.1791 (rounded 4d) */
 
   1.2 / 6.7
 
 output XU117
-/* 1.492537 */
+/* 1.4925 (rounded 4d) */
 
   10 / 6.7
 
 output XU118
-/* 205.708333 */
+/* 205.7083 (rounded 4d) */
 
   1234.25 / 6
 
@@ -115,7 +115,7 @@ output XU123
   none + 2.345
 
 output XU124
-/*  a String */
+/* a String */
 
   none + 'a String'
 
@@ -140,27 +140,27 @@ output XU128
   none - 2.345
 
 output XU129
-/* skip iteration */
+/* skip */
 
   none - none
 
 output XU130
-/* skip iteration */
+/* skip */
 
   none + none
 
 output XU131
-/* string: a3 */
+/* a3 */
 
   'a' + 3
 
 output XU132
-/* string: 33 */
+/* 33 */
 
   '3' + 3
 
 output XU133
-/* [ERROR] [xule:error] rule XU133: unsupported operand type(s) for -: 'XuleString' and 'str' */
+/* rule XU133: unsupported operand type(s) for -: 'XuleString' and 'str' */
 
   '3' - 3
 
@@ -193,3 +193,113 @@ output XU139
 /*  False */
 
   'b' < 'a'
+
+output XU140
+/* True */
+
+  'b' > 'a'
+
+output XU141
+/*  False */
+
+  'a' > 'a'
+
+output XU142
+/* skip */
+
+  3 +> none
+
+output XU143
+/* 3 */
+
+  3 <+ none
+
+output XU144
+/* 5 */
+
+  3 <+> 2 + none
+
+output XU145
+/* skip */
+
+  3 <+> none + 2
+
+output XU146
+/* skip */
+
+  3 +> skip
+
+output XU147
+/* 3 */
+
+  3 <+ skip
+
+output XU148
+/* 5 */
+
+  3 <+> 2 + skip
+
+output XU149
+/* skip */
+
+  3 <+> skip + 2
+
+output XU150
+/* 5 */
+
+  3 + skip + 2
+
+output XU151
+/* skip */
+
+  3 -> none
+
+output XU152
+/* 3 */
+
+  3 <- none
+
+output XU153
+/* 1 */
+
+  3 <-> 2 - none
+
+output XU154
+/* skip */
+
+  3 <-> none - 2
+
+output XU155
+/* skip */
+
+  3 -> skip
+
+output XU156
+/* 3 */
+
+  3 <- skip
+
+output XU157
+/* 1 */
+
+  3 <-> 2 + skip
+
+output XU158
+/* skip */
+
+  3 <-> skip + 2
+
+output XU159
+/* 1 */
+
+  3 - skip - 2
+
+output XU160
+/* True */
+
+  3 <= 3
+
+output XU161
+/* True */
+
+  3 >= 3

@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23604 $
+$Change$
 DOCSKIP
 """
 from pyparsing import (Word, CaselessKeyword,
@@ -29,15 +29,6 @@ from pyparsing import (Word, CaselessKeyword,
                  OneOrMore, one_of, c_style_comment, CharsNotIn,
                  line_end, White, SkipTo, Empty, string_start, string_end, printables)
 
-INRESULT = False
-
-def in_result():
-    global INRESULT
-    INRESULT = True
-
-def out_result(*args):
-    global INRESULT
-    INRESULT = False
 
 def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')')):
     """Simplified and modified version of pyparsing infix_notation helper function
@@ -130,10 +121,19 @@ def nodeName(name):
 
 def get_grammar():
     """Return the XULE grammar"""
-    global INRESULT
-    
+
     ParserElement.enable_packrat()
-    
+
+    in_result_val = False
+
+    def in_result():
+        nonlocal in_result_val
+        in_result_val = True
+
+    def out_result(*args):
+        nonlocal in_result_val
+        in_result_val = False
+
     #comment = c_style_comment() | (Literal("//") + SkipTo(line_end()))
     comment = c_style_comment | (Literal("//") + SkipTo(line_end))
     
@@ -265,7 +265,7 @@ def get_grammar():
     qNameLocalName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
                            "\uF900-\uFDCF\uFDF0-\uFFFD_]"
                            "([A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
-                           "\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]|(\\\.))"
+                           "\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]|(\\\\.))"
                            "*)"
                   ).set_parse_action(lambda s, l, t: [t[0].replace('\\','')]) #parse action removes the escape backslash character
     prefix = qNameLocalName
@@ -287,7 +287,7 @@ def get_grammar():
     returns = CaselessKeyword('returns')
 
     #variable reference
-    varRef = Group(Suppress(varIndicator) + simpleName.set_results_name('varName') + Empty().set_parse_action(lambda: 'tagRef' if INRESULT else 'varRef').set_results_name('exprName'))
+    varRef = Group(Suppress(varIndicator) + simpleName.set_results_name('varName') + Empty().set_parse_action(lambda: 'tagRef' if in_result_val else 'varRef').set_results_name('exprName'))
 
     properties = Group(OneOrMore(Group(Suppress(propertyOp) +
                                        simpleName.set_results_name('propertyName') +
@@ -394,7 +394,8 @@ def get_grammar():
                        # The dimension and arcrole need the FollowedBy() look ahead. I'm not sure why, but it is because these are optional and the direction is reuired.
                        # Without the FollowedBy() look ahead, 'navigate self' fails because the parser thinks 'navigate' is a qname and then does not know what to 
                        # do with 'self'.
-                       Opt(CaselessKeyword('dimensions').set_parse_action(lambda: True).set_results_name('dimensional') + (FollowedBy(blockExpr | directionLiteral) )) +
+                       Opt((CaselessKeyword('dimensions').set_parse_action(lambda: True).set_results_name('dimensional') |
+                            (CaselessKeyword('across') + CaselessKeyword('networks')).set_parse_action(lambda: True).set_results_name('acrossNetworks'))+ (FollowedBy(blockExpr | directionLiteral) )) +
                        Opt(blockExpr.set_results_name('arcrole') + FollowedBy(directionLiteral)) +  
                        directionLiteral +
                        Opt(Group(CaselessKeyword('include') + CaselessKeyword('start')).set_parse_action(lambda: True).set_results_name('includeStart')) +

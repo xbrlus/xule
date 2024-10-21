@@ -95,7 +95,15 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     parserGroup.add_option("--xendr-inline-css", 
                       action="store_true", 
                       dest="xendr_inline_css", 
-                      help=_("Indicates that the CSS should be inlined in the generated HTML file. This option must be used with --frec-render-css-file."))   
+                      help=_("Indicates that the CSS should be inlined in the generated HTML file. This option must be used with --xendr-css-file. This option is decprecated. --xendr-inline-css-type should be used instead."))  
+
+    parserGroup.add_option("--xendr-inline-css-type",
+                      action="store",
+                      type="choice", 
+                      choices=('block', 'element'),
+                      dest="xendr_inline_css_type",
+                      help=_("Identifies how the inline should be inlined in the generated HTML file. This option must be used with --xendr-css-file. The options are 'block' or 'element'. If 'block' is used, then the css will be in a sinlge <style> elemnt. If 'element' is used, then the styling will be on each html element as a style attribute.")
+                      ) 
 
     parserGroup.add_option("--xendr-title",
                       action="store",
@@ -117,10 +125,10 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="xendr_show_xule_log",
                       help=_("Show the log messages when running the xule rules. By default these messages are not displayed."))
 
-    parserGroup.add_option("--xendr-constants", 
+    parserGroup.add_option("--xendr-global", 
                       action="store", 
-                      dest="xendr_constants", 
-                      help=_("Name of the constants file. This will default to render-constants.xule."))  
+                      dest="xendr_global", 
+                      help=_("Name of a xule file that is placed in the generated ruleset."))  
 
     parserGroup.add_option("--xendr-partial",
                       action="store_true",
@@ -181,10 +189,12 @@ def cmdUtilityRun(cntlr, options, **kwargs):
     if options.xendr_extract and options.xendr_template_set is None:
         parser.error(_("Extracting the templates from a template set requires a --ferec-render-template-set."))        
 
-    if options.xendr_inline_css and not options.xendr_css_file:
-        parser.error(_("--xendr-inline-css requires the --xendr-css-file option to identify the css file."))
+    inline_css = options.xendr_inline_css or options.xendr_inline_css_type is not None
 
-    if options.xendr_inline_css and options.xendr_css_file:
+    if inline_css and not options.xendr_css_file:
+        parser.error(_("--xendr-inline-css or --xendr_inline_css_type requires the --xendr-css-file option to identify the css file."))
+
+    if inline_css and options.xendr_css_file:
         # make sure the css file exists
         if not os.path.exists(options.xendr_css_file):
             parser.error(_("CSS file '{}' does not exists.".format(options.xendr_css_file)))

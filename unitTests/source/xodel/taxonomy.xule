@@ -1,23 +1,2 @@
-/* Taxonomy */
-output TAX0001
-/*  */
-
-  true
-      
-taxonomy-name 'MyTaxonomy1'
-taxonomy-namespace 'https://taxonomy.xbrl.us/xodel/my'
-taxonomy-import set('http://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-std-2020-01-31.xsd','https://xbrl.sec.gov/exch/2020/exch-2020-01-31.xsd').to-xodel
-taxonomy-entry-point 'MyTaxonomy1.xsd'
-
-
-
-output TAX0002
-/* No Namespace */
-
-  true
-      
-taxonomy-name 'MyTaxonomy2'
-taxonomy-import set('http://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-std-2020-01-31.xsd','https://xbrl.sec.gov/exch/2020/exch-2020-01-31.xsd').to-xodel
-taxonomy-entry-point 'MyTaxonomy2.xsd'
 
 

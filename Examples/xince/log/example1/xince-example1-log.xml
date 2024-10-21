@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23724 - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="myInstance" instance-taxonomy="https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-std-2023.xsd" fact-value="1230000" fact-concept="{http://fasb.org/us-gaap/2023}Assets" fact-unit="{http://www.xbrl.org/2003/iso4217}JPY" fact-entity="[&quot;http://test/report&quot;, &quot;CompanyX&quot;]" fact-period="2024-12-31T00:00:00" fact-decimals="-6" fact-instance="myInstance" severity="info" cid="4456784832">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance myInstance - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance myInstance - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file ./output/example1/myInstance.json - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in XBRL rule processor (xule) successful, version Check version using Tools->Xule->Version on the GUI or --xule-version on the command line. - xule </message>
+ <ref href="xule"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23724 - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="myInstance" instance-taxonomy="https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-std-2023.xsd" fact-value="1230000" fact-concept="{http://fasb.org/us-gaap/2023}Assets" fact-unit="{http://www.xbrl.org/2003/iso4217}JPY" fact-entity="[&quot;http://test/report&quot;, &quot;CompanyX&quot;]" fact-period="2024-12-31T00:00:00" fact-decimals="-6" fact-instance="myInstance" severity="info" cid="4726505344">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance myInstance - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance myInstance - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file ./output/example1/myInstance.xml - </message>
+ <ref href=""/></entry>
+</log>

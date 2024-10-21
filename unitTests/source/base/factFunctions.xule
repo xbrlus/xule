@@ -9,6 +9,11 @@ output FACT002
 
   first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).decimals
 
+output FACT002a
+/* list(-6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6) */
+
+  list({covered @instance = $INSTANCE1 @Assets}).decimals
+
 output FACT003
 /* 45436000000 */
 
@@ -90,7 +95,7 @@ output FACT018
   max(list([covered @instance = $INSTANCE1 @PaymentsToAcquireProductiveAssets])).id
 
 output FACT019
-/* None or 45436 */
+/* 1137000000 */
 
   max(list([covered @instance = $INSTANCE1 where $fact.id == 'id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmJhYzQxYmIzNDhjZjQ0MWJhYWQ3ZTY5ZTUxMWQ2ZWM1L3RhYmxlcmFuZ2U6YmFjNDFiYjM0OGNmNDQxYmFhZDdlNjllNTExZDZlYzVfNDItMjktMS0xLTMwNA_cb64a33c-b936-4561-82a2-870970bbe9a4']))
 
@@ -100,7 +105,7 @@ output FACT020
   max(list([covered @instance = $INSTANCE1 @Assets])).instance.facts.count
 
 output FACT021
-/* FACT021 - Property 'name' is not a property of a 'cube' */
+/* rule FACT021: Rule: FACT021 - Property 'name' is not a property of a 'cube'. */
 
   max(list([covered @instance = $INSTANCE1 @Assets])).cubes.name
 
@@ -159,22 +164,151 @@ output FACT032
 
   none.is-fact
 
+output FACT032a
+/* list(True, True, True) */
+
+  list([covered @instance = $INSTANCE1 @Assets]).is-fact
+
 output FACT033
 /* FALSE */
 
   (first(list([covered @instance = $INSTANCE1 @Assets]))).is-nil
 
 output FACT034
-/* [ERROR] [xule:error] rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'. */
+/* rule FACT034: Rule: FACT034 - Property 'is-nil' is not a property of a 'string'. */
 
   'hello'.is-nil
 
 output FACT035
-/*  */
+/* set(set(srt:ProductOrServiceAxis)) */
 
   set({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*}.dimensions.keys.name)
 
 output FACT036
-/*  */
+/* set(list(fcx:MolybdenumMember), list(us-gaap:GoldMember), list(fcx:RefinedCopperProductsMember), list(fcx:PurchasedCopperMember), list(fcx:CopperCathodeMember), list(fcx:CopperInConcentratesMember), list(fcx:OtherProductsOrServicesMember)) */
 
   set({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*}.dimensions.values.name)
+
+output FACT037
+/* iso4217:USD */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator
+
+output FACT038
+/* list() */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.denominator
+
+output FACT039
+/* dictionary(period=2021-06-30,unit=USD,entity=http://www.sec.gov/CIK=0000831259,concept=us-gaap:Assets) */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).aspects
+
+output FACT040
+/* dictionary(link=http://www.xbrl.org/2003/linkbase,iso4217=http://www.xbrl.org/2003/iso4217,xbrldi=http://xbrl.org/2006/xbrldi,ix=http://www.xbrl.org/2013/inlineXBRL,ixt=http://www.xbrl.org/inlineXBRL/transformation/2015-02-26,country=http://xbrl.sec.gov/country/2020-01-31,srt=http://fasb.org/srt/2020-01-31,None=http://www.w3.org/1999/xhtml,ixt-sec=http://www.sec.gov/inlineXBRL/transformation/2015-08-31,fcx=http://www.fcx.com/20210630,xbrli=http://www.xbrl.org/2003/instance,dei=http://xbrl.sec.gov/dei/2020-01-31,us-gaap=http://fasb.org/us-gaap/2020-01-31,xlink=http://www.w3.org/1999/xlink,utr=http://www.xbrl.org/2009/utr,xsi=http://www.w3.org/2001/XMLSchema-instance) */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).namespace-map
+
+output FACT041
+/* http://www.sec.gov/CIK */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).entity.scheme
+
+output FACT042
+/* 831259 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).entity.id
+
+output FACT043
+/* rule FACT043: Rule: FACT043 - Factset aspect property 'numerator' is not a valid property of aspect 'unit'. */
+
+  count(list([covered @instance = $INSTANCE1 @Assets @unit.numerator = unit(iso4217:USD)]))
+
+output FACT044
+/* USD */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator.local-name
+
+output FACT045
+/* http://www.xbrl.org/2003/iso4217 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit.numerator.namespace-uri
+
+output FACT046
+/* set(828,867,000) */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact
+
+output FACT047
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1  where $fact.period.end in list(date('2021-06-30'))]))
+
+output FACT047a
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1  where $fact.period in list(date('2021-06-30'))]))
+
+output FACT047b
+/* 45436000000 */
+
+  list([covered @instance = $INSTANCE1  where $fact.period in list(date('2021-06-30'))])
+
+output FACT048
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1  @period in list(date('2021-06-30'))]))
+
+output FACT049
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1  where $fact.period == date('2021-06-30')]))
+
+output FACT050
+/* 25661000000 */
+
+  $DebitEntries = set({covered @instance = $INSTANCE1  @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 0}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+$totalDebitTravelExpenses
+
+output FACT051
+/* 25661000000 */
+
+  $DebitEntries = set({covered @instance = $INSTANCE1 @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 100}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+$totalDebitTravelExpenses
+
+output FACT052
+/* 3903000000 */
+
+  {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}
+
+output FACT053
+/* set(us-gaap:ScheduleOfCashAndCashEquivalentsTable, us-gaap:StatementTable) */
+
+  {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}.cubes.cube-concept
+
+output FACT054
+/* e9d58db97c5df6ee0050cc253e9fde04c4888540ea55d1dc02b4f83207bed2af */
+
+  first($INSTANCE1.facts.sid)
+
+output FACT055
+/* set() */
+
+  first(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:Assets}.footnotes))
+
+output FACT056
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact
+
+output FACT057
+/* rule FACT057: Rule: FACT057 - Property 'namespace-map' is not a property of a 'instance'. */
+
+  $INSTANCE1.namespace-map
+
+output FACT058
+/* None */
+
+  none.is-nil

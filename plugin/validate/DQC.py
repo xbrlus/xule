@@ -6,7 +6,7 @@ This validation module runs DQC rules. It uses the Xule rule processor
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 22782 $
+$Change$
 DOCSKIP
 """
 import optparse
@@ -34,7 +34,7 @@ _version_prefix = '3.0.'
 _description = 'DQC rules validator.'
 _license = 'Apache-2'
 _author = 'XBRL US Inc.'
-_copyright = '(c) 2017-2023'
+_copyright = '(c) 2017-present'
 _rule_set_map_name = 'rulesetMap.json'
 _latest_map_name = 'https://github.com/DataQualityCommittee/dqc_us_rules/raw/master/rulesetMap.json' 
 

@@ -5,7 +5,7 @@ output SK100
   (skip  * 100) + 2
 
 output SK101
-/* skip iteration */
+/* skip */
 
   skip * 100
 

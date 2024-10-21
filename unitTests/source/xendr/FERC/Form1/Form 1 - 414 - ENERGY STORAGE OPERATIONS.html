@@ -1,0 +1,654 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+    xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+    xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+    xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc" xmlns:ferc-part="http://www.ferc.gov/form/parts">
+
+<head>
+    <title>Template - F1/F1F - 414</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css" />
+</head>
+
+<body class="xbrl" id="ScheduleEnergyStorageOperationsLargePlantsAbstract">
+    <table class="ident-table xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace><br/>
+                
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>This report is:</xule:template-display>
+                </xule:replace><br/>
+                
+                (1)
+                <xule:replace>
+                    <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType})
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "O"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> An Original']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> An Original']]>
+                    </xule:expression>
+                    <xule:template-display>
+                        <input type="checkbox" /> An Original
+                    </xule:template-display>
+                </xule:replace><br/>
+                
+                (2)
+                <xule:replace>
+                    <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType
+                        @period=$currentDuration])
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]> else if
+                        [@concept=ferc:SubmissionType @period=$currentDuration] == "R"
+                        <![CDATA[
+                                        '<span class="checkbox">&#9745;</span> A Resubmission']]>
+                        else
+                        <![CDATA[
+                                        '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                    </xule:expression>
+                    <xule:template-display>
+                        <input type="checkbox" checked="checked" /> A Resubmission
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Date of Report:</xule:template-display>
+                </xule:replace><br/>
+                
+                <xule:replace>
+                    <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>04/26/2019</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">
+                        taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text
+                    </xule:expression>
+                    <xule:template-display>Year/Period of Report:</xule:template-display>
+                </xule:replace><br/>
+                
+                End of: <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>2018</xule:template-display>
+                </xule:replace>
+                <span>/</span>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]
+                    </xule:expression>
+                    <xule:template-display>Q4</xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+
+    <table class="xbrl" width="100%">
+
+        <tr class="sch-title">
+            <td class="xbrl" colspan="20"><xule:replace>
+                <xule:expression class="hide" html="true">if taxonomy().entry-point.contains('form1F')
+                    taxonomy().concept(ferc:ScheduleEnergyStorageOperationsLargePlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1FScheduleTitle").text
+                    else
+                    taxonomy().concept(ferc:ScheduleEnergyStorageOperationsLargePlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                </xule:expression>
+                <xule:template-display>
+                    ENERGY STORAGE OPERATIONS (Large Plants)
+                </xule:template-display>
+            </xule:replace>
+            
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="20">
+                <xule:replace>
+                    <xule:expression class="hide" html="true">
+                        taxonomy().concept(ferc:ScheduleEnergyStorageOperationsLargePlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xule:expression>
+                    <xule:template-display>
+                        <ol>
+                            <li>Large Plants are plants of 10,000 KW or more.</li>
+                            <li>In columns (a) (b) and (c) report the name of the energy storage project, functional classification (Production, Transmission, Distribution), and location.</li>
+                            <li>In column (d), report Megawatt hours (MWH) purchased, generated, or received in exchange transactions for storage.</li>
+                            <li>In columns (e), (f) and (g) report MWHs delivered to the grid to support production, transmission and distribution. The amount reported in column (d) should include MWHs delivered/provided to a generator’s own load requirements or used for the provision of ancillary services.</li>
+                            <li>In columns (h), (i), and (j) report MWHs lost during conversion, storage and discharge of energy.</li>
+                            <li>In column (k) report the MWHs sold.</li>
+                            <li>In column (l), report revenues from energy storage operations. In a footnote, disclose the revenue accounts and revenue amounts related to the income generating activity.</li>
+                            <li>In column (m), report the cost of power purchased for storage operations and reported in Account 555.1, Power Purchased for Storage Operations. If power was purchased from an affiliated seller specify how the cost of the power was determined. In columns (n) and (o), report fuel costs for storage operations associated with self-generated power included in Account 501 and other costs associated with self-generated power.</li>
+                            <li>In columns (q), (r) and (s) report the total project plant costs including but not exclusive of land and land rights, structures and improvements, energy storage equipment, turbines, compressors, generators, switching and conversion equipment, lines and equipment whose primary purpose is to integrate or tie energy storage assets into the power grid, and any other costs associated with the energy storage project included in the property accounts listed.</li>
+                            </ol>
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xule:repeat="ISHeadings">
+                    <xule:expression class="hide" name="ISHeadings">
+                            /** THIS CODE EXCLUDES ELEMENT NAMES AS THERE ARE NO ELEMENT SPECIFIC COLUMNS  **/
+                            $headings = filter (taxonomy().concept(ferc:ScheduleEnergyStorageOperationsLargePlantsAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "414 - Schedule - Energy Storage Operations (Large Plants)") 
+
+                            /** This needs to be updated to remove the hardcoded name **/
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, if $ref.part-by-name(ferc-part:Column).part-value == "g" "MWHs delivered to the grid to support Distribution" else $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xule:expression>
+                    <div style="text-align: center"><xule:replace>
+                    <xule:expression class="hide" name="ISHeadings" part="1">$heading_dict[$row]</xule:expression>
+                    <xule:template-display>
+                        Title  of Account
+                    </xule:template-display>
+                </xule:replace>
+            </div>
+                <div style="text-align: center"><xule:replace>
+                        <xule:expression class="hide" name="ISHeadings" part="2">$row</xule:expression>
+                        <xule:template-display>
+                            (a)
+                        </xule:template-display>
+                    </xule:replace></div>
+            </td>
+        </tr>
+       
+        
+        <tr class="schedule-row" xule:repeat="SalesForResale">
+            <xule:expression class="hide" name="SalesForResale">// adding a comment
+
+                $data2 = list(for $i in range(34)
+                list($i,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:EnergyStorageOperationsAxis=*})) > 0  
+                
+               
+                    list({covered @ferc:EnergyStorageOperationsAxis=*  {list(
+                        if list({@ferc:OrderNumber @unit=* @period=$currentDuration}).length > 0 
+                            first(list({@ferc:OrderNumber @unit=* @period=$currentDuration}))
+                        else
+                            0,
+                        if list({@ferc:EnergyStorageProjectName @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyStorageProjectName @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:FunctionalClassificationEnergyStorageOperations @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:FunctionalClassificationEnergyStorageOperations @unit @period=$currentDuration}))
+                        else
+                            none,
+                        
+                        if list({@ferc:ProjectLocation @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProjectLocation @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:EnergyPurchasedGeneratedReceivedForStorage @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyPurchasedGeneratedReceivedForStorage @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:EnergyDeliveredToSupportProductionPlant @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyDeliveredToSupportProductionPlant @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:EnergyDeliveredToSupportTransmissionPlant @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyDeliveredToSupportTransmissionPlant @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:EnergyDeliveredToSupportDistributionPlant @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyDeliveredToSupportDistributionPlant @unit @period=$currentDuration}))
+                        else
+                            none,
+                        
+                        if list({@ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyProductionPlant @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyProductionPlant @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyTransmissionPlant @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyTransmissionPlant @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyDistributionplant @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyDistributionplant @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:EnergySold @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:EnergySold @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:RevenuesFromEnergyStorageOperations @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:RevenuesFromEnergyStorageOperations @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:PowerPurchasedForStorageOperations @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:PowerPurchasedForStorageOperations @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:FuelCostsStorageOperationsSelfGeneratedPower @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:FuelCostsStorageOperationsSelfGeneratedPower @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:OtherCostsSelfGeneratedPower @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:OtherCostsSelfGeneratedPower @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:ProjectCostsAccount @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProjectCostsAccount @unit @period=$currentDuration}))
+                        else
+                            none,
+                        
+                        if list({@ferc:ProjectPlantCostProduction @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProjectPlantCostProduction @unit @period=$currentDuration}))
+                        else
+                            none,
+                        if list({@ferc:ProjectPlantCostTransmission @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProjectPlantCostTransmission @unit @period=$currentDuration}))
+                        else 
+                            none,
+                        if list({@ferc:ProjectPlantCostDistribution @unit @period=$currentDuration}).length > 0
+                            first(list({@ferc:ProjectPlantCostDistribution @unit @period=$currentDuration}))
+                        else 
+                            none
+                    
+                       
+                    
+
+                )}})
+                else $data2;
+
+                $uniqueData = list(for $x in  $data
+                    if $x == list(0,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+
+                for $row in $uniqueData.sort       
+
+
+            </xule:expression>
+            <td class="xbrl line-number">
+                <xule:lineNumber name="SalesForResale" />
+                <xule:template-display>1</xule:template-display>
+            </td>
+            <td class="xbrl description_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" part="2">$row[2]
+                    </xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    ABC Company
+                </xule:template-display>
+            </td>
+            <td class="xbrl account-number">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" part="3">
+                        $row[3]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    FNS
+                </xule:template-display>
+            </td>
+            <td class="xbrl account-number">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" part="4">
+                        $row[4]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    555
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="5">
+                        $row[5]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    1,028
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="6">
+                        $row[6]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    514,247
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="7">
+                        $row[7]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    1,028
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="8">
+                        $row[8]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    514,247
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="9">
+                        $row[9]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    1,028
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="10">
+                        $row[10]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    514,247
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="11">
+                        $row[11]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    1,028
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="12">
+                        $row[12]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    514,247
+                </xule:template-display>
+            </td>
+
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="13">
+                        $row[13]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    1,028
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="14">
+                        $row[14]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    514,247
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="15">
+                        $row[15]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    1,028
+                </xule:template-display>
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="16">
+                        $row[16]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    514,247
+                </xule:template-display>
+            </td>
+            <td class="xbrl account-number">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true"  part="17">
+                        $row[17]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    514,247
+                </xule:template-display>
+            </td>
+
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="18">
+                        $row[18]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $1,028
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="19">
+                        $row[19]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $514,247
+                </xule:template-display>
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                    <xule:expression class="hide" name="SalesForResale" fact="true" format="ixt4:num-dot-decimal" part="20">
+                        $row[20]</xule:expression>
+                </xule:replace>
+                <xule:template-display>
+                    $1,028
+                </xule:template-display>
+            </td>
+            
+        </tr>
+            <!-- "Line 35 -->
+        <tr>
+            <td class="xbrl line-number">35</td>
+            <td class="xbrl description_items">TOTAL</td>
+            <td class="xbrl"></td>
+            <td class="xbrl"></td>   
+                
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergyPurchasedGeneratedReceivedForStorage @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergyDeliveredToSupportProductionPlant @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                15,256,784
+                        </xule:template-display>
+                </xule:replace> 
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergyDeliveredToSupportTransmissionPlant @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergyDeliveredToSupportDistributionPlant @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                15,256,784
+                        </xule:template-display>
+                </xule:replace> 
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyProductionPlant @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyTransmissionPlant @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                15,256,784
+                        </xule:template-display>
+                </xule:replace> 
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergyLostDuringConversionStorageDischargeAndDischargeOfEnergyDistributionplant @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            <td class="xbrl numeric_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:EnergySold @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                15,256,784
+                        </xule:template-display>
+                </xule:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:RevenuesFromEnergyStorageOperations @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                $92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:PowerPurchasedForStorageOperations @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                $15,256,784
+                        </xule:template-display>
+                </xule:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:FuelCostsStorageOperationsSelfGeneratedPower @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                $92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:OtherCostsSelfGeneratedPower @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                $15,256,784
+                        </xule:template-display>
+                </xule:replace> 
+            </td>
+            <td class="xbrl"></td>   
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ProjectPlantCostProduction @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                $92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ProjectPlantCostTransmission @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                $15,256,784
+                        </xule:template-display>
+                </xule:replace> 
+            </td>
+            <td class="xbrl monetary_items">
+                <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([covered @concept=ferc:ProjectPlantCostDistribution @period = $currentDuration]))
+                        </xule:expression>
+                        <xule:template-display>
+                                $92,477,242
+                        </xule:template-display>
+                </xule:replace>  
+            </td>
+            
+
+
+
+            
+        </tr>
+    </table>
+    <p></p>
+    <div class="schedule-footer">
+
+        <div>FERC FORM NO. 
+                <xule:replace>
+                        <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))
+                                                                
+                                                        </xule:expression>
+                        <xule:template-display>1</xule:template-display>
+                </xule:replace>
+                <span> </span>
+                <xule:replace>
+                        <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleEnergyStorageOperationsLargePlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xule:expression>
+                        <xule:template-display>
+                                (NEW. 12-12)
+                        </xule:template-display>
+                </xule:replace>
+                            
+        </div>
+        <div class="center-text">Page 
+                <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:ScheduleEnergyStorageOperationsLargePlantsAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xule:expression>
+                        <xule:template-display>
+                        414
+                        </xule:template-display>
+                </xule:replace>
+        </div> 
+    </div>
+    </body>
+    </html>

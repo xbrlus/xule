@@ -7,7 +7,7 @@ The XuleProcessor module is the main module for processing a rule set against an
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - present XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,11 +21,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23612 $
+$Change$
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
 from .XuleFunctions import func_alignment
+from .XuleRelattionshipSet import XuleRelationshipSet
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
 from .XuleValue import *
 from . import XuleConstants as xc
@@ -49,8 +50,9 @@ from threading import Thread
 from . import XuleFunctions
 from . import XuleProperties
 import os
+from openpyxl import load_workbook, Workbook
 
-def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
+def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is_validator=False):
     """Run xule rules against a filing.
     
     :param rule_set: An opened rule set
@@ -66,6 +68,9 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
     The most import item is the processor context. The context saves the state of the processor throughout the 
     processing of the rules.
     """
+
+    # Save the controller in XuleValue
+    init_cntlr(cntlr)
 
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options)
     if saved_taxonomies is not None and len(saved_taxonomies) > 0:
@@ -95,7 +100,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         fact_index_start = datetime.datetime.today()
 
     # Create the processing context to build the index
-    xule_context = XuleRuleContext(global_context)
+    xule_context = XuleRuleContext(global_context, cache_size_bytes=getattr(global_context.options, 'xule_cache_size_bytes', getattr(global_context.options, 'xule_cache_size_bytes', 1_000_000)))
     # Build an index on the facts in the model.
     xmi.index_model(xule_context)
     # Clean up
@@ -105,7 +110,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         fact_index_end = datetime.datetime.today()
         global_context.message_queue.print("Index build time %s." % (fact_index_end - fact_index_start))
 
-    # Determine is constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
+    # Determine if constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
     # environment.
     if getattr(global_context.options, "xule_precalc_constants", False):
         constant_start = datetime.datetime.today()
@@ -114,8 +119,13 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         constant_time = constant_end - constant_start
         global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
 
+    # Determine if constants should be outputed
+    if getattr(global_context.options, "xule_output_constants", None) is not None:
+        output_constant(global_context, cntlr)
+
+    if getattr(global_context.options, "xule_run", False) or is_validator:
     # global_context.message_queue.logging("Processing Filing...")
-    evaluate_rule_set(global_context)
+        evaluate_rule_set(global_context)
 
     if getattr(global_context.options, "xule_time", None) is not None:
         total_end = datetime.datetime.today()
@@ -135,6 +145,29 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
 
     return saved_taxonomies
 
+def output_constant(global_context, cntlr):
+    # Change the message format for the log handler so it only outputs the message
+    save_log_handler = cntlr.logHandler
+    new_log_handler = copy.copy(save_log_handler)
+    import logging
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(message)s')
+    new_log_handler.setFormatter(formatter)
+    cntlr.logger.removeHandler(cntlr.logHandler)
+    cntlr.logger.addHandler(new_log_handler)
+
+    for constant_name_raw in getattr(global_context.options, "xule_output_constants").split(','):
+        constant_name = constant_name_raw.strip()
+        if constant_name != '':
+            const_info = precalc_constant(global_context, constant_name)
+            if const_info is None: # The constant was not found
+                cntlr.addToLog(f"Constant {constant_name} does not exist", 'warning')
+            else:
+                for alignment, values in const_info['value'].values.items():
+                    for val in values:
+                        cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+
+    cntlr.logger.addHandler(save_log_handler)
 
 def evaluate_rule_set(global_context):
     """Process the rule set.
@@ -919,6 +952,12 @@ def get_local_cache_key(rule_part, xule_context):
                 if var_info['calculated']:
                     dep_var_index.add((var_info['name'], var_info['value']))
 
+    # specail handling for for loops. This ensures that the for variable is included in the cache key. If the body of the for
+    # loop did not use the for variable it would not in the list dependent vars list for the expression and so it would not
+    # be included in the cache key.
+    for for_var in xule_context.find_for_vars():
+        dep_var_index.add((for_var['name'], for_var['value']))
+
     alignment = xule_context.iteration_table.current_alignment if rule_part['has_alignment'] else None
 
     cache_key = (rule_part['node_id'], frozenset(dep_var_index), alignment)
@@ -1090,8 +1129,10 @@ def evaluate_output_rule(output_rule, xule_context):
             if xule_value.type != 'unbound' and not (
                     xule_context.iteration_table.current_alignment is None and xule_context.aligned_result_only):
                 # Determine if a message should be sent
-
                 xule_context.iter_message_count += 1
+                # produce file output
+                result_file(output_rule, xule_value, xule_context)
+
                 messages = dict()
                 # Process each of the results in the rule. The Results are the messages that are produced.
                 for rule_result in output_rule.get('results', list()):
@@ -1622,7 +1663,7 @@ def process_precalc_constants(global_context):
     global_context.message_queue.logging("Precalcing non-instance constants")
     for constant_name, cat_constant in global_context.rule_set.catalog['constants'].items():
         if ('unused' not in cat_constant and
-                not cat_constant['dependencies']['instance']):
+            not cat_constant['dependencies']['instance']):
 
             const_context = XuleRuleContext(global_context, constant_name, cat_constant['file'])
             const_info = const_context.find_var(constant_name, cat_constant['node_id'])
@@ -1630,6 +1671,20 @@ def process_precalc_constants(global_context):
                 calc_constant(const_info, const_context)
             # Clean up
             del const_context
+
+def precalc_constant(global_context, constant_name):
+        try:
+            cat_constant = global_context.rule_set.catalog['constants'][constant_name]
+        except KeyError:
+            return # There is no constant to calc
+        
+        const_context = XuleRuleContext(global_context, constant_name, cat_constant['file'])
+        const_info = const_context.find_var(constant_name, cat_constant['node_id'])
+        if not const_info['calculated']:
+            calc_constant(const_info, const_context)
+        # Clean up
+        del const_context
+        return const_info
 
 def evaluate_if(if_expr, xule_context):
     """Evaluator for if expressions
@@ -1693,7 +1748,8 @@ def evaluate_for(for_expr, xule_context):
                              for_expr['forLoopExpr']['node_id'],
                              for_expr['forVar'],  # tagged - all variables are automatically tagged
                              for_loop_var,
-                             'single')
+                             'single',
+                             True)
 
         try:
             body_values = evaluate_for_body_detail(for_expr['forBodyExpr'],
@@ -1967,7 +2023,7 @@ def evaluate_add(add_expr, xule_context):
         right_expr = right['rightExpr']
 
         if left.type not in (
-        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
+        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'dictionary', 'unbound', 'none'):
             raise XuleProcessingError(_("Left side of a {} operation cannot be {}.".format(operator, left.type)),
                                       xule_context)
 
@@ -1981,7 +2037,7 @@ def evaluate_add(add_expr, xule_context):
                 right = xis.stop_value
 
         if right.type not in (
-        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
+        'int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'dictionary', 'unbound', 'none'):
             raise XuleProcessingError(_("Right side of a {} operation cannot be {}.".format(operator, right.type)),
                                       xule_context)
 
@@ -2021,11 +2077,19 @@ def evaluate_add(add_expr, xule_context):
                     # use union for sets
                     # left = XuleValue(xule_context, left_compute_value | right_compute_value, 'set')
                     left = XuleUtility.add_sets(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type == 'dictionary':
+                    left = XuleUtility.add_dictionaries(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type in ('set', 'list'):
+                    raise XuleProcessingError(_("Cannot add a dictionary and a %s" % right.type), xule_context)
                 else:
                     left = XuleValue(xule_context, left_compute_value + right_compute_value, combined_type)
             elif '-' in operator:
                 if left.type == 'set' and right.type == 'set':
                     left = XuleUtility.subtract_sets(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type == 'dictionary':
+                    left = XuleUtility.subtract_dictionaries(xule_context, left, right)
+                elif left.type == 'dictionary' and right.type in ('set', 'list'):
+                    left = XuleUtility.subtract_keys_from_dictionary(xule_context, left, right)
                 else:
                     left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
             else:
@@ -2061,14 +2125,10 @@ def evaluate_comp(comp_expr, xule_context):
             left_compute_value = XulePeriodComp(left_compute_value)
             right_compute_value = XulePeriodComp(right_compute_value)
 
-        if left.type in ('list', 'set'):
+        if left.type in ('list', 'set', 'dictionary'):
             left_compute_value = left.shadow_collection
-        if left.type == 'dictionary':
-            left_compute_value = dict(left.shadow_collection)
-        if right.type in ('list', 'set'):
+        if right.type in ('list', 'set', 'dictionary'):
             right_compute_value = right.shadow_collection
-        if right.type == 'dictionary':
-            right_compute_value = dict(right.shadow_collection)
 
         if operator == '==':
             interim_value = XuleValue(xule_context, left_compute_value == right_compute_value, 'bool')
@@ -2252,7 +2312,7 @@ def evaluate_nesting_factset(factset, xule_context):
     :type xule_context: XuleRuleContext
     :rtype: XuleValueSet   
     """
-    aspect_filters, _x, aspect_vars, _model = process_factset_aspects(factset, xule_context)
+    aspect_filters, _x, aspect_vars, _model, _y, _z = process_factset_aspects(factset, xule_context)
     # TODO - Probably, the model from the outer factset should be passed to the inner factsets
 
     # verify that there are not already filters in place
@@ -2353,14 +2413,12 @@ def evaluate_factset_detail(factset, xule_context):
         and then aligning them, it would allow the expression to iterate over one operand result set and evaluate for each result of the other operand. 
         By pushing the filter, first, only the aligned results will come back. 
     """
-    f_start = datetime.datetime.today()
-
-    #     #The no alignment flag indicates that the results of the factset should all have none alignment. It is set by the 'values' expression.
+    #The no alignment flag indicates that the results of the factset should all have none alignment. It is set by the 'values' expression.
 
     saved_used_expressions = xule_context.used_expressions
     xule_context.used_expressions = set()
     try:
-        non_align_aspects, align_aspects, aspect_vars, new_models = process_factset_aspects(factset, xule_context)
+        non_align_aspects, align_aspects, aspect_vars, new_models, dimensions_special_value, dimensions_special_covered = process_factset_aspects(factset, xule_context)
     finally:
         used_expressions = xule_context.used_expressions
         xule_context.used_expressions = saved_used_expressions | xule_context.used_expressions
@@ -2377,7 +2435,8 @@ def evaluate_factset_detail(factset, xule_context):
 
     # If the the factset is dependent, then we only need to find facts that also match the current alignment. Create filters based on the current alignment.
     dependent_filters = list()
-    if not factset.get('covered') and factset['is_dependent']:
+    # the first part of this if statement is dtermining if the factset has alignment or not. 
+    if (not factset.get('covered') or ('aspectFilters' in factset and any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'}))) and factset['is_dependent']:
         if xule_context.dependent_alignment is None:
             # The table may acquire the dependent alignment after evaluating the aspect filters
             xule_context.iteration_table.current_table.make_dependent()
@@ -2393,10 +2452,8 @@ def evaluate_factset_detail(factset, xule_context):
     This is done by intersecting the sets of the fact_index. The fact index is a dictionary of dictionaries.
     The outer dictionary is keyed by aspect and the inner by member. So fact_index[aspect][member] contains a 
     set of facts that have that aspect and member.'''
-    pre_matched_facts = factset_pre_match(factset, all_aspect_filters, non_align_aspects, align_aspects, new_models, xule_context)
-
-    pre_count1 = len(pre_matched_facts)
-    f_pre_end = datetime.datetime.today()
+    pre_matched_facts = factset_pre_match(factset, all_aspect_filters, non_align_aspects, align_aspects, new_models, xule_context,
+                                          dimensions_special_value, dimensions_special_covered)
 
     # For dependent factset, set flag to check if the iteration table becomes aligned.
     # Bassically, there is no alignment yet. During the evaluation of the where clause a first time evaluated variable can create alignment.
@@ -2419,20 +2476,16 @@ def evaluate_factset_detail(factset, xule_context):
     # print(factset['node_id'], fact_value, no_pre_where_alignment, xule_context.iteration_table.current_table.table_id)
 
     default_where_used_expressions = set()
-
-    recalc = False
-    recalc_none = False
-
     try:
         results, default_where_used_expressions = process_filtered_facts(factset,
                                                                         pre_matched_facts,
-                                                                        factset.get('covered', False),
                                                                         non_align_aspects,
                                                                         align_aspects,
                                                                         nested_factset_filters,
-                                                                        aspect_vars, used_expressions, xule_context)
+                                                                        aspect_vars, used_expressions, 
+                                                                        dimensions_special_value, dimensions_special_covered,
+                                                                        xule_context)
     except XuleReEvaluate as xac:
-        recalc = True
         # turn off looking for changes during the where evaluation. At this point either there is no alignment, so the result will be empty or
         # there is alignment and the pre_matched_facts will be refiltered with the alignment. In this case, we don't need to continue looking for
         # evaluating an iterable that can produce alignment.
@@ -2441,7 +2494,6 @@ def evaluate_factset_detail(factset, xule_context):
 
         xule_context.look_for_alignment = False
         if xac.alignment is None:
-            recalc_none = True
             # there are no matching facts in the dependent iterable (that has alignments)
             results = XuleValueSet()
         else:
@@ -2455,15 +2507,16 @@ def evaluate_factset_detail(factset, xule_context):
             unfrozen_alignment = {k: v for k, v in xac.alignment}
             additional_aspect_filters = list(alignment_to_aspect_info(unfrozen_alignment, xule_context).items())
             pre_matched_facts = factset_pre_match(factset, additional_aspect_filters, non_align_aspects, align_aspects,
-                                                  new_models, xule_context, starting_facts=pre_matched_facts)
+                                                  new_models, xule_context, dimensions_special_value, dimensions_special_covered,
+                                                  starting_facts=pre_matched_facts)
             # try again
             try:
                 results, default_where_used_expressions = process_filtered_facts(factset, pre_matched_facts,
-                                                                                not factset.get('covered'),
                                                                                 non_align_aspects,
                                                                                 align_aspects,
                                                                                 nested_factset_filters, aspect_vars,
-                                                                                used_expressions, xule_context)
+                                                                                used_expressions, 
+                                                                                dimensions_special_value, dimensions_special_covered,xule_context)
             except XuleReEvaluate as xac:
                 # In the second pass, the alignment change should not happen.
                 raise XuleProcessingError(
@@ -2483,20 +2536,16 @@ def evaluate_factset_detail(factset, xule_context):
         '''The current list of facts and tags are not inlcuded on the default None fact in a factset. This was causing problems with a exists() and missing().
         The default None fact in the missing would have the tags and facts from the first evaluation, but then these would be applied on consequent
         iterations where the tags from the first iteration would overwrite the tags on the consequent iterations.'''
-        # default_value.facts = xule_context.facts
-        # default_value.tags = xule_context.tags
-        # default_value.used_vars = get_used_vars(xule_context, xule_context.used_vars)
         default_value.used_expressions = used_expressions | default_where_used_expressions
-        # print("default fact", factset['exprName'], factset['node_id'], len(xule_context.used_expressions), len(default_value.used_expressions))
-        if not factset.get('covered'):
+        # Added the second part of this 'if' statement to catch covered factsets that also have @@ which really makes them not covered.
+        # This determines if the factset has alignment or not. Maybe - this could just look at the 'has_alignment' on the factset ???
+        if not factset.get('covered') or ('aspectFilters' in factset and any({True for x in factset['aspectFilters'] if x['coverType'] == 'uncovered'})):
             default_value.aligned_result_only = True
         results.append(default_value)
 
-    f_end = datetime.datetime.today()
-        
     return results
 
-def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, models, xule_context, starting_facts=None):
+def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, models, xule_context, dimensions_special_value, dimensions_special_covered, starting_facts=None):
     """Match facts based on the factset  
        
     Match facts based on the aspects in the first part of the factset and any additional filters.
@@ -2531,19 +2580,6 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                 filter_member = XuleValue(xule_context, True, 'bool')
 
             if filter_member is not None:
-                # if aspect_info[ASPECT_PROPERTY] is None:
-                #     index_key = (aspect_info[TYPE], aspect_info[ASPECT])
-                # else:
-                #     # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
-                #     # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
-                #     index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
-                #                 aspect_info[ASPECT_PROPERTY][1]
-                #     if index_key not in xule_context.fact_index and index_key not in _FACT_INDEX_PROPERTIES:
-                #         raise XuleProcessingError(_(
-                #             "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
-                #                                                                                           index_key[1])),
-                #                                   xule_context)
-
                 index_key = fact_index_key(aspect_info, fact_index, xule_context)
                 facts_by_aspect = set()
 
@@ -2629,9 +2665,9 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                     # Allow @table.drs-role to take a short role name
                     elif index_key == ('property', 'cube', 'drs-role'):
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                            member_values = {convert_value_to_role(filter_member, xule_context), }
+                            member_values = set(convert_value_to_role(filter_member, xule_context))
                         else:
-                            member_values = {convert_value_to_role(x, xule_context) for x in filter_member.value}
+                            member_values = set().union(*[set(convert_value_to_role(x, xule_context)) for x in filter_member.value])
                     else:
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = {filter_member.value, }
@@ -2667,7 +2703,8 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
         if xule_context.dependent_alignment is not None and factset.get('is_dependent', False):
             match_aligned_facts = set()
             for fact in pre_matched_facts:
-                fact_alignment = calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects, True, xule_context)
+                fact_alignment = calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects, True, 
+                                                     dimensions_special_covered, xule_context)
 
                 if fact_alignment == xule_context.dependent_alignment:
                     match_aligned_facts.add(fact)
@@ -2703,14 +2740,15 @@ def fact_index_key(aspect_info, fact_index, xule_context):
                                         xule_context)    
     return index_key                                            
 
-def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filters, frozen, xule_context):
+def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filters, frozen, dimensions_special_covered, xule_context):
     if fact not in xule_context.fact_alignments[factset['node_id']]:
         unfrozen_alignment = get_alignment(fact,
                                            non_aligned_filters,
                                            align_aspects_filters,
                                            xule_context,
                                            factset.get('coveredDims', False),
-                                           factset.get('covered', False))
+                                           factset.get('covered', False),
+                                           dimensions_special_covered)
 
         if len(unfrozen_alignment) == 0 and factset.get('covered', False):
             unfrozen_alignment = None
@@ -2723,8 +2761,9 @@ def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filter
     return xule_context.fact_alignments[factset['node_id']][fact][0 if frozen else 1]
 
 
-def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non_align_aspects, align_aspects,
-                           nested_filters, aspect_vars, pre_matched_used_expressoins_ids, xule_context):
+def process_filtered_facts(factset, pre_matched_facts, non_align_aspects, align_aspects,
+                           nested_filters, aspect_vars, pre_matched_used_expressions_ids, 
+                           dimensions_special_value, dimensios_special_covered, xule_context):
     """Apply the where portion of the factset"""
     results = XuleValueSet()
     default_used_expressions = set()
@@ -2744,7 +2783,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
         '''The alignment is all the aspects that were not specified in the first part of the factset (non_align_aspects).'''
         # set up potential fact result
-        alignment = calc_fact_alignment(factset, model_fact, non_align_aspects, align_aspects, False, xule_context)
+        alignment = calc_fact_alignment(factset, model_fact, non_align_aspects, align_aspects, False, dimensios_special_covered, xule_context)
         '''If we are in a innner factset, the alignment needs to be adjusted. Each aspect in the outer factset should be in the alignment even if
            if it is in the factset aspects (which would normally take that aspect out of the alignment).'''
         for nested_aspect_info in nested_filters:
@@ -2780,10 +2819,14 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                 alignment[alignment_info] = alignment_value
 
         '''Check closed factset'''
-        if factset['factsetType'] == 'closed':
+        if factset['factsetType'] == 'closed' or dimensions_special_value == 'none':
             aspect_dimensions = {aspect_info[ASPECT] for aspect_info in (non_align_aspects | align_aspects)}
             if len(set(model_fact.context.qnameDims.keys()) - aspect_dimensions) != 0:
                 continue
+
+        # if the dimensions_special_value is '*', then there must be atlest 1 dimension for the fact
+        if dimensions_special_value == '*' and len(model_fact.context.qnameDims) == 0:
+            continue
 
         if alignment is not None:
             # if not current_no_alignment and xule_context.iteration_table.is_dependent:
@@ -3009,7 +3052,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                                 new_fact_value.facts = xule_context.iteration_table.facts.copy()
                                 new_fact_value.tags = xule_context.iteration_table.tags.copy()
                                 # new_fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids + xule_context.used_vars)
-                                new_fact_value.used_expressions = pre_matched_used_expressoins_ids | xule_context.used_expressions
+                                new_fact_value.used_expressions = pre_matched_used_expressions_ids | xule_context.used_expressions
                                 results.append(new_fact_value)
                             '''It may be that the false value should also be included with an unbound value'''
                         else:
@@ -3033,13 +3076,13 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                     xule_context.del_arg(var_name, declaration_id)
                 # remove where table (if this is the result of an exception the where table may be left behind)
                 xule_context.iteration_table.del_table(where_table.table_id)
-                # restore aligned results, used_vars and used_expressoins
+                # restore aligned results, used_vars and used_expressions
                 # xule_context.aligned_result_only = save_aligned_result_only
                 # xule_context.used_vars = save_used_vars
                 xule_context.used_expressions = save_used_expressions
         else:
             # fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids)
-            fact_value.used_expressions = pre_matched_used_expressoins_ids
+            fact_value.used_expressions = pre_matched_used_expressions_ids
             results.append(fact_value)
 
     return results, default_used_expressions
@@ -3174,7 +3217,7 @@ def evaluate_navigate(nav_expr, xule_context):
         # Default to the taxonomy of the instance
         dts = xule_context.model
 
-        # Set up the variables for the results of the traversal
+    # Set up the variables for the results of the traversal
     return_by_networks = nav_expr.get('return', dict()).get('byNetwork', False)
     if return_by_networks:
         results_by_networks = dict()
@@ -3192,44 +3235,51 @@ def evaluate_navigate(nav_expr, xule_context):
     # This checks if there was 'from' concept in the expression, but no concepts were return. Same for the 'to' concept in the expression. Then there is not navigation to do
     if (nav_from_concepts is None or len(nav_from_concepts) > 0) and (
             nav_to_concepts is None or len(nav_to_concepts) > 0):
-        arcrole = nav_get_role(nav_expr, 'arcrole', dts, xule_context)
-        role = nav_get_role(nav_expr, 'role', dts, xule_context)
+        arcroles = nav_get_role(nav_expr, 'arcrole', dts, xule_context)
+        roles = nav_get_role(nav_expr, 'role', dts, xule_context)
         link_qname = evaluate(nav_expr['linkbase'], xule_context).value if 'linkbase' in nav_expr else None
         arc_qname = None  # This is always none.
         dimension_arcroles = None
-
+        relationship_sets = list()
         # Find the relationships
-        if (('arcrole' in nav_expr and arcrole is None) or
-                ('role' in nav_expr and role is None) or
+        if not (('arcrole' in nav_expr and arcroles is None) or
+                ('role' in nav_expr and roles is None) or
                 ('linkbase' in nav_expr and link_qname is None)):
-            # There are no networks to navigate
-            relationship_sets = list()
-        else:
+            # if the arcrole, or linkbase was provided, but it was None, then there are no relationshp sets to process and the relationships_sets will be left empty.
+
             # get the relationships
             if nav_expr.get('dimensional'):
-                drs_role = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
-                table_concepts = nav_get_element(nav_expr, 'cube', dts, xule_context)
-                if arcrole is not None:
-                    dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole, }))
-                #                 relationship_sets = [XuleUtility.dimension_set(dts, x) for x in XuleUtility.base_dimension_sets(dts) if ((drs_role is None or x[XuleUtility.DIMENSION_SET_ROLE] == drs_role) and
-                #                                                                                                                          (table_concepts is None or x[XuleUtility.DIMENSION_SET_HYPERCUBE] in table_concepts))]
-                relationship_sets = [XuleDimensionCube(dts, *x) for x in XuleDimensionCube.base_dimension_sets(dts) if
-                                     ((drs_role is None or x[XuleDimensionCube.DIMENSION_SET_ROLE] == drs_role) and
-                                      (table_concepts is None or x[
-                                          XuleDimensionCube.DIMENSION_SET_HYPERCUBE] in table_concepts))]
+                drs_roles = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
+                for drs_role in (drs_roles or (None,)):
+                    table_concepts = nav_get_element(nav_expr, 'cube', dts, xule_context)
+                    if arcroles is not None and len(arcroles) > 1:
+                        raise XuleProcessingError(_(f"Dimensional navigation can only work with a single arcrole supplied. found {len(arcroles)}: {', '.join(arcroles)}"), xule_context)
+                    arcrole = (arcroles or (None,))[0]
+                    if arcrole is not None:
+                        dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole, }))
+                    relationship_sets += [XuleDimensionCube(dts, *x) for x in XuleDimensionCube.base_dimension_sets(dts) if
+                                        ((drs_role is None or x[XuleDimensionCube.DIMENSION_SET_ROLE] == drs_role) and
+                                        (table_concepts is None or x[
+                                            XuleDimensionCube.DIMENSION_SET_HYPERCUBE] in table_concepts))]
             else:
-                relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
-                relationship_sets = [
-                    dts.relationshipSet(
-                        relationship_set_info[XuleProperties.NETWORK_ARCROLE],
-                        relationship_set_info[XuleProperties.NETWORK_ROLE],
-                        relationship_set_info[XuleProperties.NETWORK_LINK],
-                        relationship_set_info[XuleProperties.NETWORK_ARC]
-                    ) for relationship_set_info in relationship_set_infos
-                ]
+                for arcrole in (arcroles or (None,)):
+                    for role in (roles or (None,)):
+                        relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
+                        relationship_sets += [
+                            dts.relationshipSet(
+                                relationship_set_info[XuleProperties.NETWORK_ARCROLE],
+                                relationship_set_info[XuleProperties.NETWORK_ROLE],
+                                relationship_set_info[XuleProperties.NETWORK_LINK],
+                                relationship_set_info[XuleProperties.NETWORK_ARC]
+                            ) for relationship_set_info in relationship_set_infos
+                        ]
 
         direction = nav_expr['direction']
         include_start = nav_expr.get('includeStart', False)
+
+        if nav_expr.get('acrossNetworks', False):
+            # merge all the relationship sets into 1 pseudo relationship set
+            relationship_sets = [XuleRelationshipSet(dts, relationship_sets),]
 
         for relationship_set in relationship_sets:
             if nav_from_concepts is None:
@@ -3239,13 +3289,6 @@ def evaluate_navigate(nav_expr, xule_context):
                 from_concepts = nav_from_concepts
 
             for from_concept in from_concepts:
-                #             if direction == 'self':
-                #                 # include_start is always False for the self direction since the self concept is always included.
-                #                 for rel in relationship_set.fromModelObject(from_concept):
-                #                     result_items += nav_decorate({'relationship': rel, 'network': get_network_info(relationship_set, xule_context)}, 'from', return_names, False, xule_context)
-                #                 for rel in relationship_set.toModelObject(from_concept):
-                #                     result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context)
-                #                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list
                 if direction == 'descendants':
                     for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept,
                                             nav_to_concepts, int(nav_expr['depth']), return_names, dimension_arcroles):
@@ -3357,6 +3400,10 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
         inner_children = list()
 
         child = rel.toModelObject if direction == 'down' else rel.fromModelObject
+        if not isinstance(child, ModelConcept):
+            # only navigate concept to concept relationships
+            continue
+
         rel_info = {'relationship': rel}
 
         if first_time:
@@ -3487,15 +3534,31 @@ def nav_get_role(nav_expr, role_type, dts, xule_context):
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
     if role_type in nav_expr:
-        role_value = evaluate(nav_expr[role_type], xule_context)
-        if role_value.type in ('string', 'uri'):
-            return role_value.value
-        elif role_value.type == 'qname':
-            return XuleUtility.resolve_role(role_value, role_type, dts, xule_context)
-        elif role_value.type == 'role':
-            return role_value.value.roleURI
+        expr_role_value = evaluate(nav_expr[role_type], xule_context)
+        if expr_role_value.type in ('set', 'list'):
+            role_values = expr_role_value.value
         else:
-            raise XuleProcessingError(_("Navigation is expecting a role (role, string, uri, or short role name), found '{}'.".format(role_value.type)), xule_context)
+            role_values = (expr_role_value,) # a tuple of 1
+
+        # return value will be a list of the role/arcrole uris
+        return_values = []
+        errors = []
+        for role_value in role_values:
+            if role_value.type in ('string', 'uri'):
+                return_values.append(role_value.value)
+            elif role_value.type == 'qname':
+                return_values.extend(XuleUtility.resolve_role(role_value, role_type, dts, xule_context))
+            elif role_value.type == 'role':
+                return_values.append(role_value.value.roleURI)
+            else:
+                errors.append("Navigation is expecting a role (role, string, uri, or short role name), found '{}'.".format(role_value.type))
+
+        if len(errors) > 0:
+            raise XuleProcessingError(_('\n'.join(errors)), xule_context)
+        if len(return_values) == 0:
+            return None
+        else:
+            return return_values
     else:
         return None  # There is no arcrole on the navigation expression
 
@@ -3670,7 +3733,7 @@ def nav_decorate_component_value(rel, direction, component_name, is_start, xule_
                     return (None, 'none', component_name)
                 else:
                     return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction,
-                                                                                               component_name,
+                                                                                               component_name, is_start, 
                                                                                                xule_context)
     else:
         # Could be an arc attribute name (qname)
@@ -3714,7 +3777,7 @@ def nav_decorate_component_target(rel, direction, component_name, is_start, xule
                 return (rel['relationship'].toModelObject.qname, 'qname', component_name)
 
 
-def nav_decorate_component_source(rel, direction, component_name, xule_context):
+def nav_decorate_component_source(rel, direction, component_name, is_start, xule_context):
     if component_name == 'source':
         if direction == 'up':
             return (rel['relationship'].toModelObject, 'concept', component_name)
@@ -3727,18 +3790,18 @@ def nav_decorate_component_source(rel, direction, component_name, xule_context):
             return (rel['relationship'].fromModelObject.qname, 'qname', component_name)
 
 
-def nav_decorate_component_order(rel, direction, component_name, xule_context):
+def nav_decorate_component_order(rel, direction, component_name, is_start, xule_context):
     return (rel['relationship'].orderDecimal, 'decimal', component_name)
 
 
-def nav_decorate_component_weight(rel, direction, component_name, xule_context):
+def nav_decorate_component_weight(rel, direction, component_name, is_start, xule_context):
     if rel['relationship'].weightDecimal is None:
         return (None, 'none', component_name)
     else:
         return (rel['relationship'].weightDecimal, 'decimal', component_name)
 
 
-def nav_decorate_component_preferred_label_role(rel, direction, component_name, xule_context):
+def nav_decorate_component_preferred_label_role(rel, direction, component_name, is_start, xule_context):
     if rel['relationship'].preferredLabel is not None:
         #return (rel['relationship'].preferredLabel, 'uri', component_name)
 
@@ -3747,7 +3810,7 @@ def nav_decorate_component_preferred_label_role(rel, direction, component_name, 
         return (None, 'none', component_name)
 
 
-def nav_decorate_component_preferred_label(rel, direction, component_name, xule_context):
+def nav_decorate_component_preferred_label(rel, direction, component_name, is_start, xule_context):
     if rel['relationship'].preferredLabel is not None:
         label = XuleProperties.get_label(xule_context, rel['relationship'].toModelObject, rel['relationship'].preferredLabel, None)
         if label is None:
@@ -3758,11 +3821,11 @@ def nav_decorate_component_preferred_label(rel, direction, component_name, xule_
         return (None, 'none', component_name)
 
 
-def nav_decorate_component_relationship(rel, direction, component_name, xule_context):
+def nav_decorate_component_relationship(rel, direction, component_name, is_start, xule_context):
     return (rel['relationship'], 'relationship', component_name)
 
 
-def nav_decorate_component_role(rel, direction, component_name, xule_context):
+def nav_decorate_component_role(rel, direction, component_name, is_start, xule_context):
     role = get_role(rel['relationship'], xule_context)
     return (role, 'role', component_name)
 
@@ -3775,19 +3838,19 @@ def get_role(relationship, xule_context):
         return XuleRole(role_uri)
 
 
-def nav_decorate_component_role_uri(rel, direction, component_name, xule_context):
+def nav_decorate_component_role_uri(rel, direction, component_name, is_start, xule_context):
     role_uri = rel['relationship'].linkrole
 
     return (role_uri, 'uri', component_name)
 
 
-def nav_decorate_component_role_description(rel, direction, component_name, xule_context):
+def nav_decorate_component_role_description(rel, direction, component_name, is_start, xule_context):
     role = get_role(rel['relationship'], xule_context)
 
     return (role.definition, 'string', component_name)
 
 
-def nav_decorate_component_arcrole(rel, direction, component_name, xule_context):
+def nav_decorate_component_arcrole(rel, direction, component_name, is_start, xule_context):
     arcrole = get_arcrole(rel['relationship'], xule_context)
     return (arcrole, 'role', component_name)
 
@@ -3800,29 +3863,29 @@ def get_arcrole(relationship, xule_context):
         return XuleArcrole(arcrole_uri)
 
 
-def nav_decorate_component_arcrole_uri(rel, direction, component_name, xule_context):
+def nav_decorate_component_arcrole_uri(rel, direction, component_name, is_start, xule_context):
     return (rel['relationship'].arcrole, 'uri', component_name)
 
 
-def nav_decorate_component_arcrole_description(rel, direction, component_name, xule_context):
+def nav_decorate_component_arcrole_description(rel, direction, component_name, is_start, xule_context):
     arcrole = get_arcrole(rel['relationship'], xule_context)
     return (arcrole.definition, 'string', component_name)
 
 
-def nav_decorate_component_cycles_allowed(rel, direction, component_name, xule_context):
+def nav_decorate_component_cycles_allowed(rel, direction, component_name, is_start, xule_context):
     arcrole = get_arcrole(rel['relationship'], xule_context)
     return (arcrole.cyclesAllowed, 'string', component_name)
 
 
-def nav_decorate_component_link_name(rel, direction, component_name, xule_context):
+def nav_decorate_component_link_name(rel, direction, component_name, is_start, xule_context):
     return (rel['relationship'].linkQname, 'qname', component_name)
 
 
-def nav_decorate_component_arc_name(rel, direction, component_name, xule_context):
+def nav_decorate_component_arc_name(rel, direction, component_name, is_start, xule_context):
     return (rel['relationship'].qname, 'qname', component_name)
 
 
-def nav_decorate_component_network(rel, direction, component_name, xule_context):
+def nav_decorate_component_network(rel, direction, component_name, is_start, xule_context):
     return (rel['network'], 'network', component_name)
 
 
@@ -3921,16 +3984,16 @@ NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
                               'preferred-label-role': (nav_decorate_component_preferred_label_role, False),
                               'preferred-label': (nav_decorate_component_preferred_label, False),
                               'relationship': (nav_decorate_component_relationship, False),
-                              'role': (nav_decorate_component_role, False),
-                              'role-uri': (nav_decorate_component_role_uri, False),
-                              'role-description': (nav_decorate_component_role_description, False),
-                              'arcrole': (nav_decorate_component_arcrole, False),
-                              'arcrole-uri': (nav_decorate_component_arcrole_uri, False),
-                              'arcrole-description': (nav_decorate_component_arcrole_description, False),
-                              'arcrole-cycles-allowed': (nav_decorate_component_cycles_allowed, False),
-                              'link-name': (nav_decorate_component_link_name, False),
-                              'arc-name': (nav_decorate_component_arc_name, False),
-                              'network': (nav_decorate_component_network, False),
+                              'role': (nav_decorate_component_role, True),
+                              'role-uri': (nav_decorate_component_role_uri, True),
+                              'role-description': (nav_decorate_component_role_description, True),
+                              'arcrole': (nav_decorate_component_arcrole, True),
+                              'arcrole-uri': (nav_decorate_component_arcrole_uri, True),
+                              'arcrole-description': (nav_decorate_component_arcrole_description, True),
+                              'arcrole-cycles-allowed': (nav_decorate_component_cycles_allowed, True),
+                              'link-name': (nav_decorate_component_link_name, True),
+                              'arc-name': (nav_decorate_component_arc_name, True),
+                              'network': (nav_decorate_component_network, True),
                               'cycle': (nav_decorate_component_cycle, True),
                               'navigation-order': (nav_decorate_component_navigation_order, True),
                               'navigation-depth': (nav_decorate_component_navigation_depth, True),
@@ -4178,18 +4241,24 @@ def regular_function(xule_context, function_ref, function_info):
 
     function_args = []
     for function_arg in function_ref['functionArgs']:
-        # for i in range(len(function_ref.functionArgs)):
-        if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
-            try:
-                arg = evaluate(function_arg, xule_context)
-            except XuleIterationStop as xis:
-                arg = xis.stop_value
+        if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
+            # the function arguments will be evaluated by the function instead of pre-evaluated here
+            function_args.append(function_arg)
         else:
-            arg = evaluate(function_arg, xule_context)
+            if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
+                try:
+                    arg = evaluate(function_arg, xule_context)
+                except XuleIterationStop as xis:
+                    arg = xis.stop_value
+            else:
+                arg = evaluate(function_arg, xule_context)
 
-        function_args.append(arg)
+            function_args.append(arg)
 
-    return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+    if len(function_info) > FUNCTION_POST_EVALUATE_ARGS and function_info[FUNCTION_POST_EVALUATE_ARGS]:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args, evaluate_function=evaluate, iteration_stop=XuleIterationStop)
+    else:
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
 
 
 def user_defined_function(xule_context, function_ref):
@@ -4612,6 +4681,7 @@ FUNCTION_DEFAULT_TYPE = 4
 # non aggregate only
 FUNCTION_ALLOW_UNBOUND_ARGS = 3
 FUNCTION_RESULT_NUMBER = 4
+FUNCTION_POST_EVALUATE_ARGS = 5
 
 
 def built_in_functions():
@@ -4656,9 +4726,15 @@ def process_factset_aspects(factset, xule_context):
     models = (xule_context.model,)
     # evaluate all the aspect names. If there is an @instance aspect then need to change the model
     aspects = dict()
+    # These flags identify when the @dimensions=none or @dimensions=*
+    dimensions_special_value = None
+    dimensions_special_covered = None
     for aspect_filter in factset.get('aspectFilters', list()):
         aspect_name = evaluate(aspect_filter['aspectName'], xule_context)
         # Check if @instance. If so, change the model
+        # Also, preprocess the @dimesnions
+        # The @dimensions is a dictionary of key = diemsnion name and value = the member. Prepopulate the aspect_dictionary. If there
+        # is another aspect filter for something in the @dimensions dictionary, then it will overrite that value in the aspect_dictionary
         if aspect_name.type == 'aspect_name' and aspect_name.value == 'instance':
             instance = evaluate(aspect_filter['aspectExpr'], xule_context)
             if aspect_filter['aspectOperator'] == '=':
@@ -4675,6 +4751,45 @@ def process_factset_aspects(factset, xule_context):
                         models.append(sub_instance.value)
                     else:
                         raise XuleProcessingError(_("Value of the @instance aspect of a factset must be an instance, found {}".format(sub_instance.type)), xule_context)
+        elif aspect_name.type == 'qname' and aspect_name.value.localName == 'dimensions' and aspect_name.value.prefix is None:
+            # We are going to prepopulate the aspect_dictionary (either aligned or non_aligned.
+            # Need to determine is this is aligned or non aligned
+            aspect_dictionary = non_align_aspects if aspect_filter['coverType'] == 'covered' else align_aspects
+
+            if aspect_filter.get('wildcard') == '*':
+                # This is @dimensions=*
+                # There is really nothing to do here. If it is covered (has @@) then set dimensions_are_all_covered flag
+                dimensions_special_value = '*'
+                dimensions_special_covered = aspect_filter.get('coverType')
+            else:
+
+                dimensions_value = evaluate(aspect_filter['aspectExpr'], xule_context)
+                if dimensions_value.type == 'dictionary':
+                    for dimension_value, member_value in dimensions_value.value:
+                        x = 1
+                        # dimension_value and member_value may be concepts or qnames. The dimension_value must be qname. I will make
+                        # the member_value a qname as well. This will better support filtering where the dimesnion dictionary comes from
+                        # one taxonomy but the factset is for another.
+                        if dimension_value.type in ('qname', 'groupQname'):
+                            dimension_name = dimension_value.value
+                        elif dimension_value.type == 'concept':
+                            dimension_name = dimension_value.value.qname
+                        else:
+                            raise XuleProcessingError(_(f"The key of the @dimensions dictionary filter must be a qname or a concept, found {dimension_value.type}"), xule_context)
+                        aspect_info = ('explicit_dimension', dimension_name,  None, '=', None)
+
+                        if member_value.type in ('qname', 'groupQname'):
+                            member_qname_value = member_value
+                        elif member_value.type == 'concept':
+                            member_qname_value = XuleValue(xule_context, member_value.value.qname, 'qname')
+                        else:
+                            raise XuleProcessingError(_(f"The value of the @dimensions dictionary filter must be a qname or a concept, found {member_value.type}"), xule_context)
+                        aspect_dictionary[aspect_info] = member_qname_value
+                elif dimensions_value.type == 'none':
+                    dimensions_special_value = 'none'
+                    dimensions_special_covered = aspect_filter.get('coverType')
+                else:
+                    raise XuleProcessingError(_(f"The value of the @dimensions filter must be a dictionary, found {aspect_dictionary.type}"), xule_context)
         else:
             aspects[aspect_name] = aspect_filter
     '''COULD CHECK FOR DUPLICATE ASPECTS IN THE FACTSET'''
@@ -4724,8 +4839,12 @@ def process_factset_aspects(factset, xule_context):
                                     raise XuleProcessingError(_("Found facset aspect that uses a namespace group prefix in the aspect name, but there are multiple concepts that are not all dimensions or all non dimensions. This is not allowed"), xule_context)
 
             if aspect_filter_model_concept is None:
+                if aspect_name.type == 'groupQname':
+                    missing_concept_name = f"{aspect_name.value[0].value}:{aspect_name.value[1]}"
+                else:
+                    missing_concept_name = aspect_name.value.clarkNotation
                 raise XuleProcessingError(
-                    _("Error while processing factset aspect. Concept %s not found." % aspect_name.value.clarkNotation),
+                    _("Error while processing factset aspect. Concept %s not found." % missing_concept_name),
                     xule_context)
             if aspect_filter_model_concept.isDimensionItem:
                 # This is a dimension aspect
@@ -4733,6 +4852,8 @@ def process_factset_aspects(factset, xule_context):
                                aspect_filter['node_id'], xule_context)
                 aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'explicit_dimension', aspect_name.value,
                                                                models, xule_context)
+                # Need to clear the filter if it is already in the aspect_dictionary. This can happen if the @dimensions is used and an @xbrl-dimension=member for the same dimension.
+                remove_existing_aspects(aspect_info[1], non_align_aspects, align_aspects)
                 if aspect_info is not None:
                     aspect_dictionary[aspect_info] = aspect_value
             else:
@@ -4750,43 +4871,18 @@ def process_factset_aspects(factset, xule_context):
                 "An aspect name must be one of 'concept', 'unit', 'period', 'entity' or a dimension qname, found '{}'.".format(
                     aspect_name.type)), xule_context)
 
-    #         aspect_filter_qname = evaluate(aspect_filter.aspectName.qName, xule_context).value
-    #         #verify that lineItem is not used in both forms of the notation, i.e. Assets[lineItem=Liabilities].
-    #         aspect_var_name = aspect_filter.get('aspectVar')
-    #         if aspect_filter_qname.prefix is None and aspect_filter_qname.localName in BUILTIN_ASPECTS:
-    #             #the aspect is builtin
-    #             if aspect_filter_qname.localName == 'concept' and alternate_notation:
-    #                 XuleProcessingError(_("The factset specifies the lineItem both outside and inside the factset."), xule_context)
-    #
-    #             if aspect_filter.get('all'):
-    #                 aspect_info = ('builtin', aspect_filter_qname.localName, aspect_filter.all, aspect_filter.aspectOperator)
-    #                 non_align_aspects[aspect_info] = XuleValue(xule_context, None, 'none')
-    #                 add_aspect_var(aspect_vars, 'builtin', aspect_filter_qname.localName, aspect_var_name, aspect_filter['node_id'], xule_context)
-    #             elif aspect_filter.get('void'):
-    #                 non_align_aspects[('builtin', aspect_filter_qname, 'none', aspect_filter.aspectOperator)] = XuleValue(xule_context, None, 'none')
-    #                 add_aspect_var(aspect_vars, 'builtin', aspect_filter_qname.localName, aspect_var_name, aspect_filter['node_id'], xule_context)
-    #             else:
-    #                 aspect_info = ('builtin', aspect_filter_qname.localName, None, aspect_filter.aspectOperator)
-    #                 non_align_aspects[aspect_info] = evaluate(aspect_filter.aspectExpr[0], xule_context)
-    #                 add_aspect_var(aspect_vars, 'builtin', aspect_filter_qname.localName, aspect_var_name, aspect_filter['node_id'], xule_context)
-    #         else:
-    #             #This is a dimensional aspect.
-    #             if aspect_filter.get('all'):
-    #                 non_align_aspects[('explicit_dimension', aspect_filter_qname, aspect_filter.all, aspect_filter.aspectOperator)] = XuleValue(xule_context, None, 'none')
-    #                 add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname, aspect_var_name, aspect_filter['node_id'], xule_context)
-    #             elif aspect_filter.get('void'):
-    #                 non_align_aspects[('explicit_dimension', aspect_filter_qname, 'none', aspect_filter.aspectOperator)] = XuleValue(xule_context, None, 'none')
-    #                 add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname, aspect_var_name, aspect_filter['node_id'], xule_context)
-    #             else:
-    #                 if not(aspect_filter.get('aspectExpr')):
-    #                     #There is no member. In this case the aspect may have varname, but it dones not participate in the non_align.
-    #                     add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname, aspect_var_name, aspect_filter['node_id'], xule_context)
-    #                 else:
-    #                     member_rs = evaluate(aspect_filter.aspectExpr[0], xule_context)
-    #                     non_align_aspects[('explicit_dimension', aspect_filter_qname, None, aspect_filter.aspectOperator)] = member_rs
-    #                     add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname, aspect_var_name, aspect_filter['node_id'], xule_context)
+    return (non_align_aspects, align_aspects, aspect_vars, models, dimensions_special_value, dimensions_special_covered)
 
-    return (non_align_aspects, align_aspects, aspect_vars, models)
+def remove_existing_aspects(dim_name, non_align_aspects, align_aspect):
+    '''This is used to remove an aspect if it is in the aspect filters more than once.
+       This can happen if the @dimensions is used and there is an aspect filter for one of the dimension in the @dimensions.
+       In this case, the specified dimension (i.e. @dimension-name=member) is used in place of the the dimension in the @dimensions'''
+    existing_keys = {x for x in non_align_aspects.keys() if x[1] == dim_name}
+    for existing_key in existing_keys:
+        del non_align_aspects[existing_key]
+    existing_keys = {x for x in align_aspect.keys() if x[1] == dim_name}
+    for existing_key in existing_keys:
+        del align_aspect[existing_key]
 
 def aspect_in_filters(aspect_type, aspect_name, filters):
     """Checks if an aspect is in the existing set of filters
@@ -4929,13 +5025,13 @@ def convert_value_to_qname(value, model, xule_context):
 
 def convert_value_to_role(value, xule_context):
     if value.type in ('string', 'uri'):
-        return value.value
+        return [value.value,]
     elif value.type == 'qname':
         return XuleUtility.resolve_role(value, 'role', xule_context.model, xule_context)
     elif value.type == 'role':
-        return value.value.roleURI
+        return [value.value.roleURI,]
     elif value.type in ('unbound', 'none'):
-        return None
+        return [] # empty list
     else:
         raise XuleProcessingError(
             _("The value for a role or arc role must be a string, uri or short role name, found '%s'." % value.type),
@@ -5119,6 +5215,84 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
     return trace_info
 
+def result_file(rule_ast, xule_value, xule_context):
+
+    file_content = None
+    file_location = None
+    file_append = None
+
+    for result_ast in rule_ast.get('results', tuple()):
+        if result_ast.get('resultName') in ('file-content', 'file-location', 'file-append'):
+            try:
+                message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
+                message_context.tags['rule-value'] = xule_value
+                message_context.tags['alignment'] = func_alignment(xule_context)
+                message_context.result_alignment = func_alignment(xule_context)
+                saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache', False)
+                xule_context.global_context.options.xule_no_cache = True
+                result = evaluate(result_ast['resultExpr'], message_context)
+                if result_ast.get('resultName') == 'file-content':
+                    file_content = result
+                elif result_ast.get('resultName') == 'file-location':
+                    file_location = result
+                else: # This is file-append
+                    file_append = result
+            finally:
+                xule_context.global_context.options.xule_no_cache = saved_no_cache
+
+    if file_content is None or file_location is None:
+        return # there is nothing to do. 
+
+    if file_location.type != 'string':
+        raise XuleProcessingError(_(f"The file-location needs to be a string, but it is a {file_location.type}"), xule_context)
+
+    if file_content.type not in ('none', 'string', 'spreadsheet'):
+        raise XuleProcessingError(_(f"Cannot write contents of type {file_content.type}"), xule_context)
+
+    if file_append is not None and file_append.type != 'bool':
+        raise XuleProcessingError(_(f"file-append must be a boolean, found {file_append.type}"))
+
+    # Write the file
+    if file_location.value in xule_context.global_context.output_files or (file_append is not None and file_append.value):
+        open_mode = 'a'
+    else:
+        open_mode = 'w'
+        xule_context.global_context.output_files.add(file_location.value)
+
+    if file_content.type == 'spreadsheet':
+        write_excel(file_location, file_content, open_mode, xule_context)
+    else:
+        try:
+            with open(file_location.value, open_mode, encoding='utf8') as ofile:
+                ofile.write(file_content.value if file_content.type == 'string' else '') # if none just write a blank string
+        except FileNotFoundError:
+            raise XuleProcessingError(_(f"Cannot open output file {file_location.value}"), xule_context)
+    
+def write_excel(file_location, file_content, open_mode, xule_context):
+    if open_mode == 'a' and os.path.exists(file_location.value):
+        wb = load_workbook(file_location.value)
+    else:
+        wb = Workbook()
+        # the workbook will have a default sheet named 'Sheet'. We ware removing it so the workbook is empty.
+        wb.remove(wb.get_sheet_by_name('Sheet'))
+
+    data = file_content.value
+    for sheet_name in sorted(data.keys()):
+        content = data[sheet_name]
+        if sheet_name in wb.get_sheet_names():
+            ws = wb[sheet_name]
+        else:
+            ws = wb.create_sheet(sheet_name)
+        
+        for row in content:
+            ws.append(row)
+
+    # Save the workbook
+    if len(wb.get_sheet_names()) == 0:
+        # There has to be at least 1 sheet in order to save the workbook
+        wb.create_sheet('Sheet')
+    wb.save(file_location.value)
+
 
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     # validate_result_name(result_ast, xule_context)
@@ -5199,7 +5373,7 @@ def get_all_aspects(model_fact, xule_context):
     return get_alignment(model_fact, {}, {}, xule_context)
 
 
-def get_alignment(model_fact, non_align_aspects, align_aspects, xule_context, covered_dims=False, covered=False):
+def get_alignment(model_fact, non_align_aspects, align_aspects, xule_context, covered_dims=False, covered=False, dimensions_special_covered=False):
     '''The alignment contains the aspect/member pairs that are in the fact but not in the non_align_aspects.
        The alignment is done in two steps. First check each of the builtin aspects. Then check the dimesnions.'''
 
@@ -5255,9 +5429,9 @@ def get_alignment(model_fact, non_align_aspects, align_aspects, xule_context, co
 
     # Only need to run through the dimensions if they are included or if they are not included there are
     # aligned dimensions
-    if (not covered_dims and not covered) or len(align_dimensions) > 0:
+    if (not (covered_dims or dimensions_special_covered == 'covered') and not covered) or len(align_dimensions) > 0:
         for fact_dimension_qname, dimension_value in model_fact.context.qnameDims.items():
-            if (not covered_dims and not covered and fact_dimension_qname not in non_align_dimensions) or fact_dimension_qname in align_dimensions:
+            if (not (covered_dims or dimensions_special_covered == 'covered') and not covered and fact_dimension_qname not in non_align_dimensions) or fact_dimension_qname in align_dimensions:
                 alignment[('explicit_dimension', # This will included typed dimensions as well as explicit.
                            fact_dimension_qname)] = dimension_value.memberQname if dimension_value.isExplicit else dimension_value.typedMember.xValue
 

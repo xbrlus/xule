@@ -1,0 +1,17 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:us-gaap-metamodel-entire="http://fasb.org/us-gaap-metaModel-entire/2023" targetNamespace="http://fasb.org/us-gaap-metaModel-entire/2023" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-class-subclass-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-concept-dimensional-equivalent-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-domain-member-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-instant-accrual-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-instant-contra-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-instant-inflow-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-instant-outflow-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-trait-concept-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+      <ns0:linkbaseRef xmlns:ns0="http://www.xbrl.org/2003/linkbase" xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="us-gaap-trait-domain-2023.xml" ns1:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" ns1:type="simple"/>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://fasb.org/2023/arcrole/accounting" schemaLocation="accounting-arcroles-2023.xsd"/>
+  <xs:import namespace="http://fasb.org/us-gaap-metaModel/2023" schemaLocation="us-gaap-metaModel-2023.xsd"/>
+</xs:schema>

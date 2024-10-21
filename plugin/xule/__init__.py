@@ -21,9 +21,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23587 $
+$Change$
 DOCSKIP
 """
+import sys
+
 from .XuleProcessor import process_xule
 from . import XuleRunTime as xrt
 from . import XuleRuleSet as xr
@@ -82,25 +84,6 @@ except NameError:
 class EmptyOptions:
     pass
 
-class XuleVars:
-    
-    class XuleVarContainer:
-        pass
-
-    @classmethod
-    def set(cls, cntlr, name, value):
-        if not hasattr(cntlr, 'xule_vars'):
-            cntlr.xule_vars = dict()
-        
-        cntlr.xule_vars[name] = value
-    
-    @classmethod
-    def get(cls, cntlr, name):
-        if hasattr(cntlr, 'xule_vars'):
-            return cntlr.xule_vars.get(name)
-        else:
-            return None
-
 def xuleMenuTools(cntlr, menu):
     import tkinter
     
@@ -116,7 +99,7 @@ def xuleMenuTools(cntlr, menu):
         activate_xule_label = "Activate"
         def turnOnXule():
             # The validation menu hook is hit before the tools menu hook. the XuleVars for 'validate_menu' is set in the validation menu hook.
-            validate_menu = XuleVars.get(cntlr, 'validate_menu')
+            validate_menu = xu.XuleVars.get(cntlr, 'validate_menu')
             addValidateMenuTools(cntlr, validate_menu, 'Xule', _xule_rule_set_map_name)
             menu.delete('Xule')
             xule_menu = addMenuTools(cntlr, menu, 'Xule', '', __file__, _xule_rule_set_map_name, _latest_map_name)
@@ -125,7 +108,7 @@ def xuleMenuTools(cntlr, menu):
                 validate_menu.delete('Xule Rules')
                 menu.delete('Xule')
                 new_xule_menu = tkinter.Menu(menu, tearoff=0)
-                new_xule_menu.add_command(label=activate_xule_label, underline=0, command=XuleVars.get(cntlr, 'activate_xule_function'))
+                new_xule_menu.add_command(label=activate_xule_label, underline=0, command=xu.XuleVars.get(cntlr, 'activate_xule_function'))
                 menu.add_cascade(label=_("Xule"), menu=new_xule_menu, underline=0)
                 cntlr.config['xule_activated'] = False
                 
@@ -134,7 +117,7 @@ def xuleMenuTools(cntlr, menu):
         
         xule_menu = tkinter.Menu(menu, tearoff=0)
         xule_menu.add_command(label=activate_xule_label, underline=0, command=turnOnXule)
-        XuleVars.set(cntlr, 'activate_xule_function', turnOnXule)
+        xu.XuleVars.set(cntlr, 'activate_xule_function', turnOnXule)
     
         menu.add_cascade(label=_("Xule"), menu=xule_menu, underline=0)
         
@@ -337,7 +320,7 @@ def addMenuTools(cntlr, menu, name, version_prefix, version_file, map_name, clou
 
 def xuleValidateMenuTools(cntlr, validateMenu, *args, **kwargs):
     # Save the validationMenu object. 
-    XuleVars.set(cntlr, 'validate_menu', validateMenu)
+    xu.XuleVars.set(cntlr, 'validate_menu', validateMenu)
     
 def addValidateMenuTools(cntlr, validateMenu, name, map_name):
     # Extend menu with an item for the save infoset plugin
@@ -366,8 +349,8 @@ def isXuleDirect(cntlr):
     global _is_xule_direct
     if _is_xule_direct is None:
         _is_xule_direct = False
-        for plugin_command in getattr(XuleVars.get(cntlr, 'options'), 'plugins', '').split('|'):
-            if plugin_command.lower().endswith('xule'):
+        for plugin_command in getattr(xu.XuleVars.get(cntlr, 'options'), 'plugins', '').split('|'):
+            if plugin_command.lower().strip().endswith('xule'):
                 _is_xule_direct = True
 
     return _is_xule_direct
@@ -444,6 +427,13 @@ def xuleCmdOptions(parser):
                                action="store",
                                help=_("This will save the result from pyparsing as a json file. This is the raw parse results before post parsing. Used for debugging purpsoses."))
 
+        parserGroup.add_option("--xule-compile-workers",
+                               action="store",
+                               dest="xule_compile_workers",
+                               default=1,
+                               type="int",
+                               help=_("Controls the number of worker processes used to compile XULE rule files in parallel. A value of 0 will use the number of machine processors."))
+
     parserGroup.add_option("--xule-rule-set",
                       action="store",
                       dest="xule_rule_set",
@@ -454,6 +444,13 @@ def xuleCmdOptions(parser):
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
     
+    parserGroup.add_option("--xule-cache-size-bytes",
+                        action="store",
+                        dest="xule_cache_size_bytes",
+                        default=1_000_000_000,
+                        type="int",
+                        help=_("The maximum size of the per-rule expression cache in bytes."))
+
     parserGroup.add_option("--xule-max-rule-iterations",
                         action="store",
                         dest="xule_max_rule_iterations",
@@ -502,6 +499,11 @@ def xuleCmdOptions(parser):
                       dest="xule_trace_count",
                       help=_("Name of the file to write a trace count."))
     
+    parserGroup.add_option("--xule-ordered-iterations",
+                      action="store_true",
+                      dest="xule_ordered_iterations",
+                      help=_("Indicates that the iterations should be ordered consistently. This may affect performance"))
+
     parserGroup.add_option("--xule-debug",
                      action="store_true",
                      dest="xule_debug",
@@ -545,7 +547,8 @@ def xuleCmdOptions(parser):
                             action="store",
                             type="int",
                             dest="xule_max_recurse_depth",
-                            help=_("The recurse depth for python. The default is 2500. If there is a 'RecursionError: maximum recursion depth exceeded' "
+                            default=10000,
+                            help=_("The recurse depth for python. If there is a 'RecursionError: maximum recursion depth exceeded' "
                                    "error this argument can be used to increase the max recursion depth."))
     parserGroup.add_option("--xule-stack-size",
                           type="int",
@@ -600,7 +603,12 @@ def xuleCmdOptions(parser):
                         action="store_true",
                         dest="xule_precalc_constants",
                         help=_("Pre-calculate constants that do not depend on the instance."))
-
+    
+    parserGroup.add_option("--xule-output-constants",
+                           action="store",
+                           dest="xule_output_constants",
+                           help=_("Comma separated list of constant names to output."))
+    
     parserGroup.add_option("--xule-exclude-nils",
                         action="store_true",
                         dest="xule_exclude_nils",
@@ -650,7 +658,7 @@ def xuleCmdOptions(parser):
                                help=_("Validate ruleset"))
 
 def saveOptions(cntlr, options, **kwargs):
-    XuleVars.set(cntlr, 'options', options)
+    xu.XuleVars.set(cntlr, 'options', options)
     # Save the options in the xuleparser
     if xp is not None:
         xp.setOptions(options)
@@ -703,10 +711,20 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, 'xule_max_excel_files') < 1:
         parser.error(_("--xule-max-excel-files must be greater than 0, found {}".format(getattr(options, 'xule_max_excel_files'))))
 
+    if getattr(options, 'xule_compile_workers') < 0:
+        parser.error(_("Workers (--xule-compile-workers) value must be a positive number or 0 (uses number of CPUs)."))
+    elif getattr(options, 'xule_compile_workers') != 1:
+        if getattr(sys, "frozen", False):
+            parser.error(_("Multiple workers (--xule-compile-workers) requires running Arelle from source."))
+        try:
+            from arelle.PluginUtils import PluginProcessPoolExecutor
+        except ModuleNotFoundError:
+            parser.error(_("Multiprocessing plugin support was introduced in Arelle 2.17.3. Update to a newer version of Arelle to use multiple workers (--xule-compile-workers)."))
+
     # compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
-        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"), getattr(options, "xule_max_recurse_depth"))
+        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"), getattr(options, "xule_max_recurse_depth"), getattr(options, "xule_compile_workers"))
         #xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
     
     # add packages
@@ -847,7 +865,10 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 input_file_name = input_file_name.strip()
                                 print("Processing filing", input_file_name)
                                 filing_filesource = FileSource.openFileSource(input_file_name, cntlr)
-                                modelManager = ModelManager.initialize(cntlr)
+                                # TODO - #29 
+                                #modelManager = ModelManager.initialize(cntlr)
+                                #modelManager = cntlr.modelManager
+                                modelManager = xu.get_model_manager_for_import(cntlr)
                                 modelXbrl = modelManager.load(filing_filesource)
                                 # Update options
                                 new_options = copy.copy(options)
@@ -855,11 +876,11 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 for k, v in file_info.items():
                                     if k != 'file' and k.strip().lower().startswith('xule'): # Only change xule options
                                         setattr(new_options, k.strip().lower(), v)
-                                if getattr(new_options, 'xule_run'):
+                                if getattr(new_options, 'xule_run') or getattr(new_options, 'xule_output_constants') is not None:
                                     xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
                                 elif getattr(new_options, 'validate'):
                                     for xule_validator in _xule_validators:
-                                        runXule(_cntlr, new_options, modelXbrl, xule_validator['map_name'])
+                                        runXule(_cntlr, new_options, modelXbrl, xule_validator['map_name'], True)
                                 modelXbrl.close()
         else:
             if options.entrypointFile is None:
@@ -871,13 +892,13 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
     
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
-    if getattr(options, "xule_run", None):
+    if getattr(options, "xule_run", None) or getattr(options, "xule_output_constants") is not None:
         runXule(cntlr, options, modelXbrl)
 
-def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None):
-    xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type, max_recurse_depth)
+def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None, xule_compile_workers=1):
+    xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type, max_recurse_depth, xule_compile_workers)
 
-def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
+def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name, is_validator=False):
         try:
             if getattr(options, "xule_multi", True) and \
                     getattr(cntlr, "rule_set", None) is not None:
@@ -926,7 +947,8 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                                             modelXbrl,
                                             cntlr,
                                             options,
-                                            _saved_taxonomies
+                                            _saved_taxonomies,
+                                            is_validator
                                             )
                 # Save one loaded taxonomy
                 new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
@@ -949,7 +971,8 @@ def callXuleProcessor(cntlr, modelXbrl, rule_set_location, options):
                                         modelXbrl,
                                         cntlr,
                                         options,
-                                        _saved_taxonomies
+                                        _saved_taxonomies,
+                                        is_validator=True # This will run xule if there is not a --xule-run option
                                         )
         # Save one loaded taxonomy
         new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
@@ -965,7 +988,9 @@ def xuleValidate(val):
     global _cntlr
     global _xule_validators
 
-    options = XuleVars.get(_cntlr, 'options')
+    # If the controller is not there, pull it from the model. this happens when running as a web service in multi processing mode.
+    _cntlr = _cntlr or val.modelXbrl.modelManager.cntlr
+    options = xu.XuleVars.get(_cntlr, 'options')
     if options is None:
         options = EmptyOptions()
 
@@ -980,14 +1005,14 @@ def xuleValidate(val):
                     # valiation. In this case, there really wasn't a model to validate.
                     val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
                     val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
-                    runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
+                    runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], True)
                     val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
                     val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name']))) 
         else:
             # This is run on the command line or web server
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
             if not getattr(options, "xule_run", False) and len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
-                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
+                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], is_validator=True)
 
     if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
         # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
@@ -999,7 +1024,7 @@ def xuleTestXbrlLoaded(modelTestcase, modelXbrl, testVariation):
     global _test_start
     global _test_variation_name
     
-    if getattr(XuleVars.get(_cntlr,'options'), 'xule_test_debug', False):
+    if getattr(xu.XuleVars.get(_cntlr,'options'), 'xule_test_debug', False):
         _test_start = datetime.datetime.today()
         _test_variation_name = testVariation.id
         print('{}: Testcase variation {} started'.format(_test_start.isoformat(sep=' '), testVariation.id))
@@ -1009,7 +1034,7 @@ def xuleTestValidated(modelTestcase, modelXbrl):
     global _test_start
     global _test_variation_name
     
-    if getattr(XuleVars.get(_cntlr, 'options'), 'xule_test_debug', False):
+    if getattr(xu.XuleVars.get(_cntlr, 'options'), 'xule_test_debug', False):
         if _test_start is not None:            
             test_end = datetime.datetime.today()
             print("{}: Test variation {} finished. in {} ".format(test_end.isoformat(sep=' '), _test_variation_name, (test_end - _test_start)))
@@ -1061,6 +1086,7 @@ __pluginInfo__ = {
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
     'copyright': '(c) 2017-2018',
+    'import': 'semanticHash',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     'CntlrWinMain.Menu.Tools': xuleMenuTools,

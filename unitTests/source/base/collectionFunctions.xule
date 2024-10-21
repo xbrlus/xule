@@ -20,27 +20,27 @@ output ALL104
   all(list())
 
 output ALL105
-/* [ERROR] [xule:error] rule ALL105: Rule: ALL105 - Property all can only operator on booleans, but found 'string'. */
+/* rule ALL105: Rule: ALL105 - Property all can only operator on booleans, but found 'string'. */
 
   all(list(false, false, 'cat'))
 
 output ALL106
-/* [ERROR] [xule:error] rule ALL106: Rule: ALL106 - Property all can only operator on booleans, but found 'int'. */
+/* rule ALL106: Rule: ALL106 - Property all can only operator on booleans, but found 'int'. */
 
   all(list(false, false, 1))
 
 output ALL107
-/* [ERROR] [xule:error] rule ALL107: Rule: ALL107 - The first argument of function 'all' must be set, list, found 'bool'. */
+/* rule ALL107: Rule: ALL107 - The first argument of function 'all' must be set, list, found 'bool'. */
 
   all(false)
 
 output ALL108
-/* [ERROR] [xule:error] rule ALL108: Rule: ALL108 - Property all can only operator on booleans, but found 'None'. */
+/* rule ALL108: Rule: ALL108 - Property all can only operator on booleans, but found 'None'. */
 
   all(list(true, true, none))
 
 output ALL109
-/* [ERROR] [xule:error] rule ALL109: Rule: ALL109 - Property all can only operator on booleans, but found 'None'. */
+/* rule ALL109: Rule: ALL109 - Property all can only operator on booleans, but found 'None'. */
 
   all(list(true, false, none))
 
@@ -85,22 +85,22 @@ output ALL117
   set().all
 
 output ALL118
-/* [ERROR] [xule:error] rule ALL118: Rule: ALL118 - Property 'all' is not a property of a 'string'. */
+/* rule ALL118: Rule: ALL118 - Property 'all' is not a property of a 'string'. */
 
   'ducky'.all
 
 output ALL119
-/* [ERROR] [xule:error] rule ALL119: Rule: ALL119 - Property 'all' is not a property of a 'int'. */
+/* rule ALL119: Rule: ALL119 - Property 'all' is not a property of a 'int'. */
 
   1.all
 
 output ALL120
-/* [ERROR] [xule:error] rule ALL120: Rule: ALL120 - Property all can only operator on booleans, but found 'None'. */
+/* rule ALL120: Rule: ALL120 - Property all can only operator on booleans, but found 'None'. */
 
   all(set(true, true, none))
 
 output ALL121
-/* [ERROR] [xule:error] rule ALL121: Rule: ALL121 - Property all can only operator on booleans, but found 'None'. */
+/* rule ALL121: Rule: ALL121 - Property all can only operator on booleans, but found 'None'. */
 
   all(set(true, false, none))
 
@@ -130,17 +130,17 @@ output ANY104
   any(list())
 
 output ANY105
-/* [ERROR] [xule:error] rule ANY105: Rule: ANY105 - Property any can only operator on booleans, but found 'string'. */
+/* rule ANY105: Rule: ANY105 - Property any can only operator on booleans, but found 'string'. */
 
   any(list(false, false, 'cat'))
 
 output ANY106
-/* [ERROR] [xule:error] rule ANY106: Rule: ANY106 - Property any can only operator on booleans, but found 'int'. */
+/* rule ANY106: Rule: ANY106 - Property any can only operator on booleans, but found 'int'. */
 
   any(list(false, false, 1))
 
 output ANY107
-/* [ERROR] [xule:error] rule ANY107: Rule: ANY107 - The first argument of function 'any' must be set, list, found 'bool'. */
+/* rule ANY107: Rule: ANY107 - The first argument of function 'any' must be set, list, found 'bool'. */
 
   any(false)
 
@@ -180,12 +180,12 @@ output ANY114
   set().any
 
 output ANY115
-/* [ERROR] [xule:error] rule ANY115: Rule: ANY115 - Property 'any' is not a property of a 'string'. */
+/* rule ANY115: Rule: ANY115 - Property 'any' is not a property of a 'string'. */
 
   'ducky'.any
 
 output ANY116
-/* [ERROR] [xule:error] rule ANY116: Rule: ANY116 - Property 'any' is not a property of a 'int'. */
+/* rule ANY116: Rule: ANY116 - Property 'any' is not a property of a 'int'. */
 
   1.any
 
@@ -210,22 +210,22 @@ output DCOU103
   set().count
 
 output DCOU104
-/* 1579 */
+/* 1589 */
 
   list(covered @instance = $INSTANCE1).count
 
 output DCOU105
-/* [ERROR] [xule:error] rule DCOU105: Rule: DCOU105 - Property 'count' is not a property of a 'string'. */
+/* rule DCOU105: Rule: DCOU105 - Property 'count' is not a property of a 'string'. */
 
   'dog'.count
 
 output DCOU106
-/* [ERROR] [xule:error] rule DCOU106: Rule: DCOU106 - Property 'count' is not a property of a 'instance'. */
+/* rule DCOU106: Rule: DCOU106 - Property 'count' is not a property of a 'instance'. */
 
   @instance = $INSTANCE1.count
 
 output DCOU107
-/* [ERROR] [xule:error] rule DCOU107: Rule: DCOU107 - Property 'count' is not a property of a 'dictionary'. */
+/* 4 */
 
   dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).count
 
@@ -260,22 +260,22 @@ output COU105
   count(list(none))
 
 output COU110
-/* 1579 */
+/* 1589 */
 
   count(list(covered @instance = $INSTANCE1))
 
 output COU191
-/* [ERROR] [xule:error] rule COU191: Rule: COU191 - The 'count' function must have at least one argumenrt, found None. */
+/* rule COU191: Rule: COU191 - The 'count' function must have at least one argument, found none. */
 
   count()
 
 output COU192
-/* [ERROR] [xule:error] rule COU192: Rule: COU192 - The first argument of function 'count' must be set, list, found 'decimal'. */
+/* rule COU192: Rule: COU192 - The first argument of function 'count' must be set, list, dictionary, found 'decimal'. */
 
   count(@instance = $INSTANCE1)
 
 output COU193
-/* [ERROR] [xule:error] rule COU193: Rule: COU193 - The first argument of function 'count' must be set, list, found 'dictionary'. */
+/* 4 */
 
   count(dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')))
 
@@ -305,7 +305,7 @@ output DLEN104
   dict(list('a','item a'), list('b','item b'), list('c','item c')).length
 
 output DLEN105
-/* 18276 */
+/* 20399 */
 
   $US-GAAP-2020.concepts.length
 
@@ -325,7 +325,7 @@ output JOIN101
   list('a', 'b', 'c').join(',')
 
 output JOIN102
-/* AAxis=AMember , BAxis=BMember' */
+/* AAxis=AMember, BAxis=BMember */
 
   dict(list('AAxis','AMember'), list('BAxis','BMember')).join(', ','=')
 
@@ -333,6 +333,11 @@ output JOIN103
 /*  a,b,c */
 
   join(list('a', 'b', 'c'),',')
+
+output JOIN104
+/*  abc */
+
+  list('a', 'b', 'c').join('')
 
 output DCO010
 /*  true */
@@ -353,6 +358,11 @@ output DCO021
 /*  false */
 
   set('a','b','c').contains('d')
+
+output DCO022
+/*  true */
+
+  set('a','b','c',none).contains(none)
 
 output FIRST001
 /* 1 */
@@ -405,7 +415,7 @@ output DLA005
   list('dog', 'monkey', 'cat', none).last
 
 output DLA011
-/* [ERROR] [xule:error] rule DLA011: Rule: DLA011 - Property 'last' is not a property of a 'dictionary'. */
+/* rule DLA011: Rule: DLA011 - Property 'last' is not a property of a 'dictionary'. */
 
   dict(list('a', 'first item')).last
 
@@ -435,7 +445,7 @@ output LAST005
   last(list('dog', 'monkey', 'cat', none))
 
 output LAST006
-/* [ERROR] [xule:error] rule LAST006: Rule: LAST006 - The first argument of function 'last' must be set, list, found 'dictionary'. */
+/* rule LAST006: Rule: LAST006 - The first argument of function 'last' must be set, list, found 'dictionary'. */
 
   last(dict(list('a', 'first item')))
 
@@ -445,7 +455,7 @@ output DDC010
   set(list('c','cat'),list('a','advark'),list('d','dog')).to-dict
 
 output DDC091
-/* [ERROR] [xule:error] rule DDC091: Rule: DDC091 - Arguments for the dict() function must be lists of key/value pairs, found string */
+/* rule DDC091: Rule: DDC091 - Arguments for the dict() function must be lists of key/value pairs, found string */
 
   set(list('c','cat'),list('a','advark'),'error').to-dict
 
@@ -459,6 +469,11 @@ output DDC093
 
   set(list('c','cat'),list('a','advark', 'extra')).to-dict
 
+output DDC094
+/* dictionary(a=advark,c=cat,d=dog) */
+
+  list(list('c','cat'),list('a','advark'),list('d','dog')).to-dict
+
 output DIC001
 /* dictionary(c=cat,a=albatross,m=monkey,b=bat,z=zebra) */
 
@@ -470,7 +485,7 @@ output DIC002
   dict(list('a', 'first'), list('a', 'pie'), list('a', 'hot dog'), list('a', 'jungle'))
 
 output DIC091
-/* [ERROR] [xule:error] rule DIC091: Rule: DIC091 - Arguments for the dict() function must be lists of key/value pairs, found set */
+/* rule DIC091: Rule: DIC091 - Arguments for the dict() function must be lists of key/value pairs, found set */
 
   dict(set('b','cat'))
 
@@ -485,7 +500,7 @@ output DIC093
   dict()
 
 output DIC094
-/* [ERROR] [xule:error] rule DIC094: Rule: DIC094 - Arguments for the dict() function must be lists of key/value pairs, found float */
+/* rule DIC094: Rule: DIC094 - Arguments for the dict() function must be lists of key/value pairs, found float */
 
   dict(list('b','cat'),list('a','dog'),list('c', 'monkey'),1.1)
 
@@ -520,7 +535,7 @@ output DTS003
   dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).to-set
 
 output DTS004
-/* set(a, b, a, b) */
+/* set(a, a, b, b) */
 
   set('a', a, b, 'b').to-set
 
@@ -530,7 +545,7 @@ output DTS005
   count($INSTANCE1.taxonomy.concepts.to-set)
 
 output DTS006
-/* [ERROR] [xule:error] rule DTS006: Rule: DTS006 - Property 'to-set' is not a property of a 'string'. */
+/* rule DTS006: Rule: DTS006 - Property 'to-set' is not a property of a 'string'. */
 
   'cat'.to-set
 
@@ -545,12 +560,12 @@ output TSE102
   to-set(list())
 
 output TSE105
-/* set(list(a, apple), list(c, cat), list(b, boy), list(d, dog)) */
+/* set(list(a, apple), list(b, boy), list(c, cat), list(d, dog)) */
 
   to-set(dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')))
 
 output TSE106
-/* set(a, b)  */
+/* set(a, b) */
 
   to-set(set('a', 'a', 'b', 'b'))
 
@@ -560,7 +575,7 @@ output TSE111
   to-set($INSTANCE1.taxonomy().concepts).count
 
 output TSE191
-/* [ERROR] [xule:error] rule TSE191: Rule: TSE191 - The first argument of function 'to-set' must be list, set, dictionary, found 'string'. */
+/* rule TSE191: Rule: TSE191 - The first argument of function 'to-set' must be list, set, dictionary, found 'string'. */
 
   to-set('cat')
 
@@ -576,6 +591,85 @@ output TJSON101
   $A = dict(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
 to-json($A)
 
+output TJSON102
+/* {Assets: 200, Capital: 30, BankLoans: 100} */
+
+  $A = dict(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
+to-json($A)
+file-location '~/Documents/GitHub/xule/unitTests/output/TJSON102.json'
+file-content $A.to-json
+
+output TCSV100
+/* BankLoans,100
+Assets,200
+Capital,30 */
+
+  $A = list(list('BankLoans', 100),list('Assets', 200),list('Capital', 30)); 
+to-csv($A,',')
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV100.csv'
+file-content $A.to-csv(',')
+
+output TCSV101
+/* Liabilities,100
+AssetsCurremt,200
+AssetsNoncurrent,30 */
+
+  $A = list(list('Liabilities', 100),list('AssetsCurremt', 200),list('AssetsNoncurrent', 30)); 
+to-csv($A,',')
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV101.csv'
+file-content $A.to-csv(',')
+
+output TCSV102
+/* list(list(1, 2, 3, 4), list(ab, cd, ef), list(1.2, 3.1)) */
+
+   list(list(1,2,3,4),
+         list('ab','cd','ef'),
+         list(1.2,3.1))
+file-content $rule-value.to-csv
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV102.csv'
+
+output TCSV103
+/* 1x2x3x4
+abxcdxef
+1.2x3.1 */
+
+   list(list(1,2,3,4),
+         list('ab','cd','ef'),
+         list(1.2,3.1)).to-csv('x')
+
+output TCSV104
+/* ab,
+c,1,lmnop,yes */
+
+  list('ab,\nc', 1, 'lmnop', 'yes').to-csv
+
+output TCSV105
+/* Liabilities,100
+AssetsCurrent,200
+AssetsNoncurrent,30 */
+
+  $A = list(list(Liabilities, 100),list(AssetsCurrent, 200),list(AssetsNoncurrent, 30)); 
+$A.to-csv
+file-location '~/Documents/GitHub/xule/unitTests/output/TCSV105.csv'
+file-content $rule-value
+
+output TCSV106
+/* file */
+
+  $A = list([covered @instance = $INSTANCE1 @concept.balance = none])
+list(for $line in $A list($line.concept.name)).to-csv
+file-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/TCSV106.csv'
+file-content $rule-value
+
+output TSPT001
+/*  */
+
+  $A = dict(list('mysheet1',list(list('Liabilities', 100),list('AssetsCurrent', 200),list('AssetsNoncurrent', 30)))
+,list('mysheet2',list(list('Liabilities', 100),list('AssetsCurrent', 200),list('AssetsNoncurrent', 30)))); 
+$A.to-spreadsheet
+file-location '~/Documents/GitHub/xule/unitTests/output/TSPT001.xlsx'
+file-content $rule-value
+
 output DHK001
 /* True */
 
@@ -589,15 +683,15 @@ output DHK002
 output DHK003
 /*  false */
 
-  dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).has-key(a)
+  dict(list('Assets', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).has-key(Assets)
 
 output DHK091
-/* [ERROR] [xule:error] rule DHK091: Rule: DHK091 - Property 'has-key' must have 1 arguments. Found 0. */
+/* rule DHK091: Rule: DHK091 - Property 'has-key' must have 1 arguments. Found 0. */
 
   dict(list('a', 'apple')).has-key()
 
 output DHK092
-/* [ERROR] [xule:error] rule DHK092: Rule: DHK092 - Property 'has-key' must have 1 arguments. Found 2. */
+/* rule DHK092: Rule: DHK092 - Property 'has-key' must have 1 arguments. Found 2. */
 
   dict(list('a', 'apple')).has-key(a, b)
 
@@ -612,7 +706,7 @@ output DHK094
   dict(list(list('a', 'b'), 'apple')).has-key(list('a', 'b'))
 
 output DHK095
-/* [ERROR] [xule:error] rule DHK095: Rule: DHK095 - Property 'has-key' is not a property of a 'string'. */
+/* rule DHK095: Rule: DHK095 - Property 'has-key' is not a property of a 'string'. */
 
   list('a', 'b').has-key('a')
 
@@ -637,12 +731,12 @@ output HKY003
   has-key(dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')), Assets)
 
 output HKY004
-/* [ERROR] [xule:error] rule HKY004: Rule: HKY004 - The 'has-key' function must have at least one argumenrt, found None. */
+/* rule HKY004: Rule: HKY004 - The 'has-key' function must have at least one argument, found none. */
 
   has-key()
 
 output HKY005
-/* [ERROR] [xule:error] rule HKY005: Rule: HKY005 - Property 'has-key' must have 1 arguments. Found 2. */
+/* rule HKY005: Rule: HKY005 - Property 'has-key' must have 1 arguments. Found 2. */
 
   has-key(dict(list('a', 'apple')), a, b)
 
@@ -657,9 +751,14 @@ output HKY007
   has-key(dict(list(list('a', 'b'), 'apple')), list('a', 'b'))
 
 output HKY008
-/* [ERROR] [xule:error] rule HKY008: Rule: HKY008 - The first argument of function 'has-key' must be dictionary, found 'list'. */
+/* rule HKY008: dictionary update sequence element #0 has length 1; 2 is required */
 
   has-key(list('a', 'b'), 'a')
+
+output HKY009
+/* rule HKY009: Rule: HKY009 - Property 'contains' or 'in' expression cannot operate on a 'dictionary' and 'string' */
+
+  'a' in dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog'))
 
 output SRT101
 /* list(Mouse, cat, chicken, cow, dog, horse, shrew)  */
@@ -692,17 +791,17 @@ output SRT111
   set('cat', 'dog', 'Mouse', 'horse', 'shrew', 'cow', 'chicken').sort
 
 output SRT191
-/* [ERROR] [xule:error] rule SRT191: Rule: SRT191 - The argument of the sort property must be either 'asc' or 'desc'. Found: 'ascend'. */
+/* rule SRT191: Rule: SRT191 - The argument of the sort property must be either 'asc' or 'desc'. Found: 'ascend'. */
 
   list('cat', 'dog', 'Mouse', 'horse', 'shrew', 'cow', 'chicken').sort('ascend')
 
 output SRT192
-/* [ERROR] [xule:error] rule SRT192: Rule: SRT192 - Property 'sort' is not a property of a 'string'. */
+/* rule SRT192: Rule: SRT192 - Property 'sort' is not a property of a 'string'. */
 
   'a string'.sort
 
 output DKEY101
-/* set(c, b, a) */
+/* set(a, b, c) */
 
   dict(list('a', 'apple'), list('b', 'banana'), list('c', 'cantaloupe')).keys
 
@@ -712,7 +811,7 @@ output DKEY102
   dict(list('a', 'apple'), list('a', 'apple'), list('a', 'apple'), list('a', 'apple')).keys
 
 output DKEY103
-/* set(b, c, d, a) */
+/* set(a, b, c, d) */
 
   dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')).keys
 
@@ -722,17 +821,17 @@ output DKEY104
   none.keys
 
 output DKEY105
-/* [ERROR] [xule:error] rule DKEY105: Rule: DKEY105 - Property 'keys' is not a property of a 'string'. */
+/* rule DKEY105: Rule: DKEY105 - Property 'keys' is not a property of a 'string'. */
 
   'cat'.keys
 
 output DKEY106
-/* [ERROR] [xule:error] rule DKEY106: Rule: DKEY106 - Property 'keys' is not a property of a 'string'. */
+/* rule DKEY106: Rule: DKEY106 - Property 'keys' is not a property of a 'string'. */
 
   list('cat').keys
 
 output KEY001
-/* set(c, a, b)  */
+/* set(a, b, c) */
 
   keys(dict(list('a', 'apple'), list('b', 'banana'), list('c', 'cantaloupe')))
 
@@ -742,22 +841,22 @@ output KEY002
   keys(dict(list('a', 'apple'), list('a', 'apple'), list('a', 'apple'), list('a', 'apple')))
 
 output KEY003
-/* set(b, c, d, a) */
+/* set(a, b, c, d) */
 
   keys(dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')))
 
 output KEY004
-/* [ERROR] [xule:error] rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argumenrt, found None. */
+/* rule KEY004: Rule: KEY004 - The 'keys' function must have at least one argument, found none. */
 
   keys()
 
 output KEY005
-/* [ERROR] [xule:error] rule KEY005: Rule: KEY005 - The first argument of function 'keys' must be dictionary, found 'string'. */
+/* rule KEY005: Rule: KEY005 - The first argument of function 'keys' must be dictionary, found 'string'. */
 
   keys('cat')
 
 output KEY006
-/* [ERROR] [xule:error] rule KEY006: Rule: KEY006 - The first argument of function 'keys' must be dictionary, found 'list'. */
+/* rule KEY006: Rule: KEY006 - The first argument of function 'keys' must be dictionary, found 'list'. */
 
   keys(list('cat'))
 
@@ -782,12 +881,12 @@ output VAL104
   none.values
 
 output VAL105
-/* [ERROR] [xule:error] rule VAL105: Rule: VAL105 - Property 'values' is not a property of a 'string'. */
+/* rule VAL105: Rule: VAL105 - Property 'values' is not a property of a 'string'. */
 
   'cat'.values
 
 output VAL106
-/* [ERROR] [xule:error] rule VAL106: Rule: VAL106 - Property 'values' is not a property of a 'string'. */
+/* rule VAL106: Rule: VAL106 - Property 'values' is not a property of a 'string'. */
 
   list('cat').values
 
@@ -807,24 +906,34 @@ output VAL003
   values(dict(list('a', 'apple'), list('b', 'apple'), list('c', 'apple'), list('d', 'apple')))
 
 output VAL004
-/* [ERROR] [xule:error] rule VAL004: Rule: VAL004 - The 'values' function must have at least one argumenrt, found None. */
+/* rule VAL004: Rule: VAL004 - The 'values' function must have at least one argument, found none. */
 
   values()
 
 output VAL005
-/* [ERROR] [xule:error] rule VAL005: Rule: VAL005 - The first argument of function 'values' must be dictionary, found 'string'. */
+/* rule VAL005: Rule: VAL005 - The first argument of function 'values' must be dictionary, found 'string'. */
 
   values('cat')
 
 output VAL006
-/* [ERROR] [xule:error] rule VAL006: Rule: VAL006 - The first argument of function 'values' must be dictionary, found 'list'. */
+/* rule VAL006: 'NoneType' object has no attribute 'keys' */
 
   values(list('cat'))
 
 output INTER101
-/* set(2,3) */
+/* set(2, 3) */
 
   set(2,3,5).intersect(set(1,2,3,4))
+
+output INTER102
+/* set(2, 3) */
+
+  set(2,3,5).intersect(list(1,2,3,4))
+
+output INTER103
+/* rule INTER103: Rule: INTER103 - Intersection can only operatate on sets. The right side is a 'list'. */
+
+  set(2,3,5) intersect list(1,2,3,4)
 
 output MAX101
 /* 2 */
@@ -847,17 +956,17 @@ output MAX104
   max(set(0.25, 1.45, 5.5))
 
 output MAX105
-/* [ERROR] [xule:error] rule MAX105: '>' not supported between instances of 'XuleString' and 'float' */
+/* rule MAX105: '>' not supported between instances of 'XuleString' and 'float' */
 
   max(set(0.25, 'cat', 1.45, 5.5))
 
 output MAX106
-/* [ERROR] [xule:error] rule MAX106: Rule: MAX106 - The first argument of function 'max' must be set, list, found 'int'. */
+/* rule MAX106: Rule: MAX106 - The first argument of function 'max' must be set, list, found 'int'. */
 
   max(6)
 
 output MAX107
-/* [ERROR] [xule:error] rule MAX107: '>' not supported between instances of 'NoneType' and 'int' */
+/* rule MAX107: '>' not supported between instances of 'NoneType' and 'int' */
 
   max(list(1,none,3))
 
@@ -870,6 +979,26 @@ output MAX109
 /* None */
 
   max(list())
+
+output MAX110
+/* inf */
+
+  max(list(inf,1,2,3))
+
+output MAX111
+/* 3 */
+
+  max(list(-inf,1,2,3))
+
+output MAX112
+/* dog */
+
+  max(list('apple','cat','dog'))
+
+output MAX113
+/* us-gaap:Assets */
+
+  list([covered @instance = $INSTANCE1 @Assets where $fact > 0]).max.concept.name
 
 output MIN101
 /* 2 */
@@ -892,12 +1021,12 @@ output MIN104
   min(set(0.25, 1.45, 5.5))
 
 output MIN105
-/* [ERROR] [xule:error] rule MIN105: '<' not supported between instances of 'XuleString' and 'float' */
+/* rule MIN105: '<' not supported between instances of 'XuleString' and 'float' */
 
   min(set(0.25, 'cat', 1.45, 5.5))
 
 output MIN106
-/* [ERROR] [xule:error] rule MIN106: Rule: MIN106 - The first argument of function 'min' must be set, list, found 'int'. */
+/* rule MIN106: Rule: MIN106 - The first argument of function 'min' must be set, list, found 'int'. */
 
   min(6)
 
@@ -916,13 +1045,43 @@ output MIN109
 
   min(list(skip))
 
+output MIN110
+/* 1 */
+
+  min(list(inf,1,2,3))
+
+output MIN111
+/* -inf */
+
+  min(list(-inf,1,2,3))
+
+output MIN112
+/* -inf */
+
+  min(list(-1,-inf,1,2,3))
+
+output MIN113
+/* apple */
+
+  min(list('apple','cat','dog'))
+
+output MIN114
+/* us-gaap:Assets */
+
+  list([covered @instance = $INSTANCE1 @Assets where $fact > 0]).min.concept.name
+
+output MIN115
+/* 33 */
+
+  list([covered @instance = $INSTANCE1 @Assets where $fact > 0],100,33).min
+
 output PROD101
-/* 7.703460796032E+31 */
+/* 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d) */
 
   list([covered @instance = $INSTANCE1 @Assets where $fact > 0]).prod
 
 output PROD102
-/* 7.703460796032E+31 */
+/* 77,034,607,960,320,000,000,000,000,000,000 (rounded 4d) */
 
   prod(list([covered @instance = $INSTANCE1 @Assets where $fact > 0]))
 
@@ -932,7 +1091,7 @@ output PROD103
   prod(list())
 
 output PROD104
-/* [ERROR] [xule:error] rule PROD104: Rule: PROD104 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule PROD104: Rule: PROD104 - Statistic properties expect numeric inputs, found 'none'. */
 
   prod(list(none))
 
@@ -942,27 +1101,27 @@ output PROD105
   prod(list(skip))
 
 output PROD106
-/* [ERROR] [xule:error] rule PROD106: Rule: PROD106 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule PROD106: Rule: PROD106 - Statistic properties expect numeric inputs, found 'none'. */
 
   prod(list(skip, none))
 
 output PROD107
-/* [ERROR] [xule:error] rule PROD107: Rule: PROD107 - The first argument of function 'prod' must be set, list, found 'int'. */
+/* rule PROD107: Rule: PROD107 - The first argument of function 'prod' must be set, list, found 'int'. */
 
   prod(6)
 
 output PROD108
-/* [ERROR] [xule:error] rule PROD108: Rule: PROD108 - Statistic properties expect nuemric inputs, found 'string'. */
+/* rule PROD108: Rule: PROD108 - Statistic properties expect numeric inputs, found 'string'. */
 
   prod(list(6,'cat'))
 
 output STDEV101
-/* 12836465255.222 */
+/* 12,836,465,255.222 (rounded 4d) */
 
   list({covered @instance = $INSTANCE1 @Assets}).stdev
 
 output STDEV102
-/* 12836465255.222 */
+/* 12,836,465,255.222 (rounded 4d) */
 
   stdev(list({covered @instance = $INSTANCE1 @Assets}))
 
@@ -972,12 +1131,12 @@ output STDEV103
   stdev(list())
 
 output STDEV104
-/* [ERROR] [xule:error] rule STDEV104: Rule: STDEV104 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule STDEV104: Rule: STDEV104 - Statistic properties expect numeric inputs, found 'None'. */
 
   stdev(list(none))
 
 output STDEV105
-/* [ERROR] [xule:error] rule STDEV105: Rule: STDEV105 - Statistic properties expect nuemric inputs, found 'None'. */
+/* rule STDEV105: Rule: STDEV105 - Statistic properties expect numeric inputs, found 'None'. */
 
   stdev(list(none, skip))
 
@@ -1002,12 +1161,12 @@ output SUM103
   sum(set(25, 45))
 
 output SUM191
-/* [ERROR] [xule:error] rule SUM191: unsupported operand type(s) for +: 'float' and 'XuleString' */
+/* rule SUM191: unsupported operand type(s) for +: 'float' and 'XuleString' */
 
   sum(set(0.25, 'cat', 1.45, 5.5))
 
 output SUM192
-/* [ERROR] [xule:error] rule SUM192: Rule: SUM192 - The first argument of function 'sum' must be set, list, found 'int'. */
+/* rule SUM192: Rule: SUM192 - The first argument of function 'sum' must be set, list, found 'int'. */
 
   sum(6)
 
@@ -1017,7 +1176,7 @@ output SUM193
   sum(list(none))
 
 output SUM194
-/* list(None,None) */
+/* list(None, None) */
 
   sum(list(list(none),list(none)))
 
@@ -1032,7 +1191,7 @@ output SUM196
   sum(list())
 
 output SUM197
-/* set(5, 3, 4, 1, 6, 2) */
+/* set(1, 2, 3, 4, 5, 6) */
 
   sum(list(set(1,2), set(3,4), set(5,6)))
 
@@ -1042,17 +1201,17 @@ output SUM198
   sum(set())
 
 output SUM199
-/* [ERROR] [xule:error] rule SUM199: Rule: SUM199 - The first argument of function 'sum' must be set, list, found 'dictionary'. */
+/* rule SUM199: Rule: SUM199 - The first argument of function 'sum' must be set, list, found 'dictionary'. */
 
   sum(dict(list(1,1),list(2,2),list(3,3)))
 
 output SUM200
-/* [ERROR] [xule:error] rule SUM200: Rule: SUM200 - The first argument of function 'sum' must be set, list, found 'dictionary'. */
+/* rule SUM200: Rule: SUM200 - The first argument of function 'sum' must be set, list, found 'dictionary'. */
 
   sum(dict(list(1,1),list(2,2),list(3,3))).values
 
 output SUM201
-/* [ERROR] [xule:error] rule SUM201: Rule: SUM201 - The first argument of function 'sum' must be set, list, found 'dictionary'. */
+/* rule SUM201: Rule: SUM201 - The first argument of function 'sum' must be set, list, found 'dictionary'. */
 
   sum(dict(list(1,1),list(2,2),list(3,3))).keys
 
@@ -1081,6 +1240,11 @@ output SUM206
 
   sum(list(skip))
 
+output SUM207
+/* rule SUM207: unsupported operand type(s) for +: 'int' and 'NoneType' */
+
+  sum(list(1, 2, 3, none))
+
 output RNG001
 /* list(1, 2, 3, 4, 5) */
 
@@ -1095,3 +1259,63 @@ output RNG003
 /* list(4, 6, 8, 10) */
 
   range(4, 10, 2)
+
+output ADICT001
+/* dictionary(a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g)),h=list(list(h, i, j))) */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    $i.agg-to-dict(1)
+
+output ADICT002
+/* dictionary(e=list(list(e, f, g)),a=list(list(a, b, c), list(a, x, y)),h=list(list(h, i, j))) */
+
+  $i = set(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    $i.agg-to-dict(1)
+
+output ADICT003
+/* dictionary(list(a, None)=list(list(a, x, y)),list(e, None)=list(list(e, f, g)),list(h, None)=list(list(h, i, j)),list(a, d)=list(list(a, b, c, d))) */
+
+  $i = list(list('a', 'b', 'c', 'd'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    $i.agg-to-dict(1,4)
+
+output ADICT004
+/* dictionary(h=list(list(h, i, j)),a=list(list(a, b, c), list(a, x, y)),e=list(list(e, f, g))) */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('a', 'x', 'y'))
+
+    agg-to-dict($i, 1)
+
+output ADICT005
+/* dictionary(None=list(list(a, b, c), list(e, f, g), list(h, i, j), list(r, dictionary(a=1), x, y))) */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('r', dict(list('a', 1)), 'x', 'y'))
+
+    agg-to-dict($i, 100)
+
+output ADICT006
+/* rule ADICT006: Rule: ADICT006 - agg-to-dict requires at least 1 key location argument, found 0 */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('r', dict(list('a', 1)), 'x', 'y'))
+
+    $i.agg-to-dict()
+
+output ADICT007
+/* rule ADICT007: Rule: ADICT007 - agg-to-dict requires at least 1 key location argument, found 0 */
+
+  $i = list(list('a', 'b', 'c'),list('e', 'f', 'g'), list('h', 'i', 'j'), list('r', dict(list('a', 1)), 'x', 'y'))
+
+    agg-to-dict($i)
+
+output ADICT008
+/* dictionary(c=list(list(c, 3)),a=list(list(a, 1)),b=list(list(b, 2))) */
+
+  $i = list(
+            list('a', 1),
+            list('b', 2),
+            list('c', 3)
+    )
+
+    $i.agg-to-dict(1)

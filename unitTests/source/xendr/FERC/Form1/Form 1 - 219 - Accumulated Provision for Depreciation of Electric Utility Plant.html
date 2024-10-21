@@ -1,0 +1,1044 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:xendr="http://xbrl.us/xendr/2.0/template"
+xmlns:ixt1="http://www.xbrl.org/inlineXBRL/transformation/2010-04-20"
+xmlns:ixt4="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+xmlns:ferc="http://ferc.gov/form/2023-04-01/ferc"
+xmlns:ferc-part="http://www.ferc.gov/form/parts"
+>
+
+<head>
+    <title>Template - F1 - 219</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="form-template.css"/>
+    
+</head>
+
+<body class="xbrl" id="ScheduleAccumulatedProvisionForDepreciationOfElectricUtilityPlantAbstract">
+    <xule:showif>if set('1-F').contains([covered @concept.local-name ='FormType']) 
+        if first(list([covered @ferc:AccumulatedProvisionForDepreciationAndAmortizationOfUtilityPlantMajorNonmajor])) == "Major"
+            true
+        else
+            false
+     else
+        true</xule:showif>
+
+   
+    <table class="ident-table xbrl" width="100%">
+        <tr>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:RespondentLegalName).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace><br/>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:RespondentLegalName @period=$currentDuration]</xule:expression>
+                    <xule:template-display>Name of Respondent:</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl">
+                <xule:replace>
+                    <xule:expression class="hide">taxonomy().concept(ferc:SubmissionType).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                    <xule:template-display>This report is:</xule:template-display>
+                </xule:replace>
+                    <br/>
+                    (1) 
+                        <xule:replace>
+                                <xule:expression html="true" class="hide">if missing({covered @concept=ferc:SubmissionType}) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "O" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> An Original']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> An Original']]>
+                                </xule:expression>  
+                            <xule:template-display>
+                                    <input type="checkbox"/> An Original
+                            </xule:template-display>
+                        </xule:replace>
+                        <br/>
+                    (2)
+                        <xule:replace>
+                                <xule:expression html="true" class="hide">if missing([covered @concept=ferc:SubmissionType @period=$currentDuration]) <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]> else if [@concept=ferc:SubmissionType @period=$currentDuration] == "R" <![CDATA[
+                                '<span class="checkbox">&#9745;</span> A Resubmission']]> else <![CDATA[
+                                '<span class="checkbox">&#9744;</span> A Resubmission']]>
+                                    </xule:expression> 
+                                <xule:template-display>
+                                        <input type="checkbox" checked = "checked"/> A Resubmission
+                                </xule:template-display>
+                        </xule:replace> 
+            </td>
+            <td class="xbrl"><xule:replace>
+                <xule:expression class="hide">taxonomy().concept(ferc:ReportDate).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                <xule:template-display>Date of Report:</xule:template-display>
+                </xule:replace><br/>
+                    <xule:replace>
+                        <xule:expression class="hide" fact="true" format="ixt4:date-month-day-year">[@ferc:ReportDate @period=$currentDuration]</xule:expression>
+                        <xule:template-display>04/26/2019</xule:template-display>
+                </xule:replace>
+            </td>
+            <td class="xbrl"><xule:replace>
+                <xule:expression class="hide">taxonomy().concept(ferc:ReportYearPeriod).label("http://ferc.gov/form/2020-01-01/roles/label/F1Header").text</xule:expression>
+                <xule:template-display>Year/Period of Report:</xule:template-display>
+                </xule:replace><br/>
+                End of: <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportYear @period=$currentDuration]</xule:expression>
+                    <xule:template-display>2018</xule:template-display>
+                </xule:replace>
+                <span>/</span>
+                <xule:replace>
+                    <xule:expression class="hide" fact="true">[@ferc:ReportPeriod @period=$currentDuration]</xule:expression>
+                    <xule:template-display>Q4</xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+    </table>
+    <table class="xbrl">
+        <tr class="sch-title">
+            <td colspan="6" class="xbrl">
+                <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationOfElectricUtilityPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1ScheduleTitle").text
+                        </xule:expression>
+                        <xule:template-display>
+                            ACCUMULATED PROVISION FOR DEPRECIATION OF ELECTRIC UTILITY PLANT (Account 108)
+                        </xule:template-display>
+                </xule:replace>
+              
+            </td>
+        </tr>
+        <tr>
+            <td class="instruction xbrl" colspan="6">
+                <xule:replace>
+                    <xule:expression class="hide" html="true">taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationOfElectricUtilityPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1Instructions").text
+                    </xule:expression>
+                    <xule:template-display>
+                        <ol>
+                                <li>Report in Section A the amounts of depreciation expense, depletion and amortization for the accounts indicated and classified according to the plant functional groups shown.</li>
+                                <li>Report in Section B, column (b) all depreciable or amortizable plant balances to which rates are applied and show a composite total.  (If more desirable, report by plant account, subaccount or functional classifications other than those pre-printed in column (a).  Indicate in a footnote the manner in which column (b) balances are obtained.  If average balances are used, state the method of averaging used.  For column (c) report available information for each plant functional classification listed in column (a).  If composite depreciation accounting is used, report available information called for in columns (b) and (c) on this basis.  Where the unit-of-production method is used to determine depreciation charges, show in a footnote any revisions made to estimated gas reserves.</li>
+                                <li>If provisions for depreciation were made during the year in addition to depreciation provided by application of reported rates, state in a footnote the amounts and nature of the provisions and the plant items to which related.</li>
+                                <li>Add rows as necessary to completely report all data.  Number the additional rows in sequence as 2.01, 2.02, 3.01, 3.02, etc.</li>
+                                </ol>
+                    </xule:template-display>
+                </xule:replace>
+            </td>
+        </tr>
+        <tr class="col-heading-row">     
+            <td class="col-heading xbrl line-number">Line No.</td>
+            <td class="col-heading xbrl" xule:repeat="APHeadings">
+                    <xule:expression class="hide" name="APHeadings">
+                            $headings = filter (taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationOfElectricUtilityPlantAbstract).references("http://ferc.gov/form/2020-01-01/roles/reference/columnDetails")) where ($item.part-by-name(ferc-part:Schedule).part-value == "219 - Schedule - Accumulated Provision for Depreciation of Electric Utility Plant - Changes - Section A") 
+
+                            $headings = list(for $ref in $headings 
+                            list($ref.part-by-name(ferc-part:Column).part-value, $ref.part-by-name(ferc-part:ColumnName).part-value))
+
+                            $heading_dict = dict(for $row in $headings
+						            list("("+$row[1]+")",$row[2])
+						    );
+                            for $row in $heading_dict.keys.sort
+                    </xule:expression>
+                    <div style="text-align: center"><xule:replace>
+                    <xule:expression class="hide" name="APHeadings" part="1">$heading_dict[$row]</xule:expression>
+                    <xule:template-display>
+                        Item
+                    </xule:template-display>
+                </xule:replace>
+            </div>
+                <div style="text-align: center"><xule:replace>
+                        <xule:expression class="hide" name="APHeadings" part="2">$row</xule:expression>
+                        <xule:template-display>
+                            (a)
+                        </xule:template-display>
+                    </xule:replace></div>
+            </td>
+        </tr>
+        <tr class="sch-title">
+                <td class="xbrl" colspan="6">Section A. Balances and Changes During Year</td>
+            </tr>
+        
+        <!-- Section A. Beginning Balance -->
+        <tr class="schedule-row">
+                <td class="xbrl">1</td>
+                <td class="xbrl">
+                    <div class="tooltip">
+                        <div class="tooltiptext">
+                            AccumulatedProvisionForDepreciationOfElectricUtilityPlant
+                        </div>
+                        <xule:replace>
+                            <xule:expression class="hide">
+                                taxonomy().concept(ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant).label("http://ferc.gov/form/2020-01-01/roles/label/F1BeginningBalance").text
+                            </xule:expression>
+                            <div>
+                                <xule:template-display>
+                                    Balance Beginning of Year
+                                </xule:template-display>
+                            </div>
+                        </xule:replace>
+                    </div>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $priorInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $priorInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $priorInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $priorInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+        </tr> 
+        <!-- Section A. Lines 2-7 -->
+        <tr class="schedule-row">
+                <td class="xbrl">2</td>
+                <td class="xbrl description_items">
+                        <xule:replace>
+                           <xule:expression class="hide">
+                               taxonomy().concept(ferc:DepreciationProvisionsForYearAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1AccumulatedProvisionForDepreciationElectricUtilityPlantChanges").text
+                           </xule:expression>
+                           <div>
+                               <xule:template-display>
+                                Depreciation Provisions for Year, Charged to
+                               </xule:template-display>
+                           </div>
+                       </xule:replace>
+                   </td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+        </tr>
+        <tr class="schedule-row" xule:repeat="APLineItems">
+                <xule:expression class="hide" name="APLineItems">
+    $data = navigate parent-child descendants from ferc:DepreciationProvisionsForYearAbstract stop when $relationship.target.name == ferc:DepreciationProvision role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/AccumulatedProvisionForDepreciationOfElectricUtilityPlantA" where $relationship.target.name != ferc:DepreciationProvision returns list (target-name, preferred-label);
+    $data-labels = list(for $row in $data
+            $concept = taxonomy().concept($row[1]);
+            $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "219 - Schedule - Accumulated Provision for Depreciation of Electric Utility Plant - Changes - Section A" and $item.part-by-name(ferc-part:ColumnName).part-value.string == "F1AccumulatedProvisionForDepreciationElectricUtilityPlantChanges")).to-list;
+            $totalElectricUtility = if list([covered @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @concept = $row[1] @period = $currentDuration]).length > 0
+					        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember  @period = $currentDuration]))
+					  else
+                            none
+            $electricPlantInService = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentDuration]).length>0
+                                         first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentDuration]))
+                        else
+                                         none
+            $electricPlantHeld = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentDuration]).length>0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentDuration]))
+                        else
+                                        none
+            $electricPlantLeased = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentDuration]).length>0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentDuration]))
+                        else
+                                         none
+
+            list($concept,
+			$concept.label($row[2].role.uri).text,
+                        if ($row_num.part-by-name(ferc-part:Row)).length == 0
+                        ""
+                       else
+                         ($row_num.part-by-name(ferc-part:Row))[1].part-value,
+            $totalElectricUtility,
+            $electricPlantInService,
+            $electricPlantHeld,
+            $electricPlantLeased
+
+				));
+            for $rowl in $data-labels
+   
+
+                </xule:expression>
+
+                <td class="xbrl line-number">
+                    <xule:replace><xule:expression class="hide" name="APLineItems" part="1">$rowl[3]</xule:expression></xule:replace>
+                    <xule:template-display>1</xule:template-display>
+                </td> 
+                <td class="xbrl description_items">
+                        <div class="tooltip">
+                                <div class="tooltiptext">
+                                        <xule:replace>
+                                                <xule:expression class="hide" name="APLineItems" part="6">$rowl[1].name.local-name</xule:expression>
+                                            </xule:replace>
+                                </div>
+                        <xule:replace>
+                            <xule:expression class="hide" name="APLineItems"  part="2">$rowl[2]</xule:expression>
+                            <xule:class location="parent">if $rowl[1].is-abstract "title" else ""</xule:class>
+                        </xule:replace>
+                        <xule:template-display>Depreciation Provisions for Year, Charged to</xule:template-display>
+                        </div>
+                </td> 
+
+                <!-- Total (c+d+e) -->
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                            <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems" part="4">$rowl[4]</xule:expression>
+                            <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                        </xule:replace>        
+                </td> 
+
+                <!-- Electric Plant in Service -->
+                <td class="xbrl monetary_items">
+                        <xule:replace><xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems" part="5">$rowl[5]</xule:expression>
+                        <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                    </xule:replace>        
+                </td> 
+              
+                <!-- Electric Plant Held for Future Use -->
+                <td class="xbrl monetary_items">
+                        <xule:replace><xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems" part="6">$rowl[6]</xule:expression>
+                        <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                    </xule:replace>                
+                </td> 
+                <!-- Electric Plant Leased to Others -->
+                <td class="xbrl monetary_items">
+                        <xule:replace><xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems" part="7">$rowl[7]</xule:expression>
+                        <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                    </xule:replace>                
+                </td>    
+        </tr>
+
+
+        <!-- Section A. Lines 8-9 -->
+        <tr class="schedule-row" xule:repeat="SectionASequence1">
+                <xule:expression class="hide" name="SectionASequence1">// adding a comment
+                 
+                $data2 =   list(for $i in range(5)
+                                list($i,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:OtherClearingAccountsAxis=*})) > 0  
+                $otherAccounts = set({covered @ferc:OtherClearingAccountsAxis=*}.dimension(ferc:OtherClearingAccountsAxis));
+               
+                list(for $x in $otherAccounts
+               
+                    list(
+
+                    if list([@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x]).length > 0
+                        first(list([@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x]))
+                    else
+                        0,
+                    if exists([@ferc:OtherAccountsDescription @unit  @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x]) 
+                        first(list([@ferc:OtherAccountsDescription @unit  @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])) 
+                    else 
+                        none,
+                    if exists([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @unit @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])
+                        first(list([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @unit @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])) 
+                    else 
+                        none,
+                    if exists([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @unit @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])
+                        first(list([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @unit @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])) 
+                    else 
+                        none,
+                    if exists([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @unit @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])
+                        first(list([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @unit  @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])) 
+                    else 
+                        none,
+                    if exists([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @unit  @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x]) 
+                        first(list([@ferc:OtherAccounts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @unit  @period=$currentDuration @ferc:OtherClearingAccountsAxis = $x])) 
+                    else 
+                        none
+                  
+                   
+                    ))
+                    else $data2;
+                
+                    $uniqueData = list(for $x in $data
+                        if $x == list(0,none,none,none,none,none)
+                            skip
+                        else 
+                            $x
+                        );
+
+                     for $row in $uniqueData.sort
+                                 
+
+                </xule:expression>
+                <td class="xbrl line-number">
+                        <xule:lineNumber name="SectionASequence1" subNumber="true">
+                            <xule:startNumber>9</xule:startNumber>
+                        </xule:lineNumber>
+                    </td>
+                <td class="xbrl description_items"><xule:replace><xule:expression  class="hide"  name="SectionASequence1" fact="true" part="2">$row[2]</xule:expression></xule:replace>
+                    <xule:template-display>
+                        Other Accounts (Specify, details in footnote)
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence1" fact="true" format="ixt4:num-dot-decimal" part="3">$row[3]</xule:expression></xule:replace>
+                    <xule:template-display>
+                           $100,000,000
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence1" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xule:expression></xule:replace>
+                    <xule:template-display>
+                            $1,000,000
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence1" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xule:expression></xule:replace>
+                    <xule:template-display>
+                           $2,000,000
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence1" fact="true" format="ixt4:num-dot-decimal"  part="6">$row[6]</xule:expression></xule:replace>
+                    <xule:template-display>
+                            $80,000,000
+                    </xule:template-display>
+                </td>  
+            </tr>
+
+
+
+        <!-- Section A. Line 10 -->
+        <tr class="schedule-row">
+                <td class="xbrl line-number">10</td>
+                <td class="xbrl description_items">
+                    <div class="tooltip">
+                        <div class="tooltiptext">
+                            DepreciationProvision
+                        </div>
+                    <xule:replace>
+                        <xule:expression class="hide">
+                            taxonomy().concept(ferc:DepreciationProvision).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                        </xule:expression>
+                        <div>
+                            <xule:template-display>
+                                TOTAL Deprec. Prov for Year (Enter Total of lines 3 thru 9)
+                            </xule:template-display>
+                        </div>
+                    </xule:replace>
+                </div>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:DepreciationProvision @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:DepreciationProvision @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:DepreciationProvision @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:DepreciationProvision @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+        </tr> 
+
+
+        <!-- Section A. Line 11-15 -->
+        <tr class="schedule-row">
+                <td class="xbrl">11</td>
+                <td class="xbrl description_items">
+                     <xule:replace>
+                        <xule:expression class="hide">
+                            taxonomy().concept(ferc:NetChargesForRetiredPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1AccumulatedProvisionForDepreciationElectricUtilityPlantChanges").text
+                        </xule:expression>
+                        <div>
+                            <xule:template-display>
+                                Net Charges for Plant Retired:
+                            </xule:template-display>
+                        </div>
+                    </xule:replace>
+                </td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+                <td class="xbrl gray-out"></td>
+        </tr>
+
+        <tr class="schedule-row" xule:repeat="APLineItems2">
+                <xule:expression class="hide" name="APLineItems2">
+    $data = navigate parent-child descendants from ferc:NetChargesForRetiredPlantAbstract role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/AccumulatedProvisionForDepreciationOfElectricUtilityPlantA" returns list (target-name, preferred-label);
+    $data-labels = list(for $row in $data
+            $concept = taxonomy().concept($row[1]);
+            $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "219 - Schedule - Accumulated Provision for Depreciation of Electric Utility Plant - Changes - Section A" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+
+
+            $totalElectricUtility = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]).length>0
+					        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+					  else
+                            none
+            $electricPlantInService = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentDuration]).length>0
+                                         first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentDuration]))
+                        else
+                                         none
+            $electricPlantHeld = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentDuration]).length>0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentDuration]))
+                        else
+                                        none
+            $electricPlantLeased = if list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentDuration]).length>0
+                                        first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentDuration]))
+                        else
+                                         none
+
+            list($concept,
+                $concept.label($row[2].role.uri).text,
+                if ($row_num.part-by-name(ferc-part:Row)).length == 0
+                "-"
+            else
+                ($row_num.part-by-name(ferc-part:Row))[1].part-value,
+            $totalElectricUtility,
+            $electricPlantInService,
+            $electricPlantHeld,
+            $electricPlantLeased
+
+				));
+    for $rowl in $data-labels
+    
+
+                </xule:expression>
+
+                <td class="xbrl">
+                    <xule:replace><xule:expression class="hide" name="APLineItems2" part="1">$rowl[3]</xule:expression></xule:replace>
+                    <xule:template-display>12</xule:template-display>
+                </td> 
+                <td class="xbrl">
+                        <div class="tooltip">
+                                <div class="tooltiptext">
+                                        <xule:replace>
+                                                <xule:expression class="hide" name="APLineItems2" part="6">$rowl[1].name.local-name</xule:expression>
+                                            </xule:replace>
+                                </div>
+                        <xule:replace>
+                            <xule:expression class="hide" name="APLineItems2"  part="2">$rowl[2]</xule:expression>
+                            <xule:class location="parent">if $rowl[1].is-abstract "title" else ""</xule:class>
+                        </xule:replace>
+                        <xule:template-display>Book Cost of Plant Retired</xule:template-display>
+                        </div>
+                </td> 
+
+                <!-- Total (c+d+e) -->
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                            <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems2" part="4">$rowl[4]</xule:expression>
+                            <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                            <xule:sign>if $rowl[1].name in list(ferc:BookCostOfRetiredPlant,ferc:CostOfRemovalOfPlant,ferc:NetChargesForRetiredPlant) "-" else none</xule:sign>
+                        </xule:replace>        
+                </td> 
+
+                <!-- Gas Plant in Service -->
+                <td class="xbrl monetary_items">
+                        <xule:replace><xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems2" part="5">$rowl[5]</xule:expression>
+                        <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                        <xule:sign>if $rowl[1].name in list(ferc:BookCostOfRetiredPlant,ferc:CostOfRemovalOfPlant,ferc:NetChargesForRetiredPlant) "-" else none</xule:sign>
+                    </xule:replace>        
+                </td> 
+              
+                <!-- Gas Plant Held for Future Use -->
+                <td class="xbrl monetary_items">
+                        <xule:replace><xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems2" part="6">$rowl[6]</xule:expression>
+                        <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                        <xule:sign>if $rowl[1].name in list(ferc:BookCostOfRetiredPlant,ferc:CostOfRemovalOfPlant,ferc:NetChargesForRetiredPlant) "-" else none</xule:sign>
+                    </xule:replace>                
+                </td> 
+                <!-- Gas Plant Leased to Others -->
+                <td class="xbrl monetary_items">
+                        <xule:replace><xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal" name="APLineItems2" part="7">$rowl[7]</xule:expression>
+                        <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                        <xule:sign>if $rowl[1].name in list(ferc:BookCostOfRetiredPlant,ferc:CostOfRemovalOfPlant,ferc:NetChargesForRetiredPlant) "-" else none</xule:sign>
+                    </xule:replace>                
+                </td>    
+        </tr>
+
+
+
+        <!-- Section A. Line 16 -->
+        <tr class="schedule-row">
+                <td class="xbrl line-number">16</td>
+                <td class="xbrl description_items">
+                    <div class="tooltip">
+                        <div class="tooltiptext">
+                            OtherAdjustmentsToAccumulatedDepreciation
+                        </div>
+                    <xule:replace>
+                        <xule:expression class="hide">
+                            taxonomy().concept(ferc:OtherAdjustmentsToAccumulatedDepreciation).label("http://ferc.gov/form/2020-01-01/roles/label/F1AccumulatedProvisionForDepreciationElectricUtilityPlantChanges").text
+                        </xule:expression>
+                        <div>
+                            <xule:template-display>
+                                Other Debit or Credit Items (Describe, details in footnote):
+                            </xule:template-display>
+                        </div>
+                    </xule:replace>
+                    </div>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember  @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $5,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $1,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $6,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $8,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+        </tr>
+
+
+        <!-- Section A. Lines 16-17 -->
+        <tr class="schedule-row" xule:repeat="SectionASequence2">
+                <xule:expression class="hide" name="SectionASequence2">// adding a comment
+                 
+                $data2 =   list(for $i in range(5)
+                                list($i,none,none,none,none,none)
+                );
+
+                $data = if count(list({covered @ferc:OtherDebitOrCreditItemsAxis=*})) > 0  
+                            $plantsRetired = set({covered @ferc:OtherDebitOrCreditItemsAxis=*}.dimension(ferc:OtherDebitOrCreditItemsAxis));
+                        
+                            list(for $x in $plantsRetired
+                        
+                                list(
+
+                                if list([@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x]).length > 0
+                                    first(list([@ferc:OrderNumber @unit=* @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x]))
+                                else
+                                    0,
+                                if exists([@ferc:OtherAdjustmentsToAccumulatedDepreciationDescription @unit  @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])
+                                    first(list([@ferc:OtherAdjustmentsToAccumulatedDepreciationDescription @unit  @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x]))
+                                else 
+                                    none,
+                                if exists([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @unit @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])
+                                    first(list([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember  @unit @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])) 
+                                else 
+                                    none,
+                                if exists([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @unit @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])
+                                    first(list([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @unit @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])) 
+                                else 
+                                    none,
+                                if exists([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @unit @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])
+                                    first(list([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @unit  @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])) 
+                                else 
+                                    none,
+                                if exists([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @unit  @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x]) 
+                                    first(list([@ferc:OtherAdjustmentsToAccumulatedDepreciation @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @unit  @period=$currentDuration @ferc:OtherDebitOrCreditItemsAxis = $x])) 
+                                else 
+                                    none
+                                ))
+                        else 
+                            $data2;
+                
+                $uniqueData = list(for $x in $data
+                    if $x == list(0,none,none,none,none,none)
+                        skip
+                    else 
+                        $x
+                    );
+
+                for $row in $uniqueData.sort
+                                  
+
+                </xule:expression>
+                <td class="xbrl line-number">
+                        <xule:lineNumber name="SectionASequence2" subNumber="true">
+                            <xule:startNumber>17</xule:startNumber>
+                        </xule:lineNumber>
+                    </td>
+                <td class="xbrl description_items"><xule:replace><xule:expression  class="hide"  name="SectionASequence2" fact="true" part="2">$row[2]</xule:expression></xule:replace>
+                    <xule:template-display>
+                        Other Debit or Credit Items (Describe, details in footnote)
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence2" fact="true" format="ixt4:num-dot-decimal" part="3">$row[3]</xule:expression><xule:sign>if $row[3].name in list(ferc:OtherAdjustmentsToAccumulatedDepreciation) "-" else none</xule:sign>
+                </xule:replace>
+                    <xule:template-display>
+                           $200,000,000
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence2" fact="true" format="ixt4:num-dot-decimal" part="4">$row[4]</xule:expression><xule:sign>if $row[4].name in list(ferc:OtherAdjustmentsToAccumulatedDepreciation) "-" else none</xule:sign>
+                </xule:replace>
+                    <xule:template-display>
+                            $2,000,000
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence2" fact="true" format="ixt4:num-dot-decimal" part="5">$row[5]</xule:expression><xule:sign>if $row[5].name in list(ferc:OtherAdjustmentsToAccumulatedDepreciation) "-" else none</xule:sign>
+                </xule:replace>
+                    <xule:template-display>
+                           $3,000,000
+                    </xule:template-display>
+                </td>
+                <td class="xbrl monetary_items"><xule:replace><xule:expression class="hide"  name="SectionASequence2" fact="true" format="ixt4:num-dot-decimal"  part="6">$row[6]</xule:expression><xule:sign>if $row[6].name in list(ferc:OtherAdjustmentsToAccumulatedDepreciation) "-" else none</xule:sign></xule:replace>
+                    <xule:template-display>
+                            $90,000,000
+                    </xule:template-display>
+                </td>  
+            </tr>
+        <!-- Section A. Line 18 -->
+        <tr class="schedule-row">
+                <td class="xbrl">18</td>
+                <td class="xbrl">
+                    <div class="tooltip">
+                        <div class="tooltiptext">
+                            BookCostOfAssetRetirementCosts
+                        </div>
+                    <xule:replace>
+                        <xule:expression class="hide">
+                            taxonomy().concept(ferc:BookCostOfAssetRetirementCosts).label("http://ferc.gov/form/2020-01-01/roles/label/F1AccumulatedProvisionForDepreciationElectricUtilityPlantChanges").text
+                        </xule:expression>
+                        <div>
+                            <xule:template-display>
+                                    Book Cost of Asset Retirement Costs
+                            </xule:template-display>
+                        </div>
+                    </xule:replace>
+                    </div>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:BookCostOfAssetRetirementCosts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $5,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:BookCostOfAssetRetirementCosts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $1,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:BookCostOfAssetRetirementCosts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $6,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:BookCostOfAssetRetirementCosts @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentDuration]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $8,080,500 
+                                </xule:template-display>
+                                <xule:sign>"-"</xule:sign>
+                        </xule:replace>                   
+                </td>
+        </tr>
+        <!-- Section A. Ending Balance -->
+        <tr class="schedule-row">
+                <td class="xbrl line-number">19</td>
+                <td class="xbrl description_items">
+                    <div class="tooltip">
+                        <div class="tooltiptext">
+                            AccumulatedProvisionForDepreciationOfElectricUtilityPlant
+                        </div>
+                    <xule:replace>
+                        <xule:expression class="hide">
+                            taxonomy().concept(ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant).label("http://ferc.gov/form/2020-01-01/roles/label/F1EndingBalance").text
+                        </xule:expression>
+                        <div>
+                            <xule:template-display>
+                                Balance End of Year (Enter Totals of lines 1, 10, 15, 16, and 18)
+                            </xule:template-display>
+                        </div>
+                    </xule:replace>
+                    </div>
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+        </tr>
+    <!-- Section B. Balances At End Of Year According to Functional Classifications -->
+    
+    <tr class="sch-title">
+        <td class="xbrl" colspan="6">Section B. Balances at End of Year According to Functional Classification</td>
+    </tr>
+       
+
+        <tr class="schedule-row" xule:repeat="APLineItems3">
+                <xule:expression class="hide" name="APLineItems3">// adding a comment
+                                
+                                     $data = navigate parent-child descendants from ferc:AccumulatedProvisionForDepreciationLineItems role "http://ferc.gov/form/2020-01-01/roles/Schedule/F1/ScheduleAccumulatedProvisionForDepreciationOfElectricUtilityPlantB" returns list (target-name, preferred-label);
+                                     $data-labels = list(for $row in $data
+                                             $concept = taxonomy().concept($row[1]);
+                                             $row_num = (filter $concept.references("http://ferc.gov/form/2020-01-01/roles/reference/formLocation") where ($item.part-by-name(ferc-part:Schedule).part-value == "219 - Schedule - Accumulated Provision for Depreciation of Electric Utility Plant - Functional Classification - Section B" and $item.part-by-name(ferc-part:ValueType).part-value.string == "Label")).to-list;
+                                             
+                                             $totalElectricUtility = if exists(first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentInstant])))
+                                                                            first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentInstant]))
+                                                                    else
+                                                                                    none
+                                            $electricPlantInService = if exists(first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentInstant])))
+                                                                            first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentInstant]))
+                                                                    else
+                                                                                    none
+                                            $electricPlantHeld = if exists(first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentInstant])))
+                                                                            first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentInstant]))
+                                                                    else
+                                                                                    none
+                                            $electricPlantLeased = if exists(first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentInstant])))
+                                                                            first(list([covered @concept = $row[1] @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentInstant]))
+                                                                    else
+                                                                                    none
+                                 
+                                             list($concept,
+                                                         $concept.label($row[2].role.uri).text,
+                                                         if ($row_num.part-by-name(ferc-part:Row)).length == 0
+                                                         ""
+                                                        else
+                                                          ($row_num.part-by-name(ferc-part:Row))[1].part-value,
+                                             $totalElectricUtility,
+                                             $electricPlantInService,
+                                             $electricPlantHeld,
+                                             $electricPlantLeased
+                                 
+                                                                 ));
+                                        
+                                     for $rowl in $data-labels
+                                     
+                     
+
+
+                </xule:expression>
+                <td class="xbrl line-number">
+                                <xule:replace><xule:expression class="hide" name="APLineItems3" part="1">$rowl[3]</xule:expression></xule:replace>
+                                <xule:template-display>1</xule:template-display>
+                            </td> 
+                            <td class="xbrl description_items">
+                                    <div class="tooltip">
+                                            <div class="tooltiptext">
+                                                    <xule:replace>
+                                                            <xule:expression class="hide" name="APLineItems3" part="6">$rowl[1].name.local-name</xule:expression>
+                                                        </xule:replace>
+                                            </div>
+                                    <xule:replace>
+                                        <xule:expression class="hide" name="APLineItems3"  part="2">$rowl[2]</xule:expression>
+                                        <xule:class location="parent">if $rowl[1].is-abstract "title" else ""</xule:class>
+                                    </xule:replace>
+                                    <xule:template-display>Steam Production</xule:template-display>
+                                    </div>
+                            </td> 
+                        
+                            
+                            <td class="xbrl monetary_items">
+                                    <xule:replace>
+                                        <xule:expression fact="true" format="ixt4:num-dot-decimal" class="hide" name="APLineItems3" part="4">$rowl[4]</xule:expression>
+                                        <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                    </xule:replace>        
+                            </td> 
+            
+                            
+                            <td class="xbrl monetary_items">
+                                    <xule:replace><xule:expression fact="true" format="ixt4:num-dot-decimal" class="hide" name="APLineItems3" part="5">$rowl[5]</xule:expression>
+                                    <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                </xule:replace>        
+                            </td> 
+                          
+                            
+                            <td class="xbrl monetary_items">
+                                    <xule:replace><xule:expression fact="true" format="ixt4:num-dot-decimal" class="hide" name="APLineItems3" part="6">$rowl[6]</xule:expression>
+                                    <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                </xule:replace>                
+                            </td> 
+                            
+                            <td class="xbrl monetary_items">
+                                    <xule:replace><xule:expression fact="true" format="ixt4:num-dot-decimal" class="hide" name="APLineItems3" part="7">$rowl[7]</xule:expression>
+                                    <xule:class location="parent">if $rowl[1].is-abstract "gray-out" else ""</xule:class>
+                                </xule:replace>                
+                            </td>    
+            </tr>
+        
+        <!-- Line 29: Total -->
+        <tr class="schedule-row">
+                <td class="xbrl">29</td>
+                <td class="xbrl">
+                    <div class="tooltip">
+                        <div class="tooltiptext">
+                            AccumulatedProvisionForDepreciationOfElectricUtilityPlant
+                        </div>
+                    <xule:replace>
+                        <xule:expression class="hide">
+                            taxonomy().concept(ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant).label("http://ferc.gov/form/2020-01-01/roles/label/F1Total").text
+                        </xule:expression>
+                        <div>
+                            <xule:template-display>
+                                Total
+                            </xule:template-display>
+                        </div>
+                    </xule:replace>
+                    </div>
+                </td>
+                <td class="xbrl monetary_items">
+                                <xule:replace>
+                         <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @period = $currentInstant]))
+                                        </xule:expression>
+                                        <xule:template-display>
+                                                $2,080,500 
+                                        </xule:template-display>
+                                </xule:replace>                   
+                        </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantInServiceMember @period = $currentInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantHeldForFutureUseMember @period = $currentInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                <td class="xbrl monetary_items">
+                        <xule:replace>
+                                <xule:expression class="hide" fact="true" format="ixt4:num-dot-decimal">max(list([@concept=ferc:AccumulatedProvisionForDepreciationOfElectricUtilityPlant @ferc:UtilityTypeAxis=ferc:ElectricUtilityMember @ferc:ElectricPlantClassificationAxis=ferc:ElectricPlantLeasedToOthersMember @period = $currentInstant]))
+                                </xule:expression>
+                                <xule:template-display>
+                                        $2,080,500 
+                                </xule:template-display>
+                        </xule:replace>                   
+                </td>
+                
+        </tr>
+    </table>
+
+
+    <p></p>
+    <div class="schedule-footer"> 
+        <div>FERC FORM No. 
+                <xule:replace>
+                        <xule:expression class="hide" fact="true">first(list([@ferc:FormType @period=$currentDuration]))</xule:expression>
+                        <xule:template-display>2/3-Q</xule:template-display>
+                </xule:replace>
+                <span> </span>
+                <xule:replace>
+                        <xule:expression class="hide">" (" + taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationOfElectricUtilityPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1DateRevised").text + ")"
+                        </xule:expression>
+                        <xule:template-display>
+                        02-04
+                        </xule:template-display>
+                </xule:replace>            
+        </div>
+        <div class="center-text">Page 
+                <xule:replace>
+                        <xule:expression class="hide">taxonomy().concept(ferc:ScheduleAccumulatedProvisionForDepreciationOfElectricUtilityPlantAbstract).label("http://ferc.gov/form/2020-01-01/roles/label/F1PageRange").text
+                        </xule:expression>
+                        <xule:template-display>
+                        1
+                        </xule:template-display>
+                </xule:replace>
+        </div> 
+    </div>
+</body>
+
+</html>
