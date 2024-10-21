@@ -1,6 +1,7 @@
 import collections
 import logging
 import optparse
+import os
 import posixpath
 import re
 import zipfile
@@ -439,6 +440,8 @@ def init_SXM(cntlr):
 def write(dts, package_name, cntlr):
 
     package_folder = _PACKAGE_FOLDER or posixpath.splitext(posixpath.basename(package_name))[0]
+    zip_file_folder = os.path.dirname(package_name)
+    os.makedirs(zip_file_folder, exist_ok=True)
     with zipfile.ZipFile(package_name, 'w', compression=zipfile.ZIP_DEFLATED) as z:
         for document in dts.documents.values():
             if document.is_relative:
@@ -976,7 +979,7 @@ def serialize_element(new_element, namespaces):
     for att_name, att_value in new_element.attributes.items():
         if att_name.clark in (_PERIOD_ATTRIBUTE, _BALANCE_ATTRIBUTE, _TYPED_DOMAIN_REF_ATTRIBUTE):
             continue # Skip these
-        if att_name.namespace is not None:
+        if att_name.namespace not in  (None, ''):
             # This will be problematic for attribute names that have a namespace prefix. Throwing a warning for now
             warning('Attribute {} has a prefix, but the serializer may not be able to create the namespace properly'.format(att_name))
         element_node.set(att_name.clark, att_value)

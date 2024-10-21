@@ -227,6 +227,7 @@ class XuleGlobalContext(object):
         self.maximum_iterations = max(getattr(self.options, "xule_max_rule_iterations", 10000), len(getattr(model_xbrl, "factsInInstance", tuple())) + 10 )
         self.ancestry_cache = defaultdict(dict)
         self.output_files = set() # list of files that are created
+        self.stats = list()
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cntlr)
@@ -387,6 +388,7 @@ class XuleRuleContext(object):
         
         self.iter_count = 0
         self.iter_pass_count = 0
+        self.iter_skip_count = 0
         self.iter_message_count = 0
         self.iter_misaligned_count = 0
         self.iter_except_count = 0

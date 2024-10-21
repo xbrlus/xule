@@ -210,7 +210,7 @@ def extract_element_info(model_element, dts):
             'nillable': model_element.isNillable,
             'id': model_element.id,
             'substitution-group-name': substitutuion_group,
-            'attributes': {k:v for k, v in model_element.attrib.items()
+            'attributes': {k if '{' in k else '{}' + k:v for k, v in model_element.attrib.items()
                                if k not in ('name', 'id', 'type', 'substitutionGroup', 'abstract', 'nillable',
                                             '{http://www.xbrl.org/2003/instance}periodType',
                                             '{http://www.xbrl.org/2003/instance}balance')},
@@ -566,10 +566,15 @@ def new_type_from_xbrli(new_model, type_qname, cntlr):
     x = 1
 
 def get_document_from_arelle(model, arelle_uri):
+    doc = model.get('Document', arelle_uri)
+    if doc is None and arelle_uri[0] in ('/', '\\'):
         # check the uri if it is an absolute file path. This is problematic when creating the package. So fix it by removing the starting slash to make it relative
-    if arelle_uri[0] in ('/', '\\'):
         arelle_uri = arelle_uri[1:]
-    return model.get('Document', arelle_uri)
+        doc = model.get('Document', arelle_uri)
+    return doc
+    # if arelle_uri[0] in ('/', '\\'):
+    #     arelle_uri = arelle_uri[1:]
+    # doc =  model.get('Document', arelle_uri)
 
 def get_or_make_document(model, arelle_uri, doc_type, namespace=None, content=None):
     # check the uri if it is an absolute file path. This is problematic when creating the package. So fix it by removing the starting slash to make it relative
@@ -587,7 +592,7 @@ def type_from_dtr(namespace, name, cntlr):
 
 def resolve_clark_to_qname(name, dts):
     '''Convert a clark notation qname to a SXMQName'''
-    match = re.match('^{([^}]+)}(.*)$', name)
+    match = re.match('^{([^}]*)}(.*)$', name)
     if match is None:
         raise XodelException(f"QName '{name}' is not a valid clark notation")
     return dts.new('QName', match.group(1), match.group(2))
