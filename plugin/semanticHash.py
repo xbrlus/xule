@@ -222,12 +222,14 @@ def semanticStringHashResource(resource):
     role = semanticFormat('ROLE', resource.role or "http://www.xbrl.org/2003/role/footnote")
     lang = semanticFormat('LANGUAGE', resource.xmlLang.lower()) if resource.xmlLang is not None else ""
 
-    if resource.elementQname.clarkNotation == "{http://www.xbrl.org/2003/linkbase}footnote":
+    if resource.qname.clarkNotation == "{http://www.xbrl.org/2003/linkbase}footnote":
         # This could be a string, XHTML or a combination of both. 
         if len(resource) == 0: # This does not have any XHTML content
             res_text = resource.textValue or ''
         else: # there is XHTML content
             res_text = canonicalizeXML(resource, include_node_tag=False)
+    else:
+        res_text = resource.textValue or ''
 
     res_value = semanticFormat('VALUE', res_text)
 

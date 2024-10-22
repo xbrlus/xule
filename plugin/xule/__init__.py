@@ -458,6 +458,12 @@ def xuleCmdOptions(parser):
                         type="int",
                         help=_("The maximum amount of iterations any xule rule should be allowed to run.")
                     )
+    
+    parserGroup.add_option("--xule-round-to-decimals",
+                           action="store",
+                           default="4",
+                           help=_("The number of deimal places numbers should be rounded when displaying. 'inf' indicates not rounding. Otherwise must be an integer"))
+    
     parserGroup.add_option("--xule-arg",
                           action="append",
                           dest="xule_arg",
@@ -503,6 +509,16 @@ def xuleCmdOptions(parser):
                       action="store_true",
                       dest="xule_ordered_iterations",
                       help=_("Indicates that the iterations should be ordered consistently. This may affect performance"))
+
+    parserGroup.add_option("--xule-rule-stats-file",
+                        action="store",
+                        dest="xule_rule_stats_file",
+                        help=_("Name of file to store rule run statistics. The file will be a JSON file"))
+    
+    parserGroup.add_option("--xule-rule-stats-log",
+                        action="store_true",
+                        dest="xule_rule_stats_log",
+                        help=_("Output rule run statistics to the log."))
 
     parserGroup.add_option("--xule-debug",
                      action="store_true",
@@ -720,6 +736,14 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             from arelle.PluginUtils import PluginProcessPoolExecutor
         except ModuleNotFoundError:
             parser.error(_("Multiprocessing plugin support was introduced in Arelle 2.17.3. Update to a newer version of Arelle to use multiple workers (--xule-compile-workers)."))
+
+    round_to_decimals = getattr(options, 'xule_round_to_decimals', None)
+    if round_to_decimals is not None:
+        if round_to_decimals.lower() != 'inf':
+            try:
+                int(round_to_decimals)
+            except ValueError:
+                parser.error(_(f"--xule-round-to-decimals must be 'inf' or and integer, found {round_to_decimals}"))
 
     # compile rules
     if getattr(options, "xule_compile", None):

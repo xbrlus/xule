@@ -78,10 +78,7 @@ def property_contains(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, search_value in object_value.shadow_collection, 'bool')
     elif object_value.type in ('string', 'uri'):
         if search_item.type in ('string', 'uri'):
-            if search_item.value == '':
-                return xv.XuleValue(xule_context, False, 'bool')
-            else:
-                return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
+            return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
         elif search_item.type == 'none':
             return xv.XuleValue(xule_context, False, 'bool')
         else: 
@@ -412,6 +409,8 @@ def property_sort(xule_context, object_value, *args):
     #return XuleFunctions.agg_list(xule_context, object_value.value)
 
 def property_keys(xule_context, object_value, *args):
+    if object_value.type != 'dictionary':
+        raise XuleProcessingError(_("The .keys() property can only be used on a dictionary, found '{}'".format(object_value.type)), xule_context)
     if len(args) == 1:
         val = args[0]
         keys = set()
@@ -1733,6 +1732,10 @@ def property_mod(xule_context, object_value, *args):
     if args[0].type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("The argument for the 'mod' property must be numeric, found '%s'" % args[0].type), xule_context)
     
+    # Catch potention div by 0 error
+    if args[0].value == 0:
+        raise XuleProcessingError(_("Divide by zero error in property/function mod()"), xule_context)
+    
     combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(object_value, args[0], xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
 
@@ -2866,7 +2869,8 @@ def property_arcroles(xule_context, object_value, *args):
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
-PROP_OPERAND_TYPES = 2
+PROP_OPERAND_TYPES = 2 # noncollection is a special operand type that indicates that the operand can be any type except a collection
+                       # This is different from an empty tuple which indicates that the operand can be any type including a collection
 PROP_UNBOUND_ALLOWED = 3
 PROP_DATA = 4
 PROP_VERSION = 5
@@ -2894,7 +2898,7 @@ PROPERTIES = {
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
               'has-key': (property_has_key, 1, ('dictionary',), False),
-              'decimals': (property_decimals, 0, (), True),
+              'decimals': (property_decimals, 0, ('noncollection',), True),
               'networks':(property_networks, -2, ('taxonomy',), False),
               'role': (property_role, 0, ('network', 'label', 'footnote', 'reference', 'relationship'), False),
               'role-uri': (property_role_uri, 0, ('network', 'label', 'reference', 'relationship'), False),
@@ -2948,7 +2952,7 @@ PROPERTIES = {
               'is-abstract': (property_is_abstract, 0, ('concept', 'part-element', 'fact'), True),
               'is-nillable': (property_is_nillable, 0, ('concept', 'part-element'), True),
               'is-nil': (property_is_nil, 0, ('fact',), True),
-              'is-fact': (property_is_fact, 0, (), True),
+              'is-fact': (property_is_fact, 0, ('noncollection',), True),
               'inline-scale': (property_scale, 0, ('fact',), True),
               'inline-format': (property_format, 0, ('fact',), True),
               'inline-display-value': (property_display_value, 0, ('fact',), True),
@@ -3012,15 +3016,15 @@ PROPERTIES = {
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
-              'string': (property_string, 0, (), False),
-              'plain-string': (property_plain_string, 0, (), False),
+              'string': (property_string, 0, ('noncollection',), False),
+              'plain-string': (property_plain_string, 0, ('noncollection',), False),
               'trim': (property_trim, -1, ('string', 'uri'), False),
               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
               'entry-point': (property_entry_point, 0, ('taxonomy',), False),
               'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
               'effective-weight': (property_effective_weight, 2, ('taxonomy',), False),
               'effective-weight-network': (property_effective_weight_network, -3, ('taxonomy',), False),
-              'document-location': (property_document_location, 0, (), False),
+              'document-location': (property_document_location, 0, ('noncollection',), False),
               'all': (property_all, 0, ('set', 'list'), False),
               'any': (property_any, 0, ('set', 'list'), False),
               'first': (property_first, 0, ('set', 'list'), False),
