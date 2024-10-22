@@ -229,7 +229,7 @@ def semanticStringHashResource(resource):
         else: # there is XHTML content
             res_text = canonicalizeXML(resource, include_node_tag=False)
     else:
-        res_text - resource.textValue or ''
+        res_text = resource.textValue or ''
 
     res_value = semanticFormat('VALUE', res_text)
 
