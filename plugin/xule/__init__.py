@@ -469,6 +469,11 @@ def xuleCmdOptions(parser):
                           dest="xule_arg",
                           help=_("Creates a constant. In the form of 'name=value'"))
 
+    parserGroup.add_option("--xule-args-file",
+                          action="store",
+                          dest="xule_args_file",
+                          help=_("Loads constants from a json file prepared by --xule-output-constants-file"))
+
     parserGroup.add_option("--xule-add-packages",
                            action="store",
                            dest="xule_add_packages",
@@ -625,6 +630,11 @@ def xuleCmdOptions(parser):
                            dest="xule_output_constants",
                            help=_("Comma separated list of constant names to output."))
     
+    parserGroup.add_option("--xule-output-constants-file",
+                           action="store",
+                           dest="xule_output_constants_file",
+                           help=_("File path to contain reloadable output constants, or write to log if absent."))
+
     parserGroup.add_option("--xule-exclude-nils",
                         action="store_true",
                         dest="xule_exclude_nils",

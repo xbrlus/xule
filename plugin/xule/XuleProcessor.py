@@ -155,6 +155,9 @@ def output_constant(global_context, cntlr):
     cntlr.logger.removeHandler(cntlr.logHandler)
     cntlr.logger.addHandler(new_log_handler)
 
+    save_to_file = getattr(global_context.options, "xule_output_constants_file")
+    const_objs = {} # for saving to a file
+
     for constant_name_raw in getattr(global_context.options, "xule_output_constants").split(','):
         constant_name = constant_name_raw.strip()
         if constant_name != '':
@@ -164,7 +167,14 @@ def output_constant(global_context, cntlr):
             else:
                 for alignment, values in const_info['value'].values.items():
                     for val in values:
-                        cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+                        if save_to_file:
+                            const_objs[constant_name] = val.reloadable_value
+                        else:
+                            cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+
+    if save_to_file:
+        with open(save_to_file, "w") as fh:
+            json.dump(const_objs, fh)
 
     cntlr.logger.addHandler(save_log_handler)
 
