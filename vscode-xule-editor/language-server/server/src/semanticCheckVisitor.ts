@@ -820,7 +820,8 @@ export const dimensions = {
     "entity": {},
     "instance": {},
     "period": {},
-    "unit": {}
+    "unit": {},
+    "dimensions": {}
 }
 
 export const wellKnownOutputAttributes = [
