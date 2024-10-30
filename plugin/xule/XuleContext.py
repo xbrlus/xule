@@ -479,7 +479,9 @@ class XuleRuleContext(object):
                                     return XuleValue(self, frozenset(values), 'set')
                                 else:
                                     return XuleValue(self, tuple(values), 'list')
-                with open(xule_args_file, "r") as fh:
+                from arelle import FileSource
+                file_source = FileSource.openFileSource(xule_args_file, self.global_context.cntlr)
+                with file_source.file(xule_args_file, binary=True)[0] as fh: 
                     const_objs = json.load(fh)
                     for name, obj in const_objs.items():
                         overrides[name] = reloadValue(obj)

@@ -609,10 +609,9 @@ class XuleValue:
         else:
             return num
 
-    @property
     # reloadable value is a string or int or json array with type first and then value(s)
     # types set, list and dict have entries following type.  Dict has [key, value]
-    def reloadable_value(self):
+    def reloadable_value(self, name):
         if self.type in ('set', 'list'):
             types = set(x.type for x in self.value)
             if len(types) == 1 and 'qname' in types:
@@ -620,11 +619,11 @@ class XuleValue:
             elif len(types) == 1 and 'decimal' in types:
                 return [f"{self.type} {types.pop()}"] + [str(x.value) for x in self.value]
             else:
-                return [self.type] + [x.reloadable_value for x in self.value]
+                return [self.type] + [x.reloadable_value(name) for x in self.value]
         elif self.type == 'list':
-            return ['list'] + [x.reloadable_value for x in self.value]
+            return ['list'] + [x.reloadable_value(name) for x in self.value]
         elif self.type == 'dictionary':
-            return ['dictionary'] + [[n.reloadable_value, v.reloadable_value] for n, v in self.value]
+            return ['dictionary'] + [[n.reloadable_value(name), v.reloadable_value(name)] for n, v in self.value]
         elif self.type == 'network':
             return ['network'] + [str(x) for x in self.value[0]] + [len(self.value[1].modelRelationships)]
         elif self.type == 'qname':
@@ -634,7 +633,7 @@ class XuleValue:
         elif self.type in ('string', 'int', 'float', 'none'):
             return self.value
         else:
-            print(f"reloadable_value: type not reloadable: {self.type}")
+            print(f"Constant {name}: type is not reloadable: {self.type}")
 
 class XulePeriodComp:
     '''

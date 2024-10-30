@@ -168,7 +168,7 @@ def output_constant(global_context, cntlr):
                 for alignment, values in const_info['value'].values.items():
                     for val in values:
                         if save_to_file:
-                            const_objs[constant_name] = val.reloadable_value
+                            const_objs[constant_name] = val.reloadable_value(constant_name)
                         else:
                             cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
 
