@@ -1018,7 +1018,7 @@ def callXuleProcessor(cntlr, modelXbrl, rule_set_location, options):
         # output the message to the log and NOT raise an exception
         cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
 
-def xuleValidate(val):
+def xuleValidate(val, extra_options=None):
     global _cntlr
     global _xule_validators
 
@@ -1027,6 +1027,9 @@ def xuleValidate(val):
     options = xu.XuleVars.get(_cntlr, 'options')
     if options is None:
         options = EmptyOptions()
+    if extra_options:
+        for n, v in extra_options.items():
+            setattr(options, n, v)
 
     for xule_validator in _xule_validators:
         if 'validate_flag' in xule_validator:
