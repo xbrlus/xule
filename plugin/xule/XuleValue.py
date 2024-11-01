@@ -632,6 +632,8 @@ class XuleValue:
             return ['decimal', str(self.value)]
         elif self.type in ('string', 'int', 'float', 'none'):
             return self.value
+        elif self.type == "reference": # [reference, arcrole, [qname, str], [qname, str], ...]
+            return ['reference', self.value.role] + [[part.qname.clarkNotation, part.textValue] for part in self.value]
         else:
             print(f"Constant {name}: type is not reloadable: {self.type}")
 

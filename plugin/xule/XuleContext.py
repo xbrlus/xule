@@ -443,51 +443,44 @@ class XuleRuleContext(object):
                     else:
                         val = XuleValue(self, None, 'none')
                     overrides[name] = val
-            xule_args_file = getattr(self.global_context.options,'xule_args_file', None)
-            if xule_args_file:
-                def reloadValue(obj, elt_type=None):
-                    if obj is None:
-                        return XuleValue(self, None, 'none')
-                    elif isinstance(obj, str):
-                        if elt_type == 'qname':
-                            return XuleValue(self, ModelValue.qname(obj), 'qname')
-                        elif elt_type == 'decimal':
-                            return XuleValue(self, Decimal(obj), 'decimal')
-                        return XuleValue(self, obj, 'string')
-                    elif isinstance(obj, float):
-                        return XuleValue(self, obj, 'float')
-                    elif isinstance(obj, list):
-                        _type = obj[0]
-                        if _type == "decimal":
-                            return XuleValue(self, Decimal(obj), 'decimal')
-                        elif _type == "qname":
-                            return XuleValue(self, ModelValue.qname(obj), 'qname')
-                        elif _type == "network":
-                            return XuleValue(self, tuple(obj[1:-1]), 'network')
-                        else:
-                            collection_elt_type = _type.split()
-                            collection_type = collection_elt_type[0]
-                            if collection_type in ('set', 'list'):
-                                try:
-                                    elt_type = _type.split()[1]
-                                except IndexError:
-                                    elt_type = None
-                                values = []
-                                for elt in obj[1:]:
-                                    values.append( reloadValue(elt, elt_type) )
-                                if collection_type == "set":
-                                    return XuleValue(self, frozenset(values), 'set')
-                                else:
-                                    return XuleValue(self, tuple(values), 'list')
-                from arelle import FileSource
-                file_source = FileSource.openFileSource(xule_args_file, self.global_context.cntlr)
-                with file_source.file(xule_args_file, binary=True)[0] as fh: 
-                    const_objs = json.load(fh)
-                    for name, obj in const_objs.items():
-                        overrides[name] = reloadValue(obj)
             self._constant_overridess = overrides
-
         return self._constant_overridess
+
+    def reload_value(self, obj, elt_type=None):
+        # consider model_to_xule_type
+        if obj is None:
+            return XuleValue(self, None, 'none')
+        elif isinstance(obj, str):
+            if elt_type == 'qname':
+                return XuleValue(self, ModelValue.qname(obj), 'qname')
+            elif elt_type == 'decimal':
+                return XuleValue(self, Decimal(obj), 'decimal')
+            return XuleValue(self, obj, 'string')
+        elif isinstance(obj, float):
+            return XuleValue(self, obj, 'float')
+        elif isinstance(obj, list):
+            _type = obj[0]
+            if _type == "decimal":
+                return XuleValue(self, Decimal(obj), 'decimal')
+            elif _type == "qname":
+                return XuleValue(self, ModelValue.qname(obj), 'qname')
+            elif _type == "network":
+                return XuleValue(self, tuple(obj[1:-1]), 'network')
+            else:
+                collection_elt_type = _type.split()
+                collection_type = collection_elt_type[0]
+                if collection_type in ('set', 'list'):
+                    try:
+                        elt_type = _type.split()[1]
+                    except IndexError:
+                        elt_type = None
+                    values = []
+                    for elt in obj[1:]:
+                        values.append( self.reload_value(elt, elt_type) )
+                    if collection_type == "set":
+                        return XuleValue(self, frozenset(values), 'set')
+                    else:
+                        return XuleValue(self, tuple(values), 'list')
 
     def create_message_copy(self, table_id, processing_id):
         new_context = copy.copy(self)
