@@ -466,6 +466,9 @@ class XuleRuleContext(object):
                 return XuleValue(self, ModelValue.qname(obj), 'qname')
             elif _type == "network":
                 return XuleValue(self, tuple(obj[1:-1]), 'network')
+            elif _type == "reference":
+                # this is not usable, value is ModelReference which would require a PrototypeDtsObject.py PrototypeObject to be implemented
+                return XuleValue(self, tuple(obj[1:-1]), 'reference')
             else:
                 collection_elt_type = _type.split()
                 collection_type = collection_elt_type[0]
