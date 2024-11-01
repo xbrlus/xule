@@ -1030,9 +1030,17 @@ def xuleValidate(val, extra_options=None):
     if extra_options:
         for n, v in extra_options.items():
             setattr(options, n, v)
+            if n == "block_Validate.Finally" and v:
+                setattr(val, "block_Validate.Finally", True)
 
     for xule_validator in _xule_validators:
-        if 'validate_flag' in xule_validator:
+        if getattr(val, "block_Validate.Finally", False):
+            # running under extraOptions control
+            if extra_options is None: # Validate.Finally which is blocked
+                return
+            elif len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
+                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], is_validator=True)
+        elif 'validate_flag' in xule_validator:
             # This is run in the GUI. The 'validate_flag' is only in the xule_validator when invoked from the GUI
             if xule_validator['validate_flag'].get():
                 # Only run if the validate_flag variable is ture (checked off in the validate menu)
