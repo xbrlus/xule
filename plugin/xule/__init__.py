@@ -974,7 +974,7 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name, is_
                     # check if there are any rules that need a model
                     for rule in rule_set.catalog['rules'].values():
                         if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
-                            raise xr.XuleRuleSetError('Need instance to process rules')
+                            raise xr.XuleRuleSetError(f'Need instance to process rule {rule["full_name"]}')
                         
                 global _saved_taxonomies        
                 used_taxonomies = process_xule(rule_set,
