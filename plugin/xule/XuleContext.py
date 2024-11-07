@@ -458,6 +458,8 @@ class XuleRuleContext(object):
             return XuleValue(self, obj, 'string')
         elif isinstance(obj, float):
             return XuleValue(self, obj, 'float')
+        elif isinstance(obj, int):
+            return XuleValue(self, obj, 'int')
         elif isinstance(obj, list):
             _type = obj[0]
             if _type == "decimal":
@@ -469,6 +471,11 @@ class XuleRuleContext(object):
             elif _type == "reference":
                 # this is not usable, value is ModelReference which would require a PrototypeDtsObject.py PrototypeObject to be implemented
                 return XuleValue(self, tuple(obj[1:-1]), 'reference')
+            elif _type == 'dictionary':
+                values = []
+                for item in obj[1:]:
+                    values.append( tuple(self.reload_value(elt, None) for elt in item) )
+                return XuleValue(self, tuple(values), 'dictionary')
             else:
                 collection_elt_type = _type.split()
                 collection_type = collection_elt_type[0]
