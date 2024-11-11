@@ -47,6 +47,7 @@ def semanticHashOptions(parser):
     parserGroup.add_option("--semantic-hash-string", 
                        action="store", 
                        help=_("File name to save the canonicalized string"))
+    
 
 def semanticHashUtilityRun(cntlr, options, *arg, **kwargs):
     # save the controller and the options for use later.
@@ -244,12 +245,17 @@ def semanticHashFactValue(fact):
     original_text_block_qname = qname('http://www.xbrl.org/dtr/type/non-numeric', 'textBlockItemType')
     new_text_block_qname = qname('http://www.xbrl.org/dtr/type/2020-01-21', 'textBlockItemType')
     fraction_qname = qname('http://www.xbrl.org/2003/instance', 'fractionItemType')
-    if fact.concept.instanceOfType(original_text_block_qname) or fact.concept.instanceOfType(new_text_block_qname):
+
+    # Unable to identify the concept (fact.concept is likely None)
+    if fact.concept is None:
+        base_type = 'string'
+    elif fact.concept.instanceOfType(original_text_block_qname) or fact.concept.instanceOfType(new_text_block_qname):
         base_type = 'textBlock'
     elif fact.concept.instanceOfType(fraction_qname):
         base_type = 'fraction'
     else:
         base_type = fact.concept.baseXsdType
+
 
     if base_type == 'QName':
         string_value = (fact.xValue.namespaceURI, fact.xValue.localName)
@@ -257,6 +263,8 @@ def semanticHashFactValue(fact):
         string_value = fact
     elif base_type == 'fraction':
         string_value = fact
+    elif base_type == 'string':
+        string_value = str(fact.value)
     else:
         string_value = fact.value
 
@@ -281,13 +289,22 @@ def canonicalizeValue(base_type, string_value):
     elif base_type == 'fraction':
         return_value = value_string_hasher(string_value)
     else:
-        # This re will collapse whitespaces
-        return_value = value_string_hasher(re.sub(r"[ \t\n\r]+", ' ', string_value).strip(' '))
+        try: 
+            # This re will collapse whitespaces
+            return_value = value_string_hasher(re.sub(r"[ \t\n\r]+", ' ', string_value).strip(' '))
+        except SemanticHashException:
+            return_value = re.sub(r"[ \t\n\r]+", ' ', string_value).strip(' ')
+
+
+
 
     return return_value
 
 def semanticFormat(name, str_val):
-    return "{}{}.{}".format(name.upper(), len(str_val), str_val)
+    if str(type(str_val)) != "<class 'str'>":
+        str_val = ''
+    else:
+        return "{}{}.{}".format(name.upper(), len(str_val), str_val)
 
 def UOMDefault(unit):
     numerator = '*'.join(x.clarkNotation for x in unit.measures[0])
@@ -301,7 +318,7 @@ def UOMDefault(unit):
 
 def canonicalizeTypedDimensionMember(member):
     element = member.modelXbrl.qnameConcepts.get(member.elementQname)
-    base_type = element.baseXsdType
+    base_type = element.baseXsdType if element is not None else 'string'
     if base_type == 'QName':
         string_value = (member.xValue.namespaceURI, member.xValue.localName)
     else:
@@ -437,7 +454,12 @@ def canonicalizeTextBlock(content):
     # The wrapper allows fragments that don't start with a tag to be parsed. i.e. "abc <div>this is in the div</div>". This
     # example would not parse becasue it starts with text and not a tag.
     wrapper = '<top xmlns="http://www.w3.org/1999/xhtml">{}</top>'.format(content.value.strip())
-    xml_content = etree.fromstring(wrapper)
+    try:
+        p = etree.XMLParser(recover=True)
+        xml_content = etree.XML(wrapper, parser=p)
+    except Exception as ex:
+        raise SemanticHashException("XMLError", 
+                            _("The error is: " + str(ex) + "||" + wrapper))
     
     return_value =  canonicalizeXML(xml_content, include_node_tag=False)
     return return_value
