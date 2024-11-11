@@ -285,7 +285,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             # parent_classes = []
             if is_actual_fact(json_result, modelXbrl):
                 # get modelFact
-                if json_result['fact'] is not None:
+                if json_result.get('fact') is not None:
                     model_fact = get_model_object(json_result['fact'], cntlr)
 
 
