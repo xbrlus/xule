@@ -1282,7 +1282,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
             for line_number_info in rule_meta_data['line-numbers'].values():
                 for line_number_item in line_number_info:
                     if 'start-rule' in line_number_item:
-                        line_number_rules.add(line_number_info['start-rule'])
+                        line_number_rules.add(line_number_item['start-rule'])
 
             rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'] + list(rule_meta_data['showifs'].keys()) + list(line_number_rules), catalog_item['xule-rule-set'])
             
