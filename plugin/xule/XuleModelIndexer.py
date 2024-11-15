@@ -217,8 +217,8 @@ FACT_INDEX_PROPERTIES = {
 }
 
 TABLE_INDEX_PROPERTIES = {
-    ('property', 'cube', 'name'): lambda f: f.hypercube.qname,
-    ('property', 'cube', 'drs-role'): lambda f: f.drs_role.roleURI
+    ('property', 'cube', 'name'),
+    ('property', 'cube', 'drs-role')
 }
 
 def index_table_properties(model):
