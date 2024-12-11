@@ -303,8 +303,8 @@ def canonicalizeValue(base_type, string_value):
 def semanticFormat(name, str_val):
     if str(type(str_val)) != "<class 'str'>":
         str_val = ''
-    else:
-        return "{}{}.{}".format(name.upper(), len(str_val), str_val)
+    
+    return "{}{}.{}".format(name.upper(), len(str_val), str_val)
 
 def UOMDefault(unit):
     numerator = '*'.join(x.clarkNotation for x in unit.measures[0])
