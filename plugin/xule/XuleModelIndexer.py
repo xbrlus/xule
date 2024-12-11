@@ -216,6 +216,11 @@ FACT_INDEX_PROPERTIES = {
 # entityIdentifer[1] is the id
 }
 
+TABLE_INDEX_PROPERTIES = {
+    ('property', 'cube', 'name'),
+    ('property', 'cube', 'drs-role')
+}
+
 def index_table_properties(model):
     """"Add the table properites to the fact index
 
