@@ -118,6 +118,12 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
         constant_time = constant_end - constant_start
         global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
 
+    # Load any reloadable saved constnats
+    if getattr(global_context.options, "xule_args_file", False):
+        constant_start = datetime.datetime.today()
+        process_reloadable_constants(global_context)
+        global_context.message_queue.print("Time to calculated non instance constants: %s" % (datetime.datetime.today() - constant_start))
+
     # Determine if constants should be outputed
     if getattr(global_context.options, "xule_output_constants", None) is not None:
         output_constant(global_context, cntlr)
@@ -155,6 +161,9 @@ def output_constant(global_context, cntlr):
     cntlr.logger.removeHandler(cntlr.logHandler)
     cntlr.logger.addHandler(new_log_handler)
 
+    save_to_file = getattr(global_context.options, "xule_output_constants_file", None)
+    const_objs = {} # for saving to a file
+
     for constant_name_raw in getattr(global_context.options, "xule_output_constants").split(','):
         constant_name = constant_name_raw.strip()
         if constant_name != '':
@@ -164,7 +173,14 @@ def output_constant(global_context, cntlr):
             else:
                 for alignment, values in const_info['value'].values.items():
                     for val in values:
-                        cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+                        if save_to_file:
+                            const_objs[constant_name] = val.reloadable_value(constant_name)
+                        else:
+                            cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+
+    if save_to_file:
+        with open(save_to_file, "w") as fh:
+            json.dump(const_objs, fh)
 
     cntlr.logger.addHandler(save_log_handler)
 
@@ -1563,6 +1579,33 @@ def process_precalc_constants(global_context):
                 calc_constant(const_info, const_context)
             # Clean up
             del const_context
+
+def process_reloadable_constants(global_context):
+    """Load saved reloadable constants
+
+    :param global_context: Global processing context
+    :type global_context: XuleGlobalContext
+
+    This function will calculate constants that do not depend directly on the instance.
+    """
+    global_context.message_queue.logging("Reloading saved non-instance constants")
+    from arelle import FileSource
+    xule_args_file = getattr(global_context.options,'xule_args_file', None)
+    file_source = FileSource.openFileSource(xule_args_file, global_context.cntlr)
+    with file_source.file(xule_args_file, binary=True)[0] as fh:
+        const_objs = json.load(fh)
+        for constant_name, obj in const_objs.items():
+            try:
+                cat_constant = global_context.rule_set.catalog['constants'][constant_name]
+                const_context = XuleRuleContext(global_context, constant_name, cat_constant['file'])
+                const_info = const_context.find_var(constant_name, cat_constant['node_id'])
+                if not const_info['calculated']:
+                    const_info['value'] = XuleValueSet(const_context.reload_value(obj))
+                    const_info['calculated'] = True
+                # Clean up
+                del const_context
+            except KeyError:
+                pass # There is no constant stub to reload
 
 def precalc_constant(global_context, constant_name):
         try:
