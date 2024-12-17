@@ -161,7 +161,7 @@ def output_constant(global_context, cntlr):
     cntlr.logger.removeHandler(cntlr.logHandler)
     cntlr.logger.addHandler(new_log_handler)
 
-    save_to_file = getattr(global_context.options, "xule_output_constants_file")
+    save_to_file = getattr(global_context.options, "xule_output_constants_file", None)
     const_objs = {} # for saving to a file
 
     for constant_name_raw in getattr(global_context.options, "xule_output_constants").split(','):
@@ -1600,8 +1600,8 @@ def process_reloadable_constants(global_context):
                 const_context = XuleRuleContext(global_context, constant_name, cat_constant['file'])
                 const_info = const_context.find_var(constant_name, cat_constant['node_id'])
                 if not const_info['calculated']:
-                    const_info['value'] = const_context.reload_value(obj)
-                    calc_constant(const_info, const_context)
+                    const_info['value'] = XuleValueSet(const_context.reload_value(obj))
+                    const_info['calculated'] = True
                 # Clean up
                 del const_context
             except KeyError:

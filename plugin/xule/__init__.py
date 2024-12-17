@@ -974,7 +974,7 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name, is_
                     # check if there are any rules that need a model
                     for rule in rule_set.catalog['rules'].values():
                         if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
-                            raise xr.XuleRuleSetError('Need instance to process rules')
+                            raise xr.XuleRuleSetError(f'Need instance to process rule {rule["full_name"]}')
                         
                 global _saved_taxonomies        
                 used_taxonomies = process_xule(rule_set,
@@ -1059,7 +1059,7 @@ def xuleValidate(val, extra_options=None):
             if not getattr(options, "xule_run", False) and len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
                 runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], is_validator=True)
 
-    if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
+    if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False) and not getattr(options, "block_deregister", False):
         # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
         # The _xule_validators is emptied. On the next request, the xule_validators for that request will be re-register.
         _xule_validators = []
