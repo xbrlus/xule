@@ -11,24 +11,17 @@ constant $NAMSPACE_DICT = dict(list('http://fasb.org/us-gaap/2023','http://fasb.
                                 list('http://xbrl.sec.gov/country/2023','http://xbrl.sec.gov/country/2024'),
                                 list('http://xbrl.sec.gov/currency/2023', 'http://xbrl.sec.gov/currency/2024'),
                                 list('http://xbrl.sec.gov/stpr/2023', 'http://xbrl.sec.gov/stpr/2024'),
-                                list('http://fasb.org/us-gaap-sup/2023', 'http://fasb.org/us-gaap/2024')
+                                list('http://fasb.org/us-gaap-sup/2023', 'http://fasb.org/us-gaap/2024'),
+                                list('http://xbrl.sec.gov/ecd/2023', 'http://xbrl.sec.gov/ecd/2024'),
                                 )
                                 
 
 constant $DEPRECATED_ITEMS = dict(list(CumulativeEffectOfNewAccountingPrincipleInPeriodOfAdoption, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
-                                  list(AccountingStandardsUpdate201616Member, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
                                   list(NewAccountingPronouncementOrChangeInAccountingPrincipleEffectOfAdoptionQuantification, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
-                                  list(DefinedBenefitPensionPlansAndDefinedBenefitPostretirementPlansDisclosureAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, none)),
-                                  list(DefinedContributionPensionAndOtherPostretirementPlansDisclosureAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, none)),
-                                  list(CumulativeEffectOnRetainedEarningsNetOfTax1, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
-                                  list(VariableInterestEntitiesByClassificationOfEntityAxis, list(xbrli:stringItemType, xbrldt:dimensionItem, 'duration', true, true, none)),
-                                  list(VariableInterestEntityNonconsolidatedCarryingAmountAssets, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
-                                  list(VariableInterestEntityNonconsolidatedCarryingAmountLiabilities, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
-                                  list(VariableInterestEntityNonconsolidatedCarryingAmountAssetsAndLiabilitiesNet, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
-                                  list(ClassificationOfVariableInterestEntityDomain, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
-                                  list(StockholdersEquityIncludingPortionAttributableToNoncontrollingInterestAdjustedBalance1, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
-                                  list(TaxCutsAndJobsActOf2017IncompleteAccountingProvisionalIncomeTaxExpenseBenefit, list(xbrli:monetaryItemType, xbrli:item, 'duration', false, true, 'debit'))
-                                )                
+                                  list(ecd:DefaultsTable, list(xbrli:stringItemType, xbrldt:hypercubeItem, 'duration', true, true, 'none'))
+                                )  
+
+constant $USGAAP_TO_SRT = dict(list(StockRepurchaseProgramAuthorizedAmount1, "http://fasb.org/srt/2024"))              
                                
 output create_package
 true
@@ -52,6 +45,7 @@ package-name $PUBLISH_TAXONOMY
 document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
 document-namespace $NEW_CO_NAMESPACE
 role $role.to-xodel
+import2-url 'https://xbrl.sec.gov/ecd/2024/ecd-2024.xsd'
 
 constant $ALL_CONCEPTS = taxonomy().concepts
 
@@ -93,11 +87,17 @@ output relationships
             $source_ns = if $relationship.source.name in $DEPRECATED_ITEMS.keys
                                 $NEW_CO_NAMESPACE
                             else
-                                $NAMSPACE_DICT[$relationship.source.name.namespace-uri]
+                                if $relationship.source.name in $USGAAP_TO_SRT.keys
+                                    $USGAAP_TO_SRT[$relationship.source.name]
+                                else
+                                    $NAMSPACE_DICT[$relationship.source.name.namespace-uri]
             $target_ns = if $relationship.target.name in $DEPRECATED_ITEMS.keys
                                 $NEW_CO_NAMESPACE
                             else
-                                $NAMSPACE_DICT[$relationship.target.name.namespace-uri]
+                                if $relationship.target.name in $USGAAP_TO_SRT.keys
+                                    $USGAAP_TO_SRT[$relationship.target.name]
+                                else
+                                    $NAMSPACE_DICT[$relationship.target.name.namespace-uri]
             if $source_ns == none or $target_ns == none or $relationship.target-name.local-name == 'label' or $relationship.source-name.local-name == 'label'
                 skip 
             else
@@ -117,7 +117,10 @@ output labels
             $namespace = if $concept.name in $DEPRECATED_ITEMS.keys
                             $NEW_CO_NAMESPACE
                         else
-                            $NAMSPACE_DICT[$concept.name.namespace-uri]
+                            if $concept.name in $USGAAP_TO_SRT.keys
+                                $USGAAP_TO_SRT[$concept.name]
+                            else
+                                $NAMSPACE_DICT[$concept.name.namespace-uri]
             $lab
 package-name $PUBLISH_TAXONOMY
 document-uri $TICKER + '-' + $TAXONOMY_DATE + '_lab.xml'
@@ -140,7 +143,10 @@ output add_facts_to_instance
     for $factItem in list({covered @})
         $factConcept = if $factItem.concept.name in $DEPRECATED_ITEMS.keys
                             qname($NEW_CO_NAMESPACE, $factItem.concept.name.local-name)
-                        else 
+                        else
+                            if $factItem.concept.name in $USGAAP_TO_SRT.keys
+                                qname($USGAAP_TO_SRT[$factItem.concept.name], $factItem.concept.name.local-name)
+                            else
                              qname($NAMSPACE_DICT[$factItem.concept.name.namespace-uri],$factItem.concept.name.local-name)
         
         $factDimensions = dict(for $axis in $factItem.dimensions.keys
