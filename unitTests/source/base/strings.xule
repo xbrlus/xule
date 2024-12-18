@@ -720,6 +720,6 @@ output REPEAT007
   'test'.repeat(-2)
 
 output REPEAT008
-/* rule REPEAT006: Rule: REPEAT006 - The first argument of function 'repeat' must be string, uri, found 'none'. */
+/* rule REPEAT008: Rule: REPEAT008 - The first argument of function 'repeat' must be string, uri, found 'none'. */
 
   repeat(none,4)

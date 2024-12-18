@@ -22,6 +22,9 @@
 		},
 		{
 			"path": "source/obligor"
+		},
+		{
+			"path": "source/rollTaxonomy"
 		}
 	]
 }

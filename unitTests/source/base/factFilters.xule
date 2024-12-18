@@ -642,7 +642,7 @@ output CUBEFILT016
   list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube not in $STATEMENT_CUBES}.cubes.cube-concept).length
 
 output CUBEFILT017
-/* 1185 */
+/* 1187 */
 
   list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}.cubes.cube-concept).length
 
@@ -770,32 +770,32 @@ output DIMFILT011
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = none}).count
 
 output DIMFILT012
-/* list(P1Y, 20,900,000, P9M, 143,500,000, 19,000,000, P1Y, None, 17,500,000, P1Y, 22,100,000, 19,900,000, P1Y, 18,000,000, P1Y) */
+/* list(143,500,000, 17,500,000, 18,000,000, 19,000,000, 19,900,000, 20,900,000, 22,100,000, None, P1Y, P1Y, P1Y, P1Y, P1Y, P9M) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = *}).sort('asc')
 
 output DIMFILT013
-/* list(P1Y, P1Y, P1Y, None, P1Y, P1Y, P9M) */
+/* list(None, P1Y, P1Y, P1Y, P1Y, P1Y, P9M) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).sort('asc')
 
 output DIMFILT014
-/* list(18,000,000, 17,500,000, 143,500,000, 22,100,000, 20,900,000, 19,900,000, 19,000,000) */
+/* list(17,500,000, 18,000,000, 19,000,000, 19,900,000, 20,900,000, 22,100,000, 143,500,000) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligation @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).sort('asc')
 
 output DIMFILT015
-/* list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None) */
+/* list(None, P1Y, P1Y, P1Y, P1Y, P1Y, P9M) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1}).sort('asc')
 
 output DIMFILT016
-/* list(P1Y, P1Y, P9M, P1Y, P1Y, P1Y, None) */
+/* list(None, P1Y, P1Y, P1Y, P1Y, P1Y, P9M) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=*}).sort('asc')
 
 output DIMFILT017
-/* list(P9Y, P5Y, P9Y) */
+/* list(P5Y, P9Y, P9Y) */
 
   list({covered @instance = $INSTANCE_TYPED_DIM  @concept=AcquiredFiniteLivedIntangibleAssetsWeightedAverageUsefulLife @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis}).sort('asc')
 

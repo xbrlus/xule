@@ -744,7 +744,7 @@ output TAXPROP092
   role($PRES_RELATIONSHIP)
 
 output TAXPROP093
-/* set(http://www.xbrl.org/2003/arcrole/parent-child) */
+/* set(http://www.xbrl.org/2003/arcrole/parent-child - Parent/Child relationship) */
 
   $PRES_RELATIONSHIP.arcrole
 
@@ -987,7 +987,7 @@ output TAXPROP136
   count($US-GAAP-2020.data-types)
 
 output TAXPROP137
-/* rule TAXPROP136: Rule: TAXPROP136 - 'elements' is not a valid property. */
+/* rule TAXPROP137: Rule: TAXPROP137 - 'elements' is not a valid property. */
 
   count($US-GAAP-2020.elements)
 

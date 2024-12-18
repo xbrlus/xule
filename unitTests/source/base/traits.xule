@@ -1,6 +1,6 @@
 /* Traits */
 output trait001
-/* AssetsCurrent */
+/* us-gaap:AssetsCurrent */
 
   $META2024.concept(us-gaap-2024:AssetsCurrent).name
 
