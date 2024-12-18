@@ -63,15 +63,15 @@ python3.12 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule/savexuleqname
 
 
 
-python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/rollTaxonomy/2022  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2022.zip --xule-max-recurse-depth=2500
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2023Taxonomy/2022  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2022.zip --xule-max-recurse-depth=2500
 
-python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/rollTaxonomy/2021  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2021.zip --xule-max-recurse-depth=2500
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2023Taxonomy/2021  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2021.zip --xule-max-recurse-depth=2500
 
-python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/rollTaxonomy/2020  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2020.zip --xule-max-recurse-depth=2500
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2023Taxonomy/2020  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2020.zip --xule-max-recurse-depth=2500
 
-python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/rollTaxonomy/2019  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2019.zip --xule-max-recurse-depth=2500
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2023Taxonomy/2019  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2019.zip --xule-max-recurse-depth=2500
 
-python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/rollTaxonomy/2018  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2018.zip --xule-max-recurse-depth=2500
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2023Taxonomy/2018  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2018.zip --xule-max-recurse-depth=2500
 
 python3.12 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xodel' -f https://www.sec.gov/Archives/edgar/data/1709164/000170916423000015/hbb-20221231_htm.xml --xule-run --noCertificateCheck --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2022.zip  --logFile /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/taxRoll/create.xml  --xodel-location '/Users/campbellpryde/Documents/GitHub/xule/unitTests/output/taxRoll/conf' --xince-file-type=xml --xodel-show-xule-log --httpuseragent campbell.pryde@xbrl.us --xule-max-rule-iterations 25000 --xule-arg TAXONOMY_DATE='20231231' --xule-arg PUBLISH_TAXONOMY='hbb_taxonomy' --xule-arg TICKER='hbb' --xule-arg NEW_CO_NAMESPACE='http://www.hamiltonbeachbrands.com/20231231' --xule-arg OLD_CO_NAMESPACE='http://www.hamiltonbeachbrands.com/20221231' --xule-arg INSTANCE_NAME='hbb-20231231_htm'
 
