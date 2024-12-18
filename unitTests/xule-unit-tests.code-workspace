@@ -25,6 +25,12 @@
 		},
 		{
 			"path": "source/roll2023Taxonomy"
+		},
+		{
+			"path": "source/roll2024Taxonomy/2022-roll-2024"
+		},
+		{
+			"path": "source/roll2024Taxonomy/2023-roll-2024"
 		}
 	]
 }
