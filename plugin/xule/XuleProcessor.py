@@ -4975,6 +4975,9 @@ def convert_value_to_qname(value, model, xule_context):
         return return_values
     elif value.type in ('unbound', 'none'):
         return {None}
+    # HF addition for testing rule 0118, not sure why set of one qname is showing up here
+    elif value.type in ('list','set') and len(value.value) == 1 and next(iter(value.value)).type == "qname":
+        return {next(iter(value.value)).value,}
     else:
         raise XuleProcessingError(
             _("The value for a line item or dimension must be a qname or concept, found '%s'." % value.type),

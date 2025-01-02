@@ -462,10 +462,10 @@ class XuleRuleContext(object):
             return XuleValue(self, obj, 'int')
         elif isinstance(obj, list):
             _type = obj[0]
-            if _type == "decimal":
-                return XuleValue(self, Decimal(obj), 'decimal')
-            elif _type == "qname":
-                return XuleValue(self, ModelValue.qname(obj), 'qname')
+            if _type == "decimal" and len(obj) == 2:
+                return XuleValue(self, Decimal(obj[1]), 'decimal')
+            elif _type == "qname" and len(obj) == 2:
+                return XuleValue(self, ModelValue.qname(obj[1]), 'qname')
             elif _type == "network":
                 return XuleValue(self, tuple(obj[1:-1]), 'network')
             elif _type == "reference":
