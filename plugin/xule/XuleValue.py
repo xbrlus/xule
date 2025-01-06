@@ -373,6 +373,8 @@ class XuleValue:
         cached_value = xule_context.global_context.ancestry_cache.get(model_type, {}).get(find)
         if cached_value is not None:
             return cached_value
+        elif model_type is None:
+            return False # HF: modelType can be None for incomplete and unused concepts
         elif model_type.qname.clarkNotation == find.value:
             xule_context.global_context.ancestry_cache[model_type][find] = True
             return True
