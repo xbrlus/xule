@@ -4978,6 +4978,8 @@ def convert_value_to_qname(value, model, xule_context):
     # HF addition for testing rule 0118, not sure why set of one qname is showing up here
     elif value.type in ('list','set') and len(value.value) == 1 and next(iter(value.value)).type == "qname":
         return {next(iter(value.value)).value,}
+    elif value.type in ('list','set') and len(value.value) == 0:
+        return {None}
     else:
         raise XuleProcessingError(
             _("The value for a line item or dimension must be a qname or concept, found '%s'." % value.type),
