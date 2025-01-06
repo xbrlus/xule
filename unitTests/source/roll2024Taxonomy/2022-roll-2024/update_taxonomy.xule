@@ -40,8 +40,8 @@ document-package-entry-point true
 document-package-entry-point-description 'Official Statement  Taxonomy '
 document-package-entry-point-language 'en-US'
 document-package-entry-point-name $TICKER + ' ' + $TAXONOMY_DATE + ''
-document-import list('https://xbrl.sec.gov/dei/2023/dei-2023.xsd','https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-all-2023.xsd').to-xodel 
-import2-url 'https://xbrl.fasb.org/us-gaap/2023/elts/us-gaap-all-2023.xsd'
+document-import list('https://xbrl.sec.gov/dei/2024/dei-2024.xsd','https://xbrl.fasb.org/us-gaap/2024/elts/us-gaap-all-2024.xsd').to-xodel 
+import2-url 'https://xbrl.fasb.org/us-gaap/2024/elts/us-gaap-all-2024.xsd'
 
 
 output create_roles

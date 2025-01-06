@@ -62,7 +62,13 @@ python3.12 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule/savexuleqname
 python3.12 ~/arelle/Arelle-master/arellecmdline.py --plugins 'xule/savexuleqnames' --xule-qnames-format json --xule-qnames-dir '/Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/taxonomy/ifrs/2024/'  -f 'https://xbrl.ifrs.org/taxonomy/2024-03-27/full_ifrs_entry_point_2024-03-27.xsd' --noCertificateCheck
 
 
-python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2024Taxonomy/2023-roll-2024  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2023-2024.zip --xule-max-recurse-depth=2500
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2024Taxonomy/2023-roll-2024  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/Roll_to_2024/taxRoll2023-2024.zip --xule-max-recurse-depth=2500
+
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2024Taxonomy/2022-roll-2024  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/Roll_to_2024/taxRoll2022-2024.zip --xule-max-recurse-depth=2500
+
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2024Taxonomy/2022-roll-2024  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/Roll_to_2024/taxRoll2021-2024.zip --xule-max-recurse-depth=2500
+
+python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2024Taxonomy/2022-roll-2024  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/Roll_to_2024/taxRoll2020-2024.zip --xule-max-recurse-depth=2500
 
 python3.12 ~/arelle/Arelle-master/arellecmdline.py --xule-compile /Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2023Taxonomy/2022  --plugins "xule" --xule-rule-set /Users/campbellpryde/Documents/GitHub/xule/unitTests/compiled/taxRoll2022.zip --xule-max-recurse-depth=2500
 
