@@ -16,7 +16,7 @@ constant $NAMSPACE_DICT = dict(list('http://fasb.org/us-gaap/2022','http://fasb.
                                 
 
 constant $DEPRECATED_ITEMS = dict(list(CumulativeEffectOfNewAccountingPrincipleInPeriodOfAdoption, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
-                                  list(AccountingStandardsUpdate201616Member, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(AccountingStandardsUpdate201616Member, list(dtr-types:domainItemType, xbrli:item, 'duration', true,true, none)),
                                   list(NewAccountingPronouncementOrChangeInAccountingPrincipleEffectOfAdoptionQuantification, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
                                   list(DefinedBenefitPensionPlansAndDefinedBenefitPostretirementPlansDisclosureAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, none)),
                                   list(DefinedContributionPensionAndOtherPostretirementPlansDisclosureAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, none)),
@@ -25,7 +25,7 @@ constant $DEPRECATED_ITEMS = dict(list(CumulativeEffectOfNewAccountingPrincipleI
                                   list(VariableInterestEntityNonconsolidatedCarryingAmountAssets, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
                                   list(VariableInterestEntityNonconsolidatedCarryingAmountLiabilities, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
                                   list(VariableInterestEntityNonconsolidatedCarryingAmountAssetsAndLiabilitiesNet, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
-                                  list(ClassificationOfVariableInterestEntityDomain, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(ClassificationOfVariableInterestEntityDomain, list(dtr-types:domainItemType, xbrli:item, 'duration', true,true, none)),
                                   list(StockholdersEquityIncludingPortionAttributableToNoncontrollingInterestAdjustedBalance1, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
                                   list(TaxCutsAndJobsActOf2017IncompleteAccountingProvisionalIncomeTaxExpenseBenefit, list(xbrli:monetaryItemType, xbrli:item, 'duration', false, true, 'debit'))
                                 )                

@@ -14,6 +14,26 @@ constant $NAMSPACE_DICT = dict(list('http://fasb.org/us-gaap/2021-01-31','http:/
                                 list('http://xbrl.sec.gov/stpr/2021', 'http://xbrl.sec.gov/stpr/2024')
                                 )
                                 
+constant $DEPRECATED_ITEMS = dict(list(CumulativeEffectOfNewAccountingPrincipleInPeriodOfAdoption, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+                                  list(AccountingStandardsUpdate201616Member, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(NewAccountingPronouncementOrChangeInAccountingPrincipleEffectOfAdoptionQuantification, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+                                  list(DefinedBenefitPensionPlansAndDefinedBenefitPostretirementPlansDisclosureAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, none)),
+                                  list(DefinedContributionPensionAndOtherPostretirementPlansDisclosureAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, none)),
+                                  list(CumulativeEffectOnRetainedEarningsNetOfTax1, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+                                  list(VariableInterestEntitiesByClassificationOfEntityAxis, list(xbrli:stringItemType, xbrldt:dimensionItem, 'duration', true, true, none)),
+                                  list(VariableInterestEntityNonconsolidatedCarryingAmountAssets, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
+                                  list(VariableInterestEntityNonconsolidatedCarryingAmountLiabilities, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+                                  list(VariableInterestEntityNonconsolidatedCarryingAmountAssetsAndLiabilitiesNet, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
+                                  list(ClassificationOfVariableInterestEntityDomain, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(StockholdersEquityIncludingPortionAttributableToNoncontrollingInterestAdjustedBalance1, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+                                  list(TaxCutsAndJobsActOf2017IncompleteAccountingProvisionalIncomeTaxExpenseBenefit, list(xbrli:monetaryItemType, xbrli:item, 'duration', false, true, 'debit')),
+                                  list(AccountingStandardsUpdate201709Member, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(AccountingStandardsUpdate201604CumulativeEffectPeriodOfAdoptionMember, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(AccountingStandardsUpdate201615RetrospectiveMember, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(AccountingStandardsUpdate201502Member, list(nonnum:domainItemType, xbrli:item, 'duration', true,true, none))
+
+
+                                )  
 output create_package
 true
 package-name $PUBLISH_TAXONOMY
@@ -72,7 +92,7 @@ concept-substitution-group $sub.to-xodel
 
 
 output relationships
-    for $network in filter taxonomy().networks
+     for $network in filter taxonomy().networks where $item.role.uri != 'http://fasb.org/us-gaap/role/eedm/ExtensibleEnumerationLists'
 		for $relationship in $network.relationships
             $source_ns = if $relationship.source.name in $DEPRECATED_ITEMS.keys
                                 $NEW_CO_NAMESPACE

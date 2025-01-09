@@ -27,3 +27,4 @@ namespace us-types = http://fasb.org/us-types/2020-01-31
 namespace srt-types = http://fasb.org/srt-types/2020-01-31
 namespace dqcrules = http://fasb.org/dqcrules/2020-01-31
 namespace enum2 = http://xbrl.org/2020/extensible-enumerations-2.0
+namespace xbrldt = http://xbrl.org/2005/xbrldt
