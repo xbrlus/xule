@@ -1038,6 +1038,8 @@ def xuleValidate(val, extra_options=None):
             # running under extraOptions control
             if extra_options is None: # Validate.Finally which is blocked
                 return
+            if extra_options.get("block_runXule", False): # runXule is blocked
+                return
             elif len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
                 runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], is_validator=True)
         elif 'validate_flag' in xule_validator:
