@@ -1,924 +1,959 @@
 {
     "http://www.xbrl.org/2003/iso4217": [
         {
+            "localName": "VEF",
             "type": "Unit",
-            "label": "New Zealand dollar",
-            "localName": "NZD"
+            "label": "Venezuelan Bolivar Fuerte"
         },
         {
+            "localName": "AED",
             "type": "Unit",
-            "label": "Palladium",
-            "localName": "XPD"
+            "label": "U.A.E. dirham"
         },
         {
+            "localName": "FJD",
             "type": "Unit",
-            "label": "Belarusian ruble",
-            "localName": "BYR"
+            "label": "Fiji dollar"
         },
         {
+            "localName": "XDR",
             "type": "Unit",
-            "label": "Same Day US Dollar",
-            "localName": "USS"
+            "label": "Special Drawing Rights"
         },
         {
+            "localName": "KMF",
             "type": "Unit",
-            "label": "Eritrean nakfa",
-            "localName": "ERN"
+            "label": "Comoro franc"
         },
         {
+            "localName": "AZN",
             "type": "Unit",
-            "label": "Bahamian dollar",
-            "localName": "BSD"
+            "label": "Azerbaijani manat"
         },
         {
+            "localName": "BND",
             "type": "Unit",
-            "label": "Georgian lari",
-            "localName": "GEL"
+            "label": "Brunei dollar"
         },
         {
+            "localName": "CLF",
             "type": "Unit",
-            "label": "Syrian pound",
-            "localName": "SYP"
+            "label": "Unidad de Fomento"
         },
         {
+            "localName": "EUR",
             "type": "Unit",
-            "label": "Solomon Islands dollar",
-            "localName": "SBD"
+            "label": "Euro"
         },
         {
+            "localName": "MXV",
             "type": "Unit",
-            "label": "Bangladeshi taka",
-            "localName": "BDT"
+            "label": "Mexican UDI"
         },
         {
+            "localName": "LBP",
             "type": "Unit",
-            "label": "Malawian kwacha",
-            "localName": "MWK"
+            "label": "Lebanese pound"
         },
         {
+            "localName": "CLP",
             "type": "Unit",
-            "label": "Cayman Islands dollar",
-            "localName": "KYD"
+            "label": "Chilean peso"
         },
         {
+            "localName": "USN",
             "type": "Unit",
-            "label": "Vanuatu vatu",
-            "localName": "VUV"
+            "label": "Next Day US Dollar"
         },
         {
+            "localName": "CAD",
             "type": "Unit",
-            "label": "Mauritanian ouguiya",
-            "localName": "MRO"
+            "label": "Canadian dollar"
         },
         {
+            "localName": "LTL",
             "type": "Unit",
-            "label": "Bahraini dinar",
-            "localName": "BHD"
+            "label": "Lithuanian litas"
         },
         {
+            "localName": "JMD",
             "type": "Unit",
-            "label": "CFP Franc",
-            "localName": "XPF"
+            "label": "Jamaican dollar"
         },
         {
+            "localName": "TTD",
             "type": "Unit",
-            "label": "Burundian franc",
-            "localName": "BIF"
+            "label": "Trinidad and Tobago dollar"
         },
         {
+            "localName": "SAR",
             "type": "Unit",
-            "label": "Algerian dinar",
-            "localName": "DZD"
+            "label": "Riyal"
         },
         {
+            "localName": "SSP",
             "type": "Unit",
-            "label": "Peruvian nuevo sol",
-            "localName": "PEN"
+            "label": "South Sudanese pound"
         },
         {
+            "localName": "VES",
             "type": "Unit",
-            "label": "Serbian dinar",
-            "localName": "RSD"
+            "label": "Bol\u00edvar Soberano"
         },
         {
+            "localName": "BWP",
             "type": "Unit",
-            "label": "Mongolian tugrik",
-            "localName": "MNT"
+            "label": "Botswana pula"
         },
         {
+            "localName": "HNL",
             "type": "Unit",
-            "label": "Egyptian pound",
-            "localName": "EGP"
+            "label": "Honduran lempira"
         },
         {
+            "localName": "MXN",
             "type": "Unit",
-            "label": "E.M.U.-6",
-            "localName": "XBB"
+            "label": "Mexican peso"
         },
         {
+            "localName": "IDR",
             "type": "Unit",
-            "label": "Salvadoran col\u00f3n",
-            "localName": "SVC"
+            "label": "Indonesian rupiah"
         },
         {
+            "localName": "XBD",
             "type": "Unit",
-            "label": "Myanma kyat",
-            "localName": "MMK"
+            "label": "E.U.A.-17"
         },
         {
+            "localName": "LSL",
             "type": "Unit",
-            "label": "Danish krone",
-            "localName": "DKK"
+            "label": "Lesotho loti"
         },
         {
+            "localName": "KGS",
             "type": "Unit",
-            "label": "Estonian kroon",
-            "localName": "EEK"
+            "label": "Kyrgyzstani som"
         },
         {
+            "localName": "MZN",
             "type": "Unit",
-            "label": "SUCRE",
-            "localName": "XSU"
+            "label": "Mozambican metical"
         },
         {
+            "localName": "SGD",
             "type": "Unit",
-            "label": "Icelandic kr\u00f3na",
-            "localName": "ISK"
+            "label": "Singapore dollar"
         },
         {
+            "localName": "NAD",
             "type": "Unit",
-            "label": "Congolese franc",
-            "localName": "CDF"
+            "label": "Namibian dollar"
         },
         {
+            "localName": "CVE",
             "type": "Unit",
-            "label": "Mexican UDI",
-            "localName": "MXV"
+            "label": "Cape Verde escudo"
         },
         {
+            "localName": "PAB",
             "type": "Unit",
-            "label": "Honduran lempira",
-            "localName": "HNL"
+            "label": "Panamanian balboa"
         },
         {
+            "localName": "CUC",
             "type": "Unit",
-            "label": "Guyanese dollar",
-            "localName": "GYD"
+            "label": "Cuban convertible peso"
         },
         {
+            "localName": "XSU",
             "type": "Unit",
-            "label": "Cordoba oro",
-            "localName": "NIO"
+            "label": "SUCRE"
         },
         {
+            "localName": "DKK",
             "type": "Unit",
-            "label": "South Korean won",
-            "localName": "KRW"
+            "label": "Danish krone"
         },
         {
+            "localName": "EEK",
             "type": "Unit",
-            "label": "Seychelles rupee",
-            "localName": "SCR"
+            "label": "Estonian kroon"
         },
         {
+            "localName": "LRD",
             "type": "Unit",
-            "label": "South African rand",
-            "localName": "ZAR"
+            "label": "Liberian dollar"
         },
         {
+            "localName": "MWK",
             "type": "Unit",
-            "label": "Pound sterling",
-            "localName": "GBP"
+            "label": "Malawian kwacha"
         },
         {
+            "localName": "CZK",
             "type": "Unit",
-            "label": "Macedonian denar",
-            "localName": "MKD"
+            "label": "Czech koruna"
         },
         {
+            "localName": "SVC",
             "type": "Unit",
-            "label": "Tajikistani somoni",
-            "localName": "TJS"
+            "label": "Salvadoran col\u00f3n"
         },
         {
+            "localName": "COU",
             "type": "Unit",
-            "label": "Australian dollar",
-            "localName": "AUD"
+            "label": "Unidad de Valor Real"
         },
         {
+            "localName": "XAF",
             "type": "Unit",
-            "label": "Unidad de Valor Real",
-            "localName": "COU"
+            "label": "CFA Franc BEAC"
         },
         {
+            "localName": "XBA",
             "type": "Unit",
-            "label": "Sri Lanka rupee",
-            "localName": "LKR"
+            "label": "EURCO"
         },
         {
+            "localName": "KES",
             "type": "Unit",
-            "label": "Boliviano",
-            "localName": "BOB"
+            "label": "Kenyan shilling"
         },
         {
+            "localName": "QAR",
             "type": "Unit",
-            "label": "Jordanian dinar",
-            "localName": "JOD"
+            "label": "Qatari rial"
         },
         {
+            "localName": "BOB",
             "type": "Unit",
-            "label": "Unidad de Fomento",
-            "localName": "CLF"
+            "label": "Boliviano"
         },
         {
+            "localName": "CHW",
             "type": "Unit",
-            "label": "Japanese yen",
-            "localName": "JPY"
+            "label": "WIR Bank"
         },
         {
+            "localName": "ARS",
             "type": "Unit",
-            "label": "Libyan dinar",
-            "localName": "LYD"
+            "label": "Argentine peso"
         },
         {
+            "localName": "OMR",
             "type": "Unit",
-            "label": "Romanian new leu",
-            "localName": "RON"
+            "label": "Omani rial"
         },
         {
+            "localName": "JPY",
             "type": "Unit",
-            "label": "Jamaican dollar",
-            "localName": "JMD"
+            "label": "Japanese yen"
         },
         {
+            "localName": "VED",
             "type": "Unit",
-            "label": "Lebanese pound",
-            "localName": "LBP"
+            "label": "Bol\u00edvar Soberano"
         },
         {
+            "localName": "GMD",
             "type": "Unit",
-            "label": "Rouble",
-            "localName": "RUB"
+            "label": "Gambian dalasi"
         },
         {
+            "localName": "BTN",
             "type": "Unit",
-            "label": "Iranian rial",
-            "localName": "IRR"
+            "label": "Bhutanese ngultrum"
         },
         {
+            "localName": "SDG",
             "type": "Unit",
-            "label": "Cuban convertible peso",
-            "localName": "CUC"
+            "label": "Sudanese pound"
         },
         {
+            "localName": "ISK",
             "type": "Unit",
-            "label": "Armenian dram",
-            "localName": "AMD"
+            "label": "Icelandic kr\u00f3na"
         },
         {
+            "localName": "IQD",
             "type": "Unit",
-            "label": "Canadian dollar",
-            "localName": "CAD"
+            "label": "Iraqi dinar"
         },
         {
+            "localName": "GEL",
             "type": "Unit",
-            "label": "Angolan kwanza",
-            "localName": "AOA"
+            "label": "Georgian lari"
         },
         {
+            "localName": "XBC",
             "type": "Unit",
-            "label": "Surinamese dollar",
-            "localName": "SRD"
+            "label": "E.U.A.-9"
         },
         {
+            "localName": "XAU",
             "type": "Unit",
-            "label": "Guinean franc",
-            "localName": "GNF"
+            "label": "Gold"
         },
         {
+            "localName": "HRK",
             "type": "Unit",
-            "label": "Malaysian ringgit",
-            "localName": "MYR"
+            "label": "Croatian kuna"
         },
         {
+            "localName": "STD",
             "type": "Unit",
-            "label": "Bolivian Mvdol",
-            "localName": "BOV"
+            "label": "S\u00e3o Tom\u00e9 and Pr\u00edncipe dobra"
         },
         {
+            "localName": "XPF",
             "type": "Unit",
-            "label": "US Dollar",
-            "localName": "USD"
+            "label": "CFP Franc"
         },
         {
+            "localName": "TWD",
             "type": "Unit",
-            "label": "Israeli new sheqel",
-            "localName": "ILS"
+            "label": "New Taiwan dollar"
         },
         {
+            "localName": "SLL",
             "type": "Unit",
-            "label": "UIC Franc",
-            "localName": "XFU"
+            "label": "Leone"
         },
         {
+            "localName": "SOS",
             "type": "Unit",
-            "label": "Aruban florin",
-            "localName": "AWG"
+            "label": "Somali shilling"
         },
         {
+            "localName": "UGX",
             "type": "Unit",
-            "label": "U.A.E. dirham",
-            "localName": "AED"
+            "label": "Ugandan shilling"
         },
         {
+            "localName": "BMD",
             "type": "Unit",
-            "label": "Swedish krona",
-            "localName": "SEK"
+            "label": "Bermuda Dollar"
         },
         {
+            "localName": "CUP",
             "type": "Unit",
-            "label": "Cambodian riel",
-            "localName": "KHR"
+            "label": "Cuban peso"
         },
         {
+            "localName": "LKR",
             "type": "Unit",
-            "label": "Czech koruna",
-            "localName": "CZK"
+            "label": "Sri Lanka rupee"
         },
         {
+            "localName": "PYG",
             "type": "Unit",
-            "label": "E.U.A.-9",
-            "localName": "XBC"
+            "label": "Paraguayan guaran\u00ed"
         },
         {
+            "localName": "BSD",
             "type": "Unit",
-            "label": "East Caribbean dollar",
-            "localName": "XCD"
+            "label": "Bahamian dollar"
         },
         {
+            "localName": "TRY",
             "type": "Unit",
-            "label": "Moldovan leu",
-            "localName": "MDL"
+            "label": "Turkish lira"
         },
         {
+            "localName": "VEB",
             "type": "Unit",
-            "label": "Bulgarian lev",
-            "localName": "BGN"
+            "label": "Venezualan Bolivar"
         },
         {
+            "localName": "AMD",
             "type": "Unit",
-            "label": "Dominican peso",
-            "localName": "DOP"
+            "label": "Armenian dram"
         },
         {
+            "localName": "MDL",
             "type": "Unit",
-            "label": "Ghanaian cedi",
-            "localName": "GHS"
+            "label": "Moldovan leu"
         },
         {
+            "localName": "SRD",
             "type": "Unit",
-            "label": "Hungarian forint",
-            "localName": "HUF"
+            "label": "Surinamese dollar"
         },
         {
+            "localName": "MOP",
             "type": "Unit",
-            "label": "Som",
-            "localName": "UZS"
+            "label": "Macanese pataca"
         },
         {
+            "localName": "SZL",
             "type": "Unit",
-            "label": "Samoan tala",
-            "localName": "WST"
+            "label": "Lilangeni"
         },
         {
+            "localName": "MAD",
             "type": "Unit",
-            "label": "Cape Verde escudo",
-            "localName": "CVE"
+            "label": "Moroccan dirham"
         },
         {
+            "localName": "RSD",
             "type": "Unit",
-            "label": "Zambian kwacha",
-            "localName": "ZMK"
+            "label": "Serbian dinar"
         },
         {
+            "localName": "DOP",
             "type": "Unit",
-            "label": "Kenyan shilling",
-            "localName": "KES"
+            "label": "Dominican peso"
         },
         {
+            "localName": "KZT",
             "type": "Unit",
-            "label": "Mexican peso",
-            "localName": "MXN"
+            "label": "Kazakhstani tenge"
         },
         {
+            "localName": "TND",
             "type": "Unit",
-            "label": "Turkmenistani manat",
-            "localName": "TMT"
+            "label": "Tunisian dinar"
         },
         {
+            "localName": "YER",
             "type": "Unit",
-            "label": "WIR Bank",
-            "localName": "CHE"
+            "label": "Yemeni rial"
         },
         {
+            "localName": "ZAR",
             "type": "Unit",
-            "label": "Riyal",
-            "localName": "SAR"
+            "label": "South African rand"
         },
         {
+            "localName": "SBD",
             "type": "Unit",
-            "label": "Polish z\u0142oty",
-            "localName": "PLN"
+            "label": "Solomon Islands dollar"
         },
         {
+            "localName": "GIP",
             "type": "Unit",
-            "label": "New Taiwan dollar",
-            "localName": "TWD"
+            "label": "Gibraltar pound"
         },
         {
+            "localName": "GHS",
             "type": "Unit",
-            "label": "Pa'anga",
-            "localName": "TOP"
+            "label": "Ghanaian cedi"
         },
         {
+            "localName": "MNT",
             "type": "Unit",
-            "label": "CFA Franc BCEAO",
-            "localName": "XOF"
+            "label": "Mongolian tugrik"
         },
         {
+            "localName": "TOP",
             "type": "Unit",
-            "label": "Rwandan franc",
-            "localName": "RWF"
+            "label": "Pa'anga"
         },
         {
+            "localName": "BBD",
             "type": "Unit",
-            "label": "Macanese pataca",
-            "localName": "MOP"
+            "label": "Barbados dollar"
         },
         {
+            "localName": "LAK",
             "type": "Unit",
-            "label": "Saint Helena pound",
-            "localName": "SHP"
+            "label": "Lao kip"
         },
         {
+            "localName": "IRR",
             "type": "Unit",
-            "label": "Namibian dollar",
-            "localName": "NAD"
+            "label": "Iranian rial"
         },
         {
+            "localName": "NPR",
             "type": "Unit",
-            "label": "Costa Rican colon",
-            "localName": "CRC"
+            "label": "Nepalese rupee"
         },
         {
+            "localName": "PLN",
             "type": "Unit",
-            "label": "Turkish lira",
-            "localName": "TRY"
+            "label": "Polish z\u0142oty"
         },
         {
+            "localName": "UYW",
             "type": "Unit",
-            "label": "Bhutanese ngultrum",
-            "localName": "BTN"
+            "label": "Unidad Previsional"
         },
         {
+            "localName": "MVR",
             "type": "Unit",
-            "label": "Nigerian naira",
-            "localName": "NGN"
+            "label": "Maldivian rufiyaa"
         },
         {
+            "localName": "RUB",
             "type": "Unit",
-            "label": "Gibraltar pound",
-            "localName": "GIP"
+            "label": "Rouble"
         },
         {
+            "localName": "CHF",
             "type": "Unit",
-            "label": "Falkland Islands pound",
-            "localName": "FKP"
+            "label": "Swiss franc"
         },
         {
+            "localName": "AWG",
             "type": "Unit",
-            "label": "Uruguayan peso",
-            "localName": "UYU"
+            "label": "Aruban florin"
         },
         {
+            "localName": "BGN",
             "type": "Unit",
-            "label": "Lesotho loti",
-            "localName": "LSL"
+            "label": "Bulgarian lev"
         },
         {
+            "localName": "SLE",
             "type": "Unit",
-            "label": "Hryvnia",
-            "localName": "UAH"
+            "label": "Leone"
         },
         {
+            "localName": "ZWL",
             "type": "Unit",
-            "label": "Iraqi dinar",
-            "localName": "IQD"
+            "label": "Zimbabwe dollar"
         },
         {
+            "localName": "RWF",
             "type": "Unit",
-            "label": "Indonesian rupiah",
-            "localName": "IDR"
+            "label": "Rwandan franc"
         },
         {
+            "localName": "MUR",
             "type": "Unit",
-            "label": "Kyrgyzstani som",
-            "localName": "KGS"
+            "label": "Mauritian rupee"
         },
         {
+            "localName": "AOA",
             "type": "Unit",
-            "label": "South Sudanese pound",
-            "localName": "SSP"
+            "label": "Angolan kwanza"
         },
         {
+            "localName": "ZMW",
             "type": "Unit",
-            "label": "Lilangeni",
-            "localName": "SZL"
+            "label": "Zambian kwacha"
         },
         {
+            "localName": "BZD",
             "type": "Unit",
-            "label": "Panamanian balboa",
-            "localName": "PAB"
+            "label": "Belize dollar"
         },
         {
+            "localName": "THB",
             "type": "Unit",
-            "label": "Chinese yuan",
-            "localName": "CNY"
+            "label": "Baht"
         },
         {
+            "localName": "BDT",
             "type": "Unit",
-            "label": "Tanzanian shilling",
-            "localName": "TZS"
+            "label": "Bangladeshi taka"
         },
         {
+            "localName": "FKP",
             "type": "Unit",
-            "label": "Papua New Guinean kina",
-            "localName": "PGK"
+            "label": "Falkland Islands pound"
         },
         {
+            "localName": "GBP",
             "type": "Unit",
-            "label": "Ugandan shilling",
-            "localName": "UGX"
+            "label": "Pound sterling"
         },
         {
+            "localName": "UYI",
             "type": "Unit",
-            "label": "Zimbabwe dollar",
-            "localName": "ZWL"
+            "label": "Uruguay Peso en Unidades Indexadas"
         },
         {
+            "localName": "UYU",
             "type": "Unit",
-            "label": "Botswana pula",
-            "localName": "BWP"
+            "label": "Uruguayan peso"
         },
         {
+            "localName": "XFU",
             "type": "Unit",
-            "label": "Maldivian rufiyaa",
-            "localName": "MVR"
+            "label": "UIC Franc"
         },
         {
+            "localName": "MRU",
             "type": "Unit",
-            "label": "Afghan afghani",
-            "localName": "AFN"
+            "label": "Mauritanian ouguiya"
         },
         {
+            "localName": "DJF",
             "type": "Unit",
-            "label": "Hong Kong dollar",
-            "localName": "HKD"
+            "label": "Djiboutian franc"
         },
         {
+            "localName": "ILS",
             "type": "Unit",
-            "label": "Lithuanian litas",
-            "localName": "LTL"
+            "label": "Israeli new sheqel"
         },
         {
+            "localName": "WST",
             "type": "Unit",
-            "label": "\u0111\u1ed3ng",
-            "localName": "VND"
+            "label": "Samoan tala"
         },
         {
+            "localName": "USD",
             "type": "Unit",
-            "label": "Baht",
-            "localName": "THB"
+            "label": "US Dollar"
         },
         {
+            "localName": "XPD",
             "type": "Unit",
-            "label": "E.U.A.-17",
-            "localName": "XBD"
+            "label": "Palladium"
         },
         {
+            "localName": "XPT",
             "type": "Unit",
-            "label": "Tunisian dinar",
-            "localName": "TND"
+            "label": "Platinum"
         },
         {
+            "localName": "TJS",
             "type": "Unit",
-            "label": "Special Drawing Rights",
-            "localName": "XDR"
+            "label": "Tajikistani somoni"
         },
         {
+            "localName": "TZS",
             "type": "Unit",
-            "label": "Albanian lek",
-            "localName": "ALL"
+            "label": "Tanzanian shilling"
         },
         {
+            "localName": "ALL",
             "type": "Unit",
-            "label": "Trinidad and Tobago dollar",
-            "localName": "TTD"
+            "label": "Albanian lek"
         },
         {
+            "localName": "GYD",
             "type": "Unit",
-            "label": "Barbados dollar",
-            "localName": "BBD"
+            "label": "Guyanese dollar"
         },
         {
+            "localName": "SHP",
             "type": "Unit",
-            "label": "Netherlands Antillean guilder",
-            "localName": "ANG"
+            "label": "Saint Helena pound"
         },
         {
+            "localName": "BYN",
             "type": "Unit",
-            "label": "Ethiopian birr",
-            "localName": "ETB"
+            "label": "Belarusian ruble"
         },
         {
+            "localName": "NZD",
             "type": "Unit",
-            "label": "Haitian gourde",
-            "localName": "HTG"
+            "label": "New Zealand dollar"
         },
         {
+            "localName": "BRL",
             "type": "Unit",
-            "label": "Mauritian rupee",
-            "localName": "MUR"
+            "label": "Brazilian real"
         },
         {
+            "localName": "UZS",
             "type": "Unit",
-            "label": "Fiji dollar",
-            "localName": "FJD"
+            "label": "Som"
         },
         {
+            "localName": "XAG",
             "type": "Unit",
-            "label": "Indian rupee",
-            "localName": "INR"
+            "label": "Silver"
         },
         {
+            "localName": "XOF",
             "type": "Unit",
-            "label": "WIR Bank",
-            "localName": "CHW"
+            "label": "CFA Franc BCEAO"
         },
         {
+            "localName": "HUF",
             "type": "Unit",
-            "label": "Somali shilling",
-            "localName": "SOS"
+            "label": "Hungarian forint"
         },
         {
+            "localName": "SYP",
             "type": "Unit",
-            "label": "Next Day US Dollar",
-            "localName": "USN"
+            "label": "Syrian pound"
         },
         {
+            "localName": "NIO",
             "type": "Unit",
-            "label": "Swiss franc",
-            "localName": "CHF"
+            "label": "Cordoba oro"
         },
         {
+            "localName": "XCD",
             "type": "Unit",
-            "label": "Nepalese rupee",
-            "localName": "NPR"
+            "label": "East Caribbean dollar"
         },
         {
+            "localName": "PHP",
             "type": "Unit",
-            "label": "Norwegian krone",
-            "localName": "NOK"
+            "label": "Philippine peso"
         },
         {
+            "localName": "MRO",
             "type": "Unit",
-            "label": "Croatian kuna",
-            "localName": "HRK"
+            "label": "Mauritanian ouguiya"
         },
         {
+            "localName": "LYD",
             "type": "Unit",
-            "label": "Kazakhstani tenge",
-            "localName": "KZT"
+            "label": "Libyan dinar"
         },
         {
+            "localName": "VND",
             "type": "Unit",
-            "label": "Cuban peso",
-            "localName": "CUP"
+            "label": "\u0111\u1ed3ng"
         },
         {
+            "localName": "RON",
             "type": "Unit",
-            "label": "Comoro franc",
-            "localName": "KMF"
+            "label": "Romanian new leu"
         },
         {
+            "localName": "MKD",
             "type": "Unit",
-            "label": "Liberian dollar",
-            "localName": "LRD"
+            "label": "Macedonian denar"
         },
         {
+            "localName": "JOD",
             "type": "Unit",
-            "label": "Paraguayan guaran\u00ed",
-            "localName": "PYG"
+            "label": "Jordanian dinar"
         },
         {
+            "localName": "BHD",
             "type": "Unit",
-            "label": "Mozambican metical",
-            "localName": "MZN"
+            "label": "Bahraini dinar"
         },
         {
+            "localName": "UAH",
             "type": "Unit",
-            "label": "Zambian kwacha",
-            "localName": "ZMW"
+            "label": "Hryvnia"
         },
         {
+            "localName": "BIF",
             "type": "Unit",
-            "label": "Silver",
-            "localName": "XAG"
+            "label": "Burundian franc"
         },
         {
+            "localName": "ERN",
             "type": "Unit",
-            "label": "Lao kip",
-            "localName": "LAK"
+            "label": "Eritrean nakfa"
         },
         {
+            "localName": "KHR",
             "type": "Unit",
-            "label": "Singapore dollar",
-            "localName": "SGD"
+            "label": "Cambodian riel"
         },
         {
+            "localName": "STN",
             "type": "Unit",
-            "label": "ADB Unit of Account",
-            "localName": "XUA"
+            "label": "Dobra"
         },
         {
+            "localName": "PGK",
             "type": "Unit",
-            "label": "Omani rial",
-            "localName": "OMR"
+            "label": "Papua New Guinean kina"
         },
         {
+            "localName": "GTQ",
             "type": "Unit",
-            "label": "Uruguay Peso en Unidades Indexadas",
-            "localName": "UYI"
+            "label": "Guatemalan quetzal"
         },
         {
+            "localName": "SCR",
             "type": "Unit",
-            "label": "Leone",
-            "localName": "SLL"
+            "label": "Seychelles rupee"
         },
         {
+            "localName": "XBB",
             "type": "Unit",
-            "label": "Colombian peso",
-            "localName": "COP"
+            "label": "E.M.U.-6"
         },
         {
+            "localName": "COP",
             "type": "Unit",
-            "label": "Venezuelan Bolivar Fuerte",
-            "localName": "VEF"
+            "label": "Colombian peso"
         },
         {
+            "localName": "HKD",
             "type": "Unit",
-            "label": "CFA Franc BEAC",
-            "localName": "XAF"
+            "label": "Hong Kong dollar"
         },
         {
+            "localName": "NOK",
             "type": "Unit",
-            "label": "Belarusian ruble",
-            "localName": "BYN"
+            "label": "Norwegian krone"
         },
         {
+            "localName": "PKR",
             "type": "Unit",
-            "label": "Moroccan dirham",
-            "localName": "MAD"
+            "label": "Pakistani rupee"
         },
         {
+            "localName": "BAM",
             "type": "Unit",
-            "label": "Philippine peso",
-            "localName": "PHP"
+            "label": "Bosnia and Herzegovina convertible mark"
         },
         {
+            "localName": "AUD",
             "type": "Unit",
-            "label": "Yemeni rial",
-            "localName": "YER"
+            "label": "Australian dollar"
         },
         {
+            "localName": "PEN",
             "type": "Unit",
-            "label": "Argentine peso",
-            "localName": "ARS"
+            "label": "Peruvian nuevo sol"
         },
         {
+            "localName": "TMT",
             "type": "Unit",
-            "label": "North Korean won",
-            "localName": "KPW"
+            "label": "Turkmenistani manat"
         },
         {
+            "localName": "HTG",
             "type": "Unit",
-            "label": "Gambian dalasi",
-            "localName": "GMD"
+            "label": "Haitian gourde"
         },
         {
+            "localName": "CHE",
             "type": "Unit",
-            "label": "Malagasy ariary",
-            "localName": "MGA"
+            "label": "WIR Bank"
         },
         {
+            "localName": "BYR",
             "type": "Unit",
-            "label": "Djiboutian franc",
-            "localName": "DJF"
+            "label": "Belarusian ruble"
         },
         {
+            "localName": "ZWG",
             "type": "Unit",
-            "label": "S\u00e3o Tom\u00e9 and Pr\u00edncipe dobra",
-            "localName": "STD"
+            "label": "Zimbabwe Gold"
         },
         {
+            "localName": "KWD",
             "type": "Unit",
-            "label": "Sudanese pound",
-            "localName": "SDG"
+            "label": "Kuwaiti dinar"
         },
         {
+            "localName": "KYD",
             "type": "Unit",
-            "label": "Latvian lats",
-            "localName": "LVL"
+            "label": "Cayman Islands dollar"
         },
         {
+            "localName": "AFN",
             "type": "Unit",
-            "label": "Bermuda Dollar",
-            "localName": "BMD"
+            "label": "Afghan afghani"
         },
         {
+            "localName": "EGP",
             "type": "Unit",
-            "label": "Brunei dollar",
-            "localName": "BND"
+            "label": "Egyptian pound"
         },
         {
+            "localName": "CDF",
             "type": "Unit",
-            "label": "Gold",
-            "localName": "XAU"
+            "label": "Congolese franc"
         },
         {
+            "localName": "DZD",
             "type": "Unit",
-            "label": "Bosnia and Herzegovina convertible mark",
-            "localName": "BAM"
+            "label": "Algerian dinar"
         },
         {
+            "localName": "SEK",
             "type": "Unit",
-            "label": "Kuwaiti dinar",
-            "localName": "KWD"
+            "label": "Swedish krona"
         },
         {
+            "localName": "INR",
             "type": "Unit",
-            "label": "Azerbaijani manat",
-            "localName": "AZN"
+            "label": "Indian rupee"
         },
         {
+            "localName": "USS",
             "type": "Unit",
-            "label": "EURCO",
-            "localName": "XBA"
+            "label": "Same Day US Dollar"
         },
         {
+            "localName": "KPW",
             "type": "Unit",
-            "label": "Platinum",
-            "localName": "XPT"
+            "label": "North Korean won"
         },
         {
+            "localName": "NGN",
             "type": "Unit",
-            "label": "Qatari rial",
-            "localName": "QAR"
+            "label": "Nigerian naira"
         },
         {
+            "localName": "VUV",
             "type": "Unit",
-            "label": "Brazilian real",
-            "localName": "BRL"
+            "label": "Vanuatu vatu"
         },
         {
+            "localName": "KRW",
             "type": "Unit",
-            "label": "Euro",
-            "localName": "EUR"
+            "label": "South Korean won"
         },
         {
+            "localName": "MMK",
             "type": "Unit",
-            "label": "Guatemalan quetzal",
-            "localName": "GTQ"
+            "label": "Myanma kyat"
         },
         {
+            "localName": "XUA",
             "type": "Unit",
-            "label": "Chilean peso",
-            "localName": "CLP"
+            "label": "ADB Unit of Account"
         },
         {
+            "localName": "BOV",
             "type": "Unit",
-            "label": "Belize dollar",
-            "localName": "BZD"
+            "label": "Bolivian Mvdol"
         },
         {
+            "localName": "MYR",
             "type": "Unit",
-            "label": "Venezualan Bolivar",
-            "localName": "VEB"
+            "label": "Malaysian ringgit"
         },
         {
+            "localName": "MGA",
             "type": "Unit",
-            "label": "Pakistani rupee",
-            "localName": "PKR"
+            "label": "Malagasy ariary"
+        },
+        {
+            "localName": "ANG",
+            "type": "Unit",
+            "label": "Netherlands Antillean guilder"
+        },
+        {
+            "localName": "ETB",
+            "type": "Unit",
+            "label": "Ethiopian birr"
+        },
+        {
+            "localName": "ZMK",
+            "type": "Unit",
+            "label": "Zambian kwacha"
+        },
+        {
+            "localName": "GNF",
+            "type": "Unit",
+            "label": "Guinean franc"
+        },
+        {
+            "localName": "CNY",
+            "type": "Unit",
+            "label": "Chinese yuan"
+        },
+        {
+            "localName": "CRC",
+            "type": "Unit",
+            "label": "Costa Rican colon"
+        },
+        {
+            "localName": "LVL",
+            "type": "Unit",
+            "label": "Latvian lats"
         }
     ]
 }
