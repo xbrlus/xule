@@ -1,0 +1,209 @@
+{
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2021/xbrl-json",
+    "features": {
+      "xbrl:canonicalValues": true
+    },
+    "namespaces": {
+      "xbrl": "https://xbrl.org/2021",
+      "us-gaap": "http://fasb.org/us-gaap/2021-01-31",
+      "wip": "http://xbrl.us/wip/2021-01-31",
+      "ns": "http://some/schema",
+      "ns1": "iso4217",
+      "ns2": "xbrli"
+    },
+    "linkGroups": {
+      "_": "http://www.xbrl.org/2003/role/link"
+    },
+    "taxonomy": [
+      "https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd"
+    ]
+  },
+  "facts": {
+    "f1": {
+      "value": "1333.85",
+      "dimensions": {
+        "concept": "wip:ContractGrossProfitFromInceptionToDate",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f2": {
+      "value": "13300.0",
+      "dimensions": {
+        "concept": "wip:ContractRevenueEarnedToDate",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f3": {
+      "value": "2022-08-26",
+      "dimensions": {
+        "concept": "wip:ContractStartDate",
+        "entity": "ns:CompanyA",
+        "period": "2022-12-31T00:00:00/2023-12-31T00:00:00",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f4": {
+      "value": "10.0",
+      "dimensions": {
+        "concept": "wip:ContractGrossProfitPercentTotalContract",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns2:pure",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f5": {
+      "value": "13300.0",
+      "dimensions": {
+        "concept": "us-gaap:Revenues",
+        "entity": "ns:CompanyA",
+        "period": "2022-12-31T00:00:00/2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f6": {
+      "value": "100000.0",
+      "dimensions": {
+        "concept": "wip:ContractGrossProfitTotalContract",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f7": {
+      "value": "22-004",
+      "dimensions": {
+        "concept": "wip:ContractNumber",
+        "entity": "ns:CompanyA",
+        "period": "2022-12-31T00:00:00/2023-12-31T00:00:00",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f8": {
+      "value": "0.0",
+      "dimensions": {
+        "concept": "wip:ContractBillingsFromInceptionToDate",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f9": {
+      "value": "98666.15",
+      "dimensions": {
+        "concept": "wip:ContractGrossProfitToBeEarned",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f10": {
+      "value": "2023-06-16",
+      "dimensions": {
+        "concept": "wip:ContractEndDate",
+        "entity": "ns:CompanyA",
+        "period": "2022-12-31T00:00:00/2023-12-31T00:00:00",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f11": {
+      "value": "900000.0",
+      "dimensions": {
+        "concept": "us-gaap:CostOfRevenue",
+        "entity": "ns:CompanyA",
+        "period": "2022-12-31T00:00:00/2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f12": {
+      "value": "1.33",
+      "dimensions": {
+        "concept": "wip:PercentageComplete",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns2:pure",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f14": {
+      "value": "888033.85",
+      "dimensions": {
+        "concept": "wip:ContractCostsEstimatedCostToComplete",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f15": {
+      "value": "1000000.0",
+      "dimensions": {
+        "concept": "wip:ContractRevenueEstimatedRevenue",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f16": {
+      "value": "10.0",
+      "dimensions": {
+        "concept": "wip:ContractGrossProfitPercentTotalContract",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns2:pure",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f17": {
+      "value": "Quick Bowls - Tigard",
+      "dimensions": {
+        "concept": "wip:ContractName",
+        "entity": "ns:CompanyA",
+        "period": "2022-12-31T00:00:00/2023-12-31T00:00:00",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f18": {
+      "value": "13300.0",
+      "dimensions": {
+        "concept": "wip:CostsAndEstimatedEarningsInExcessOfBillingsNet",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f19": {
+      "value": "Burns Restaurants",
+      "dimensions": {
+        "concept": "wip:ContractCustomerName",
+        "entity": "ns:CompanyA",
+        "period": "2022-12-31T00:00:00/2023-12-31T00:00:00",
+        "wip:ContractNumberAxis": null
+      }
+    },
+    "f20": {
+      "value": "11966.15",
+      "dimensions": {
+        "concept": "wip:ContractCostsIncurredToDate",
+        "entity": "ns:CompanyA",
+        "period": "2023-12-31T00:00:00",
+        "unit": "ns1:USD",
+        "wip:ContractNumberAxis": null
+      }
+    }
+  }
+}

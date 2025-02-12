@@ -1,0 +1,15 @@
+/* Traits */
+output trait001
+/* us-gaap:AssetsCurrent */
+
+  $META2024.concept(us-gaap-2024:AssetsCurrent).name
+
+output trait002
+/* set(us-gaap-metamodel:CurrentTrait) */
+
+  $META2024.concept(us-gaap-2024:AssetsCurrent).traits
+
+output trait003
+/* set(us-gaap-metamodel:CurrentTrait, us-gaap-metamodel:RestrictedMember) */
+
+  $META2024.concept(us-gaap-2024:OtherRestrictedAssetsCurrent).traits

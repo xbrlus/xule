@@ -1,0 +1,108 @@
+constant $TAXONOMY_DATE = '20231231'
+constant $PUBLISH_TAXONOMY = 'MyTaxonomy1'
+constant $INSTANCE_NAME = 'wiptest'
+
+constant $MAPPING_DICT = dict(
+                                list('cfoForecast.costToComplete',wip:ContractCostsEstimatedCostToComplete),
+                                list('cfoForecast.costAtCompletion',us-gaap:CostOfRevenue),
+                                list('cfoForecast.contractValue', wip:ContractRevenueEstimatedRevenue),
+                                list('cfoForecastGrossProfitMarginPercent', wip:ContractGrossProfitPercentTotalContract),
+                                list('jobToDateCosts', wip:ContractCostsIncurredToDate),
+                                list('jobToDateBillings', wip:ContractBillingsFromInceptionToDate),
+                                list('cfoForecast.percentComplete', wip:PercentageComplete),
+                                list('earnedToDateAmount', wip:ContractRevenueEarnedToDate),
+                                list('currentPeriodEarnedToDateAmount', us-gaap:Revenues),
+                                list('jobToDateOverBillingAmount', wip:BillingsInExcessOfCostAndEarnings),
+                                list('JobToDateUnderBillingAmount', wip:CostsAndEarningsInExcessOfBillings),
+                                list('project.id', wip:ContractNumber),
+                                list('project.name', wip:ContractName),
+                                list('project.startDate', wip:ContractStartDate),
+                                list('project.endDate', wip:ContractEndDate),
+                                list('customer.name', wip:ContractCustomerName),
+                                list('cfoForecastGrossProfitAtCompletion', wip:ContractGrossProfitTotalContract),
+                                list('grossProfitPercentOfContract', wip:ContractGrossProfitPercentTotalContract),
+                                list('earnedProfitToDateAmount', wip:ContractGrossProfitFromInceptionToDate),
+                                list('remainingProfit', wip:ContractGrossProfitToBeEarned),
+                                list('overUnderBillingAmount',	wip:CostsAndEstimatedEarningsInExcessOfBillingsNet),
+                                list('customer.name',	dei:EntityRegistrantName),
+
+                                )
+
+constant $API-CALL = json-data('/Users/campbellpryde/Documents/GitHub/xule/unitTests/sage_json.json')
+    
+constant $CFO-forecast = $API-CALL['ia::result']['cfoForecast']
+
+output test99
+
+for $sageName in $MAPPING_DICT.keys()
+        if $sageName.contains(".")
+            $keys = $sageName.split(".")
+            $value = $API-CALL['ia::result'][$keys[1]][$keys[2]]
+            $xbrlConcept = $MAPPING_DICT[$sageName]
+            " Concept: " + $xbrlConcept.string + " Value: " + $value.string + "" 
+        else 
+            $value = $API-CALL['ia::result'][$sageName]
+            $xbrlConcept = $MAPPING_DICT[$sageName]
+            " Concept: " + $xbrlConcept.string + " Value: " + $value.string + ""
+
+output keys
+
+$API-CALL['ia::result']['project']['key']
+
+output createInstance
+true
+
+instance-name   $INSTANCE_NAME
+instance-taxonomy 'https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd'
+
+output add_facts_to_instance
+
+    for $sageName in $MAPPING_DICT.keys()
+        if $sageName.contains(".")
+            $keys = $sageName.split(".")
+            $value = $API-CALL['ia::result'][$keys[1]][$keys[2]]
+            $xbrlQname = $MAPPING_DICT[$sageName]
+            $xbrlConcept= $WIP.concept($xbrlQname)
+            $unit = if $xbrlConcept.data-type.name == xbrli:monetaryItemType
+                         qname('iso4217','USD') 
+                    else if $xbrlConcept.data-type.name == num:percentItemType
+                        qname('xbrli','pure')
+                    else
+                        none
+
+            $period = if $xbrlConcept.period-type == instant 
+                        date('2023-12-31') 
+                    else 
+                        duration('2022-12-31', '2023-12-31')
+
+            $dimensions = dict(list(wip:ContractNumberAxis, $API-CALL['ia::result']['project']['key']))
+                   
+
+            true
+        else 
+            $value = $API-CALL['ia::result'][$sageName]
+            $xbrlQname = $MAPPING_DICT[$sageName]
+            $xbrlConcept= $WIP.concept($xbrlQname)
+            $unit = if $xbrlConcept.data-type.name == xbrli:monetaryItemType 
+                        qname('iso4217','USD') 
+                    else if $xbrlConcept.data-type.name == num:percentItemType
+                        qname('xbrli','pure')
+                    else
+                        none
+            $period = if $xbrlConcept.period-type == instant 
+                        date('2023-12-31') 
+                    else 
+                        duration('2022-12-31', '2023-12-31')
+
+            $dimensions = dict(list(wip:ContractNumberAxis, "100"))
+            true
+
+      
+fact-instance $INSTANCE_NAME
+fact-value $value.to-xodel
+fact-concept  $xbrlQname.to-xodel
+fact-unit $unit.to-xodel
+fact-entity  entity('http://some/schema', 'CompanyA').to-xodel
+fact-period  $period.to-xodel
+fact-dimensions $dimensions.to-xodel
+

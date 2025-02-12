@@ -1,0 +1,446 @@
+{
+    "http://xbrl.us/wip/2021-01-31": [
+        {
+            "localName": "CostsAndEstimatedEarningsInExcessOfBillingsNet",
+            "type": "Concept",
+            "label": "Costs and Estimated Earnings in Excess of Billings, Net",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ContractProjectManager",
+            "type": "Concept",
+            "label": "Contract Project Manager",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PercentageComplete",
+            "type": "Concept",
+            "label": "Percent Complete",
+            "isAbstract": "false",
+            "dataType": "num:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "ContractLocationCity",
+            "type": "Concept",
+            "label": "Contract Location, City",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractFromInceptionToDateAbstract",
+            "type": "Concept",
+            "label": "Contract from Inception to Date [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractStartDate",
+            "type": "Concept",
+            "label": "Contract Start Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractBillingsFromInceptionToDate",
+            "type": "Concept",
+            "label": "Contract Billings, from Inception to Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "SBAIdentificationNumber",
+            "type": "Concept",
+            "label": "Small Business Administration (SBA) Identification Number",
+            "isAbstract": "false",
+            "dataType": "wip:SBADigitItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractCustomerName",
+            "type": "Concept",
+            "label": "Contract Customer Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractCostsIncurredToDate",
+            "type": "Concept",
+            "label": "Contract Costs, Incurred to Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ContractCostsEstimatedCostToComplete",
+            "type": "Concept",
+            "label": "Contract Costs, Estimated Cost to Complete",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "SocialSecurityNumber",
+            "type": "Concept",
+            "label": "Social Security Number",
+            "isAbstract": "false",
+            "dataType": "dei:nineDigitItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractGrossProfitToBeEarned",
+            "type": "Concept",
+            "label": "Contract Gross Profit (Loss), to be Earned",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ContractCompleteMember",
+            "type": "Concept",
+            "label": "Contract Complete [Member]",
+            "isAbstract": "true",
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractCompleteFlag",
+            "type": "Concept",
+            "label": "Contract Complete Flag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractLocationState",
+            "type": "Concept",
+            "label": "Contract Location, State",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractBondType",
+            "type": "Concept",
+            "label": "Contract Bond Type",
+            "isAbstract": "false",
+            "dataType": "wip:contractBondTypeItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WorkInProcessScheduleTableTextBlock",
+            "type": "Concept",
+            "label": "Work In Process Schedule [Table Text Block]",
+            "isAbstract": "false",
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PercentCompleteBasis",
+            "type": "Concept",
+            "label": "Percent Complete Basis",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractBondedFlag",
+            "type": "Concept",
+            "label": "Contract Bonded Flag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractPermanentJobBorrow",
+            "type": "Concept",
+            "label": "Contract Permanent Job Borrow",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ContractEndDate",
+            "type": "Concept",
+            "label": "Contract End Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MiscellaneousContractsFlag",
+            "type": "Concept",
+            "label": "Pooled Contracts Flag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractLossRecognitionFlag",
+            "type": "Concept",
+            "label": "Contract Loss Recognition Flag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractGrossProfitTotalContract",
+            "type": "Concept",
+            "label": "Contract Gross Profit (Loss), Total Contract",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ContractPercentCompleteInformationAbstract",
+            "type": "Concept",
+            "label": "Contract Percent Complete Information [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractEstimateAbstract",
+            "type": "Concept",
+            "label": "Contract Estimate [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "BillingsInExcessOfCostAndEarnings",
+            "type": "Concept",
+            "label": "Billings in Excess of Costs and Estimated Earnings",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "WorkInProcessTable",
+            "type": "Concept",
+            "label": "Work In Process Schedule [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractGainFade",
+            "type": "Concept",
+            "label": "Contract Gain (Fade)",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ContractCostsFromInceptionToDateAbstract",
+            "type": "Concept",
+            "label": "Contract Costs, From Inception To Date [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractBillingsAbstract",
+            "type": "Concept",
+            "label": "Contract Billings [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractCostsForPeriodAbstract",
+            "type": "Concept",
+            "label": "Contract Details for Period [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CostsAndEarningsInExcessOfBillings",
+            "type": "Concept",
+            "label": "Costs and Estimated Earnings in Excess of Billings",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ContractRevenueEarnedToDate",
+            "type": "Concept",
+            "label": "Contract Revenue, Earned to Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ContractGrossProfitFromInceptionToDate",
+            "type": "Concept",
+            "label": "Contract Gross Profit (Loss), Earned to Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ContractGrossProfitPercentTotalContract",
+            "type": "Concept",
+            "label": "Contract Gross Profit Percent, Total Contract",
+            "isAbstract": "false",
+            "dataType": "num:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "ContractCostsEstimatedCost",
+            "type": "Concept",
+            "label": "Contract Costs, Estimated Cost",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ContractBasicInformationAbstract",
+            "type": "Concept",
+            "label": "Contract Basic Information [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractCostsIncurredToDateExcludingAccruedLoss",
+            "type": "Concept",
+            "label": "Contract Costs, Incurred to Date, Excluding Accrued Loss",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ContractPerformanceAbstract",
+            "type": "Concept",
+            "label": "Contract Performance [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractNumber",
+            "type": "Concept",
+            "label": "Contract Identifier",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractCompleteOrIncompleteAxis",
+            "type": "Concept",
+            "label": "Contract Complete or Incomplete [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractInProcessMember",
+            "type": "Concept",
+            "label": "Contract In Process [Member]",
+            "isAbstract": "true",
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractBondNumber",
+            "type": "Concept",
+            "label": "Contract Bond Number",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractToCompleteAbstract",
+            "type": "Concept",
+            "label": "Contract to Complete [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractName",
+            "type": "Concept",
+            "label": "Contract Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractDetailsLineItems",
+            "type": "Concept",
+            "label": "Contract Details [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "contractBondTypeItemType",
+            "type": "Type",
+            "label": "contractBondTypeItemType"
+        },
+        {
+            "localName": "ContractDomain",
+            "type": "Concept",
+            "label": "Contract [Domain]",
+            "isAbstract": "true",
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractNumberAxis",
+            "type": "Concept",
+            "label": "Contract Number [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContractRevenueRevenueToComplete",
+            "type": "Concept",
+            "label": "Contract Revenue, yet to be Earned",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "SBADigitItemType",
+            "type": "Type",
+            "label": "SBADigitItemType"
+        },
+        {
+            "localName": "ContractRevenueEstimatedRevenue",
+            "type": "Concept",
+            "label": "Contract Revenue, Estimated Revenue",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        }
+    ]
+}

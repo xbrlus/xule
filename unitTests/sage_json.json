@@ -1,0 +1,78 @@
+{
+	"ia::result": {
+		"wipPeriod": {
+			"periodName": "Month Ended August 2022",
+			"id": "8",
+			"key": "8"
+		},
+		"project": {
+			"endDate": "2023-06-16",
+			"name": "Quick Bowls - Tigard",
+			"description": "2-story restaurant",
+			"id": "22-004",
+			"key": "14",
+			"startDate": "2022-08-26",
+			"status": "active"
+		},
+		"audit": {
+			"createdBy": "26",
+			"createdDateTime": "2024-12-06T02:28:59Z",
+			"modifiedBy": "26",
+			"modifiedDateTime": "2024-12-06T02:29:27Z"
+		},
+		"projectManagerForecast": {
+			"contractValue": "1000000",
+			"costAtCompletion": "831741.67",
+			"costToComplete": "819775.52",
+			"percentComplete": 1.44
+		},
+		"cfoForecast": {
+			"contractValue": "1000000",
+			"lastUpdatedDate": "2024-12-06T02:28:30Z",
+			"costAtCompletion": "900000",
+			"costToComplete": "888033.85",
+			"percentComplete": 1.33
+		},
+		"customer": {
+			"name": "Burns Restaurants",
+			"id": "C00008",
+			"key": "8"
+		},
+		"note": "Buyout overrun recognized.",
+		"remainingProfit": "98666.15",
+		"totalContractValue": "0",
+		"earnedProfitToDateAmount": "1333.85",
+		"cfoForecastGrossProfitAtCompletion": "100000",
+		"costAtCompletionVariance": "83258.33",
+		"grossProfitPercentOfContract": 10,
+		"estimatedCostToComplete": "819775.52",
+		"overUnderBillingAmount": "13300",
+		"isFinalized": "yes",
+		"grossProfitVarianceAmount": "931741.67",
+		"estimatedPercentComplete": 1.44,
+		"jobToDateCosts": "11966.15",
+		"grossProfitPercentOfCost": 11.11,
+		"remainingBacklogAmount": "986700",
+		"glPostedDate": "2024-12-06",
+		"id": "24",
+		"currentPeriodBilledToDateAmount": "0",
+		"estimatedCostToDateAmount": "816741.67",
+		"contractVarianceAmount": "1000000",
+		"key": "24",
+		"currentPeriodUnderBillingAmount": "13300",
+		"cfoForecastGrossProfitMarginPercent": 10,
+		"totalGrossProfitEstimatedAtCompletion": "-831741.67",
+		"jobToDateBillings": "0",
+		"earnedToDateAmount": "13300",
+		"currentPeriodOverBillingAmount": "0",
+		"currentPeriodEarnedToDateAmount": "13300",
+		"estimatedCostAtCompletion": "831741.67",
+		"currentPeriodEarnedProfit": "1333.85",
+		"pendingEstimatesAmount": "6500"
+	},
+	"ia::meta": {
+		"totalCount": 1,
+		"totalSuccess": 1,
+		"totalError": 0
+	}
+}

@@ -341,25 +341,25 @@ def index_property_balance(model_fact):
 #    1 - 'property' - This part is always 'property'.
 #    2 - the aspect name
 #    3 - the property name
-_FACT_INDEX_PROPERTIES = {
-    ('property', 'concept', 'period-type'): lambda f: f.concept.periodType,
-    ('property', 'concept', 'balance'): index_property_balance,
-    ('property', 'concept', 'data-type'): lambda f: f.concept.typeQname,
-    ('property', 'concept', 'base-type'): lambda f: f.concept.baseXbrliTypeQname,
-    ('property', 'concept', 'is-monetary'): lambda f: f.concept.isMonetary,
-    ('property', 'concept', 'is-numeric'): lambda f: f.concept.isNumeric,
-    ('property', 'concept', 'substitution'): lambda f: f.concept.substitutionGroupQname,
-    ('property', 'concept', 'namespace-uri'): lambda f: f.concept.qname.namespaceURI,
-    ('property', 'concept', 'local-name'): lambda f: f.concept.qname.localName,
-    ('property', 'concept', 'is-abstract'): lambda f: f.concept.isAbstract,
-    ('property', 'concept', 'id'): lambda f: f.id,
-    ('property', 'period', 'start'): index_property_start,
-    ('property', 'period', 'end'): index_property_end,
-    ('property', 'period', 'days'): index_property_days,
-    ('property', 'entity', 'scheme'): lambda f: f.context.entityIdentifier[0],  # entityIdentifier[0] is the scheme
-    ('property', 'entity', 'id'): lambda f: f.context.entityIdentifier[1]
-# entityIdentifer[1] is the id
-}
+# _FACT_INDEX_PROPERTIES = {
+#     ('property', 'concept', 'period-type'): lambda f: f.concept.periodType,
+#     ('property', 'concept', 'balance'): index_property_balance,
+#     ('property', 'concept', 'data-type'): lambda f: f.concept.typeQname,
+#     ('property', 'concept', 'base-type'): lambda f: f.concept.baseXbrliTypeQname,
+#     ('property', 'concept', 'is-monetary'): lambda f: f.concept.isMonetary,
+#     ('property', 'concept', 'is-numeric'): lambda f: f.concept.isNumeric,
+#     ('property', 'concept', 'substitution'): lambda f: f.concept.substitutionGroupQname,
+#     ('property', 'concept', 'namespace-uri'): lambda f: f.concept.qname.namespaceURI,
+#     ('property', 'concept', 'local-name'): lambda f: f.concept.qname.localName,
+#     ('property', 'concept', 'is-abstract'): lambda f: f.concept.isAbstract,
+#     ('property', 'concept', 'id'): lambda f: f.id,
+#     ('property', 'period', 'start'): index_property_start,
+#     ('property', 'period', 'end'): index_property_end,
+#     ('property', 'period', 'days'): index_property_days,
+#     ('property', 'entity', 'scheme'): lambda f: f.context.entityIdentifier[0],  # entityIdentifier[0] is the scheme
+#     ('property', 'entity', 'id'): lambda f: f.context.entityIdentifier[1]
+# # entityIdentifer[1] is the id
+# }
 
 # def index_table_properties(xule_context):
 #     """"Add the table properites to the fact index
@@ -2681,7 +2681,7 @@ def fact_index_key(aspect_info, fact_index, xule_context):
         # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
         index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
                     aspect_info[ASPECT_PROPERTY][1]
-        if index_key not in fact_index and index_key not in _FACT_INDEX_PROPERTIES and aspect_info[ASPECT_PROPERTY][0] != 'attribute':
+        if index_key not in fact_index and index_key not in xmi.FACT_INDEX_PROPERTIES and index_key not in xmi.TABLE_INDEX_PROPERTIES and aspect_info[ASPECT_PROPERTY][0] != 'attribute':
             raise XuleProcessingError(_(
                 "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
                                                                                                 index_key[1])),

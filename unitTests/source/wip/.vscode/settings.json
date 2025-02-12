@@ -1,0 +1,16 @@
+{
+    "xule.autoImports": [
+        "base-taxonomy-2021.xule",
+        "constants.xule",
+        "namespace.xule",
+        "output-attributes.xule"
+    ],
+    "xule.namespaces.definitions": [
+        
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/taxonomy/2021/http-fasb-org-us-gaap-2021-01-31.json",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/taxonomy/2021/http-fasb-org-srt-2021-01-31.json",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/taxonomy/2021/http-xbrl-us-wip-2021-01-31.json",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/taxonomy/2021/http-xbrl-sec-gov-dei-2021.json"
+
+    ]
+}

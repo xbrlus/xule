@@ -303,7 +303,7 @@ def extract_rel_info(model_rel, dts):
     rel_info['type'] = resolve_clark_to_qname(model_rel.linkQname.clarkNotation, dts)
     rel_info['arcrole'] = model_rel.arcrole
     rel_info['attributes'] = {resolve_clark_to_qname(k, dts):v for k, v in model_rel.arcElement.attrib.items()
-                               if k not in ('order', 'weight', 'preferredLabel', 'priority', 
+                               if k not in ('order', 'weight', 'preferredLabel', 'priority', 'use',
                                             '{http://www.w3.org/1999/xlink}arcrole',
                                             '{http://www.w3.org/1999/xlink}from',
                                             '{http://www.w3.org/1999/xlink}to',

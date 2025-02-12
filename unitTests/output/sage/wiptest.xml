@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:us-gaap="http://fasb.org/us-gaap/2021-01-31" xmlns:wip="http://xbrl.us/wip/2021-01-31" xmlns:ns="iso4217" xmlns:ns1="xbrli">
+  <link:schemaRef xlink:href="https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://some/schema">CompanyA</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:typedMember dimension="wip:ContractNumberAxis">
+          <wip:ContractNumberAxis.domain/>
+        </xbrldi:typedMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://some/schema">CompanyA</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:typedMember dimension="wip:ContractNumberAxis">
+          <wip:ContractNumberAxis.domain/>
+        </xbrldi:typedMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-31</xbrli:startDate>
+      <xbrli:endDate>2023-12-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="usd">
+    <xbrli:measure>ns:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="pure">
+    <xbrli:measure>ns1:pure</xbrli:measure>
+  </xbrli:unit>
+  <wip:ContractRevenueEstimatedRevenue id="f" decimals="INF" contextRef="c" unitRef="usd">1000000.0</wip:ContractRevenueEstimatedRevenue>
+  <wip:ContractCostsEstimatedCostToComplete id="f1" decimals="INF" contextRef="c" unitRef="usd">888033.85</wip:ContractCostsEstimatedCostToComplete>
+  <wip:ContractNumber id="f2" contextRef="c1">22-004</wip:ContractNumber>
+  <wip:ContractGrossProfitTotalContract id="f3" decimals="INF" contextRef="c" unitRef="usd">100000.0</wip:ContractGrossProfitTotalContract>
+  <wip:ContractGrossProfitToBeEarned id="f4" decimals="INF" contextRef="c" unitRef="usd">98666.15</wip:ContractGrossProfitToBeEarned>
+  <wip:ContractEndDate id="f5" contextRef="c1">2023-06-16</wip:ContractEndDate>
+  <wip:ContractCostsIncurredToDate id="f6" decimals="INF" contextRef="c" unitRef="usd">11966.15</wip:ContractCostsIncurredToDate>
+  <wip:ContractGrossProfitPercentTotalContract id="f8" decimals="INF" contextRef="c" unitRef="pure">10.0</wip:ContractGrossProfitPercentTotalContract>
+  <wip:PercentageComplete id="f9" decimals="INF" contextRef="c" unitRef="pure">1.33</wip:PercentageComplete>
+  <wip:ContractBillingsFromInceptionToDate id="f10" decimals="INF" contextRef="c" unitRef="usd">0.0</wip:ContractBillingsFromInceptionToDate>
+  <wip:ContractName id="f11" contextRef="c1">Quick Bowls - Tigard</wip:ContractName>
+  <wip:CostsAndEstimatedEarningsInExcessOfBillingsNet id="f12" decimals="INF" contextRef="c" unitRef="usd">13300.0</wip:CostsAndEstimatedEarningsInExcessOfBillingsNet>
+  <wip:ContractCustomerName id="f13" contextRef="c1">Burns Restaurants</wip:ContractCustomerName>
+  <wip:ContractGrossProfitPercentTotalContract id="f14" decimals="INF" contextRef="c" unitRef="pure">10.0</wip:ContractGrossProfitPercentTotalContract>
+  <wip:ContractGrossProfitFromInceptionToDate id="f16" decimals="INF" contextRef="c" unitRef="usd">1333.85</wip:ContractGrossProfitFromInceptionToDate>
+  <wip:ContractRevenueEarnedToDate id="f17" decimals="INF" contextRef="c" unitRef="usd">13300.0</wip:ContractRevenueEarnedToDate>
+  <us-gaap:CostOfRevenue id="f18" decimals="INF" contextRef="c1" unitRef="usd">900000.0</us-gaap:CostOfRevenue>
+  <wip:ContractStartDate id="f19" contextRef="c1">2022-08-26</wip:ContractStartDate>
+  <us-gaap:Revenues id="f20" decimals="INF" contextRef="c1" unitRef="usd">13300.0</us-gaap:Revenues>
+</xbrli:xbrl>

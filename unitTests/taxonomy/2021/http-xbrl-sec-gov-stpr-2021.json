@@ -1,0 +1,524 @@
+{
+    "http://xbrl.sec.gov/stpr/2021": [
+        {
+            "localName": "KY",
+            "type": "Concept",
+            "label": "KENTUCKY",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OH",
+            "type": "Concept",
+            "label": "OHIO",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "VT",
+            "type": "Concept",
+            "label": "VERMONT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NT",
+            "type": "Concept",
+            "label": "NORTHWEST TERRITORIES",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NU",
+            "type": "Concept",
+            "label": "NUNAVUT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RI",
+            "type": "Concept",
+            "label": "RHODE ISLAND",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NJ",
+            "type": "Concept",
+            "label": "NEW JERSEY",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MT",
+            "type": "Concept",
+            "label": "MONTANA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ActiveStateProvinceCodeDomain",
+            "type": "Concept",
+            "label": "Active State or Province Code [Domain]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TX",
+            "type": "Concept",
+            "label": "TEXAS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA",
+            "type": "Concept",
+            "label": "CALIFORNIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "VA",
+            "type": "Concept",
+            "label": "VIRGINIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WI",
+            "type": "Concept",
+            "label": "WISCONSIN",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NB",
+            "type": "Concept",
+            "label": "NEW BRUNSWICK",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WY",
+            "type": "Concept",
+            "label": "WYOMING",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "HI",
+            "type": "Concept",
+            "label": "HAWAII",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DC",
+            "type": "Concept",
+            "label": "DISTRICT OF COLUMBIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ID",
+            "type": "Concept",
+            "label": "IDAHO",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NH",
+            "type": "Concept",
+            "label": "NEW HAMPSHIRE",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IN",
+            "type": "Concept",
+            "label": "INDIANA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NE",
+            "type": "Concept",
+            "label": "NEBRASKA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OK",
+            "type": "Concept",
+            "label": "OKLAHOMA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CT",
+            "type": "Concept",
+            "label": "CONNECTICUT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CO",
+            "type": "Concept",
+            "label": "COLORADO",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "FL",
+            "type": "Concept",
+            "label": "FLORIDA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MO",
+            "type": "Concept",
+            "label": "MISSOURI",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-YT",
+            "type": "Concept",
+            "label": "YUKON",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NV",
+            "type": "Concept",
+            "label": "NEVADA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "KS",
+            "type": "Concept",
+            "label": "KANSAS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NY",
+            "type": "Concept",
+            "label": "NEW YORK",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ME",
+            "type": "Concept",
+            "label": "MAINE",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AZ",
+            "type": "Concept",
+            "label": "ARIZONA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-QC",
+            "type": "Concept",
+            "label": "QUEBEC",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NS",
+            "type": "Concept",
+            "label": "NOVA SCOTIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-ON",
+            "type": "Concept",
+            "label": "ONTARIO",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IA",
+            "type": "Concept",
+            "label": "IOWA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "LA",
+            "type": "Concept",
+            "label": "LOUISIANA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ND",
+            "type": "Concept",
+            "label": "NORTH DAKOTA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-PE",
+            "type": "Concept",
+            "label": "PRINCE EDWARD ISLAND",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PA",
+            "type": "Concept",
+            "label": "PENNSYLVANIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MN",
+            "type": "Concept",
+            "label": "MINNESOTA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "GA",
+            "type": "Concept",
+            "label": "GEORGIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-BC",
+            "type": "Concept",
+            "label": "BRITISH COLUMBIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AR",
+            "type": "Concept",
+            "label": "ARKANSAS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-AB",
+            "type": "Concept",
+            "label": "ALBERTA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UT",
+            "type": "Concept",
+            "label": "UTAH",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-SK",
+            "type": "Concept",
+            "label": "SASKATCHEWAN",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MD",
+            "type": "Concept",
+            "label": "MARYLAND",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SD",
+            "type": "Concept",
+            "label": "SOUTH DAKOTA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IL",
+            "type": "Concept",
+            "label": "ILLINOIS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WV",
+            "type": "Concept",
+            "label": "WEST VIRGINIA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AK",
+            "type": "Concept",
+            "label": "ALASKA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MS",
+            "type": "Concept",
+            "label": "MISSISSIPPI",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MA",
+            "type": "Concept",
+            "label": "MASSACHUSETTS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TN",
+            "type": "Concept",
+            "label": "TENNESSEE",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MI",
+            "type": "Concept",
+            "label": "MICHIGAN",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NM",
+            "type": "Concept",
+            "label": "NEW MEXICO",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WA",
+            "type": "Concept",
+            "label": "WASHINGTON",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SC",
+            "type": "Concept",
+            "label": "SOUTH CAROLINA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OR",
+            "type": "Concept",
+            "label": "OREGON",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NL",
+            "type": "Concept",
+            "label": "NEWFOUNDLAND AND LABRADOR",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AL",
+            "type": "Concept",
+            "label": "ALABAMA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-MB",
+            "type": "Concept",
+            "label": "MANITOBA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DE",
+            "type": "Concept",
+            "label": "DELAWARE",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NC",
+            "type": "Concept",
+            "label": "NORTH CAROLINA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        }
+    ]
+}
