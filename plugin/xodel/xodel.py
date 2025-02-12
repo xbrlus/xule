@@ -1384,7 +1384,7 @@ def canonical_non_negative_integer(val):
     result = canonical_integer(val)
     if result is None:
         return None
-    if result == '0' and not result.startswith('-'):
+    if result == '0' or not result.startswith('-'):
         return result
     else:
         return None
