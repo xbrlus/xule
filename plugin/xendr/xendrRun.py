@@ -285,7 +285,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             # parent_classes = []
             if is_actual_fact(json_result, modelXbrl):
                 # get modelFact
-                if json_result['fact'] is not None:
+                if json_result.get('fact') is not None:
                     model_fact = get_model_object(json_result['fact'], cntlr)
 
 
@@ -1277,7 +1277,14 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
                 rule_meta_data = {'substitutions': meta_substitutions,
                                     'line-numbers': meta_line_number_subs}
 
-            rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'] + list(rule_meta_data['showifs'].keys()), catalog_item['xule-rule-set'])
+            # Gather line number start rules
+            line_number_rules = set()
+            for line_number_info in rule_meta_data['line-numbers'].values():
+                for line_number_item in line_number_info:
+                    if 'start-rule' in line_number_item:
+                        line_number_rules.add(line_number_item['start-rule'])
+
+            rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'] + list(rule_meta_data['showifs'].keys()) + list(line_number_rules), catalog_item['xule-rule-set'])
             
             # Substitute template
             template_number += 1

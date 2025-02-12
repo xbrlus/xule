@@ -1384,7 +1384,7 @@ def canonical_non_negative_integer(val):
     result = canonical_integer(val)
     if result is None:
         return None
-    if result == '0' and not result.startswith('-'):
+    if result == '0' or not result.startswith('-'):
         return result
     else:
         return None
@@ -2910,7 +2910,7 @@ def document_sort(log_infos, cntlr):
         for log_info in docs[uri]:
             if 'document-namespace' in log_info[1].args:
                 if namespace is not None and namespace != log_info[1].args['document-namespace']:
-                    raise XodelException(f"Document {uri} has conficting namespaces: {namespace} and {log_info[1].args['document-namespacde']}")
+                    raise XodelException(f"Document {uri} has conficting namespaces: {namespace} and {log_info[1].args['document-namespace']}")
 
                 namespace = log_info[1].args['document-namespace']
                 namespace_recs.append(log_info)

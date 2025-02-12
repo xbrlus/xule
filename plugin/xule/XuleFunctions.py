@@ -1228,7 +1228,7 @@ def built_in_functions():
              #'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single', False),
              'num-to-string': ('regular', func_num_to_string, 1, False, 'single', False),
-             'mod': ('regular', func_mod, 2, False, 'single', False),
+             #'mod': ('regular', func_mod, 2, False, 'single', False),
              'random': ('regular', func_random, -3, False, 'single', False),
              'extension-concepts': ('regular', func_extension_concept, 0, False, 'single', False),
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single', False),

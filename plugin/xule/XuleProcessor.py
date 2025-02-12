@@ -325,25 +325,25 @@ def index_property_balance(model_fact):
 #    1 - 'property' - This part is always 'property'.
 #    2 - the aspect name
 #    3 - the property name
-_FACT_INDEX_PROPERTIES = {
-    ('property', 'concept', 'period-type'): lambda f: f.concept.periodType,
-    ('property', 'concept', 'balance'): index_property_balance,
-    ('property', 'concept', 'data-type'): lambda f: f.concept.typeQname,
-    ('property', 'concept', 'base-type'): lambda f: f.concept.baseXbrliTypeQname,
-    ('property', 'concept', 'is-monetary'): lambda f: f.concept.isMonetary,
-    ('property', 'concept', 'is-numeric'): lambda f: f.concept.isNumeric,
-    ('property', 'concept', 'substitution'): lambda f: f.concept.substitutionGroupQname,
-    ('property', 'concept', 'namespace-uri'): lambda f: f.concept.qname.namespaceURI,
-    ('property', 'concept', 'local-name'): lambda f: f.concept.qname.localName,
-    ('property', 'concept', 'is-abstract'): lambda f: f.concept.isAbstract,
-    ('property', 'concept', 'id'): lambda f: f.id,
-    ('property', 'period', 'start'): index_property_start,
-    ('property', 'period', 'end'): index_property_end,
-    ('property', 'period', 'days'): index_property_days,
-    ('property', 'entity', 'scheme'): lambda f: f.context.entityIdentifier[0],  # entityIdentifier[0] is the scheme
-    ('property', 'entity', 'id'): lambda f: f.context.entityIdentifier[1]
-# entityIdentifer[1] is the id
-}
+# _FACT_INDEX_PROPERTIES = {
+#     ('property', 'concept', 'period-type'): lambda f: f.concept.periodType,
+#     ('property', 'concept', 'balance'): index_property_balance,
+#     ('property', 'concept', 'data-type'): lambda f: f.concept.typeQname,
+#     ('property', 'concept', 'base-type'): lambda f: f.concept.baseXbrliTypeQname,
+#     ('property', 'concept', 'is-monetary'): lambda f: f.concept.isMonetary,
+#     ('property', 'concept', 'is-numeric'): lambda f: f.concept.isNumeric,
+#     ('property', 'concept', 'substitution'): lambda f: f.concept.substitutionGroupQname,
+#     ('property', 'concept', 'namespace-uri'): lambda f: f.concept.qname.namespaceURI,
+#     ('property', 'concept', 'local-name'): lambda f: f.concept.qname.localName,
+#     ('property', 'concept', 'is-abstract'): lambda f: f.concept.isAbstract,
+#     ('property', 'concept', 'id'): lambda f: f.id,
+#     ('property', 'period', 'start'): index_property_start,
+#     ('property', 'period', 'end'): index_property_end,
+#     ('property', 'period', 'days'): index_property_days,
+#     ('property', 'entity', 'scheme'): lambda f: f.context.entityIdentifier[0],  # entityIdentifier[0] is the scheme
+#     ('property', 'entity', 'id'): lambda f: f.context.entityIdentifier[1]
+# # entityIdentifer[1] is the id
+# }
 
 # def index_table_properties(xule_context):
 #     """"Add the table properites to the fact index
@@ -1973,6 +1973,8 @@ def evaluate_add(add_expr, xule_context):
                     left = XuleUtility.add_dictionaries(xule_context, left, right)
                 elif left.type == 'dictionary' and right.type in ('set', 'list'):
                     raise XuleProcessingError(_("Cannot add a dictionary and a %s" % right.type), xule_context)
+                elif left.type == 'instant' and right.type == 'instant':
+                    raise XuleProcessingError(_("Dates cannot be added"), xule_context)
                 else:
                     left = XuleValue(xule_context, left_compute_value + right_compute_value, combined_type)
             elif '-' in operator:
@@ -1982,7 +1984,11 @@ def evaluate_add(add_expr, xule_context):
                     left = XuleUtility.subtract_dictionaries(xule_context, left, right)
                 elif left.type == 'dictionary' and right.type in ('set', 'list'):
                     left = XuleUtility.subtract_keys_from_dictionary(xule_context, left, right)
+                elif left.type == 'list' or right.type == 'list':
+                    raise XuleProcessingError(_("Lists cannot be subtracted"), xule_context)
                 else:
+                    if left.type == 'instant' and right.type == 'instant':
+                        combined_type = 'time-period'
                     left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
             else:
                 raise XuleProcessingError(
@@ -2027,9 +2033,13 @@ def evaluate_comp(comp_expr, xule_context):
         elif operator == '!=':
             interim_value = XuleValue(xule_context, left_compute_value != right_compute_value, 'bool')
         elif operator == 'in':
-            interim_value = XuleValue(xule_context, left_compute_value in right_compute_value, 'bool')
+            interim_value = XuleProperties.property_contains(xule_context, right, left)
+            #interim_value = XuleValue(xule_context, left_compute_value in right_compute_value, 'bool')
         elif operator == 'not in':
-            interim_value = XuleValue(xule_context, left_compute_value not in right_compute_value, 'bool')
+            positive_value = XuleProperties.property_contains(xule_context, right, left)
+            interim_value = positive_value
+            interim_value.value = not interim_value.value
+            #interim_value = XuleValue(xule_context, left_compute_value not in right_compute_value, 'bool')
         elif operator in ('<', '>'):
             if left.type == 'none' or right.type == 'none':
                 interim_value = XuleValue(xule_context, None, 'none')
@@ -2586,7 +2596,10 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
         if first:
             # there were no apsects to start the matching, so use the full set
             # pre_matched_model_facts = xule_context.model.factsInInstance
-            pre_matched_model_facts = fact_index['all']
+            try:
+                pre_matched_model_facts = fact_index['all']
+            except KeyError: # This only happens because there is no model.
+                pre_matched_model_facts = set()
         
         pre_matched_facts |= pre_matched_model_facts
 
@@ -2625,7 +2638,7 @@ def fact_index_key(aspect_info, fact_index, xule_context):
         # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
         index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
                     aspect_info[ASPECT_PROPERTY][1]
-        if index_key not in fact_index and index_key not in _FACT_INDEX_PROPERTIES and aspect_info[ASPECT_PROPERTY][0] != 'attribute':
+        if index_key not in fact_index and index_key not in xmi.FACT_INDEX_PROPERTIES and index_key not in xmi.TABLE_INDEX_PROPERTIES and aspect_info[ASPECT_PROPERTY][0] != 'attribute':
             raise XuleProcessingError(_(
                 "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
                                                                                                 index_key[1])),
