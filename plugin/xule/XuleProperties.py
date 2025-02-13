@@ -2737,23 +2737,42 @@ def property_inline_ancestors(xule_context, object_value, *args):
     result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_ancestor_facts(xule_context, object_value.fact) if isinstance(x, ModelInlineFact))
     return xv.XuleValue(xule_context, result, 'list')
 
-def _traverse_for_inline_ancestor_facts(xule_context, fact, max_depth=None, depth=1):
-    if max_depth is not None and depth > max_depth:
-        return []
+def _get_or_make_xule_var_dict(cntlr, name):
+    result = XuleUtility.XuleVars.get(cntlr, name)
+    if result is None:
+        result = dict()
+        XuleUtility.XuleVars.set(cntlr, name, result)
+   
+    return result
+        
+def _traverse_for_inline_ancestor_facts(xule_context, fact, max_depth=None, depth=1, processed=None):
     result = []
+
+    if max_depth is not None and depth > max_depth:
+        return result
+    if processed is None:
+        processed = set()
+    if fact in processed:
+        return result
+    else:
+        processed.add(fact)
+
+    if fact in _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-ancestors'):
+        return _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-ancestors')[fact]
+
     parent = fact.getparent()
     add_to_depth = 0
     if parent is None:
         return result # we are at the top or the bottom of the tree
     if parent.elementQname.namespaceURI == _INLINE_NAMESPACE and parent.elementQname.localName == 'continuation':
         # This is a continuation. Get the node that this is continued from.
-        continations = _traverse_continuations(xule_context, parent)
-        for cont_parent in continations:
+        continuations = _traverse_continuations(xule_context, parent, processed)
+        for cont_parent in continuations:
             if cont_parent.qname.namespaceURI == _INLINE_NAMESPACE and cont_parent.qname.localName == 'continuation':
-                result.extend(_traverse_for_inline_ancestor_facts(xule_context, cont_parent, max_depth=max_depth, depth=depth))
+                result.extend(_traverse_for_inline_ancestor_facts(xule_context, cont_parent, max_depth=max_depth, depth=depth, processed=processed))
             else: # This is a non continuation inline element
                 result.append(cont_parent) 
-                result += _traverse_for_inline_ancestor_facts(xule_context, cont_parent, max_depth=max_depth, depth=depth + 1)
+                result += _traverse_for_inline_ancestor_facts(xule_context, cont_parent, max_depth=max_depth, depth=depth + 1, processed=processed)
                 
     elif parent.elementQname.namespaceURI == _INLINE_NAMESPACE:
         result.append(parent)
@@ -2761,22 +2780,43 @@ def _traverse_for_inline_ancestor_facts(xule_context, fact, max_depth=None, dept
     
     # the list(dict.fromkeys(any list here)) eliminates duplicates while keeping order. There may be duplicates if there 
     # are multiple continuations in the ancestry of the fact.
-    next_results = _traverse_for_inline_ancestor_facts(xule_context, parent, max_depth=max_depth, depth=depth + add_to_depth)
-    return list(dict.fromkeys(result + next_results))
+    next_results = _traverse_for_inline_ancestor_facts(xule_context, parent, max_depth=max_depth, depth=depth + add_to_depth, processed=processed)
+    result = list(dict.fromkeys(result + next_results))
+    # Save in xule var
+    _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-ancestors')[fact] = result
 
-def _traverse_continuations(xule_context, cont_node):
+    return result
+
+def _traverse_continuations(xule_context, cont_node, processed=None):
+    result = []
     cont_id = cont_node.get('id')
+    if processed is None:
+        processed = set()
+    if cont_node in processed:
+        return []
+    else:
+        processed.add(cont_node)
+
+    #check if this continuation has been processed before
+    if cont_node in _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-continuations'):
+        return _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-continuations')[cont_node]
+    
     if cont_id is not None:
         cont_from_node = cont_node.getroottree().getroot().find(f'.//*[@continuedAt="{cont_id}"]')
+        if cont_from_node in processed:
+            result = []
         if cont_from_node is not None:
             if cont_from_node.qname.namespaceURI == _INLINE_NAMESPACE and cont_from_node.qname.localName == 'continuation':
                 # the continuation points to another continuation
-                more = _traverse_continuations(xule_context, cont_from_node)
-                return [cont_from_node,] + more
+                more = _traverse_continuations(xule_context, cont_from_node, processed)
+                result = [cont_from_node,] + more
             elif cont_from_node.elementQname.namespaceURI == _INLINE_NAMESPACE: # .element.qname gets the qname of the ix element whereas .qname returns the qname of the xbrl concept.
-                return [cont_from_node,]
-    # Should only get here because there wasn't an inline element that had a @continuedAt pointing to this continuation.
-    return []
+                result = [cont_from_node,]
+    
+    # save results in xule var
+    _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-continuations')[cont_node] = result
+
+    return result
 
 def property_inline_children(xule_context, object_value, *args):
     # result = []
@@ -2800,9 +2840,20 @@ def property_inline_descendants(xule_context, object_value, *args):
     result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_descendants_facts(xule_context, object_value.fact) if isinstance(x, ModelInlineFact))
     return xv.XuleValue(xule_context, result, 'list')
 
-def _traverse_for_inline_descendants_facts(xule_context, fact, max_depth=None, depth=1):
+def _traverse_for_inline_descendants_facts(xule_context, fact, max_depth=None, depth=1, processed=None):
     if max_depth is not None and depth > max_depth:
         return []
+    if processed is None:
+        processed = set()
+    if fact in processed:
+        return []
+    else:
+        processed.add(fact)
+
+    #check if this fact has been processed before
+    if fact in _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-descendants'):
+        return _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-descendants')[fact]
+
     result = []
     add_to_depth = 0
     for child in fact.getchildren():
@@ -2811,10 +2862,10 @@ def _traverse_for_inline_descendants_facts(xule_context, fact, max_depth=None, d
             
             for cont_child in continuations_down:
                 if cont_child.qname.namespaceURI == _INLINE_NAMESPACE and cont_child.qname.localName == 'continuation':
-                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1)
+                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1, processed=processed)
                 else: # This is a non continuation inline element
                     result.append(cont_child) 
-                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1)
+                    result += _traverse_for_inline_descendants_facts(xule_context, cont_child, max_depth=max_depth, depth=depth + 1, processed=processed)
                     
         elif child.elementQname.namespaceURI == _INLINE_NAMESPACE:
             result.append(child)
@@ -2822,11 +2873,27 @@ def _traverse_for_inline_descendants_facts(xule_context, fact, max_depth=None, d
     
         # the list(dict.fromkeys(any list here)) eliminates duplicates while keeping order. There may be duplicates if there 
         # are multiple continuations in the ancestry of the fact.
-        result += _traverse_for_inline_descendants_facts(xule_context, child, max_depth=max_depth, depth=depth + add_to_depth)
-    return list(dict.fromkeys(result))
+        result += _traverse_for_inline_descendants_facts(xule_context, child, max_depth=max_depth, depth=depth + add_to_depth, processed=processed)
 
-def _traverse_continuations_down(xule_context, cont_node):
+    result = list(dict.fromkeys(result))
+    # Save in xule var
+    _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-descendants')[fact] = result
+
+    return result
+
+def _traverse_continuations_down(xule_context, cont_node, processed=None):
+    if processed is None:
+        processed = set()
+    if cont_node in processed:
+        return []
+    else:
+        processed.add(cont_node)
     result = []
+
+    #check if this continuation has been processed before
+    if cont_node in _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-continuations-down'):
+        return _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-continuations-down')[cont_node]
+    
     cont_id = cont_node.get('id')
     cont_to_id = cont_node.get('continuedAt')
     if cont_id is not None:
@@ -2844,13 +2911,15 @@ def _traverse_continuations_down(xule_context, cont_node):
         if cont_to_node is not None:
             if cont_to_node.qname.namespaceURI == _INLINE_NAMESPACE and cont_to_node.qname.localName == 'continuation':
                 # the continuation points to another continuation
-                more = _traverse_continuations_down(xule_context, cont_to_node)
-                return result + [cont_to_node,] + more
+                more = _traverse_continuations_down(xule_context, cont_to_node, processed=processed)
+                result += [cont_to_node,] + more
             elif cont_to_node.elementQname.namespaceURI == _INLINE_NAMESPACE: # .element.qname gets the qname of the ix element whereas .qname returns the qname of the xbrl concept.
-                return result + [cont_to_node,]
-    # Should only get here because there wasn't an inline element that had a @continuedAt pointing to this continuation.
-    return result
+                result += [cont_to_node,]
 
+    # save results in xule var
+    _get_or_make_xule_var_dict(xule_context.global_context.cntlr, 'inline-continuations-down')[cont_node] = result
+
+    return result
 
 def property_roles(xule_context, object_value, *args):
     result_set = set()
