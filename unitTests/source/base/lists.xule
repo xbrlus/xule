@@ -25,7 +25,7 @@ output LM005
   list(1,2,3,skip)
 
 output LM006
-/* rule LM006: unsupported operand type(s) for -: 'tuple' and 'tuple' */
+/* rule LM006: Rule: LM006 - Lists cannot be subtracted */
 
   list(1,2,3) - list(1,2)
 
@@ -40,19 +40,19 @@ output LM008
   list(2,3,5) & list(1,2,3,4)
 
 output LM009
-/* rule LM009: unsupported operand type(s) for -: 'tuple' and 'tuple' */
+/* rule LM009: Rule: LM009 - Lists cannot be subtracted */
 
   list() - list('a','b','c','d') 
 
 output LM010
 /*  True */
 
-  'a' in list('a','b','c','d') 
+  'd' in list('a','b','c','d') 
 
 output LM011
 /*  False */
 
-  'n' in list('a','b','c','d') 
+  'k' in list('a','b','c','d') 
 
 output LM012
 /*  False */

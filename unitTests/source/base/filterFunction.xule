@@ -137,3 +137,14 @@ output FIL125
 
   $source = list(none, 1,2,3,4, none)
 max(filter (filter (filter $source  where $item != 3) where $item != 4) where $item != none)
+
+output FIL126
+/* rule FIL126: Rule: FIL126 - Filter expresssion can only be used on a 'set' or 'list', found 'dictionary'. */
+
+  filter dict(list('a',2),list('b',3),list('c',4)) where $item['a'] == 2 
+
+output FIL127
+/* set(3, 4) */
+
+  $item = filter (filter set(1,2,3,4,5) where $item > 2) where $item < 5
+$item

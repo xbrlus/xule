@@ -73,7 +73,7 @@ output SM015
 /* set(Assets, BankLoans, DebtAndCapitalLeaseObligations, EarningsPerShareBasic) */
 
   $A = set(Assets,BankLoans,Capital); 
- $B = set(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic);
+ $B = set(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic);
  $A.symmetric-difference($B)
 
 output SM016
@@ -122,9 +122,9 @@ output SM024
   set(1,2,3,skip)
 
 output SM025
-/* rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int' */
+/* rule SM025: Rule: SM025 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'set' */
 
-  set(1,2,3[1])
+  set(1,2,3)[1]
 
 output SM026
 /*  {{set(40,230,000,000)},
@@ -181,8 +181,7 @@ output SM033
 output SM034
 /* True */
 
-  $A = set(a,b,c); 
-$B = set(a,b,c,d,e);
+  $B = set(a,b,c,d,e);
 $B.is-superset($B)
 
 output SM035
@@ -272,15 +271,25 @@ output SM050
 /* set(Assets, BankLoans, DebtAndCapitalLeaseObligations, EarningsPerShareBasic) */
 
   $A = set(Assets,BankLoans,Capital); 
- $B = set(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic);
+ $B = set(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic);
  $A ^ $B
 
 output SM051
 /* set(list(BankLoans, Assets, Capital), list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic), list(Assets, BankLoans, Capital)) */
 
-  set(list(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic),list(Assets,BankLoans,Capital),list(Assets,BankLoans,Capital),list(BankLoans,Assets,Capital))
+  set(list(Capital, DebtAndCapitalLeaseObligations, EarningsPerShareBasic), list(Assets,BankLoans, Capital), list(Assets, BankLoans, Capital), list(BankLoans, Assets, Capital))
 
 output SM052
 /* set(1, 2, 3) */
 
   set(1,2,3) + none
+
+output SM053
+/* rule SM053: Rule: SM053 - Property 'union' is not a property of a 'list'. */
+
+  list(1,2,3).union(set(1,2,3,4))
+
+output SM054
+/* set(2, 3, 4, 1) */
+
+  set(1,2,3).union(list(1,2,3,4))
