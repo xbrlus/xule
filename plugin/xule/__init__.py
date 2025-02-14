@@ -926,7 +926,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
     
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
-    if getattr(options, "xule_run", None) or getattr(options, "xule_output_constants") is not None:
+    if getattr(options, "xule_run", None) or getattr(options, "xule_output_constants", None) is not None:
         runXule(cntlr, options, modelXbrl)
 
 def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None, xule_compile_workers=1):
