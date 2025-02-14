@@ -470,6 +470,9 @@ def get_model_manager_for_import(cntlr):
     if import_model_manager is None:
         import_model_manager = ModelManager.initialize(cntlr)
         import_model_manager.loadCustomTransforms()
+        # copy any custom integration mappings from cntlr's modelManager.disclosureSystem
+        import_model_manager.mappedFiles = cntlr.modelManager.disclosureSystem.mappedFiles.copy()
+        import_model_manager.mappedPaths = cntlr.modelManager.disclosureSystem.mappedPaths.copy()
         #import_model_manager.customTransforms = cntlr.modelManager.customTransforms
         XuleVars.set(cntlr, 'importModelManager', import_model_manager)
 
