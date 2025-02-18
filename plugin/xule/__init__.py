@@ -469,6 +469,11 @@ def xuleCmdOptions(parser):
                           dest="xule_arg",
                           help=_("Creates a constant. In the form of 'name=value'"))
 
+    parserGroup.add_option("--xule-args-file",
+                          action="store",
+                          dest="xule_args_file",
+                          help=_("Loads constants from a json file prepared by --xule-output-constants-file"))
+
     parserGroup.add_option("--xule-add-packages",
                            action="store",
                            dest="xule_add_packages",
@@ -625,6 +630,11 @@ def xuleCmdOptions(parser):
                            dest="xule_output_constants",
                            help=_("Comma separated list of constant names to output."))
     
+    parserGroup.add_option("--xule-output-constants-file",
+                           action="store",
+                           dest="xule_output_constants_file",
+                           help=_("File path to contain reloadable output constants, or write to log if absent."))
+
     parserGroup.add_option("--xule-exclude-nils",
                         action="store_true",
                         dest="xule_exclude_nils",
@@ -916,7 +926,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
     
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
-    if getattr(options, "xule_run", None) or getattr(options, "xule_output_constants") is not None:
+    if getattr(options, "xule_run", None) or getattr(options, "xule_output_constants", None) is not None:
         runXule(cntlr, options, modelXbrl)
 
 def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None, xule_compile_workers=1):
@@ -964,7 +974,7 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name, is_
                     # check if there are any rules that need a model
                     for rule in rule_set.catalog['rules'].values():
                         if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
-                            raise xr.XuleRuleSetError('Need instance to process rules')
+                            raise xr.XuleRuleSetError(f'Need instance to process rule {rule["full_name"]}')
                         
                 global _saved_taxonomies        
                 used_taxonomies = process_xule(rule_set,
@@ -1008,7 +1018,7 @@ def callXuleProcessor(cntlr, modelXbrl, rule_set_location, options):
         # output the message to the log and NOT raise an exception
         cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
 
-def xuleValidate(val):
+def xuleValidate(val, extra_options=None):
     global _cntlr
     global _xule_validators
 
@@ -1017,9 +1027,22 @@ def xuleValidate(val):
     options = xu.XuleVars.get(_cntlr, 'options')
     if options is None:
         options = EmptyOptions()
+    if extra_options:
+        for n, v in extra_options.items():
+            setattr(options, n, v)
+            if n == "block_Validate.Finally" and v:
+                setattr(val, "block_Validate.Finally", True)
 
     for xule_validator in _xule_validators:
-        if 'validate_flag' in xule_validator:
+        if getattr(val, "block_Validate.Finally", False):
+            # running under extraOptions control
+            if extra_options is None: # Validate.Finally which is blocked
+                return
+            if extra_options.get("block_runXule", False): # runXule is blocked
+                return
+            elif len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
+                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], is_validator=True)
+        elif 'validate_flag' in xule_validator:
             # This is run in the GUI. The 'validate_flag' is only in the xule_validator when invoked from the GUI
             if xule_validator['validate_flag'].get():
                 # Only run if the validate_flag variable is ture (checked off in the validate menu)
@@ -1038,7 +1061,7 @@ def xuleValidate(val):
             if not getattr(options, "xule_run", False) and len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
                 runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'], is_validator=True)
 
-    if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
+    if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False) and not getattr(options, "block_deregister", False):
         # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
         # The _xule_validators is emptied. On the next request, the xule_validators for that request will be re-register.
         _xule_validators = []
