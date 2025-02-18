@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0061/2024": [
+        {
+            "localName": "Dqc_0061",
+            "type": "Concept",
+            "label": "DQC.US.0061 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0061_CashFlowContinuingOperationsElementsNotUsed",
+            "type": "Concept",
+            "label": "DQC.US.0061. Cash Flow Continuing Operations Elements Not Used [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

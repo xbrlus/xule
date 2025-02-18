@@ -1,0 +1,124 @@
+{
+    "http://fasb.org/us-types/2023": [
+        {
+            "localName": "interestRateItemType",
+            "type": "Type",
+            "label": "interestRateItemType"
+        },
+        {
+            "localName": "investmentPledgedItemType",
+            "type": "Type",
+            "label": "investmentPledgedItemType"
+        },
+        {
+            "localName": "threeDigitItemType",
+            "type": "Type",
+            "label": "threeDigitItemType"
+        },
+        {
+            "localName": "controlOfRightsItemType",
+            "type": "Type",
+            "label": "controlOfRightsItemType"
+        },
+        {
+            "localName": "yesNoItemType",
+            "type": "Type",
+            "label": "yesNoItemType"
+        },
+        {
+            "localName": "surchargeItemType",
+            "type": "Type",
+            "label": "surchargeItemType"
+        },
+        {
+            "localName": "fundedStatusItemType",
+            "type": "Type",
+            "label": "fundedStatusItemType"
+        },
+        {
+            "localName": "advertisingExpenseMethodItemType",
+            "type": "Type",
+            "label": "advertisingExpenseMethodItemType"
+        },
+        {
+            "localName": "financialDesignationType",
+            "type": "Type",
+            "label": "financialDesignationType"
+        },
+        {
+            "localName": "combinedComponentType",
+            "type": "Type",
+            "label": "combinedComponentType"
+        },
+        {
+            "localName": "zoneStatusItemType",
+            "type": "Type",
+            "label": "zoneStatusItemType"
+        },
+        {
+            "localName": "surchargeMethodGSIB",
+            "type": "Type",
+            "label": "surchargeMethodGSIB"
+        },
+        {
+            "localName": "distributionsReceivedApproach",
+            "type": "Type",
+            "label": "distributionsReceivedApproach"
+        },
+        {
+            "localName": "fundingImprovementAndRehabilitationPlanItemType",
+            "type": "Type",
+            "label": "fundingImprovementAndRehabilitationPlanItemType"
+        },
+        {
+            "localName": "costBearerItemType",
+            "type": "Type",
+            "label": "costBearerItemType"
+        },
+        {
+            "localName": "authorizedUnlimitedItemType",
+            "type": "Type",
+            "label": "authorizedUnlimitedItemType"
+        },
+        {
+            "localName": "capitalizationPolicyType",
+            "type": "Type",
+            "label": "capitalizationPolicyType"
+        },
+        {
+            "localName": "accruedInterestWriteOffMethodItemType",
+            "type": "Type",
+            "label": "accruedInterestWriteOffMethodItemType"
+        },
+        {
+            "localName": "contractApplicationItemType",
+            "type": "Type",
+            "label": "contractApplicationItemType"
+        },
+        {
+            "localName": "giltiPolicyType",
+            "type": "Type",
+            "label": "giltiPolicyType"
+        },
+        {
+            "localName": "nineDigitItemType",
+            "type": "Type",
+            "label": "nineDigitItemType"
+        },
+        {
+            "localName": "includedExcludedItemType",
+            "type": "Type",
+            "label": "includedExcludedItemType"
+        },
+        {
+            "localName": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType",
+            "type": "Type",
+            "label": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType"
+        },
+        {
+            "localName": "forfeitureMethod",
+            "type": "Type",
+            "label": "forfeitureMethod"
+        }
+    ]
+}

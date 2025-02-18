@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0069/2024": [
+        {
+            "localName": "Dqc_0069_PlanAssetCategoriesComponentMembers",
+            "type": "Concept",
+            "label": "DQC.US.0069.Plan Asset Categories Component Members [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0069",
+            "type": "Concept",
+            "label": "DQC.US.0069 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0077/2024": [
+        {
+            "localName": "Dqc_0077",
+            "type": "Concept",
+            "label": "DQC.US.0077 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0077_SatisfactionPeriodWithNoSatisfactionStartDateAxis",
+            "type": "Concept",
+            "label": "DQC.US.0077.Satisfaction Period With No Satisfaction Start Date Axis [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

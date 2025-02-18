@@ -1,0 +1,589 @@
+{
+    "http://www.xbrl.org/2009/utr": [
+        {
+            "localName": "Btu",
+            "type": "Unit",
+            "label": "British Thermal Unit"
+        },
+        {
+            "localName": "W",
+            "type": "Unit",
+            "label": "Watt"
+        },
+        {
+            "localName": "ft_lb",
+            "type": "Unit",
+            "label": "Foot-Pound"
+        },
+        {
+            "localName": "sqyd",
+            "type": "Unit",
+            "label": "Square Yard"
+        },
+        {
+            "localName": "Cal",
+            "type": "Unit",
+            "label": "Calorie"
+        },
+        {
+            "localName": "MJ",
+            "type": "Unit",
+            "label": "Megajoule"
+        },
+        {
+            "localName": "MWM",
+            "type": "Unit",
+            "label": "Megawatt-Month"
+        },
+        {
+            "localName": "TWh",
+            "type": "Unit",
+            "label": "Terawatt-Hour"
+        },
+        {
+            "localName": "var",
+            "type": "Unit",
+            "label": "Volt-ampere reactive"
+        },
+        {
+            "localName": "VAh",
+            "type": "Unit",
+            "label": "Volt-ampere-hours"
+        },
+        {
+            "localName": "TB",
+            "type": "Unit",
+            "label": "Terabyte"
+        },
+        {
+            "localName": "MWd",
+            "type": "Unit",
+            "label": "Megawatt-Day"
+        },
+        {
+            "localName": "MMBoe",
+            "type": "Unit",
+            "label": "Millions of Barrels of Oil Equivalent"
+        },
+        {
+            "localName": "MT",
+            "type": "Unit",
+            "label": "Million Tons"
+        },
+        {
+            "localName": "sqm",
+            "type": "Unit",
+            "label": "Square metre"
+        },
+        {
+            "localName": "MM",
+            "type": "Unit",
+            "label": "Minute"
+        },
+        {
+            "localName": "Tcfe",
+            "type": "Unit",
+            "label": "Trillion Cubic Foot Equivalent"
+        },
+        {
+            "localName": "Y",
+            "type": "Unit",
+            "label": "Year"
+        },
+        {
+            "localName": "ha",
+            "type": "Unit",
+            "label": "Hectare"
+        },
+        {
+            "localName": "km",
+            "type": "Unit",
+            "label": "Kilometre"
+        },
+        {
+            "localName": "F",
+            "type": "Unit",
+            "label": "Fahrenheit"
+        },
+        {
+            "localName": "Rate",
+            "type": "Unit",
+            "label": "Rate"
+        },
+        {
+            "localName": "m",
+            "type": "Unit",
+            "label": "Metre"
+        },
+        {
+            "localName": "MtCO2e",
+            "type": "Unit",
+            "label": "Million metric tonnes of CO2 equivalent"
+        },
+        {
+            "localName": "dm",
+            "type": "Unit",
+            "label": "Decimetre"
+        },
+        {
+            "localName": "K",
+            "type": "Unit",
+            "label": "Kelvin"
+        },
+        {
+            "localName": "Gt",
+            "type": "Unit",
+            "label": "Gigatonne"
+        },
+        {
+            "localName": "N",
+            "type": "Unit",
+            "label": "Newton"
+        },
+        {
+            "localName": "psi",
+            "type": "Unit",
+            "label": "Pounds Per Square Inch"
+        },
+        {
+            "localName": "sqmi",
+            "type": "Unit",
+            "label": "Square Mile"
+        },
+        {
+            "localName": "Mcf",
+            "type": "Unit",
+            "label": "Thousands Cubic Feet"
+        },
+        {
+            "localName": "TW",
+            "type": "Unit",
+            "label": "Terawatt"
+        },
+        {
+            "localName": "Ah",
+            "type": "Unit",
+            "label": "Ampere Hours"
+        },
+        {
+            "localName": "nmi",
+            "type": "Unit",
+            "label": "Nautical Mile"
+        },
+        {
+            "localName": "ktCO2e",
+            "type": "Unit",
+            "label": "Thousand metric tonnes of CO2 equivalent"
+        },
+        {
+            "localName": "M",
+            "type": "Unit",
+            "label": "Month"
+        },
+        {
+            "localName": "kV",
+            "type": "Unit",
+            "label": "Kilovolt"
+        },
+        {
+            "localName": "tCO2e",
+            "type": "Unit",
+            "label": "Metric tonnes of CO2 equivalent"
+        },
+        {
+            "localName": "bu",
+            "type": "Unit",
+            "label": "Bushel"
+        },
+        {
+            "localName": "Bar",
+            "type": "Unit",
+            "label": "Bar"
+        },
+        {
+            "localName": "rad",
+            "type": "Unit",
+            "label": "Radian"
+        },
+        {
+            "localName": "GWM",
+            "type": "Unit",
+            "label": "Gigawatt-Month"
+        },
+        {
+            "localName": "Degree",
+            "type": "Unit",
+            "label": "Degree"
+        },
+        {
+            "localName": "Hz",
+            "type": "Unit",
+            "label": "Hertz"
+        },
+        {
+            "localName": "kWh",
+            "type": "Unit",
+            "label": "Kilowatt-Hours"
+        },
+        {
+            "localName": "MMBbls",
+            "type": "Unit",
+            "label": "Million Barrels"
+        },
+        {
+            "localName": "Boe",
+            "type": "Unit",
+            "label": "Barrel of Oil Equivalent"
+        },
+        {
+            "localName": "ft3",
+            "type": "Unit",
+            "label": "Cubic Foot"
+        },
+        {
+            "localName": "Tcf",
+            "type": "Unit",
+            "label": "Trillions of cubic feet"
+        },
+        {
+            "localName": "GW",
+            "type": "Unit",
+            "label": "Gigawatt"
+        },
+        {
+            "localName": "hp",
+            "type": "Unit",
+            "label": "Horsepower"
+        },
+        {
+            "localName": "GtCO2e",
+            "type": "Unit",
+            "label": "Thousand million metric tonnes of CO2 equivalent"
+        },
+        {
+            "localName": "MWh",
+            "type": "Unit",
+            "label": "Megawatt-Hour"
+        },
+        {
+            "localName": "GJ",
+            "type": "Unit",
+            "label": "Gigajoule"
+        },
+        {
+            "localName": "J",
+            "type": "Unit",
+            "label": "Joule"
+        },
+        {
+            "localName": "kT",
+            "type": "Unit",
+            "label": "Thousand Tons"
+        },
+        {
+            "localName": "mm",
+            "type": "Unit",
+            "label": "Millimetre"
+        },
+        {
+            "localName": "C",
+            "type": "Unit",
+            "label": "Coulomb"
+        },
+        {
+            "localName": "MMBTU",
+            "type": "Unit",
+            "label": "Millions of BTU"
+        },
+        {
+            "localName": "ft",
+            "type": "Unit",
+            "label": "Foot"
+        },
+        {
+            "localName": "aft",
+            "type": "Unit",
+            "label": "Acre-Foot"
+        },
+        {
+            "localName": "GB",
+            "type": "Unit",
+            "label": "Gigabyte"
+        },
+        {
+            "localName": "ozt",
+            "type": "Unit",
+            "label": "Troy Ounce"
+        },
+        {
+            "localName": "D",
+            "type": "Unit",
+            "label": "Day"
+        },
+        {
+            "localName": "Q",
+            "type": "Unit",
+            "label": "Quarter"
+        },
+        {
+            "localName": "gal",
+            "type": "Unit",
+            "label": "Gallon"
+        },
+        {
+            "localName": "atm",
+            "type": "Unit",
+            "label": "Standard Atmosphere"
+        },
+        {
+            "localName": "kW",
+            "type": "Unit",
+            "label": "Kilowatt"
+        },
+        {
+            "localName": "Pa",
+            "type": "Unit",
+            "label": "Pascal"
+        },
+        {
+            "localName": "Wh",
+            "type": "Unit",
+            "label": "Watt-Hours"
+        },
+        {
+            "localName": "Celsius",
+            "type": "Unit",
+            "label": "Celsius"
+        },
+        {
+            "localName": "m3",
+            "type": "Unit",
+            "label": "Cubic Metre"
+        },
+        {
+            "localName": "Mt",
+            "type": "Unit",
+            "label": "Megatonne"
+        },
+        {
+            "localName": "lb",
+            "type": "Unit",
+            "label": "Pound"
+        },
+        {
+            "localName": "mJ",
+            "type": "Unit",
+            "label": "mJ"
+        },
+        {
+            "localName": "g",
+            "type": "Unit",
+            "label": "Gram"
+        },
+        {
+            "localName": "TJ",
+            "type": "Unit",
+            "label": "Terajoule"
+        },
+        {
+            "localName": "Mcfe",
+            "type": "Unit",
+            "label": "Thousand Cubic Foot Equivalent"
+        },
+        {
+            "localName": "Bcf",
+            "type": "Unit",
+            "label": "Billions of cubic feet"
+        },
+        {
+            "localName": "MMcfe",
+            "type": "Unit",
+            "label": "Million Cubic Foot Equivalent"
+        },
+        {
+            "localName": "MV",
+            "type": "Unit",
+            "label": "Megavolt"
+        },
+        {
+            "localName": "MMcf",
+            "type": "Unit",
+            "label": "Millions Cubic Feet"
+        },
+        {
+            "localName": "mi",
+            "type": "Unit",
+            "label": "Mile"
+        },
+        {
+            "localName": "H",
+            "type": "Unit",
+            "label": "Hour"
+        },
+        {
+            "localName": "dth",
+            "type": "Unit",
+            "label": "Dekatherm"
+        },
+        {
+            "localName": "GWh",
+            "type": "Unit",
+            "label": "Gigawatt-Hour"
+        },
+        {
+            "localName": "PB",
+            "type": "Unit",
+            "label": "Petabyte"
+        },
+        {
+            "localName": "MW",
+            "type": "Unit",
+            "label": "Megawatt"
+        },
+        {
+            "localName": "V",
+            "type": "Unit",
+            "label": "Volt"
+        },
+        {
+            "localName": "VA",
+            "type": "Unit",
+            "label": "Volt-ampere"
+        },
+        {
+            "localName": "kJ",
+            "type": "Unit",
+            "label": "Kilojoule"
+        },
+        {
+            "localName": "yd",
+            "type": "Unit",
+            "label": "Yard"
+        },
+        {
+            "localName": "GV",
+            "type": "Unit",
+            "label": "Gigavolt"
+        },
+        {
+            "localName": "oz",
+            "type": "Unit",
+            "label": "Ounce"
+        },
+        {
+            "localName": "WK",
+            "type": "Unit",
+            "label": "Week"
+        },
+        {
+            "localName": "l",
+            "type": "Unit",
+            "label": "Litre"
+        },
+        {
+            "localName": "Mvar",
+            "type": "Unit",
+            "label": "Million Volt-ampere reactive"
+        },
+        {
+            "localName": "MBoe",
+            "type": "Unit",
+            "label": "Thousand Barrels of Oil Equivalent"
+        },
+        {
+            "localName": "A",
+            "type": "Unit",
+            "label": "Ampere"
+        },
+        {
+            "localName": "B",
+            "type": "Unit",
+            "label": "Byte"
+        },
+        {
+            "localName": "S",
+            "type": "Unit",
+            "label": "Second"
+        },
+        {
+            "localName": "t",
+            "type": "Unit",
+            "label": "Tonne"
+        },
+        {
+            "localName": "T",
+            "type": "Unit",
+            "label": "Ton"
+        },
+        {
+            "localName": "kg",
+            "type": "Unit",
+            "label": "Kilogram"
+        },
+        {
+            "localName": "Bcfe",
+            "type": "Unit",
+            "label": "Billion Cubic Foot Equivalent"
+        },
+        {
+            "localName": "sqft",
+            "type": "Unit",
+            "label": "Square Foot"
+        },
+        {
+            "localName": "MBbls",
+            "type": "Unit",
+            "label": "Thousand Barrels"
+        },
+        {
+            "localName": "sqkm",
+            "type": "Unit",
+            "label": "Square km"
+        },
+        {
+            "localName": "in",
+            "type": "Unit",
+            "label": "Inch"
+        },
+        {
+            "localName": "GT",
+            "type": "Unit",
+            "label": "Billion Tons"
+        },
+        {
+            "localName": "cm",
+            "type": "Unit",
+            "label": "Centimetre"
+        },
+        {
+            "localName": "MVA",
+            "type": "Unit",
+            "label": "MegaVolt-ampere"
+        },
+        {
+            "localName": "kt",
+            "type": "Unit",
+            "label": "Kilotonne"
+        },
+        {
+            "localName": "kB",
+            "type": "Unit",
+            "label": "Kilobyte"
+        },
+        {
+            "localName": "acre",
+            "type": "Unit",
+            "label": "Acre"
+        },
+        {
+            "localName": "MB",
+            "type": "Unit",
+            "label": "Megabyte"
+        },
+        {
+            "localName": "bbl",
+            "type": "Unit",
+            "label": "Barrel"
+        }
+    ]
+}

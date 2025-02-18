@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0085/2024": [
+        {
+            "localName": "Dqc_0085_DeferredTaxAssetsAndLiabilities",
+            "type": "Concept",
+            "label": "DQC.US.0085.Deferred Tax Assets And Liabilities [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0085",
+            "type": "Concept",
+            "label": "DQC.US.0085 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

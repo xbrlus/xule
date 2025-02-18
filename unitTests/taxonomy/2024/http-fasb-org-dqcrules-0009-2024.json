@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0009/2024": [
+        {
+            "localName": "Dqc_0009",
+            "type": "Concept",
+            "label": "DQC.US.0009 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0009_ElementAMustBeLessThanOrEqualToElementB",
+            "type": "Concept",
+            "label": "DQC.US.0009.Element A must be less than or equal to Element B [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0062/2024": [
+        {
+            "localName": "Dqc_0062",
+            "type": "Concept",
+            "label": "DQC.US.0062 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0062_NoFactValueForChangeInCash",
+            "type": "Concept",
+            "label": "DQC.US.0062.No Fact Value For Change In Cash [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

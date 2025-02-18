@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0126/2025": [
+        {
+            "localName": "Dqc_0126_FSCalculationCheckWithNonDimensionalData",
+            "type": "Concept",
+            "label": "DQC.US.0126.FS Calculation Check with Non Dimensional Data [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0126",
+            "type": "Concept",
+            "label": "DQC.US.0126 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

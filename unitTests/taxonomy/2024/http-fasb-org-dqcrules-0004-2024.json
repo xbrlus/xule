@@ -1,0 +1,36 @@
+{
+    "http://fasb.org/dqcrules-0004/2024": [
+        {
+            "localName": "Dqc_0004_ConsolidationItemsAxis",
+            "type": "Concept",
+            "label": "DQC.US.0004.Does not run when ConsolidationItemsAxis is used [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0004_ListOfElements",
+            "type": "Concept",
+            "label": "DQC.US.0004.Element Values Are Equal [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0004_NoDefault",
+            "type": "Concept",
+            "label": "DQC.US.0004.Value not in default [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0004",
+            "type": "Concept",
+            "label": "DQC.US.0004 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

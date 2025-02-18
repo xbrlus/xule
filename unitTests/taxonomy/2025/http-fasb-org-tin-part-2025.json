@@ -1,0 +1,116 @@
+{
+    "http://fasb.org/tin-part/2025": [
+        {
+            "localName": "AlternateElementForPeriodOfAndAfterAdoption",
+            "type": "Reference",
+            "label": "AlternateElementForPeriodOfAndAfterAdoption",
+            "isAbstract": "false",
+            "dataType": "tin-part:elementListItemType"
+        },
+        {
+            "localName": "AlternateElement",
+            "type": "Reference",
+            "label": "AlternateElement",
+            "isAbstract": "false",
+            "dataType": "tin-part:elementListItemType"
+        },
+        {
+            "localName": "TransitionOption",
+            "type": "Reference",
+            "label": "TransitionOption",
+            "isAbstract": "false",
+            "dataType": "tin-part:TransitionOptionList"
+        },
+        {
+            "localName": "URI",
+            "type": "Reference",
+            "label": "URI",
+            "isAbstract": "false",
+            "dataType": "anyURI"
+        },
+        {
+            "localName": "inlineURI",
+            "type": "Reference",
+            "label": "inlineURI",
+            "isAbstract": "false",
+            "dataType": "anyURI"
+        },
+        {
+            "localName": "TinModificationDescription",
+            "type": "Reference",
+            "label": "TinModificationDescription",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "SourceName",
+            "type": "Reference",
+            "label": "SourceName",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Source_ASU_Number",
+            "type": "Reference",
+            "label": "Source_ASU_Number",
+            "isAbstract": "false",
+            "dataType": "tin-part:AsuNumber"
+        },
+        {
+            "localName": "AlternateElementForPeriodsPriorToAdoption",
+            "type": "Reference",
+            "label": "AlternateElementForPeriodsPriorToAdoption",
+            "isAbstract": "false",
+            "dataType": "tin-part:elementListItemType"
+        },
+        {
+            "localName": "pdfURI",
+            "type": "Reference",
+            "label": "pdfURI",
+            "isAbstract": "false",
+            "dataType": "anyURI"
+        },
+        {
+            "localName": "elementCreationTaxonomyVersion",
+            "type": "Reference",
+            "label": "elementCreationTaxonomyVersion",
+            "isAbstract": "false",
+            "dataType": "gYear"
+        },
+        {
+            "localName": "Source",
+            "type": "Reference",
+            "label": "Source",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "SourceVersion",
+            "type": "Reference",
+            "label": "SourceVersion",
+            "isAbstract": "false",
+            "dataType": "decimal"
+        },
+        {
+            "localName": "Note",
+            "type": "Reference",
+            "label": "Note",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Negative_XBRL_Value",
+            "type": "Reference",
+            "label": "Negative_XBRL_Value",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Positive_XBRL_Value",
+            "type": "Reference",
+            "label": "Positive_XBRL_Value",
+            "isAbstract": "false",
+            "dataType": "string"
+        }
+    ]
+}

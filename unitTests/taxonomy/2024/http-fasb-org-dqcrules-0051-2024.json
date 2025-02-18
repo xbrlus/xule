@@ -1,0 +1,28 @@
+{
+    "http://fasb.org/dqcrules-0051/2024": [
+        {
+            "localName": "Dqc_0051",
+            "type": "Concept",
+            "label": "DQC.US.0051 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0051_CalculationCheck",
+            "type": "Concept",
+            "label": "DQC.US.0051.Calculation Check [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0051_BeforeTaxItems",
+            "type": "Concept",
+            "label": "DQC.US.0051.Before Tax Items [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

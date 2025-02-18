@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0089/2024": [
+        {
+            "localName": "Dqc_0089_InvalidElementsUsedOnRangeAxis",
+            "type": "Concept",
+            "label": "DQC.US.0089.Invalid Elements Used On Range Axis [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0089",
+            "type": "Concept",
+            "label": "DQC.US.0089 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

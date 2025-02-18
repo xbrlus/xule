@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0123/2025": [
+        {
+            "localName": "Dqc_0123_MissingComponentsOfEquityAxis",
+            "type": "Concept",
+            "label": "DQC.US.0123.Missing Components Of Equity Axis [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0123",
+            "type": "Concept",
+            "label": "DQC.US.0123 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

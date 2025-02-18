@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0118/2025": [
+        {
+            "localName": "Dqc_0118",
+            "type": "Concept",
+            "label": "DQC.US.0118 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0118_FinancialStatementTablesCalculationCheckOfRequiredContext",
+            "type": "Concept",
+            "label": "DQC.US.0118.Financial Statement Tables Calculation Check Of Required Context [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

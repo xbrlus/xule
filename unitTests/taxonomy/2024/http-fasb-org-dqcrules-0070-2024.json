@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0070/2024": [
+        {
+            "localName": "Dqc_0070",
+            "type": "Concept",
+            "label": "DQC.US.0070 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0070_PlanAssetDimensionalAggregation",
+            "type": "Concept",
+            "label": "DQC.US.0070.Plan Asset Dimensional Aggregation [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

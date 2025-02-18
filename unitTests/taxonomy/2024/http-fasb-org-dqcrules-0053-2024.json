@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0053/2024": [
+        {
+            "localName": "Dqc_0053",
+            "type": "Concept",
+            "label": "DQC.US.0053 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0053_ExcludedMembersFromAnAxis",
+            "type": "Concept",
+            "label": "DQC.US.0053.Excluded Members from an Axis [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

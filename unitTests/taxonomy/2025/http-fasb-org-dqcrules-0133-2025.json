@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0133/2025": [
+        {
+            "localName": "Dqc_0133_EquityMethodInvestmentReporting",
+            "type": "Concept",
+            "label": "DQC.US.0133.Equity Method Investment Reporting [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0133",
+            "type": "Concept",
+            "label": "DQC.US.0133 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

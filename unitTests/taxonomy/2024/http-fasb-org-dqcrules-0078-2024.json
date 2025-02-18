@@ -1,0 +1,28 @@
+{
+    "http://fasb.org/dqcrules-0078/2024": [
+        {
+            "localName": "Dqc_0078_OwnershipInterestWithNoOwnershipAxis",
+            "type": "Concept",
+            "label": "DQC.US.0078.Ownership Interest With No Ownership Axis [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0078_OwnershipInterestWithNoOwnershipAxisRuleEvaluatedElements",
+            "type": "Concept",
+            "label": "DQC.US.0078.Ownership Interest With No Ownership Axis Evaluated Elements [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0078",
+            "type": "Concept",
+            "label": "DQC.US.0078 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

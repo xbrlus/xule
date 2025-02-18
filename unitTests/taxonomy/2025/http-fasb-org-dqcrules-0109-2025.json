@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0109/2025": [
+        {
+            "localName": "Dqc_0109_ConcentrationRisk",
+            "type": "Concept",
+            "label": "DQC.US.0109.Concentration Risk [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0109",
+            "type": "Concept",
+            "label": "DQC.US.0109 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

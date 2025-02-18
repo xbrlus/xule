@@ -1,0 +1,151 @@
+{
+    "http://www.xbrl.org/2006/ref": [
+        {
+            "localName": "Article",
+            "type": "Reference",
+            "label": "Article",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "IssueDate",
+            "type": "Reference",
+            "label": "IssueDate",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Note",
+            "type": "Reference",
+            "label": "Note",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Page",
+            "type": "Reference",
+            "label": "Page",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Exhibit",
+            "type": "Reference",
+            "label": "Exhibit",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Chapter",
+            "type": "Reference",
+            "label": "Chapter",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Section",
+            "type": "Reference",
+            "label": "Section",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Appendix",
+            "type": "Reference",
+            "label": "Appendix",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Footnote",
+            "type": "Reference",
+            "label": "Footnote",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Subparagraph",
+            "type": "Reference",
+            "label": "Subparagraph",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "URI",
+            "type": "Reference",
+            "label": "URI",
+            "isAbstract": "false",
+            "dataType": "anyURI"
+        },
+        {
+            "localName": "Name",
+            "type": "Reference",
+            "label": "Name",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Subclause",
+            "type": "Reference",
+            "label": "Subclause",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Number",
+            "type": "Reference",
+            "label": "Number",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Publisher",
+            "type": "Reference",
+            "label": "Publisher",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Clause",
+            "type": "Reference",
+            "label": "Clause",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Example",
+            "type": "Reference",
+            "label": "Example",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "URIDate",
+            "type": "Reference",
+            "label": "URIDate",
+            "isAbstract": "false",
+            "dataType": "ref:URIDate@anonymousType"
+        },
+        {
+            "localName": "Paragraph",
+            "type": "Reference",
+            "label": "Paragraph",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Subsection",
+            "type": "Reference",
+            "label": "Subsection",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Sentence",
+            "type": "Reference",
+            "label": "Sentence",
+            "isAbstract": "false",
+            "dataType": "string"
+        }
+    ]
+}

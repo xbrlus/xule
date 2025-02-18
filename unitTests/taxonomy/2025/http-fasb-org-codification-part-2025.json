@@ -1,0 +1,32 @@
+{
+    "http://fasb.org/codification-part/2025": [
+        {
+            "localName": "URI",
+            "type": "Reference",
+            "label": "URI",
+            "isAbstract": "false",
+            "dataType": "anyURI"
+        },
+        {
+            "localName": "Glossary",
+            "type": "Reference",
+            "label": "Glossary",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "Topic",
+            "type": "Reference",
+            "label": "Topic",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "SubTopic",
+            "type": "Reference",
+            "label": "SubTopic",
+            "isAbstract": "false",
+            "dataType": "string"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0006/2024": [
+        {
+            "localName": "Dqc_0006",
+            "type": "Concept",
+            "label": "DQC.US.0006 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0006_DeiAndBlockTagDateContexts",
+            "type": "Concept",
+            "label": "DQC.US.0006.DEI and Block Tag Date Contexts [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

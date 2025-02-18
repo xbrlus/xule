@@ -1,0 +1,109 @@
+{
+    "http://fasb.org/cn-part/2025": [
+        {
+            "localName": "ModifiedReferences",
+            "type": "Reference",
+            "label": "ModifiedReferences",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "PreviousDocumentation",
+            "type": "Reference",
+            "label": "PreviousDocumentation",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "NewElement",
+            "type": "Reference",
+            "label": "NewElement",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "TaxonomyVersion",
+            "type": "Reference",
+            "label": "TaxonomyVersion",
+            "isAbstract": "false",
+            "dataType": "gYear"
+        },
+        {
+            "localName": "ModifiedPeriodType",
+            "type": "Reference",
+            "label": "ModifiedPeriodType",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "ModifiedDocumentation",
+            "type": "Reference",
+            "label": "ModifiedDocumentation",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "SourceName",
+            "type": "Reference",
+            "label": "SourceName",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "DeprecationReplacement",
+            "type": "Reference",
+            "label": "DeprecationReplacement",
+            "isAbstract": "false",
+            "dataType": "cn-part:elementListItemType"
+        },
+        {
+            "localName": "ModifiedBalanceType",
+            "type": "Reference",
+            "label": "ModifiedBalanceType",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "ModifiedDataType",
+            "type": "Reference",
+            "label": "ModifiedDataType",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "Source_ASU_Number",
+            "type": "Reference",
+            "label": "Source_ASU_Number",
+            "isAbstract": "false",
+            "dataType": "cn-part:AsuNumber"
+        },
+        {
+            "localName": "DeprecatedLabel",
+            "type": "Reference",
+            "label": "DeprecatedLabel",
+            "isAbstract": "false",
+            "dataType": "string"
+        },
+        {
+            "localName": "ModifiedDeprecatedLabel",
+            "type": "Reference",
+            "label": "ModifiedDeprecatedLabel",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "ElementDeprecated",
+            "type": "Reference",
+            "label": "ElementDeprecated",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        },
+        {
+            "localName": "ModifiedLabels",
+            "type": "Reference",
+            "label": "ModifiedLabels",
+            "isAbstract": "false",
+            "dataType": "boolean"
+        }
+    ]
+}

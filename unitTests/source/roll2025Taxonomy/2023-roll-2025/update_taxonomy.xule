@@ -1,0 +1,266 @@
+constant $TAXONOMY_DATE = '20251231'
+constant $PUBLISH_TAXONOMY = 'MyTaxonomy1'
+constant $TICKER = 'hbb'
+constant $INSTANCE_NAME = 'hbb-20221231_htm'
+constant $NEW_CO_NAMESPACE = 'http://www.hamiltonbeachbrands.com/20231231'
+constant $OLD_CO_NAMESPACE = 'http://www.hamiltonbeachbrands.com/20221231'
+constant $NAMSPACE_DICT = dict(list('http://fasb.org/us-gaap/2023','http://fasb.org/us-gaap/2025'),
+                                list('http://fasb.org/srt/2023', 'http://fasb.org/srt/2025'),
+                                list($OLD_CO_NAMESPACE, $NEW_CO_NAMESPACE),
+                                list('http://xbrl.sec.gov/dei/2023','http://xbrl.sec.gov/dei/2025'),
+                                list('http://xbrl.sec.gov/country/2023','http://xbrl.sec.gov/country/2025'),
+                                list('http://xbrl.sec.gov/currency/2023', 'http://xbrl.sec.gov/currency/2025'),
+                                list('http://xbrl.sec.gov/stpr/2023', 'http://xbrl.sec.gov/stpr/2025'),
+                                list('http://fasb.org/us-gaap-sup/2023', 'http://fasb.org/us-gaap/2025'),
+                                list('http://xbrl.sec.gov/ecd/2023', 'http://xbrl.sec.gov/ecd/2025'),
+                                list('http://xbrl.sec.gov/naics/2023', 'http://xbrl.sec.gov/naics/2025'),
+                                list('http://xbrl.sec.gov/sic/2023', 'http://xbrl.sec.gov/sic/2025'),
+                                list('http://xbrl.sec.gov/exch/2023', 'http://xbrl.sec.gov/exch/2025')
+                                )
+                                
+
+constant $DEPRECATED_ITEMS = dict(list(CumulativeEffectOfNewAccountingPrincipleInPeriodOfAdoption, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+                                  list(NewAccountingPronouncementOrChangeInAccountingPrincipleEffectOfAdoptionQuantification, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+                                  list(ecd:DefaultsTable, list(xbrli:stringItemType, xbrldt:hypercubeItem, 'duration', true, true, 'none')),
+                                  list(EarningsPerShareBasicAndDilutedAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, 'none')),
+                                  list(EffectOfExchangeRateOnCashAndCashEquivalents, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
+                                  list(EffectiveIncomeTaxRateReconciliationTaxCutsAndJobsActOf2017TransitionTaxOnAccumulatedForeignEarningsPercent, list(xbrli:pureItemType, xbrli:item, 'duration', false, true, 'none')),
+                                  list(DeferredTaxAssetsLiabilitiesNetAbstract, list(xbrli:stringItemType, xbrli:item, 'duration', true, true, 'none')),
+                                  list(ExcessTaxBenefitFromShareBasedCompensationFinancingActivities, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
+                                  list(NewAccountingPronouncementMember, list(dtr-types:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(DeferredTaxAssetsLiabilitiesNetNoncurrent, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
+                                  list(ExcessTaxBenefitFromShareBasedCompensationOperatingActivities, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'debit')),
+                                  list(AccountingStandardsUpdate201609Member, list(dtr-types:domainItemType, xbrli:item, 'duration', true,true, none)),
+                                  list(AdjustmentsToAdditionalPaidInCapitalIncomeTaxDeficiencyFromShareBasedCompensation, list(xbrli:monetaryItemType, xbrli:item, 'instant', false, true, 'credit')),
+              
+                                  
+                                )  
+
+constant $USGAAP_TO_SRT = dict(list(StockRepurchaseProgramAuthorizedAmount1, "http://fasb.org/srt/2025"),
+                                list(ShareRepurchaseProgramAxis, "http://fasb.org/srt/2025"),
+                                list(StockRepurchaseProgramNumberOfSharesAuthorizedToBeRepurchased, "http://fasb.org/srt/2025"),
+                                list(ShareRepurchaseProgramDomain, "http://fasb.org/srt/2025"),
+                                list(StockRepurchaseProgramExpirationDate, "http://fasb.org/srt/2025"),                             
+) 
+
+constant $UPDATED_ITEMS = dict(list(CashAndCashEquivalentsPeriodIncreaseDecrease, 'CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect'),
+                          
+)
+                               
+output create_package
+true
+package-name $PUBLISH_TAXONOMY
+package-url $NEW_CO_NAMESPACE
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+document-package-entry-point true
+document-package-entry-point-description 'Official Statement  Taxonomy '
+document-package-entry-point-language 'en-US'
+document-package-entry-point-name $TICKER + ' ' + $TAXONOMY_DATE + ''
+document-import list('https://xbrl.sec.gov/dei/2025/dei-2025.xsd','https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-2025.xsd').to-xodel 
+import2-url 'https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-all-2025.xsd'
+
+
+output create_roles
+for $role in filter taxonomy().roles where not $item.uri.contains('fasb.org') and not $item.uri.contains('xbrl.sec.gov')
+    $role
+
+package-name $PUBLISH_TAXONOMY
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+role $role.to-xodel
+import2-url 'https://xbrl.sec.gov/ecd/2025/ecd-2025.xsd'
+
+output import_naics
+true
+
+package-name $PUBLISH_TAXONOMY
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+import2-url 'https://xbrl.sec.gov/naics/2025/naics-2025.xsd'
+
+output import_sic
+true
+
+package-name $PUBLISH_TAXONOMY
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+import2-url 'https://xbrl.sec.gov/sic/2025/sic-2025.xsd'
+
+output import_exchange
+true
+
+package-name $PUBLISH_TAXONOMY
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+import2-url 'https://xbrl.sec.gov/exch/2025/exch-2025.xsd'
+
+
+constant $ALL_CONCEPTS = taxonomy().concepts
+
+constant $EXTENSION_CONCEPT_NAMES = (filter $ALL_CONCEPTS where $item.name.namespace-uri == $OLD_CO_NAMESPACE returns $item.name.local-name)
+
+output concepts
+    for $concept in (filter $ALL_CONCEPTS where $item.name.namespace-uri == $OLD_CO_NAMESPACE)
+        $concept
+
+package-name $PUBLISH_TAXONOMY
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+concept $concept.to-xodel
+concept-name qname($NEW_CO_NAMESPACE, $concept.name.local-name).to-xodel
+
+
+output add_back_deprecated_concepts
+for $newConcept in $DEPRECATED_ITEMS.keys
+   if $newConcept.local-name in $EXTENSION_CONCEPT_NAMES
+        skip
+    else
+     $datatype = $DEPRECATED_ITEMS[$newConcept][1];
+     $sub = $DEPRECATED_ITEMS[$newConcept][2];
+     $period = $DEPRECATED_ITEMS[$newConcept][3];
+     $abstract = $DEPRECATED_ITEMS[$newConcept][4];
+     $balance = $DEPRECATED_ITEMS[$newConcept][6];
+     $newConcept
+
+package-name $PUBLISH_TAXONOMY
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+concept-name qname($NEW_CO_NAMESPACE, $newConcept.local-name).to-xodel
+concept-data-type $datatype.to-xodel
+concept-abstract $abstract
+concept-nillable true
+concept-period-type $period.to-xodel
+concept-balance-type $balance
+concept-substitution-group $sub.to-xodel
+
+
+output relationships
+    for $network in filter taxonomy().networks
+		for $relationship in $network.relationships
+            $source_ns = if $relationship.source.name in $DEPRECATED_ITEMS.keys
+                                $NEW_CO_NAMESPACE
+                            else
+                                if $relationship.source.name in $USGAAP_TO_SRT.keys
+                                    $USGAAP_TO_SRT[$relationship.source.name]
+                                else
+                                    $NAMSPACE_DICT[$relationship.source.name.namespace-uri]
+            $target_ns = if $relationship.target.name in $DEPRECATED_ITEMS.keys
+                                $NEW_CO_NAMESPACE
+                            else
+                                if $relationship.target.name in $USGAAP_TO_SRT.keys
+                                    $USGAAP_TO_SRT[$relationship.target.name]
+                                else
+                                    $NAMSPACE_DICT[$relationship.target.name.namespace-uri]
+
+            $source_local-name = if $relationship.source.name in $UPDATED_ITEMS.keys
+                                        $UPDATED_ITEMS[$relationship.source.name]
+                                    else
+                                        $relationship.source-name.local-name
+
+            $target_local-name = if $relationship.target.name in $UPDATED_ITEMS.keys
+                                        $UPDATED_ITEMS[$relationship.target.name]
+                                    else
+                                        $relationship.target-name.local-name
+
+            if $source_ns == none or $target_ns == none or $relationship.target-name.local-name == 'label' or $relationship.source-name.local-name == 'label'
+                skip 
+            else
+			    $relationship
+
+package-name $PUBLISH_TAXONOMY
+relationship $relationship.to-xodel
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+document-namespace $NEW_CO_NAMESPACE
+relationship-source qname($source_ns, $source_local-name).to-xodel
+relationship-target qname($target_ns, $target_local-name).to-xodel
+
+
+output labels
+    for $concept in $ALL_CONCEPTS
+        for $lab in $concept.all-labels
+            $namespace = if $concept.name in $DEPRECATED_ITEMS.keys
+                            $NEW_CO_NAMESPACE
+                        else
+                            if $concept.name in $USGAAP_TO_SRT.keys
+                                $USGAAP_TO_SRT[$concept.name]
+                            else
+                                $NAMSPACE_DICT[$concept.name.namespace-uri]
+
+            $concept_local-name = if $concept.name in $UPDATED_ITEMS.keys
+                                    $UPDATED_ITEMS[$concept.name]
+                                else
+                                    $concept.name.local-name
+            if $lab.text == none
+                skip
+            else
+                $lab
+package-name $PUBLISH_TAXONOMY
+document-uri $TICKER + '-' + $TAXONOMY_DATE + '_lab.xml'
+document-imported-in $TICKER + '-' + $TAXONOMY_DATE + '.xsd'
+label $lab.to-xodel
+label-concept-name qname($namespace, $concept_local-name).to-xodel
+
+
+constant $INSTANCE_TAXONOMY = list('./' + $PUBLISH_TAXONOMY + '.zip/' + $PUBLISH_TAXONOMY + '/' + $TICKER + '-' + $TAXONOMY_DATE + '.xsd')
+
+output createInstance
+true
+
+instance-name   $INSTANCE_NAME
+instance-taxonomy $INSTANCE_TAXONOMY.to-xodel
+
+
+output add_facts_to_instance
+
+    for $factItem in list({covered @})
+        $factConcept = if $factItem.concept.name in $DEPRECATED_ITEMS.keys
+                            qname($NEW_CO_NAMESPACE, $factItem.concept.name.local-name)
+                        else
+                            if $factItem.concept.name in $USGAAP_TO_SRT.keys
+                                qname($USGAAP_TO_SRT[$factItem.concept.name], $factItem.concept.name.local-name)
+                            else
+                                if $factItem.concept.name in $UPDATED_ITEMS.keys
+                                    qname($NEW_CO_NAMESPACE, $UPDATED_ITEMS[$factItem.concept.name])
+                                else
+                                    qname($NAMSPACE_DICT[$factItem.concept.name.namespace-uri],$factItem.concept.name.local-name)
+        
+        $factDimensions = dict(for $axis in $factItem.dimensions.keys
+                                $NewAxis = if $axis.name in $DEPRECATED_ITEMS.keys 
+                                                qname($NEW_CO_NAMESPACE, $axis.name.local-name)
+                                            else
+                                                qname($NAMSPACE_DICT[$axis.name.namespace-uri], $axis.name.local-name);
+                                $dimensionsDict = $factItem.dimensions
+                                $Member = $dimensionsDict[$axis];
+                                $TypedFlag = if $axis.name.local-name in list('RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis', 'ReinsuranceContractAxis') true else false
+                                $NewMember = if $TypedFlag
+                                                $Member
+                                            else
+                                                if $Member.name in $DEPRECATED_ITEMS.keys
+                                                    qname($NEW_CO_NAMESPACE, $Member.name.local-name)
+                                                else 
+                                                    qname($NAMSPACE_DICT[$Member.name.namespace-uri], $Member.name.local-name);
+                                list($NewAxis,$NewMember)
+                                )
+        $factPeriod = if $factItem.concept.name in list(PropertyPlantAndEquipmentUsefulLife,FiniteLivedIntangibleAssetUsefulLife,DerivativeRemainingMaturity1)
+                            $factItem.period.end
+                        else
+                             $factItem.period
+        $factValue = if $factItem.data-type.name == enum2:enumerationSetItemType
+                        list(for $item in $factItem
+                            'http://fasb.org/us-gaap/2025#' + $item.local-name
+                        ).sort('asc').join(' ')
+                    else
+                        $factItem
+        $factItem
+
+      
+fact-instance $INSTANCE_NAME
+fact-value $factValue.to-xince
+fact-concept $factConcept.to-xince
+fact-unit $rule-value.unit.to-xince
+fact-entity  $rule-value.entity.to-xince
+fact-period  $factPeriod.to-xince
+fact-decimals  $rule-value.decimals
+fact-dimensions  $factDimensions.to-xince
+fact-is-nil $rule-value.is-nil

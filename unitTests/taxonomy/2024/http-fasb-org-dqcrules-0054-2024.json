@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0054/2024": [
+        {
+            "localName": "Dqc_0054",
+            "type": "Concept",
+            "label": "DQC.US.0054 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0054_ExcludedDimensionsFromATable",
+            "type": "Concept",
+            "label": "DQC.US.0054.Excluded Dimensions From A Table [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

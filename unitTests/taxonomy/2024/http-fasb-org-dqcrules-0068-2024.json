@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0068/2024": [
+        {
+            "localName": "Dqc_0068",
+            "type": "Concept",
+            "label": "DQC.US.0068 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0068_GeographicalAxisUsedWithPensionLineItems",
+            "type": "Concept",
+            "label": "DQC.US.0068.Geographical Axis Used With Pension Line Items [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

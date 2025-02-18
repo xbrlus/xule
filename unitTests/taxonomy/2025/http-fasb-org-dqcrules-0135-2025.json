@@ -1,0 +1,28 @@
+{
+    "http://fasb.org/dqcrules-0135/2025": [
+        {
+            "localName": "Dqc_0135_Exceptions",
+            "type": "Concept",
+            "label": "DQC.US.0135.Exceptions [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0135_ExtensibleEnumerationsForFinancialStatementCaptions",
+            "type": "Concept",
+            "label": "DQC.US.0135.Extensible Enumerations For Financial Statement Captions [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0135",
+            "type": "Concept",
+            "label": "DQC.US.0135 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

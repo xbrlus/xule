@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0072/2024": [
+        {
+            "localName": "Dqc_0072_PlanAssetCategoriesPercentage",
+            "type": "Concept",
+            "label": "DQC.US.0072.Plan Asset Categories Percentage [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0072",
+            "type": "Concept",
+            "label": "DQC.US.0072 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

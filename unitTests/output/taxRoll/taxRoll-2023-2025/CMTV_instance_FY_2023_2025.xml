@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:cmtv.com="http://cmtv.com/20251231" xmlns:us-gaap="http://fasb.org/us-gaap/2025" xmlns:srt="http://fasb.org/srt/2025" xmlns:dei="http://xbrl.sec.gov/dei/2025">
+  <link:schemaRef xlink:href="./CMTV_taxonomy_FY_2023_2025.zip/CMTV_taxonomy_FY_2023_2025/CMTV-20251231.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">cmtv.com:BankMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">cmtv.com:BankMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c4">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-01-01</xbrli:startDate>
+      <xbrli:endDate>2022-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c5">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:FinancialInstrumentAxis">cmtv.com:FRBBMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c6">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">cmtv.com:BankMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c7">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">cmtv.com:FHLBBMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c8">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">cmtv.com:NonCumulativeSeriesAPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c9">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-03-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-20</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c10">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c11">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:DeferredCompensationArrangementWithIndividualPostretirementBenefitsByTypeOfDeferredCompensationAxis">cmtv.com:DirectorsDeferredCompensationPlanMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c12">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">cmtv.com:CompanyMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c13">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c14">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">cmtv.com:CompanyMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c15">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000718413</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-20</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="pure">
+    <xbrli:measure>xbrli:pure</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd1">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio id="f" decimals="INF" contextRef="c" unitRef="pure">0.0</cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio>
+  <dei:EntityCentralIndexKey id="f1" contextRef="c1">0000718413</dei:EntityCentralIndexKey>
+  <us-gaap:CommonStockSharesAuthorized id="f2" decimals="0" contextRef="c2" unitRef="shares">15000000.0</us-gaap:CommonStockSharesAuthorized>
+  <cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio id="f3" decimals="INF" contextRef="c3" unitRef="pure">0.0</cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio>
+  <dei:AmendmentFlag id="f4" contextRef="c1">false</dei:AmendmentFlag>
+  <dei:EntityAddressAddressLine1 id="f5" contextRef="c1">4811 US Route 5</dei:EntityAddressAddressLine1>
+  <us-gaap:TreasuryStockCommonShares id="f6" decimals="0" contextRef="c2" unitRef="shares">210101.0</us-gaap:TreasuryStockCommonShares>
+  <cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferAmount id="f7" decimals="0" contextRef="c" unitRef="usd">0.0</cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferAmount>
+  <dei:CurrentFiscalYearEndDate id="f8" contextRef="c1">--12-31</dei:CurrentFiscalYearEndDate>
+  <us-gaap:OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesBeforeTax id="f9" decimals="0" contextRef="c4" unitRef="usd">0.0</us-gaap:OtherComprehensiveIncomeLossReclassificationAdjustmentFromAOCIOnDerivativesBeforeTax>
+  <dei:EntityAddressCityOrTown id="f10" contextRef="c1">Derby</dei:EntityAddressCityOrTown>
+  <cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferAmount id="f11" decimals="0" contextRef="c3" unitRef="usd">0.0</cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferAmount>
+  <dei:DocumentFiscalPeriodFocus id="f12" contextRef="c1">FY</dei:DocumentFiscalPeriodFocus>
+  <us-gaap:Investments id="f13" decimals="0" contextRef="c5" unitRef="usd">588150.0</us-gaap:Investments>
+  <dei:EntityAddressStateOrProvince id="f14" contextRef="c1">VT</dei:EntityAddressStateOrProvince>
+  <cmtv.com:ConservationBuffer id="f15" decimals="INF" contextRef="c6" unitRef="pure">0.25</cmtv.com:ConservationBuffer>
+  <dei:DocumentFiscalYearFocus id="f16" contextRef="c1">2023</dei:DocumentFiscalYearFocus>
+  <us-gaap:LineOfCredit id="f17" decimals="0" contextRef="c7" unitRef="usd">500000.0</us-gaap:LineOfCredit>
+  <dei:EntityAddressPostalZipCode id="f18" contextRef="c1">05829</dei:EntityAddressPostalZipCode>
+  <us-gaap:PreferredStockLiquidationPreferenceValue id="f19" decimals="0" contextRef="c8" unitRef="usd">1500000.0</us-gaap:PreferredStockLiquidationPreferenceValue>
+  <dei:EntityCurrentReportingStatus id="f20" contextRef="c1">Yes</dei:EntityCurrentReportingStatus>
+  <dei:DocumentFinStmtErrorCorrectionFlag id="f21" contextRef="c1">false</dei:DocumentFinStmtErrorCorrectionFlag>
+  <dei:EntityRegistrantName id="f22" contextRef="c1">Community Bancorp./VT</dei:EntityRegistrantName>
+  <us-gaap:JuniorSubordinatedDebentureOwedToUnconsolidatedSubsidiaryTrust id="f23" decimals="0" contextRef="c2" unitRef="usd">12887000.0</us-gaap:JuniorSubordinatedDebentureOwedToUnconsolidatedSubsidiaryTrust>
+  <us-gaap:CommonStockDividendsPerShareDeclared id="f24" decimals="INF" contextRef="c9" unitRef="usd1">0.23</us-gaap:CommonStockDividendsPerShareDeclared>
+  <cmtv.com:TimeDeposit id="f25" decimals="0" contextRef="c2" unitRef="usd">250000.0</cmtv.com:TimeDeposit>
+  <us-gaap:EffectiveIncomeTaxRateContinuingOperations id="f26" decimals="INF" contextRef="c4" unitRef="pure">0.21</us-gaap:EffectiveIncomeTaxRateContinuingOperations>
+  <us-gaap:PreferredStockSharesAuthorized id="f27" decimals="0" contextRef="c2" unitRef="shares">1000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <dei:EntityWellKnownSeasonedIssuer id="f28" contextRef="c1">No</dei:EntityWellKnownSeasonedIssuer>
+  <dei:EntityPublicFloat id="f29" decimals="0" contextRef="c10" unitRef="usd">91696733.0</dei:EntityPublicFloat>
+  <us-gaap:DeferredCompensationArrangementWithIndividualRecordedLiability id="f30" decimals="0" contextRef="c11" unitRef="usd">33000.0</us-gaap:DeferredCompensationArrangementWithIndividualRecordedLiability>
+  <dei:EntityFileNumber id="f31" contextRef="c1">000-16435</dei:EntityFileNumber>
+  <dei:EntityTaxIdentificationNumber id="f32" contextRef="c1">03-0284070</dei:EntityTaxIdentificationNumber>
+  <us-gaap:PreferredStockSharesIssued id="f33" decimals="0" contextRef="c2" unitRef="shares">15.0</us-gaap:PreferredStockSharesIssued>
+  <dei:DocumentType id="f34" contextRef="c1">10-K</dei:DocumentType>
+  <dei:EntityVoluntaryFilers id="f35" contextRef="c1">No</dei:EntityVoluntaryFilers>
+  <cmtv.com:AccruedContingentLiability id="f36" decimals="0" contextRef="c2" unitRef="usd">84944.0</cmtv.com:AccruedContingentLiability>
+  <us-gaap:PreferredStockSharesOutstanding id="f37" decimals="0" contextRef="c2" unitRef="shares">15.0</us-gaap:PreferredStockSharesOutstanding>
+  <dei:DocumentPeriodEndDate id="f38" contextRef="c1">2023-12-31</dei:DocumentPeriodEndDate>
+  <dei:CityAreaCode id="f39" contextRef="c1">802</dei:CityAreaCode>
+  <us-gaap:CapitalRequiredForCapitalAdequacyToRiskWeightedAssets id="f40" decimals="INF" contextRef="c12" unitRef="pure">8.0</us-gaap:CapitalRequiredForCapitalAdequacyToRiskWeightedAssets>
+  <us-gaap:PreferredStockSharesOutstanding id="f41" decimals="0" contextRef="c13" unitRef="shares">15.0</us-gaap:PreferredStockSharesOutstanding>
+  <cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio id="f42" decimals="INF" contextRef="c12" unitRef="pure">0.0</cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio>
+  <dei:LocalPhoneNumber id="f43" contextRef="c1">334-7915</dei:LocalPhoneNumber>
+  <us-gaap:PreferredStockLiquidationPreferenceValue id="f44" decimals="0" contextRef="c2" unitRef="usd">100000.0</us-gaap:PreferredStockLiquidationPreferenceValue>
+  <dei:EntityInteractiveDataCurrent id="f45" contextRef="c1">Yes</dei:EntityInteractiveDataCurrent>
+  <cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio id="f46" decimals="INF" contextRef="c14" unitRef="pure">0.0</cmtv.com:TierCapitalToAverageAssetsMinimumForCapitalAdequacyPurposesWithConservationBufferRatio>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f47" decimals="INF" contextRef="c2" unitRef="usd1">2.5</us-gaap:CommonStockParOrStatedValuePerShare>
+  <dei:EntityCommonStockSharesOutstanding id="f48" decimals="0" contextRef="c15" unitRef="shares">5514432.0</dei:EntityCommonStockSharesOutstanding>
+</xbrli:xbrl>

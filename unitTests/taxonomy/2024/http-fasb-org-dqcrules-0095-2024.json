@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0095/2024": [
+        {
+            "localName": "Dqc_0095",
+            "type": "Concept",
+            "label": "DQC.US.0095 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0095_ScaleCommonStockOutstanding",
+            "type": "Concept",
+            "label": "DQC.US.0095.Scale Common Stock Outstanding [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0033/2024": [
+        {
+            "localName": "Dqc_0033",
+            "type": "Concept",
+            "label": "DQC.US.0033 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0033_DocumentPeriodEndDateContext",
+            "type": "Concept",
+            "label": "DQC.US.0033.Document Period End Date Context [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

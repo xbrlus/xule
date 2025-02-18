@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0091/2024": [
+        {
+            "localName": "Dqc_0091",
+            "type": "Concept",
+            "label": "DQC.US.0091 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0091_PercentageItems",
+            "type": "Concept",
+            "label": "DQC.US.0091.Percentage Items [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

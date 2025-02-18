@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0055/2024": [
+        {
+            "localName": "Dqc_0055_RequiredMemberOnAnAxis",
+            "type": "Concept",
+            "label": "DQC.US.0055.Required Member on An Axis [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0055",
+            "type": "Concept",
+            "label": "DQC.US.0055 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

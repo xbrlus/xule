@@ -1,0 +1,28 @@
+{
+    "http://fasb.org/dqcrules-0013/2024": [
+        {
+            "localName": "Dqc_0013_RuleDependence",
+            "type": "Concept",
+            "label": "DQC.US.0013.Rule Dependence [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0013",
+            "type": "Concept",
+            "label": "DQC.US.0013 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0013_NegativeValuesWithDependence",
+            "type": "Concept",
+            "label": "DQC.US.0013.Negative Values with Dependence [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

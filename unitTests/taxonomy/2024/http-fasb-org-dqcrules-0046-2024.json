@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0046/2024": [
+        {
+            "localName": "Dqc_0046",
+            "type": "Concept",
+            "label": "DQC.US.0046 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0046_InappropriateCalculationDescendant",
+            "type": "Concept",
+            "label": "DQC.US.0046.Inappropriate Calculation Descendant [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

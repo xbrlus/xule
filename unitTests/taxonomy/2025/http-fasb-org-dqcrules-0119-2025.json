@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0119/2025": [
+        {
+            "localName": "Dqc_0119",
+            "type": "Concept",
+            "label": "DQC.US.0119 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0119_IncomeBeforeTaxEquityMethod",
+            "type": "Concept",
+            "label": "DQC.US.0119.Income Before Tax Equity Method [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

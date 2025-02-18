@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0137/2025": [
+        {
+            "localName": "Dqc_0137_LocationAxisWithASingleMember",
+            "type": "Concept",
+            "label": "DQC.US.0137.Location Axis With A Single Member [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0137",
+            "type": "Concept",
+            "label": "DQC.US.0137 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

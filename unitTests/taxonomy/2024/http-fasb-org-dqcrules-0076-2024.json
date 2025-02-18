@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0076/2024": [
+        {
+            "localName": "Dqc_0076",
+            "type": "Concept",
+            "label": "DQC.US.0076 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0076_PerformanceObligationsWithNoDurations",
+            "type": "Concept",
+            "label": "DQC.US.0076.Performance Obligations With No Durations [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

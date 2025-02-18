@@ -1,0 +1,224 @@
+{
+    "http://www.xbrl.org/dtr/type/2020-01-21": [
+        {
+            "localName": "weightItemType",
+            "type": "Type",
+            "label": "weightItemType"
+        },
+        {
+            "localName": "guidanceItemType",
+            "type": "Type",
+            "label": "guidanceItemType"
+        },
+        {
+            "localName": "SQNamesItemType",
+            "type": "Type",
+            "label": "SQNamesItemType"
+        },
+        {
+            "localName": "flowItemType",
+            "type": "Type",
+            "label": "flowItemType"
+        },
+        {
+            "localName": "monetaryPerEnergyItemType",
+            "type": "Type",
+            "label": "monetaryPerEnergyItemType"
+        },
+        {
+            "localName": "monetaryPerVolumeItemType",
+            "type": "Type",
+            "label": "monetaryPerVolumeItemType"
+        },
+        {
+            "localName": "percentItemType",
+            "type": "Type",
+            "label": "percentItemType"
+        },
+        {
+            "localName": "xmlItemType",
+            "type": "Type",
+            "label": "xmlItemType"
+        },
+        {
+            "localName": "nonNegativeNoDecimalsMonetaryItemType",
+            "type": "Type",
+            "label": "nonNegativeNoDecimalsMonetaryItemType"
+        },
+        {
+            "localName": "forceItemType",
+            "type": "Type",
+            "label": "forceItemType"
+        },
+        {
+            "localName": "escapedItemType",
+            "type": "Type",
+            "label": "escapedItemType"
+        },
+        {
+            "localName": "prefixedContentItemType",
+            "type": "Type",
+            "label": "prefixedContentItemType"
+        },
+        {
+            "localName": "monetaryPerLengthItemType",
+            "type": "Type",
+            "label": "monetaryPerLengthItemType"
+        },
+        {
+            "localName": "frequencyItemType",
+            "type": "Type",
+            "label": "frequencyItemType"
+        },
+        {
+            "localName": "insolationItemType",
+            "type": "Type",
+            "label": "insolationItemType"
+        },
+        {
+            "localName": "xmlNodesItemType",
+            "type": "Type",
+            "label": "xmlNodesItemType"
+        },
+        {
+            "localName": "nonNegativeMonetaryItemType",
+            "type": "Type",
+            "label": "nonNegativeMonetaryItemType"
+        },
+        {
+            "localName": "textBlockItemType",
+            "type": "Type",
+            "label": "textBlockItemType"
+        },
+        {
+            "localName": "SQNameItemType",
+            "type": "Type",
+            "label": "SQNameItemType"
+        },
+        {
+            "localName": "areaItemType",
+            "type": "Type",
+            "label": "areaItemType"
+        },
+        {
+            "localName": "powerItemType",
+            "type": "Type",
+            "label": "powerItemType"
+        },
+        {
+            "localName": "perShareItemType",
+            "type": "Type",
+            "label": "perShareItemType"
+        },
+        {
+            "localName": "pressureItemType",
+            "type": "Type",
+            "label": "pressureItemType"
+        },
+        {
+            "localName": "energyItemType",
+            "type": "Type",
+            "label": "energyItemType"
+        },
+        {
+            "localName": "planeAngleItemType",
+            "type": "Type",
+            "label": "planeAngleItemType"
+        },
+        {
+            "localName": "memoryItemType",
+            "type": "Type",
+            "label": "memoryItemType"
+        },
+        {
+            "localName": "electricCurrentItemType",
+            "type": "Type",
+            "label": "electricCurrentItemType"
+        },
+        {
+            "localName": "gYearListItemType",
+            "type": "Type",
+            "label": "gYearListItemType"
+        },
+        {
+            "localName": "massItemType",
+            "type": "Type",
+            "label": "massItemType"
+        },
+        {
+            "localName": "monetaryPerDurationItemType",
+            "type": "Type",
+            "label": "monetaryPerDurationItemType"
+        },
+        {
+            "localName": "monetaryPerMassItemType",
+            "type": "Type",
+            "label": "monetaryPerMassItemType"
+        },
+        {
+            "localName": "noDecimalsMonetaryItemType",
+            "type": "Type",
+            "label": "noDecimalsMonetaryItemType"
+        },
+        {
+            "localName": "irradianceItemType",
+            "type": "Type",
+            "label": "irradianceItemType"
+        },
+        {
+            "localName": "voltageItemType",
+            "type": "Type",
+            "label": "voltageItemType"
+        },
+        {
+            "localName": "noLangStringItemType",
+            "type": "Type",
+            "label": "noLangStringItemType"
+        },
+        {
+            "localName": "domainItemType",
+            "type": "Type",
+            "label": "domainItemType"
+        },
+        {
+            "localName": "temperatureItemType",
+            "type": "Type",
+            "label": "temperatureItemType"
+        },
+        {
+            "localName": "massFlowItemType",
+            "type": "Type",
+            "label": "massFlowItemType"
+        },
+        {
+            "localName": "speedItemType",
+            "type": "Type",
+            "label": "speedItemType"
+        },
+        {
+            "localName": "noLangTokenItemType",
+            "type": "Type",
+            "label": "noLangTokenItemType"
+        },
+        {
+            "localName": "volumeItemType",
+            "type": "Type",
+            "label": "volumeItemType"
+        },
+        {
+            "localName": "lengthItemType",
+            "type": "Type",
+            "label": "lengthItemType"
+        },
+        {
+            "localName": "monetaryPerAreaItemType",
+            "type": "Type",
+            "label": "monetaryPerAreaItemType"
+        },
+        {
+            "localName": "electricChargeItemType",
+            "type": "Type",
+            "label": "electricChargeItemType"
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase">
+  <link:schemaRef xlink:href="./HIG_taxonomy_FY_2023_2025.zip/HIG_taxonomy_FY_2023_2025/HIG-20251231.xsd" xlink:type="simple"/>
+</xbrli:xbrl>

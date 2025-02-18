@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0084/2024": [
+        {
+            "localName": "Dqc_0084",
+            "type": "Concept",
+            "label": "DQC.US.0084 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0084_DurationalAggregation",
+            "type": "Concept",
+            "label": "DQC.US.0084.Durational Aggregation [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

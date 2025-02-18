@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0057/2024": [
+        {
+            "localName": "Dqc_0057",
+            "type": "Concept",
+            "label": "DQC.US.0057 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0057_CashFlowOpeningAndClosingBalances",
+            "type": "Concept",
+            "label": "DQC.US.0057.Cash Flow Opening and Closing Balances [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

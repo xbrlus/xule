@@ -1,0 +1,28 @@
+{
+    "http://fasb.org/dqcrules-0043/2024": [
+        {
+            "localName": "Dqc_0043_ElementsExcludedFromRule",
+            "type": "Concept",
+            "label": "DQC.US.0043.Elements Excluded from Rule [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0043_IncorrectCalculationWeights",
+            "type": "Concept",
+            "label": "DQC.US.0043.Incorrect Calculation Weights in Operating Cash Flows [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0043",
+            "type": "Concept",
+            "label": "DQC.US.0043 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

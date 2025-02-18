@@ -1,0 +1,14 @@
+{
+    "http://fasb.org/srt-types/2025": [
+        {
+            "localName": "perUnitItemType",
+            "type": "Type",
+            "label": "perUnitItemType"
+        },
+        {
+            "localName": "financialInstrumentGlobalIdentifierItemType",
+            "type": "Type",
+            "label": "financialInstrumentGlobalIdentifierItemType"
+        }
+    ]
+}

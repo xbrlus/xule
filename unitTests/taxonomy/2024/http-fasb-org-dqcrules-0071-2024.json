@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0071/2024": [
+        {
+            "localName": "Dqc_0071_RevenueCostSingleMember",
+            "type": "Concept",
+            "label": "DQC.US.0071.Revenue or Cost Single Member [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0071",
+            "type": "Concept",
+            "label": "DQC.US.0071 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

@@ -40,6 +40,12 @@
 		},
 		{
 			"path": "source/wip"
+		},
+		{
+			"path": "source/roll2025Taxonomy/2024-roll-2025"
+		},
+		{
+			"path": "source/roll2025Taxonomy/2023-roll-2025"
 		}
 	]
 }

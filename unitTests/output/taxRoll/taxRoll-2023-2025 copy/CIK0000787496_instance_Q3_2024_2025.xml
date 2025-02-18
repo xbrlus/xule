@@ -1,0 +1,1589 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cik0000787496="http://CIK0000787496/20250229" xmlns:us-gaap="http://fasb.org/us-gaap/2025" xmlns:dei="http://xbrl.sec.gov/dei/2025">
+  <link:schemaRef xlink:href="./CIK0000787496_taxonomy_Q3_2024_2025.zip/CIK0000787496_taxonomy_Q3_2024_2025/CIK0000787496-20251231.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-06-01</xbrli:startDate>
+      <xbrli:endDate>2024-02-29</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c4">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-12-01</xbrli:startDate>
+      <xbrli:endDate>2024-02-29</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c5">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-06-01</xbrli:startDate>
+      <xbrli:endDate>2023-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c6">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c7">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c8">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c9">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">cik0000787496:PreferredStockClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c10">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-12-01</xbrli:startDate>
+      <xbrli:endDate>2024-02-29</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c11">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c12">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c13">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c14">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c15">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">cik0000787496:PreferredStockClassA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c16">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c17">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-06-01</xbrli:startDate>
+      <xbrli:endDate>2023-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c18">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">cik0000787496:PreferredStockClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c19">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-12-01</xbrli:startDate>
+      <xbrli:endDate>2024-02-29</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c20">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c21">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-06-01</xbrli:startDate>
+      <xbrli:endDate>2023-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c22">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c23">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c24">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">cik0000787496:PreferredStockClassA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c25">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c26">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-12-01</xbrli:startDate>
+      <xbrli:endDate>2024-02-29</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c27">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c28">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-01</xbrli:startDate>
+      <xbrli:endDate>2023-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c29">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c30">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c31">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c32">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c33">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-09-01</xbrli:startDate>
+      <xbrli:endDate>2023-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c34">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c35">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c36">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-02-29</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c37">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-12-01</xbrli:startDate>
+      <xbrli:endDate>2024-02-29</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c38">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-25</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c39">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c40">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c41">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c42">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:SubsegmentsAxis">us-gaap:SubsequentEventMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:PreferredClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-06</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c43">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-09-01</xbrli:startDate>
+      <xbrli:endDate>2023-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c44">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c45">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c46">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-06-01</xbrli:startDate>
+      <xbrli:endDate>2022-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c47">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:SubsegmentsAxis">us-gaap:SubsequentEventMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">cik0000787496:SeriesA1PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-06</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c48">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-06-01</xbrli:startDate>
+      <xbrli:endDate>2022-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c49">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-06-01</xbrli:startDate>
+      <xbrli:endDate>2022-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c50">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-06-01</xbrli:startDate>
+      <xbrli:endDate>2022-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c51">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-06-01</xbrli:startDate>
+      <xbrli:endDate>2022-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c52">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c53">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c54">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-06-01</xbrli:startDate>
+      <xbrli:endDate>2022-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c55">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c56">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c57">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-09-01</xbrli:startDate>
+      <xbrli:endDate>2022-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c58">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-09-01</xbrli:startDate>
+      <xbrli:endDate>2022-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c59">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-09-01</xbrli:startDate>
+      <xbrli:endDate>2022-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c60">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-09-01</xbrli:startDate>
+      <xbrli:endDate>2022-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c61">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c62">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-09-01</xbrli:startDate>
+      <xbrli:endDate>2022-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c63">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-09-01</xbrli:startDate>
+      <xbrli:endDate>2022-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c64">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c65">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c66">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c67">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-12-01</xbrli:startDate>
+      <xbrli:endDate>2024-02-29</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c68">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-01</xbrli:startDate>
+      <xbrli:endDate>2023-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c69">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-01</xbrli:startDate>
+      <xbrli:endDate>2023-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c70">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-01</xbrli:startDate>
+      <xbrli:endDate>2023-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c71">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-01</xbrli:startDate>
+      <xbrli:endDate>2023-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c72">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-12-01</xbrli:startDate>
+      <xbrli:endDate>2023-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c73">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c74">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c75">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:CommonClassAMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:SubsegmentsAxis">us-gaap:SubsequentEventMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-04</xbrli:startDate>
+      <xbrli:endDate>2024-01-05</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c76">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c77">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c78">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c79">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c80">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:SubsegmentsAxis">us-gaap:SubsequentEventMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-04</xbrli:startDate>
+      <xbrli:endDate>2024-01-05</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c81">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-06-01</xbrli:startDate>
+      <xbrli:endDate>2023-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c82">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-06-01</xbrli:startDate>
+      <xbrli:endDate>2023-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c83">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-06-01</xbrli:startDate>
+      <xbrli:endDate>2023-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c84">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-06-01</xbrli:startDate>
+      <xbrli:endDate>2023-08-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c85">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c86">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c87">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-05-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c88">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-08-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c89">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-09-01</xbrli:startDate>
+      <xbrli:endDate>2023-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c90">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-09-01</xbrli:startDate>
+      <xbrli:endDate>2023-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c91">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-09-01</xbrli:startDate>
+      <xbrli:endDate>2023-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c92">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-09-01</xbrli:startDate>
+      <xbrli:endDate>2023-11-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c93">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000787496</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">cik0000787496:PreferredStockA1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-11-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd1">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <us-gaap:AdditionalPaidInCapital id="f" decimals="0" contextRef="c" unitRef="usd">8735090.0</us-gaap:AdditionalPaidInCapital>
+  <us-gaap:SharesOutstanding id="f1" xsi:nil="true" contextRef="c1" unitRef="shares"/>
+  <us-gaap:StockholdersEquity id="f2" decimals="0" contextRef="c2" unitRef="usd">-14175708.0</us-gaap:StockholdersEquity>
+  <us-gaap:OperatingIncomeLoss id="f3" decimals="0" contextRef="c3" unitRef="usd">-246250.0</us-gaap:OperatingIncomeLoss>
+  <cik0000787496:DilutedEarningsPerCommonShare id="f4" decimals="INF" contextRef="c4" unitRef="usd1">-0.0</cik0000787496:DilutedEarningsPerCommonShare>
+  <us-gaap:ProfitLoss id="f5" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:NetIncomeLoss id="f6" decimals="0" contextRef="c3" unitRef="usd">-246250.0</us-gaap:NetIncomeLoss>
+  <us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities id="f7" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f8" decimals="0" contextRef="c6" unitRef="usd">-13955252.0</us-gaap:StockholdersEquity>
+  <cik0000787496:WeightedAverageNumberOfShareOutstandingBasic id="f9" decimals="INF" contextRef="c4" unitRef="shares">284367820.0</cik0000787496:WeightedAverageNumberOfShareOutstandingBasic>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivities id="f10" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f11" decimals="0" contextRef="c7" unitRef="usd">-33361.0</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquity id="f12" decimals="0" contextRef="c8" unitRef="usd">179368.0</us-gaap:StockholdersEquity>
+  <us-gaap:PreferredStockSharesOutstanding id="f13" decimals="INF" contextRef="c9" unitRef="shares">50000000.0</us-gaap:PreferredStockSharesOutstanding>
+  <us-gaap:RepaymentOfNotesReceivableFromRelatedParties id="f14" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent id="f15" decimals="0" contextRef="c" unitRef="usd">10000.0</us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivities id="f16" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f17" xsi:nil="true" contextRef="c3" unitRef="usd"/>
+  <cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServices id="f18" decimals="0" contextRef="c10" unitRef="usd">10000.0</cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServices>
+  <cik0000787496:RelatedPartyDebtTextBlock id="f19" contextRef="c3">&lt;p id="xdx_802_ecustom--RelatedPartyDebtTextBlock_zVFlCEh0tSJi" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;b&gt;NOTE 3 – &lt;span id="xdx_82D_zNcnyXHPDJZj"&gt;RELATED PARTY DEBT&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;As of February 29, 2024, Custodian Ventures, the Company’s Custodian had advanced $-&lt;span id="xdx_90A_ecustom--NotesPayableRelatedParties_iI_c20240229_znOS33ntLvJ3" title="Notes payable related parties"&gt;0&lt;/span&gt;- and $&lt;span id="xdx_90B_ecustom--InterestFreeDemandLoan_iI_c20240229_zmWH65mOaTqc" title="Interest free demand loan"&gt;40,794&lt;/span&gt; to the Company in the form of an interest-free demand loan. See Note 4. Capital Stock&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</cik0000787496:RelatedPartyDebtTextBlock>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f20" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:AdditionalPaidInCapital id="f21" decimals="0" contextRef="c11" unitRef="usd">13881340.0</us-gaap:AdditionalPaidInCapital>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivities id="f22" decimals="0" contextRef="c3" unitRef="usd">-53802.0</us-gaap:NetCashProvidedByUsedInOperatingActivities>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f23" xsi:nil="true" contextRef="c" unitRef="usd"/>
+  <us-gaap:SharesOutstanding id="f24" decimals="INF" contextRef="c12" unitRef="shares">284367820.0</us-gaap:SharesOutstanding>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f25" xsi:nil="true" contextRef="c13" unitRef="usd"/>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f26" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesIssued id="f27" decimals="INF" contextRef="c9" unitRef="shares">50000000.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f28" xsi:nil="true" contextRef="c14" unitRef="usd"/>
+  <us-gaap:OperatingExpenses id="f29" decimals="0" contextRef="c3" unitRef="usd">246250.0</us-gaap:OperatingExpenses>
+  <cik0000787496:IssuanceOfPreferredStockToCancelRelatedPartyDebt id="f30" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f31" decimals="0" contextRef="c11" unitRef="usd">-14175708.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:PreferredStockValue id="f32" decimals="0" contextRef="c15" unitRef="usd">10000.0</us-gaap:PreferredStockValue>
+  <dei:DocumentType id="f33" contextRef="c3">10-Q</dei:DocumentType>
+  <cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding id="f34" decimals="INF" contextRef="c4" unitRef="shares">284367820.0</cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding>
+  <us-gaap:SharesOutstanding id="f35" decimals="INF" contextRef="c16" unitRef="shares">50000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:RevenueRecognitionPolicyTextBlock id="f36" contextRef="c3">&lt;p id="xdx_84D_eus-gaap--RevenueRecognitionPolicyTextBlock_zKS7QyCsVOK3" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_862_zbIXklewG3G8"&gt;Revenue Recognition&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Effective June 1, 2018, the Company adopted Accounting Standards Codification (“A.S.C.”) Topic 606, Revenue from Contracts with Customers (“ASC 606”). Results for reporting periods beginning after January 1, 2018, are presented under ASC 606. As of and for the nine months ended February 29, 2024, the condensed financial statements were not impacted due to the application of Topic 606 because the Company had no revenues.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</us-gaap:RevenueRecognitionPolicyTextBlock>
+  <dei:AmendmentFlag id="f37" contextRef="c3">false</dei:AmendmentFlag>
+  <dei:DocumentFiscalYearFocus id="f38" contextRef="c3">2024</dei:DocumentFiscalYearFocus>
+  <us-gaap:NetIncomeLoss id="f39" decimals="0" contextRef="c17" unitRef="usd">-18361.0</us-gaap:NetIncomeLoss>
+  <dei:DocumentFiscalPeriodFocus id="f40" contextRef="c3">Q3</dei:DocumentFiscalPeriodFocus>
+  <cik0000787496:NotesPayableRelatedParties id="f41" decimals="0" contextRef="c11" unitRef="usd">-0.0</cik0000787496:NotesPayableRelatedParties>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f42" decimals="0" contextRef="c3" unitRef="usd">-246250.0</us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest>
+  <dei:CurrentFiscalYearEndDate id="f43" contextRef="c3">--05-31</dei:CurrentFiscalYearEndDate>
+  <dei:EntityAddressPostalZipCode id="f44" contextRef="c3">10605</dei:EntityAddressPostalZipCode>
+  <dei:EntityCentralIndexKey id="f45" contextRef="c3">0000787496</dei:EntityCentralIndexKey>
+  <cik0000787496:DilutedEarningsPerCommonShare id="f46" decimals="INF" contextRef="c3" unitRef="usd1">-0.0</cik0000787496:DilutedEarningsPerCommonShare>
+  <us-gaap:SignificantAccountingPoliciesTextBlock id="f47" contextRef="c3">&lt;p id="xdx_809_eus-gaap--SignificantAccountingPoliciesTextBlock_zstJJ4dogQXc" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;b&gt;NOTE 2 – &lt;span id="xdx_821_zjYugXAEvJ9i"&gt;SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p id="xdx_84B_eus-gaap--BasisOfAccountingPolicyPolicyTextBlock_ztkbgI4ddWEh" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_86C_zINUFaT28Ffb"&gt;Basis of Presentation&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The accompanying condensed financial statements have been prepared in conformity with accounting principles generally accepted in the United States of America or (“U.S. GAAP”).&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p id="xdx_84F_ecustom--GoingConcernPolicyTextBlock_zzV3ol5vK9a9" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_865_z5LN6b9tiaEa"&gt;Going Concern&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;As of November, 2023 the Company had $-&lt;span id="xdx_903_eus-gaap--CashAndCashEquivalentsAtCarryingValue_iI_c20231130_zfIJLNbPCRB9" title="cash and cash equivalents"&gt;0&lt;/span&gt;- in cash and cash equivalents. The Company had net loss of $&lt;span id="xdx_90F_eus-gaap--NetIncomeLoss_iN_di_c20230601__20240229_zCxg3L75LGic" title="Net loss"&gt;246,250&lt;/span&gt; for the nine months ended February 29, 2024, had &lt;span id="xdx_90C_ecustom--WorkingCapital_iNI_dio_c20240229_zkUEb26R5bV3" title="Working capital"&gt;no&lt;/span&gt; working capital and an accumulated deficit of $&lt;span id="xdx_90C_eus-gaap--RetainedEarningsAccumulatedDeficit_iNI_di_c20240229_zoKUuMk9jaP2" title="Accumulated deficit"&gt;14,175,708&lt;/span&gt; on February 29, 2024. Historically, the Company’s principal sources of liquidity have been cash provided by operating activities, as well as financial support from related parties. The Company currently is custodianship and expects its Custodian, who has a demonstrated track record of funding custodianships he has undertaken, to provide financing for the next twelve months. The Company’s operating results for future periods are subject to numerous uncertainties. These factors raise substantial doubt about the Company’s ability to continue as a going concern.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p id="xdx_84C_eus-gaap--UseOfEstimates_zU5dXz3cXfS1" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_866_z8Y9VnMMrDdi"&gt;Use of Estimates&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The preparation of condensed financial statements in conformity with US GAAP requires management to make estimates and assumptions that affect the reported amounts of liabilities at the date of the condensed financial statements. The most significant estimates relate to debt and liabilities. The Company bases its estimates on historical experience, known or expected trends, and various other assumptions that are believed to be reasonable given the quality of information available as of the date of these condensed financial statements. The results of these assumptions provide the basis for making estimates about the carrying amounts of assets and liabilities that are not readily apparent from other sources. Actual results could differ from these estimates.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+
+
+
+
+&lt;p id="xdx_846_eus-gaap--CashAndCashEquivalentsPolicyTextBlock_ziN9htroqYP5" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_860_zhHWilsSvMQ3"&gt;Cash and cash equivalents&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Company considers all highly liquid temporary cash investments with an original maturity of three months or less cash equivalents. As of February 29, 2024 the Company had &lt;span id="xdx_908_eus-gaap--Cash_iI_do_c20240229_z5kUTK49KzKk" title="Cash"&gt;no&lt;/span&gt; cash on hand.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p id="xdx_84D_eus-gaap--RevenueRecognitionPolicyTextBlock_zKS7QyCsVOK3" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_862_zbIXklewG3G8"&gt;Revenue Recognition&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Effective June 1, 2018, the Company adopted Accounting Standards Codification (“A.S.C.”) Topic 606, Revenue from Contracts with Customers (“ASC 606”). Results for reporting periods beginning after January 1, 2018, are presented under ASC 606. As of and for the nine months ended February 29, 2024, the condensed financial statements were not impacted due to the application of Topic 606 because the Company had no revenues.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p id="xdx_848_ecustom--ManagementsRepresentationOfInterimCondensedConsolidatedFinancialStatementsPolicyTextBlock_z9GT2cn0cxE4" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;Management&lt;/span&gt;&lt;span style="text-decoration: underline"&gt;’&lt;/span&gt;&lt;span style="text-decoration: underline"&gt;s Representation of Interim Condensed Consolidated Financial Statements&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The accompanying unaudited condensed consolidated
+financial statements have been prepared by the Company without audit pursuant to the rules and regulations of the Securities and Exchange
+Commission (“SEC”). Certain information and disclosures normally included in condensed financial statements prepared in accordance
+with accounting principles generally accepted in the United States (“GAAP”) have been condensed or omitted as allowed by
+such rules and regulations, and management believes that the disclosures are adequate to make the information presented not misleading.
+These condensed consolidated financial statements include all of the adjustments, which in the opinion of management are necessary for
+a fair presentation of financial position and results of operations. All such adjustments are of a normal and recurring nature. Interim
+results are not necessarily indicative of results for a full nine months. These condensed consolidated financial statements should be
+read in conjunction with the audited condensed consolidated financial statements at and as of February 29, 2024 and May 31, 2023 the
+Company had no cash on hand.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p id="xdx_844_eus-gaap--EarningsPerSharePolicyTextBlock_zEBen2nBwsPl" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_860_zmK4uL5adt1a"&gt;Net Loss per Share&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The Company reports loss per share under A.S.C. Topic 260, “Earnings Per Share,” which establishes computing standards and presents earnings per share. The basic loss per share calculation divides the net loss allocable to common stockholders by the weighted-average shares of common stock outstanding during the period without considering common stock equivalents. The diluted loss per share calculation is calculated by adjusting the weighted-average shares of common stock outstanding for the dilutive effect of common stock equivalents, including stock options and warrants, outstanding for the period as determined using the treasury stock method. For the diluted net loss per share calculation purposes, common stock equivalents are excluded from the calculation because their effect would be anti-dilutive. Therefore, basic and diluted net loss per share applicable to common stockholders is the same for periods with a net loss.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+
+
+
+
+&lt;p id="xdx_845_eus-gaap--CompensationRelatedCostsPolicyTextBlock_zJEe1DBHZIu3" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_86B_zzSYZ2oH3z9g"&gt;Stock-Based Compensation&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The Company accounts for stock compensation with persons classified as employees for accounting purposes under ASC 718 “Compensation-Stock Compensation,” which recognizes awards at fair value on the date of grant and recognition of compensation over the service period for awards expected to vest. The fair value of stock options is determined using the Black-Scholes Option Pricing Model. The fair value of common stock issued for services is determined based on the Company’s stock price on the issuance date.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The expansion of Topic 718 fell under A.S.U. 2018-07 to include share-based payment transactions for acquiring goods and services from nonemployees. The measurement date for equity-classified nonemployee share-based payment awards is no longer at the earlier date at which a commitment for performance by the counterparty is reached or the date at which the counterparty’s performance is complete. Instead, the grant date is now considered the measurement date. Under today’s guidance, the measurement of nonemployee share-based payment awards with performance conditions is at the lowest aggregate fair value, often resulting in a zero value. The new A.S.U. aligns the accounting for nonemployee share-based payment awards with performance conditions with accounting for employee share-based payment awards under Topic 718 by requiring entities to consider the probability of satisfying performance conditions. Current guidance requires entities to use the contractual term for the measurement of the nonemployee share-based payment awards. The new A.S.U. allows entities to make an award-by-award election to use either the expected duration (consistent with employee share-based payment awards) or the contractual term for nonemployee awards.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p id="xdx_84E_eus-gaap--NewAccountingPronouncementsPolicyPolicyTextBlock_zo84PHSpj61" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_865_zTU1SfEY7JNf"&gt;Recent Accounting Pronouncements&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Other recent accounting standards issued by the FASB, including its Emerging Issues Task Force, the American Institute of Certified Public Accountants, and the S.E.C., did not or are not believed by management to have a material impact on the Company’s present or future condensed financial statements.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</us-gaap:SignificantAccountingPoliciesTextBlock>
+  <us-gaap:PreferredStockSharesIssued id="f48" decimals="INF" contextRef="c18" unitRef="shares">0.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:AssetsCurrent id="f49" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <cik0000787496:ConversionOfpreferredToCommonStockShares id="f50" decimals="INF" contextRef="c19" unitRef="shares">105000000.0</cik0000787496:ConversionOfpreferredToCommonStockShares>
+  <us-gaap:AssetsCurrent id="f51" xsi:nil="true" contextRef="c" unitRef="usd"/>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f52" decimals="0" contextRef="c" unitRef="usd">-13929458.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f53" decimals="INF" contextRef="c18" unitRef="usd1">0.1</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <us-gaap:Assets id="f54" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <us-gaap:SharesOutstanding id="f55" decimals="INF" contextRef="c20" unitRef="shares">179367820.0</us-gaap:SharesOutstanding>
+  <us-gaap:Assets id="f56" xsi:nil="true" contextRef="c" unitRef="usd"/>
+  <dei:DocumentQuarterlyReport id="f57" contextRef="c3">true</dei:DocumentQuarterlyReport>
+  <us-gaap:StockholdersEquity id="f58" decimals="0" contextRef="c16" unitRef="usd">5000000.0</us-gaap:StockholdersEquity>
+  <us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent id="f59" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <us-gaap:LiabilitiesCurrent id="f60" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f61" decimals="INF" contextRef="c" unitRef="usd1">0.001</us-gaap:CommonStockParOrStatedValuePerShare>
+  <us-gaap:NetIncomeLoss id="f62" decimals="0" contextRef="c21" unitRef="usd">-18361.0</us-gaap:NetIncomeLoss>
+  <us-gaap:SharesOutstanding id="f63" decimals="INF" contextRef="c22" unitRef="shares">50000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:CommitmentsAndContingencies id="f64" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <cik0000787496:NotesPayableRelatedParties id="f65" decimals="0" contextRef="c" unitRef="usd">5000.0</cik0000787496:NotesPayableRelatedParties>
+  <us-gaap:StockholdersEquity id="f66" decimals="0" contextRef="c23" unitRef="usd">5000000.0</us-gaap:StockholdersEquity>
+  <us-gaap:CommonStockSharesIssued id="f67" decimals="INF" contextRef="c" unitRef="shares">179367820.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:CommitmentsAndContingencies id="f68" xsi:nil="true" contextRef="c" unitRef="usd"/>
+  <us-gaap:PreferredStockValue id="f69" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <dei:EntityCurrentReportingStatus id="f70" contextRef="c3">No</dei:EntityCurrentReportingStatus>
+  <us-gaap:BasisOfAccountingPolicyPolicyTextBlock id="f71" contextRef="c3">&lt;p id="xdx_84B_eus-gaap--BasisOfAccountingPolicyPolicyTextBlock_ztkbgI4ddWEh" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_86C_zINUFaT28Ffb"&gt;Basis of Presentation&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The accompanying condensed financial statements have been prepared in conformity with accounting principles generally accepted in the United States of America or (“U.S. GAAP”).&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</us-gaap:BasisOfAccountingPolicyPolicyTextBlock>
+  <us-gaap:PreferredStockValue id="f72" xsi:nil="true" contextRef="c24" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f73" decimals="0" contextRef="c25" unitRef="usd">179368.0</us-gaap:StockholdersEquity>
+  <dei:LocalPhoneNumber id="f74" contextRef="c3">768-8417</dei:LocalPhoneNumber>
+  <cik0000787496:ManagementsRepresentationOfInterimCondensedConsolidatedFinancialStatementsPolicyTextBlock id="f75" contextRef="c3">&lt;p id="xdx_848_ecustom--ManagementsRepresentationOfInterimCondensedConsolidatedFinancialStatementsPolicyTextBlock_z9GT2cn0cxE4" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;Management&lt;/span&gt;&lt;span style="text-decoration: underline"&gt;’&lt;/span&gt;&lt;span style="text-decoration: underline"&gt;s Representation of Interim Condensed Consolidated Financial Statements&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The accompanying unaudited condensed consolidated
+financial statements have been prepared by the Company without audit pursuant to the rules and regulations of the Securities and Exchange
+Commission (“SEC”). Certain information and disclosures normally included in condensed financial statements prepared in accordance
+with accounting principles generally accepted in the United States (“GAAP”) have been condensed or omitted as allowed by
+such rules and regulations, and management believes that the disclosures are adequate to make the information presented not misleading.
+These condensed consolidated financial statements include all of the adjustments, which in the opinion of management are necessary for
+a fair presentation of financial position and results of operations. All such adjustments are of a normal and recurring nature. Interim
+results are not necessarily indicative of results for a full nine months. These condensed consolidated financial statements should be
+read in conjunction with the audited condensed consolidated financial statements at and as of February 29, 2024 and May 31, 2023 the
+Company had no cash on hand.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</cik0000787496:ManagementsRepresentationOfInterimCondensedConsolidatedFinancialStatementsPolicyTextBlock>
+  <us-gaap:StockholdersEquity id="f76" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <us-gaap:CommonStockSharesIssued id="f77" decimals="INF" contextRef="c11" unitRef="shares">284367820.0</us-gaap:CommonStockSharesIssued>
+  <cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServices id="f78" decimals="0" contextRef="c26" unitRef="usd">-5248750.0</cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServices>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f79" xsi:nil="true" contextRef="c11" unitRef="usd"/>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f80" decimals="INF" contextRef="c11" unitRef="usd1">0.001</us-gaap:CommonStockParOrStatedValuePerShare>
+  <us-gaap:StockholdersEquity id="f81" decimals="0" contextRef="c20" unitRef="usd">179368.0</us-gaap:StockholdersEquity>
+  <us-gaap:SharesOutstanding id="f82" decimals="INF" contextRef="c27" unitRef="shares">179367820.0</us-gaap:SharesOutstanding>
+  <cik0000787496:IssuanceOfPreferredForServices id="f83" decimals="0" contextRef="c4" unitRef="usd">5500000.0</cik0000787496:IssuanceOfPreferredForServices>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f84" xsi:nil="true" contextRef="c" unitRef="usd"/>
+  <dei:DocumentPeriodEndDate id="f85" contextRef="c3">2024-02-29</dei:DocumentPeriodEndDate>
+  <us-gaap:GeneralAndAdministrativeExpense id="f86" xsi:nil="true" contextRef="c28" unitRef="usd"/>
+  <us-gaap:GeneralAndAdministrativeExpense id="f87" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:OperatingExpenses id="f88" xsi:nil="true" contextRef="c28" unitRef="usd"/>
+  <dei:EntityInteractiveDataCurrent id="f89" contextRef="c3">No</dei:EntityInteractiveDataCurrent>
+  <us-gaap:OperatingExpenses id="f90" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f91" decimals="0" contextRef="c29" unitRef="usd">13881340.0</us-gaap:StockholdersEquity>
+  <us-gaap:OperatingIncomeLoss id="f92" xsi:nil="true" contextRef="c28" unitRef="usd"/>
+  <us-gaap:OperatingIncomeLoss id="f93" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f94" decimals="0" contextRef="c30" unitRef="usd">8735090.0</us-gaap:StockholdersEquity>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f95" xsi:nil="true" contextRef="c28" unitRef="usd"/>
+  <us-gaap:SharesOutstanding id="f96" decimals="INF" contextRef="c31" unitRef="shares">50000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:SharesOutstanding id="f97" decimals="INF" contextRef="c8" unitRef="shares">179367820.0</us-gaap:SharesOutstanding>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f98" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f99" decimals="0" contextRef="c27" unitRef="usd">179368.0</us-gaap:StockholdersEquity>
+  <us-gaap:PreferredStockSharesAuthorized id="f100" decimals="INF" contextRef="c18" unitRef="shares">0.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:IncomeTaxExpenseBenefit id="f101" xsi:nil="true" contextRef="c4" unitRef="usd"/>
+  <cik0000787496:WeightedAverageNumberOfShareOutstandingBasic id="f102" decimals="INF" contextRef="c3" unitRef="shares">214367820.0</cik0000787496:WeightedAverageNumberOfShareOutstandingBasic>
+  <us-gaap:StockholdersEquity id="f103" decimals="0" contextRef="c32" unitRef="usd">-13947819.0</us-gaap:StockholdersEquity>
+  <dei:CityAreaCode id="f104" contextRef="c3">(646)</dei:CityAreaCode>
+  <us-gaap:IncomeTaxExpenseBenefit id="f105" xsi:nil="true" contextRef="c28" unitRef="usd"/>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f106" decimals="INF" contextRef="c11" unitRef="usd1">0.1</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <us-gaap:PreferredStockSharesOutstanding id="f107" decimals="INF" contextRef="c24" unitRef="shares">10000000.0</us-gaap:PreferredStockSharesOutstanding>
+  <us-gaap:ProfitLoss id="f108" decimals="0" contextRef="c3" unitRef="usd">-246250.0</us-gaap:ProfitLoss>
+  <us-gaap:IncomeTaxExpenseBenefit id="f109" xsi:nil="true" contextRef="c3" unitRef="usd"/>
+  <us-gaap:NetIncomeLoss id="f110" decimals="0" contextRef="c33" unitRef="usd">-7433.0</us-gaap:NetIncomeLoss>
+  <dei:DocumentTransitionReport id="f111" contextRef="c3">false</dei:DocumentTransitionReport>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f112" decimals="INF" contextRef="c" unitRef="usd1">0.1</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <cik0000787496:GoingConcernPolicyTextBlock id="f113" contextRef="c3">&lt;p id="xdx_84F_ecustom--GoingConcernPolicyTextBlock_zzV3ol5vK9a9" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_865_z5LN6b9tiaEa"&gt;Going Concern&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;As of November, 2023 the Company had $-&lt;span id="xdx_903_eus-gaap--CashAndCashEquivalentsAtCarryingValue_iI_c20231130_zfIJLNbPCRB9" title="cash and cash equivalents"&gt;0&lt;/span&gt;- in cash and cash equivalents. The Company had net loss of $&lt;span id="xdx_90F_eus-gaap--NetIncomeLoss_iN_di_c20230601__20240229_zCxg3L75LGic" title="Net loss"&gt;246,250&lt;/span&gt; for the nine months ended February 29, 2024, had &lt;span id="xdx_90C_ecustom--WorkingCapital_iNI_dio_c20240229_zkUEb26R5bV3" title="Working capital"&gt;no&lt;/span&gt; working capital and an accumulated deficit of $&lt;span id="xdx_90C_eus-gaap--RetainedEarningsAccumulatedDeficit_iNI_di_c20240229_zoKUuMk9jaP2" title="Accumulated deficit"&gt;14,175,708&lt;/span&gt; on February 29, 2024. Historically, the Company’s principal sources of liquidity have been cash provided by operating activities, as well as financial support from related parties. The Company currently is custodianship and expects its Custodian, who has a demonstrated track record of funding custodianships he has undertaken, to provide financing for the next twelve months. The Company’s operating results for future periods are subject to numerous uncertainties. These factors raise substantial doubt about the Company’s ability to continue as a going concern.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</cik0000787496:GoingConcernPolicyTextBlock>
+  <us-gaap:PreferredStockSharesOutstanding id="f114" decimals="INF" contextRef="c18" unitRef="shares">0.0</us-gaap:PreferredStockSharesOutstanding>
+  <us-gaap:IncomeTaxExpenseBenefit id="f115" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f116" decimals="0" contextRef="c" unitRef="usd">-15000.0</us-gaap:StockholdersEquity>
+  <us-gaap:SharesOutstanding id="f117" decimals="INF" contextRef="c34" unitRef="shares">50000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:ConvertiblePreferredStockSharesIssuedUponConversion id="f118" decimals="INF" contextRef="c35" unitRef="shares">10000000.0</us-gaap:ConvertiblePreferredStockSharesIssuedUponConversion>
+  <cik0000787496:WeightedAverageNumberOfShareOutstandingBasic id="f119" decimals="INF" contextRef="c28" unitRef="shares">179367820.0</cik0000787496:WeightedAverageNumberOfShareOutstandingBasic>
+  <us-gaap:NetIncomeLoss id="f120" xsi:nil="true" contextRef="c28" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f121" decimals="0" contextRef="c36" unitRef="usd">10000.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetIncomeLoss id="f122" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesIssued id="f123" decimals="INF" contextRef="c24" unitRef="shares">10000000.0</us-gaap:PreferredStockSharesIssued>
+  <cik0000787496:ConversionOfpreferredToCommonStock id="f124" decimals="0" contextRef="c37" unitRef="usd">-10500000.0</cik0000787496:ConversionOfpreferredToCommonStock>
+  <us-gaap:EarningsPerSharePolicyTextBlock id="f125" contextRef="c3">&lt;p id="xdx_844_eus-gaap--EarningsPerSharePolicyTextBlock_zEBen2nBwsPl" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_860_zmK4uL5adt1a"&gt;Net Loss per Share&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The Company reports loss per share under A.S.C. Topic 260, “Earnings Per Share,” which establishes computing standards and presents earnings per share. The basic loss per share calculation divides the net loss allocable to common stockholders by the weighted-average shares of common stock outstanding during the period without considering common stock equivalents. The diluted loss per share calculation is calculated by adjusting the weighted-average shares of common stock outstanding for the dilutive effect of common stock equivalents, including stock options and warrants, outstanding for the period as determined using the treasury stock method. For the diluted net loss per share calculation purposes, common stock equivalents are excluded from the calculation because their effect would be anti-dilutive. Therefore, basic and diluted net loss per share applicable to common stockholders is the same for periods with a net loss.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+
+
+
+
+</us-gaap:EarningsPerSharePolicyTextBlock>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f126" decimals="INF" contextRef="c9" unitRef="usd1">0.1</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <cik0000787496:BasicLossPerCommonShare id="f127" xsi:nil="true" contextRef="c28" unitRef="usd1"/>
+  <dei:EntityCommonStockSharesOutstanding id="f128" decimals="INF" contextRef="c38" unitRef="shares">284367820.0</dei:EntityCommonStockSharesOutstanding>
+  <cik0000787496:BasicLossPerCommonShare id="f129" xsi:nil="true" contextRef="c5" unitRef="usd1"/>
+  <us-gaap:PreferredStockSharesAuthorized id="f130" decimals="INF" contextRef="c11" unitRef="shares">0.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:StockholdersEquity id="f131" decimals="0" contextRef="c31" unitRef="usd">5000000.0</us-gaap:StockholdersEquity>
+  <cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServices id="f132" decimals="0" contextRef="c4" unitRef="usd">-5238750.0</cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServices>
+  <us-gaap:LiabilitiesCurrent id="f133" decimals="0" contextRef="c" unitRef="usd">15000.0</us-gaap:LiabilitiesCurrent>
+  <us-gaap:StockholdersEquity id="f134" decimals="0" contextRef="c39" unitRef="usd">8735090.0</us-gaap:StockholdersEquity>
+  <cik0000787496:DilutedEarningsPerCommonShare id="f135" xsi:nil="true" contextRef="c28" unitRef="usd1"/>
+  <us-gaap:PreferredStockSharesAuthorized id="f136" decimals="INF" contextRef="c" unitRef="shares">0.0</us-gaap:PreferredStockSharesAuthorized>
+  <cik0000787496:DilutedEarningsPerCommonShare id="f137" xsi:nil="true" contextRef="c5" unitRef="usd1"/>
+  <us-gaap:CommonStockSharesOutstanding id="f138" decimals="INF" contextRef="c" unitRef="shares">179367820.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:PreferredStockSharesAuthorized id="f139" decimals="INF" contextRef="c9" unitRef="shares">0.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:StockholdersEquity id="f140" xsi:nil="true" contextRef="c40" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f141" decimals="0" contextRef="c41" unitRef="usd">-13914458.0</us-gaap:StockholdersEquity>
+  <us-gaap:PreferredStockSharesAuthorized id="f142" decimals="INF" contextRef="c42" unitRef="shares">55000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:PreferredStockSharesOutstanding id="f143" decimals="INF" contextRef="c15" unitRef="shares">10000000.0</us-gaap:PreferredStockSharesOutstanding>
+  <us-gaap:StockholdersEquity id="f144" xsi:nil="true" contextRef="c13" unitRef="usd"/>
+  <us-gaap:NetIncomeLoss id="f145" decimals="0" contextRef="c43" unitRef="usd">-7433.0</us-gaap:NetIncomeLoss>
+  <us-gaap:CommonStockValue id="f146" decimals="0" contextRef="c11" unitRef="usd">284368.0</us-gaap:CommonStockValue>
+  <us-gaap:SharesOutstanding id="f147" decimals="INF" contextRef="c44" unitRef="shares">179367820.0</us-gaap:SharesOutstanding>
+  <us-gaap:SharesOutstanding id="f148" xsi:nil="true" contextRef="c40" unitRef="shares"/>
+  <us-gaap:StockholdersEquity id="f149" decimals="0" contextRef="c45" unitRef="usd">5000000.0</us-gaap:StockholdersEquity>
+  <cik0000787496:IssuanceOfPreferredStockToCancelRelatedPartyDebt id="f150" decimals="0" contextRef="c3" unitRef="usd">58802.0</cik0000787496:IssuanceOfPreferredStockToCancelRelatedPartyDebt>
+  <us-gaap:NetIncomeLoss id="f151" xsi:nil="true" contextRef="c46" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesIssued id="f152" decimals="INF" contextRef="c11" unitRef="shares">0.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:PreferredStockSharesAuthorized id="f153" decimals="INF" contextRef="c47" unitRef="shares">10000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:CommonStockSharesOutstanding id="f154" decimals="INF" contextRef="c11" unitRef="shares">284367820.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:NetIncomeLoss id="f155" xsi:nil="true" contextRef="c48" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesOutstanding id="f156" decimals="INF" contextRef="c11" unitRef="shares">0.0</us-gaap:PreferredStockSharesOutstanding>
+  <us-gaap:NetIncomeLoss id="f157" xsi:nil="true" contextRef="c49" unitRef="usd"/>
+  <dei:EntityFileNumber id="f158" contextRef="c3">33-2533-LA</dei:EntityFileNumber>
+  <us-gaap:StockholdersEquityNoteDisclosureTextBlock id="f159" contextRef="c3">&lt;p id="xdx_80A_eus-gaap--StockholdersEquityNoteDisclosureTextBlock_zN4x8FlOmJA" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;b&gt;NOTE 4 – &lt;span id="xdx_829_zrj1qmYqPbZb"&gt;CAPITAL STOCK&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;Common stock&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;As of February 29, 2024 and May 31, 2023, the Company had &lt;span id="xdx_907_eus-gaap--CommonStockSharesAuthorized_iI_c20240229_zduAzHx0j511" title="Common stock, shares authorized"&gt;&lt;span id="xdx_90B_eus-gaap--CommonStockSharesAuthorized_iI_c20230531_zt5h3iuwoWe3" title="Common stock, shares authorized"&gt;500,000,000&lt;/span&gt;&lt;/span&gt; common shares with a par value of $&lt;span id="xdx_900_eus-gaap--CommonStockParOrStatedValuePerShare_iI_c20240229_zwHst0bvWFqd" title="Common stock, par value"&gt;&lt;span id="xdx_904_eus-gaap--CommonStockParOrStatedValuePerShare_iI_c20230531_zo9zcHoSXI64" title="Common stock, par value"&gt;0.001&lt;/span&gt;&lt;/span&gt; authorized, with &lt;span id="xdx_907_eus-gaap--CommonUnitIssued_c20240229_pdd" title="Common stock, shares issued"&gt;&lt;span id="xdx_900_eus-gaap--CommonUnitOutstanding_c20240229_pdd" title="Common stock, shares outstanding"&gt;&lt;span id="xdx_908_eus-gaap--CommonUnitIssued_c20230531_pdd" title="Common stock, shares issued"&gt;&lt;span id="xdx_905_eus-gaap--CommonUnitOutstanding_c20230531_pdd" title="Common stock, shares outstanding"&gt;179,367,820&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; shares issued and outstanding.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;Preferred stock&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;As of February 29, 2024 and May 31, 2023, the Company had -&lt;span id="xdx_904_eus-gaap--PreferredStockSharesAuthorized_iI_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zyXb78vHTWP" title="Preferred stock, shares authorized"&gt;&lt;span id="xdx_902_eus-gaap--PreferredStockSharesAuthorized_iI_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zcD3OFWZyhS9" title="Preferred stock, shares authorized"&gt;0&lt;/span&gt;&lt;/span&gt;- shares of Class A Preferred Stock authorized with a par value of $&lt;span id="xdx_90B_eus-gaap--PreferredStockParOrStatedValuePerShare_iI_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zOhXKziX2Hkj" title="Preferred stock, par value"&gt;&lt;span id="xdx_90C_eus-gaap--PreferredStockParOrStatedValuePerShare_iI_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zMVHJbJyrOKh" title="Preferred stock, par value"&gt;0.10&lt;/span&gt;&lt;/span&gt; authorized, with -&lt;span id="xdx_90D_eus-gaap--PreferredStockSharesIssued_iI_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zGLF2e1PDiha" title="Preferred stock, shares issued"&gt;&lt;span id="xdx_90D_eus-gaap--PreferredStockSharesOutstanding_iI_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zq3V1YUpJGji" title="Preferred stock, shares outstanding"&gt;0&lt;/span&gt;&lt;/span&gt;-and &lt;span id="xdx_90C_eus-gaap--PreferredStockSharesIssued_iI_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zTAtlA2GZGv6" title="Preferred stock, shares issued"&gt;&lt;span id="xdx_905_eus-gaap--PreferredStockSharesOutstanding_iI_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassAMember_zanc4e1BSEG" title="Preferred stock, shares outstanding"&gt;50,000,000&lt;/span&gt;&lt;/span&gt; shares of Class A Preferred Stock issued and outstanding as of February 29, 2024 and May 31, 2023. Each share of Class A Preferred Stock was convertible to one share of common stock.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;As of February 29, 2024 and May 31, 2023, the Company had &lt;span id="xdx_905_eus-gaap--PreferredStockSharesAuthorized_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, shares authorized"&gt;&lt;span id="xdx_909_eus-gaap--PreferredStockSharesAuthorized_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, shares authorized"&gt;10,000,000&lt;/span&gt;&lt;/span&gt; shares of Class A-1 Preferred Stock authorized with a par value of $&lt;span id="xdx_908_eus-gaap--PreferredStockParOrStatedValuePerShare_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, par value"&gt;&lt;span id="xdx_903_eus-gaap--PreferredStockParOrStatedValuePerShare_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, par value"&gt;0.001&lt;/span&gt;&lt;/span&gt; authorized, with &lt;span id="xdx_905_eus-gaap--PreferredStockSharesIssued_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, shares issued"&gt;&lt;span id="xdx_90F_eus-gaap--PreferredStockSharesOutstanding_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, shares outstanding"&gt;&lt;span id="xdx_900_eus-gaap--PreferredStockSharesIssued_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, shares issued"&gt;&lt;span id="xdx_907_eus-gaap--PreferredStockSharesOutstanding_c20230531__us-gaap--StatementClassOfStockAxis__custom--PreferredStockClassA1Member_pdd" title="Preferred stock, shares outstanding"&gt;10,000,000&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; and -0- shares of Class A-1 Preferred Stock issued and outstanding as of February 29, 2024 and May 31, 2023. The &lt;span id="xdx_905_eus-gaap--ConvertiblePreferredStockSharesIssuedUponConversion_iI_c20240229__us-gaap--StatementClassOfStockAxis__custom--PreferredStockA1Member_zIjwpKYbhUXh" title="Convertible shares"&gt;10,000,000&lt;/span&gt; shares of Class A-1 Preferred is convertible to a number of shares equal to 95% of the post conversion of the total number of issued and outstanding shares of common stock.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;On December 6, 2023 the Company awarded Custodian
+Ventures &lt;span id="xdx_900_eus-gaap--PreferredStockSharesAuthorized_c20231206__us-gaap--StatementClassOfStockAxis__us-gaap--PreferredClassAMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Preferred stock, shares authorized"&gt;55,000,000&lt;/span&gt; shares of Class A Preferred Stock, and &lt;span id="xdx_908_eus-gaap--PreferredStockSharesAuthorized_c20231206__us-gaap--StatementClassOfStockAxis__custom--SeriesA1PreferredStockMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Preferred stock, shares authorized"&gt;10,000,000&lt;/span&gt; shares of newly designated Class A-1 Preferred Stock with a par
+value of $&lt;span id="xdx_901_eus-gaap--PreferredStockParOrStatedValuePerShare_c20231206__us-gaap--StatementClassOfStockAxis__us-gaap--PreferredClassAMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Preferred stock, par value"&gt;&lt;span id="xdx_904_eus-gaap--PreferredStockParOrStatedValuePerShare_c20231206__us-gaap--StatementClassOfStockAxis__custom--SeriesA1PreferredStockMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Preferred stock, par value"&gt;0.001&lt;/span&gt;&lt;/span&gt;. These shares were awarded for services performed and to cancel all advances made by the Custodian to the Company to enable
+the Company to pay for its operating expenses. Under the terms of the Certificate of Designation for the Class A-1 Preferred Stock, the
+&lt;span id="xdx_900_eus-gaap--PreferredStockConvertibleSharesIssuable_c20231206__us-gaap--StatementClassOfStockAxis__custom--SeriesA1PreferredStockMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Preferred stock convertible shares"&gt;10,000,000&lt;/span&gt; preferred shares shares are convertible to a number of common shares equal to 95% of the post conversion of the total number
+of issued and outstanding shares of common stock. Since the Company’s common shares were not quoted on any stock exchanges, the
+fair market value of the conversion feature of the Preferred A-1 shares was determined based upon comparable sales of shell companies
+recently made by the Custodian; less notes payable of $&lt;span id="xdx_90A_ecustom--IssuanceOfPreferredStockToCancelRelatedPartyDebt_pp0p0_c20230601__20240229_zMqngJqpsi7h" title="Issuance of preferred stock to cancel related party debt"&gt;58,802&lt;/span&gt; due to the Custodian. As a result the Company valued 95% of the shell at
+$261,250 less $&lt;span id="xdx_90A_ecustom--IssuanceOfPreferredStockToCancelRelatedPartyDebt_pp0p0_c20230601__20240229_zIn8QsDG6eFf" title="Issuance of preferred stock to cancel related party debt"&gt;58,802&lt;/span&gt;, or $&lt;span id="xdx_908_eus-gaap--ShareBasedCompensation_pp0p0_c20230601__20240229_zcwLQpgSOQD8" title="Stock based compensation"&gt;202,448&lt;/span&gt; as stock based compensation to the Custodian on its Statement of Operations for the nine months ended
+February 29, 2024.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;On January 5, 2024, Custodian Ventures converted
+its &lt;span id="xdx_902_eus-gaap--ConversionOfStockSharesIssued1_c20240104__20240105__us-gaap--StatementClassOfStockAxis__us-gaap--CommonClassAMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Conversion of shares"&gt;55,000,000&lt;/span&gt; Class A shares to &lt;span id="xdx_902_eus-gaap--ConversionOfStockSharesIssued1_c20240104__20240105__us-gaap--StatementClassOfStockAxis__us-gaap--CommonStockMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Conversion of shares"&gt;55,000,000&lt;/span&gt; common shares. Simultaneously the holder of &lt;span id="xdx_905_eus-gaap--ConversionOfStockSharesConverted1_c20240104__20240105__us-gaap--StatementClassOfStockAxis__us-gaap--CommonClassAMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Conversion of shares"&gt;50,000,000&lt;/span&gt; Class A Preferred shares also converted
+their shares to &lt;span id="xdx_903_eus-gaap--ConversionOfStockSharesConverted1_c20240104__20240105__us-gaap--StatementClassOfStockAxis__us-gaap--CommonStockMember__us-gaap--SubsegmentsAxis__us-gaap--SubsequentEventMember_pdd" title="Conversion of shares"&gt;50,000,000&lt;/span&gt; shares of common stock. Once these conversions occurred the Class A Preferred Stock was cancelled and no longer
+authorized.&lt;/p&gt;
+
+</us-gaap:StockholdersEquityNoteDisclosureTextBlock>
+  <us-gaap:NetIncomeLoss id="f160" xsi:nil="true" contextRef="c50" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesIssued id="f161" decimals="INF" contextRef="c15" unitRef="shares">10000000.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:NetIncomeLoss id="f162" xsi:nil="true" contextRef="c51" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f163" decimals="0" contextRef="c52" unitRef="usd">-13929458.0</us-gaap:StockholdersEquity>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f164" decimals="0" contextRef="c53" unitRef="usd">0.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:NetIncomeLoss id="f165" xsi:nil="true" contextRef="c54" unitRef="usd"/>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f166" decimals="INF" contextRef="c42" unitRef="usd1">0.001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <us-gaap:StockholdersEquity id="f167" xsi:nil="true" contextRef="c55" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesIssued id="f168" decimals="INF" contextRef="c" unitRef="shares">50000000.0</us-gaap:PreferredStockSharesIssued>
+  <cik0000787496:BasicLossPerCommonShare id="f169" decimals="INF" contextRef="c4" unitRef="usd1">-0.0</cik0000787496:BasicLossPerCommonShare>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f170" decimals="INF" contextRef="c47" unitRef="usd1">0.001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <us-gaap:StockholdersEquity id="f171" xsi:nil="true" contextRef="c56" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesOutstanding id="f172" decimals="INF" contextRef="c" unitRef="shares">50000000.0</us-gaap:PreferredStockSharesOutstanding>
+  <us-gaap:StockholdersEquity id="f173" decimals="0" contextRef="c44" unitRef="usd">179368.0</us-gaap:StockholdersEquity>
+  <us-gaap:SharesOutstanding id="f174" xsi:nil="true" contextRef="c55" unitRef="shares"/>
+  <us-gaap:NetIncomeLoss id="f175" xsi:nil="true" contextRef="c57" unitRef="usd"/>
+  <us-gaap:PreferredStockConvertibleSharesIssuable id="f176" decimals="INF" contextRef="c47" unitRef="shares">10000000.0</us-gaap:PreferredStockConvertibleSharesIssuable>
+  <us-gaap:GeneralAndAdministrativeExpense id="f177" decimals="0" contextRef="c4" unitRef="usd">220456.0</us-gaap:GeneralAndAdministrativeExpense>
+  <us-gaap:NetIncomeLoss id="f178" xsi:nil="true" contextRef="c58" unitRef="usd"/>
+  <us-gaap:NetIncomeLoss id="f179" xsi:nil="true" contextRef="c59" unitRef="usd"/>
+  <dei:EntityRegistrantName id="f180" contextRef="c3">UBUYHOLDINGS, INC.</dei:EntityRegistrantName>
+  <us-gaap:ShareBasedCompensation id="f181" decimals="0" contextRef="c3" unitRef="usd">202448.0</us-gaap:ShareBasedCompensation>
+  <us-gaap:NetIncomeLoss id="f182" xsi:nil="true" contextRef="c60" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f183" decimals="0" contextRef="c61" unitRef="usd">8735090.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetIncomeLoss id="f184" xsi:nil="true" contextRef="c62" unitRef="usd"/>
+  <us-gaap:CommonStockValue id="f185" decimals="0" contextRef="c" unitRef="usd">179368.0</us-gaap:CommonStockValue>
+  <cik0000787496:IssuanceOfPreferredForServicesShares id="f186" decimals="INF" contextRef="c37" unitRef="shares">55000000.0</cik0000787496:IssuanceOfPreferredForServicesShares>
+  <us-gaap:NetIncomeLoss id="f187" xsi:nil="true" contextRef="c63" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f188" decimals="0" contextRef="c53" unitRef="usd">-40794.0</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquity id="f189" xsi:nil="true" contextRef="c64" unitRef="usd"/>
+  <cik0000787496:ConversionOfpreferredToCommonStock id="f190" decimals="0" contextRef="c19" unitRef="usd">105000.0</cik0000787496:ConversionOfpreferredToCommonStock>
+  <dei:EntitySmallBusiness id="f191" contextRef="c3">true</dei:EntitySmallBusiness>
+  <us-gaap:StockholdersEquity id="f192" xsi:nil="true" contextRef="c65" unitRef="usd"/>
+  <cik0000787496:InterestFreeDemandLoan id="f193" decimals="0" contextRef="c11" unitRef="usd">40794.0</cik0000787496:InterestFreeDemandLoan>
+  <us-gaap:CommonStockSharesAuthorized id="f194" decimals="INF" contextRef="c11" unitRef="shares">500000000.0</us-gaap:CommonStockSharesAuthorized>
+  <us-gaap:StockholdersEquity id="f195" decimals="0" contextRef="c66" unitRef="usd">8735090.0</us-gaap:StockholdersEquity>
+  <us-gaap:RepaymentOfNotesReceivableFromRelatedParties id="f196" decimals="0" contextRef="c3" unitRef="usd">53802.0</us-gaap:RepaymentOfNotesReceivableFromRelatedParties>
+  <us-gaap:UseOfEstimates id="f197" contextRef="c3">&lt;p id="xdx_84C_eus-gaap--UseOfEstimates_zU5dXz3cXfS1" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_866_z8Y9VnMMrDdi"&gt;Use of Estimates&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The preparation of condensed financial statements in conformity with US GAAP requires management to make estimates and assumptions that affect the reported amounts of liabilities at the date of the condensed financial statements. The most significant estimates relate to debt and liabilities. The Company bases its estimates on historical experience, known or expected trends, and various other assumptions that are believed to be reasonable given the quality of information available as of the date of these condensed financial statements. The results of these assumptions provide the basis for making estimates about the carrying amounts of assets and liabilities that are not readily apparent from other sources. Actual results could differ from these estimates.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+
+
+
+
+</us-gaap:UseOfEstimates>
+  <us-gaap:SharesOutstanding id="f198" xsi:nil="true" contextRef="c64" unitRef="shares"/>
+  <cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding id="f199" decimals="INF" contextRef="c28" unitRef="shares">179367820.0</cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding>
+  <us-gaap:NetIncomeLoss id="f200" decimals="0" contextRef="c67" unitRef="usd">-220456.0</us-gaap:NetIncomeLoss>
+  <us-gaap:CompensationRelatedCostsPolicyTextBlock id="f201" contextRef="c3">&lt;p id="xdx_845_eus-gaap--CompensationRelatedCostsPolicyTextBlock_zJEe1DBHZIu3" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_86B_zzSYZ2oH3z9g"&gt;Stock-Based Compensation&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The Company accounts for stock compensation with persons classified as employees for accounting purposes under ASC 718 “Compensation-Stock Compensation,” which recognizes awards at fair value on the date of grant and recognition of compensation over the service period for awards expected to vest. The fair value of stock options is determined using the Black-Scholes Option Pricing Model. The fair value of common stock issued for services is determined based on the Company’s stock price on the issuance date.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The expansion of Topic 718 fell under A.S.U. 2018-07 to include share-based payment transactions for acquiring goods and services from nonemployees. The measurement date for equity-classified nonemployee share-based payment awards is no longer at the earlier date at which a commitment for performance by the counterparty is reached or the date at which the counterparty’s performance is complete. Instead, the grant date is now considered the measurement date. Under today’s guidance, the measurement of nonemployee share-based payment awards with performance conditions is at the lowest aggregate fair value, often resulting in a zero value. The new A.S.U. aligns the accounting for nonemployee share-based payment awards with performance conditions with accounting for employee share-based payment awards under Topic 718 by requiring entities to consider the probability of satisfying performance conditions. Current guidance requires entities to use the contractual term for the measurement of the nonemployee share-based payment awards. The new A.S.U. allows entities to make an award-by-award election to use either the expected duration (consistent with employee share-based payment awards) or the contractual term for nonemployee awards.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</us-gaap:CompensationRelatedCostsPolicyTextBlock>
+  <dei:EntityAddressCityOrTown id="f202" contextRef="c3">White Plains</dei:EntityAddressCityOrTown>
+  <us-gaap:NetIncomeLoss id="f203" xsi:nil="true" contextRef="c68" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f204" decimals="0" contextRef="c12" unitRef="usd">284368.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetIncomeLoss id="f205" xsi:nil="true" contextRef="c69" unitRef="usd"/>
+  <us-gaap:NetIncomeLoss id="f206" xsi:nil="true" contextRef="c70" unitRef="usd"/>
+  <us-gaap:NetIncomeLoss id="f207" xsi:nil="true" contextRef="c71" unitRef="usd"/>
+  <us-gaap:NetIncomeLoss id="f208" xsi:nil="true" contextRef="c72" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f209" decimals="0" contextRef="c73" unitRef="usd">179368.0</us-gaap:StockholdersEquity>
+  <cik0000787496:IssuanceOfPreferredForServices id="f210" decimals="0" contextRef="c37" unitRef="usd">5500000.0</cik0000787496:IssuanceOfPreferredForServices>
+  <us-gaap:CommonStockSharesAuthorized id="f211" decimals="INF" contextRef="c" unitRef="shares">500000000.0</us-gaap:CommonStockSharesAuthorized>
+  <us-gaap:StockholdersEquity id="f212" decimals="0" contextRef="c74" unitRef="usd">8735090.0</us-gaap:StockholdersEquity>
+  <us-gaap:SharesOutstanding id="f213" decimals="INF" contextRef="c73" unitRef="shares">179367820.0</us-gaap:SharesOutstanding>
+  <us-gaap:OperatingIncomeLoss id="f214" decimals="0" contextRef="c4" unitRef="usd">-220456.0</us-gaap:OperatingIncomeLoss>
+  <us-gaap:PreferredStockValue id="f215" decimals="0" contextRef="c" unitRef="usd">5000000.0</us-gaap:PreferredStockValue>
+  <cik0000787496:ConversionOfpreferredToCommonStock id="f216" decimals="0" contextRef="c26" unitRef="usd">10395000.0</cik0000787496:ConversionOfpreferredToCommonStock>
+  <us-gaap:ConversionOfStockSharesIssued1 id="f217" decimals="INF" contextRef="c75" unitRef="shares">55000000.0</us-gaap:ConversionOfStockSharesIssued1>
+  <cik0000787496:BasicLossPerCommonShare id="f218" decimals="INF" contextRef="c3" unitRef="usd1">-0.0</cik0000787496:BasicLossPerCommonShare>
+  <us-gaap:StockholdersEquity id="f219" decimals="0" contextRef="c76" unitRef="usd">-13914458.0</us-gaap:StockholdersEquity>
+  <us-gaap:CommonUnitOutstanding id="f220" decimals="INF" contextRef="c" unitRef="shares">179367820.0</us-gaap:CommonUnitOutstanding>
+  <us-gaap:SharesOutstanding id="f221" xsi:nil="true" contextRef="c77" unitRef="shares"/>
+  <cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding id="f222" decimals="INF" contextRef="c3" unitRef="shares">214367820.0</cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding>
+  <us-gaap:StockholdersEquity id="f223" xsi:nil="true" contextRef="c78" unitRef="usd"/>
+  <us-gaap:SharesOutstanding id="f224" decimals="INF" contextRef="c36" unitRef="shares">10000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:SharesOutstanding id="f225" xsi:nil="true" contextRef="c78" unitRef="shares"/>
+  <us-gaap:SharesOutstanding id="f226" decimals="INF" contextRef="c79" unitRef="shares">179367820.0</us-gaap:SharesOutstanding>
+  <cik0000787496:ConversionOfpreferredToCommonStockShares id="f227" decimals="INF" contextRef="c37" unitRef="shares">-105000000.0</cik0000787496:ConversionOfpreferredToCommonStockShares>
+  <us-gaap:ConversionOfStockSharesIssued1 id="f228" decimals="INF" contextRef="c80" unitRef="shares">55000000.0</us-gaap:ConversionOfStockSharesIssued1>
+  <dei:EntityEmergingGrowthCompany id="f229" contextRef="c3">false</dei:EntityEmergingGrowthCompany>
+  <us-gaap:GeneralAndAdministrativeExpense id="f230" decimals="0" contextRef="c3" unitRef="usd">246250.0</us-gaap:GeneralAndAdministrativeExpense>
+  <us-gaap:NetIncomeLoss id="f231" xsi:nil="true" contextRef="c81" unitRef="usd"/>
+  <us-gaap:SharesOutstanding id="f232" decimals="INF" contextRef="c25" unitRef="shares">179367820.0</us-gaap:SharesOutstanding>
+  <us-gaap:CommonUnitIssued id="f233" decimals="INF" contextRef="c" unitRef="shares">179367820.0</us-gaap:CommonUnitIssued>
+  <us-gaap:SharesOutstanding id="f234" decimals="INF" contextRef="c23" unitRef="shares">50000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:NetIncomeLoss id="f235" xsi:nil="true" contextRef="c82" unitRef="usd"/>
+  <dei:EntityAddressAddressLine2 id="f236" contextRef="c3">Apt. 201</dei:EntityAddressAddressLine2>
+  <us-gaap:NetIncomeLoss id="f237" decimals="0" contextRef="c4" unitRef="usd">-220456.0</us-gaap:NetIncomeLoss>
+  <us-gaap:NetIncomeLoss id="f238" xsi:nil="true" contextRef="c83" unitRef="usd"/>
+  <us-gaap:ConversionOfStockSharesConverted1 id="f239" decimals="INF" contextRef="c75" unitRef="shares">50000000.0</us-gaap:ConversionOfStockSharesConverted1>
+  <us-gaap:CommonUnitOutstanding id="f240" decimals="INF" contextRef="c11" unitRef="shares">179367820.0</us-gaap:CommonUnitOutstanding>
+  <us-gaap:NetIncomeLoss id="f241" xsi:nil="true" contextRef="c84" unitRef="usd"/>
+  <us-gaap:SharesOutstanding id="f242" decimals="INF" contextRef="c85" unitRef="shares">50000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities id="f243" decimals="0" contextRef="c3" unitRef="usd">-10000.0</us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities>
+  <us-gaap:StockholdersEquity id="f244" xsi:nil="true" contextRef="c86" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f245" decimals="0" contextRef="c87" unitRef="usd">-13914458.0</us-gaap:StockholdersEquity>
+  <us-gaap:SharesOutstanding id="f246" xsi:nil="true" contextRef="c86" unitRef="shares"/>
+  <us-gaap:ConversionOfStockSharesConverted1 id="f247" decimals="INF" contextRef="c80" unitRef="shares">50000000.0</us-gaap:ConversionOfStockSharesConverted1>
+  <us-gaap:StockholdersEquity id="f248" decimals="0" contextRef="c88" unitRef="usd">8735090.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetIncomeLoss id="f249" xsi:nil="true" contextRef="c89" unitRef="usd"/>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f250" decimals="INF" contextRef="c15" unitRef="usd1">0.001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding id="f251" decimals="INF" contextRef="c5" unitRef="shares">179367820.0</cik0000787496:WeightedAverageNumberOfDilutedShareOutstanding>
+  <dei:EntityTaxIdentificationNumber id="f252" contextRef="c3">87-0435741</dei:EntityTaxIdentificationNumber>
+  <us-gaap:SharesOutstanding id="f253" decimals="INF" contextRef="c45" unitRef="shares">50000000.0</us-gaap:SharesOutstanding>
+  <us-gaap:NetIncomeLoss id="f254" xsi:nil="true" contextRef="c90" unitRef="usd"/>
+  <us-gaap:OperatingExpenses id="f255" decimals="0" contextRef="c4" unitRef="usd">220456.0</us-gaap:OperatingExpenses>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f256" decimals="INF" contextRef="c24" unitRef="usd1">0.001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <us-gaap:NetIncomeLoss id="f257" xsi:nil="true" contextRef="c91" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesAuthorized id="f258" decimals="INF" contextRef="c24" unitRef="shares">10000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:StockholdersEquity id="f259" decimals="0" contextRef="c22" unitRef="usd">5000000.0</us-gaap:StockholdersEquity>
+  <us-gaap:CommonUnitIssued id="f260" decimals="INF" contextRef="c11" unitRef="shares">179367820.0</us-gaap:CommonUnitIssued>
+  <us-gaap:NetIncomeLoss id="f261" xsi:nil="true" contextRef="c92" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f262" xsi:nil="true" contextRef="c93" unitRef="usd"/>
+  <dei:EntityShellCompany id="f263" contextRef="c3">true</dei:EntityShellCompany>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivities id="f264" decimals="0" contextRef="c3" unitRef="usd">53802.0</us-gaap:NetCashProvidedByUsedInFinancingActivities>
+  <us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock id="f265" contextRef="c3">&lt;p id="xdx_84E_eus-gaap--NewAccountingPronouncementsPolicyPolicyTextBlock_zo84PHSpj61" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_865_zTU1SfEY7JNf"&gt;Recent Accounting Pronouncements&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Other recent accounting standards issued by the FASB, including its Emerging Issues Task Force, the American Institute of Certified Public Accountants, and the S.E.C., did not or are not believed by management to have a material impact on the Company’s present or future condensed financial statements.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock>
+  <us-gaap:SharesOutstanding id="f266" xsi:nil="true" contextRef="c93" unitRef="shares"/>
+  <cik0000787496:WeightedAverageNumberOfShareOutstandingBasic id="f267" decimals="INF" contextRef="c5" unitRef="shares">179367820.0</cik0000787496:WeightedAverageNumberOfShareOutstandingBasic>
+  <us-gaap:NetIncomeLoss id="f268" xsi:nil="true" contextRef="c37" unitRef="usd"/>
+  <us-gaap:StockholdersEquity id="f269" decimals="0" contextRef="c85" unitRef="usd">5000000.0</us-gaap:StockholdersEquity>
+  <us-gaap:CashAndCashEquivalentsPolicyTextBlock id="f270" contextRef="c3">&lt;p id="xdx_846_eus-gaap--CashAndCashEquivalentsPolicyTextBlock_ziN9htroqYP5" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;i&gt;&lt;span style="text-decoration: underline"&gt;&lt;span id="xdx_860_zhHWilsSvMQ3"&gt;Cash and cash equivalents&lt;/span&gt;&lt;/span&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Company considers all highly liquid temporary cash investments with an original maturity of three months or less cash equivalents. As of February 29, 2024 the Company had &lt;span id="xdx_908_eus-gaap--Cash_iI_do_c20240229_z5kUTK49KzKk" title="Cash"&gt;no&lt;/span&gt; cash on hand.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</us-gaap:CashAndCashEquivalentsPolicyTextBlock>
+  <us-gaap:NetIncomeLoss id="f271" xsi:nil="true" contextRef="c10" unitRef="usd"/>
+  <us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock id="f272" contextRef="c3">&lt;p id="xdx_805_eus-gaap--BusinessDescriptionAndBasisOfPresentationTextBlock_zhuVkVxqWUTa" style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;&lt;b&gt;NOTE 1 – &lt;span id="xdx_82B_zhq95rdpZis3"&gt;ORGANIZATION AND DESCRIPTION OF BUSINESS&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;UbuyHoldings, Inc. (“we, “us”, the “Company”, “UBUY”), f/k/a E-Pawn.Com, Inc. was incorporated in 1985 in the state of Nevada as Java, Inc. The Company changed its name to Wasatch International Corporation in 1995. It acquired E- Pawn, Inc. in February 2000, and the Company changed its name to E-Pawn.Com, Inc. Its wholly-owned subsidiary E-Pawn, Inc., began operations in 1999 to operate an Internet auction site and to acquire and operate complimentary electronic commerce (e-commerce) businesses under its UBUYNETWORK.COM umbrella.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The Company filed its Form 10-K/A for the period ended May 31, 2000 on November 19, 2001 and has been dormant since that time. On July 26, 2023 as a result of a custodianship in Clark County, Nevada, Case Number: A-23-871247-B, Custodian Ventures LLC (“Custodian”), managed by David Lazar was appointed custodian of the Company. On the same date, Custodian appointed David Lazar as the Company’s Chief Executive Officer, President, Secretary, Chief Financial Officer, Chief Executive Officer, and Chairman of the Board of Directors.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;David Lazar, 33, has been CEO and Chairman of the Company since July 26, 2023. David Lazar is a private investor. Mr. Lazar has been a partner at Zenith Partners International since 2013, where he specializes in research and development, sales, and marketing. From 2014 through 2015, David was the Chief Executive Officer of Dico, Inc., which was then sold to Peekay Boutiques. Since February of 2018, Mr. Lazar has been the managing member of Custodian Ventures LLC, where he specializes in assisting distressed public companies. Since March 2018, David has acted as the managing member of Activist Investing LLC, which specializes in active investing in distressed public companies. Currently, David is the CEO of Titan Pharmaceuticals, Inc. (Nasdaq “TTNP”). David has a diverse knowledge of financial, legal, and operations management; public company management, accounting, audit preparation, due diligence reviews, and SEC regulations.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify"&gt;The Company’s fiscal year end is May 31.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+</us-gaap:BusinessDescriptionAndBasisOfPresentationTextBlock>
+  <us-gaap:NetIncomeLoss id="f273" xsi:nil="true" contextRef="c19" unitRef="usd"/>
+  <us-gaap:PreferredStockSharesAuthorized id="f274" decimals="INF" contextRef="c15" unitRef="shares">10000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <dei:EntityAddressAddressLine1 id="f275" contextRef="c3">300 Mamaroneck Ave.</dei:EntityAddressAddressLine1>
+  <us-gaap:NetIncomeLoss id="f276" xsi:nil="true" contextRef="c26" unitRef="usd"/>
+  <cik0000787496:ConversionOfpreferredToCommonStock id="f277" xsi:nil="true" contextRef="c4" unitRef="usd"/>
+  <cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServicesShares id="f278" decimals="INF" contextRef="c10" unitRef="shares">10000000.0</cik0000787496:IssuanceOfPreferredA1ToCancelRelatedPartyDebtAndForServicesShares>
+  <us-gaap:StockholdersEquity id="f279" xsi:nil="true" contextRef="c1" unitRef="usd"/>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f280" decimals="0" contextRef="c4" unitRef="usd">-220456.0</us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest>
+</xbrli:xbrl>

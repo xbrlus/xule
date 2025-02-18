@@ -1,0 +1,876 @@
+{
+    "http://xbrl.sec.gov/ecd/2024": [
+        {
+            "localName": "ForgoneRecoveryDueToExpenseOfEnforcementAmt",
+            "type": "Concept",
+            "label": "Forgone Recovery due to Expense of Enforcement, Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpWithAdditionalMeasuresTable",
+            "type": "Concept",
+            "label": "Pay vs Performance Disclosure with Additional Measures [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonGaapMeasureDescriptionTextBlock",
+            "type": "Concept",
+            "label": "Non-GAAP Measure Description [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardExrcPrice",
+            "type": "Concept",
+            "label": "Award Exercise Price",
+            "isAbstract": "false",
+            "dataType": "dtr-types:perShareItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InsiderTradingPoliciesProcTable",
+            "type": "Concept",
+            "label": "Insider Trading Policies and Procedures [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CoSelectedMeasureAmt",
+            "type": "Concept",
+            "label": "Company Selected Measure Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:decimalItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveriesLineItems",
+            "type": "Concept",
+            "label": "Forgone Recoveries [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToCompAmt",
+            "type": "Concept",
+            "label": "Adjustment to Compensation Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveryIndName",
+            "type": "Concept",
+            "label": "Outstanding Recovery, Individual Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToNonPeoNeoCompFnTextBlock",
+            "type": "Concept",
+            "label": "Adjustment to Non-PEO NEO Compensation Footnote [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Rule10b51ArrTrmntdFlag",
+            "type": "Concept",
+            "label": "Rule 10b5-1 Arrangement Terminated [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PayVsPerformanceDisclosureWithAdditionalMeasuresLineItems",
+            "type": "Concept",
+            "label": "Pay vs Performance Disclosure with Additional Measures [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveryIndName",
+            "type": "Concept",
+            "label": "Forgone Recovery, Individual Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MnpiDiscTimedForCompValFlag",
+            "type": "Concept",
+            "label": "MNPI Disclosure Timed for Compensation Value [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrTerminationDate",
+            "type": "Concept",
+            "label": "Trading Arrangement Termination Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoTotalCompAmt",
+            "type": "Concept",
+            "label": "PEO Total Compensation Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscIndName",
+            "type": "Concept",
+            "label": "Awards Close in Time to MNPI Disclosures, Individual Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "ErrCompAnalysisTextBlock",
+            "type": "Concept",
+            "label": "Erroneous Compensation Analysis [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpMeasuresLineItems",
+            "type": "Concept",
+            "label": "Measures [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AggtErrCompNotYetDeterminedTextBlock",
+            "type": "Concept",
+            "label": "Aggregate Erroneous Compensation Not Yet Determined [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscTable",
+            "type": "Concept",
+            "label": "Awards Close in Time to MNPI Disclosures [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RecoveryOfErrCompDisclosureLineItems",
+            "type": "Concept",
+            "label": "Recovery of Erroneously Awarded Compensation Disclosure [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonRule10b51ArrTrmntdFlag",
+            "type": "Concept",
+            "label": "Non-Rule 10b5-1 Arrangement Terminated [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DefaultsTable",
+            "type": "Concept",
+            "label": "Defaults [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTrdPoliciesProcAdoptedFlag",
+            "type": "Concept",
+            "label": "Insider Trading Policies and Procedures Adopted [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrSecuritiesAggAvailAmt",
+            "type": "Concept",
+            "label": "Trading Arrangement, Securities Aggregate Available Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:sharesItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "CompActuallyPaidVsNetIncomeTextBlock",
+            "type": "Concept",
+            "label": "Compensation Actually Paid vs. Net Income [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TabularListTableTextBlock",
+            "type": "Concept",
+            "label": "Tabular List [Table Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RestatementDateAxis",
+            "type": "Concept",
+            "label": "Restatement Determination Date [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoActuallyPaidCompAmt",
+            "type": "Concept",
+            "label": "PEO Actually Paid Compensation Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ChangedPeerGroupFnTextBlock",
+            "type": "Concept",
+            "label": "Changed Peer Group, Footnote [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveryDueToDisqualificationOfTaxBenefitsAmt",
+            "type": "Concept",
+            "label": "Forgone Recovery due to Disqualification of Tax Benefits, Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardUndrlygSecuritiesAmt",
+            "type": "Concept",
+            "label": "Award Underlying Securities Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:decimalItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "AllAdjToCompMember",
+            "type": "Concept",
+            "label": "All Adjustments to Compensation [Member]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveriesByIndTable",
+            "type": "Concept",
+            "label": "Outstanding Recoveries, by Individual [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTableTextBlock",
+            "type": "Concept",
+            "label": "Pay vs Performance [Table Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrAdoptionDate",
+            "type": "Concept",
+            "label": "Trading Arrangement Adoption Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AllTradingArrangementsMember",
+            "type": "Concept",
+            "label": "All Trading Arrangements [Member]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "StkPrcOrTsrEstimationMethodTextBlock",
+            "type": "Concept",
+            "label": "Stock Price or TSR Estimation Method [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpAdjTable",
+            "type": "Concept",
+            "label": "Pay vs. Performance Adjustments [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TabularListMeasuresLineItems",
+            "type": "Concept",
+            "label": "Tabular List Measures [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TotalShareholderRtnAmt",
+            "type": "Concept",
+            "label": "Total Shareholder Return Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AggtErrCompAmt",
+            "type": "Concept",
+            "label": "Aggregate Erroneous Compensation Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "PvpTabularListsTable",
+            "type": "Concept",
+            "label": "Pay vs Performance Tabular Lists [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MeasureAxis",
+            "type": "Concept",
+            "label": "Measure [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTradingArrLineItems",
+            "type": "Concept",
+            "label": "Insider Trading Arrangements [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgHowMnpiCnsdrdTextBlock",
+            "type": "Concept",
+            "label": "Award Timing, How MNPI Considered [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PayVsPerformanceTableLineItems",
+            "type": "Concept",
+            "label": "Pay vs Performance Table [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscTableTextBlock",
+            "type": "Concept",
+            "label": "Awards Close in Time to MNPI Disclosures [Table Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonNeosMember",
+            "type": "Concept",
+            "label": "Non-NEOs [Member]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveryExplanationOfImpracticabilityTextBlock",
+            "type": "Concept",
+            "label": "Forgone Recovery, Explanation of Impracticability [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ErrCompRecoveryTable",
+            "type": "Concept",
+            "label": "Erroneously Awarded Compensation Recovery [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgMnpiCnsdrdFlag",
+            "type": "Concept",
+            "label": "Award Timing MNPI Considered [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MeasureName",
+            "type": "Concept",
+            "label": "Measure Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NamedExecutiveOfficersFnTextBlock",
+            "type": "Concept",
+            "label": "Named Executive Officers, Footnote [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Rule10b51ArrAdoptedFlag",
+            "type": "Concept",
+            "label": "Rule 10b5-1 Arrangement Adopted [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveriesByIndTable",
+            "type": "Concept",
+            "label": "Forgone Recoveries, by Individual [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PayVsPerformanceDisclosureLineItems",
+            "type": "Concept",
+            "label": "Pay vs Performance Disclosure [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoMember",
+            "type": "Concept",
+            "label": "PEO [Member]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IndividualAxis",
+            "type": "Concept",
+            "label": "Individual [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoName",
+            "type": "Concept",
+            "label": "PEO Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TradingArrByIndTable",
+            "type": "Concept",
+            "label": "Trading Arrangements, by Individual [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OtherPerfMeasureAmt",
+            "type": "Concept",
+            "label": "Other Performance Measure, Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:decimalItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgMethodTextBlock",
+            "type": "Concept",
+            "label": "Award Timing Method [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonPeoNeoAvgTotalCompAmt",
+            "type": "Concept",
+            "label": "Non-PEO NEO Average Total Compensation Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveryCompAmt",
+            "type": "Concept",
+            "label": "Outstanding Recovery Compensation Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "TotalShareholderRtnVsPeerGroupTextBlock",
+            "type": "Concept",
+            "label": "Total Shareholder Return Vs Peer Group [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ExecutiveCategoryAxis",
+            "type": "Concept",
+            "label": "Executive Category [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TradingArrAxis",
+            "type": "Concept",
+            "label": "Trading Arrangement [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonPeoNeoMember",
+            "type": "Concept",
+            "label": "Non-PEO NEO [Member]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjLineItems",
+            "type": "Concept",
+            "label": "Adjustment [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTable",
+            "type": "Concept",
+            "label": "Pay vs Performance Disclosure [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTradingArrTable",
+            "type": "Concept",
+            "label": "Insider Trading Arrangements [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CompActuallyPaidVsTotalShareholderRtnTextBlock",
+            "type": "Concept",
+            "label": "Compensation Actually Paid vs. Total Shareholder Return [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgDiscTable",
+            "type": "Concept",
+            "label": "Award Timing Disclosure [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RestatementDeterminationDate",
+            "type": "Concept",
+            "label": "Restatement Determination Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpMeasuresTable",
+            "type": "Concept",
+            "label": "Measures [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeerGroupTotalShareholderRtnAmt",
+            "type": "Concept",
+            "label": "Peer Group Total Shareholder Return Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrIndName",
+            "type": "Concept",
+            "label": "Trading Arrangement, Individual Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CompActuallyPaidVsOtherMeasureTextBlock",
+            "type": "Concept",
+            "label": "Compensation Actually Paid vs. Other Measure [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrDuration",
+            "type": "Concept",
+            "label": "Trading Arrangement Duration",
+            "isAbstract": "false",
+            "dataType": "xbrli:durationItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CompActuallyPaidVsCoSelectedMeasureTextBlock",
+            "type": "Concept",
+            "label": "Compensation Actually Paid vs. Company Selected Measure [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CoSelectedMeasureName",
+            "type": "Concept",
+            "label": "Company Selected Measure Name",
+            "isAbstract": "false",
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveryDueToViolationOfHomeCountryLawAmt",
+            "type": "Concept",
+            "label": "Forgone Recovery due to Violation of Home Country Law, Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AllExecutiveCategoriesMember",
+            "type": "Concept",
+            "label": "All Executive Categories [Member]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveriesLineItems",
+            "type": "Concept",
+            "label": "Outstanding Recoveries [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MtrlTermsOfTrdArrTextBlock",
+            "type": "Concept",
+            "label": "Material Terms of Trading Arrangement [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToPeoCompFnTextBlock",
+            "type": "Concept",
+            "label": "Adjustment To PEO Compensation, Footnote [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrExpirationDate",
+            "type": "Concept",
+            "label": "Trading Arrangement Expiration Date",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeerGroupIssuersFnTextBlock",
+            "type": "Concept",
+            "label": "Peer Group Issuers, Footnote [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RestatementDoesNotRequireRecoveryTextBlock",
+            "type": "Concept",
+            "label": "Restatement Does Not Require Recovery [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonPeoNeoAvgCompActuallyPaidAmt",
+            "type": "Concept",
+            "label": "Non-PEO NEO Average Compensation Actually Paid Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AllIndividualsMember",
+            "type": "Concept",
+            "label": "All Individuals [Member]",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgDiscLineItems",
+            "type": "Concept",
+            "label": "Award Timing Disclosures [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgMnpiDiscTextBlock",
+            "type": "Concept",
+            "label": "Award Timing MNPI Disclosure [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTabularListTable",
+            "type": "Concept",
+            "label": "Tabular List [Table]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgPredtrmndFlag",
+            "type": "Concept",
+            "label": "Award Timing Predetermined [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardGrantDateFairValue",
+            "type": "Concept",
+            "label": "Award Grant Date Fair Value",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "Additional402vDisclosureTextBlock",
+            "type": "Concept",
+            "label": "Additional 402(v) Disclosure [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTabularListsLineItems",
+            "type": "Concept",
+            "label": "Pay vs Performance Tabular Lists [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToCompAxis",
+            "type": "Concept",
+            "label": "Adjustment to Compensation [Axis]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "EquityValuationAssumptionDifferenceFnTextBlock",
+            "type": "Concept",
+            "label": "Equity Valuation Assumption Difference, Footnote [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonRule10b51ArrAdoptedFlag",
+            "type": "Concept",
+            "label": "Non-Rule 10b5-1 Arrangement Adopted [Flag]",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrIndTitle",
+            "type": "Concept",
+            "label": "Trading Arrangement, Individual Title",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTrdPoliciesProcNotAdoptedTextBlock",
+            "type": "Concept",
+            "label": "Insider Trading Policies and Procedures Not Adopted [Text Block]",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UndrlygSecurityMktPriceChngPct",
+            "type": "Concept",
+            "label": "Underlying Security Market Price Change, Percent",
+            "isAbstract": "false",
+            "dataType": "xbrli:pureItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscLineItems",
+            "type": "Concept",
+            "label": "Awards Close in Time to MNPI Disclosures [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTradingPoliciesProcLineItems",
+            "type": "Concept",
+            "label": "Insider Trading Policies and Procedures [Line Items]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingAggtErrCompAmt",
+            "type": "Concept",
+            "label": "Outstanding Aggregate Erroneous Compensation Amount",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        }
+    ]
+}

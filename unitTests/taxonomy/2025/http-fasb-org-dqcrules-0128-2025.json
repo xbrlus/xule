@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0128/2025": [
+        {
+            "localName": "Dqc_0128",
+            "type": "Concept",
+            "label": "DQC.US.0128 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0128_DimensionalValuesLargerThanTheDefault",
+            "type": "Concept",
+            "label": "DQC.US.0128.Dimensional Values Larger Than The Default [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

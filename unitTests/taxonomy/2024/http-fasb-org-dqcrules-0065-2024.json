@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0065/2024": [
+        {
+            "localName": "Dqc_0065_InterestPaidNetOperatingNotOnCashFlow",
+            "type": "Concept",
+            "label": "DQC.US.0065.Interest Paid Net Operating Not On Cash Flow [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0065",
+            "type": "Concept",
+            "label": "DQC.US.0065 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

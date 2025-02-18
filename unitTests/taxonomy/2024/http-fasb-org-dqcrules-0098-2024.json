@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0098/2024": [
+        {
+            "localName": "Dqc_0098_LiabilityRevenueRecognized",
+            "type": "Concept",
+            "label": "DQC.US.0098.LiabilityRevenueRecognized [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0098",
+            "type": "Concept",
+            "label": "DQC.US.0098 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

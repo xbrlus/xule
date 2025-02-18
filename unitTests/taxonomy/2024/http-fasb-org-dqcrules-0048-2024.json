@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0048/2024": [
+        {
+            "localName": "Dqc_0048_RequiredCalculationParentElementInCashFlowStatement",
+            "type": "Concept",
+            "label": "DQC.US.0048.Required Calculation Parent in the Cash Flow Statement [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0048",
+            "type": "Concept",
+            "label": "DQC.US.0048 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

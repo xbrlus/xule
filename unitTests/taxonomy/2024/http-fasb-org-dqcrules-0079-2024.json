@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0079/2024": [
+        {
+            "localName": "Dqc_0079",
+            "type": "Concept",
+            "label": "DQC.US.0079 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0079_ExtensionMembers",
+            "type": "Concept",
+            "label": "DQC.US.0079.Extension Members [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

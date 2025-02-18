@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0090/2024": [
+        {
+            "localName": "Dqc_0090_CalculationOfLeaseLiabilityPaymentsDue",
+            "type": "Concept",
+            "label": "DQC.US.0090.Calculation of Lease Liability Payments Due [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0090",
+            "type": "Concept",
+            "label": "DQC.US.0090 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

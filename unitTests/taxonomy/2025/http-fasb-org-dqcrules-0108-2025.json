@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0108/2025": [
+        {
+            "localName": "Dqc_0108",
+            "type": "Concept",
+            "label": "DQC.US.0108 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0108_FactValueConsistencyOverTime",
+            "type": "Concept",
+            "label": "DQC.US.0108.Fact Value Consistency Over Time [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0047/2024": [
+        {
+            "localName": "Dqc_0047",
+            "type": "Concept",
+            "label": "DQC.US.0047 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0047_CalculationDescendantsWithNoBalanceType",
+            "type": "Concept",
+            "label": "DQC.US.0047.Calculation Descendants with No Balance Type [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

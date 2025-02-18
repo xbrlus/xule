@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0041/2024": [
+        {
+            "localName": "Dqc_0041_AxisDefaultDiffers",
+            "type": "Concept",
+            "label": "DQC.US.0041.Axis with a Default Member that Differs from the Base Taxonomy [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0041",
+            "type": "Concept",
+            "label": "DQC.US.0041 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

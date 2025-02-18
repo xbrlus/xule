@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0141/2025": [
+        {
+            "localName": "Dqc_0141",
+            "type": "Concept",
+            "label": "DQC.US.0141 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0141_InconsistentAccruedInterestElements",
+            "type": "Concept",
+            "label": "DQC.US.0141.Inconsistent Accrued Interest Elements [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

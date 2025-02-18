@@ -1,0 +1,44 @@
+{
+    "http://fasb.org/dqcrules-0001/2024": [
+        {
+            "localName": "Dqc_0001",
+            "type": "Concept",
+            "label": "DQC.US.0001 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0001_AxisAllowExtensionsOnlyAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0001.Axis allows extensions [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0001_AxisRestrictExtensionsAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0001.Axis restricts extensions [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0001_AxisAllowListedBaseMembersAndExtensionsAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0001.Axis allows listed base members and extensions [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0001_MemberAllowExtensionsOnlyAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0001.Member allows extensions [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

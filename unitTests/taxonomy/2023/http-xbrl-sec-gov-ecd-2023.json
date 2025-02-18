@@ -1,0 +1,868 @@
+{
+    "http://xbrl.sec.gov/ecd/2023": [
+        {
+            "localName": "ForgoneRecoveryDueToDisqualificationOfTaxBenefitsAmt",
+            "type": "Concept",
+            "label": "ecd:ForgoneRecoveryDueToDisqualificationOfTaxBenefitsAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonPeoNeoMember",
+            "type": "Concept",
+            "label": "ecd:NonPeoNeoMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveriesByIndTable",
+            "type": "Concept",
+            "label": "ecd:OutstandingRecoveriesByIndTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TotalShareholderRtnVsPeerGroupTextBlock",
+            "type": "Concept",
+            "label": "ecd:TotalShareholderRtnVsPeerGroupTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardUndrlygSecuritiesAmt",
+            "type": "Concept",
+            "label": "ecd:AwardUndrlygSecuritiesAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:decimalItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "AwardExrcPrice",
+            "type": "Concept",
+            "label": "ecd:AwardExrcPrice",
+            "isAbstract": "false",
+            "dataType": "dtr-types:perShareItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "TrdArrTerminationDate",
+            "type": "Concept",
+            "label": "ecd:TrdArrTerminationDate",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrIndTitle",
+            "type": "Concept",
+            "label": "ecd:TrdArrIndTitle",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjLineItems",
+            "type": "Concept",
+            "label": "ecd:AdjLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AggtErrCompNotYetDeterminedTextBlock",
+            "type": "Concept",
+            "label": "ecd:AggtErrCompNotYetDeterminedTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveriesLineItems",
+            "type": "Concept",
+            "label": "ecd:ForgoneRecoveriesLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ErrCompAnalysisTextBlock",
+            "type": "Concept",
+            "label": "ecd:ErrCompAnalysisTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTabularListsTable",
+            "type": "Concept",
+            "label": "ecd:PvpTabularListsTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgPredtrmndFlag",
+            "type": "Concept",
+            "label": "ecd:AwardTmgPredtrmndFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DefaultsTable",
+            "type": "Concept",
+            "label": "ecd:DefaultsTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToNonPeoNeoCompFnTextBlock",
+            "type": "Concept",
+            "label": "ecd:AdjToNonPeoNeoCompFnTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Additional402vDisclosureTextBlock",
+            "type": "Concept",
+            "label": "ecd:Additional402vDisclosureTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoActuallyPaidCompAmt",
+            "type": "Concept",
+            "label": "ecd:PeoActuallyPaidCompAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MtrlTermsOfTrdArrTextBlock",
+            "type": "Concept",
+            "label": "ecd:MtrlTermsOfTrdArrTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PayVsPerformanceTableLineItems",
+            "type": "Concept",
+            "label": "ecd:PayVsPerformanceTableLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTradingArrLineItems",
+            "type": "Concept",
+            "label": "ecd:InsiderTradingArrLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToPeoCompFnTextBlock",
+            "type": "Concept",
+            "label": "ecd:AdjToPeoCompFnTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AllIndividualsMember",
+            "type": "Concept",
+            "label": "ecd:AllIndividualsMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "EquityValuationAssumptionDifferenceFnTextBlock",
+            "type": "Concept",
+            "label": "ecd:EquityValuationAssumptionDifferenceFnTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgHowMnpiCnsdrdTextBlock",
+            "type": "Concept",
+            "label": "ecd:AwardTmgHowMnpiCnsdrdTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RestatementDateAxis",
+            "type": "Concept",
+            "label": "ecd:RestatementDateAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ErrCompRecoveryTable",
+            "type": "Concept",
+            "label": "ecd:ErrCompRecoveryTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TabularListMeasuresLineItems",
+            "type": "Concept",
+            "label": "ecd:TabularListMeasuresLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeerGroupIssuersFnTextBlock",
+            "type": "Concept",
+            "label": "ecd:PeerGroupIssuersFnTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrSecuritiesAggAvailAmt",
+            "type": "Concept",
+            "label": "ecd:TrdArrSecuritiesAggAvailAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:sharesItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "PvpMeasuresLineItems",
+            "type": "Concept",
+            "label": "ecd:PvpMeasuresLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrDuration",
+            "type": "Concept",
+            "label": "ecd:TrdArrDuration",
+            "isAbstract": "false",
+            "dataType": "xbrli:durationItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonGaapMeasureDescriptionTextBlock",
+            "type": "Concept",
+            "label": "ecd:NonGaapMeasureDescriptionTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscLineItems",
+            "type": "Concept",
+            "label": "ecd:AwardsCloseToMnpiDiscLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToCompAxis",
+            "type": "Concept",
+            "label": "ecd:AdjToCompAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NamedExecutiveOfficersFnTextBlock",
+            "type": "Concept",
+            "label": "ecd:NamedExecutiveOfficersFnTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonNeosMember",
+            "type": "Concept",
+            "label": "ecd:NonNeosMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RecoveryOfErrCompDisclosureLineItems",
+            "type": "Concept",
+            "label": "ecd:RecoveryOfErrCompDisclosureLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscIndName",
+            "type": "Concept",
+            "label": "ecd:AwardsCloseToMnpiDiscIndName",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InsiderTradingArrTable",
+            "type": "Concept",
+            "label": "ecd:InsiderTradingArrTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTabularListTable",
+            "type": "Concept",
+            "label": "ecd:PvpTabularListTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveriesLineItems",
+            "type": "Concept",
+            "label": "ecd:OutstandingRecoveriesLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveryIndName",
+            "type": "Concept",
+            "label": "ecd:OutstandingRecoveryIndName",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpAdjTable",
+            "type": "Concept",
+            "label": "ecd:PvpAdjTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CompActuallyPaidVsCoSelectedMeasureTextBlock",
+            "type": "Concept",
+            "label": "ecd:CompActuallyPaidVsCoSelectedMeasureTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TradingArrByIndTable",
+            "type": "Concept",
+            "label": "ecd:TradingArrByIndTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CompActuallyPaidVsNetIncomeTextBlock",
+            "type": "Concept",
+            "label": "ecd:CompActuallyPaidVsNetIncomeTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AllAdjToCompMember",
+            "type": "Concept",
+            "label": "ecd:AllAdjToCompMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CoSelectedMeasureAmt",
+            "type": "Concept",
+            "label": "ecd:CoSelectedMeasureAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:decimalItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveryExplanationOfImpracticabilityTextBlock",
+            "type": "Concept",
+            "label": "ecd:ForgoneRecoveryExplanationOfImpracticabilityTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AggtErrCompAmt",
+            "type": "Concept",
+            "label": "ecd:AggtErrCompAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "TrdArrAdoptionDate",
+            "type": "Concept",
+            "label": "ecd:TrdArrAdoptionDate",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TrdArrIndName",
+            "type": "Concept",
+            "label": "ecd:TrdArrIndName",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgMethodTextBlock",
+            "type": "Concept",
+            "label": "ecd:AwardTmgMethodTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "StkPrcOrTsrEstimationMethodTextBlock",
+            "type": "Concept",
+            "label": "ecd:StkPrcOrTsrEstimationMethodTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MeasureAxis",
+            "type": "Concept",
+            "label": "ecd:MeasureAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MeasureName",
+            "type": "Concept",
+            "label": "ecd:MeasureName",
+            "isAbstract": "false",
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscTable",
+            "type": "Concept",
+            "label": "ecd:AwardsCloseToMnpiDiscTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardGrantDateFairValue",
+            "type": "Concept",
+            "label": "ecd:AwardGrantDateFairValue",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "ForgoneRecoveryDueToExpenseOfEnforcementAmt",
+            "type": "Concept",
+            "label": "ecd:ForgoneRecoveryDueToExpenseOfEnforcementAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonPeoNeoAvgCompActuallyPaidAmt",
+            "type": "Concept",
+            "label": "ecd:NonPeoNeoAvgCompActuallyPaidAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTable",
+            "type": "Concept",
+            "label": "ecd:PvpTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTradingPoliciesProcTable",
+            "type": "Concept",
+            "label": "ecd:InsiderTradingPoliciesProcTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoMember",
+            "type": "Concept",
+            "label": "ecd:PeoMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardsCloseToMnpiDiscTableTextBlock",
+            "type": "Concept",
+            "label": "ecd:AwardsCloseToMnpiDiscTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RestatementDeterminationDate",
+            "type": "Concept",
+            "label": "ecd:RestatementDeterminationDate",
+            "isAbstract": "false",
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgDiscLineItems",
+            "type": "Concept",
+            "label": "ecd:AwardTmgDiscLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpTabularListsLineItems",
+            "type": "Concept",
+            "label": "ecd:PvpTabularListsLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CoSelectedMeasureName",
+            "type": "Concept",
+            "label": "ecd:CoSelectedMeasureName",
+            "isAbstract": "false",
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ExecutiveCategoryAxis",
+            "type": "Concept",
+            "label": "ecd:ExecutiveCategoryAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgMnpiDiscTextBlock",
+            "type": "Concept",
+            "label": "ecd:AwardTmgMnpiDiscTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTradingPoliciesProcLineItems",
+            "type": "Concept",
+            "label": "ecd:InsiderTradingPoliciesProcLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AdjToCompAmt",
+            "type": "Concept",
+            "label": "ecd:AdjToCompAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ChangedPeerGroupFnTextBlock",
+            "type": "Concept",
+            "label": "ecd:ChangedPeerGroupFnTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTrdPoliciesProcNotAdoptedTextBlock",
+            "type": "Concept",
+            "label": "ecd:InsiderTrdPoliciesProcNotAdoptedTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TradingArrAxis",
+            "type": "Concept",
+            "label": "ecd:TradingArrAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingRecoveryCompAmt",
+            "type": "Concept",
+            "label": "ecd:OutstandingRecoveryCompAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "CompActuallyPaidVsTotalShareholderRtnTextBlock",
+            "type": "Concept",
+            "label": "ecd:CompActuallyPaidVsTotalShareholderRtnTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AllTradingArrangementsMember",
+            "type": "Concept",
+            "label": "ecd:AllTradingArrangementsMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoTotalCompAmt",
+            "type": "Concept",
+            "label": "ecd:PeoTotalCompAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IndividualAxis",
+            "type": "Concept",
+            "label": "ecd:IndividualAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OtherPerfMeasureAmt",
+            "type": "Concept",
+            "label": "ecd:OtherPerfMeasureAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:decimalItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsiderTrdPoliciesProcAdoptedFlag",
+            "type": "Concept",
+            "label": "ecd:InsiderTrdPoliciesProcAdoptedFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RestatementDoesNotRequireRecoveryTextBlock",
+            "type": "Concept",
+            "label": "ecd:RestatementDoesNotRequireRecoveryTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveryIndName",
+            "type": "Concept",
+            "label": "ecd:ForgoneRecoveryIndName",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeerGroupTotalShareholderRtnAmt",
+            "type": "Concept",
+            "label": "ecd:PeerGroupTotalShareholderRtnAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PayVsPerformanceDisclosureWithAdditionalMeasuresLineItems",
+            "type": "Concept",
+            "label": "ecd:PayVsPerformanceDisclosureWithAdditionalMeasuresLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OutstandingAggtErrCompAmt",
+            "type": "Concept",
+            "label": "ecd:OutstandingAggtErrCompAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "PayVsPerformanceDisclosureLineItems",
+            "type": "Concept",
+            "label": "ecd:PayVsPerformanceDisclosureLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonRule10b51ArrTrmntdFlag",
+            "type": "Concept",
+            "label": "ecd:NonRule10b51ArrTrmntdFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgDiscTable",
+            "type": "Concept",
+            "label": "ecd:AwardTmgDiscTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CompActuallyPaidVsOtherMeasureTextBlock",
+            "type": "Concept",
+            "label": "ecd:CompActuallyPaidVsOtherMeasureTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpWithAdditionalMeasuresTable",
+            "type": "Concept",
+            "label": "ecd:PvpWithAdditionalMeasuresTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MnpiDiscTimedForCompValFlag",
+            "type": "Concept",
+            "label": "ecd:MnpiDiscTimedForCompValFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Rule10b51ArrAdoptedFlag",
+            "type": "Concept",
+            "label": "ecd:Rule10b51ArrAdoptedFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PvpMeasuresTable",
+            "type": "Concept",
+            "label": "ecd:PvpMeasuresTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UndrlygSecurityMktPriceChngPct",
+            "type": "Concept",
+            "label": "ecd:UndrlygSecurityMktPriceChngPct",
+            "isAbstract": "false",
+            "dataType": "xbrli:pureItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "PvpTableTextBlock",
+            "type": "Concept",
+            "label": "ecd:PvpTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PeoName",
+            "type": "Concept",
+            "label": "ecd:PeoName",
+            "isAbstract": "false",
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Rule10b51ArrTrmntdFlag",
+            "type": "Concept",
+            "label": "ecd:Rule10b51ArrTrmntdFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonPeoNeoAvgTotalCompAmt",
+            "type": "Concept",
+            "label": "ecd:NonPeoNeoAvgTotalCompAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveryDueToViolationOfHomeCountryLawAmt",
+            "type": "Concept",
+            "label": "ecd:ForgoneRecoveryDueToViolationOfHomeCountryLawAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForgoneRecoveriesByIndTable",
+            "type": "Concept",
+            "label": "ecd:ForgoneRecoveriesByIndTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AwardTmgMnpiCnsdrdFlag",
+            "type": "Concept",
+            "label": "ecd:AwardTmgMnpiCnsdrdFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AllExecutiveCategoriesMember",
+            "type": "Concept",
+            "label": "ecd:AllExecutiveCategoriesMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TotalShareholderRtnAmt",
+            "type": "Concept",
+            "label": "ecd:TotalShareholderRtnAmt",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NonRule10b51ArrAdoptedFlag",
+            "type": "Concept",
+            "label": "ecd:NonRule10b51ArrAdoptedFlag",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TabularListTableTextBlock",
+            "type": "Concept",
+            "label": "ecd:TabularListTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        }
+    ]
+}

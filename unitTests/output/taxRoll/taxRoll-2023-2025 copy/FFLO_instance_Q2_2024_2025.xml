@@ -1,0 +1,1323 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:freeflowplc.com="http://freeflowplc.com/20250630" xmlns:dei="http://xbrl.sec.gov/dei/2025" xmlns:us-gaap="http://fasb.org/us-gaap/2025" xmlns:srt="http://fasb.org/srt/2025">
+  <link:schemaRef xlink:href="./FFLO_taxonomy_Q2_2024_2025.zip/FFLO_taxonomy_Q2_2024_2025/FFLO-20251231.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-04-01</xbrli:startDate>
+      <xbrli:endDate>2024-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-01</xbrli:startDate>
+      <xbrli:endDate>2024-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c4">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c5">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c6">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesAPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2017-09-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c7">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-04-01</xbrli:startDate>
+      <xbrli:endDate>2023-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c8">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-04-01</xbrli:startDate>
+      <xbrli:endDate>2024-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c9">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c10">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesBPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2017-09-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c11">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c12">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c13">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c14">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c15">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c16">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c17">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c18">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2019-04-02</xbrli:startDate>
+      <xbrli:endDate>2019-04-02</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c19">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c20">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2019-09-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c21">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c22">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-04-01</xbrli:startDate>
+      <xbrli:endDate>2024-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c23">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:PreferredClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c24">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c25">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:PreferredClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c26">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c27">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c28">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c29">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c30">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c31">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-04-01</xbrli:startDate>
+      <xbrli:endDate>2023-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c32">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-04-01</xbrli:startDate>
+      <xbrli:endDate>2023-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c33">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c34">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c35">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-04-01</xbrli:startDate>
+      <xbrli:endDate>2024-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c36">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c37">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c38">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c39">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesBPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c40">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-04-01</xbrli:startDate>
+      <xbrli:endDate>2023-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c41">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:ConsolidatedEntitiesAxis">freeflowplc.com:PromedaffIncMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2015-02-01</xbrli:startDate>
+      <xbrli:endDate>2015-02-28</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c42">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c43">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c44">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c45">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesBPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c46">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c47">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-04-01</xbrli:startDate>
+      <xbrli:endDate>2024-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c48">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c49">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c50">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c51">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-04-01</xbrli:startDate>
+      <xbrli:endDate>2023-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c52">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c53">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c54">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-01-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c55">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c56">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c57">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c58">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c59">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-08-15</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c60">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c61">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c62">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-04-01</xbrli:startDate>
+      <xbrli:endDate>2024-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c63">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesCPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c64">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c65">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesCPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c66">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c67">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c68">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c69">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c70">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:RetainedEarningsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c71">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c72">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c73">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">freeflowplc.com:SubscriptionReceivedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c74">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:GsPharmaceuticalsIncMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2014-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c75">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:GsPharmaceuticalsIncMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesBPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2014-12-31</xbrli:startDate>
+      <xbrli:endDate>2014-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c76">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:ShortTermDebtTypeAxis">us-gaap:ConvertibleNotesPayableMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2015-03-01</xbrli:startDate>
+      <xbrli:endDate>2015-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c77">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2015-03-01</xbrli:startDate>
+      <xbrli:endDate>2015-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd1">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding id="f" decimals="INF" contextRef="c" unitRef="shares">25876900.0</freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding>
+  <us-gaap:NetIncomeLoss id="f1" decimals="128" contextRef="c1" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:IncredibleBankLoanPlpLoan id="f2" decimals="128" contextRef="c" unitRef="usd">0.0</freeflowplc.com:IncredibleBankLoanPlpLoan>
+  <us-gaap:Assets id="f3" decimals="INF" contextRef="c2" unitRef="usd">441146.0</us-gaap:Assets>
+  <us-gaap:IncreaseDecreaseInAccountsReceivable id="f4" decimals="INF" contextRef="c3" unitRef="usd">6824.0</us-gaap:IncreaseDecreaseInAccountsReceivable>
+  <us-gaap:Revenues id="f5" decimals="INF" contextRef="c" unitRef="usd">4032.0</us-gaap:Revenues>
+  <us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock id="f6" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;color:#FF0000;text-align:justify"&gt;&lt;span style="color:#000000"&gt;&lt;b&gt;NOTE 1 –&lt;/b&gt;&lt;/span&gt;&lt;b&gt; &lt;/b&gt;&lt;span style="color:#000000"&gt;&lt;b&gt;ORGANIZATION AND DESCRIPTION OF BUSINESS&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#FF0000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Free Flow, Inc. (the "Company") was incorporated on October 28, 2011 under the laws of State of Delaware to enter the green energy industry. It began with the idea of developing swimming pool solar pump system. The solar energy business became very volatile due to constant decline in prices of solar panels. The Company could not conclude any business in the solar energy sector. In February 2016 the Company formed a subsidiary namely JK Sales, Corp. (name changed to “Accurate Auto Sales, Inc.”) and began the business of selling used auto parts.  &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Accurate Auto Sales, Inc., at a 19+ acre facility that it now owns, in King George, VA, buys end of life and wrecked automobiles from Insurance Auctions and disassembles the same to parts. After the dis-assembly these parts are labelled and stored at its warehouse, the inventory is uploaded and sold through a very sophisticated internet network. The primary customers are auto body and mechanic shops. Accurate Auto Parts, Inc. is in pause mode until it formulates new business policy.  &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;In December 2020 the Company acquired the Assets of Inside Auto Parts, Inc. incorporated in 1993, which is centrally located between Richmond, Charlottesville, and Fredericksburg, Virginia with easy access to main transport routs. The salvage dealership, specializing in used foreign car and truck parts has been acquired by Free Flow, Inc. subsidiary named “FFLO -  Inside Auto Parts, Inc.” and has 21,953.9 square feet fully enclosed and another 17,392.35 square feet under roof enclosed on 3 sides, all located on 16 acres of land in Mineral, Virginia then owned by FFLO. After over a year the assets were resold to the seller. The primary reason not to continue was the Company’s inability to get financing to pay off acquisition debt.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Subsequent to receipt, by another subsidiary of FFLO – namely Motors &amp;amp; Metals, Inc., of an LOI from an overseas buyer the Company planned to set up a “Scrap Metal Processing” plant and sought funding for equipment. A contract for purchase of equipment was intended to be executed with a Chinese equipment manufacturer, but due to Covid 19 pandemic the transaction came to a halt. Also, the Government of China put an embargo to finance US projects. However, Motors &amp;amp; Metals, Inc., diversified its efforts and began in physical trading of scrap metal and continues to do so.  &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;On March 04, 2024 the company sold its 10+ acre facility for a gross sum of $ 1,700,000 and continues to operate the salvage yard under a concession agreement which is at the will of both parties.&lt;/p&gt;
+</us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock>
+  <freeflowplc.com:BasisIncomeLossPerShare id="f7" decimals="INF" contextRef="c3" unitRef="usd1">0.032</freeflowplc.com:BasisIncomeLossPerShare>
+  <us-gaap:LiabilitiesCurrent id="f8" decimals="INF" contextRef="c4" unitRef="usd">150803.0</us-gaap:LiabilitiesCurrent>
+  <us-gaap:NetIncomeLoss id="f9" decimals="INF" contextRef="c5" unitRef="usd">-19429.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f10" decimals="INF" contextRef="c6" unitRef="shares">10000.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:AssetsCurrent id="f11" decimals="INF" contextRef="c2" unitRef="usd">441146.0</us-gaap:AssetsCurrent>
+  <us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax id="f12" decimals="INF" contextRef="c7" unitRef="usd">3076.0</us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax>
+  <us-gaap:SellingExpense id="f13" decimals="INF" contextRef="c3" unitRef="usd">2108.0</us-gaap:SellingExpense>
+  <us-gaap:PropertyPlantAndEquipmentPolicyTextBlock id="f14" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Property and Equipment, net&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Property and equipment are stated at cost less accumulated depreciation impairment. Depreciation of property, plant, and equipment is calculated on the straight-line method over the estimated useful lives as follows:&lt;/p&gt;
+</us-gaap:PropertyPlantAndEquipmentPolicyTextBlock>
+  <us-gaap:GainsLossesOnSalesOfAssets id="f15" decimals="128" contextRef="c8" unitRef="usd">0.0</us-gaap:GainsLossesOnSalesOfAssets>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f16" decimals="INF" contextRef="c6" unitRef="shares">10000.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:AdministrativeFeesExpense id="f17" decimals="INF" contextRef="c7" unitRef="usd">15538.0</us-gaap:AdministrativeFeesExpense>
+  <us-gaap:GainLossOnSaleOfOtherAssets id="f18" decimals="128" contextRef="c" unitRef="usd">0.0</us-gaap:GainLossOnSaleOfOtherAssets>
+  <us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment id="f19" decimals="INF" contextRef="c3" unitRef="usd">1700000.0</us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment>
+  <us-gaap:StockholdersEquity id="f20" decimals="INF" contextRef="c9" unitRef="usd">1.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f21" decimals="INF" contextRef="c10" unitRef="shares">330000.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f22" decimals="INF" contextRef="c4" unitRef="usd">672868.0</us-gaap:LiabilitiesAndStockholdersEquity>
+  <us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax id="f23" decimals="INF" contextRef="c" unitRef="usd">4032.0</us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax>
+  <us-gaap:NetIncomeLoss id="f24" decimals="INF" contextRef="c11" unitRef="usd">836018.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f25" decimals="INF" contextRef="c10" unitRef="shares">330000.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited id="f26" decimals="128" contextRef="c12" unitRef="usd">0.0</us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited>
+  <us-gaap:StockholdersEquity id="f27" decimals="INF" contextRef="c13" unitRef="usd">1.0</us-gaap:StockholdersEquity>
+  <us-gaap:SharesOutstanding id="f28" decimals="INF" contextRef="c14" unitRef="shares">25876900.0</us-gaap:SharesOutstanding>
+  <us-gaap:ProceedsFromNotesPayable id="f29" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:ProceedsFromNotesPayable>
+  <us-gaap:LongTermLoansPayable id="f30" decimals="INF" contextRef="c2" unitRef="usd">499900.0</us-gaap:LongTermLoansPayable>
+  <us-gaap:NetIncomeLoss id="f31" decimals="128" contextRef="c15" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <dei:DocumentType id="f32" contextRef="c3">10-Q</dei:DocumentType>
+  <us-gaap:Assets id="f33" decimals="INF" contextRef="c4" unitRef="usd">672868.0</us-gaap:Assets>
+  <freeflowplc.com:FinancialExpenses id="f34" decimals="INF" contextRef="c3" unitRef="usd">228196.0</freeflowplc.com:FinancialExpenses>
+  <freeflowplc.com:AdditionalSubscriptionShares id="f35" decimals="INF" contextRef="c16" unitRef="shares">50000.0</freeflowplc.com:AdditionalSubscriptionShares>
+  <freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment id="f36" decimals="INF" contextRef="c2" unitRef="usd">-31712.0</freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment>
+  <freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding id="f37" decimals="INF" contextRef="c8" unitRef="shares">25926900.0</freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding>
+  <us-gaap:IncreaseDecreaseInNotesPayableCurrent id="f38" decimals="INF" contextRef="c3" unitRef="usd">-1000.0</us-gaap:IncreaseDecreaseInNotesPayableCurrent>
+  <us-gaap:StockholdersEquity id="f39" decimals="INF" contextRef="c17" unitRef="usd">150028.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:ProceedsFromIssuanceOfRestrictedShares id="f40" decimals="INF" contextRef="c18" unitRef="usd">14490.0</freeflowplc.com:ProceedsFromIssuanceOfRestrictedShares>
+  <freeflowplc.com:RoundingOffDecimalError id="f41" decimals="128" contextRef="c2" unitRef="usd">0.0</freeflowplc.com:RoundingOffDecimalError>
+  <us-gaap:IncreaseDecreaseInAccountsReceivable id="f42" decimals="INF" contextRef="c" unitRef="usd">-1050.0</us-gaap:IncreaseDecreaseInAccountsReceivable>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivities id="f43" decimals="INF" contextRef="c3" unitRef="usd">10000.0</us-gaap:NetCashProvidedByUsedInFinancingActivities>
+  <us-gaap:StockholdersEquity id="f44" decimals="INF" contextRef="c19" unitRef="usd">2620.0</us-gaap:StockholdersEquity>
+  <us-gaap:AssetsCurrent id="f45" decimals="INF" contextRef="c4" unitRef="usd">172489.0</us-gaap:AssetsCurrent>
+  <us-gaap:OtherIncome id="f46" decimals="INF" contextRef="c" unitRef="usd">34047.0</us-gaap:OtherIncome>
+  <us-gaap:Revenues id="f47" decimals="INF" contextRef="c8" unitRef="usd">3273.0</us-gaap:Revenues>
+  <us-gaap:StockIssuedDuringPeriodSharesRestrictedStockAwardGross id="f48" decimals="INF" contextRef="c18" unitRef="shares">21000.0</us-gaap:StockIssuedDuringPeriodSharesRestrictedStockAwardGross>
+  <freeflowplc.com:BasisIncomeLossPerShare id="f49" decimals="INF" contextRef="c" unitRef="usd1">-0.001</freeflowplc.com:BasisIncomeLossPerShare>
+  <us-gaap:CommonStockSharesIssued id="f50" decimals="INF" contextRef="c20" unitRef="shares">26221000.0</us-gaap:CommonStockSharesIssued>
+  <dei:EntityAddressAddressLine1 id="f51" contextRef="c3">6269 Caledon Road</dei:EntityAddressAddressLine1>
+  <us-gaap:AdditionalPaidInCapital id="f52" decimals="INF" contextRef="c2" unitRef="usd">150028.0</us-gaap:AdditionalPaidInCapital>
+  <dei:EntityAddressCityOrTown id="f53" contextRef="c3">King George</dei:EntityAddressCityOrTown>
+  <dei:EntityCentralIndexKey id="f54" contextRef="c3">0001543652</dei:EntityCentralIndexKey>
+  <us-gaap:GainsLossesOnSalesOfAssets id="f55" decimals="128" contextRef="c7" unitRef="usd">0.0</us-gaap:GainsLossesOnSalesOfAssets>
+  <freeflowplc.com:DeliveryTrucksAtCost id="f56" decimals="INF" contextRef="c2" unitRef="usd">2500.0</freeflowplc.com:DeliveryTrucksAtCost>
+  <dei:CurrentFiscalYearEndDate id="f57" contextRef="c3">--12-31</dei:CurrentFiscalYearEndDate>
+  <us-gaap:NetIncomeLoss id="f58" decimals="INF" contextRef="c21" unitRef="usd">-19429.0</us-gaap:NetIncomeLoss>
+  <dei:EntityAddressStateOrProvince id="f59" contextRef="c3">VA</dei:EntityAddressStateOrProvince>
+  <us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment id="f60" decimals="128" contextRef="c" unitRef="usd">0.0</us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment>
+  <us-gaap:NetIncomeLoss id="f61" decimals="INF" contextRef="c22" unitRef="usd">-14705.0</us-gaap:NetIncomeLoss>
+  <us-gaap:NetIncomeLoss id="f62" decimals="INF" contextRef="c3" unitRef="usd">821315.0</us-gaap:NetIncomeLoss>
+  <us-gaap:GainsLossesOnSalesOfAssets id="f63" decimals="INF" contextRef="c3" unitRef="usd">1199622.0</us-gaap:GainsLossesOnSalesOfAssets>
+  <us-gaap:SubstantialDoubtAboutGoingConcernTextBlock id="f64" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;NOTE 3 GOING CONCERN&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The accompanying financial statements have been prepared assuming that the Company will continue as a going concern, which contemplates continuity of operations, realization of assets, and liquidation of liabilities in the normal course of the business.  Future issuances of the Company's equity or debt securities will be required for the Company to continue to finance its operations and continue as a going concern. The Company's present revenues are marginally sufficient to meet operating expenses. The Company’s financial statement has been prepared assuming that the Company will continue as a going concern, which contemplates, among other things, the realization of assets and the satisfaction of liabilities in the normal course of business. The Company has incurred cumulative net losses of $1,184,695 since its inception. There are no significant fixed recurring expenses and the current receivables are far more than current payables, thus the management does not doubt that it will continue as a going concern and recover the expenses through trading activities that are in progress.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The financial statements do not include any adjustments that might be necessary if the Company is unable to continue as a going concern.&lt;/p&gt;
+</us-gaap:SubstantialDoubtAboutGoingConcernTextBlock>
+  <dei:AmendmentFlag id="f65" contextRef="c3">false</dei:AmendmentFlag>
+  <us-gaap:LongTermLoansPayable id="f66" decimals="INF" contextRef="c4" unitRef="usd">499900.0</us-gaap:LongTermLoansPayable>
+  <dei:EntityAddressPostalZipCode id="f67" contextRef="c3">22485</dei:EntityAddressPostalZipCode>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f68" decimals="INF" contextRef="c2" unitRef="usd">3753.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited id="f69" decimals="128" contextRef="c5" unitRef="usd">0.0</us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited>
+  <dei:DocumentFiscalYearFocus id="f70" contextRef="c3">2024</dei:DocumentFiscalYearFocus>
+  <freeflowplc.com:DescriptionOfPrivatePlacementMemorandum id="f71" contextRef="c3">On August 17, 2020, the Company completed its Private Placement Memorandum to raise $19.5 million with no minimum, against issuance of 15,000,000 Series “D” shares at a price of $1.30 per share. The memorandum can be accessed on the Company’s website, i.e., www.FreeFlowPLC.com</freeflowplc.com:DescriptionOfPrivatePlacementMemorandum>
+  <us-gaap:ProceedsFromNotesPayable id="f72" decimals="INF" contextRef="c" unitRef="usd">2500.0</us-gaap:ProceedsFromNotesPayable>
+  <dei:DocumentFiscalPeriodFocus id="f73" contextRef="c3">Q2</dei:DocumentFiscalPeriodFocus>
+  <freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment id="f74" decimals="INF" contextRef="c4" unitRef="usd">-31712.0</freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment>
+  <dei:EntityAddressAddressDescription id="f75" contextRef="c3">Address of Principal Executive Offices</dei:EntityAddressAddressDescription>
+  <dei:DocumentTransitionReport id="f76" contextRef="c3">false</dei:DocumentTransitionReport>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f77" decimals="INF" contextRef="c23" unitRef="usd1">0.0001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <freeflowplc.com:RoundingOffDecimalError id="f78" decimals="INF" contextRef="c4" unitRef="usd">-2.0</freeflowplc.com:RoundingOffDecimalError>
+  <freeflowplc.com:FinancialExpenses id="f79" decimals="INF" contextRef="c" unitRef="usd">704.0</freeflowplc.com:FinancialExpenses>
+  <us-gaap:StockholdersEquity id="f80" decimals="INF" contextRef="c14" unitRef="usd">2622.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:Additionalsubscription id="f81" decimals="INF" contextRef="c16" unitRef="usd">5.0</freeflowplc.com:Additionalsubscription>
+  <us-gaap:StockholdersEquity id="f82" decimals="INF" contextRef="c24" unitRef="usd">-1765497.0</us-gaap:StockholdersEquity>
+  <us-gaap:SubsequentEventsTextBlock id="f83" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;NOTE 7 – SUBSEQUENT EVENT&lt;/b&gt;S&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company has evaluated subsequent events through July 31, 2024, the date these financial statements were prepared to be issued and noted no material subsequent events for disclosure.&lt;/p&gt;
+</us-gaap:SubsequentEventsTextBlock>
+  <freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding id="f84" decimals="INF" contextRef="c7" unitRef="shares">25876900.0</freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f85" decimals="INF" contextRef="c25" unitRef="usd1">0.0001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <us-gaap:StockholdersEquity id="f86" decimals="INF" contextRef="c26" unitRef="usd">-1814284.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:PncCloverNoteWrittenOff id="f87" decimals="128" contextRef="c3" unitRef="usd">0.0</freeflowplc.com:PncCloverNoteWrittenOff>
+  <us-gaap:PreferredStockSharesAuthorized id="f88" decimals="INF" contextRef="c25" unitRef="shares">20000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f89" decimals="INF" contextRef="c" unitRef="usd">-15312.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect>
+  <us-gaap:AdditionalPaidInCapital id="f90" decimals="INF" contextRef="c4" unitRef="usd">140033.0</us-gaap:AdditionalPaidInCapital>
+  <us-gaap:PreferredStockSharesAuthorized id="f91" decimals="INF" contextRef="c23" unitRef="shares">20000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:StockholdersEquity id="f92" decimals="INF" contextRef="c27" unitRef="usd">150028.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:BasisIncomeLossPerShare id="f93" decimals="INF" contextRef="c8" unitRef="usd1">-0.001</freeflowplc.com:BasisIncomeLossPerShare>
+  <freeflowplc.com:DeliveryTrucksAtCost id="f94" decimals="INF" contextRef="c4" unitRef="usd">2500.0</freeflowplc.com:DeliveryTrucksAtCost>
+  <us-gaap:Revenues id="f95" decimals="INF" contextRef="c7" unitRef="usd">3076.0</us-gaap:Revenues>
+  <us-gaap:NotesPayableCurrent id="f96" decimals="INF" contextRef="c2" unitRef="usd">1500.0</us-gaap:NotesPayableCurrent>
+  <us-gaap:PreferredStockSharesIssued id="f97" decimals="INF" contextRef="c23" unitRef="shares">10000.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:StockholdersEquity id="f98" decimals="INF" contextRef="c28" unitRef="usd">1.0</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquity id="f99" decimals="INF" contextRef="c29" unitRef="usd">-1801295.0</us-gaap:StockholdersEquity>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f100" decimals="INF" contextRef="c4" unitRef="usd">39521.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <dei:CityAreaCode id="f101" contextRef="c3">703</dei:CityAreaCode>
+  <us-gaap:PreferredStockSharesIssued id="f102" decimals="INF" contextRef="c25" unitRef="shares">10000.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:NetIncomeLoss id="f103" decimals="INF" contextRef="c" unitRef="usd">-17440.0</us-gaap:NetIncomeLoss>
+  <us-gaap:StockholdersEquity id="f104" decimals="128" contextRef="c30" unitRef="usd">0.0</us-gaap:StockholdersEquity>
+  <dei:LocalPhoneNumber id="f105" contextRef="c3">789-3344</dei:LocalPhoneNumber>
+  <us-gaap:GrossProfit id="f106" decimals="INF" contextRef="c3" unitRef="usd">2339.0</us-gaap:GrossProfit>
+  <us-gaap:IncreaseDecreaseInInventories id="f107" decimals="INF" contextRef="c3" unitRef="usd">-2400.0</us-gaap:IncreaseDecreaseInInventories>
+  <us-gaap:StockIssuedDuringPeriodValueNewIssues id="f108" decimals="INF" contextRef="c31" unitRef="usd">1035000.0</us-gaap:StockIssuedDuringPeriodValueNewIssues>
+  <dei:PhoneFaxNumberDescription id="f109" contextRef="c3">Registrant’s Telephone Number</dei:PhoneFaxNumberDescription>
+  <us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited id="f110" decimals="128" contextRef="c21" unitRef="usd">0.0</us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited>
+  <us-gaap:NetIncomeLoss id="f111" decimals="128" contextRef="c32" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:FinancialExpenses id="f112" decimals="INF" contextRef="c8" unitRef="usd">216.0</freeflowplc.com:FinancialExpenses>
+  <us-gaap:SharesOutstanding id="f113" decimals="INF" contextRef="c33" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f114" decimals="INF" contextRef="c4" unitRef="usd">39521.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <freeflowplc.com:Additionalsubscription id="f115" decimals="128" contextRef="c15" unitRef="usd">0.0</freeflowplc.com:Additionalsubscription>
+  <freeflowplc.com:IncorporationOfSubsidiaryDisclosureTextBlock id="f116" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;NOTE 4 – INCORPORATION OF SUBSIDIARY&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;In February 2015, the company incorporated a subsidiary, Promedaff, Inc., and purchased a skin care product line and formulations for $2,000,000 against a promissory note. An e commerce platform was set up for sales and marketing. The efforts did not bear any success and the entire inventory was sold through the Seller and the Promissory Note was cancelled and marked “VOID”. The name of this entity has been changed to Motors &amp;amp; Metals, Inc. In August 2018 Motors &amp;amp; Metals, Inc. received firm expression of interest from an overseas buyer willing to place long term purchase orders to buy 3,000 to 5,000 MT of Processed Scrap Metal. For over eight (8) months, the management scouted around to find a seller but learnt that no scrap metal processor was willing to entertain the business due to their loyalty agreements they have with their Buyer(s). Ultimately, the management decided to set up its own Scrap Metal Processing facility at the company owned 20 acre facility in King George, Virginia. Since the facility has been sold, so this plan is no longer being pursued.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;As reported in 10Qs for the earlier quarters, as well as in 10-K for the Annual reports, on February 4, 2016 the company incorporated another subsidiary in the State of Virginia under the name of JK Sales, Corp. (on December 7, 2017 the name was changed to Accurate Auto Parts, Inc.,) and has since remained in the business of buying end of life and salvage vehicles and selling auto parts.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;On April 17, 2018 the company incorporated in Virginia, another subsidiary named Accurate Investments, Inc. the objectives of acquiring real estate property, which plan did not materialize. However, Accurate Investments, Inc. continues to pursue other investment opportunities that could add revenues to the Company.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;On January 4, 2017 the company incorporated in Virginia another subsidiary named City Autos, Corp. with the objectives of operating an auto dealership and has finally commenced operations. Free Flow Auto Auction, an on-line auto auction platform is expected to be launched by the end of third quarter.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;On December 22, 2020 the company through another subsidiary named FFLO – Inside Auto Parts, Inc. acquired the assets and business of an auto recycling entity located on a 16-acre facility in Mineral, Virginia. These assets through an amicable settlement, were resold to the seller in January 2022 due to reason that company failed to obtain to financing to redeem the promissory note given to the Seller.&lt;/p&gt;
+</freeflowplc.com:IncorporationOfSubsidiaryDisclosureTextBlock>
+  <freeflowplc.com:PaypalAdvance id="f117" decimals="INF" contextRef="c2" unitRef="usd">29517.0</freeflowplc.com:PaypalAdvance>
+  <us-gaap:StockholdersEquity id="f118" decimals="INF" contextRef="c34" unitRef="usd">-1767486.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetIncomeLoss id="f119" decimals="128" contextRef="c35" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:PncCloverNoteWrittenOff id="f120" decimals="INF" contextRef="c" unitRef="usd">-10401.0</freeflowplc.com:PncCloverNoteWrittenOff>
+  <us-gaap:StockholdersEquity id="f121" decimals="INF" contextRef="c36" unitRef="usd">129033.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivities id="f122" decimals="INF" contextRef="c3" unitRef="usd">-1745768.0</us-gaap:NetCashProvidedByUsedInOperatingActivities>
+  <us-gaap:NotesPayableCurrent id="f123" decimals="INF" contextRef="c4" unitRef="usd">2500.0</us-gaap:NotesPayableCurrent>
+  <freeflowplc.com:IntraCompany id="f124" decimals="128" contextRef="c2" unitRef="usd">0.0</freeflowplc.com:IntraCompany>
+  <freeflowplc.com:BasisIncomeLossPerShare id="f125" decimals="INF" contextRef="c7" unitRef="usd1">0.0</freeflowplc.com:BasisIncomeLossPerShare>
+  <us-gaap:NetCashProvidedByUsedInInvestingActivities id="f126" decimals="INF" contextRef="c3" unitRef="usd">1700000.0</us-gaap:NetCashProvidedByUsedInInvestingActivities>
+  <us-gaap:ProfessionalFees id="f127" decimals="INF" contextRef="c3" unitRef="usd">128507.0</us-gaap:ProfessionalFees>
+  <freeflowplc.com:ProceedsFromPayPalAdvance id="f128" decimals="128" contextRef="c3" unitRef="usd">0.0</freeflowplc.com:ProceedsFromPayPalAdvance>
+  <dei:EntityCurrentReportingStatus id="f129" contextRef="c3">Yes</dei:EntityCurrentReportingStatus>
+  <us-gaap:PreferredStockValue id="f130" decimals="INF" contextRef="c23" unitRef="usd">1.0</us-gaap:PreferredStockValue>
+  <us-gaap:StockholdersEquity id="f131" decimals="128" contextRef="c37" unitRef="usd">0.0</us-gaap:StockholdersEquity>
+  <us-gaap:SignificantAccountingPoliciesTextBlock id="f132" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;NOTE 2 – SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Basis of presentation&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The unaudited consolidated financial statements have been prepared in accordance with generally accepted accounting principles in the United States (“GAAP”) and include all the adjustments necessary for the fair presentation of the Company’s financial position for the periods presented. These condensed consolidated financial statements should be read in conjunction with the financial statements and notes thereto included in the Company’s Annual Report on Form 10-K for 2023 (“2023 Form 10-K”) as filled with SEC on April 01, 2024.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Use of Estimates&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;In preparing the consolidated financial statements in conformity with U.S GAAP, management makes estimates and assumptions that affect the reported amounts of assets and liabilities and disclosures of reported amounts of revenues and expenses during the reporting period. Significant estimates and assumptions made by management include but are not limited to, revenue recognition, the allowance for bad debts, income taxes, and unrecognized tax benefits. Actual results could differ from those estimates.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Recent Accounting Standards Not Yet Adopted&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;In December 2023 the FASB issued ASU 2023-09, Income Taxes (Topic 740): Improvements to Income Tax Disclosure, which expands the disclosures required for income taxes, primarily through changes to the rate reconciliation and income taxes paid information. The ASU is effective for fiscal years beginning after December 15, 2024, with early adaptation permitted. The amendment should be applied on a prospective basis while retrospective application is permitted. The Company is currently evaluating the effect of this pronouncement on its disclosures.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Cash and cash Equivalents   &lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Cash and cash equivalents are on deposit with financial institutions without any restrictions. The Company maintains its cash with high-quality financial institutions. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Property and Equipment, net&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Property and equipment are stated at cost less accumulated depreciation impairment. Depreciation of property, plant, and equipment is calculated on the straight-line method over the estimated useful lives as follows:&lt;/p&gt;
+</us-gaap:SignificantAccountingPoliciesTextBlock>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f133" decimals="INF" contextRef="c2" unitRef="usd">-1184695.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <freeflowplc.com:IncredibleBankLoanExpressLoan id="f134" decimals="128" contextRef="c" unitRef="usd">0.0</freeflowplc.com:IncredibleBankLoanExpressLoan>
+  <us-gaap:LiabilitiesNoncurrent id="f135" decimals="INF" contextRef="c2" unitRef="usd">598693.0</us-gaap:LiabilitiesNoncurrent>
+  <us-gaap:StockholdersEquity id="f136" decimals="INF" contextRef="c38" unitRef="usd">-1926509.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetIncomeLoss id="f137" decimals="INF" contextRef="c8" unitRef="usd">-14705.0</us-gaap:NetIncomeLoss>
+  <us-gaap:GrossProfit id="f138" decimals="INF" contextRef="c" unitRef="usd">-9671.0</us-gaap:GrossProfit>
+  <us-gaap:IncreaseDecreaseInInventories id="f139" decimals="128" contextRef="c" unitRef="usd">0.0</us-gaap:IncreaseDecreaseInInventories>
+  <freeflowplc.com:AccumulatedDepreciationInOtherAssets id="f140" decimals="INF" contextRef="c2" unitRef="usd">-2500.0</freeflowplc.com:AccumulatedDepreciationInOtherAssets>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f141" decimals="INF" contextRef="c39" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <us-gaap:StockIssued1 id="f142" decimals="INF" contextRef="c40" unitRef="usd">11000.0</us-gaap:StockIssued1>
+  <us-gaap:LandImprovements id="f143" decimals="INF" contextRef="c4" unitRef="usd">772413.0</us-gaap:LandImprovements>
+  <us-gaap:PaymentsToAcquireBusinessesGross id="f144" decimals="INF" contextRef="c41" unitRef="usd">2000000.0</us-gaap:PaymentsToAcquireBusinessesGross>
+  <freeflowplc.com:PaypalAdvance id="f145" decimals="INF" contextRef="c4" unitRef="usd">29517.0</freeflowplc.com:PaypalAdvance>
+  <us-gaap:StockholdersEquity id="f146" decimals="128" contextRef="c42" unitRef="usd">0.0</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquity id="f147" decimals="INF" contextRef="c43" unitRef="usd">-1794855.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:Additionalsubscription id="f148" decimals="INF" contextRef="c44" unitRef="usd">10000.0</freeflowplc.com:Additionalsubscription>
+  <us-gaap:AccountsReceivableNetCurrent id="f149" decimals="INF" contextRef="c2" unitRef="usd">102264.0</us-gaap:AccountsReceivableNetCurrent>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f150" decimals="INF" contextRef="c45" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <us-gaap:CommonStockValue id="f151" decimals="INF" contextRef="c4" unitRef="usd">2622.0</us-gaap:CommonStockValue>
+  <us-gaap:OtherIncome id="f152" decimals="INF" contextRef="c3" unitRef="usd">2233.0</us-gaap:OtherIncome>
+  <us-gaap:NetIncomeLoss id="f153" decimals="128" contextRef="c46" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:FinancialExpenses id="f154" decimals="INF" contextRef="c7" unitRef="usd">281.0</freeflowplc.com:FinancialExpenses>
+  <us-gaap:StockholdersEquity id="f155" decimals="INF" contextRef="c4" unitRef="usd">-2016009.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f156" decimals="INF" contextRef="c39" unitRef="shares">330000.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:CostOfGoodsAndServicesSold id="f157" decimals="INF" contextRef="c3" unitRef="usd">3785.0</us-gaap:CostOfGoodsAndServicesSold>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f158" decimals="INF" contextRef="c43" unitRef="usd">17274.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <us-gaap:StockIssued1 id="f159" decimals="128" contextRef="c47" unitRef="usd">0.0</us-gaap:StockIssued1>
+  <us-gaap:StockholdersEquity id="f160" decimals="INF" contextRef="c48" unitRef="usd">1.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f161" decimals="INF" contextRef="c39" unitRef="shares">330000.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:StockholdersEquity id="f162" decimals="INF" contextRef="c49" unitRef="usd">2620.0</us-gaap:StockholdersEquity>
+  <us-gaap:BasisOfAccountingPolicyPolicyTextBlock id="f163" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Basis of presentation&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The unaudited consolidated financial statements have been prepared in accordance with generally accepted accounting principles in the United States (“GAAP”) and include all the adjustments necessary for the fair presentation of the Company’s financial position for the periods presented. These condensed consolidated financial statements should be read in conjunction with the financial statements and notes thereto included in the Company’s Annual Report on Form 10-K for 2023 (“2023 Form 10-K”) as filled with SEC on April 01, 2024.&lt;/p&gt;
+</us-gaap:BasisOfAccountingPolicyPolicyTextBlock>
+  <freeflowplc.com:IntraCompany id="f164" decimals="128" contextRef="c4" unitRef="usd">0.0</freeflowplc.com:IntraCompany>
+  <us-gaap:StockholdersEquity id="f165" decimals="INF" contextRef="c33" unitRef="usd">1.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f166" decimals="INF" contextRef="c45" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivities id="f167" decimals="INF" contextRef="c" unitRef="usd">-20801.0</us-gaap:NetCashProvidedByUsedInOperatingActivities>
+  <us-gaap:StockholdersEquity id="f168" decimals="INF" contextRef="c50" unitRef="usd">-1782191.0</us-gaap:StockholdersEquity>
+  <us-gaap:PreferredStockValue id="f169" decimals="INF" contextRef="c25" unitRef="usd">1.0</us-gaap:PreferredStockValue>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f170" decimals="INF" contextRef="c45" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:OperatingIncomeLoss id="f171" decimals="INF" contextRef="c3" unitRef="usd">-380540.0</us-gaap:OperatingIncomeLoss>
+  <us-gaap:CommonStockSharesSubscriptions id="f172" decimals="128" contextRef="c4" unitRef="usd">0.0</us-gaap:CommonStockSharesSubscriptions>
+  <us-gaap:NetCashProvidedByUsedInInvestingActivities id="f173" decimals="128" contextRef="c" unitRef="usd">0.0</us-gaap:NetCashProvidedByUsedInInvestingActivities>
+  <freeflowplc.com:ProceedsFromPayPalAdvance id="f174" decimals="INF" contextRef="c" unitRef="usd">-4011.0</freeflowplc.com:ProceedsFromPayPalAdvance>
+  <dei:DocumentPeriodEndDate id="f175" contextRef="c3">2024-06-30</dei:DocumentPeriodEndDate>
+  <us-gaap:Liabilities id="f176" decimals="INF" contextRef="c2" unitRef="usd">824906.0</us-gaap:Liabilities>
+  <us-gaap:NetIncomeLoss id="f177" decimals="INF" contextRef="c51" unitRef="usd">1989.0</us-gaap:NetIncomeLoss>
+  <us-gaap:SharesOutstanding id="f178" decimals="INF" contextRef="c52" unitRef="shares">25926900.0</us-gaap:SharesOutstanding>
+  <freeflowplc.com:AccumulatedDepreciationInOtherAssets id="f179" decimals="INF" contextRef="c4" unitRef="usd">-2500.0</freeflowplc.com:AccumulatedDepreciationInOtherAssets>
+  <us-gaap:NetIncomeLoss id="f180" decimals="INF" contextRef="c7" unitRef="usd">1989.0</us-gaap:NetIncomeLoss>
+  <us-gaap:LandAndLandImprovements id="f181" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:LandAndLandImprovements>
+  <freeflowplc.com:NotesPayableRelatedParties id="f182" decimals="INF" contextRef="c2" unitRef="usd">9634.0</freeflowplc.com:NotesPayableRelatedParties>
+  <us-gaap:ProfessionalFees id="f183" decimals="INF" contextRef="c8" unitRef="usd">12846.0</us-gaap:ProfessionalFees>
+  <us-gaap:GrossProfit id="f184" decimals="INF" contextRef="c8" unitRef="usd">158.0</us-gaap:GrossProfit>
+  <freeflowplc.com:InventoryWrittenOff id="f185" decimals="128" contextRef="c3" unitRef="usd">0.0</freeflowplc.com:InventoryWrittenOff>
+  <us-gaap:AccountsReceivableNetCurrent id="f186" decimals="INF" contextRef="c4" unitRef="usd">95440.0</us-gaap:AccountsReceivableNetCurrent>
+  <dei:EntityInteractiveDataCurrent id="f187" contextRef="c3">Yes</dei:EntityInteractiveDataCurrent>
+  <dei:EntityFileNumber id="f188" contextRef="c3">000-54868</dei:EntityFileNumber>
+  <us-gaap:StockIssuedDuringPeriodValueNewIssues id="f189" decimals="INF" contextRef="c35" unitRef="usd">0.0</us-gaap:StockIssuedDuringPeriodValueNewIssues>
+  <us-gaap:Liabilities id="f190" decimals="INF" contextRef="c4" unitRef="usd">1887943.0</us-gaap:Liabilities>
+  <us-gaap:GainsLossesOnSalesOfAssets id="f191" decimals="128" contextRef="c" unitRef="usd">0.0</us-gaap:GainsLossesOnSalesOfAssets>
+  <us-gaap:OtherIncome id="f192" decimals="INF" contextRef="c8" unitRef="usd">2233.0</us-gaap:OtherIncome>
+  <us-gaap:AdministrativeFeesExpense id="f193" decimals="INF" contextRef="c3" unitRef="usd">24068.0</us-gaap:AdministrativeFeesExpense>
+  <us-gaap:AdministrativeFeesExpense id="f194" decimals="INF" contextRef="c8" unitRef="usd">3924.0</us-gaap:AdministrativeFeesExpense>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f195" decimals="INF" contextRef="c4" unitRef="usd">-1926509.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:CostOfGoodsAndServicesSold id="f196" decimals="INF" contextRef="c" unitRef="usd">13703.0</us-gaap:CostOfGoodsAndServicesSold>
+  <freeflowplc.com:Additionalsubscription id="f197" decimals="INF" contextRef="c53" unitRef="usd">9995.0</freeflowplc.com:Additionalsubscription>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f198" decimals="INF" contextRef="c39" unitRef="usd">330000.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <us-gaap:StockIssuedDuringPeriodSharesShareBasedCompensationForfeited id="f199" decimals="INF" contextRef="c46" unitRef="shares">-1379100.0</us-gaap:StockIssuedDuringPeriodSharesShareBasedCompensationForfeited>
+  <freeflowplc.com:PaymentAgainstImprovementInProgress id="f200" decimals="128" contextRef="c" unitRef="usd">0.0</freeflowplc.com:PaymentAgainstImprovementInProgress>
+  <us-gaap:AccountsPayableCurrent id="f201" decimals="INF" contextRef="c4" unitRef="usd">138669.0</us-gaap:AccountsPayableCurrent>
+  <us-gaap:OtherAssets id="f202" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:OtherAssets>
+  <freeflowplc.com:IncredibleBankPropertyTax id="f203" decimals="INF" contextRef="c2" unitRef="usd">40587.0</freeflowplc.com:IncredibleBankPropertyTax>
+  <us-gaap:NetIncomeLoss id="f204" decimals="128" contextRef="c54" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax id="f205" decimals="INF" contextRef="c8" unitRef="usd">3273.0</us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax>
+  <us-gaap:IncreaseDecreaseInNotesReceivables id="f206" decimals="INF" contextRef="c3" unitRef="usd">300000.0</us-gaap:IncreaseDecreaseInNotesReceivables>
+  <us-gaap:OperatingIncomeLoss id="f207" decimals="INF" contextRef="c" unitRef="usd">-51487.0</us-gaap:OperatingIncomeLoss>
+  <us-gaap:UseOfEstimates id="f208" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Use of Estimates&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;In preparing the consolidated financial statements in conformity with U.S GAAP, management makes estimates and assumptions that affect the reported amounts of assets and liabilities and disclosures of reported amounts of revenues and expenses during the reporting period. Significant estimates and assumptions made by management include but are not limited to, revenue recognition, the allowance for bad debts, income taxes, and unrecognized tax benefits. Actual results could differ from those estimates.&lt;/p&gt;
+</us-gaap:UseOfEstimates>
+  <us-gaap:StockholdersEquity id="f209" decimals="INF" contextRef="c55" unitRef="usd">140033.0</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquity id="f210" decimals="INF" contextRef="c56" unitRef="usd">-1767486.0</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquity id="f211" decimals="INF" contextRef="c57" unitRef="usd">140033.0</us-gaap:StockholdersEquity>
+  <us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax id="f212" decimals="INF" contextRef="c3" unitRef="usd">6123.0</us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax>
+  <us-gaap:LandAndLandImprovements id="f213" decimals="INF" contextRef="c4" unitRef="usd">488682.0</us-gaap:LandAndLandImprovements>
+  <freeflowplc.com:NotesPayableRelatedParties id="f214" decimals="INF" contextRef="c4" unitRef="usd">9634.0</freeflowplc.com:NotesPayableRelatedParties>
+  <us-gaap:InventoryNet id="f215" decimals="INF" contextRef="c2" unitRef="usd">2400.0</us-gaap:InventoryNet>
+  <us-gaap:OperatingExpenses id="f216" decimals="INF" contextRef="c3" unitRef="usd">382879.0</us-gaap:OperatingExpenses>
+  <us-gaap:StockholdersEquity id="f217" decimals="128" contextRef="c58" unitRef="usd">0.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivities id="f218" decimals="INF" contextRef="c" unitRef="usd">5489.0</us-gaap:NetCashProvidedByUsedInFinancingActivities>
+  <freeflowplc.com:IncomeForThePeriodJanuaryDecember302020 id="f219" decimals="INF" contextRef="c2" unitRef="usd">821315.0</freeflowplc.com:IncomeForThePeriodJanuaryDecember302020>
+  <us-gaap:GrossProfit id="f220" decimals="INF" contextRef="c7" unitRef="usd">-816.0</us-gaap:GrossProfit>
+  <freeflowplc.com:InventoryWrittenOff id="f221" decimals="INF" contextRef="c" unitRef="usd">890.0</freeflowplc.com:InventoryWrittenOff>
+  <us-gaap:StockholdersEquity id="f222" decimals="INF" contextRef="c2" unitRef="usd">-1184696.0</us-gaap:StockholdersEquity>
+  <dei:EntityCommonStockSharesOutstanding id="f223" decimals="INF" contextRef="c59" unitRef="shares">26926900.0</dei:EntityCommonStockSharesOutstanding>
+  <us-gaap:SecuredLongTermDebt id="f224" decimals="INF" contextRef="c2" unitRef="usd">20107.0</us-gaap:SecuredLongTermDebt>
+  <us-gaap:SharesOutstanding id="f225" decimals="INF" contextRef="c60" unitRef="shares">25926900.0</us-gaap:SharesOutstanding>
+  <us-gaap:ProfessionalFees id="f226" decimals="INF" contextRef="c7" unitRef="usd">12493.0</us-gaap:ProfessionalFees>
+  <dei:EntityRegistrantName id="f227" contextRef="c3">Free Flow Inc.</dei:EntityRegistrantName>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f228" decimals="INF" contextRef="c45" unitRef="usd">330000.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <us-gaap:OtherIncome id="f229" decimals="INF" contextRef="c7" unitRef="usd">31172.0</us-gaap:OtherIncome>
+  <freeflowplc.com:ProceedsFromLoanFromRiverValleyBank id="f230" decimals="128" contextRef="c3" unitRef="usd">0.0</freeflowplc.com:ProceedsFromLoanFromRiverValleyBank>
+  <us-gaap:FurnitureAndFixturesGross id="f231" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:FurnitureAndFixturesGross>
+  <us-gaap:NetIncomeLoss id="f232" decimals="128" contextRef="c61" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:CostOfGoodsAndServicesSold id="f233" decimals="INF" contextRef="c8" unitRef="usd">3115.0</us-gaap:CostOfGoodsAndServicesSold>
+  <us-gaap:OtherAssets id="f234" decimals="INF" contextRef="c4" unitRef="usd">11697.0</us-gaap:OtherAssets>
+  <freeflowplc.com:IncredibleBankPropertyTax id="f235" decimals="INF" contextRef="c4" unitRef="usd">40587.0</freeflowplc.com:IncredibleBankPropertyTax>
+  <us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited id="f236" decimals="128" contextRef="c46" unitRef="usd">0.0</us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited>
+  <us-gaap:StockholdersEquity id="f237" decimals="INF" contextRef="c52" unitRef="usd">2627.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:RefundDueFromIrsErtc id="f238" decimals="INF" contextRef="c2" unitRef="usd">32730.0</freeflowplc.com:RefundDueFromIrsErtc>
+  <us-gaap:IncreaseDecreaseInNotesReceivables id="f239" decimals="128" contextRef="c" unitRef="usd">0.0</us-gaap:IncreaseDecreaseInNotesReceivables>
+  <us-gaap:OperatingIncomeLoss id="f240" decimals="INF" contextRef="c8" unitRef="usd">-16938.0</us-gaap:OperatingIncomeLoss>
+  <us-gaap:InventoryNet id="f241" decimals="INF" contextRef="c4" unitRef="usd">4800.0</us-gaap:InventoryNet>
+  <us-gaap:NetIncomeLoss id="f242" decimals="128" contextRef="c62" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:AccumulatedDepreciationFixedAssets id="f243" decimals="INF" contextRef="c4" unitRef="usd">283731.0</freeflowplc.com:AccumulatedDepreciationFixedAssets>
+  <us-gaap:RelatedPartyTransactionsDisclosureTextBlock id="f244" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;NOTE 5 – NOTE PAYABLE, RELATED PARTY&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#FF0000;text-align:justify"&gt;&lt;span style="color:#000000"&gt;As of December 31, 2023, the Company had a note payable in the amount of $9,634 to Redfield Holdings, Ltd. a related party. During the six months ended June 30, 2024 there was no change in the amount owed. The note is unsecured and does not bear any interest and has a maturity date of December 31, 2024.&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#FF0000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Redfield Holdings Ltd. is 100% owned by the CEO.&lt;/p&gt;
+</us-gaap:RelatedPartyTransactionsDisclosureTextBlock>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f245" decimals="INF" contextRef="c3" unitRef="usd">-35768.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f246" decimals="INF" contextRef="c63" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <freeflowplc.com:IncomeForThePeriodJanuaryDecember302020 id="f247" decimals="INF" contextRef="c4" unitRef="usd">-232156.0</freeflowplc.com:IncomeForThePeriodJanuaryDecember302020>
+  <us-gaap:OperatingExpenses id="f248" decimals="INF" contextRef="c" unitRef="usd">41816.0</us-gaap:OperatingExpenses>
+  <us-gaap:StockholdersEquity id="f249" decimals="128" contextRef="c64" unitRef="usd">0.0</us-gaap:StockholdersEquity>
+  <us-gaap:SecuredLongTermDebt id="f250" decimals="INF" contextRef="c4" unitRef="usd">319319.0</us-gaap:SecuredLongTermDebt>
+  <us-gaap:IncreaseDecreaseInNotesPayableCurrent id="f251" decimals="128" contextRef="c" unitRef="usd">0.0</us-gaap:IncreaseDecreaseInNotesPayableCurrent>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f252" decimals="INF" contextRef="c65" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f253" decimals="INF" contextRef="c65" unitRef="shares">470935.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:SellingExpense id="f254" decimals="INF" contextRef="c" unitRef="usd">323.0</us-gaap:SellingExpense>
+  <us-gaap:FurnitureAndFixturesGross id="f255" decimals="INF" contextRef="c4" unitRef="usd">11697.0</us-gaap:FurnitureAndFixturesGross>
+  <us-gaap:StockIssued1 id="f256" decimals="INF" contextRef="c7" unitRef="usd">11000.0</us-gaap:StockIssued1>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f257" decimals="INF" contextRef="c65" unitRef="shares">470935.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f258" decimals="INF" contextRef="c4" unitRef="usd1">0.0001</us-gaap:CommonStockParOrStatedValuePerShare>
+  <us-gaap:SharesOutstanding id="f259" decimals="INF" contextRef="c9" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <freeflowplc.com:RefundDueFromIrsErtc id="f260" decimals="INF" contextRef="c4" unitRef="usd">32730.0</freeflowplc.com:RefundDueFromIrsErtc>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f261" decimals="INF" contextRef="c63" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <freeflowplc.com:ProceedsFromLoanFromRiverValleyBank id="f262" decimals="INF" contextRef="c" unitRef="usd">-4000.0</freeflowplc.com:ProceedsFromLoanFromRiverValleyBank>
+  <us-gaap:StockholdersEquity id="f263" decimals="INF" contextRef="c66" unitRef="usd">-1169991.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f264" decimals="INF" contextRef="c63" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f265" decimals="INF" contextRef="c2" unitRef="usd1">0.0001</us-gaap:CommonStockParOrStatedValuePerShare>
+  <us-gaap:CostOfGoodsAndServicesSold id="f266" decimals="INF" contextRef="c7" unitRef="usd">3892.0</us-gaap:CostOfGoodsAndServicesSold>
+  <us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited id="f267" decimals="128" contextRef="c61" unitRef="usd">0.0</us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited>
+  <us-gaap:CommonStockSharesAuthorized id="f268" decimals="INF" contextRef="c4" unitRef="shares">100000000.0</us-gaap:CommonStockSharesAuthorized>
+  <us-gaap:CommonStockSharesAuthorized id="f269" decimals="INF" contextRef="c2" unitRef="shares">100000000.0</us-gaap:CommonStockSharesAuthorized>
+  <us-gaap:SharesOutstanding id="f270" decimals="INF" contextRef="c67" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:OperatingIncomeLoss id="f271" decimals="INF" contextRef="c7" unitRef="usd">-29183.0</us-gaap:OperatingIncomeLoss>
+  <us-gaap:StockholdersEquity id="f272" decimals="INF" contextRef="c60" unitRef="usd">2627.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:RecentAccountingStandardsNotYetAdoptedPolicyTextBlock id="f273" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Recent Accounting Standards Not Yet Adopted&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;In December 2023 the FASB issued ASU 2023-09, Income Taxes (Topic 740): Improvements to Income Tax Disclosure, which expands the disclosures required for income taxes, primarily through changes to the rate reconciliation and income taxes paid information. The ASU is effective for fiscal years beginning after December 15, 2024, with early adaptation permitted. The amendment should be applied on a prospective basis while retrospective application is permitted. The Company is currently evaluating the effect of this pronouncement on its disclosures.&lt;/p&gt;
+</freeflowplc.com:RecentAccountingStandardsNotYetAdoptedPolicyTextBlock>
+  <freeflowplc.com:IncredibleBankLoanPlpLoan id="f274" decimals="INF" contextRef="c3" unitRef="usd">839235.0</freeflowplc.com:IncredibleBankLoanPlpLoan>
+  <us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding id="f275" decimals="INF" contextRef="c2" unitRef="usd">8582.0</us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding>
+  <us-gaap:CommonStockSharesIssued id="f276" decimals="INF" contextRef="c2" unitRef="shares">25926900.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:SharesOutstanding id="f277" decimals="INF" contextRef="c68" unitRef="shares">25876900.0</us-gaap:SharesOutstanding>
+  <freeflowplc.com:NotesPayableRelatedParties1 id="f278" decimals="INF" contextRef="c69" unitRef="usd">9634.0</freeflowplc.com:NotesPayableRelatedParties1>
+  <us-gaap:LandImprovements id="f279" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:LandImprovements>
+  <freeflowplc.com:AccumulatedDepreciationFixedAssets id="f280" decimals="128" contextRef="c2" unitRef="usd">0.0</freeflowplc.com:AccumulatedDepreciationFixedAssets>
+  <us-gaap:OperatingExpenses id="f281" decimals="INF" contextRef="c8" unitRef="usd">17096.0</us-gaap:OperatingExpenses>
+  <us-gaap:CommonStockSharesOutstanding id="f282" decimals="INF" contextRef="c2" unitRef="shares">25926900.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:CommonStockSharesIssued id="f283" decimals="INF" contextRef="c4" unitRef="shares">25876900.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:NetIncomeLoss id="f284" decimals="INF" contextRef="c44" unitRef="usd">836018.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:IncredibleBankLoanExpressLoan id="f285" decimals="INF" contextRef="c3" unitRef="usd">299212.0</freeflowplc.com:IncredibleBankLoanExpressLoan>
+  <us-gaap:StockholdersEquity id="f286" decimals="INF" contextRef="c70" unitRef="usd">-2158665.0</us-gaap:StockholdersEquity>
+  <us-gaap:CommonStockSharesOutstanding id="f287" decimals="INF" contextRef="c4" unitRef="shares">25876900.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:SellingExpense id="f288" decimals="INF" contextRef="c8" unitRef="usd">110.0</us-gaap:SellingExpense>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f289" decimals="INF" contextRef="c2" unitRef="usd">3753.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <us-gaap:AccountsPayableCurrent id="f290" decimals="INF" contextRef="c2" unitRef="usd">215079.0</us-gaap:AccountsPayableCurrent>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f291" decimals="INF" contextRef="c65" unitRef="usd">470935.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <us-gaap:NetIncomeLoss id="f292" decimals="128" contextRef="c31" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:IncreaseDecreaseInAccountsPayable id="f293" decimals="INF" contextRef="c3" unitRef="usd">76410.0</us-gaap:IncreaseDecreaseInAccountsPayable>
+  <us-gaap:LoansPayable id="f294" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:LoansPayable>
+  <us-gaap:NetIncomeLoss id="f295" decimals="128" contextRef="c71" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:StockIssued1 id="f296" decimals="128" contextRef="c8" unitRef="usd">0.0</us-gaap:StockIssued1>
+  <dei:EntityTaxIdentificationNumber id="f297" contextRef="c3">45-3838831</dei:EntityTaxIdentificationNumber>
+  <us-gaap:StockholdersEquityNoteDisclosureTextBlock id="f298" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;NOTE 6 – CAPITAL STOCK&lt;/b&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company has authorized 100,000,000 shares of common shares with a par value of $0.0001 per shares and 20,000,000 shares of preferred stock, with a par value of $0.0001 per shares.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0"&gt;On August 5, 2020 the company filed the following Amendment to the Capital Stock:&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The amount of the total Common Stock of the corporation is Hundred Million (100,000,000) shares of Common Stock, par value ($.0001) per shares. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The total amount of Preferred Stock of the corporation is Twenty Million (20,000,000) shares, par value ($.0001) per share. The preferences being that there will be various series of Preferred Share, such preferences are more specifically defined as under along with the number of shares allocated to each series:&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Series “A”: Number of shares allocated are Ten Thousand (10,000) – par value $.0001 per share; one share of this class of Preferred Stock Series “A” will carry voting rights equal to Ten Thousand (10,000) shares of Common Shares; thus the voting rights attributed to all of these 10,000 shares would be equal to One Hundred Million common shares.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Series “B”: Number of shares allocated are Five Hundred Thousand (500,000) – par value $.0001 per share; one share of this class of Preferred Stock Series “B” will carry voting rights equal to one share of Common Shares; and are redeemable with 365 days’ notice.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Series “C”: Number of shares allocated are Five Hundred Thousand (500,000) – par value $.0001 per share; one share of this class of Preferred Stock Series “C” will carry voting rights equal to one share of Common Shares and could be used to assign corresponding capital in to any subsidiary of Free Flow, Inc. with a view to extend comfort to any lender. Such shares are redeemable upon such lender authorizing the redemption of capital in the respective subsidiary company.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Series “D”:  Number of shares allocated are Fifteen Million  (15,000,000) – par value $.0001 per share; one share of this class of Preferred Stock Series “D” will carry voting rights equal to one share of Common Shares This series of shares could be issued against subscription of any amount as the board of directors and/or majority of the shareholders approve. Series “D” shares could be converted in to common shares as approved by the majority shareholders.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Series “E”: Number of shares allocated are Three Million Nine Hundred Ninety Thousand (3,990,000) – par value $.0001 per share; one share of this class of Preferred Stock Series “E” will carry voting rights equal to one share of Common Shares This series of shares could be issued against subscription in cash or kind including but not limited to subscription directly into capital account of any subsidiary for any amount as the board of directors and/or majority of the shareholders approve. Series “E” shareholders could be entitled to a specifically defined profit sharing in a specific project or transaction(s). Series E shares could be redeemable and/or converted in to common shares as agreed between the subscriber(s) and approved by the majority shareholders and/or by the Board of Directors of the Company. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The amendment effected herein was authorized by the affirmative vote of the holders of a majority of the outstanding shares entitled to vote thereon at a meeting of the shareholders pursuant to Section 242 of the General Corporation Law of the State of Delaware&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Pursuant to the resolution of the shareholders meeting held on March 30, 2015 the Company designated 500,000 shares of the preferred authorized shares as preferred shares – Series “B” shares. The preferred shares – Series “B” were assigned the following preferences:&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;a)&lt;/kbd&gt;Each share to carry one vote. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;b)&lt;/kbd&gt;Each share will be redeemable with a 365 days written notice to the company. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;c)&lt;/kbd&gt;Each share will be junior to any debt incurred by the Company.  &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;d)&lt;/kbd&gt;The redemption value will be the par value at which such “preferred shares – series B” are bought by the subscriber. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;e)&lt;/kbd&gt;Each share will carry a dividend right at par with the common shares. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;On December 31, 2014 the Company had a Note outstanding in the principal amount of $330,000 plus interest payable to GS Pharmaceuticals, Inc. By mutual consent this note and accrued interest was converted to 330,000 preferred shares – Series “B”.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;On March 31, 2015 an amount of $58,000 was subscribed by Redfield Holdings, Ltd. by cancellation of a Note against the issuance of 9,700 shares of preferred shares – Series “A”. These shares were issued to Redfield Holding, Ltd. thus making a total of entire designated preferred shares – Series “A” shares to Redfield Holdings, Ltd. Each share of preferred shares – Series “A” carries voting rights equal to 10,000 common shares. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;On September 30, 2017 total preferred shares issued and outstanding are 10,000 Series “A” and 330,000 Series “B”. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;On April 2, 2019, in a private transaction, the Company accepted a sum of $14,490 against issuance of 21,000 restricted Common shares of the Company. Thus the total common shares issued and outstanding as on September 30, 2019, stood at 26,221,000&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;On August 17, 2020, the Company completed its Private Placement Memorandum to raise $19.5 million with no minimum, against issuance of 15,000,000 Series “D” shares at a price of $1.30 per share. The memorandum can be accessed on the Company’s website, i.e., www.FreeFlowPLC.com&lt;/p&gt;
+</us-gaap:StockholdersEquityNoteDisclosureTextBlock>
+  <us-gaap:PropertyPlantAndEquipmentOther id="f299" decimals="INF" contextRef="c2" unitRef="usd">31712.0</us-gaap:PropertyPlantAndEquipmentOther>
+  <us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding id="f300" decimals="INF" contextRef="c4" unitRef="usd">847817.0</us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding>
+  <us-gaap:ProfessionalFees id="f301" decimals="INF" contextRef="c" unitRef="usd">14712.0</us-gaap:ProfessionalFees>
+  <us-gaap:NotesReceivableNet id="f302" decimals="INF" contextRef="c2" unitRef="usd">300000.0</us-gaap:NotesReceivableNet>
+  <us-gaap:StockholdersEquity id="f303" decimals="INF" contextRef="c72" unitRef="usd">129033.0</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f304" decimals="INF" contextRef="c4" unitRef="usd">-2016010.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:StockholdersEquity id="f305" decimals="128" contextRef="c73" unitRef="usd">0.0</us-gaap:StockholdersEquity>
+  <freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding id="f306" decimals="INF" contextRef="c3" unitRef="shares">25926900.0</freeflowplc.com:WeightedAverageNumberOfCommonSharesOutstanding>
+  <freeflowplc.com:ProceedsFromSubscriptionMoney id="f307" decimals="INF" contextRef="c" unitRef="usd">11000.0</freeflowplc.com:ProceedsFromSubscriptionMoney>
+  <us-gaap:NetIncomeLoss id="f308" decimals="128" contextRef="c47" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:ProceedsFromSubscriptionMoney id="f309" decimals="INF" contextRef="c3" unitRef="usd">10000.0</freeflowplc.com:ProceedsFromSubscriptionMoney>
+  <us-gaap:NetIncomeLoss id="f310" decimals="128" contextRef="c53" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:SharesOutstanding id="f311" decimals="INF" contextRef="c13" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:CommonStockValue id="f312" decimals="INF" contextRef="c2" unitRef="usd">2627.0</us-gaap:CommonStockValue>
+  <us-gaap:Revenues id="f313" decimals="INF" contextRef="c3" unitRef="usd">6123.0</us-gaap:Revenues>
+  <us-gaap:OperatingExpenses id="f314" decimals="INF" contextRef="c7" unitRef="usd">28367.0</us-gaap:OperatingExpenses>
+  <us-gaap:CashAndCashEquivalentsPolicyTextBlock id="f315" contextRef="c3">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;&lt;b&gt;Cash and cash Equivalents   &lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Cash and cash equivalents are on deposit with financial institutions without any restrictions. The Company maintains its cash with high-quality financial institutions. &lt;/p&gt;
+</us-gaap:CashAndCashEquivalentsPolicyTextBlock>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f316" decimals="INF" contextRef="c63" unitRef="usd">470935.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <us-gaap:DebtInstrumentFaceAmount id="f317" decimals="INF" contextRef="c74" unitRef="usd">330000.0</us-gaap:DebtInstrumentFaceAmount>
+  <us-gaap:SellingExpense id="f318" decimals="INF" contextRef="c7" unitRef="usd">55.0</us-gaap:SellingExpense>
+  <freeflowplc.com:PreferredSharesIssuedUponConversionOfDebt id="f319" decimals="INF" contextRef="c75" unitRef="shares">330000.0</freeflowplc.com:PreferredSharesIssuedUponConversionOfDebt>
+  <us-gaap:LoansPayable id="f320" decimals="128" contextRef="c4" unitRef="usd">0.0</us-gaap:LoansPayable>
+  <us-gaap:IncreaseDecreaseInAccountsPayable id="f321" decimals="INF" contextRef="c" unitRef="usd">5100.0</us-gaap:IncreaseDecreaseInAccountsPayable>
+  <us-gaap:StockholdersEquity id="f322" decimals="INF" contextRef="c67" unitRef="usd">1.0</us-gaap:StockholdersEquity>
+  <us-gaap:LiabilitiesCurrent id="f323" decimals="INF" contextRef="c2" unitRef="usd">226213.0</us-gaap:LiabilitiesCurrent>
+  <us-gaap:GainLossOnSaleOfOtherAssets id="f324" decimals="INF" contextRef="c3" unitRef="usd">1211318.0</us-gaap:GainLossOnSaleOfOtherAssets>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f325" decimals="INF" contextRef="c29" unitRef="usd">1962.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <us-gaap:NetIncomeLoss id="f326" decimals="128" contextRef="c16" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:PropertyPlantAndEquipmentOther id="f327" decimals="INF" contextRef="c4" unitRef="usd">31712.0</us-gaap:PropertyPlantAndEquipmentOther>
+  <us-gaap:SharesOutstanding id="f328" decimals="INF" contextRef="c19" unitRef="shares">24841900.0</us-gaap:SharesOutstanding>
+  <us-gaap:StockholdersEquity id="f329" decimals="INF" contextRef="c68" unitRef="usd">2620.0</us-gaap:StockholdersEquity>
+  <us-gaap:AdministrativeFeesExpense id="f330" decimals="INF" contextRef="c" unitRef="usd">26077.0</us-gaap:AdministrativeFeesExpense>
+  <freeflowplc.com:Additionalsubscription id="f331" decimals="128" contextRef="c11" unitRef="usd">0.0</freeflowplc.com:Additionalsubscription>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f332" decimals="INF" contextRef="c2" unitRef="usd">441146.0</us-gaap:LiabilitiesAndStockholdersEquity>
+  <us-gaap:SharesOutstanding id="f333" decimals="INF" contextRef="c49" unitRef="shares">26221000.0</us-gaap:SharesOutstanding>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f334" decimals="INF" contextRef="c2" unitRef="usd">-2158666.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited id="f335" decimals="128" contextRef="c71" unitRef="usd">0.0</us-gaap:StockGrantedDuringPeriodValueSharebasedCompensationForfeited>
+  <us-gaap:NotesReceivableNet id="f336" decimals="128" contextRef="c4" unitRef="usd">0.0</us-gaap:NotesReceivableNet>
+  <freeflowplc.com:AmountSubscribedByRelatedPartyAgainstCancellationOfNote id="f337" decimals="INF" contextRef="c76" unitRef="usd">58000.0</freeflowplc.com:AmountSubscribedByRelatedPartyAgainstCancellationOfNote>
+  <freeflowplc.com:PaymentAgainstImprovementInProgress id="f338" decimals="INF" contextRef="c3" unitRef="usd">11697.0</freeflowplc.com:PaymentAgainstImprovementInProgress>
+  <us-gaap:SharesOutstanding id="f339" decimals="INF" contextRef="c48" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:SharesOutstanding id="f340" decimals="INF" contextRef="c28" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:PreferredStockVotingRights id="f341" contextRef="c77">Each share of preferred shares – Series “A” carries voting rights equal to 10,000 common shares</us-gaap:PreferredStockVotingRights>
+  <us-gaap:LiabilitiesNoncurrent id="f342" decimals="INF" contextRef="c4" unitRef="usd">1737140.0</us-gaap:LiabilitiesNoncurrent>
+</xbrli:xbrl>

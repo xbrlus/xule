@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0073/2024": [
+        {
+            "localName": "Dqc_0073",
+            "type": "Concept",
+            "label": "DQC.US.0073 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0073_PlanAssetCategoriesPermissibleLineItems",
+            "type": "Concept",
+            "label": "DQC.US.0073.Plan Asset Categories Permissible Line Items [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

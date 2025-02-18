@@ -1,0 +1,20 @@
+{
+    "xule.autoImports": [
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2025Taxonomy/2024-roll-2025/base-taxonomy-2024.xule",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2025Taxonomy/2024-roll-2025/constants.xule",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2025Taxonomy/2024-roll-2025/namespace.xule",
+        "/Users/campbellpryde/Documents/GitHub/xule/unitTests/source/roll2025Taxonomy/2024-roll-2025/output-attributes.xule"
+    ],
+    "xule.namespaces.definitions": [
+        "../../../taxonomy/2024/http-fasb-org-us-gaap-2024.json",
+        "../../../taxonomy/2024/http-fasb-org-us-gaap-2024.json",
+        "../../../taxonomy/2024/http-xbrl-sec-gov-dei-2024.json",
+        "../../../taxonomy/2024/http-fasb-org-srt-2024.json",
+        "../../../taxonomy/2024/http-xbrl-sec-gov-country-2024.json",
+        "../../../taxonomy/2024/http-xbrl-sec-gov-currency-2024.json",
+        "../../../taxonomy/2024/http-fasb-org-us-types-2024.json",
+        "../../../taxonomy/2024/http-fasb-org-srt-types-2024.json",
+        "../../../taxonomy/2024/http-fasb-org-dqcrules-2024.json",
+        "../../../taxonomy/2024/http-xbrl-sec-gov-ecd-2024.json",
+    ]
+}

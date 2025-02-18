@@ -1,0 +1,524 @@
+{
+    "http://xbrl.sec.gov/stpr/2024": [
+        {
+            "localName": "IN",
+            "type": "Concept",
+            "label": "stpr:IN",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "GA",
+            "type": "Concept",
+            "label": "stpr:GA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ID",
+            "type": "Concept",
+            "label": "stpr:ID",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NT",
+            "type": "Concept",
+            "label": "stpr:CA-NT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MA",
+            "type": "Concept",
+            "label": "stpr:MA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SC",
+            "type": "Concept",
+            "label": "stpr:SC",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-SK",
+            "type": "Concept",
+            "label": "stpr:CA-SK",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA",
+            "type": "Concept",
+            "label": "stpr:CA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OH",
+            "type": "Concept",
+            "label": "stpr:OH",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NS",
+            "type": "Concept",
+            "label": "stpr:CA-NS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ME",
+            "type": "Concept",
+            "label": "stpr:ME",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PA",
+            "type": "Concept",
+            "label": "stpr:PA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NE",
+            "type": "Concept",
+            "label": "stpr:NE",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "FL",
+            "type": "Concept",
+            "label": "stpr:FL",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NH",
+            "type": "Concept",
+            "label": "stpr:NH",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AZ",
+            "type": "Concept",
+            "label": "stpr:AZ",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NY",
+            "type": "Concept",
+            "label": "stpr:NY",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TN",
+            "type": "Concept",
+            "label": "stpr:TN",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IA",
+            "type": "Concept",
+            "label": "stpr:IA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CT",
+            "type": "Concept",
+            "label": "stpr:CT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ActiveStateProvinceCodeDomain",
+            "type": "Concept",
+            "label": "stpr:ActiveStateProvinceCodeDomain",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-ON",
+            "type": "Concept",
+            "label": "stpr:CA-ON",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OR",
+            "type": "Concept",
+            "label": "stpr:OR",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WV",
+            "type": "Concept",
+            "label": "stpr:WV",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "LA",
+            "type": "Concept",
+            "label": "stpr:LA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MD",
+            "type": "Concept",
+            "label": "stpr:MD",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NC",
+            "type": "Concept",
+            "label": "stpr:NC",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DE",
+            "type": "Concept",
+            "label": "stpr:DE",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ND",
+            "type": "Concept",
+            "label": "stpr:ND",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-MB",
+            "type": "Concept",
+            "label": "stpr:CA-MB",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WY",
+            "type": "Concept",
+            "label": "stpr:WY",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SD",
+            "type": "Concept",
+            "label": "stpr:SD",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NU",
+            "type": "Concept",
+            "label": "stpr:CA-NU",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-QC",
+            "type": "Concept",
+            "label": "stpr:CA-QC",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UT",
+            "type": "Concept",
+            "label": "stpr:UT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-YT",
+            "type": "Concept",
+            "label": "stpr:CA-YT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MO",
+            "type": "Concept",
+            "label": "stpr:MO",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WI",
+            "type": "Concept",
+            "label": "stpr:WI",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "HI",
+            "type": "Concept",
+            "label": "stpr:HI",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MS",
+            "type": "Concept",
+            "label": "stpr:MS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-BC",
+            "type": "Concept",
+            "label": "stpr:CA-BC",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MN",
+            "type": "Concept",
+            "label": "stpr:MN",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NM",
+            "type": "Concept",
+            "label": "stpr:NM",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MI",
+            "type": "Concept",
+            "label": "stpr:MI",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NV",
+            "type": "Concept",
+            "label": "stpr:NV",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AK",
+            "type": "Concept",
+            "label": "stpr:AK",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AL",
+            "type": "Concept",
+            "label": "stpr:AL",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WA",
+            "type": "Concept",
+            "label": "stpr:WA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-AB",
+            "type": "Concept",
+            "label": "stpr:CA-AB",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NB",
+            "type": "Concept",
+            "label": "stpr:CA-NB",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-NL",
+            "type": "Concept",
+            "label": "stpr:CA-NL",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CA-PE",
+            "type": "Concept",
+            "label": "stpr:CA-PE",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RI",
+            "type": "Concept",
+            "label": "stpr:RI",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "VA",
+            "type": "Concept",
+            "label": "stpr:VA",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OK",
+            "type": "Concept",
+            "label": "stpr:OK",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "VT",
+            "type": "Concept",
+            "label": "stpr:VT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NJ",
+            "type": "Concept",
+            "label": "stpr:NJ",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "TX",
+            "type": "Concept",
+            "label": "stpr:TX",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "AR",
+            "type": "Concept",
+            "label": "stpr:AR",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MT",
+            "type": "Concept",
+            "label": "stpr:MT",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CO",
+            "type": "Concept",
+            "label": "stpr:CO",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "KS",
+            "type": "Concept",
+            "label": "stpr:KS",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IL",
+            "type": "Concept",
+            "label": "stpr:IL",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DC",
+            "type": "Concept",
+            "label": "stpr:DC",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "KY",
+            "type": "Concept",
+            "label": "stpr:KY",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        }
+    ]
+}

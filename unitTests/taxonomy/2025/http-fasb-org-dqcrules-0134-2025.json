@@ -1,0 +1,28 @@
+{
+    "http://fasb.org/dqcrules-0134/2025": [
+        {
+            "localName": "Dqc_0134_InvestmentScheduleFinancialInstrumentAxis",
+            "type": "Concept",
+            "label": "DQC.US.0134.Investment Schedule Financial Instrument Axis [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0134_CheckedDimensions",
+            "type": "Concept",
+            "label": "DQC.US.0134.Checked Dimensions [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0134",
+            "type": "Concept",
+            "label": "DQC.US.0134 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

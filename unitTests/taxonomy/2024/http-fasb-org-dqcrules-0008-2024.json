@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0008/2024": [
+        {
+            "localName": "Dqc_0008",
+            "type": "Concept",
+            "label": "DQC.US.0008 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0008_ReversalOfElementCalculations",
+            "type": "Concept",
+            "label": "DQC.US.0008.Reversal of Element Calculations [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

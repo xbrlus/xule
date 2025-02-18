@@ -1,0 +1,36 @@
+{
+    "http://fasb.org/dqcrules-0044/2024": [
+        {
+            "localName": "Dqc_0044_ParentChildDescendants",
+            "type": "Concept",
+            "label": "DQC.US.0044.Parent-Child Descendants [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0044_AccrualItemsUsedInCashFlowReconciliation",
+            "type": "Concept",
+            "label": "DQC.US.0044.Accrual Items used in Investing or Financing Cash Flow Reconciliation [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0044",
+            "type": "Concept",
+            "label": "DQC.US.0044 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0044_SummationItemDescendants",
+            "type": "Concept",
+            "label": "DQC.US.0044.Summation-Item Descendants [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}

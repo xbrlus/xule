@@ -1,0 +1,20 @@
+{
+    "http://fasb.org/dqcrules-0045/2024": [
+        {
+            "localName": "Dqc_0045_MovementOfConceptsBetweenCalculationTrees",
+            "type": "Concept",
+            "label": "DQC.US.0045.Movement of Concepts between Calculation Trees [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "Dqc_0045",
+            "type": "Concept",
+            "label": "DQC.US.0045 [Abstract]",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        }
+    ]
+}
