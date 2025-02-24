@@ -303,6 +303,10 @@ class XuleGlobalContext(object):
                 self.rules_model.log("INFO",
                                    "other-taxonomy", 
                                    "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
+            elif getattr(self.model, "log", None) is not None:
+                self.model.log("DEBUG",
+                               "xule.otherTaxonomyLoadTime", 
+                               "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             else:
                 print("Taxonomy Loaded. Load time %s from '%s' " % (end - start, taxonomy_url))            
         

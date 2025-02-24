@@ -122,7 +122,12 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
     if getattr(global_context.options, "xule_args_file", False):
         constant_start = datetime.datetime.today()
         process_reloadable_constants(global_context)
-        global_context.message_queue.print("Time to calculated non instance constants: %s" % (datetime.datetime.today() - constant_start))
+        if getattr(global_context.model, "log", None) is not None:
+            global_context.model.log("DEBUG",
+                                     "xule.loadConstants", 
+                                     "Time to calculated non instance constants: %s" % (datetime.datetime.today() - constant_start))
+        else:
+            global_context.message_queue.print("Time to calculated non instance constants: %s" % (datetime.datetime.today() - constant_start))
 
     # Determine if constants should be outputed
     if getattr(global_context.options, "xule_output_constants", None) is not None:
@@ -1588,7 +1593,12 @@ def process_reloadable_constants(global_context):
 
     This function will calculate constants that do not depend directly on the instance.
     """
-    global_context.message_queue.logging("Reloading saved non-instance constants")
+    if getattr(global_context.model, "log", None) is not None:
+        global_context.model.log("DEBUG",
+                                 "xule.loadConstants", 
+                                 "Reloading saved non-instance constants")
+    else:
+        global_context.message_queue.logging("Reloading saved non-instance constants")
     from arelle import FileSource
     xule_args_file = getattr(global_context.options,'xule_args_file', None)
     file_source = FileSource.openFileSource(xule_args_file, global_context.cntlr)
