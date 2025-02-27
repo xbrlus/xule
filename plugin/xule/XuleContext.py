@@ -112,8 +112,11 @@ class XuleMessageQueue():
         ''' Logging statements for any text '''
         self.print(msg)
         
-    def print(self, msg):
-        print(msg)
+    def print(self, msg, codes=None):
+        if self._model is not None:
+            self._model.log("DEBUG", codes, msg)
+        else:
+            print(msg)
 
     def file(self, msg):
         pass
