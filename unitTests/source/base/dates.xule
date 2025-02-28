@@ -25,12 +25,12 @@ output DO104
   time-span('P4D') - date('2020-01-01')
 
 output DO105
-/* rule DO105: 'datetime.timedelta' object has no attribute 'strftime' */
+/* 731 days, 0:00:00 */
 
   date('2022-01-01') - date('2020-01-01')
 
 output DO106
-/* rule DO106: 'datetime.timedelta' object has no attribute 'strftime' */
+/* -731 days, 0:00:00 */
 
   date('2020-01-01') - date('2022-01-01')
 
@@ -133,11 +133,29 @@ if $string == '-01' skip else date($string) + time-span('P1M')
 output DO124
 /* 42704 */
 
-  $string = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
-$string + time-span('P1M')
+  $date = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
+$date + time-span('P1M')
 
 output DO125
 /* 42674 */
 
-  $string = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
-date($string )
+  $date = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
+date($date )
+
+output DO126
+/* 2958465 */
+
+  forever.end
+
+output DO127
+/* 0001-01-01 */
+
+  forever.start
+
+output DO128
+/* 2023-05-30
+2023-03-30
+2023-08-30 */
+
+  $date = [nonils @instance = $INSTANCE_SHORT_DATE @us-gaap-2023:DividendsPayableDateToBePaidMonthAndYear]
+date($date <+ '-30' )

@@ -1,20 +1,20 @@
 {
     "http://xbrl.org/2005/xbrldt": [
         {
-            "dataType": "xbrli:stringItemType",
-            "label": "xbrldt:hypercubeItem",
+            "localName": "dimensionItem",
             "type": "Concept",
+            "label": "xbrldt:dimensionItem",
             "isAbstract": "true",
-            "periodType": "duration",
-            "localName": "hypercubeItem"
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
         },
         {
-            "dataType": "xbrli:stringItemType",
-            "label": "xbrldt:dimensionItem",
+            "localName": "hypercubeItem",
             "type": "Concept",
+            "label": "xbrldt:hypercubeItem",
             "isAbstract": "true",
-            "periodType": "duration",
-            "localName": "dimensionItem"
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
         }
     ]
 }

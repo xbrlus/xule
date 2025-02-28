@@ -134,6 +134,16 @@ output CONPROP024
 
   $US-GAAP-2020.concept(Assets).clark
 
+output CONPROP025
+/* False */
+
+  $US-GAAP-2020.concept(Assets).has-enumerations
+
+output CONPROP026
+/* none */
+
+  clark(none)
+
 output LABPROP001
 /* http://www.xbrl.org/2003/role/label */
 
@@ -343,6 +353,21 @@ output CUBEPROP021
 /* 437 */
 
   count($US-GAAP-2020.cubes)
+
+output TAXPROP011
+/* 20399 */
+
+  $US-GAAP-2020.concepts.length
+
+output TAXPROP012
+/* 20399 */
+
+  concepts($US-GAAP-2020).length
+
+output TAXPROP020
+/* 1 */
+
+  $US-GAAP-2024.effective-weight(us-gaap-2024:EffectiveIncomeTaxRateContinuingOperations,us-gaap-2024:EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate)
 
 output TAXPROP021
 /* -1 */
@@ -599,7 +624,7 @@ output TAXPROP068
   source($PRES_RELATIONSHIP)
 
 output TAXPROP069
-/*  set(us-gaap:NotesAndLoansReceivableNetNoncurrentAbstract) */
+/* set(us-gaap:NotesAndLoansReceivableNetNoncurrentAbstract) */
 
   $PRES_RELATIONSHIP.source-name
 
@@ -679,7 +704,7 @@ output TAXPROP084
   order($PRES_RELATIONSHIP)
 
 output TAXPROP085
-/* set(None)  */
+/* set(None) */
 
   $PRES_RELATIONSHIP.preferred-label
 
@@ -719,7 +744,7 @@ output TAXPROP092
   role($PRES_RELATIONSHIP)
 
 output TAXPROP093
-/* set(http://www.xbrl.org/2003/arcrole/parent-child) */
+/* set(http://www.xbrl.org/2003/arcrole/parent-child - Parent/Child relationship) */
 
   $PRES_RELATIONSHIP.arcrole
 
@@ -942,3 +967,46 @@ output TAXPROP134
 /* 61 */
 
   count($US-GAAP-2020.part-elements)
+
+output TAXPROP135
+/* set(list(-1, 
+http://www.xbrl.org/2003/arcrole/summation-item
+http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect
+link:calculationLink
+link:calculationArc
+False
+# of relationships: 763
+)) */
+
+  $x = 'http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect'
+$US-GAAP-2020.effective-weight-network(NetCashProvidedByUsedInOperatingActivities,IncomeLossFromEquityMethodInvestments,$x)
+
+output TAXPROP136
+/*  rule TAXPROP136: Rule: TAXPROP136 - 'data-types' is not a valid property. */
+
+  count($US-GAAP-2020.data-types)
+
+output TAXPROP137
+/* rule TAXPROP137: Rule: TAXPROP137 - 'elements' is not a valid property. */
+
+  count($US-GAAP-2020.elements)
+
+output TAXPROP138
+/* Parent/Child relationship */
+
+  sum($NETWORK_BS).arcrole-description
+
+output TAXPROP139
+/* https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd */
+
+  $US-GAAP-2020.uri
+
+output TAXPROP140
+/* 20401 */
+
+  count($US-GAAP-2020.concept-names)
+
+output TAXPROP141
+/* 225 */
+
+  $US-GAAP-2020.namespaces.length

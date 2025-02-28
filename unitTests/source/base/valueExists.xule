@@ -193,3 +193,32 @@ output VE135
 /* none */
 
   first-value-or-none(set(),list())
+
+output VE136
+/* 3 */
+
+  first-value-or-none(3, [@instance = $INSTANCE1 @AssetsAbstract], 4)
+
+output VE137
+/* 5 */
+
+  first-value-or-none(3, [@instance = $INSTANCE1 @AssetsAbstract], 4) + first-value-or-none(2, [@instance = $INSTANCE1 @Assets])
+
+output VE138
+/*  {{list(40,230,000,004)},
+ {list(42,144,000,004)},
+ {list(45,436,000,004)}} */
+
+  first-value-or-none(none, [@instance = $INSTANCE1 @AssetsAbstract], 4) +  [@instance = $INSTANCE1 @Assets]
+
+output VE139
+/*  {{list(40,230,000,000)},
+ {list(42,144,000,000)},
+ {list(45,436,000,000)}} */
+
+  first-value-or-none([@instance = $INSTANCE1 @AssetsAbstract], [@instance = $INSTANCE1 @Assets])
+
+output VE140
+/* skip */
+
+  first-value-or-none(none, [@instance = $INSTANCE1 @AssetsAbstract], 4)

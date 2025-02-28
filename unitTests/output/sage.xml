@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1000000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEstimatedRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="888033.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsEstimatedCostToComplete" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="22-004" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractNumber" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="100000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitTotalContract" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="98666.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitToBeEarned" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2023-06-16" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractEndDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="11966.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsIncurredToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}BillingsInExcessOfCostAndEarnings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1.33" fact-concept="{http://xbrl.us/wip/2021-01-31}PercentageComplete" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="0" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractBillingsFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Quick Bowls - Tigard" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEstimatedEarningsInExcessOfBillingsNet" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Burns Restaurants" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCustomerName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEarningsInExcessOfBillings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1333.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEarnedToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="900000" fact-concept="{http://fasb.org/us-gaap/2021-01-31}CostOfRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2022-08-26" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractStartDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://fasb.org/us-gaap/2021-01-31}Revenues" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4401901888">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="wiptest" instance-taxonomy="https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd" severity="info" cid="4401901888">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractRevenueEstimatedRevenue Value: 1000000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractCostsEstimatedCostToComplete Value: 888033.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractNumber Value: 22-004 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractGrossProfitTotalContract Value: 100000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractGrossProfitToBeEarned Value: 98666.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractEndDate Value: 2023-06-16 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractCostsIncurredToDate Value: 11966.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:BillingsInExcessOfCostAndEarnings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:PercentageComplete Value: 1.33 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractBillingsFromInceptionToDate Value: 0 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractName Value: Quick Bowls - Tigard - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:CostsAndEstimatedEarningsInExcessOfBillingsNet Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractCustomerName Value: Burns Restaurants - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:CostsAndEarningsInExcessOfBillings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractGrossProfitFromInceptionToDate Value: 1333.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractRevenueEarnedToDate Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: us-gaap:CostOfRevenue Value: 900000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: wip:ContractStartDate Value: 2022-08-26 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4401901888">[test99]  Concept: us-gaap:Revenues Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'BillingsInExcessOfCostAndEarnings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'CostsAndEarningsInExcessOfBillings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/sage/wiptest.xml - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.30043 - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Quick Bowls - Tigard" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Burns Restaurants" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCustomerName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEarningsInExcessOfBillings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1333.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="900000" fact-concept="{http://fasb.org/us-gaap/2021-01-31}CostOfRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEarnedToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEstimatedEarningsInExcessOfBillingsNet" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1000000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEstimatedRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2022-08-26" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractStartDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="100000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitTotalContract" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://fasb.org/us-gaap/2021-01-31}Revenues" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1.33" fact-concept="{http://xbrl.us/wip/2021-01-31}PercentageComplete" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="22-004" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractNumber" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="98666.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitToBeEarned" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="11966.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsIncurredToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2023-06-16" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractEndDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}BillingsInExcessOfCostAndEarnings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="0" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractBillingsFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;22-004&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="888033.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsEstimatedCostToComplete" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4425150016">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="wiptest" instance-taxonomy="https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd" severity="info" cid="4425150016">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractName Value: Quick Bowls - Tigard - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractCustomerName Value: Burns Restaurants - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:CostsAndEarningsInExcessOfBillings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractGrossProfitFromInceptionToDate Value: 1333.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: us-gaap:CostOfRevenue Value: 900000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractRevenueEarnedToDate Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:CostsAndEstimatedEarningsInExcessOfBillingsNet Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractRevenueEstimatedRevenue Value: 1000000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractStartDate Value: 2022-08-26 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractGrossProfitTotalContract Value: 100000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: us-gaap:Revenues Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:PercentageComplete Value: 1.33 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractNumber Value: 22-004 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractGrossProfitToBeEarned Value: 98666.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractCostsIncurredToDate Value: 11966.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractEndDate Value: 2023-06-16 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:BillingsInExcessOfCostAndEarnings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractBillingsFromInceptionToDate Value: 0 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4425150016">[test99]  Concept: wip:ContractCostsEstimatedCostToComplete Value: 888033.85 - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'CostsAndEarningsInExcessOfBillings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'BillingsInExcessOfCostAndEarnings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/sage/wiptest.json - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.30043 - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEarningsInExcessOfBillings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEarnedToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2022-08-26" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractStartDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="900000" fact-concept="{http://fasb.org/us-gaap/2021-01-31}CostOfRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="100000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitTotalContract" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://fasb.org/us-gaap/2021-01-31}Revenues" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="0" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractBillingsFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="98666.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitToBeEarned" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="22-004" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractNumber" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="11966.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsIncurredToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2023-06-16" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractEndDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1000000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEstimatedRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}BillingsInExcessOfCostAndEarnings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEstimatedEarningsInExcessOfBillingsNet" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="888033.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsEstimatedCostToComplete" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Quick Bowls - Tigard" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1.33" fact-concept="{http://xbrl.us/wip/2021-01-31}PercentageComplete" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Burns Restaurants" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCustomerName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1333.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4545492608">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="wiptest" instance-taxonomy="https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd" severity="info" cid="4545492608">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:CostsAndEarningsInExcessOfBillings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractRevenueEarnedToDate Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractStartDate Value: 2022-08-26 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: us-gaap:CostOfRevenue Value: 900000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractGrossProfitTotalContract Value: 100000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: us-gaap:Revenues Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractBillingsFromInceptionToDate Value: 0 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractGrossProfitToBeEarned Value: 98666.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractNumber Value: 22-004 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractCostsIncurredToDate Value: 11966.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractEndDate Value: 2023-06-16 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractRevenueEstimatedRevenue Value: 1000000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:BillingsInExcessOfCostAndEarnings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:CostsAndEstimatedEarningsInExcessOfBillingsNet Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractCostsEstimatedCostToComplete Value: 888033.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractName Value: Quick Bowls - Tigard - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:PercentageComplete Value: 1.33 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractCustomerName Value: Burns Restaurants - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4545492608">[test99]  Concept: wip:ContractGrossProfitFromInceptionToDate Value: 1333.85 - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'CostsAndEarningsInExcessOfBillings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'BillingsInExcessOfCostAndEarnings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/sage/wiptest.json - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.30043 - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2022-08-26" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractStartDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="0" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractBillingsFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://fasb.org/us-gaap/2021-01-31}Revenues" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="100000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitTotalContract" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="22-004" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractNumber" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="98666.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitToBeEarned" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="11966.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsIncurredToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="900000" fact-concept="{http://fasb.org/us-gaap/2021-01-31}CostOfRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2023-06-16" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractEndDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}BillingsInExcessOfCostAndEarnings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1.33" fact-concept="{http://xbrl.us/wip/2021-01-31}PercentageComplete" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Quick Bowls - Tigard" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEstimatedEarningsInExcessOfBillingsNet" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="888033.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsEstimatedCostToComplete" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Burns Restaurants" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCustomerName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1000000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEstimatedRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEarningsInExcessOfBillings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEarnedToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1333.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4383283712">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="wiptest" instance-taxonomy="https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd" severity="info" cid="4383283712">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractStartDate Value: 2022-08-26 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractBillingsFromInceptionToDate Value: 0 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: us-gaap:Revenues Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractGrossProfitTotalContract Value: 100000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractNumber Value: 22-004 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractGrossProfitToBeEarned Value: 98666.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractCostsIncurredToDate Value: 11966.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: us-gaap:CostOfRevenue Value: 900000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractEndDate Value: 2023-06-16 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:BillingsInExcessOfCostAndEarnings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:PercentageComplete Value: 1.33 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractName Value: Quick Bowls - Tigard - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:CostsAndEstimatedEarningsInExcessOfBillingsNet Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractCostsEstimatedCostToComplete Value: 888033.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractCustomerName Value: Burns Restaurants - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractRevenueEstimatedRevenue Value: 1000000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:CostsAndEarningsInExcessOfBillings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractRevenueEarnedToDate Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4383283712">[test99]  Concept: wip:ContractGrossProfitFromInceptionToDate Value: 1333.85 - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'BillingsInExcessOfCostAndEarnings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'CostsAndEarningsInExcessOfBillings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/sage/wiptest.json - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.30043 - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Quick Bowls - Tigard" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1000000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEstimatedRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEstimatedEarningsInExcessOfBillingsNet" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEarnedToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Burns Restaurants" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCustomerName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEarningsInExcessOfBillings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1.33" fact-concept="{http://xbrl.us/wip/2021-01-31}PercentageComplete" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1333.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2022-08-26" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractStartDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="900000" fact-concept="{http://fasb.org/us-gaap/2021-01-31}CostOfRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://fasb.org/us-gaap/2021-01-31}Revenues" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="100000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitTotalContract" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="22-004" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractNumber" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="0" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractBillingsFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="888033.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsEstimatedCostToComplete" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="98666.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitToBeEarned" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2023-06-16" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractEndDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="11966.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsIncurredToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}BillingsInExcessOfCostAndEarnings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4342353408">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="wiptest" instance-taxonomy="https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd" severity="info" cid="4342353408">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="keys" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[keys] 14 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractName Value: Quick Bowls - Tigard - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractRevenueEstimatedRevenue Value: 1000000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:CostsAndEstimatedEarningsInExcessOfBillingsNet Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractRevenueEarnedToDate Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractCustomerName Value: Burns Restaurants - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:CostsAndEarningsInExcessOfBillings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:PercentageComplete Value: 1.33 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractGrossProfitFromInceptionToDate Value: 1333.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractStartDate Value: 2022-08-26 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: us-gaap:CostOfRevenue Value: 900000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: us-gaap:Revenues Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractGrossProfitTotalContract Value: 100000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractNumber Value: 22-004 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractBillingsFromInceptionToDate Value: 0 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractCostsEstimatedCostToComplete Value: 888033.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractGrossProfitToBeEarned Value: 98666.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractEndDate Value: 2023-06-16 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:ContractCostsIncurredToDate Value: 11966.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4342353408">[test99]  Concept: wip:BillingsInExcessOfCostAndEarnings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'CostsAndEarningsInExcessOfBillings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'BillingsInExcessOfCostAndEarnings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/sage/wiptest.json - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.30043 - </message>
+ <ref href=""/></entry>
+</log>
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in Xince and Xodel successful, version 1.0. - xodel </message>
+ <ref href="xodel"/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEarningsInExcessOfBillings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1333.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEarnedToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2022-08-26" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractStartDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://fasb.org/us-gaap/2021-01-31}Revenues" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="100000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitTotalContract" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="22-004" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractNumber" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="0" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractBillingsFromInceptionToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="98666.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitToBeEarned" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="2023-06-16" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractEndDate" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="900000" fact-concept="{http://fasb.org/us-gaap/2021-01-31}CostOfRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1.33" fact-concept="{http://xbrl.us/wip/2021-01-31}PercentageComplete" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="None" fact-concept="{http://xbrl.us/wip/2021-01-31}BillingsInExcessOfCostAndEarnings" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="888033.85" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsEstimatedCostToComplete" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="1000000" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractRevenueEstimatedRevenue" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="10" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractGrossProfitPercentTotalContract" fact-unit="{xbrli}pure" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Quick Bowls - Tigard" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="13300" fact-concept="{http://xbrl.us/wip/2021-01-31}CostsAndEstimatedEarningsInExcessOfBillingsNet" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="Burns Restaurants" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCustomerName" fact-unit="None" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2022-12-31T00:00:00/2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;14&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="add_facts_to_instance" level="info">
+ <message filing_url="" modelObject="None" fact-instance="wiptest" fact-value="11966.15" fact-concept="{http://xbrl.us/wip/2021-01-31}ContractCostsIncurredToDate" fact-unit="{iso4217}USD" fact-entity="[&quot;http://some/schema&quot;, &quot;CompanyA&quot;]" fact-period="2023-12-31T00:00:00" fact-dimensions="{&quot;{http://xbrl.us/wip/2021-01-31}ContractNumberAxis&quot;: &quot;100&quot;}" severity="info" cid="4356768496">[add_facts_to_instance] True - </message>
+ <ref href=""/></entry>
+<entry code="createInstance" level="info">
+ <message filing_url="" modelObject="None" instance-name="wiptest" instance-taxonomy="https://taxonomies.xbrl.us/wip/2021/entire/wip-entryPoint-2021-01-31.xsd" severity="info" cid="4356768496">[createInstance] True - </message>
+ <ref href=""/></entry>
+<entry code="keys" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[keys] 14 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:CostsAndEarningsInExcessOfBillings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractGrossProfitFromInceptionToDate Value: 1333.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractRevenueEarnedToDate Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractStartDate Value: 2022-08-26 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: us-gaap:Revenues Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractGrossProfitTotalContract Value: 100000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractNumber Value: 22-004 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractBillingsFromInceptionToDate Value: 0 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractGrossProfitToBeEarned Value: 98666.15 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractEndDate Value: 2023-06-16 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: us-gaap:CostOfRevenue Value: 900000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:PercentageComplete Value: 1.33 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:BillingsInExcessOfCostAndEarnings Value:  - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractCostsEstimatedCostToComplete Value: 888033.85 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractRevenueEstimatedRevenue Value: 1000000 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractGrossProfitPercentTotalContract Value: 10 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractName Value: Quick Bowls - Tigard - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:CostsAndEstimatedEarningsInExcessOfBillingsNet Value: 13300 - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractCustomerName Value: Burns Restaurants - </message>
+ <ref href=""/></entry>
+<entry code="test99" level="info">
+ <message filing_url="" modelObject="None" severity="info" cid="4356768496">[test99]  Concept: wip:ContractCostsIncurredToDate Value: 11966.15 - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Start loading taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Loaded taxonomy model for instance wiptest - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'CostsAndEarningsInExcessOfBillings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceError" level="error">
+ <message>[XinceError] Fact value 'None' is not valid for concept 'BillingsInExcessOfCostAndEarnings' with type 'monetaryItemType'. Found in rule 'add_facts_to_instance' - </message>
+ <ref href=""/></entry>
+<entry code="XinceInfo" level="info">
+ <message>[XinceInfo] Writing instance file /Users/campbellpryde/Documents/GitHub/xule/unitTests/output/sage/wiptest.json - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.30043 - </message>
+ <ref href=""/></entry>
+</log>

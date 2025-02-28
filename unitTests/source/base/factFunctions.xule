@@ -9,6 +9,11 @@ output FACT002
 
   first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).decimals
 
+output FACT002a
+/* list(-6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6, -6) */
+
+  list({covered @instance = $INSTANCE1 @Assets}).decimals
+
 output FACT003
 /* 45436000000 */
 
@@ -159,6 +164,11 @@ output FACT032
 
   none.is-fact
 
+output FACT032a
+/* list(True, True, True) */
+
+  list([covered @instance = $INSTANCE1 @Assets]).is-fact
+
 output FACT033
 /* FALSE */
 
@@ -232,7 +242,17 @@ output FACT046
 output FACT047
 /* 45436000000 */
 
+  max(list([covered @instance = $INSTANCE1  where $fact.period.end in list(date('2021-06-30'))]))
+
+output FACT047a
+/* 45436000000 */
+
   max(list([covered @instance = $INSTANCE1  where $fact.period in list(date('2021-06-30'))]))
+
+output FACT047b
+/* 45436000000 */
+
+  list([covered @instance = $INSTANCE1  where $fact.period in list(date('2021-06-30'))])
 
 output FACT048
 /* 45436000000 */
@@ -243,3 +263,52 @@ output FACT049
 /* 45436000000 */
 
   max(list([covered @instance = $INSTANCE1  where $fact.period == date('2021-06-30')]))
+
+output FACT050
+/* 25661000000 */
+
+  $DebitEntries = set({covered @instance = $INSTANCE1  @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 0}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+$totalDebitTravelExpenses
+
+output FACT051
+/* 25661000000 */
+
+  $DebitEntries = set({covered @instance = $INSTANCE1 @concept=RevenueFromContractWithCustomerIncludingAssessedTax where $fact > 100}.dimensions())
+$totalDebitTravelExpenses = sum(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimensions() in $DebitEntries}))
+$totalDebitTravelExpenses
+
+output FACT052
+/* 3903000000 */
+
+  {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}
+
+output FACT053
+/* set(us-gaap:ScheduleOfCashAndCashEquivalentsTable, us-gaap:StatementTable) */
+
+  {@instance = $INSTANCE1 where $fact.sid == '7cc76a913c59d17e3a3720ee1167a7466f8d47a6d21d19eece3cdd8b0fb45e5c'}.cubes.cube-concept
+
+output FACT054
+/* e9d58db97c5df6ee0050cc253e9fde04c4888540ea55d1dc02b4f83207bed2af */
+
+  first($INSTANCE1.facts.sid)
+
+output FACT055
+/* set() */
+
+  first(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:Assets}.footnotes))
+
+output FACT056
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.fact
+
+output FACT057
+/* rule FACT057: Rule: FACT057 - Property 'namespace-map' is not a property of a 'instance'. */
+
+  $INSTANCE1.namespace-map
+
+output FACT058
+/* None */
+
+  none.is-nil

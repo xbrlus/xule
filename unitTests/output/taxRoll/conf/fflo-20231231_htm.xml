@@ -1,0 +1,1479 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:freeflowplc.com="http://freeflowplc.com/20231231" xmlns:us-gaap="http://fasb.org/us-gaap/2023" xmlns:srt="http://fasb.org/srt/2023" xmlns:dei="http://xbrl.sec.gov/dei/2023">
+  <link:schemaRef xlink:href="./fflo_taxonomy.zip/fflo_taxonomy/ffloh-20231231.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesCPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2021-01-01</xbrli:startDate>
+      <xbrli:endDate>2021-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesCPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c4">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2020-01-01</xbrli:startDate>
+      <xbrli:endDate>2020-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c5">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesBPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c6">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2019-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c7">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c8">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2019-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c9">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2019-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c10">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:PreferredClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c11">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PublicUtilitiesInventoryAxis">freeflowplc.com:AutoPartsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c12">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2019-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c13">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:PreferredClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c14">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PublicUtilitiesInventoryAxis">freeflowplc.com:AutoPartsMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c15">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2020-01-01</xbrli:startDate>
+      <xbrli:endDate>2020-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c16">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2020-01-01</xbrli:startDate>
+      <xbrli:endDate>2020-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c17">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-10-28</xbrli:startDate>
+      <xbrli:endDate>2020-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c18">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2018-01-01</xbrli:startDate>
+      <xbrli:endDate>2018-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c19">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2020-01-01</xbrli:startDate>
+      <xbrli:endDate>2020-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c20">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2018-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c21">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c22">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c23">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c24">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c25">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">srt:DirectorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-11-22</xbrli:startDate>
+      <xbrli:endDate>2011-11-22</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c26">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesAPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c27">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:CommonStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c28">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">srt:DirectorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-11-22</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c29">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:PreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c30">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">srt:DirectorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-12-06</xbrli:startDate>
+      <xbrli:endDate>2011-12-06</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c31">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementEquityComponentsAxis">us-gaap:AdditionalPaidInCapitalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c32">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:TitleOfIndividualAxis">srt:DirectorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-12-06</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c33">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesAPreferredStockMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2014-08-01</xbrli:startDate>
+      <xbrli:endDate>2014-08-01</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c34">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesAPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2014-08-01</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c35">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:GsPharmaceuticalsIncMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesBPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2015-03-31</xbrli:startDate>
+      <xbrli:endDate>2015-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c36">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesAPreferredStockMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2015-03-30</xbrli:startDate>
+      <xbrli:endDate>2015-03-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c37">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:GsPharmaceuticalsIncMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="freeflowplc.com:RelatedPartyTransactionByRelatedPartyAxis">freeflowplc.com:ConvertibleNotesPayable1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2014-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c38">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="freeflowplc.com:RelatedPartyTransactionByRelatedPartyAxis">freeflowplc.com:ConvertibleNotesPayable1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2018-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c39">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2019-04-02</xbrli:startDate>
+      <xbrli:endDate>2019-04-02</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c40">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesCPreferredStockMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="dei:LegalEntityAxis">freeflowplc.com:RedfieldHoldingsLtdMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2018-03-31</xbrli:startDate>
+      <xbrli:endDate>2018-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c41">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PropertyPlantAndEquipmentByTypeAxis">us-gaap:TrucksMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c42">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PropertyPlantAndEquipmentByTypeAxis">us-gaap:LandAndBuildingMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c43">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PropertyPlantAndEquipmentByTypeAxis">us-gaap:LandAndBuildingMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c44">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PropertyPlantAndEquipmentByTypeAxis">us-gaap:TrucksMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c45">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2022-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c46">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PropertyPlantAndEquipmentByTypeAxis">us-gaap:EquipmentMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c47">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:SeriesBPreferredStockMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2021-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c48">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001543652</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:PropertyPlantAndEquipmentByTypeAxis">us-gaap:EquipmentMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2020-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd1">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <xbrli:unit id="pure">
+    <xbrli:measure>xbrli:pure</xbrli:measure>
+  </xbrli:unit>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f" decimals="INF" contextRef="c" unitRef="shares">470935.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <freeflowplc.com:DecreaseInLoanFromBankPrincipal id="f1" decimals="128" contextRef="c1" unitRef="usd">0.0</freeflowplc.com:DecreaseInLoanFromBankPrincipal>
+  <us-gaap:InventoryDisclosureTextBlock id="f2" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 5 – INVENTORY&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;table style="border-collapse:collapse;width:490.2pt"&gt;&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td colspan="4" style="width:200.85pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;As of December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:82.8pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:87pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:82.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:87pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="background-color:#CCEEFF;width:218.6pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Auto Parts (used)&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:82.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;    2,525,484&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:87pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,778,824&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:82.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:87pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="background-color:#CCEEFF;width:218.6pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="background-color:#CCEEFF;width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:82.8pt;padding:0.75pt;border-top:0.5pt solid #000000;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; 2,525,484&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:87pt;padding:0.75pt;border-top:0.5pt solid #000000;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;   1,778,824&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The increase in the inventory was a result of acquisition of asset by the subsidiary company namely FFLO – Inside Auto Parts, Inc. that would significantly support the increase of sales.&lt;/p&gt;
+</us-gaap:InventoryDisclosureTextBlock>
+  <us-gaap:ProceedsFromLoans id="f3" decimals="INF" contextRef="c1" unitRef="usd">13875.0</us-gaap:ProceedsFromLoans>
+  <us-gaap:PropertyPlantAndEquipmentNet id="f4" decimals="INF" contextRef="c2" unitRef="usd">1535304.0</us-gaap:PropertyPlantAndEquipmentNet>
+  <dei:AuditorName id="f5" contextRef="c1">Yusufali &amp;amp; Associates, LLC</dei:AuditorName>
+  <freeflowplc.com:DepreciationExpenseOnPropertyPlantAndEquipment id="f6" decimals="INF" contextRef="c1" unitRef="usd">52434.0</freeflowplc.com:DepreciationExpenseOnPropertyPlantAndEquipment>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f7" decimals="INF" contextRef="c2" unitRef="usd">10212.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f8" decimals="INF" contextRef="c" unitRef="shares">470935.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:NetIncomeLoss id="f9" decimals="INF" contextRef="c1" unitRef="usd">543898.0</us-gaap:NetIncomeLoss>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f10" decimals="INF" contextRef="c" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <us-gaap:EarningsPerShareBasicAndDiluted id="f11" decimals="INF" contextRef="c1" unitRef="usd1">0.02</us-gaap:EarningsPerShareBasicAndDiluted>
+  <dei:EntityCentralIndexKey id="f12" contextRef="c1">0001543652</dei:EntityCentralIndexKey>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f13" decimals="INF" contextRef="c3" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <us-gaap:WeightedAverageNumberOfShareOutstandingBasicAndDiluted id="f14" decimals="INF" contextRef="c1" unitRef="shares">26221000.0</us-gaap:WeightedAverageNumberOfShareOutstandingBasicAndDiluted>
+  <dei:AuditorLocation id="f15" contextRef="c1">Short Hills, New Jersey</dei:AuditorLocation>
+  <freeflowplc.com:ProceedsFromPayPalAdvance id="f16" decimals="INF" contextRef="c4" unitRef="usd">52087.0</freeflowplc.com:ProceedsFromPayPalAdvance>
+  <freeflowplc.com:AccumulatedDepreciationFixedAssets id="f17" decimals="INF" contextRef="c2" unitRef="usd">195029.0</freeflowplc.com:AccumulatedDepreciationFixedAssets>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f18" decimals="INF" contextRef="c5" unitRef="usd">330000.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f19" decimals="INF" contextRef="c3" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:NetIncomeLoss id="f20" decimals="INF" contextRef="c4" unitRef="usd">850610.0</us-gaap:NetIncomeLoss>
+  <dei:AuditorFirmId id="f21" contextRef="c1">3313</dei:AuditorFirmId>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f22" decimals="INF" contextRef="c6" unitRef="usd">131033.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:RepaymentsOfBankDebt id="f23" decimals="INF" contextRef="c1" unitRef="usd">12572.0</us-gaap:RepaymentsOfBankDebt>
+  <us-gaap:PropertyPlantAndEquipmentNet id="f24" decimals="INF" contextRef="c7" unitRef="usd">1587738.0</us-gaap:PropertyPlantAndEquipmentNet>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f25" decimals="INF" contextRef="c3" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:ScheduleOfInventoryCurrentTableTextBlock id="f26" contextRef="c1">&lt;table style="border-collapse:collapse;width:490.2pt"&gt;&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td colspan="4" style="width:200.85pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;As of December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:82.8pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:87pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:82.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:87pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="background-color:#CCEEFF;width:218.6pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Auto Parts (used)&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:82.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;    2,525,484&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:87pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,778,824&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="width:218.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:82.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:87pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:7.75pt"&gt;&lt;td style="background-color:#CCEEFF;width:218.6pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="background-color:#CCEEFF;width:53.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:82.8pt;padding:0.75pt;border-top:0.5pt solid #000000;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; 2,525,484&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:13.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:17.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:87pt;padding:0.75pt;border-top:0.5pt solid #000000;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;   1,778,824&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</us-gaap:ScheduleOfInventoryCurrentTableTextBlock>
+  <freeflowplc.com:RoundingOffDecimalError id="f27" decimals="INF" contextRef="c2" unitRef="usd">-2.0</freeflowplc.com:RoundingOffDecimalError>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f28" decimals="INF" contextRef="c" unitRef="usd">470935.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <us-gaap:AccountsReceivableNetCurrent id="f29" decimals="INF" contextRef="c2" unitRef="usd">104721.0</us-gaap:AccountsReceivableNetCurrent>
+  <us-gaap:ProceedsFromLoans id="f30" decimals="INF" contextRef="c4" unitRef="usd">27800.0</us-gaap:ProceedsFromLoans>
+  <us-gaap:EarningsPerShareBasicAndDiluted id="f31" decimals="INF" contextRef="c4" unitRef="usd1">0.03</us-gaap:EarningsPerShareBasicAndDiluted>
+  <freeflowplc.com:DepreciationExpenseOnPropertyPlantAndEquipment id="f32" decimals="INF" contextRef="c4" unitRef="usd">59018.0</freeflowplc.com:DepreciationExpenseOnPropertyPlantAndEquipment>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f33" decimals="INF" contextRef="c3" unitRef="usd">470935.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f34" decimals="INF" contextRef="c8" unitRef="usd">7226.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:SharesOutstanding id="f35" decimals="INF" contextRef="c9" unitRef="shares">26221000.0</us-gaap:SharesOutstanding>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f36" decimals="INF" contextRef="c7" unitRef="usd">83516.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:PreferredStockValue id="f37" decimals="INF" contextRef="c10" unitRef="usd">1.0</us-gaap:PreferredStockValue>
+  <us-gaap:InventoryNet id="f38" decimals="INF" contextRef="c11" unitRef="usd">1778824.0</us-gaap:InventoryNet>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f39" decimals="INF" contextRef="c10" unitRef="usd1">0.0001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <freeflowplc.com:DecreaseInLoanFromBankPrincipal id="f40" decimals="INF" contextRef="c4" unitRef="usd">146300.0</freeflowplc.com:DecreaseInLoanFromBankPrincipal>
+  <us-gaap:AccountsReceivableNetCurrent id="f41" decimals="INF" contextRef="c7" unitRef="usd">202669.0</us-gaap:AccountsReceivableNetCurrent>
+  <us-gaap:PreferredStockSharesIssued id="f42" decimals="INF" contextRef="c10" unitRef="shares">10000.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:WeightedAverageNumberOfShareOutstandingBasicAndDiluted id="f43" decimals="INF" contextRef="c4" unitRef="shares">26221000.0</us-gaap:WeightedAverageNumberOfShareOutstandingBasicAndDiluted>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f44" decimals="INF" contextRef="c7" unitRef="usd1">0.0001</us-gaap:CommonStockParOrStatedValuePerShare>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f45" decimals="INF" contextRef="c12" unitRef="usd">1.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:PreferredStockSharesAuthorized id="f46" decimals="INF" contextRef="c13" unitRef="shares">20000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations id="f47" decimals="INF" contextRef="c1" unitRef="usd">-33549.0</us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations>
+  <us-gaap:SharesOutstanding id="f48" decimals="INF" contextRef="c12" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:InventoryNet id="f49" decimals="INF" contextRef="c14" unitRef="usd">2525484.0</us-gaap:InventoryNet>
+  <freeflowplc.com:IntraCompany id="f50" decimals="128" contextRef="c2" unitRef="usd">0.0</freeflowplc.com:IntraCompany>
+  <us-gaap:CommitmentsAndContingenciesDisclosureTextBlock id="f51" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 6 - COMMITMENTS AND CONTINGENCIES&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;LITIGATION&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;The Company is not presently involved in any litigation.&lt;/p&gt;
+</us-gaap:CommitmentsAndContingenciesDisclosureTextBlock>
+  <us-gaap:PreferredStockParOrStatedValuePerShare id="f52" decimals="INF" contextRef="c13" unitRef="usd1">0.0001</us-gaap:PreferredStockParOrStatedValuePerShare>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f53" decimals="INF" contextRef="c9" unitRef="usd">2620.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:RepaymentsOfBankDebt id="f54" decimals="INF" contextRef="c4" unitRef="usd">16209.0</us-gaap:RepaymentsOfBankDebt>
+  <freeflowplc.com:RoundingOffDecimalError id="f55" decimals="INF" contextRef="c7" unitRef="usd">-2.0</freeflowplc.com:RoundingOffDecimalError>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f56" decimals="INF" contextRef="c8" unitRef="usd">-426051.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f57" decimals="INF" contextRef="c5" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:PreferredStockSharesAuthorized id="f58" decimals="INF" contextRef="c10" unitRef="shares">20000000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:NetIncomeLoss id="f59" decimals="128" contextRef="c15" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:PropertyPlantAndEquipmentOther id="f60" decimals="INF" contextRef="c2" unitRef="usd">35000.0</us-gaap:PropertyPlantAndEquipmentOther>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f61" decimals="INF" contextRef="c1" unitRef="usd">-73304.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect>
+  <us-gaap:RelatedPartyTransactionsDisclosureTextBlock id="f62" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:0pt;margin-bottom:8pt;color:#000000"&gt;&lt;b&gt;NOTE 8 - RELATED PARTY TRANSACTIONS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Sabir Saleem, the officer and director of the Company, may in the future, become involved in other business opportunities as they become available, thus he may face a conflict in selecting between the Company and his other business opportunities. The Company has not formulated a policy for the resolution of such conflicts.&lt;/p&gt;
+</us-gaap:RelatedPartyTransactionsDisclosureTextBlock>
+  <freeflowplc.com:AdditionalSubscriptionShares id="f63" decimals="128" contextRef="c15" unitRef="shares">0.0</freeflowplc.com:AdditionalSubscriptionShares>
+  <us-gaap:InventoryNet id="f64" decimals="INF" contextRef="c2" unitRef="usd">2525484.0</us-gaap:InventoryNet>
+  <dei:CurrentFiscalYearEndDate id="f65" contextRef="c1">--12-31</dei:CurrentFiscalYearEndDate>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations id="f66" decimals="INF" contextRef="c4" unitRef="usd">1213966.0</us-gaap:NetCashProvidedByUsedInFinancingActivitiesContinuingOperations>
+  <freeflowplc.com:IntraCompany id="f67" decimals="128" contextRef="c7" unitRef="usd">0.0</freeflowplc.com:IntraCompany>
+  <freeflowplc.com:AdditionalSubscriptionShares id="f68" decimals="128" contextRef="c16" unitRef="shares">0.0</freeflowplc.com:AdditionalSubscriptionShares>
+  <us-gaap:SubstantialDoubtAboutGoingConcernTextBlock id="f69" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 7 - GOING CONCERN&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Future issuances of the Company's equity or debt securities will be required for the Company to continue to finance its operations and continue as a going concern. The Company's present revenues are marginally sufficient to meet operating expenses. The financial statement of the Company has been prepared assuming that the Company will continue as a going concern, which contemplates, among other things, the realization of assets and the satisfaction of liabilities in the normal course of business. The Company had incurred cumulative net losses of $559,705 since its inception which have been turned around to net profits of $543,898 and $850,610 during &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;the year 2021 and 2020 but still requires greater sales for its contemplated operational and marketing activities to take place. The Company's ability to increase additional sales through the future is unknown. The obtainment of additional sales, the successful development of the Company's contemplated plan of operations, and its transition, ultimately, to the attainment of profitable operations are necessary for the Company to continue operations. The ability to successfully resolve these factors raise substantial doubt about the Company's ability to continue as a going concern. The financial statements of the Company do not include any adjustments that may result from the outcome of these uncertainties.&lt;/span&gt;&lt;/p&gt;
+</us-gaap:SubstantialDoubtAboutGoingConcernTextBlock>
+  <us-gaap:PreferredStockSharesIssued id="f70" decimals="INF" contextRef="c13" unitRef="shares">10000.0</us-gaap:PreferredStockSharesIssued>
+  <us-gaap:NatureOfOperations id="f71" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 1 - ORGANIZATION AND DESCRIPTION OF BUSINESS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Free Flow, Inc. (the "Company") was incorporated on October 28, 2011 under the laws of State of Delaware to enter the green energy industry. It began with the idea of developing swimming pool solar pump system. The solar energy business became very volatile due to constant decline in prices of solar panels. The Company could not conclude any business in the solar energy sector. In February 2016 the Company formed a subsidiary namely JK Sales, Corp. (name changed to “Accurate Auto Sales, Inc.”) and began the business of selling used auto parts.  &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:0pt;margin-bottom:8pt;color:#000000;text-align:justify"&gt;Accurate Auto Sales, Inc., at a 19+ acre facility that it now owns, in King George, VA, buys end of life and wrecked automobiles from Insurance Auctions and disassembles the same to parts. After the dis-assembly these parts are labelled and stored at its warehouse, the inventory is uploaded and sold through a very sophisticated internet network. The primary customers are auto body and mechanic shops.&lt;/p&gt;
+&lt;p style="font:11pt Times New Roman;margin-top:0pt;margin-bottom:8pt;text-align:justify"&gt;In December 2020 the Company acquired the Assets of Inside Auto Parts, Inc. incorporated in 1993, which is centrally located between Richmond, Charlottesville, and Fredericksburg, Virginia with easy access to main transport routs. The salvage dealership, specializing in used foreign car and truck parts has been acquired by Free Flow, Inc. subsidiary named “FFLO -  Inside Auto Parts, Inc.” and has 21,953.9 square feet fully enclosed and another 17,392.35 square feet under roof enclosed on 3 sides, all located on 16 acres of land in Mineral, Virginia now owned by Free Flow, Inc.&lt;/p&gt;
+&lt;p style="font:11pt Times New Roman;margin-top:0pt;margin-bottom:8pt;text-align:justify"&gt;Current management of Inside Auto Parts, Inc. will remain in place to manage FFLO – Inside Auto Parts, Inc.   &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:0pt;margin-bottom:8pt;color:#000000;text-align:justify"&gt;Subsequent to receipt of an LOI from an overseas buyer the Company’s plan to set up a “Scrap Metal Processing” plant is in place and funding for equipment is being sought. Management forecasts that the scrap metal processing would add another $10 to $12 million in gross sales.&lt;/p&gt;
+</us-gaap:NatureOfOperations>
+  <us-gaap:NetIncomeLoss id="f72" decimals="INF" contextRef="c17" unitRef="usd">559705.0</us-gaap:NetIncomeLoss>
+  <us-gaap:AssetsCurrent id="f73" decimals="INF" contextRef="c2" unitRef="usd">2640414.0</us-gaap:AssetsCurrent>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect id="f74" decimals="INF" contextRef="c4" unitRef="usd">76290.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect>
+  <us-gaap:InventoryNet id="f75" decimals="INF" contextRef="c7" unitRef="usd">1778824.0</us-gaap:InventoryNet>
+  <us-gaap:StockIssuedDuringPeriodSharesNewIssues id="f76" decimals="INF" contextRef="c18" unitRef="shares">9700.0</us-gaap:StockIssuedDuringPeriodSharesNewIssues>
+  <us-gaap:CommonStockSharesIssued id="f77" decimals="INF" contextRef="c2" unitRef="shares">26221000.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:RepaymentsOfRelatedPartyDebt id="f78" decimals="INF" contextRef="c18" unitRef="usd">0.0</us-gaap:RepaymentsOfRelatedPartyDebt>
+  <us-gaap:LandImprovements id="f79" decimals="INF" contextRef="c2" unitRef="usd">1712413.0</us-gaap:LandImprovements>
+  <freeflowplc.com:AdditionalSubscriptionShares id="f80" decimals="128" contextRef="c19" unitRef="shares">0.0</freeflowplc.com:AdditionalSubscriptionShares>
+  <us-gaap:AssetsCurrent id="f81" decimals="INF" contextRef="c7" unitRef="usd">2065007.0</us-gaap:AssetsCurrent>
+  <us-gaap:CashAndCashEquivalentsPolicyTextBlock id="f82" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;CASH AND CASH EQUIVALENTS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Cash and cash equivalents include cash on hand, operating accounts and short-term, highly liquid investments with maturities of three months or less at the time of acquisition.&lt;/p&gt;
+</us-gaap:CashAndCashEquivalentsPolicyTextBlock>
+  <us-gaap:DebtDisclosureTextBlock id="f83" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 9 - NOTES PAYABLE - RELATED PARTY&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;REDFIELD HOLDINGS, LTD, MAIN SHAREHOLDER&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;During the year 2018, the Company received additional loans totaling $294,518.09 from Redfield Holdings, Ltd and the Company paid $0 of the loan balance, and the total amount owed by the Company to Redfield Holdings, Ltd. Thus on December 31, 2018 was $470,935. By mutual consent, this loan amount was converted to preferred shares – Series –C and classified as mezzanine capital for Accurate Auto Parts, Inc. The qualifications are as under:&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:0pt;margin-bottom:8pt;color:#000000"&gt;a) Each share to carry one vote.&lt;br/&gt;b) Each share will be redeemable upon repayment of Loan(s) made by River Valley Bank to Accurate Auto Parts, Inc.&lt;br/&gt;c) Each share will be junior to any debt incurred by the Company.&lt;br/&gt;d) The redemption value will be the par value at which such "preferred shares - series C" are bought by the subscriber.&lt;br/&gt;e) Each share will carry a dividend right at par with the common shares.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The Company issued 9,700 shares to Redfield Holdings, Ltd. against a subscription for $58,000 which was accepted by the Company and shares there against issued to Redfield Holdings, Ltd.&lt;/p&gt;
+</us-gaap:DebtDisclosureTextBlock>
+  <us-gaap:PreferredStockValue id="f84" decimals="INF" contextRef="c13" unitRef="usd">1.0</us-gaap:PreferredStockValue>
+  <us-gaap:LandAndLandImprovements id="f85" decimals="INF" contextRef="c2" unitRef="usd">1517384.0</us-gaap:LandAndLandImprovements>
+  <us-gaap:CommonStockSharesOutstanding id="f86" decimals="INF" contextRef="c7" unitRef="shares">26200000.0</us-gaap:CommonStockSharesOutstanding>
+  <freeflowplc.com:AdditionalSubscriptionShares id="f87" decimals="INF" contextRef="c4" unitRef="shares">25500.0</freeflowplc.com:AdditionalSubscriptionShares>
+  <freeflowplc.com:AdditionalBorrowings id="f88" decimals="INF" contextRef="c18" unitRef="usd">294518.0</freeflowplc.com:AdditionalBorrowings>
+  <us-gaap:CommonStockSharesAuthorized id="f89" decimals="INF" contextRef="c7" unitRef="shares">100000000.0</us-gaap:CommonStockSharesAuthorized>
+  <us-gaap:PropertyPlantAndEquipmentPolicyTextBlock id="f90" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;PROPERTY AND EQUIPMENT&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Property and equipment are stated at cost less of accumulated depreciation. Expenditures for major additions and improvements that extend the useful life of the related asset are capitalized. As property or equipment sold or retired, the applicable cost and accumulated depreciation are removed from the accounts and resulting gain or loss thereon is recognized. Work in progress   consist primarily of building. Depreciation is calculated using straight-line method. The estimated useful lives of Equipment and fixtures are 5 years.&lt;/p&gt;
+</us-gaap:PropertyPlantAndEquipmentPolicyTextBlock>
+  <us-gaap:LandImprovements id="f91" decimals="INF" contextRef="c7" unitRef="usd">1712413.0</us-gaap:LandImprovements>
+  <us-gaap:SignificantAccountingPoliciesTextBlock id="f92" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;NOTE 2 - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;ACCOUNTING BASIS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The statements were prepared following generally accepted accounting principles of the United States of America (US GAAP) consistently applied and the rules and regulations of U.S. Securities and Exchange Commission (SEC)&lt;span style="border-bottom:1px solid #000000"&gt;.&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;&lt;b&gt;USE OF ESTIMATES&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Management uses estimates and assumptions in preparing these financial statements in accordance with U.S. generally accepted accounting principles. Those estimates and assumptions affect the reported amounts of assets and liabilities, the disclosure of contingent assets and liabilities, and the reported revenues and expenses.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;CASH AND CASH EQUIVALENTS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Cash and cash equivalents include cash on hand, operating accounts and short-term, highly liquid investments with maturities of three months or less at the time of acquisition.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:0pt;margin-bottom:8pt;color:#000000"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;ACCOUNTS RECEIVABLE AND ACCOUNTS PAYABLE&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Regarding the Aging of Trade Accounts Receivable and Trade Accounts Payable, the industry standard is very strange in this business. Often, the aging could go to 2 to 3 years and the receivables are good. The reason is that when the customer buys a part which is a firm sale, if they use the part which was purchased, they pay within 60 to 75 days. But if the part did not get used for whatever reason, and they failed to return the part within 30 days, then as a courtesy, the Sellers, does not demand payment so that new sales of other parts continue.  Thus, no forceful demand is made if it is a running account and cash is coming in against new sales.  The management learnt of this trait after the business was acquired. There were receivables as well as payables that went back to 2 years. Even in the new acquisition that the Company has recently done, while we did not assume any trade liabilities or receivables, the same fact has been observed in the Seller’s books of accounts. The management has not suffered any significant bad debts.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;Trade Accounts Receivable:  Balance is $104,721 as on 12/31/2021 which includes $67,076 as receivables for 365 days or more in the aging analysis.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;The company did not make any provision for such a long outstanding receivable because (a) these buyers are generally repair shops; (b) when used for the customers, these repair shops send the payment within 60 days; (c) when not used, they are still in possession of the parts until the next purchase as a possible way the truck mileage for the return.  When the parts are not returned, our company policy is not to ship anything else, until the previous outstanding sales invoice is paid.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;In the past 3 years, this company did not have significant bad debt for the domestic business. One invoice in the amount of $12,929.23 owed by SAM International, UAE has been written off due to failure to collect the same on account of the owner having gone out of business due to severe incapability to conduct business as a result of heath.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;The $20,000 paid for the sales leads which have been used by the Company and another sum amounting to $28,000 for Advance for Purchases, has been written off and charged to “other income” and have thus been recognized as impaired assets.. &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Trade Accounts Payable:  Balance is $23,709 as on 12/31/2021 which includes $0 as payable for 365 days or more in the aging analysis.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;PROPERTY AND EQUIPMENT&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Property and equipment are stated at cost less of accumulated depreciation. Expenditures for major additions and improvements that extend the useful life of the related asset are capitalized. As property or equipment sold or retired, the applicable cost and accumulated depreciation are removed from the accounts and resulting gain or loss thereon is recognized. Work in progress   consist primarily of building. Depreciation is calculated using straight-line method. The estimated useful lives of Equipment and fixtures are 5 years.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;INTANGIBLE ASSETS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;Initial Measurement&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:0pt;color:#000000;text-align:justify"&gt;Intangible asset acquisitions in which the consideration given is cash are measured by the amount of cash paid, which generally includes the transaction costs of the asset acquisition. However, if the consideration given is not in the form of cash (that is, in the form of noncash assets, liabilities incurred, or equity interests issued), measurement is based on either the cost which shall be measured based on the fair value of the consideration &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:0pt;color:#000000;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;given or the fair value of the assets (or net assets) acquired, whichever is more clearly evident and, thus, more reliably measurable.&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;Subsequent Measurement&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The company accounts for its intangible assets under the Financial Accounting Standards Board ("FASB") Accounting Standards Codification Subtopic ("ASC") 350-30-35 "Intangibles--Goodwill and Other--General Intangibles Other than Goodwill-Subsequent Measurement". Under this method the company is required to test an indefinite-lived intangible asset for impairment on at least an annual basis. This is done by comparing the asset's fair value with its carrying amount. If the carrying amount exceeds the asset's fair value, the difference in  those amounts is recognized as an impairment loss.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;&lt;b&gt;INCOME TAXES &lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The Company accounts for its income taxes in accordance with FASB Accounting Standards Codification ("ASC") No. 740, "Income Taxes". Under this method, deferred tax assets and liabilities are recognized for the future tax consequences attributable to differences between the financial statement carrying amounts of existing assets and liabilities and their respective tax balances. Deferred tax assets and liabilities are measured using enacted or substantially enacted tax rates expected to apply to the taxable income in the years in which those differences are expected to be recovered or settled. Deferred tax assets are reduced by a valuation allowance when, in the opinion of management, it is more likely than not that some portion or all the deferred tax assets will not be realized. The effect on deferred tax assets and liabilities of a change in tax rates is recognized in income in the period that includes the date of enactment or substantive enactment.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;FINANCIAL INSTRUMENTS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Fair value measurements are determined based on the assumptions that market participants would use in pricing an asset or liability. ASC 820-10 establishes a hierarchy for inputs used in measuring fair value that maximizes the use of observable inputs and minimizes the use of unobservable inputs by requiring that the most observable inputs be used when available. FASB ASC 820 establishes a fair value hierarchy that prioritizes the use of inputs used in valuation methodologies into the following three levels:&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;o Level 1: Quoted prices (unadjusted) for identical assets or liabilities in active markets. A quoted price in an active market provides the most reliable evidence of fair value and must be used to measure fair value whenever available.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;o Level 2: Significant other observable inputs other than Level 1 prices such as quoted prices for similar assets or liabilities; quoted prices in markets that are not active; or other inputs that are observable or can be corroborated by observable market data.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;o Level 3: Significant unobservable inputs that reflect a reporting entity's own assumptions about the assumptions that market participants would use in pricing an asset or liability. For example, level 3 inputs would relate to forecasts of future earnings and cash flows used in a discounted future cash flows method.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The carrying amounts reported in the balance sheet for cash, accounts payable and notes payable approximate their estimated fair market value based on the short-term maturity of this instrument. In addition, FASB ASC 825-10-25 "Fair Value Option" was effective for January 1, 2008. ASC 825-10-25 expands opportunities to use fair value measurements in financial reporting and permits entities to choose to measure many financial instruments and certain other items at fair value. NET LOSS PER SHARE Basic loss per share includes no dilution and is computed by dividing loss available to common stockholders by the weighted average number of &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;common shares outstanding for the period. Dilutive loss per share reflects the potential dilution of securities that could share in the losses of the Company. Because the Company does not have any potentially dilutive securities, the accompanying presentation is only of basic loss per share.&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;RECENTLY ISSUED ACCOUNTING PRONOUNCEMENTS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;Recent accounting pronouncements that the Company has adopted or that will be required to adopt in the future are summarized below.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;In May 2011, FASB issued Accounting Standards Update ("ASU") No. 2011-04, "Fair Value Measurement (Topic 820): Amendments to Achieve Common Fair Value Measurement and Disclosure Requirements in U.S.GAAP and IFRS" ("ASU No. 2011-04"). ASU No. 2011-04 provides guidance which is expected to result in common fair value measurement and disclosure requirements between U.S. GAAP and IFRS. It changes the wording used to describe many of the requirements in U.S. GAAP for measuring fair value and for disclosing information about fair value measurements. It is not intended for this update to result in a change in the application of the requirements in Topic 820. The amendments in ASU No. 2011-04 are to be applied prospectively. ASU No. 2011-04 is effective for public companies for interim and annual periods beginning after December 15, 2011. Early application is not permitted. This update is not expected to have a material impact on the Company's financial statements.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;In June 2011, the FASB issued ASU No. 2011-05, "Comprehensive Income (Topic 220): Presentation of Comprehensive Income" ("ASU No. 2011-05"). In ASU No. 2011-05, an entity has the option to present the total of comprehensive income, the components of net income, and the components of other comprehensive income either in a single continuous statement of comprehensive income or in two separate but consecutive statements. In both choices, an entity is required to present each component of net income along with total net income, each component of other comprehensive income along with a total for other comprehensive income, and a total amount for comprehensive income. The amendments in ASU No. 2011-05 do not change the items that must be reported in other comprehensive income or when an item of other comprehensive income must be reclassified to net income. They also do not change the presentation of related tax effects, before related tax effects, or the portrayal or calculation of earnings per share. The amendments in ASU No. 2011-05 should be applied retrospectively. The amendment is effective for fiscal years, and interim periods within those years, beginning after December 15, 2011. Early adoption is permitted, because compliance with the amendments is already permitted. The amendments do not require any transition disclosures. This update is not expected to have a material impact on the Company's financial statements.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;In September 2011, the FASB issued ASU No. 2011-08, "Intangibles -- Goodwill and Other (Topic 350)" ("ASU No. 2011-08"). In ASU No. 2011-08, an entity is permitted to make a qualitative assessment of whether it is more likely than not that a reporting unit's fair value is less than its carrying amount before applying the two-step goodwill impairment test. If an entity concludes that it is not more likely than not that the fair value of a reporting unit is less than its carrying amount, it would not be required to perform the two-step impairment test for that reporting unit. The ASU's objective is to simplify how an entity tests goodwill for impairment. The amendments in ASU No. 2011-08 are effective for annual and interim goodwill and impairment tests performed for fiscal years beginning after December 15, 2011. Early adoption is permitted, including for annual and interim goodwill impairment tests performed as of a date before September 15, 2011, if an entity's financial statements for the most recent annual or interim period have not yet been issued. The Company is evaluating the requirements of ASU&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;No. 2011-08 and has not yet determined whether a revised approach to evaluation of goodwill impairment will be used in future assessments. The Company does not expect the adoption of ASU No. 2011-08 to have a material impact on its financial statements.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Other accounting standards that have been issued or proposed by the FASB that do not require adoption until a future date are not expected to have a material impact on the financial statements upon adoption.&lt;/p&gt;
+&lt;p style="font:8pt Times New Roman;margin-top:14pt;margin-bottom:14pt;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;The Company has implemented all new accounting pronouncements that are in effect and that may impact its financial statements and does not believe that there are any other new accounting pronouncements that have been issued that might have a material impact on its financial position or results of operations.&lt;/span&gt; &lt;/p&gt;
+</us-gaap:SignificantAccountingPoliciesTextBlock>
+  <us-gaap:StockholdersEquityNoteDisclosureTextBlock id="f93" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 10 - CAPITAL STOCK&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The Company's capitalization is 100,000,000 common shares with a par value of $0.0001 per share and 20,000,000 preferred stock, with a par value of $0.0001 per share.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Of the 20,000,000 authorized Preferred Stock, the company has designated 10,000 shares as "Preferred Shares - Series A". Each share of "Preferred Share - Series A" carries voting rights equal to ten thousand (10,000) votes. In other words, the 10,000 "Preferred Shares - Series A" collectively have a voting right equal to one hundred million (100,000,000) common shares of the Corporation.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;On November 22, 2011, the Company issued a total of 25,000,000 shares of common stock to one director for cash in the amount of $0.0008 per share for a total of $20,000.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;text-align:justify"&gt;On December 6, 2011, the Company issued a total of 1,200,000 shares of common stock to Garden Bay International for cash in the amount of $0.000833 per share for a total of $1,000.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;On August 1, 2014, the Company issued 300 Preferred Shares--series A to Redfield Holdings Ltd. for $1 each for a total of $300.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;On March 30, 2015, the Company issued 9,700 Preferred Shares – Series A to Redfield Holdings Ltd. for a total sum of $58,000.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;On December 31, 2014 the Company had a Note outstanding in the principal amount of $330,000 plus interest payable to GS Pharmaceuticals, Inc. On March 31, 2015, by mutual consent this note and accrued interest was converted to 330,000 preferred shares - Series "B".&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;On December 31, 2018 the Company had a Note outstanding in the principal amount of $470,935; by mutual consent this note and accrued interest was converted to 470,935 preferred shares - Series C".&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;On April 2, 2019 the Company received a sum of $14,490 for issuance of 21,000 restricted common shares.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;text-align:justify"&gt;As of December 31, 2019, the Company had 26,221,000 shares of common stock issued and outstanding and 10,000 shares of preferred Shares – Series “A”, 330,000 Series “B” and 470,935 Series “C” issued and outstanding.&lt;/p&gt;
+</us-gaap:StockholdersEquityNoteDisclosureTextBlock>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f94" decimals="INF" contextRef="c2" unitRef="usd1">0.0001</us-gaap:CommonStockParOrStatedValuePerShare>
+  <us-gaap:DueToRelatedPartiesCurrent id="f95" decimals="INF" contextRef="c20" unitRef="usd">470935.0</us-gaap:DueToRelatedPartiesCurrent>
+  <freeflowplc.com:AccumulatedDepreciationFixedAssets id="f96" decimals="INF" contextRef="c7" unitRef="usd">144813.0</freeflowplc.com:AccumulatedDepreciationFixedAssets>
+  <us-gaap:UseOfEstimates id="f97" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;&lt;b&gt;USE OF ESTIMATES&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Management uses estimates and assumptions in preparing these financial statements in accordance with U.S. generally accepted accounting principles. Those estimates and assumptions affect the reported amounts of assets and liabilities, the disclosure of contingent assets and liabilities, and the reported revenues and expenses.&lt;/p&gt;
+</us-gaap:UseOfEstimates>
+  <us-gaap:NetIncomeLoss id="f98" decimals="128" contextRef="c16" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:BasisOfAccountingPolicyPolicyTextBlock id="f99" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;ACCOUNTING BASIS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The statements were prepared following generally accepted accounting principles of the United States of America (US GAAP) consistently applied and the rules and regulations of U.S. Securities and Exchange Commission (SEC)&lt;span style="border-bottom:1px solid #000000"&gt;.&lt;/span&gt; &lt;/p&gt;
+</us-gaap:BasisOfAccountingPolicyPolicyTextBlock>
+  <dei:EntityPublicFloat id="f100" decimals="INF" contextRef="c21" unitRef="usd">0.0</dei:EntityPublicFloat>
+  <freeflowplc.com:DeliveryTrucksAtCost id="f101" decimals="INF" contextRef="c2" unitRef="usd">3500.0</freeflowplc.com:DeliveryTrucksAtCost>
+  <us-gaap:CommonStockSharesAuthorized id="f102" decimals="INF" contextRef="c2" unitRef="shares">100000000.0</us-gaap:CommonStockSharesAuthorized>
+  <us-gaap:NetIncomeLoss id="f103" decimals="128" contextRef="c19" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:StockIssuedDuringPeriodValueNewIssues id="f104" decimals="INF" contextRef="c18" unitRef="usd">58000.0</us-gaap:StockIssuedDuringPeriodValueNewIssues>
+  <us-gaap:LandAndLandImprovements id="f105" decimals="INF" contextRef="c7" unitRef="usd">1567600.0</us-gaap:LandAndLandImprovements>
+  <us-gaap:CommonStockSharesOutstanding id="f106" decimals="INF" contextRef="c2" unitRef="shares">26221000.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:SharesOutstanding id="f107" decimals="INF" contextRef="c22" unitRef="shares">26221000.0</us-gaap:SharesOutstanding>
+  <freeflowplc.com:AccumulatedDepreciationInOtherAssets id="f108" decimals="INF" contextRef="c2" unitRef="usd">-3500.0</freeflowplc.com:AccumulatedDepreciationInOtherAssets>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f109" decimals="INF" contextRef="c22" unitRef="usd">2620.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment id="f110" decimals="INF" contextRef="c2" unitRef="usd">-17080.0</freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment>
+  <us-gaap:SharesOutstanding id="f111" decimals="INF" contextRef="c23" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:CommonStockSharesIssued id="f112" decimals="INF" contextRef="c7" unitRef="shares">26200000.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:TradeAndOtherAccountsReceivablePolicy id="f113" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;ACCOUNTS RECEIVABLE AND ACCOUNTS PAYABLE&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Regarding the Aging of Trade Accounts Receivable and Trade Accounts Payable, the industry standard is very strange in this business. Often, the aging could go to 2 to 3 years and the receivables are good. The reason is that when the customer buys a part which is a firm sale, if they use the part which was purchased, they pay within 60 to 75 days. But if the part did not get used for whatever reason, and they failed to return the part within 30 days, then as a courtesy, the Sellers, does not demand payment so that new sales of other parts continue.  Thus, no forceful demand is made if it is a running account and cash is coming in against new sales.  The management learnt of this trait after the business was acquired. There were receivables as well as payables that went back to 2 years. Even in the new acquisition that the Company has recently done, while we did not assume any trade liabilities or receivables, the same fact has been observed in the Seller’s books of accounts. The management has not suffered any significant bad debts.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;Trade Accounts Receivable:  Balance is $104,721 as on 12/31/2021 which includes $67,076 as receivables for 365 days or more in the aging analysis.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;The company did not make any provision for such a long outstanding receivable because (a) these buyers are generally repair shops; (b) when used for the customers, these repair shops send the payment within 60 days; (c) when not used, they are still in possession of the parts until the next purchase as a possible way the truck mileage for the return.  When the parts are not returned, our company policy is not to ship anything else, until the previous outstanding sales invoice is paid.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;In the past 3 years, this company did not have significant bad debt for the domestic business. One invoice in the amount of $12,929.23 owed by SAM International, UAE has been written off due to failure to collect the same on account of the owner having gone out of business due to severe incapability to conduct business as a result of heath.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:5pt;margin-bottom:6pt;color:#000000;text-align:justify"&gt;The $20,000 paid for the sales leads which have been used by the Company and another sum amounting to $28,000 for Advance for Purchases, has been written off and charged to “other income” and have thus been recognized as impaired assets.. &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Trade Accounts Payable:  Balance is $23,709 as on 12/31/2021 which includes $0 as payable for 365 days or more in the aging analysis.&lt;/p&gt;
+</us-gaap:TradeAndOtherAccountsReceivablePolicy>
+  <freeflowplc.com:DeliveryTrucksAtCost id="f114" decimals="INF" contextRef="c7" unitRef="usd">3500.0</freeflowplc.com:DeliveryTrucksAtCost>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f115" decimals="INF" contextRef="c23" unitRef="usd">1.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:CommonStockValue id="f116" decimals="INF" contextRef="c2" unitRef="usd">2620.0</us-gaap:CommonStockValue>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f117" decimals="INF" contextRef="c24" unitRef="usd">131033.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:StockIssuedDuringPeriodValueIssuedForServices id="f118" decimals="INF" contextRef="c25" unitRef="usd">20000.0</us-gaap:StockIssuedDuringPeriodValueIssuedForServices>
+  <us-gaap:FurnitureAndFixturesGross id="f119" decimals="INF" contextRef="c2" unitRef="usd">10697.0</us-gaap:FurnitureAndFixturesGross>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f120" decimals="INF" contextRef="c2" unitRef="usd">4186415.0</us-gaap:LiabilitiesAndStockholdersEquity>
+  <freeflowplc.com:AccumulatedDepreciationInOtherAssets id="f121" decimals="INF" contextRef="c7" unitRef="usd">-3298.0</freeflowplc.com:AccumulatedDepreciationInOtherAssets>
+  <us-gaap:IncomeTaxDisclosureTextBlock id="f122" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 3 - PROVISION FOR INCOME TAXES&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Realization of deferred tax assets is dependent upon sufficient future taxable income during the period that deductible temporary differences and carry-forwards are expected to be available to reduce taxable income. As the achievement of required future taxable income is uncertain, the Company recorded a valuation allowance. As of December 31, 2021 the Company had a net profit of $543,898. Net operating loss carry-forward, expires twenty years from the date the loss was incurred.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;table style="border-collapse:collapse;width:462.6pt"&gt;&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Net operating profit (loss) Carry Forward&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;543,898&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;margin-right:3pt;color:#000000;text-align:right"&gt;        850,610&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Valuation allowance&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;-&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;-       &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The Company is subject to United States federal and state income taxes at an approximate rate of 34%. The reconciliation of the provision for income taxes at the United States federal statutory rate compared to the Company's income tax expense as reported is as follows (the taxes are filed on Cash basis):&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;table style="border-collapse:collapse;width:465.6pt"&gt;&lt;tr style="height:8pt"&gt;&lt;td colspan="7" style="width:465.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;Free Flow, Inc.&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td colspan="7" style="width:465.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;Tax Calculations&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Net profit (loss) before taxes per financial statement&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;543,898&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;      850,610&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Income tax rate&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;34%&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;34%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Income tax benefit&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;184,925&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;         289,207&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Valuation allowance change&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;184,925&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;margin-right:3.75pt;color:#000000;text-align:right"&gt;               289,207&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Provision for income tax&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;0&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;0&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Deferred income taxes reflect the net tax effects of temporary differences between the carrying amounts of assets and liabilities for financial reporting purposes and the amounts used for income tax purposes. Deferred income taxes arise from temporary differences in the recognition of income and expenses for financial reporting and tax purposes. The significant components of deferred income tax assets and liabilities at December 31, 2021 and December 31, 2020 are as follows:   &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:8pt Times New Roman;margin:0;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;Net deferred income tax asset - The Company has recognized a valuation allowance for the deferred income tax asset since the Company cannot be assured that it is more likely than not that such benefit will be utilized in future years. The valuation allowance is reviewed annually. When circumstances change, and which cause a change in &lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:8pt Times New Roman;margin:0;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;management's judgment about the realizability of deferred income tax assets, the impact of the change on the valuation allowance is generally reflected in current income.&lt;/span&gt;&lt;span style="font-size:8pt"&gt; &lt;/span&gt;&lt;/p&gt;
+</us-gaap:IncomeTaxDisclosureTextBlock>
+  <us-gaap:FairValueOfFinancialInstrumentsPolicy id="f123" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;FINANCIAL INSTRUMENTS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Fair value measurements are determined based on the assumptions that market participants would use in pricing an asset or liability. ASC 820-10 establishes a hierarchy for inputs used in measuring fair value that maximizes the use of observable inputs and minimizes the use of unobservable inputs by requiring that the most observable inputs be used when available. FASB ASC 820 establishes a fair value hierarchy that prioritizes the use of inputs used in valuation methodologies into the following three levels:&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;o Level 1: Quoted prices (unadjusted) for identical assets or liabilities in active markets. A quoted price in an active market provides the most reliable evidence of fair value and must be used to measure fair value whenever available.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;o Level 2: Significant other observable inputs other than Level 1 prices such as quoted prices for similar assets or liabilities; quoted prices in markets that are not active; or other inputs that are observable or can be corroborated by observable market data.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;o Level 3: Significant unobservable inputs that reflect a reporting entity's own assumptions about the assumptions that market participants would use in pricing an asset or liability. For example, level 3 inputs would relate to forecasts of future earnings and cash flows used in a discounted future cash flows method.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The carrying amounts reported in the balance sheet for cash, accounts payable and notes payable approximate their estimated fair market value based on the short-term maturity of this instrument. In addition, FASB ASC 825-10-25 "Fair Value Option" was effective for January 1, 2008. ASC 825-10-25 expands opportunities to use fair value measurements in financial reporting and permits entities to choose to measure many financial instruments and certain other items at fair value. NET LOSS PER SHARE Basic loss per share includes no dilution and is computed by dividing loss available to common stockholders by the weighted average number of &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;common shares outstanding for the period. Dilutive loss per share reflects the potential dilution of securities that could share in the losses of the Company. Because the Company does not have any potentially dilutive securities, the accompanying presentation is only of basic loss per share.&lt;/span&gt;&lt;/p&gt;
+</us-gaap:FairValueOfFinancialInstrumentsPolicy>
+  <us-gaap:AdditionalPaidInCapital id="f124" decimals="INF" contextRef="c2" unitRef="usd">131033.0</us-gaap:AdditionalPaidInCapital>
+  <freeflowplc.com:AdditionalSubscriptionShares id="f125" decimals="INF" contextRef="c1" unitRef="shares">-25500.0</freeflowplc.com:AdditionalSubscriptionShares>
+  <us-gaap:IntangibleAssetsFiniteLivedPolicy id="f126" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;INTANGIBLE ASSETS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;Initial Measurement&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:0pt;color:#000000;text-align:justify"&gt;Intangible asset acquisitions in which the consideration given is cash are measured by the amount of cash paid, which generally includes the transaction costs of the asset acquisition. However, if the consideration given is not in the form of cash (that is, in the form of noncash assets, liabilities incurred, or equity interests issued), measurement is based on either the cost which shall be measured based on the fair value of the consideration &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:0pt;color:#000000;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;given or the fair value of the assets (or net assets) acquired, whichever is more clearly evident and, thus, more reliably measurable.&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;Subsequent Measurement&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The company accounts for its intangible assets under the Financial Accounting Standards Board ("FASB") Accounting Standards Codification Subtopic ("ASC") 350-30-35 "Intangibles--Goodwill and Other--General Intangibles Other than Goodwill-Subsequent Measurement". Under this method the company is required to test an indefinite-lived intangible asset for impairment on at least an annual basis. This is done by comparing the asset's fair value with its carrying amount. If the carrying amount exceeds the asset's fair value, the difference in  those amounts is recognized as an impairment loss.&lt;/p&gt;
+</us-gaap:IntangibleAssetsFiniteLivedPolicy>
+  <us-gaap:PreferredStockSharesAuthorized id="f127" decimals="INF" contextRef="c26" unitRef="shares">10000.0</us-gaap:PreferredStockSharesAuthorized>
+  <us-gaap:SharesOutstanding id="f128" decimals="INF" contextRef="c27" unitRef="shares">26221000.0</us-gaap:SharesOutstanding>
+  <us-gaap:FurnitureAndFixturesGross id="f129" decimals="INF" contextRef="c7" unitRef="usd">9441.0</us-gaap:FurnitureAndFixturesGross>
+  <us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock id="f130" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;&lt;b&gt;RECENTLY ISSUED ACCOUNTING PRONOUNCEMENTS&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000"&gt;Recent accounting pronouncements that the Company has adopted or that will be required to adopt in the future are summarized below.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;In May 2011, FASB issued Accounting Standards Update ("ASU") No. 2011-04, "Fair Value Measurement (Topic 820): Amendments to Achieve Common Fair Value Measurement and Disclosure Requirements in U.S.GAAP and IFRS" ("ASU No. 2011-04"). ASU No. 2011-04 provides guidance which is expected to result in common fair value measurement and disclosure requirements between U.S. GAAP and IFRS. It changes the wording used to describe many of the requirements in U.S. GAAP for measuring fair value and for disclosing information about fair value measurements. It is not intended for this update to result in a change in the application of the requirements in Topic 820. The amendments in ASU No. 2011-04 are to be applied prospectively. ASU No. 2011-04 is effective for public companies for interim and annual periods beginning after December 15, 2011. Early application is not permitted. This update is not expected to have a material impact on the Company's financial statements.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;In June 2011, the FASB issued ASU No. 2011-05, "Comprehensive Income (Topic 220): Presentation of Comprehensive Income" ("ASU No. 2011-05"). In ASU No. 2011-05, an entity has the option to present the total of comprehensive income, the components of net income, and the components of other comprehensive income either in a single continuous statement of comprehensive income or in two separate but consecutive statements. In both choices, an entity is required to present each component of net income along with total net income, each component of other comprehensive income along with a total for other comprehensive income, and a total amount for comprehensive income. The amendments in ASU No. 2011-05 do not change the items that must be reported in other comprehensive income or when an item of other comprehensive income must be reclassified to net income. They also do not change the presentation of related tax effects, before related tax effects, or the portrayal or calculation of earnings per share. The amendments in ASU No. 2011-05 should be applied retrospectively. The amendment is effective for fiscal years, and interim periods within those years, beginning after December 15, 2011. Early adoption is permitted, because compliance with the amendments is already permitted. The amendments do not require any transition disclosures. This update is not expected to have a material impact on the Company's financial statements.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;In September 2011, the FASB issued ASU No. 2011-08, "Intangibles -- Goodwill and Other (Topic 350)" ("ASU No. 2011-08"). In ASU No. 2011-08, an entity is permitted to make a qualitative assessment of whether it is more likely than not that a reporting unit's fair value is less than its carrying amount before applying the two-step goodwill impairment test. If an entity concludes that it is not more likely than not that the fair value of a reporting unit is less than its carrying amount, it would not be required to perform the two-step impairment test for that reporting unit. The ASU's objective is to simplify how an entity tests goodwill for impairment. The amendments in ASU No. 2011-08 are effective for annual and interim goodwill and impairment tests performed for fiscal years beginning after December 15, 2011. Early adoption is permitted, including for annual and interim goodwill impairment tests performed as of a date before September 15, 2011, if an entity's financial statements for the most recent annual or interim period have not yet been issued. The Company is evaluating the requirements of ASU&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;No. 2011-08 and has not yet determined whether a revised approach to evaluation of goodwill impairment will be used in future assessments. The Company does not expect the adoption of ASU No. 2011-08 to have a material impact on its financial statements.&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;Other accounting standards that have been issued or proposed by the FASB that do not require adoption until a future date are not expected to have a material impact on the financial statements upon adoption.&lt;/p&gt;
+&lt;p style="font:8pt Times New Roman;margin-top:14pt;margin-bottom:14pt;text-align:justify"&gt;&lt;span style="font-size:12pt"&gt;The Company has implemented all new accounting pronouncements that are in effect and that may impact its financial statements and does not believe that there are any other new accounting pronouncements that have been issued that might have a material impact on its financial position or results of operations.&lt;/span&gt; &lt;/p&gt;
+</us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock>
+  <us-gaap:StockIssuedDuringPeriodSharesNewIssues id="f131" decimals="INF" contextRef="c25" unitRef="shares">25000000.0</us-gaap:StockIssuedDuringPeriodSharesNewIssues>
+  <us-gaap:CommonStockValue id="f132" decimals="INF" contextRef="c7" unitRef="usd">2620.0</us-gaap:CommonStockValue>
+  <us-gaap:OperatingLossCarryforwards id="f133" decimals="INF" contextRef="c2" unitRef="usd">543898.0</us-gaap:OperatingLossCarryforwards>
+  <us-gaap:CommonStockSharesSubscriptions id="f134" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:CommonStockSharesSubscriptions>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f135" decimals="INF" contextRef="c27" unitRef="usd">2620.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:IncomeTaxPolicyTextBlock id="f136" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;&lt;b&gt;INCOME TAXES &lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin-top:14pt;margin-bottom:14pt;color:#000000;text-align:justify"&gt;The Company accounts for its income taxes in accordance with FASB Accounting Standards Codification ("ASC") No. 740, "Income Taxes". Under this method, deferred tax assets and liabilities are recognized for the future tax consequences attributable to differences between the financial statement carrying amounts of existing assets and liabilities and their respective tax balances. Deferred tax assets and liabilities are measured using enacted or substantially enacted tax rates expected to apply to the taxable income in the years in which those differences are expected to be recovered or settled. Deferred tax assets are reduced by a valuation allowance when, in the opinion of management, it is more likely than not that some portion or all the deferred tax assets will not be realized. The effect on deferred tax assets and liabilities of a change in tax rates is recognized in income in the period that includes the date of enactment or substantive enactment.&lt;/p&gt;
+</us-gaap:IncomeTaxPolicyTextBlock>
+  <us-gaap:SharesIssuedPricePerShare id="f137" decimals="INF" contextRef="c28" unitRef="usd1">0.0008</us-gaap:SharesIssuedPricePerShare>
+  <us-gaap:SharesOutstanding id="f138" decimals="INF" contextRef="c29" unitRef="shares">10000.0</us-gaap:SharesOutstanding>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f139" decimals="INF" contextRef="c2" unitRef="usd">968457.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:PropertyPlantAndEquipmentOther id="f140" decimals="INF" contextRef="c7" unitRef="usd">35000.0</us-gaap:PropertyPlantAndEquipmentOther>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f141" decimals="INF" contextRef="c29" unitRef="usd">1.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:StockIssuedDuringPeriodSharesNewIssues id="f142" decimals="INF" contextRef="c30" unitRef="shares">1200000.0</us-gaap:StockIssuedDuringPeriodSharesNewIssues>
+  <us-gaap:AdditionalPaidInCapital id="f143" decimals="INF" contextRef="c7" unitRef="usd">131033.0</us-gaap:AdditionalPaidInCapital>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f144" decimals="INF" contextRef="c31" unitRef="usd">131033.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:SharesIssuedPricePerShare id="f145" decimals="INF" contextRef="c32" unitRef="usd1">0.000833</us-gaap:SharesIssuedPricePerShare>
+  <freeflowplc.com:IncomeForThePeriodJanuaryDecember302020 id="f146" decimals="INF" contextRef="c2" unitRef="usd">543898.0</freeflowplc.com:IncomeForThePeriodJanuaryDecember302020>
+  <dei:DocumentFiscalYearFocus id="f147" contextRef="c1">2021</dei:DocumentFiscalYearFocus>
+  <us-gaap:OtherAssets id="f148" decimals="INF" contextRef="c2" unitRef="usd">28617.0</us-gaap:OtherAssets>
+  <us-gaap:CommonStockSharesSubscriptions id="f149" decimals="INF" contextRef="c7" unitRef="usd">25500.0</us-gaap:CommonStockSharesSubscriptions>
+  <us-gaap:ProfitLoss id="f150" decimals="INF" contextRef="c1" unitRef="usd">517043.0</us-gaap:ProfitLoss>
+  <dei:DocumentFiscalPeriodFocus id="f151" contextRef="c1">FY</dei:DocumentFiscalPeriodFocus>
+  <us-gaap:IncreaseDecreaseInAccountsPayableTrade id="f152" decimals="INF" contextRef="c1" unitRef="usd">13880.0</us-gaap:IncreaseDecreaseInAccountsPayableTrade>
+  <us-gaap:SummaryOfOperatingLossCarryforwardsTextBlock id="f153" contextRef="c1">&lt;table style="border-collapse:collapse;width:462.6pt"&gt;&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Net operating profit (loss) Carry Forward&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;543,898&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;margin-right:3pt;color:#000000;text-align:right"&gt;        850,610&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:247.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Valuation allowance&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:79.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;-&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:11.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:80.85pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;-       &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</us-gaap:SummaryOfOperatingLossCarryforwardsTextBlock>
+  <freeflowplc.com:IncreaseDecreaseInIntercompany id="f154" decimals="128" contextRef="c1" unitRef="usd">0.0</freeflowplc.com:IncreaseDecreaseInIntercompany>
+  <us-gaap:CurrentIncomeTaxExpenseBenefit id="f155" decimals="INF" contextRef="c1" unitRef="usd">184925.0</us-gaap:CurrentIncomeTaxExpenseBenefit>
+  <us-gaap:StockIssuedDuringPeriodValueIssuedForServices id="f156" decimals="INF" contextRef="c30" unitRef="usd">1000.0</us-gaap:StockIssuedDuringPeriodValueIssuedForServices>
+  <freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment id="f157" decimals="INF" contextRef="c7" unitRef="usd">-15064.0</freeflowplc.com:AccumulatedDepreciationOfFurnitureAndEquipment>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f158" decimals="INF" contextRef="c2" unitRef="usd">290905.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <freeflowplc.com:ProceedsFromNotesPayableRelatedParties id="f159" decimals="INF" contextRef="c1" unitRef="usd">300.0</freeflowplc.com:ProceedsFromNotesPayableRelatedParties>
+  <us-gaap:DebtConversionConvertedInstrumentAmount1 id="f160" decimals="INF" contextRef="c33" unitRef="usd">300.0</us-gaap:DebtConversionConvertedInstrumentAmount1>
+  <dei:DocumentType id="f161" contextRef="c1">10-K</dei:DocumentType>
+  <dei:DocumentTransitionReport id="f162" contextRef="c1">false</dei:DocumentTransitionReport>
+  <us-gaap:IncreaseDecreaseInInventories id="f163" decimals="INF" contextRef="c1" unitRef="usd">746660.0</us-gaap:IncreaseDecreaseInInventories>
+  <us-gaap:ValuationAllowanceDeferredTaxAssetChangeInAmount id="f164" decimals="INF" contextRef="c1" unitRef="usd">184925.0</us-gaap:ValuationAllowanceDeferredTaxAssetChangeInAmount>
+  <freeflowplc.com:IncomeForThePeriodJanuaryDecember302020 id="f165" decimals="INF" contextRef="c7" unitRef="usd">850610.0</freeflowplc.com:IncomeForThePeriodJanuaryDecember302020>
+  <us-gaap:Depreciation id="f166" decimals="INF" contextRef="c1" unitRef="usd">52434.0</us-gaap:Depreciation>
+  <us-gaap:StockIssuedDuringPeriodSharesNewIssues id="f167" decimals="INF" contextRef="c33" unitRef="shares">300.0</us-gaap:StockIssuedDuringPeriodSharesNewIssues>
+  <us-gaap:Assets id="f168" decimals="INF" contextRef="c2" unitRef="usd">4186415.0</us-gaap:Assets>
+  <us-gaap:OperatingLossCarryforwardsValuationAllowance id="f169" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:OperatingLossCarryforwardsValuationAllowance>
+  <us-gaap:SharesIssuedPricePerShare id="f170" decimals="INF" contextRef="c34" unitRef="usd1">1.0</us-gaap:SharesIssuedPricePerShare>
+  <us-gaap:ProfitLoss id="f171" decimals="INF" contextRef="c4" unitRef="usd">850610.0</us-gaap:ProfitLoss>
+  <dei:DocumentAnnualReport id="f172" contextRef="c1">true</dei:DocumentAnnualReport>
+  <us-gaap:OtherAssets id="f173" decimals="INF" contextRef="c7" unitRef="usd">29579.0</us-gaap:OtherAssets>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations id="f174" decimals="INF" contextRef="c1" unitRef="usd">-38500.0</us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations>
+  <us-gaap:AccountsPayableCurrent id="f175" decimals="INF" contextRef="c2" unitRef="usd">23709.0</us-gaap:AccountsPayableCurrent>
+  <us-gaap:OperatingLossCarryforwards id="f176" decimals="INF" contextRef="c7" unitRef="usd">850610.0</us-gaap:OperatingLossCarryforwards>
+  <us-gaap:DebtConversionConvertedInstrumentSharesIssued1 id="f177" decimals="INF" contextRef="c35" unitRef="shares">330000.0</us-gaap:DebtConversionConvertedInstrumentSharesIssued1>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f178" decimals="INF" contextRef="c7" unitRef="usd">-559705.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:Depreciation id="f179" decimals="INF" contextRef="c4" unitRef="usd">59018.0</us-gaap:Depreciation>
+  <us-gaap:EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate id="f180" decimals="INF" contextRef="c1" unitRef="pure">0.34</us-gaap:EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate>
+  <dei:DocumentPeriodEndDate id="f181" contextRef="c1">2021-12-31</dei:DocumentPeriodEndDate>
+  <us-gaap:Assets id="f182" decimals="INF" contextRef="c7" unitRef="usd">3662186.0</us-gaap:Assets>
+  <us-gaap:IncreaseDecreaseInAccountsReceivable id="f183" decimals="INF" contextRef="c1" unitRef="usd">-97949.0</us-gaap:IncreaseDecreaseInAccountsReceivable>
+  <us-gaap:StockIssuedDuringPeriodSharesNewIssues id="f184" decimals="INF" contextRef="c36" unitRef="shares">9700.0</us-gaap:StockIssuedDuringPeriodSharesNewIssues>
+  <us-gaap:NotesPayableCurrent id="f185" decimals="INF" contextRef="c2" unitRef="usd">958755.0</us-gaap:NotesPayableCurrent>
+  <dei:EntityFileNumber id="f186" contextRef="c1">000-54868</dei:EntityFileNumber>
+  <dei:EntityAddressStateOrProvince id="f187" contextRef="c1">VA</dei:EntityAddressStateOrProvince>
+  <us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax id="f188" decimals="INF" contextRef="c1" unitRef="usd">745675.0</us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax>
+  <us-gaap:IncreaseDecreaseInAccountsPayableTrade id="f189" decimals="INF" contextRef="c4" unitRef="usd">-10513.0</us-gaap:IncreaseDecreaseInAccountsPayableTrade>
+  <us-gaap:OperatingLossCarryforwardsValuationAllowance id="f190" decimals="128" contextRef="c7" unitRef="usd">0.0</us-gaap:OperatingLossCarryforwardsValuationAllowance>
+  <us-gaap:AccountsPayableCurrent id="f191" decimals="INF" contextRef="c7" unitRef="usd">9829.0</us-gaap:AccountsPayableCurrent>
+  <us-gaap:DebtConversionConvertedInstrumentAmount1 id="f192" decimals="INF" contextRef="c36" unitRef="usd">58000.0</us-gaap:DebtConversionConvertedInstrumentAmount1>
+  <us-gaap:EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate id="f193" decimals="INF" contextRef="c4" unitRef="pure">0.34</us-gaap:EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate>
+  <us-gaap:DebtInstrumentFaceAmount id="f194" decimals="INF" contextRef="c37" unitRef="usd">330000.0</us-gaap:DebtInstrumentFaceAmount>
+  <us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent id="f195" decimals="INF" contextRef="c2" unitRef="usd">1989.0</us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent>
+  <us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest id="f196" decimals="INF" contextRef="c7" unitRef="usd">450059.0</us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest>
+  <us-gaap:IncreaseDecreaseInAccountsReceivable id="f197" decimals="INF" contextRef="c4" unitRef="usd">95579.0</us-gaap:IncreaseDecreaseInAccountsReceivable>
+  <us-gaap:GeneralAndAdministrativeExpense id="f198" decimals="INF" contextRef="c1" unitRef="usd">516980.0</us-gaap:GeneralAndAdministrativeExpense>
+  <us-gaap:DueToRelatedPartiesCurrent id="f199" decimals="INF" contextRef="c38" unitRef="usd">470935.0</us-gaap:DueToRelatedPartiesCurrent>
+  <dei:EntityRegistrantName id="f200" contextRef="c1">Free Flow Inc.</dei:EntityRegistrantName>
+  <us-gaap:NotesPayableCurrent id="f201" decimals="INF" contextRef="c7" unitRef="usd">940000.0</us-gaap:NotesPayableCurrent>
+  <us-gaap:ScheduleOfComponentsOfIncomeTaxExpenseBenefitTableTextBlock id="f202" contextRef="c1">&lt;table style="border-collapse:collapse;width:465.6pt"&gt;&lt;tr style="height:8pt"&gt;&lt;td colspan="7" style="width:465.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;Free Flow, Inc.&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td colspan="7" style="width:465.6pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;Tax Calculations&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Net profit (loss) before taxes per financial statement&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:67.95pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;543,898&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:83.45pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;      850,610&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Income tax rate&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;34%&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;34%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Income tax benefit&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;184,925&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;         289,207&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Valuation allowance change&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;184,925&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;margin-right:3.75pt;color:#000000;text-align:right"&gt;               289,207&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.8pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Provision for income tax&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:67.95pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;0&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:9.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:14.35pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:83.45pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;0&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</us-gaap:ScheduleOfComponentsOfIncomeTaxExpenseBenefitTableTextBlock>
+  <dei:EntityAddressAddressLine1 id="f203" contextRef="c1">6269 Caledon Road</dei:EntityAddressAddressLine1>
+  <us-gaap:StockIssuedDuringPeriodSharesRestrictedStockAwardGross id="f204" decimals="INF" contextRef="c39" unitRef="shares">21000.0</us-gaap:StockIssuedDuringPeriodSharesRestrictedStockAwardGross>
+  <dei:EntityIncorporationStateCountryCode id="f205" contextRef="c1">DE</dei:EntityIncorporationStateCountryCode>
+  <us-gaap:LiabilitiesCurrent id="f206" decimals="INF" contextRef="c2" unitRef="usd">984453.0</us-gaap:LiabilitiesCurrent>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f207" decimals="INF" contextRef="c7" unitRef="usd">3662186.0</us-gaap:LiabilitiesAndStockholdersEquity>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f208" decimals="INF" contextRef="c1" unitRef="usd">543898.0</us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest>
+  <freeflowplc.com:IncreaseDecreaseInIntercompany id="f209" decimals="INF" contextRef="c4" unitRef="usd">6073.0</freeflowplc.com:IncreaseDecreaseInIntercompany>
+  <dei:EntityAddressCityOrTown id="f210" contextRef="c1">King George</dei:EntityAddressCityOrTown>
+  <us-gaap:Revenues id="f211" decimals="INF" contextRef="c1" unitRef="usd">745675.0</us-gaap:Revenues>
+  <dei:EntityTaxIdentificationNumber id="f212" contextRef="c1">45-3838831</dei:EntityTaxIdentificationNumber>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f213" decimals="INF" contextRef="c4" unitRef="usd">850610.0</us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest>
+  <us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent id="f214" decimals="INF" contextRef="c7" unitRef="usd">1689.0</us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent>
+  <us-gaap:DebtConversionConvertedInstrumentSharesIssued1 id="f215" decimals="INF" contextRef="c40" unitRef="shares">470935.0</us-gaap:DebtConversionConvertedInstrumentSharesIssued1>
+  <us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax id="f216" decimals="INF" contextRef="c4" unitRef="usd">411694.0</us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax>
+  <freeflowplc.com:ProceedsFromIssuanceOfRestrictedShares id="f217" decimals="INF" contextRef="c39" unitRef="usd">14490.0</freeflowplc.com:ProceedsFromIssuanceOfRestrictedShares>
+  <us-gaap:SecuredLongTermDebt id="f218" decimals="INF" contextRef="c2" unitRef="usd">335801.0</us-gaap:SecuredLongTermDebt>
+  <us-gaap:CostOfGoodsAndServicesSold id="f219" decimals="INF" contextRef="c1" unitRef="usd">349892.0</us-gaap:CostOfGoodsAndServicesSold>
+  <us-gaap:IncreaseDecreaseInInventories id="f220" decimals="INF" contextRef="c4" unitRef="usd">1002236.0</us-gaap:IncreaseDecreaseInInventories>
+  <us-gaap:GrossProfit id="f221" decimals="INF" contextRef="c1" unitRef="usd">395783.0</us-gaap:GrossProfit>
+  <us-gaap:LiabilitiesCurrent id="f222" decimals="INF" contextRef="c7" unitRef="usd">951518.0</us-gaap:LiabilitiesCurrent>
+  <dei:EntityAddressAddressDescription id="f223" contextRef="c1">Address of Principal Executive Offices</dei:EntityAddressAddressDescription>
+  <dei:EntityVoluntaryFilers id="f224" contextRef="c1">No</dei:EntityVoluntaryFilers>
+  <us-gaap:LoansPayable id="f225" decimals="INF" contextRef="c2" unitRef="usd">41675.0</us-gaap:LoansPayable>
+  <us-gaap:Revenues id="f226" decimals="INF" contextRef="c4" unitRef="usd">411694.0</us-gaap:Revenues>
+  <us-gaap:CurrentIncomeTaxExpenseBenefit id="f227" decimals="INF" contextRef="c4" unitRef="usd">289207.0</us-gaap:CurrentIncomeTaxExpenseBenefit>
+  <us-gaap:ProceedsFromNotesPayable id="f228" decimals="INF" contextRef="c1" unitRef="usd">18755.0</us-gaap:ProceedsFromNotesPayable>
+  <us-gaap:IncomeTaxExpenseBenefit id="f229" decimals="INF" contextRef="c1" unitRef="usd">0.0</us-gaap:IncomeTaxExpenseBenefit>
+  <us-gaap:PaymentsToAcquireLand id="f230" decimals="128" contextRef="c1" unitRef="usd">0.0</us-gaap:PaymentsToAcquireLand>
+  <us-gaap:SecuredLongTermDebt id="f231" decimals="INF" contextRef="c7" unitRef="usd">349500.0</us-gaap:SecuredLongTermDebt>
+  <us-gaap:CostOfGoodsAndServicesSold id="f232" decimals="INF" contextRef="c4" unitRef="usd">173177.0</us-gaap:CostOfGoodsAndServicesSold>
+  <dei:CityAreaCode id="f233" contextRef="c1">703</dei:CityAreaCode>
+  <us-gaap:LongTermLoansPayable id="f234" decimals="INF" contextRef="c2" unitRef="usd">146300.0</us-gaap:LongTermLoansPayable>
+  <us-gaap:InventoryWriteDown id="f235" decimals="128" contextRef="c1" unitRef="usd">0.0</us-gaap:InventoryWriteDown>
+  <us-gaap:ValuationAllowanceDeferredTaxAssetChangeInAmount id="f236" decimals="INF" contextRef="c4" unitRef="usd">289207.0</us-gaap:ValuationAllowanceDeferredTaxAssetChangeInAmount>
+  <dei:EntityEmergingGrowthCompany id="f237" contextRef="c1">false</dei:EntityEmergingGrowthCompany>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations id="f238" decimals="INF" contextRef="c4" unitRef="usd">-192627.0</us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f239" decimals="INF" contextRef="c41" unitRef="usd">3500.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <freeflowplc.com:PaymentAgainstImprovementInProgress id="f240" decimals="INF" contextRef="c1" unitRef="usd">-1255.0</freeflowplc.com:PaymentAgainstImprovementInProgress>
+  <dei:EntityAddressPostalZipCode id="f241" contextRef="c1">22485</dei:EntityAddressPostalZipCode>
+  <us-gaap:PreferredStockSharesOutstanding id="f242" decimals="INF" contextRef="c10" unitRef="shares">10000.0</us-gaap:PreferredStockSharesOutstanding>
+  <us-gaap:LoansPayable id="f243" decimals="INF" contextRef="c7" unitRef="usd">27800.0</us-gaap:LoansPayable>
+  <us-gaap:PropertyPlantAndEquipmentDisclosureTextBlock id="f244" contextRef="c1">&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;&lt;b&gt;NOTE 4- PROPERTY AND EQUIPMENT&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt;Property and equipment consists of the following:&lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;table style="border-collapse:collapse;width:519.55pt"&gt;&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td colspan="4" style="width:212.45pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;As of December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Property, Land and Building at cost&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     1,712,413&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,712,413&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Trucks at cost&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;           3,500&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;            3,500&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Equipment at cost&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;         35,000&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;          35,000&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;margin-left:26.25pt;color:#000000"&gt;Total Fixed Assets&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     1,750,913&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,750,913&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Less: Accumulated Depreciation&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     (215,609)&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;       (163,175)&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     1,535,304&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,587,738&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;p style="font:12pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Depreciation expenses for the periods ended December 31, 2021 and December 31, 2020 were $52,434 and $59,018 respectively&lt;/p&gt;
+</us-gaap:PropertyPlantAndEquipmentDisclosureTextBlock>
+  <us-gaap:GrossProfit id="f245" decimals="INF" contextRef="c4" unitRef="usd">238517.0</us-gaap:GrossProfit>
+  <us-gaap:NetCashProvidedByUsedInInvestingActivities id="f246" decimals="INF" contextRef="c1" unitRef="usd">-1255.0</us-gaap:NetCashProvidedByUsedInInvestingActivities>
+  <us-gaap:OtherNonoperatingIncomeExpense id="f247" decimals="INF" contextRef="c1" unitRef="usd">-26562.0</us-gaap:OtherNonoperatingIncomeExpense>
+  <freeflowplc.com:PaypalAdvance id="f248" decimals="INF" contextRef="c2" unitRef="usd">48236.0</freeflowplc.com:PaypalAdvance>
+  <us-gaap:IncomeTaxExpenseBenefit id="f249" decimals="INF" contextRef="c4" unitRef="usd">0.0</us-gaap:IncomeTaxExpenseBenefit>
+  <us-gaap:PaymentsToAcquireLand id="f250" decimals="INF" contextRef="c4" unitRef="usd">935708.0</us-gaap:PaymentsToAcquireLand>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f251" decimals="INF" contextRef="c42" unitRef="usd">1712413.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <us-gaap:PropertyPlantAndEquipmentTextBlock id="f252" contextRef="c1">&lt;table style="border-collapse:collapse;width:519.55pt"&gt;&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:12pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td colspan="4" style="width:212.45pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;As of December 31,&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2021&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt;2020&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:center"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Property, Land and Building at cost&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     1,712,413&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,712,413&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Trucks at cost&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;           3,500&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;            3,500&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Equipment at cost&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;         35,000&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;          35,000&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="middle"&gt;&lt;p style="font:11pt Times New Roman;margin:0;margin-left:26.25pt;color:#000000"&gt;Total Fixed Assets&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     1,750,913&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,750,913&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="width:266.2pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt;Less: Accumulated Depreciation&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:86.55pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     (215,609)&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:90.5pt;padding:0.75pt;border-bottom:0.5pt solid #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;       (163,175)&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="height:8.85pt"&gt;&lt;td style="background-color:#CCEEFF;width:266.2pt;padding:0.75pt" valign="bottom"/&gt;&lt;td style="background-color:#CCEEFF;width:21.4pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:86.55pt;padding:0.75pt;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;     1,535,304&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:15.9pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt; &lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:19.5pt;padding:0.75pt" valign="bottom"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;$&lt;/p&gt;
+&lt;/td&gt;&lt;td style="background-color:#CCEEFF;width:90.5pt;padding:0.75pt;border-bottom:3px double #000000" valign="bottom"&gt;&lt;p style="font:11pt Times New Roman;margin:0;color:#000000;text-align:right"&gt;        1,587,738&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</us-gaap:PropertyPlantAndEquipmentTextBlock>
+  <dei:EntityWellKnownSeasonedIssuer id="f253" contextRef="c1">No</dei:EntityWellKnownSeasonedIssuer>
+  <us-gaap:LongTermLoansPayable id="f254" decimals="INF" contextRef="c7" unitRef="usd">146300.0</us-gaap:LongTermLoansPayable>
+  <dei:EntityInteractiveDataCurrent id="f255" contextRef="c1">Yes</dei:EntityInteractiveDataCurrent>
+  <us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding id="f256" decimals="INF" contextRef="c2" unitRef="usd">860559.0</us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding>
+  <us-gaap:GeneralAndAdministrativeExpense id="f257" decimals="INF" contextRef="c4" unitRef="usd">393254.0</us-gaap:GeneralAndAdministrativeExpense>
+  <freeflowplc.com:PaymentAgainstImprovementInProgress id="f258" decimals="INF" contextRef="c4" unitRef="usd">-9341.0</freeflowplc.com:PaymentAgainstImprovementInProgress>
+  <us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment id="f259" decimals="INF" contextRef="c2" unitRef="usd">215609.0</us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment>
+  <us-gaap:OperatingExpenses id="f260" decimals="INF" contextRef="c1" unitRef="usd">516980.0</us-gaap:OperatingExpenses>
+  <freeflowplc.com:PaypalAdvance id="f261" decimals="INF" contextRef="c7" unitRef="usd">62943.0</freeflowplc.com:PaypalAdvance>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f262" decimals="INF" contextRef="c5" unitRef="shares">0.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:ProceedsFromRepaymentsOfRelatedPartyDebt id="f263" decimals="INF" contextRef="c1" unitRef="usd">-25500.0</us-gaap:ProceedsFromRepaymentsOfRelatedPartyDebt>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f264" decimals="INF" contextRef="c43" unitRef="usd">1712413.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <dei:LocalPhoneNumber id="f265" contextRef="c1">789-3344</dei:LocalPhoneNumber>
+  <us-gaap:LiabilitiesNoncurrent id="f266" decimals="INF" contextRef="c2" unitRef="usd">1432570.0</us-gaap:LiabilitiesNoncurrent>
+  <us-gaap:InventoryWriteDown id="f267" decimals="128" contextRef="c4" unitRef="usd">0.0</us-gaap:InventoryWriteDown>
+  <dei:PhoneFaxNumberDescription id="f268" contextRef="c1">Registrant’s Telephone Number</dei:PhoneFaxNumberDescription>
+  <us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding id="f269" decimals="INF" contextRef="c7" unitRef="usd">873131.0</us-gaap:LineOfCreditFacilityFairValueOfAmountOutstanding>
+  <us-gaap:NetCashProvidedByUsedInInvestingActivities id="f270" decimals="INF" contextRef="c4" unitRef="usd">-945049.0</us-gaap:NetCashProvidedByUsedInInvestingActivities>
+  <us-gaap:OperatingIncomeLoss id="f271" decimals="INF" contextRef="c1" unitRef="usd">-121197.0</us-gaap:OperatingIncomeLoss>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f272" decimals="INF" contextRef="c44" unitRef="usd">3500.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <dei:EntityFilerCategory id="f273" contextRef="c1">Non-accelerated Filer</dei:EntityFilerCategory>
+  <us-gaap:Liabilities id="f274" decimals="INF" contextRef="c2" unitRef="usd">2417023.0</us-gaap:Liabilities>
+  <dei:EntityCommonStockSharesOutstanding id="f275" decimals="INF" contextRef="c45" unitRef="shares">26221000.0</dei:EntityCommonStockSharesOutstanding>
+  <us-gaap:ProceedsFromRepaymentsOfLinesOfCredit id="f276" decimals="INF" contextRef="c4" unitRef="usd">38488.0</us-gaap:ProceedsFromRepaymentsOfLinesOfCredit>
+  <dei:EntityCurrentReportingStatus id="f277" contextRef="c1">Yes</dei:EntityCurrentReportingStatus>
+  <us-gaap:LiabilitiesNoncurrent id="f278" decimals="INF" contextRef="c7" unitRef="usd">1459674.0</us-gaap:LiabilitiesNoncurrent>
+  <us-gaap:OperatingExpenses id="f279" decimals="INF" contextRef="c4" unitRef="usd">393254.0</us-gaap:OperatingExpenses>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f280" decimals="INF" contextRef="c46" unitRef="usd">35000.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <freeflowplc.com:ProceedsFromNotesPayableRelatedParties id="f281" decimals="128" contextRef="c4" unitRef="usd">0.0</freeflowplc.com:ProceedsFromNotesPayableRelatedParties>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f282" decimals="INF" contextRef="c47" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <freeflowplc.com:IncreaseInValueOfInventory id="f283" decimals="128" contextRef="c4" unitRef="usd">0.0</freeflowplc.com:IncreaseInValueOfInventory>
+  <freeflowplc.com:ProceedsFromPayPalAdvance id="f284" decimals="INF" contextRef="c1" unitRef="usd">-14707.0</freeflowplc.com:ProceedsFromPayPalAdvance>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f285" decimals="INF" contextRef="c48" unitRef="usd">35000.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <us-gaap:Liabilities id="f286" decimals="INF" contextRef="c7" unitRef="usd">2411192.0</us-gaap:Liabilities>
+  <freeflowplc.com:RedeemablePreferredStockSharesIssued id="f287" decimals="INF" contextRef="c47" unitRef="shares">330000.0</freeflowplc.com:RedeemablePreferredStockSharesIssued>
+  <us-gaap:OperatingIncomeLoss id="f288" decimals="INF" contextRef="c4" unitRef="usd">-154737.0</us-gaap:OperatingIncomeLoss>
+  <freeflowplc.com:IncreaseInValueOfInventory id="f289" decimals="INF" contextRef="c1" unitRef="usd">-691657.0</freeflowplc.com:IncreaseInValueOfInventory>
+  <us-gaap:ProceedsFromRepaymentsOfRelatedPartyDebt id="f290" decimals="INF" contextRef="c4" unitRef="usd">25500.0</us-gaap:ProceedsFromRepaymentsOfRelatedPartyDebt>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f291" decimals="INF" contextRef="c2" unitRef="usd">1750913.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <freeflowplc.com:RedeemablePreferredStockSharesOutstanding id="f292" decimals="INF" contextRef="c47" unitRef="shares">330000.0</freeflowplc.com:RedeemablePreferredStockSharesOutstanding>
+  <us-gaap:ProceedsFromRepaymentsOfLinesOfCredit id="f293" decimals="INF" contextRef="c1" unitRef="usd">-13699.0</us-gaap:ProceedsFromRepaymentsOfLinesOfCredit>
+  <dei:AmendmentFlag id="f294" contextRef="c1">false</dei:AmendmentFlag>
+  <freeflowplc.com:RedeemablePreferredStockSharesAuthorized id="f295" decimals="INF" contextRef="c5" unitRef="shares">500000.0</freeflowplc.com:RedeemablePreferredStockSharesAuthorized>
+  <us-gaap:OtherNonoperatingIncomeExpense id="f296" decimals="INF" contextRef="c4" unitRef="usd">1005347.0</us-gaap:OtherNonoperatingIncomeExpense>
+  <us-gaap:PropertyPlantAndEquipmentGross id="f297" decimals="INF" contextRef="c7" unitRef="usd">1750913.0</us-gaap:PropertyPlantAndEquipmentGross>
+  <dei:EntitySmallBusiness id="f298" contextRef="c1">true</dei:EntitySmallBusiness>
+  <us-gaap:TemporaryEquityCarryingAmountAttributableToParent id="f299" decimals="INF" contextRef="c47" unitRef="usd">330000.0</us-gaap:TemporaryEquityCarryingAmountAttributableToParent>
+  <us-gaap:ProceedsFromNotesPayable id="f300" decimals="INF" contextRef="c4" unitRef="usd">940000.0</us-gaap:ProceedsFromNotesPayable>
+  <dei:EntityShellCompany id="f301" contextRef="c1">false</dei:EntityShellCompany>
+  <us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment id="f302" decimals="INF" contextRef="c7" unitRef="usd">163175.0</us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment>
+</xbrli:xbrl>

@@ -1,134 +1,134 @@
 {
     "http://fasb.org/us-types/2021-01-31": [
         {
+            "localName": "controlOfRightsItemType",
             "type": "Type",
-            "label": "yesNoItemType",
-            "localName": "yesNoItemType"
+            "label": "controlOfRightsItemType"
         },
         {
+            "localName": "advertisingExpenseMethodItemType",
             "type": "Type",
-            "label": "transitionOptionType",
-            "localName": "transitionOptionType"
+            "label": "advertisingExpenseMethodItemType"
         },
         {
+            "localName": "investmentPledgedItemType",
             "type": "Type",
-            "label": "fundingImprovementAndRehabilitationPlanItemType",
-            "localName": "fundingImprovementAndRehabilitationPlanItemType"
+            "label": "investmentPledgedItemType"
         },
         {
+            "localName": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType",
             "type": "Type",
-            "label": "surchargeMethodGSIB",
-            "localName": "surchargeMethodGSIB"
+            "label": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType"
         },
         {
+            "localName": "combinedComponentType",
             "type": "Type",
-            "label": "authorizedUnlimitedItemType",
-            "localName": "authorizedUnlimitedItemType"
+            "label": "combinedComponentType"
         },
         {
+            "localName": "distributionsReceivedApproach",
             "type": "Type",
-            "label": "fundedStatusItemType",
-            "localName": "fundedStatusItemType"
+            "label": "distributionsReceivedApproach"
         },
         {
+            "localName": "fundedStatusItemType",
             "type": "Type",
-            "label": "forfeitureMethod",
-            "localName": "forfeitureMethod"
+            "label": "fundedStatusItemType"
         },
         {
+            "localName": "financialDesignationType",
             "type": "Type",
-            "label": "accruedInterestWriteOffMethodItemType",
-            "localName": "accruedInterestWriteOffMethodItemType"
+            "label": "financialDesignationType"
         },
         {
+            "localName": "surchargeItemType",
             "type": "Type",
-            "label": "threeDigitItemType",
-            "localName": "threeDigitItemType"
+            "label": "surchargeItemType"
         },
         {
+            "localName": "accruedInterestWriteOffMethodItemType",
             "type": "Type",
-            "label": "nineDigitItemType",
-            "localName": "nineDigitItemType"
+            "label": "accruedInterestWriteOffMethodItemType"
         },
         {
+            "localName": "yesNoItemType",
             "type": "Type",
-            "label": "controlOfRightsItemType",
-            "localName": "controlOfRightsItemType"
+            "label": "yesNoItemType"
         },
         {
+            "localName": "capitalizationPolicyType",
             "type": "Type",
-            "label": "contractApplicationItemType",
-            "localName": "contractApplicationItemType"
+            "label": "capitalizationPolicyType"
         },
         {
+            "localName": "contractApplicationItemType",
             "type": "Type",
-            "label": "distributionsReceivedApproach",
-            "localName": "distributionsReceivedApproach"
+            "label": "contractApplicationItemType"
         },
         {
+            "localName": "surchargeMethodGSIB",
             "type": "Type",
-            "label": "interestRateItemType",
-            "localName": "interestRateItemType"
+            "label": "surchargeMethodGSIB"
         },
         {
+            "localName": "forfeitureMethod",
             "type": "Type",
-            "label": "advertisingExpenseMethodItemType",
-            "localName": "advertisingExpenseMethodItemType"
+            "label": "forfeitureMethod"
         },
         {
+            "localName": "includedExcludedItemType",
             "type": "Type",
-            "label": "surchargeItemType",
-            "localName": "surchargeItemType"
+            "label": "includedExcludedItemType"
         },
         {
+            "localName": "zoneStatusItemType",
             "type": "Type",
-            "label": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType",
-            "localName": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType"
+            "label": "zoneStatusItemType"
         },
         {
+            "localName": "nineDigitItemType",
             "type": "Type",
-            "label": "giltiPolicyType",
-            "localName": "giltiPolicyType"
+            "label": "nineDigitItemType"
         },
         {
+            "localName": "fundingImprovementAndRehabilitationPlanItemType",
             "type": "Type",
-            "label": "combinedComponentType",
-            "localName": "combinedComponentType"
+            "label": "fundingImprovementAndRehabilitationPlanItemType"
         },
         {
+            "localName": "restrictedInvestmentItemType",
             "type": "Type",
-            "label": "includedExcludedItemType",
-            "localName": "includedExcludedItemType"
+            "label": "restrictedInvestmentItemType"
         },
         {
+            "localName": "threeDigitItemType",
             "type": "Type",
-            "label": "zoneStatusItemType",
-            "localName": "zoneStatusItemType"
+            "label": "threeDigitItemType"
         },
         {
+            "localName": "interestRateItemType",
             "type": "Type",
-            "label": "investmentPledgedItemType",
-            "localName": "investmentPledgedItemType"
+            "label": "interestRateItemType"
         },
         {
+            "localName": "giltiPolicyType",
             "type": "Type",
-            "label": "financialDesignationType",
-            "localName": "financialDesignationType"
+            "label": "giltiPolicyType"
         },
         {
+            "localName": "investmentOnLoanForShortSalesItemType",
             "type": "Type",
-            "label": "capitalizationPolicyType",
-            "localName": "capitalizationPolicyType"
+            "label": "investmentOnLoanForShortSalesItemType"
         },
         {
+            "localName": "authorizedUnlimitedItemType",
             "type": "Type",
-            "label": "restrictedInvestmentItemType",
-            "localName": "restrictedInvestmentItemType"
+            "label": "authorizedUnlimitedItemType"
         },
         {
+            "localName": "transitionOptionType",
             "type": "Type",
-            "label": "investmentOnLoanForShortSalesItemType",
-            "localName": "investmentOnLoanForShortSalesItemType"
+            "label": "transitionOptionType"
         }
     ]
 }

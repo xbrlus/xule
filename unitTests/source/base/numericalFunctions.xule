@@ -15,7 +15,7 @@ output DABS103
   list(-1,3,-2,1.10).abs
 
 output DABS104
-/* set(1, 3, 2002) */
+/* set(1, 2, 3) */
 
   set(-1,3,-2,1.0).abs
 
@@ -139,13 +139,18 @@ output AVG192
 
   avg(list(1.12, 'cat'))
 
+output AVG193
+/* rule AVG193: Rule: AVG193 - Statistic properties expect numeric inputs, found 'none'. */
+
+  avg(list(none, none,none))
+
 output DLOG101
 /* 2 */
 
   100.log10
 
 output DLOG102
-/*  None */
+/* None */
 
   -1234.log10
 
@@ -155,7 +160,7 @@ output LOG101
   log10(100)
 
 output LOG102
-/*  None */
+/* None */
 
   log10(-1234)
 
@@ -163,6 +168,31 @@ output LOG103
 /* rule LOG103: Rule: LOG103 - The first argument of function 'log10' must be int, float, decimal, found 'None'. */
 
   log10(none)
+
+output LOG104
+/* inf */
+
+  log10(inf)
+
+output LOG105
+/* list(0.301 (rounded 4d), 0.6021 (rounded 4d), 0.7782 (rounded 4d)) */
+
+  list(2,4,6).log10
+
+output LOG106
+/* set(0.6021 (rounded 4d), 0.7782 (rounded 4d), 0.301 (rounded 4d)) */
+
+  set(2,4,6).log10
+
+output LOG107
+/* rule LOG107: Rule: LOG107 - The first argument of function 'log10' must be int, float, decimal, found 'list'. */
+
+  log10(list(2,4,6))
+
+output LOG108
+/* rule LOG108: Rule: LOG108 - Property 'log10' is not a property of a 'list'. */
+
+  list(2,4,list(6,8)).log10
 
 output MOD101
 /* 0 */
@@ -175,7 +205,7 @@ output MOD102
   mod(9, 4)
 
 output MOD109
-/* rule MOD109: integer modulo by zero */
+/* rule MOD109: Rule: MOD109 - Divide by zero error in property/function mod() */
 
   mod(9, 0)
 
@@ -190,7 +220,7 @@ output MOD112
   mod(9.0, 4.0)
 
 output MOD119
-/* rule MOD119: float modulo */
+/* rule MOD109: Rule: MOD109 - Divide by zero error in property/function mod() */
 
   mod(9.0, 0.0)
 
@@ -274,6 +304,36 @@ output POW104
 
   power(500, 0.1)
 
+output POW105
+/* rule POW105: Rule: POW105 - The first argument of function 'power' must be int, float, decimal, found 'none'. */
+
+  power(none, 2)
+
+output POW106
+/* rule POW106: Rule: POW106 - The 'power' property requires a numeric argument, found 'none' */
+
+  power(4, none)
+
+output POW107
+/* inf */
+
+  power(inf, 2)
+
+output POW108
+/* 1 */
+
+  power(1, inf)
+
+output POW109
+/* 0 */
+
+  power(0, 2)
+
+output POW110
+/* inf */
+
+  power(inf, inf)
+
 output RAND101
 /* 4d less than 1 */
 
@@ -339,6 +399,16 @@ output ROUN107
 
   round('cat',2)
 
+output ROUN108
+/* rule ROUN108: Rule: ROUN108 - The argument to the 'round' property must be a number, found none. */
+
+  21.34345.round(none)
+
+output ROUN109
+/* rule ROUN109: Rule: ROUN109 - Property 'round' must have 1 arguments. Found 0. */
+
+  21.34345.round()
+
 output SIG101
 /* 1 */
 
@@ -369,6 +439,11 @@ output SIG106
 
   signum(set(10,-10,0,3))
 
+output SIG107
+/* list(1, -1, 0, 1) */
+
+  list(10,-10,0,3).signum
+
 output TRUN101
 /* 10.01 */
 
@@ -398,6 +473,41 @@ output TRUN106
 /* 100 */
 
   trunc(100.23456)
+
+output TRUN107
+/* 100.23 */
+
+  trunc(100.23,inf)
+
+output TRUN108
+/* 0 */
+
+  trunc(100.23,-inf)
+
+output TRUN109
+/* 0 */
+
+  trunc(inf,-inf)
+
+output TRUN110
+/* inf */
+
+  trunc(inf,inf)
+
+output TRUN111
+/* rule TRUN111: cannot convert Infinity to integer */
+
+  trunc(-inf,2)
+
+output TRUN112
+/* rule TRUN112: Rule: TRUN112 - For the trunc() property, the places argument must be an integer value, found 2.5 */
+
+  trunc(100,2.5)
+
+output TRUN113
+/* list(100.23, 100.12, 100.99) */
+
+  list(100.234, 100.12345,100.999).trunc(2)
 
 output DEC001
 /* 20 */
@@ -458,3 +568,13 @@ output INT007
 /* -33 */
 
   int(-33.5)
+
+output INT008
+/* rule INT008: cannot convert float infinity to integer */
+
+  int(inf)
+
+output INT009
+/* rule INT009: Rule: INT009 - The first argument of function 'int' must be int, float, decimal, string, fact, found 'none'. */
+
+  int(none)

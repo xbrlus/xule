@@ -19,6 +19,46 @@ output CON102
 
   contains('a frog and a house', 'hout')
 
+output CON103
+/* FALSE */
+
+  contains('a frog and a house', none)
+
+output CON104
+/* rule CON104: Rule: CON104 - The first argument of function 'contains' must be set, list, string, uri, found 'none'. */
+
+  contains(none, none)
+
+output CON105
+/* rule CON105: Rule: CON105 - The first argument of function 'contains' must be set, list, string, uri, found 'none'. */
+
+  contains(none, 'hou')
+
+output CON106
+/* TRUE */
+
+  contains('a frog and a house', '')
+
+output CON107
+/* TRUE */
+
+  'a frog and a house'.contains('')
+
+output CON108
+/* FALSE */
+
+  'a frog and a house'.contains(none)
+
+output IN101
+/* TRUE */
+
+  '' in 'a frog and a house'
+
+output IN102
+/* FALSE */
+
+  none in 'a frog and a house'
+
 output DIO101
 /* 3 */
 
@@ -48,6 +88,26 @@ output IXO102
 /* 0 */
 
   index-of('a frog and a house', 'hout')
+
+output IXO103
+/* 0 */
+
+  index-of('a frog and a house', none)
+
+output IXO104
+/* rule IXO104: Rule: IXO104 - The first argument of function 'index-of' must be string, uri, found 'none'. */
+
+  index-of(none, 'hout')
+
+output IXO105
+/* 0 */
+
+  index-of('a frog and a house', '')
+
+output IXO106
+/* 0 */
+
+  index-of('', 'hout')
 
 output DLI101
 /* 17 */
@@ -89,6 +149,11 @@ output LIO107
 
   last-index-of(list('Hello Mr Stains'), 'o')
 
+output LIO108
+/* 0 */
+
+  last-index-of('Hello Mr Stains', none)
+
 output LEN101
 /* 0 */
 
@@ -118,6 +183,36 @@ output LEN106
 /* 0 */
 
   length('')
+
+output LEN107
+/* rule LEN107: Rule: LEN107 - The first argument of function 'length' must be string, uri, set, list, dictionary, found 'none'. */
+
+  length(none)
+
+output LEN108
+/* rule LEN108: object of type 'int' has no len() */
+
+  length(123456)
+
+output LEN109
+/* 7 */
+
+  length('A123456')
+
+output LEN110
+/* 7 */
+
+  length(123456.string)
+
+output LEN111
+/* 11 */
+
+  length(string(123456789))
+
+output LEN112
+/* 9 */
+
+  length(plain-string(123456789))
 
 output DLO101
 /* abcdef */
@@ -225,7 +320,7 @@ output NUM104
   number('')
 
 output NUM105
-/* rule NUM105: Rule: NUM105 - The first argument of function 'number' must be int, float, decimal, fact, found 'None'. */
+/* rule NUM105: Rule: NUM105 - The first argument of function 'number' must be string, int, float, decimal, fact, found 'none'. */
 
   number(none)
 
@@ -334,6 +429,16 @@ output DSP193
 
   katteringram.split('r')
 
+output DSP194
+/* rule DSP194: Rule: DSP194 - The separator argument for property 'string' must be a 'string', found 'none' */
+
+  'katteringram'.split(none)
+
+output DSP195
+/* list(ka, eringram) */
+
+  'katteringram'.split('tt')
+
 output DST101
 /* 27 */
 
@@ -345,11 +450,46 @@ output DST102
   2734.56789.string
 
 output DST103
+/* 46388 */
+
+  date('2027-01-01').string
+
+output DST104
+/* list(1, 2, 3, 4) */
+
+  list(1,2,3,4).string
+
+output DST104a
+/* 4 */
+
+  (list(1,2,3,4).string).length
+
+output DST105
+/* Assets */
+
+  Assets.string
+
+output DST106
+/* forever */
+
+  forever.string
+
+output DST107
+/* 4 days, 0:00:00 */
+
+  time-span('P4D').string
+
+output DST108
+/* 2027-01-01 to 2027-12-31 */
+
+  duration('2027-01-01', '2027-12-31').string
+
+output DST109
 /* 273489 */
 
   273489.plain-string
 
-output DST104
+output DST110
 /* 2734.56789 */
 
   2734.56789.plain-string
@@ -374,25 +514,35 @@ output STR104
 
   plain-string(2734.56789)
 
-output DSS101
+output SUBS101
 /* Hello */
 
   'Hello Mr. Stains'.substring(1,5)
 
-output DSS102
+output SUBS102
 /* Mr. */
 
   'Hello Mr. Stains'.substring(7,9)
 
-output SUBS101
+output SUBS103
 /* Hello */
 
   substring('Hello Mr. Stains', 1, 5)
 
-output SUBS102
+output SUBS104
 /* Mr. Stains  */
 
   substring('Hello Mr. Stains', 7)
+
+output SUBS105
+/* rule SUBS105: Rule: SUBS105 - The second argument of property 'substring' is not castable to a 'int', found 'none' */
+
+  'Hello Mr. Stains'.substring(7, none)
+
+output SUBS106
+/* rule SUBS106: Rule: SUBS106 - The first argument of property 'substring' is not castable to a 'int', found 'none' */
+
+  'Hello Mr. Stains'.substring(none, none)
 
 output INTRSF001
 /* 44075 */
@@ -403,6 +553,31 @@ output INTRSF002
 /* 44075 */
 
   '01-septembre-2020'.inline-transform(ixt:date-day-monthname-year-fr, 'date')
+
+output INTRSF003
+/* None */
+
+  none.inline-transform(ixt:date-day-monthname-year-fr, 'date')
+
+output INTRSF004
+/* rule INTRSF004: Rule: INTRSF004 - The transform name of the inline-transform property must be a qname. found 'none' */
+
+  '01-septembre-2020'.inline-transform(none, 'date')
+
+output INTRSF005
+/* rule INTRSF005: Rule: INTRSF005 - The return type of the inline-transform property must be a string. Found '{}' */
+
+  '01-septembre-2020'.inline-transform(ixt:date-day-monthname-year-fr, none)
+
+output INTRSF006
+/* rule INTRSF006: Unable to convert '' using transform '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}date-day-monthname-year-fr'. */
+
+  ''.inline-transform(ixt:date-day-monthname-year-fr)
+
+output INTRSF007
+/* 44075 */
+
+  inline-transform('01-septembre-2020',ixt:date-day-monthname-year-fr)
 
 output TOQ101
 /* Assets1 */
@@ -508,3 +683,43 @@ output STRIN003
 /* rule STRIN003: Rule: STRIN003 - Property 'first' is not a property of a 'string'. */
 
   'abcdef'.first
+
+output REPEAT001
+/* 3333 */
+
+  '3'.repeat(4)
+
+output REPEAT002
+/* rule REPEAT002: 'int' object has no attribute 'replace' */
+
+  3.repeat(4)
+
+output REPEAT003
+/* rule REPEAT003: Rule: REPEAT003 - Property 'repeat' is not a property of a 'float'. */
+
+  3.4.repeat(4)
+
+output REPEAT004
+/* 3333 */
+
+  repeat('3',4)
+
+output REPEAT005
+/* none */
+
+  none.repeat(4)
+
+output REPEAT006
+/* testtest */
+
+  'test'.repeat(2)
+
+output REPEAT007
+/*  */
+
+  'test'.repeat(-2)
+
+output REPEAT008
+/* rule REPEAT008: Rule: REPEAT008 - The first argument of function 'repeat' must be string, uri, found 'none'. */
+
+  repeat(none,4)

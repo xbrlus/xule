@@ -27,22 +27,22 @@ output INLIN005
 output INLIN006
 /* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock) */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
 
 output INLIN007
 /* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription) */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
 
 output INLIN008
 /* list(viot:ScheduleOfRelatedPartyTransactionRelationshipTableTextBlock, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription, viot:RelatedPartyTransactionRelationshipDescription) */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
 
 output INLIN009
 /* skip */
 
-  {@instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
 
 output INLIN010
 /* 109 */
@@ -50,7 +50,7 @@ output INLIN010
   list({ covered @instance=$INSTANCE3 where $fact.inline-negated == true}).count
 
 output INLIN011
-/* list(False, 103,214,547, 102,854,550, 105,516,779, 104,539,463, CN, CN, VIOT, FY, --12-31, 2022, 0001742770, None, None, None) */
+/* list(None, None, None, 0001742770, --12-31, 2022, FY, VIOT, CN, CN, 104,539,463, 105,516,779, 102,854,550, 103,214,547, False) */
 
   list({ covered @instance=$INSTANCE3 where $fact.inline-hidden == true})
 
@@ -127,4 +127,4 @@ output INLIN025
 output INLIN026
 /* list() */
 
-  {@instance=$INSTANCE_XML @concept.local-name='Assets'}.inline-children.concept.name
+  { @instance=$INSTANCE_XML @concept.local-name='Assets'}.inline-children.concept.name

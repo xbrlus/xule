@@ -1,0 +1,27 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2022, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2022
+
+**/
+
+namespace http://fasb.org/us-gaap/2019-01-31
+namespace srt = http://fasb.org/srt/2019-01-31
+namespace iso4217 = http://www.xbrl.org/2003/iso4217
+namespace dei = http://xbrl.sec.gov/dei/2019-01-31
+namespace country = http://xbrl.sec.gov/country/2017-01-31
+namespace xbrli = http://www.xbrl.org/2003/instance
+namespace exch = http://xbrl.sec.gov/exch/2019-01-31 
+namespace currency = http://xbrl.sec.gov/currency/2019-01-31
+namespace invest = http://xbrl.sec.gov/invest/2013-01-31
+namespace stpr = http://xbrl.sec.gov/stpr/2018-01-31
+namespace sic = http://xbrl.sec.gov/sic/2011-01-31
+namespace naics = http://xbrl.sec.gov/naics/2017-01-31
+namespace nonnum = http://www.xbrl.org/dtr/type/non-numeric
+namespace num = http://www.xbrl.org/dtr/type/numeric
+namespace us-types = http://fasb.org/us-types/2019-01-31
+namespace enum2 = http://xbrl.org/2020/extensible-enumerations-2.0
+namespace xbrldt = 	http://xbrl.org/2005/xbrldt
