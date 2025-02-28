@@ -373,6 +373,8 @@ class XuleValue:
         cached_value = xule_context.global_context.ancestry_cache.get(model_type, {}).get(find)
         if cached_value is not None:
             return cached_value
+        elif model_type is None:
+            return False # HF: modelType can be None for incomplete and unused concepts
         elif model_type.qname.clarkNotation == find.value:
             xule_context.global_context.ancestry_cache[model_type][find] = True
             return True
@@ -608,6 +610,34 @@ class XuleValue:
             return num
         else:
             return num
+
+    # reloadable value is a string or int or json array with type first and then value(s)
+    # types set, list and dict have entries following type.  Dict has [key, value]
+    def reloadable_value(self, name):
+        if self.type in ('set', 'list'):
+            types = set(x.type for x in self.value)
+            if len(types) == 1 and 'qname' in types:
+                return [f"{self.type} {types.pop()}"] + [x.value.clarkNotation for x in self.value]
+            elif len(types) == 1 and 'decimal' in types:
+                return [f"{self.type} {types.pop()}"] + [str(x.value) for x in self.value]
+            else:
+                return [self.type] + [x.reloadable_value(name) for x in self.value]
+        elif self.type == 'list':
+            return ['list'] + [x.reloadable_value(name) for x in self.value]
+        elif self.type == 'dictionary':
+            return ['dictionary'] + [[n.reloadable_value(name), v.reloadable_value(name)] for n, v in self.value]
+        elif self.type == 'network':
+            return ['network'] + [str(x) for x in self.value[0]] + [len(self.value[1].modelRelationships)]
+        elif self.type == 'qname':
+            return ['qname', self.value.clarkNotation]
+        elif self.type == 'decimal':
+            return ['decimal', str(self.value)]
+        elif self.type in ('string', 'int', 'float', 'none'):
+            return self.value
+        elif self.type == "reference": # [reference, arcrole, [qname, str], [qname, str], ...]
+            return ['reference', self.value.role] + [[part.qname.clarkNotation, part.textValue] for part in self.value]
+        else:
+            print(f"Constant {name}: type is not reloadable: {self.type}")
 
 class XulePeriodComp:
     '''

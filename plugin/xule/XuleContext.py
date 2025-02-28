@@ -30,6 +30,7 @@ from .XuleRunTime import XuleProcessingError
 from .XuleValue import XuleValue, XuleValueSet
 from . import XuleUtility as xu
 from arelle import FileSource
+from arelle import ModelValue
 from queue import Queue
 from multiprocessing import Queue as M_Queue, Manager, cpu_count
 from collections import defaultdict, OrderedDict
@@ -37,6 +38,7 @@ import datetime
 from time import sleep
 import copy
 import collections
+import json
 from math import floor
 from io import StringIO
 import csv
@@ -110,8 +112,11 @@ class XuleMessageQueue():
         ''' Logging statements for any text '''
         self.print(msg)
         
-    def print(self, msg):
-        print(msg)
+    def print(self, msg, codes=None):
+        if self._model is not None:
+            self._model.log("DEBUG", codes, msg)
+        else:
+            print(msg)
 
     def file(self, msg):
         pass
@@ -301,6 +306,10 @@ class XuleGlobalContext(object):
                 self.rules_model.log("INFO",
                                    "other-taxonomy", 
                                    "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
+            elif getattr(self.model, "log", None) is not None:
+                self.model.log("DEBUG",
+                               "xule.otherTaxonomyLoadTime", 
+                               "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             else:
                 print("Taxonomy Loaded. Load time %s from '%s' " % (end - start, taxonomy_url))            
         
@@ -442,8 +451,53 @@ class XuleRuleContext(object):
                         val = XuleValue(self, None, 'none')
                     overrides[name] = val
             self._constant_overridess = overrides
-
         return self._constant_overridess
+
+    def reload_value(self, obj, elt_type=None):
+        # consider model_to_xule_type
+        if obj is None:
+            return XuleValue(self, None, 'none')
+        elif isinstance(obj, str):
+            if elt_type == 'qname':
+                return XuleValue(self, ModelValue.qname(obj), 'qname')
+            elif elt_type == 'decimal':
+                return XuleValue(self, Decimal(obj), 'decimal')
+            return XuleValue(self, obj, 'string')
+        elif isinstance(obj, float):
+            return XuleValue(self, obj, 'float')
+        elif isinstance(obj, int):
+            return XuleValue(self, obj, 'int')
+        elif isinstance(obj, list):
+            _type = obj[0]
+            if _type == "decimal" and len(obj) == 2:
+                return XuleValue(self, Decimal(obj[1]), 'decimal')
+            elif _type == "qname" and len(obj) == 2:
+                return XuleValue(self, ModelValue.qname(obj[1]), 'qname')
+            elif _type == "network":
+                return XuleValue(self, tuple(obj[1:-1]), 'network')
+            elif _type == "reference":
+                # this is not usable, value is ModelReference which would require a PrototypeDtsObject.py PrototypeObject to be implemented
+                return XuleValue(self, tuple(obj[1:-1]), 'reference')
+            elif _type == 'dictionary':
+                values = []
+                for item in obj[1:]:
+                    values.append( tuple(self.reload_value(elt, None) for elt in item) )
+                return XuleValue(self, tuple(values), 'dictionary')
+            else:
+                collection_elt_type = _type.split()
+                collection_type = collection_elt_type[0]
+                if collection_type in ('set', 'list'):
+                    try:
+                        elt_type = _type.split()[1]
+                    except IndexError:
+                        elt_type = None
+                    values = []
+                    for elt in obj[1:]:
+                        values.append( self.reload_value(elt, elt_type) )
+                    if collection_type == "set":
+                        return XuleValue(self, frozenset(values), 'set')
+                    else:
+                        return XuleValue(self, tuple(values), 'list')
 
     def create_message_copy(self, table_id, processing_id):
         new_context = copy.copy(self)
