@@ -107,7 +107,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
 
     if getattr(global_context.options, "xule_time", None) is not None:
         fact_index_end = datetime.datetime.today()
-        global_context.message_queue.print("Index build time %s." % (fact_index_end - fact_index_start))
+        global_context.message_queue.print("Index build time %s." % (fact_index_end - fact_index_start), "xule.buildIndexTime")
 
     # Determine if constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
     # environment.
@@ -116,7 +116,13 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
         process_precalc_constants(global_context)
         constant_end = datetime.datetime.today()
         constant_time = constant_end - constant_start
-        global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
+        global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time), "xule.precalcConsts")
+
+    # Load any reloadable saved constnats
+    if getattr(global_context.options, "xule_args_file", False):
+        constant_start = datetime.datetime.today()
+        process_reloadable_constants(global_context)
+        global_context.message_queue.print("Time to calculated non instance constants: %s" % (datetime.datetime.today() - constant_start), "xule.loadSavedConstants")
 
     # Determine if constants should be outputed
     if getattr(global_context.options, "xule_output_constants", None) is not None:
@@ -130,8 +136,8 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is
         total_end = datetime.datetime.today()
         if getattr(global_context.options, "xule_precalc_constants", False):
             global_context.message_queue.print(
-                "Time to process excluding non instance constant: %s." % (total_end - total_start - constant_time))
-        global_context.message_queue.print("Total time to process: %s." % (total_end - total_start))
+                "Time to process excluding non instance constant: %s." % (total_end - total_start - constant_time), "xule.ruleEvalTime")
+        global_context.message_queue.print("Total time to process: %s." % (total_end - total_start), "xule.ruleEvalTime")
     # Shutdown Message Queue
     if getattr(global_context.options, "xule_multi", False):
         global_context.message_queue.stop()
@@ -155,6 +161,9 @@ def output_constant(global_context, cntlr):
     cntlr.logger.removeHandler(cntlr.logHandler)
     cntlr.logger.addHandler(new_log_handler)
 
+    save_to_file = getattr(global_context.options, "xule_output_constants_file", None)
+    const_objs = {} # for saving to a file
+
     for constant_name_raw in getattr(global_context.options, "xule_output_constants").split(','):
         constant_name = constant_name_raw.strip()
         if constant_name != '':
@@ -164,7 +173,14 @@ def output_constant(global_context, cntlr):
             else:
                 for alignment, values in const_info['value'].values.items():
                     for val in values:
-                        cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+                        if save_to_file:
+                            const_objs[constant_name] = val.reloadable_value(constant_name)
+                        else:
+                            cntlr.addToLog(val.format_value(), constant_name, messageArgs={'alignment': alignment, 'name': constant_name})
+
+    if save_to_file:
+        with open(save_to_file, "w") as fh:
+            json.dump(const_objs, fh)
 
     cntlr.logger.addHandler(save_log_handler)
 
@@ -199,7 +215,7 @@ def evaluate_rule_set(global_context):
             cat_rule = cat_rules[rule_name]
 
             if skip_rules is not None and rule_name in skip_rules:
-                global_context.message_queue.print("Skipping rule: %s" % rule_name)
+                global_context.message_queue.print("Skipping rule: %s" % rule_name, "xule.ruleSkipped")
                 continue
 
             if not (run_only_rules is None or rule_name in run_only_rules):
@@ -210,9 +226,10 @@ def evaluate_rule_set(global_context):
 
             if getattr(global_context.options, "xule_debug", False):
                 global_context.message_queue.print(
-                    "Processing: %s - %s" % (rule_name, datetime.datetime.today().strftime("%H:%M:%S.%f")))
+                    "Processing: %s - %s" % (rule_name, datetime.datetime.today().strftime("%H:%M:%S.%f")),
+                    "xule.ruleDebug")
                 if global_context.model is not None:
-                    global_context.message_queue.print(global_context.model.modelDocument.uri)
+                    global_context.message_queue.print(global_context.model.modelDocument.uri, "xule.ruleDebug")
 
             try:
                 if getattr(global_context.options, "xule_time", None) is not None or getattr(global_context.options,
@@ -253,15 +270,16 @@ def evaluate_rule_set(global_context):
                 if getattr(global_context.options, "xule_debug", False):
                     global_context.message_queue.print("%s time took: %s - %s " % (
                     rule_name, (rule_end - rule_start).total_seconds(),
-                    datetime.datetime.today().strftime("%H:%M:%S.%f")))
+                    datetime.datetime.today().strftime("%H:%M:%S.%f")), "xule.ruleEvalTime")
 
             if getattr(global_context.options, "xule_trace_count", False):
                 total_time = datetime.datetime.today() - rule_start
-                print("Total iterations:", xule_context.iter_count,
+                global_context.message_queue.print(
+                      "Total iterations:", xule_context.iter_count,
                       "Messages:", xule_context.iter_message_count,
                       "Pass:", xule_context.iter_pass_count,
                       "Non alignment:", xule_context.iter_misaligned_count,
-                      "Exception:", xule_context.iter_except_count)
+                      "Exception:", xule_context.iter_except_count, "xule.traceCount")
                 write_trace_count_csv(global_context.options.xule_trace_count, rule_name,
                                       global_context.expression_trace, rule, xule_context.iter_count, total_time)
                 write_trace_count_string(global_context.options.xule_trace_count, rule_name,
@@ -280,16 +298,16 @@ def evaluate_rule_set(global_context):
 
     # Display timing information
     if getattr(global_context.options, "xule_time", None) is not None:
-        global_context.message_queue.print("Total number of rules processed: %i" % len(times))
+        global_context.message_queue.print("Total number of rules processed: %i" % len(times), "xule.ruleEvalTime")
         # slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.001]
         slow_rules = sorted([timing_info for timing_info in times if
                              timing_info[1].total_seconds() > getattr(global_context.options, "xule_time", None)],
                             key=lambda tup: tup[1], reverse=True)
         # slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > global_context.show_timing]
         global_context.message_queue.print(
-            "Number of rules over %ss: %i" % (getattr(global_context.options, "xule_time", None), len(slow_rules)))
+            "Number of rules over %ss: %i" % (getattr(global_context.options, "xule_time", None), len(slow_rules)), "xule.ruleEvalTime")
         for slow_rule in slow_rules:
-            global_context.message_queue.print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
+            global_context.message_queue.print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]), "xule.ruleEvalTime")
             # global_context.message_queue.print("Global expression cache size: %i" % len(global_context.expression_cache))
 
 def index_property_start(model_fact):
@@ -488,7 +506,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
 
             trace = "  " * xule_context.trace_level
             trace += rule_part_name + " " + str(processing_id)  # + " " + str(rule_part)
-            print(">", trace_is_dependent, " ", processing_id, trace.replace("\n", " "))
+            xule_context.global_context.message_queue.print(f">{trace_is_dependent} {processing_id} " + trace.replace("\n", " "), "xule.ruleTrace")
 
         has_key = False
 
@@ -664,7 +682,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
             post_trace += ("NONE" if value is None else value.format_value()) + format_trace_info(trace_info[1],
                                                                                                   trace_info[2], {},
                                                                                                   xule_context)
-            print("<", trace_is_dependent, trace_source, processing_id, post_trace.replace("\n", " "))
+            xule_context.global_context.message_queue.print(f"<{trace_is_dependent}{trace_source}{processing_id}" + post_trace.replace("\n", " "), "xule.ruleTrace")
 
             xule_context.trace_level -= 1
         try:
@@ -1563,6 +1581,38 @@ def process_precalc_constants(global_context):
                 calc_constant(const_info, const_context)
             # Clean up
             del const_context
+
+def process_reloadable_constants(global_context):
+    """Load saved reloadable constants
+
+    :param global_context: Global processing context
+    :type global_context: XuleGlobalContext
+
+    This function will calculate constants that do not depend directly on the instance.
+    """
+    if getattr(global_context.model, "log", None) is not None:
+        global_context.model.log("DEBUG",
+                                 "xule.loadSavedConstants", 
+                                 "Reloading saved non-instance constants")
+    else:
+        global_context.message_queue.logging("Reloading saved non-instance constants")
+    from arelle import FileSource
+    xule_args_file = getattr(global_context.options,'xule_args_file', None)
+    file_source = FileSource.openFileSource(xule_args_file, global_context.cntlr)
+    with file_source.file(xule_args_file, binary=True)[0] as fh:
+        const_objs = json.load(fh)
+        for constant_name, obj in const_objs.items():
+            try:
+                cat_constant = global_context.rule_set.catalog['constants'][constant_name]
+                const_context = XuleRuleContext(global_context, constant_name, cat_constant['file'])
+                const_info = const_context.find_var(constant_name, cat_constant['node_id'])
+                if not const_info['calculated']:
+                    const_info['value'] = XuleValueSet(const_context.reload_value(obj))
+                    const_info['calculated'] = True
+                # Clean up
+                del const_context
+            except KeyError:
+                pass # There is no constant stub to reload
 
 def precalc_constant(global_context, constant_name):
         try:
@@ -4932,6 +4982,11 @@ def convert_value_to_qname(value, model, xule_context):
         return return_values
     elif value.type in ('unbound', 'none'):
         return {None}
+    # HF addition for testing rule 0118, not sure why set of one qname is showing up here
+    elif value.type in ('list','set') and len(value.value) == 1 and next(iter(value.value)).type == "qname":
+        return {next(iter(value.value)).value,}
+    elif value.type in ('list','set') and len(value.value) == 0:
+        return {None}
     else:
         raise XuleProcessingError(
             _("The value for a line item or dimension must be a qname or concept, found '%s'." % value.type),
@@ -5061,23 +5116,25 @@ def alignment_to_aspect_info(alignment, xule_context):
 
 
 def sugar_trace(value, rule_part, xule_context):
-    part_name = rule_part['exprName']
-    if part_name == 'forExpr':
-        return (rule_part['forLoopExpr']['forVar'],)
-    elif part_name == 'varRef':
-        return (rule_part['varName'],)
-    elif part_name == 'functionReference':
-        function_info = xule_context.find_function(rule_part['functionName'])
-        if function_info is None:
-            return (rule_part['functionName'], tuple())
+    try: # HF: exception when rule part key isn't there
+        part_name = rule_part['exprName']
+        if part_name == 'forExpr':
+            return (rule_part['forLoopExpr']['forVar'],)
+        elif part_name == 'varRef':
+            return (rule_part['varName'],)
+        elif part_name == 'functionReference':
+            function_info = xule_context.find_function(rule_part['functionName'])
+            if function_info is None:
+                return (rule_part['functionName'], tuple())
+            else:
+                args = tuple([x.argName for x in function_info['function_declaration']['functionArgs']])
+                return (rule_part['functionName'], args)
+        elif part_name == 'factset':
+            return (value,)
         else:
-            args = tuple([x.argName for x in function_info['function_declaration']['functionArgs']])
-            return (rule_part['functionName'], args)
-    elif part_name == 'factset':
-        return (value,)
-    else:
+            return tuple()
+    except (KeyError, AttributeError):
         return tuple()
-
 
 def format_trace(xule_context):
     trace_string = ""
@@ -5090,39 +5147,42 @@ def format_trace(xule_context):
 def format_trace_info(expr_name, sugar, common_aspects, xule_context):
     trace_info = ""
 
-    if expr_name == 'forExpr':
-        trace_info += 'for ($%s)' % sugar[0]
-    elif expr_name == 'ifExpr':
-        trace_info += 'if'
-    elif expr_name == 'varRef':
-        trace_info += 'var ($%s)' % sugar[0]
-    elif expr_name == 'functionReference':
-        if len(sugar[1]) == 0:
-            args = "..."
+    try:
+        if expr_name == 'forExpr':
+            trace_info += 'for ($%s)' % sugar[0]
+        elif expr_name == 'ifExpr':
+            trace_info += 'if'
+        elif expr_name == 'varRef':
+            trace_info += 'var ($%s)' % sugar[0]
+        elif expr_name == 'functionReference':
+            if len(sugar[1]) == 0:
+                args = "..."
+            else:
+                args = ",".join(sugar[1])
+            trace_info += '%s(%s)' % (sugar[0], args)
+        elif expr_name == 'addExpr':
+            trace_info += 'add/subtract'
+        elif expr_name == 'multExpr':
+            trace_info += 'multiply/divide'
+        elif expr_name == 'compExpr':
+            trace_info += 'comparison'
+        elif expr_name == 'andExpr':
+            trace_info += 'and'
+        elif expr_name == 'orExpr':
+            trace_info += 'or'
+        elif expr_name == 'property':
+            trace_info += "::%s" % sugar[0]
+        elif expr_name == 'factset':
+            if sugar[0].fact is not None:
+                fact_context = get_uncommon_aspects(sugar[0].fact, common_aspects, xule_context)
+                trace_info = 'factset '
+                if ('builtin', 'concept') not in fact_context:
+                    trace_info += str(sugar[0].qname) + " "
+                trace_info += format_alignment(fact_context, xule_context)
         else:
-            args = ",".join(sugar[1])
-        trace_info += '%s(%s)' % (sugar[0], args)
-    elif expr_name == 'addExpr':
-        trace_info += 'add/subtract'
-    elif expr_name == 'multExpr':
-        trace_info += 'multiply/divide'
-    elif expr_name == 'compExpr':
-        trace_info += 'comparison'
-    elif expr_name == 'andExpr':
-        trace_info += 'and'
-    elif expr_name == 'orExpr':
-        trace_info += 'or'
-    elif expr_name == 'property':
-        trace_info += "::%s" % sugar[0]
-    elif expr_name == 'factset':
-        if sugar[0].fact is not None:
-            fact_context = get_uncommon_aspects(sugar[0].fact, common_aspects, xule_context)
-            trace_info = 'factset '
-            if ('builtin', 'concept') not in fact_context:
-                trace_info += str(sugar[0].qname) + " "
-            trace_info += format_alignment(fact_context, xule_context)
-    else:
-        trace_info += expr_name
+            trace_info += expr_name
+    except IndexError:
+        trace_info += "missing rule construct"
 
     if len(trace_info) > 0:
         trace_info = " - " + trace_info
@@ -5598,6 +5658,7 @@ def display_trace_count(traces, rule_part, total_iterations, total_time, level=0
                                                                                         key] > 0 else 0) / total_iterations) if total_iterations > 0 else 0,
                                 (trace[key + '-t'] / total_time) if total_time.total_seconds() > 0 else 0)
                         except:
+                            # TBD change to xule_context.global_context.message_queue.print
                             print("key", key, "key time", trace[key + '-t'])
                             raise
                     if key != 'iterations':
