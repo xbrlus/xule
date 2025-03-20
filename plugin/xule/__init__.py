@@ -615,6 +615,11 @@ def xuleCmdOptions(parser):
                         dest="xule_run_only",
                         help=_("List of rules to run"))    
     
+    parserGroup.add_option("--xule-run-only-pattern",
+                        action="store",
+                        dest="xule_run_only_pattern",
+                        help=_("Regex of rules to run"))
+
     parserGroup.add_option("--xule-no-cache",
                         action="store_true",
                         dest="xule_no_cache",
