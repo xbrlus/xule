@@ -35,7 +35,7 @@ _description = 'ESEF DQC rules validator.'
 _license = 'Apache-2'
 _author = 'XBRL US Inc.'
 _copyright = '(c) 2017-present'
-_rule_set_map_name = 'esefRulesetMap.json'
+_rule_set_map_name = 'rulesetMap.json'
 _latest_map_name = 'https://github.com/DataQualityCommittee/dqc_us_rules/raw/master/rulesetMap.json' 
 
 """Do not change anything below this line."""
