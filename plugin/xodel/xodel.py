@@ -231,7 +231,8 @@ class _logCaptureHandler(logging.Handler):
         self._captured = collections.defaultdict(list)
 
     def emit(self, record):
-        self._captured[record.messageCode].append(record)
+        if record.levelno == logging.INFO:
+            self._captured[record.messageCode].append(record)
     
     @property
     def captured(self):
