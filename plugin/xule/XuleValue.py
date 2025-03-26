@@ -425,7 +425,29 @@ class XuleValue:
     
     def format_value(self):
             
-        if self.type in ('float', 'decimal'):
+        if self.type == 'unbound':
+            return "missing"
+        
+        elif self.type == 'dictionary':
+            # Try and sort the dictionary so the output is more consistent
+            try:
+                keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: y.value)
+            except TypeError:
+                try:
+                    keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: str(y.value))
+                except TypeError:
+                    keys = self.value_dictionary.keys()
+
+            dict_content = ','.join('='.join((k.format_value(), self.value_dictionary[k].format_value())) for k in keys)
+
+            dict_value = "dictionary(" + dict_content + ")"
+            return dict_value
+
+        # All conditions below this one require that self.value is not None
+        elif self.value is None:
+            return str(None)
+
+        elif self.type in ('float', 'decimal'):
 
             options = XuleUtility.XuleVars.get(_CNTLR, 'options')
             if options is None:
@@ -500,22 +522,7 @@ class XuleValue:
                     vals = self.value
             set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in vals]) + ")" 
             return set_value
-        
-        elif self.type == 'dictionary': 
-            # Try and sort the dictionary so the output is more consistent
-            try:
-                keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: y.value)
-            except TypeError:
-                try:
-                    keys = sorted([x for x in self.value_dictionary.keys()], key=lambda y: str(y.value))
-                except TypeError:
-                    keys = self.value_dictionary.keys()
 
-            dict_content = ','.join('='.join((k.format_value(), self.value_dictionary[k].format_value())) for k in keys)
-
-            dict_value = "dictionary(" + dict_content + ")"
-            return dict_value
-        
         elif self.type in ('concept', 'part-element'):
             return str(self.value.qname)
         
@@ -527,9 +534,6 @@ class XuleValue:
             
         elif self.type == 'network':
             return "\n" + "\n".join([str(x) for x in self.value[0]]) + "\n# of relationships: " + str(len(self.value[1].modelRelationships)) + "\n"
-        
-        elif self.type == 'unbound':
-            return "missing"
         
         elif self.type == 'roll_forward_set':
             s = []
