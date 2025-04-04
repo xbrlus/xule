@@ -50,6 +50,7 @@ from . import XuleProperties
 import os
 from openpyxl import load_workbook, Workbook
 import json
+import regex as re
 
 def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None, is_validator=False):
     """Run xule rules against a filing.
@@ -208,6 +209,8 @@ def evaluate_rule_set(global_context):
     # Create a list of run only rules. This is the opposite of skip_rules. If run_only is not NOne than only those rules will be processed.
     run_only_rules = getattr(global_context.options, "xule_run_only", None).split(",") if getattr(
         global_context.options, "xule_run_only", None) is not None else None
+    run_only_rule_pattern = re.compile(getattr(global_context.options, "xule_run_only_pattern")) if getattr(
+        global_context.options, "xule_run_only_pattern", None) is not None else None
 
     # use the term "cat" for catalog information. Read through the list of rules in the catalog.
     for file_num, cat_rules in global_context.catalog['rules_by_file'].items():
@@ -219,6 +222,8 @@ def evaluate_rule_set(global_context):
                 continue
 
             if not (run_only_rules is None or rule_name in run_only_rules):
+                continue
+            if not (run_only_rule_pattern is None or run_only_rule_pattern.match(rule_name)):
                 continue
 
             # get the AST for the rule from the ruleset
