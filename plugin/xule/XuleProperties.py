@@ -2027,6 +2027,8 @@ def property_entry_point_namespace(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, namespace, 'uri')
 
 def get_concept(dts, concept_qname):
+    if dts is None:
+        return None
     concept = dts.qnameConcepts.get(concept_qname)
     if concept is None:
         return None
