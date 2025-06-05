@@ -9,7 +9,7 @@ Taxonomy: US GAAP 2024
 **/
 
 
-constant $USGAAP = taxonomy('https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-all-2025.xsd')
+constant $USGAAP = taxonomy('https://xbrl.fasb.org/us-gaap/2024/elts/us-gaap-all-2024.xsd')
 
 
 

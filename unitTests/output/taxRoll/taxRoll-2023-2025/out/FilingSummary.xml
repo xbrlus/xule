@@ -1,0 +1,974 @@
+<?xml version='1.0' encoding='utf-8'?>
+<FilingSummary>
+  <Version>3.24.2.u1</Version>
+  <ProcessingTime/>
+  <ReportFormat>html</ReportFormat>
+  <ContextCount>287</ContextCount>
+  <ElementCount>320</ElementCount>
+  <EntityCount>1</EntityCount>
+  <FootnotesReported>false</FootnotesReported>
+  <SegmentCount>110</SegmentCount>
+  <ScenarioCount>0</ScenarioCount>
+  <TuplesReported>false</TuplesReported>
+  <UnitCount>7</UnitCount>
+  <MyReports>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R1.htm</HtmlFileName>
+      <LongName>0000001 - Document - Document and Entity Information</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DocumentandEntityInformation</Role>
+      <ShortName>Document and Entity Information</ShortName>
+      <MenuCategory>Cover</MenuCategory>
+      <Position>1</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R2.htm</HtmlFileName>
+      <LongName>0000002 - Statement - Consolidated Statements of Operations</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ConsolidatedStatementsofOperations</Role>
+      <ShortName>Consolidated Statements of Operations</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>2</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R3.htm</HtmlFileName>
+      <LongName>0000003 - Statement - Consolidated Balance Sheets</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ConsolidatedBalanceSheets</Role>
+      <ShortName>Consolidated Balance Sheets</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>3</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R4.htm</HtmlFileName>
+      <LongName>0000004 - Statement - Consolidated Balance Sheets Parentheticals</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ConsolidatedBalanceSheetsParentheticals</Role>
+      <ShortName>Consolidated Balance Sheets Parentheticals</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>4</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R5.htm</HtmlFileName>
+      <LongName>0000005 - Statement - Consolidated Statements of Stockholders' Equity</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ConsolidatedStatementsofStockholdersEquity</Role>
+      <ShortName>Consolidated Statements of Stockholders' Equity</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>5</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R6.htm</HtmlFileName>
+      <LongName>0000006 - Statement - Consolidated Statements of Cash Flows</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ConsolidatedStatementsofCashFlows</Role>
+      <ShortName>Consolidated Statements of Cash Flows</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>6</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R7.htm</HtmlFileName>
+      <LongName>0000007 - Statement - Consolidated Statements of Cash Flows - Balances per Consolidated Balance Sheets</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ConsolidatedStatementsofCashFlowsBalancesperConsolidatedBalanceSheets</Role>
+      <ShortName>Consolidated Statements of Cash Flows - Balances per Consolidated Balance Sheets</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>7</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R8.htm</HtmlFileName>
+      <LongName>0000008 - Disclosure - Nature of Operations and Basis of Presentation</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NatureofOperationsandBasisofPresentation</Role>
+      <ShortName>Nature of Operations and Basis of Presentation</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>8</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R9.htm</HtmlFileName>
+      <LongName>0000009 - Disclosure - Restricted Cash and Cash Equivalents</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RestrictedCashandCashEquivalents</Role>
+      <ShortName>Restricted Cash and Cash Equivalents</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>9</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R10.htm</HtmlFileName>
+      <LongName>0000010 - Disclosure - Trade and Other Receivables, Net of Current Expected Credit Losses</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/TradeandOtherReceivablesNetofCurrentExpectedCreditLosses</Role>
+      <ShortName>Trade and Other Receivables, Net of Current Expected Credit Losses</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>10</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R11.htm</HtmlFileName>
+      <LongName>0000011 - Disclosure - Inventory</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/Inventory</Role>
+      <ShortName>Inventory</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>11</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R12.htm</HtmlFileName>
+      <LongName>0000012 - Disclosure - Property, Plant and Equipment, Net of Accumulated Depreciation</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/PropertyPlantandEquipmentNetofAccumulatedDepreciation</Role>
+      <ShortName>Property, Plant and Equipment, Net of Accumulated Depreciation</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>12</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R13.htm</HtmlFileName>
+      <LongName>0000013 - Disclosure - Derivative Instruments</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstruments</Role>
+      <ShortName>Derivative Instruments</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>13</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R14.htm</HtmlFileName>
+      <LongName>0000014 - Disclosure - Non-Controlling Interest and Variable Interest Entity</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NonControllingInterestandVariableInterestEntity</Role>
+      <ShortName>Non-Controlling Interest and Variable Interest Entity</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>14</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R15.htm</HtmlFileName>
+      <LongName>0000015 - Disclosure - Accrued Liabilities</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/AccruedLiabilities</Role>
+      <ShortName>Accrued Liabilities</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>15</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R16.htm</HtmlFileName>
+      <LongName>0000016 - Disclosure - Debt</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/Debt</Role>
+      <ShortName>Debt</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>16</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R17.htm</HtmlFileName>
+      <LongName>0000017 - Disclosure - Leases</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/Leases</Role>
+      <ShortName>Leases</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>17</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R18.htm</HtmlFileName>
+      <LongName>0000018 - Disclosure - Revenues</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/Revenues</Role>
+      <ShortName>Revenues</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>18</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R19.htm</HtmlFileName>
+      <LongName>0000019 - Disclosure - Related Party Transactions</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RelatedPartyTransactions</Role>
+      <ShortName>Related Party Transactions</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>19</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R20.htm</HtmlFileName>
+      <LongName>0000020 - Disclosure - Income Taxes</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/IncomeTaxes</Role>
+      <ShortName>Income Taxes</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>20</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R21.htm</HtmlFileName>
+      <LongName>0000021 - Disclosure - Net Income Per Share Attributable to Common Stockholders</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NetIncomePerShareAttributabletoCommonStockholders</Role>
+      <ShortName>Net Income Per Share Attributable to Common Stockholders</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>21</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R22.htm</HtmlFileName>
+      <LongName>0000022 - Disclosure - Share Repurchase Programs</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ShareRepurchasePrograms</Role>
+      <ShortName>Share Repurchase Programs</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>22</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R23.htm</HtmlFileName>
+      <LongName>0000023 - Disclosure - Customer Concentration</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/CustomerConcentration</Role>
+      <ShortName>Customer Concentration</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>23</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R24.htm</HtmlFileName>
+      <LongName>0000024 - Disclosure - Supplemental Cash Flow Information</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/SupplementalCashFlowInformation</Role>
+      <ShortName>Supplemental Cash Flow Information</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>24</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R25.htm</HtmlFileName>
+      <LongName>995410 - Disclosure - Pay vs Performance Disclosure</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ecd/role/PvpDisclosure</Role>
+      <ShortName>Pay vs Performance Disclosure</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>25</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R26.htm</HtmlFileName>
+      <LongName>995445 - Disclosure - Insider Trading Arrangements</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ecd/role/InsiderTradingArrangements</Role>
+      <ShortName>Insider Trading Arrangements</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>26</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R27.htm</HtmlFileName>
+      <LongName>9954471 - Disclosure - Nature of Operations and Basis of Presentation (Policies)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NatureofOperationsandBasisofPresentationPolicies</Role>
+      <ShortName>Nature of Operations and Basis of Presentation (Policies)</ShortName>
+      <MenuCategory>Policies</MenuCategory>
+      <Position>27</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R28.htm</HtmlFileName>
+      <LongName>9954472 - Disclosure - Trade and Other Receivables, Net of Current Expected Credit Losses (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/TradeandOtherReceivablesNetofCurrentExpectedCreditLossesTables</Role>
+      <ShortName>Trade and Other Receivables, Net of Current Expected Credit Losses (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/TradeandOtherReceivablesNetofCurrentExpectedCreditLosses</ParentRole>
+      <Position>28</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R29.htm</HtmlFileName>
+      <LongName>9954473 - Disclosure - Inventory (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/InventoryTables</Role>
+      <ShortName>Inventory (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/Inventory</ParentRole>
+      <Position>29</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R30.htm</HtmlFileName>
+      <LongName>9954474 - Disclosure - Property, Plant and Equipment, Net of Accumulated Depreciation (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/PropertyPlantandEquipmentNetofAccumulatedDepreciationTables</Role>
+      <ShortName>Property, Plant and Equipment, Net of Accumulated Depreciation (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/PropertyPlantandEquipmentNetofAccumulatedDepreciation</ParentRole>
+      <Position>30</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R31.htm</HtmlFileName>
+      <LongName>9954475 - Disclosure - Derivative Instruments (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsTables</Role>
+      <ShortName>Derivative Instruments (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/DerivativeInstruments</ParentRole>
+      <Position>31</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R32.htm</HtmlFileName>
+      <LongName>9954476 - Disclosure - Non-Controlling Interest and Variable Interest Entity (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NonControllingInterestandVariableInterestEntityTables</Role>
+      <ShortName>Non-Controlling Interest and Variable Interest Entity (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/NonControllingInterestandVariableInterestEntity</ParentRole>
+      <Position>32</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R33.htm</HtmlFileName>
+      <LongName>9954477 - Disclosure - Accrued Liabilities (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/AccruedLiabilitiesTables</Role>
+      <ShortName>Accrued Liabilities (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/AccruedLiabilities</ParentRole>
+      <Position>33</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R34.htm</HtmlFileName>
+      <LongName>9954478 - Disclosure - Debt (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DebtTables</Role>
+      <ShortName>Debt (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/Debt</ParentRole>
+      <Position>34</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R35.htm</HtmlFileName>
+      <LongName>9954479 - Disclosure - Leases (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/LeasesTables</Role>
+      <ShortName>Leases (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/Leases</ParentRole>
+      <Position>35</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R36.htm</HtmlFileName>
+      <LongName>9954480 - Disclosure - Revenues (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RevenuesTables</Role>
+      <ShortName>Revenues (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/Revenues</ParentRole>
+      <Position>36</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R37.htm</HtmlFileName>
+      <LongName>9954481 - Disclosure - Related Party Transactions (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RelatedPartyTransactionsTables</Role>
+      <ShortName>Related Party Transactions (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/RelatedPartyTransactions</ParentRole>
+      <Position>37</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R38.htm</HtmlFileName>
+      <LongName>9954482 - Disclosure - Net Income Per Share Attributable to Common Stockholders (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NetIncomePerShareAttributabletoCommonStockholdersTables</Role>
+      <ShortName>Net Income Per Share Attributable to Common Stockholders (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/NetIncomePerShareAttributabletoCommonStockholders</ParentRole>
+      <Position>38</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R39.htm</HtmlFileName>
+      <LongName>9954483 - Disclosure - Share Repurchase Programs (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ShareRepurchaseProgramsTables</Role>
+      <ShortName>Share Repurchase Programs (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/ShareRepurchasePrograms</ParentRole>
+      <Position>39</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R40.htm</HtmlFileName>
+      <LongName>9954484 - Disclosure - Customer Concentration (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/CustomerConcentrationTables</Role>
+      <ShortName>Customer Concentration (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/CustomerConcentration</ParentRole>
+      <Position>40</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R41.htm</HtmlFileName>
+      <LongName>9954485 - Disclosure - Supplemental Cash Flow Information (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/SupplementalCashFlowInformationTables</Role>
+      <ShortName>Supplemental Cash Flow Information (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/SupplementalCashFlowInformation</ParentRole>
+      <Position>41</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R42.htm</HtmlFileName>
+      <LongName>9954486 - Disclosure - Nature of Operations and Basis of Presentation (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NatureofOperationsandBasisofPresentationDetails</Role>
+      <ShortName>Nature of Operations and Basis of Presentation (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/NatureofOperationsandBasisofPresentationPolicies</ParentRole>
+      <Position>42</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R43.htm</HtmlFileName>
+      <LongName>9954487 - Disclosure - Restricted Cash and Cash Equivalents (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RestrictedCashandCashEquivalentsDetails</Role>
+      <ShortName>Restricted Cash and Cash Equivalents (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/RestrictedCashandCashEquivalents</ParentRole>
+      <Position>43</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R44.htm</HtmlFileName>
+      <LongName>9954488 - Disclosure - Trade and Other Receivables, Net of Current Expected Credit Losses (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/TradeandOtherReceivablesNetofCurrentExpectedCreditLossesDetails</Role>
+      <ShortName>Trade and Other Receivables, Net of Current Expected Credit Losses (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/TradeandOtherReceivablesNetofCurrentExpectedCreditLossesTables</ParentRole>
+      <Position>44</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R45.htm</HtmlFileName>
+      <LongName>9954489 - Disclosure - Inventory (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/InventoryDetails</Role>
+      <ShortName>Inventory (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/InventoryTables</ParentRole>
+      <Position>45</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R46.htm</HtmlFileName>
+      <LongName>9954490 - Disclosure - Property, Plant and Equipment, Net of Accumulated Depreciation - Schedule of Property, Plant and Equipment, Net of Accumulated Depreciation (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/PropertyPlantandEquipmentNetofAccumulatedDepreciationScheduleofPropertyPlantandEquipmentNetofAccumulatedDepreciationDetails</Role>
+      <ShortName>Property, Plant and Equipment, Net of Accumulated Depreciation - Schedule of Property, Plant and Equipment, Net of Accumulated Depreciation (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>46</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R47.htm</HtmlFileName>
+      <LongName>9954491 - Disclosure - Property, Plant and Equipment, Net of Accumulated Depreciation - Depreciation (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/PropertyPlantandEquipmentNetofAccumulatedDepreciationDepreciationDetails</Role>
+      <ShortName>Property, Plant and Equipment, Net of Accumulated Depreciation - Depreciation (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/PropertyPlantandEquipmentNetofAccumulatedDepreciationTables</ParentRole>
+      <Position>47</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R48.htm</HtmlFileName>
+      <LongName>9954492 - Disclosure - Derivative Instruments - Narrative (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsNarrativeDetails</Role>
+      <ShortName>Derivative Instruments - Narrative (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>48</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R49.htm</HtmlFileName>
+      <LongName>9954493 - Disclosure - Derivative Instruments - Fair Value of Derivative Assets and Liabilities (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsFairValueofDerivativeAssetsandLiabilitiesDetails</Role>
+      <ShortName>Derivative Instruments - Fair Value of Derivative Assets and Liabilities (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>49</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R50.htm</HtmlFileName>
+      <LongName>9954494 - Disclosure - Derivative Instruments - Fair Value Inputs - Quantitative Information (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsFairValueInputsQuantitativeInformationDetails</Role>
+      <ShortName>Derivative Instruments - Fair Value Inputs - Quantitative Information (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>50</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R51.htm</HtmlFileName>
+      <LongName>9954495 - Disclosure - Derivative Instruments - Schedule of Level 3 Derivatives Activity (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsScheduleofLevel3DerivativesActivityDetails</Role>
+      <ShortName>Derivative Instruments - Schedule of Level 3 Derivatives Activity (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>51</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R52.htm</HtmlFileName>
+      <LongName>9954496 - Disclosure - Derivative Instruments - Schedule of Notional Amounts of Outstanding Derivative Positions (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsScheduleofNotionalAmountsofOutstandingDerivativePositionsDetails</Role>
+      <ShortName>Derivative Instruments - Schedule of Notional Amounts of Outstanding Derivative Positions (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>52</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R53.htm</HtmlFileName>
+      <LongName>9954497 - Disclosure - Derivative Instruments - Derivative Instruments, Gain (Loss) (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsDerivativeInstrumentsGainLossDetails</Role>
+      <ShortName>Derivative Instruments - Derivative Instruments, Gain (Loss) (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>53</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R54.htm</HtmlFileName>
+      <LongName>9954498 - Disclosure - Derivative Instruments - Fair Value of Derivative Instruments by Balance Sheet Location (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsFairValueofDerivativeInstrumentsbyBalanceSheetLocationDetails</Role>
+      <ShortName>Derivative Instruments - Fair Value of Derivative Instruments by Balance Sheet Location (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>54</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R55.htm</HtmlFileName>
+      <LongName>9954499 - Disclosure - Derivative Instruments - Derivative Net Presentation on Consolidated Balance Sheets (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DerivativeInstrumentsDerivativeNetPresentationonConsolidatedBalanceSheetsDetails</Role>
+      <ShortName>Derivative Instruments - Derivative Net Presentation on Consolidated Balance Sheets (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>55</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R56.htm</HtmlFileName>
+      <LongName>9954500 - Disclosure - Non-Controlling Interest and Variable Interest Entity (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NonControllingInterestandVariableInterestEntityDetails</Role>
+      <ShortName>Non-Controlling Interest and Variable Interest Entity (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/NonControllingInterestandVariableInterestEntityTables</ParentRole>
+      <Position>56</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R57.htm</HtmlFileName>
+      <LongName>9954501 - Disclosure - Accrued Liabilities (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/AccruedLiabilitiesDetails</Role>
+      <ShortName>Accrued Liabilities (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/AccruedLiabilitiesTables</ParentRole>
+      <Position>57</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R58.htm</HtmlFileName>
+      <LongName>9954502 - Disclosure - Debt - Schedule of Debt Instruments (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DebtScheduleofDebtInstrumentsDetails</Role>
+      <ShortName>Debt - Schedule of Debt Instruments (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>58</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R59.htm</HtmlFileName>
+      <LongName>9954503 - Disclosure - Debt - Credit Facilities Table (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DebtCreditFacilitiesTableDetails</Role>
+      <ShortName>Debt - Credit Facilities Table (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>59</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R60.htm</HtmlFileName>
+      <LongName>9954504 - Disclosure - Debt - Interest Expense (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DebtInterestExpenseDetails</Role>
+      <ShortName>Debt - Interest Expense (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>60</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R61.htm</HtmlFileName>
+      <LongName>9954505 - Disclosure - Debt - Schedule of Carrying Values and Estimated Fair Values of Debt Instruments (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/DebtScheduleofCarryingValuesandEstimatedFairValuesofDebtInstrumentsDetails</Role>
+      <ShortName>Debt - Schedule of Carrying Values and Estimated Fair Values of Debt Instruments (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>61</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R62.htm</HtmlFileName>
+      <LongName>9954506 - Disclosure - Leases - Balance Sheet Location Table (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/LeasesBalanceSheetLocationTableDetails</Role>
+      <ShortName>Leases - Balance Sheet Location Table (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>62</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R63.htm</HtmlFileName>
+      <LongName>9954507 - Disclosure - Leases - Income Statement Location Table (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/LeasesIncomeStatementLocationTableDetails</Role>
+      <ShortName>Leases - Income Statement Location Table (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>63</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R64.htm</HtmlFileName>
+      <LongName>9954508 - Disclosure - Leases - Future Minimum Payments Table (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/LeasesFutureMinimumPaymentsTableDetails</Role>
+      <ShortName>Leases - Future Minimum Payments Table (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>64</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R65.htm</HtmlFileName>
+      <LongName>9954509 - Disclosure - Leases - Other Quantitative Information (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/LeasesOtherQuantitativeInformationDetails</Role>
+      <ShortName>Leases - Other Quantitative Information (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>65</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R66.htm</HtmlFileName>
+      <LongName>9954510 - Disclosure - Leases - Subleases (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/LeasesSubleasesDetails</Role>
+      <ShortName>Leases - Subleases (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>66</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R67.htm</HtmlFileName>
+      <LongName>9954511 - Disclosure - Revenues - Schedule of Disaggregation of Revenue (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RevenuesScheduleofDisaggregationofRevenueDetails</Role>
+      <ShortName>Revenues - Schedule of Disaggregation of Revenue (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>67</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R68.htm</HtmlFileName>
+      <LongName>9954512 - Disclosure - Revenues - Contract Assets and Liabilities (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RevenuesContractAssetsandLiabilitiesDetails</Role>
+      <ShortName>Revenues - Contract Assets and Liabilities (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>68</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R69.htm</HtmlFileName>
+      <LongName>9954513 - Disclosure - Revenues - Schedule of Transaction Price Allocated to Future Performance Obligations (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RevenuesScheduleofTransactionPriceAllocatedtoFuturePerformanceObligationsDetails</Role>
+      <ShortName>Revenues - Schedule of Transaction Price Allocated to Future Performance Obligations (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>69</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R70.htm</HtmlFileName>
+      <LongName>9954514 - Disclosure - Revenues - Remaining Performance Obligation, Variable Consideration (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RevenuesRemainingPerformanceObligationVariableConsiderationDetails</Role>
+      <ShortName>Revenues - Remaining Performance Obligation, Variable Consideration (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>70</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R71.htm</HtmlFileName>
+      <LongName>9954515 - Disclosure - Related Party Transactions - Schedule of Related Party Transactions (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/RelatedPartyTransactionsScheduleofRelatedPartyTransactionsDetails</Role>
+      <ShortName>Related Party Transactions - Schedule of Related Party Transactions (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>71</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R72.htm</HtmlFileName>
+      <LongName>9954516 - Disclosure - Income Taxes (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/IncomeTaxesDetails</Role>
+      <ShortName>Income Taxes (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/IncomeTaxes</ParentRole>
+      <Position>72</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R73.htm</HtmlFileName>
+      <LongName>9954517 - Disclosure - Net Income Per Share Attributable to Common Stockholders (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/NetIncomePerShareAttributabletoCommonStockholdersDetails</Role>
+      <ShortName>Net Income Per Share Attributable to Common Stockholders (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/NetIncomePerShareAttributabletoCommonStockholdersTables</ParentRole>
+      <Position>73</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R74.htm</HtmlFileName>
+      <LongName>9954518 - Disclosure - Share Repurchase Programs - Narrative (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ShareRepurchaseProgramsNarrativeDetails</Role>
+      <ShortName>Share Repurchase Programs - Narrative (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>74</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R75.htm</HtmlFileName>
+      <LongName>9954519 - Disclosure - Share Repurchase Programs - Schedule of Share Repurchases (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/ShareRepurchaseProgramsScheduleofShareRepurchasesDetails</Role>
+      <ShortName>Share Repurchase Programs - Schedule of Share Repurchases (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>75</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R76.htm</HtmlFileName>
+      <LongName>9954520 - Disclosure - Customer Concentration - Schedule of Customer Concentration (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/CustomerConcentrationScheduleofCustomerConcentrationDetails</Role>
+      <ShortName>Customer Concentration - Schedule of Customer Concentration (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>76</Position>
+    </Report>
+    <Report instance="LNG_instance_Q1_2024_2025.xml">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R77.htm</HtmlFileName>
+      <LongName>9954521 - Disclosure - Supplemental Cash Flow Information (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://www.cheniere.com/role/SupplementalCashFlowInformationDetails</Role>
+      <ShortName>Supplemental Cash Flow Information (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://www.cheniere.com/role/SupplementalCashFlowInformationTables</ParentRole>
+      <Position>77</Position>
+    </Report>
+    <Report>
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <LongName>All Reports</LongName>
+      <ReportType>Book</ReportType>
+      <ShortName>All Reports</ShortName>
+    </Report>
+  </MyReports>
+  <Logs>
+    <Log type="Error">[DQC.US.0014.9093] Cost of Goods and Service, Excluding Depreciation, Depletion, and Amortization has a value of -1,539,000,000 which is less than zero. This element should not have a negative value. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label. 
+
+The properties of this us-gaap:CostOfGoodsAndServiceExcludingDepreciationDepletionAndAmortization fact are:
+Period :2023-01-01 to 2023-03-31
+Unit : USD
+Rule version: 26.0.9 - LNG_instance_Q1_2024_2025.xml 3826 - LNG_instance_Q1_2024_2025.xml 3826</Log>
+    <Log type="Error">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 111,700,000,000 using the dimension member 2024-01-01 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2023-12-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2024-01-01
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 26.0.9 - LNG_instance_Q1_2024_2025.xml 3567 - LNG_instance_Q1_2024_2025.xml 3567</Log>
+    <Log type="Error">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 700,000,000 using the dimension member 2024-01-01 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2023-12-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2024-01-01, srt:ProductOrServiceAxis=www.cheniere.com:RegasificationServiceMember
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 26.0.9 - LNG_instance_Q1_2024_2025.xml 3691 - LNG_instance_Q1_2024_2025.xml 3691</Log>
+    <Log type="Error">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 111,000,000,000 using the dimension member 2024-01-01 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2023-12-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2024-01-01, srt:ProductOrServiceAxis=www.cheniere.com:LiquefiedNaturalGasMember
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 26.0.9 - LNG_instance_Q1_2024_2025.xml 3602 - LNG_instance_Q1_2024_2025.xml 3602</Log>
+    <Log type="Error">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 109,900,000,000 using the dimension member 2024-04-01 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2024-03-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2024-04-01
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 26.0.9 - LNG_instance_Q1_2024_2025.xml 3488 - LNG_instance_Q1_2024_2025.xml 3488</Log>
+    <Log type="Error">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 600,000,000 using the dimension member 2024-04-01 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2024-03-31
+Dimensions : srt:ProductOrServiceAxis=www.cheniere.com:RegasificationServiceMember, us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2024-04-01
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 26.0.9 - LNG_instance_Q1_2024_2025.xml 3640 - LNG_instance_Q1_2024_2025.xml 3640</Log>
+    <Log type="Error">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 109,300,000,000 using the dimension member 2024-04-01 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2024-03-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2024-04-01, srt:ProductOrServiceAxis=www.cheniere.com:LiquefiedNaturalGasMember
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 26.0.9 - LNG_instance_Q1_2024_2025.xml 3985 - LNG_instance_Q1_2024_2025.xml 3985</Log>
+    <Log type="Error">[DQC.US.0181.10180] The concept InterestExpense is a descendant of NonoperatingIncomeExpense.  This element InterestExpense includes operating interest expense which should not be included as a component of NonoperatingIncomeExpense.  Select the nonoperating interest expense element InterestExpenseNonoperating instead of InterestExpense.
+
+Rule Element Id:10180
+Rule version: 26.0.9 - </Log>
+  </Logs>
+  <InputFiles>
+    <File doctype="10-Q" isDefinitelyFs="true" isUsgaap="true">LNG_instance_Q1_2024_2025.xml</File>
+    <File>LNG-20251231.xsd</File>
+    <File>LNG-20251231_lab.xml</File>
+  </InputFiles>
+  <SupplementalFiles/>
+  <BaseTaxonomies>
+    <BaseTaxonomy items="1">http://fasb.org/srt/2025</BaseTaxonomy>
+    <BaseTaxonomy items="876">http://fasb.org/us-gaap/2025</BaseTaxonomy>
+    <BaseTaxonomy items="21">http://xbrl.sec.gov/dei/2025</BaseTaxonomy>
+    <BaseTaxonomy items="4">http://xbrl.sec.gov/ecd/2025</BaseTaxonomy>
+  </BaseTaxonomies>
+  <HasPresentationLinkbase>false</HasPresentationLinkbase>
+  <HasCalculationLinkbase>false</HasCalculationLinkbase>
+</FilingSummary>
