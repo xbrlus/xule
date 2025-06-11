@@ -3614,8 +3614,8 @@ ForeverLiteral ::= "forever"
 | Term | Definition |
 | :---- | :---- |
 | Alignment | The process of aligning facts with corresponding dimensions. For example the facts for the 2017 year end are aligned so that Revenue for 2017 is aligned with Expenses for 2017 so that Net Income for 2017 can be calculated correctly. These facts have been aligned on the period dimension, the unit dimension and the entity dimension. They are not aligned on the concept dimension. |
-| Arc |  |
-| Arcrole |  |
+| Arc | A directed connection between two elements in an XBRL linkbase, representing a relationship such as parent-child or calculation. |
+| Arcrole | A URI that defines the nature of an arc (relationship) between elements in XBRL, such as "summation-item" or "parent-child". |
 | Assertion | Term used to define a rule assertion. The rule will return a boolean result if the assertion passed or failed. |
 | Attribute | A property of an element including its name, balance, data type, and whether the element is abstract. |
 | Axis | (pl. axes) – An instance document contains facts; an axis differentiates facts and each axis represents a way that the facts may be classified. For example, Revenue for a period might be reported along a business unit axis, a country axis, a product axis, and so forth. |
@@ -3623,75 +3623,75 @@ ForeverLiteral ::= "forever"
 | Boolean | A data type expression used to indicate if a value an be true or false. |
 | Child | Term used to define a relationship between two nodes when represented in a tree.  A child node is further from the root element in a tree. |
 | Concept | A [taxonomy element](https://www.xbrl.org/guidance/xbrl-glossary/#taxonomy-element) that provides the meaning for a [fact](https://www.xbrl.org/guidance/xbrl-glossary/#fact). For example, "Profit", "Turnover", and "Assets" would be typical concepts. [approximate technical term: concept (XBRL v2.1) or primary item (XBRL Dimensions). Concept, as defined here, excludes abstract concepts, and elements that are used to define hypercubes, dimensions and members] |
-| Concepts |  |
-| Default |  |
-| Definition |  |
+| Concepts | The set of all concepts (elements) defined in a taxonomy, including primary items, dimensions, and members. |
+| Default | The value automatically assigned to a dimension or parameter if no explicit value is provided. |
+| Definition | A statement that explains the meaning of a term, element, or relationship in a taxonomy or rule. |
 | DEI | SEC Approved Taxonomy used to capture Document and Entity Information. |
 | Descendants | All descendants of a node.i.e. The children of the children recurring. |
 | Dictionary | A data store used to store data. A dictionary is a multi dimensional array. |
 | Dimension | XBRL technical term for axis |
 | DQC | Data Quality Committee of XBRL US. |
-| DRS |  |
+| DRS | Definition Relationship Set; a network of relationships in XBRL that defines dimensional structures such as hypercubes and dimensions. |
 | Element | XBRL components (items, domain members, dimensions, and so forth). The representation of a financial reporting concept, including: line items in the face of the financial statements, important narrative disclosures, and rows and columns in tables. |
-| Entity |  |
+| Entity | The reporting organization or company identified in an XBRL instance document. |
 | Exists | A function used to determine if a value exists in an XBRL instance. |
-| Expression |  |
-| Extended |  |
-| Extension |  |
+| Expression | A combination of values, variables, operators, and functions that produces a result in XULE. |
+| Extended | Refers to an extension taxonomy or element that adds to or modifies a base taxonomy. |
+| Extension | A user-created taxonomy that extends a base taxonomy to meet specific reporting needs. |
 | Fact | Represents a fact value in an instance and the associated aspects and attributes of the fact. |
 | Fact query | Represents the query that selects facts from an instance. Uses dimension filters and a where clause to select facts. The fact query is also used to control the alignment of facts. |
-| Filter |  |
-| Fiscal |  |
-| Function |  |
+| Filter | A mechanism or expression used to select a subset of facts or data based on specified criteria. |
+| Fiscal | Relating to a financial reporting period, such as a fiscal year or quarter. |
+| Function | A reusable operation or calculation that takes input values and returns a result. |
 | GAAP | Generally Accepted Accounting Principles. |
 | Instance | XML file that contains business reporting information and represents a collection of financial facts and report-specific information using tags from one or more XBRL taxonomies |
-| Item |  |
-| Iteration |  |
-| Key |  |
-| Label |  |
-| Legal entity |  |
-| Length |  |
+| Item | An individual data point or fact in an XBRL instance, typically corresponding to a concept. |
+| Iteration | The process of repeating a set of instructions or operations, often over a collection of items. |
+| Key | A unique identifier for an entry in a dictionary or data structure. |
+| Label | A human-readable name or description for a concept, element, or relationship. |
+| Legal entity | An organization or company recognized by law as having rights and obligations. |
+| Length | The number of characters in a string or the size of a collection. |
 | Linkbase | Technical construct that defines relationships, for example, those used to create a [presentation tree](https://www.xbrl.org/guidance/xbrl-glossary/#presentation-tree) or [calculation tree](https://www.xbrl.org/guidance/xbrl-glossary/#calculation-tree). |
-| List |  |
-| Local |  |
-| Loop |  |
-| Member |  |
-| Message |  |
+| List | An ordered collection of values or items. |
+| Local | Refers to a value, variable, or resource that is defined within a specific scope or context. |
+| Loop | A control structure that repeats a block of code while a condition is true or for each item in a collection. |
+| Member | A value of a dimension in XBRL, representing a specific category or classification. |
+| Message | Text output or notification generated by a rule, function, or process. |
 | Namespace | A namespace is a globally unique identifier that differentiate names created by different sources. In XBRL usage, namespaces are used to disambiguate the [taxonomy element](https://www.xbrl.org/guidance/xbrl-glossary/#taxonomy-element) names defined in taxonomies. For example, different regional accounting standards might define a [concept](https://www.xbrl.org/guidance/xbrl-glossary/#concept) called "Profit". Namespaces are used to differentiate the UK GAAP definition of "Profit" from the US GAAP definition of "Profit". Namespaces are URIs, which are identifiers that follow the same format as URLs, which are used to locate resources on the internet. |
-| Navigate |  |
-| Navigation |  |
-| Networks |  |
-| Networktype |  |
-| Number |  |
-| Object |  |
-| Order |  |
-| Output |  |
-| Parent |  |
-| Part |  |
-| Period |  |
-| Primary |  |
-| Property |  |
-| Qname |  |
-| Quarter |  |
-| Reference |  |
-| Relationship |  |
-| Reported |  |
-| Return |  |
-| Role |  |
-| Root |  |
-| Set |  |
-| Severity |  |
-| Source |  |
-| String |  |
-| Syntax |  |
+| Navigate | To move through or access elements, relationships, or data structures in a taxonomy or instance. |
+| Navigation | The process or method of traversing elements, relationships, or structures in a taxonomy or data set. |
+| Networks | Collections of related arcs and elements in an XBRL linkbase, forming a graph of relationships. |
+| Networktype | The classification of a network in XBRL, such as presentation, calculation, or definition. |
+| Number | A data type representing numeric values, such as integers or decimals. |
+| Object | A data structure that encapsulates properties and methods; in XULE, a value with associated attributes. |
+| Order | The sequence or position of an element within a set, list, or relationship. |
+| Output | The result produced by a rule, function, or process, often displayed or written to a file. |
+| Parent | The immediate ancestor node in a tree or relationship structure. |
+| Part | A component or segment of a larger structure or value. |
+| Period | The reporting time frame for a fact, such as a fiscal year or quarter. |
+| Primary | Refers to a primary item or concept in XBRL, typically representing a main line item. |
+| Property | An attribute or characteristic of an object, element, or data structure. |
+| Qname | Qualified name; a name that combines a namespace and a local name to uniquely identify an element. |
+| Quarter | A three-month reporting period within a fiscal year. |
+| Reference | A citation or link to authoritative literature or documentation for a concept or element. |
+| Relationship | A defined connection between two elements in a taxonomy, such as parent-child or summation-item. |
+| Reported | Indicates that a fact or value has been included in an XBRL instance document. |
+| Return | The value produced by a function or expression. |
+| Role | A URI that identifies the purpose or context of a network or relationship in XBRL. |
+| Root | The top-level node in a tree or hierarchy. |
+| Set | An unordered collection of unique values. |
+| Severity | The level of importance or impact of a rule result, such as error, warning, or info. |
+| Source | The origin or starting point of data, an element, or a relationship. |
+| String | A data type representing a sequence of characters. |
+| Syntax | The rules that define the structure and format of statements in a language. |
 | Cube | A view of a taxonomy or report that is designed to replicate tables for presentation or data entry purposes. Cube structures are typically used to cope with the complex, dimensional reports often seen in prudential reporting.  |
-| Target |  |
+| Target | The destination or endpoint of a relationship or operation. |
 | Taxonomy | An XBRL taxonomy defines [taxonomy components](https://www.xbrl.org/guidance/xbrl-glossary/#taxonomy-component) that provide meaning for the [facts](https://www.xbrl.org/guidance/xbrl-glossary/#fact) in an [XBRL report](https://www.xbrl.org/guidance/xbrl-glossary/#xbrl-report). For example, a taxonomy for an accounting standard would include definitions of [concepts](https://www.xbrl.org/guidance/xbrl-glossary/#concept) such as "Profit", "Turnover", and "Assets". Taxonomies may contain a very rich set of information, including multi-language labels, links to authoritative definitions (for example, accounting standards or relevant local laws) , validation rules and other relationships. |
-| Unit |  |
-| Values |  |
-| Variable |  |
-| Xule |  |
-| Uri |  |
+| Unit | The measurement unit for a numeric fact, such as USD or shares. |
+| Values | The data or results held by a variable, fact, or collection. |
+| Variable | A named storage location for a value that can change during rule execution. |
+| Xule | The XBRL rule language described in this document, used for expressing validation and transformation logic. |
+| Uri | Uniform Resource Identifier; a string used to uniquely identify a resource, such as a namespace or role. |
 
 [^1]:  = is used in the same way that "in" would be used in other languages.
 
