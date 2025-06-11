@@ -1365,7 +1365,7 @@ The components that may be returned are:
 | navigation-order | The calculated sibling order of the relationship target. This is not the order on the relationship but is calculated during the navigation |
 | navigation-depth | The depth of the relationship target concept from the starting concept |
 | result-order | The order of the result within the full result list |
-| *arc attribute* | Specified by the QName of the attribute. The value of the arc attribute. Unlike the other return components, this is not a keyword "arc attribute", but the actual qname of the arc attribute is used in the "returns" statement. For example:     returns (source-name, target-name, ex:specialAttribute)"ex:specialAttribute" is the qname of the attribute on the arc. |
+| *arc attribute* | Specified by the QName of the attribute. The value of the arc attribute. Unlike the other return components, this is not a keyword "arc attribute", but the actual qname of the arc attribute is used in the "returns" statement. For example:    returns (source-name, target-name, ex:specialAttribute) "ex:specialAttribute" is the qname of the attribute on the arc. |
 | dimension-type | The purpose of the target concept in dimensional navigation. See [Dimensional Navigation](#dimensional-navigation). |
 | dimension-sub-type | The more specific purpose of the target concept in dimensional navigation. See [Dimensional Navigation](#dimensional-navigation). |
 | drs-role | The initial role of the dimensional relationship set. See [Dimensional Navigation](#dimensional-navigation). |
@@ -3618,7 +3618,7 @@ ForeverLiteral ::= "forever"
 | Arcrole | A URI that defines the nature of an arc (relationship) between elements in XBRL, such as "summation-item" or "parent-child". |
 | Assertion | Term used to define a rule assertion. The rule will return a boolean result if the assertion passed or failed. |
 | Attribute | A property of an element including its name, balance, data type, and whether the element is abstract. |
-| Axis | (pl. axes) – An instance document contains facts; an axis differentiates facts and each axis represents a way that the facts may be classified. For example, Revenue for a period might be reported along a business unit axis, a country axis, a product axis, and so forth. |
+| Axis | (pl. axes) - An instance document contains facts; an axis differentiates facts and each axis represents a way that the facts may be classified. For example, Revenue for a period might be reported along a business unit axis, a country axis, a product axis, and so forth. |
 | Balance | An attribute of a monetary item type designated as debit, credit, or neither; a designation, if any, should be the natural or most expected balance of the element "credit" or "debit" and thus indicates how calculation relationships involving the element may be assigned a weight attribute (-1 or +1). |
 | Boolean | A data type expression used to indicate if a value an be true or false. |
 | Child | Term used to define a relationship between two nodes when represented in a tree.  A child node is further from the root element in a tree. |
