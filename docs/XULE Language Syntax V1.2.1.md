@@ -1826,31 +1826,31 @@ In addition to the fact properties listed below the value properties[^6] for num
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| aspects() | The taxonomy defined and built in dimensions associated with a fact are returned as a dictionary where the aspect is the dictionary key. | {**@Revenues**}.aspects  **Returns the  aspects of the fact. dictionary(period=2021-06-30,unit=USD,entity=http://www.sec.gov/CIK=0000831259,concept=us-gaap:Revenues)** |
+| aspects() | The taxonomy defined and built in dimensions associated with a fact are returned as a dictionary where the aspect is the dictionary key. | {**@Revenues**}.aspects  <br> **Returns the  aspects of the fact. dictionary(period=2021-06-30,unit=USD,entity=http://www.sec.gov/CIK=0000831259,concept=us-gaap:Revenues)** |
 | concept() | The concept of the fact value | **{@** **where** $fact.**concept.name** == Revenues} |
-| cubes **(V1.2)** | Returns a set of cube objects that the fact is valid in. | {**@Revenues**}.cubes **Returns the cube objects that the fact is valid in.** |
+| cubes **(V1.2)** | Returns a set of cube objects that the fact is valid in. | {**@Revenues**}.cubes <br> **Returns the cube objects that the fact is valid in.** |
 | decimals() | The decimal value  of the fact value | **{@Revenues** **where** $fact.**decimals** == -6} |
 | dimension(qname of dimension) | Returns the member of the fact for the specified dimension | **{@ where** $fact.dimension(dei:LegalEntityAxis).name == ABC} |
-| dimensions() | Returns a dictionary of key values pairs of dimension keys and member values. These are returned as concepts. | {**@Revenues**}.dimensions() {**@Revenues**}.dimensions.keys.name} **Returns the qnames of the dimensions on the fact.** |
-| dimensions-explicit() | Returns a dictionary of key values pairs of explicit dimension keys and member values. These are returned as concepts. | {**@Revenues**}.dimensions-explicit() {**@Revenues**}.dimensions-explicit.values.name **Returns the qnames of the members on the fact.** |
+| dimensions() | Returns a dictionary of key values pairs of dimension keys and member values. These are returned as concepts. | {**@Revenues**}.dimensions() {**@Revenues**}.dimensions.keys.name} <br> **Returns the qnames of the dimensions on the fact.** |
+| dimensions-explicit() | Returns a dictionary of key values pairs of explicit dimension keys and member values. These are returned as concepts. | {**@Revenues**}.dimensions-explicit() {**@Revenues**}.dimensions-explicit.values.name <br> **Returns the qnames of the members on the fact.** |
 | dimensions-typed() | Returns a dictionary of key values pairs of typed dimension keys and member values. These are returned as concepts. | {**@Revenues**}.dimensions-typed() |
 | entity() | Returns the entity of the fact. The properties schema and id can be added as additional properties. | **{@ where** $fact.**entity.id =** '00000000001'**}  Returns all facts for entity 00000000001** |
 | footnotes **(V1.2)** | Returns the footnote objects associated with a fact. | {**@Revenues**}.footnotes |
 | id | Returns the id of the fact. If the fact does not have an id, none is returned. | {**@Revenues**}.id |
 | sid **(V1.2)** | Returns the semantic id of the fact. The semantic id is based on the concept, unit, period, entity, dimensional qualifications, decimals value and the value of the fact. | {**@Revenues**}.sid |
 | instance  **(V1.2)** | Returns the instance object that the fact is in. | {**@Revenues**}.instance |
-| period() | The period of the fact. The period object supports properties of start, end, days | **{@Revenues** **where** $fact.**period.days** > 100 **and** $fact.**period.start** > date('2014-12-31')} |
-| unit() | The unit of measure of the fact. | **{@ where** $fact.**unit == *unit(****xbrli:pure)*}  **Returns all facts that are pure.** |
+| period() | The period of the fact. The period object supports properties of start, end, days | {@Revenues **where** \$fact.period.days > 100 **and** \$fact.period.start > date('2014-12-31')} |
+| unit() | The unit of measure of the fact. | {@ where $fact.unit == unit(xbrli:pure)}  <br> **Returns all facts that are pure.** |
 | Inline XBRL Properties |  |  |
-| inline-is-hidden() | Returns a boolean if the fact is hidden in an inline document. Returns none on non-inline documents. | **{** **where** $fact.inline-is-**hidden** == true} **Returns all hidden facts** |
-| inline-scale() | Returns the scale of a fact in an inline xbrl document.  Returns none on non-inline documents. | **{** **where** $fact.inline-**scale** == 6} **Returns all facts that have a scale of 6.** |
-| inline-format() | Returns the format qname associated with the fact in an inline xbrl document.  Returns none on non-inline documents. | **{** **where** $fact.inline-**format** == **ixt:datemonthdayyearen**} **Returns all facts formatted with the datemonthdayyearen format.** |
-| inline-display-value() | Returns the display value associated with the fact in an inline xbrl document. Returns none on non-inline documents. | **{** **where** $fact.inline-**display-value** == 'June 30, 2018'} **Returns all facts displayed as 'June 30, 2018'.** |
-| inline-negated() | Returns a boolean if the fact has a sign in an inline document. Returns none on non-inline documents. | **{** **where** $fact.inline-negated == true} **Returns all facts that have the sign attribute** |
-| inline-parents() **(V1.2)** | Returns the parent facts of a fact in an inline document as a list. This function navigates the html structure and links in continuations if they are present in the filing. | **{** **where** $fact.inline-parents.length == 0} **Returns all facts that are not contained within another fact such as a text block as a list of facts.** |
-| inline-children() **(V1.2)** | Returns a list of child facts of a fact in an inline document. This function navigates the html structure and links in continuations if they are present in the filing. | **{** **where** $fact.inline-children.length == 0} **Returns all facts that have no children.** |
-| inline-ancestors() **(V1.2)** | Returns the ancestor facts of a fact in an inline document as a list. This function navigates the html structure and links in continuations if they are present in the filing. | **{** **where** $fact.inline-ancestors.length > 0} **Returns a list of facts that are ancestors of a given fact. The list is ordered from closest to furthest fact.** |
-| inline-descendants() **(V1.2)** | Returns the descendant facts of a fact in an inline document as a list. | **{** **where** $fact.inline-descendants.length > 0} **Returns a list of facts that are descendants of a given fact. The list is ordered from closest to furthest fact.** |
+| inline-is-hidden() | Returns a boolean if the fact is hidden in an inline document. Returns none on non-inline documents. | { **where** $fact.inline-is-hidden == true} <br> **Returns all hidden facts** |
+| inline-scale() | Returns the scale of a fact in an inline xbrl document.  Returns none on non-inline documents. | **{** **where** $fact.inline-scale == 6} <br> **Returns all facts that have a scale of 6.** |
+| inline-format() | Returns the format qname associated with the fact in an inline xbrl document.  Returns none on non-inline documents. | **{** **where** $fact.inline-format == **ixt:datemonthdayyearen**} <br> **Returns all facts formatted with the datemonthdayyearen format.** |
+| inline-display-value() | Returns the display value associated with the fact in an inline xbrl document. Returns none on non-inline documents. | **{** **where** $fact.inline-**display-value** == 'June 30, 2018'} <br> **Returns all facts displayed as 'June 30, 2018'.** |
+| inline-negated() | Returns a boolean if the fact has a sign in an inline document. Returns none on non-inline documents. | **{** **where** $fact.inline-negated == true} <br> **Returns all facts that have the sign attribute** |
+| inline-parents() **(V1.2)** | Returns the parent facts of a fact in an inline document as a list. This function navigates the html structure and links in continuations if they are present in the filing. | **{** **where** $fact.inline-parents.length == 0} <br> **Returns all facts that are not contained within another fact such as a text block as a list of facts.** |
+| inline-children() **(V1.2)** | Returns a list of child facts of a fact in an inline document. This function navigates the html structure and links in continuations if they are present in the filing. | **{** **where** $fact.inline-children.length == 0} <br> **Returns all facts that have no children.** |
+| inline-ancestors() **(V1.2)** | Returns the ancestor facts of a fact in an inline document as a list. This function navigates the html structure and links in continuations if they are present in the filing. | **{** **where** $fact.inline-ancestors.length > 0} <br> **Returns a list of facts that are ancestors of a given fact. The list is ordered from closest to furthest fact.** |
+| inline-descendants() **(V1.2)** | Returns the descendant facts of a fact in an inline document as a list. | **{** **where** $fact.inline-descendants.length > 0} <br> **Returns a list of facts that are descendants of a given fact. The list is ordered from closest to furthest fact.** |
 
 ## Period Object {#period-object}
 
@@ -1872,10 +1872,10 @@ The unit object is used to describe the unit information associated with a fact 
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| numerator() | Returns the xbrl measure of the numerator as a qname. If the unit only has a measure and no division the property returns the measure |  **where** $fact.unit.**numerator** == unit(iso4217:USD)  **Tests if the numerator of the fact is USD** |
-| denominator() | Returns the xbrl measure of the denominator as a qname. If there is no denominator an empty value is returned. | **where** $fact.unit.**denominator** == "iso4217:USD"  **Tests if the denominator of the fact is USD** |
-| id | Returns the id of the unit used in the instance. | $fact.unit.**id** |
-| utr() | Returns the symbol of the unit from the units registry if a value exists. | *$fact.unit.utr(**symbol) Returns the symbol of the fact. Such as $*** |
+| numerator() | Returns the xbrl measure of the numerator as a qname. If the unit only has a measure and no division the property returns the measure |  **where** $fact.unit.**numerator** == unit(iso4217:USD) <br> **Tests if the numerator of the fact is USD** |
+| denominator() | Returns the xbrl measure of the denominator as a qname. If there is no denominator an empty value is returned. | **where** $fact.unit.**denominator** == "iso4217:USD"  <br>**Tests if the denominator of the fact is USD** |
+| id | Returns the id of the unit used in the instance. | $fact.unit.id |
+| utr()<br> (***Proposed***) | *Returns the symbol of the unit from the units registry if a value exists.* | \$fact.unit.utr(symbol) <br> **Returns the symbol of the fact. Such as \$** |
 
 ## Footnote Object {#footnote-object}
 
@@ -1906,29 +1906,29 @@ Xule includes the following properties for a concept object.
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
 | attribute(name) | Returns the value of a custom attribute based on the name provided to the function. | $fact.concept.attribute(abc)  |
-| balance | Returns the balance attribute of a fact. This can be either debit or credit or none. | $fact.concept.balance, **{@**concept.balance = debit**} For Assets will return debit** |
-| base-type | Returns the base XBRL type of a concept. For concepts that use a derived type, this will be the XBRL type that the type is originally derived from. | $fact.concept.base-type.name  **For BasisOfAccount (which has a data type of nonnum:textBlockItemType) will return the type object for xbrli:stringItemType.** |
-| data-type | Returns the type of a concept. | $fact.concept.data-type.name  **For Assets will return the type object for xbrli:monetaryItemType.** |
+| balance | Returns the balance attribute of a fact. This can be either debit or credit or none. | $fact.concept.balance, {@concept.balance = debit} <br>**For Assets will return debit** |
+| base-type | Returns the base XBRL type of a concept. For concepts that use a derived type, this will be the XBRL type that the type is originally derived from. | $fact.concept.base-type.name  <br>**For BasisOfAccount (which has a data type of nonnum:textBlockItemType) will return the type object for xbrli:stringItemType.** |
+| data-type | Returns the type of a concept. | $fact.concept.data-type.name  <br> **For Assets will return the type object for xbrli:monetaryItemType.** |
 | enumerations | Returns a set of enumerated values allowed for the concept. These are the enumerations defined in the type of the concept. | concept.data-type.enumerations |
 | has-enumerations | Returns a true or false if the concept has enumerations in the datatype. These are the enumerations defined in the type of the concept. | concept.data-type.has-enumerations |
-| is-abstract | Returns true if the concept has an abstract value of true. This attribute can only be on the concept object. | concept.is-abstract, {@concept.is-abstract = false**}  For Assets will return false** |
-| is-monetary | Returns a boolean result if the concept has that type. | $fact.concept.is-monetary  **For Assets will return true** |
-| is-numeric | Returns a boolean result if the concept has that type. | $fact.concept.is-numeric **For Assets will return true** |
-| is-type(type) | Returns a boolean result if the concept has that type. The type is provided as a qname. | $fact.concept.is-type(xbrli:monetaryItemType)   **For Assets will return true** |
-| label(label role, language) | For a concept the label property label(label role, language) can be used to return one label associated with a concept. The two parameters are optional.If no parameter is provided a label object is returned. This property will return a label object. To get to the text, role and language of a label use .text, .role, .lang, respectively.  The roles are searched in an ordered list.  | taxonomy().concept(Assets).label.text  **For Assets will return the string of Assets** |
-| all-labels(label role, language) | Returns a set of all labels for the concept. Label role and language will filter the result to only return labels that match the label role and/or language specified. To return all labels for a given language, use none for the label role. | taxonomy().concept(Assets).all-labels **Will return all the labels associated with the Assets concept** taxonomy().concept(Assets).all-labels(none,'en') **Will return all the labels associated with the Assets concept in english.** |
-| local-name | Returns the local name of the concept name. | $fact.concept.name.local-name   **For Assets will return the string Assets** |
-| name | Returns the qname of the concept. This includes the local name and URI. | $fact.concept.name   **For Assets will return us-gaap:Assets** |
-| namespace-uri | Returns the uri of the concept name. | $fact.concept.name.namespace-uri  **For Assets will return us-gaap** |
-| clark | Returns a string in clark notation when provided a qname or concept. | $US-GAAP-2020.concept(Assets).clark **Returns a string of {http://fasb.org/us-gaap/2020-01-31}Assets** |
-| period-type | Returns the period type, instant or duration. | $fact.concept.period-type **For Assets will return instant** |
-| references(reference-role) | Returns a set of references associated with a concept for a given dts. If no role is provided it defaults to the first role that has a reference. The roles checked are based on an ordered list.  | taxonomy().concept(Assets).references("[http://www.xbrl.org/2003/role/presentationRef](http://www.xbrl.org/2003/role/presentationRef)") **Returns a set of  reference objects for Assets based on the role provided or the default role.** |
-| all-references() | Returns a set of all references associated with a concept. (includes all roles) | taxonomy().concept(Assets).all-references **Returns a set of  all reference objects for Assets** |
-| relationships | Returns all relationships associated with the concept. |  |
-| source-relationships | Returns the relationships where the concept is the source. |  |
-| substitution() **(V1.1)** | Returns the qname substitution group of the concept. | $fact.concept.substitution **For Assets will return xbrli:item** |
-| target-relationships() | Returns the relationships where the concept is the target. |  |
-| traits() **(V1.3)** | Returns a set of traits associated with a concept. Uses the trait relationship and class-subclass relationships defined in the taxonomy. | $fact.concept.traits **For AssetsCurrent will return a set of traits associated with the concept i.e. set(CurrentMember)** |
+| is-abstract | Returns true if the concept has an abstract value of true. This attribute can only be on the concept object. | concept.is-abstract, {@concept.is-abstract = false}  <br>**For Assets will return false** |
+| is-monetary | Returns a boolean result if the concept has that type. | $fact.concept.is-monetary  <br> **For Assets will return true** |
+| is-numeric | Returns a boolean result if the concept has that type. | $fact.concept.is-numeric <br> **For Assets will return true** |
+| is-type(type) | Returns a boolean result if the concept has that type. The type is provided as a qname. | $fact.concept.is-type(xbrli:monetaryItemType)   <br> **For Assets will return true** |
+| label(label role, language) | For a concept the label property label(label role, language) can be used to return one label associated with a concept. The two parameters are optional.If no parameter is provided a label object is returned. This property will return a label object. To get to the text, role and language of a label use .text, .role, .lang, respectively.  The roles are searched in an ordered list.  | taxonomy().concept(Assets).label.text  <br> **For Assets will return the string of Assets** |
+| all-labels(label role, language) | Returns a set of all labels for the concept. Label role and language will filter the result to only return labels that match the label role and/or language specified. To return all labels for a given language, use none for the label role. | taxonomy().concept(Assets).all-labels <br>**Will return all the labels associated with the Assets concept** taxonomy().concept(Assets).all-labels(none,'en') <br>**Will return all the labels associated with the Assets concept in english.** |
+| local-name | Returns the local name of the concept name. | $fact.concept.name.local-name   <br> **For Assets will return the string Assets** |
+| name | Returns the qname of the concept. This includes the local name and URI. | $fact.concept.name   <br>**For Assets will return us-gaap:Assets** |
+| namespace-uri | Returns the uri of the concept name. | $fact.concept.name.namespace-uri  <br>**For Assets will return us-gaap** |
+| clark | Returns a string in clark notation when provided a qname or concept. | $US-GAAP-2020.concept(Assets).clark <br> **Returns a string of {http://fasb.org/us-gaap/2020-01-31}Assets** |
+| period-type | Returns the period type, instant or duration. | $fact.concept.period-type <br>**For Assets will return instant** |
+| references(reference-role) | Returns a set of references associated with a concept for a given dts. If no role is provided it defaults to the first role that has a reference. The roles checked are based on an ordered list.  | taxonomy().concept(Assets).references( "http://www.xbrl.org/2003/role/presentationRef") <br> **Returns a set of  reference objects for Assets based on the role provided or the default role.** |
+| all-references() | Returns a set of all references associated with a concept. (includes all roles) | taxonomy().concept(Assets).all-references <br> **Returns a set of  all reference objects for Assets** |
+| relationships <br>(***Proposed***)| *Returns all relationships associated with the concept.* |  |
+| source-relationships <br>(***Proposed***)| *Returns the relationships where the concept is the source.* |  |
+| substitution() **(V1.1)** | Returns the qname substitution group of the concept. | $fact.concept.substitution <br>**For Assets will return xbrli:item** |
+| target-relationships() <br>(***Proposed***)|* Returns the relationships where the concept is the target.* |  |
+| traits() **(V1.3)** | Returns a set of traits associated with a concept. Uses the trait relationship and class-subclass relationships defined in the taxonomy. | $fact.concept.traits <br>**For AssetsCurrent will return a set of traits associated with the concept i.e. set(CurrentMember)** |
 
 ## Part Element Object {#part-element-object}
 
@@ -1945,17 +1945,17 @@ Xule includes the following properties for a concept object.
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
 | attribute(name) | Returns the value of a custom attribute based on the name provided to the function. | $fact.concept.attribute(abc)  |
-| data-type | Returns the type of a part element. | $fact.concept.data-type.name  **For Assets will return the type object for xbrli:monetaryItemType.** |
+| data-type | Returns the type of a part element. | $fact.concept.data-type.name  <br>**For Assets will return the type object for xbrli:monetaryItemType.** |
 | enumerations | Returns a set of enumerated values allowed for the concept. These are the enumerations defined in the type of the part element. | concept.data-type.enumerations |
 | has-enumerations | Returns a true or false if the concept has enumerations in the datatype. These are the enumerations defined in the type of the part element. | concept.data-type.has-enumerations |
-| is-abstract | Returns true if the part element has an abstract value of true. This attribute can only be on the part element object. | concept.is-abstract, {@concept.is-abstract = false**}  For Assets will return false** |
-| is-numeric | Returns a boolean result if the part element has that type. | $fact.concept.is-numeric **For Assets will return true** |
-| is-type(type) | Returns a boolean result if the part element  has that type. The type is provided as a qname. | $fact.concept.is-type(xbrli:monetaryItemType)   **For Assets will return true** |
-| local-name | Returns the local name of the part element  name. | $fact.concept.name.local-name   **For Assets will return the string Assets** |
-| name | Returns the qname of the part element. This includes the local name and URI. | $fact.concept.name   **For Assets will return us-gaap:Assets** |
-| namespace-uri | Returns the uri of the part element name. | $fact.concept.name.namespace-uri  **For Assets will return us-gaap** |
+| is-abstract | Returns true if the part element has an abstract value of true. This attribute can only be on the part element object. | concept.is-abstract, {@concept.is-abstract = false}  <br>**For Assets will return false** |
+| is-numeric | Returns a boolean result if the part element has that type. | $fact.concept.is-numeric <br>**For Assets will return true** |
+| is-type(type) | Returns a boolean result if the part element  has that type. The type is provided as a qname. | $fact.concept.is-type(xbrli:monetaryItemType)   <br>**For Assets will return true** |
+| local-name | Returns the local name of the part element  name. | $fact.concept.name.local-name   <br>**For Assets will return the string Assets** |
+| name | Returns the qname of the part element. This includes the local name and URI. | $fact.concept.name   <br>**For Assets will return us-gaap:Assets** |
+| namespace-uri | Returns the uri of the part element name. | $fact.concept.name.namespace-uri  <br>**For Assets will return us-gaap** |
 | clark | Returns the clark notation of the part element name. |  |
-| substitution() **(V1.1)** | Returns the substitution group of the concept. | $fact.concept.substitution **For Assets will return xbrli:item** |
+| substitution() **(V1.1)** | Returns the substitution group of the concept. | $fact.concept.substitution <br>**For Assets will return xbrli:item** |
 
 ## Reference Object {#reference-object}
 
@@ -1967,10 +1967,10 @@ Xule includes the following properties for a reference object.
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| part-by-name(part qname) | Returns the reference part for a reference based on part name. | reference.part-by-name(cod:Topic).part-value  **Returns the reference part value  with a qname of cod:Topic** |
-| parts() | Returns  a set of parts for a reference | reference.parts  **Returns all the reference parts associated to a reference** |
+| part-by-name(part qname) | Returns the reference part for a reference based on part name. | reference.part-by-name(cod:Topic).part-value  <br> **Returns the reference part value  with a qname of cod:Topic** |
+| parts() | Returns  a set of parts for a reference | reference.parts  <br> **Returns all the reference parts associated to a reference** |
 | role() | Returns the reference role of a reference. | reference.role.uri **Returns the reference role associated with a reference such as 'http://fasb.org/srt/role/changeNote/changeNote'** |
-| concepts() | Returns a set of concepts that are linked to this reference in the taxonomy |  |
+| concepts() <br>(***Proposed***) | *Returns a set of concepts that are linked to this reference in the taxonomy* |  |
 
 ## Part Object {#part-object}
 
@@ -2021,7 +2021,7 @@ A label object represents a dictionary of labels. A concept can have multiple la
 | text() | Returns the text of a label as a string | label.text |
 | lang() | The language of a label | label.lang |
 | role() | The role of the label returned as a role object. | label.role |
-| concepts() | Returns a set of concepts that are linked to the label in the taxonomy |  |
+| concepts() <br>(***Proposed***)| *Returns a set of concepts that are linked to the label in the taxonomy.* |  |
 
 If the label object is referenced in an  output message and multiple values exist for the object then the processor will return the standard label as the default. The documentation label will only be returned if no other label is available.
 
@@ -2061,13 +2061,13 @@ Xule includes the following properties for a cube object.
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| cube-concept | Returns the hypercube concept of the cube | cube.cube-concept() **Returns the cube concept.** |
-| drs-role() | Returns an extended link role object of the role that the specified cube is included in. | cube.drs-role().uri  == "BalanceSheet"  **Returns the cube in the balance sheet extended link role.** |
-| dimensions() | Returns the dimensions of a cube as a dimension object. | cube.dimensions **Returns all the dimensions associated with a given cube.** |
-| primary-concepts() | Returns the primary concepts of a cube as a set of primary concepts. | cube.primary-concepts **Returns the primary concepts associated with the cube.** |
-| members() | Returns the member concepts of a cube. | cube.members **Returns all the members on a specific cube.** |
-| closed() | Returns a boolean result of true if the cube is closed. | cube.closed **Returns true if the cube is closed.** |
-| facts() | Returns all the facts associated with a cube. | cube.facts **Returns all the facts in a given cube.** |
+| cube-concept | Returns the hypercube concept of the cube | cube.cube-concept()  <br>**Returns the cube concept.** |
+| drs-role() | Returns an extended link role object of the role that the specified cube is included in. | cube.drs-role().uri  == "BalanceSheet"   <br>**Returns the cube in the balance sheet extended link role.** |
+| dimensions() | Returns the dimensions of a cube as a dimension object. | cube.dimensions  <br>**Returns all the dimensions associated with a given cube.** |
+| primary-concepts() | Returns the primary concepts of a cube as a set of primary concepts. | cube.primary-concepts  <br>**Returns the primary concepts associated with the cube.** |
+| members() <br>(***Proposed***)| *Returns the member concepts of a cube.* | cube.members  <br>**Returns all the members on a specific cube.** |
+| closed() <br>***Proposed** | *Returns a boolean result of true if the cube is closed.* | cube.closed  <br>**Returns true if the cube is closed.** |
+| facts() | Returns all the facts associated with a cube. | cube.facts  <br>**Returns all the facts in a given cube.** |
 
 ## Dimension Object {#dimension-object}
 
@@ -2078,22 +2078,22 @@ Xule includes the following properties for a dimension object.
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| dimension-type() | Returns typed dimensions. | dimension.dimension-type **Returns a string value of typed or explicit.** |
+| dimension-type() | Returns typed dimensions. | dimension.dimension-type  <br>**Returns a string value of typed or explicit.** |
 | members() **(V1.2)** | Returns the members on a dimension | dimension.members |
-| default() | Returns the default of a given dimension. | dimension.default **Returns the default domain of the dimension object as a concept.** |
-| concept() | Returns the concept for the dimension. | dimension.concept **Returns the dimension concept.** |
-| domains() | Returns the domains of a given dimension | dimension.domains |
-| useable-members() | Returns the useable members on a dimension. | dimension.useable-members |
-| nonuseable-members() | Returns the non-useable members on a dimension. | dimension.non-useable-members |
+| default() | Returns the default of a given dimension. | dimension.default  <br>**Returns the default domain of the dimension object as a concept.** |
+| concept() | Returns the concept for the dimension. | dimension.concept  <br>**Returns the dimension concept.** |
+| domains() <br>(***Proposed***)| *Returns the domains of a given dimension *| dimension.domains |
+| useable-members() <br>(***Proposed***)| *Returns the useable members on a dimension. *| dimension.useable-members |
+| nonuseable-members() <br>(***Proposed***)|* Returns the non-useable members on a dimension.* | dimension.non-useable-members |
 | cube **(V1.2)** | Return the cube  object that the dimension is on. | dimension.cube |
-| data-type **(V1.2)** | Returns the datatype of a typed dimension.| dimension.data-type.name **Returns the datatype of the typed dimension**|
+| data-type **(V1.2)** | Returns the datatype of a typed dimension.| dimension.data-type.name  <br>**Returns the datatype of the typed dimension**|
 
 ## Members Object (Not Yet Implemented) {#members-object-(not-yet-implemented)}
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| concept() | Returns the concept associated with a member. | members.concept  |
-| dimensions() | Returns the dimensions associated with a member | members.dimensions |
+| concept() <br>(***Proposed***)| *Returns the concept associated with a member.* | members.concept  |
+| dimensions() <br>(***Proposed***)| *Returns the dimensions associated with a member* | members.dimensions |
 
 ## Taxonomy (DTS) Object {#taxonomy-(dts)-object}
 
@@ -2115,29 +2115,29 @@ Xule includes the following properties for a taxonomy or DTS object.
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| concepts() | Returns a set of concepts representing every concept in a taxonomy or a network. Can be used on a taxonomy type or a network type.  | taxonomy().concepts  **Returns all the concepts in the instance taxonomy. (Whether they have values or not, or are included in a tree or not.)** |
-| concept(QName) | Returns the concept in a taxonomy based on the concept qname.  | taxonomy().concept(Assets)  **Return the Assets concept from the taxonomy.**  |
+| concepts() | Returns a set of concepts representing every concept in a taxonomy or a network. Can be used on a taxonomy type or a network type.  | taxonomy().concepts <br>**Returns all the concepts in the instance taxonomy. (Whether they have values or not, or are included in a tree or not.)** |
+| concept(QName) | Returns the concept in a taxonomy based on the concept qname.  | taxonomy().concept(Assets) <br>**Return the Assets concept from the taxonomy.**  |
 | concepts_by_trait((Concept or QName or list or set) | This will return the concepts that have all the traits listed in the argument. The argument can either be a single value or a collection (set/list) of values.  The values can be qnames or concepts (concepts that are traits).  | taxonomy().concepts_by_trait( |
-| cube(Concept or QName,Role) | Returns a cube from the taxonomy. The first argument is the concept or qname of the cube concept. The role is the drs-role. | taxonomy().cube(StatementTable, ShareholdersEquity) **Returns the cube object** |
-| cubes() | Returns all the cubes in the taxonomy as a set. | taxonomy().cubes **Returns all the cubes in a taxonomy** |
-| effective-weight(QName,Qname) | Returns the effective weight between two concepts aggregated across all calculation networks. Two qname parameters must be passed. | taxonomy().effective-weight(NetCashProvidedByUsedInOperatingActivities,IncomeLossFromEquityMethodInvestments) **Return the effective weight between 2 concepts. This operates over all networks. If the weight is not the same across networks it returns 0. The values can be -1, 1 or 0.** |
-| effective-weight-network(QName,QName,*Role*) | Returns the effective weight between two concepts in a given calculation network. Returns a set of lists containing the  network and effective weight between the 2 concepts. The third parameter (role) is optional. | taxonomy().effective-weight-network(NetCashProvidedByUsedInOperatingActivities,IncomeLossFromEquityMethodInvestments) **Return the effective weight between 2 concepts by network. This example operates over all networks.** taxonomy().effective-weight-network(NetCashProvidedByUsedInOperatingActivities,IncomeLossFromEquityMethodInvestments, StatementCashFlow) **Return the effective weight between 2 concepts by network. This example operates over the statement of cashflows.**  |
-| dimensions()  **(V1.1)** | Return all the dimensions in a taxonomy that are  dimension objects. Dimensions are determined based on the defined hypercubes in the taxonomy, not the datatype of the concept. | taxonomy().dimensions **Returns all the dimensions in a taxonomy**  |
-| dimension(QName) **(V1.1)** | Returns the dimension object with a provided qname. | taxonomy().dimension(us-gaap:CountryAxis).default() **Returns the default member of the us-gaap:CountryAxis** |
-| dimensions-explicit()  **(V1.1)** | Return all the dimensions in a taxonomy that are  explicit dimension objects. | taxonomy().dimensions-explicit **Returns all the explicit dimensions in a taxonomy**  |
-| dimensions-typed()  **(V1.1)** | Return all the dimensions in a taxonomy that are  typed dimension objects. | taxonomy().dimensions-typed **Returns all the typed dimensions in a taxonomy**  |
-| dts-document-locations | Returns the location of all documents comprising the dts. | $US-GAAP.dts-document-locations **Returns the uri of all dts documents as a set.** |
-| entry-point-namespace | Returns the namespace of the entry point for the taxonomy (DTS) used.  | $US-GAAP.entry-point-namespace **Returns the namespace of the us-gaap taxonomy** "[http://xbrl.fasb.org/us-gaap/2019](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd)" |
-| entry-point() | Returns the entry point url of the taxonomy object  | $US-GAAP.entry-point **Returns the url** [http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd) |
-| networks(arcrole, extended link role)  | Returns a set of  network objects from the  taxonomy. Allows the parameters of arc role and extended link role. Both of the parameters are optional. The extended link role can use a short name but should not be in quotes  | taxonomy().networks()  **Returns all the networks in the taxonomy.** taxonomy().networks(parent-child)  **Returns all the parent-child networks in the taxonomy.** taxonomy().networks(parent-child,'[http://www.abc.com/role/ConsolidatedBalanceSheets](http://www.abc.com/role/ConsolidatedBalanceSheets)') **Returns the parent-child network for the consolidated Balance Sheet  in the taxonomy.** taxonomy().networks(parent-child,[ConsolidatedBalanceSheets](http://www.abc.com/role/ConsolidatedBalanceSheets)) **Returns the parent-child network for the consolidated Balance Sheet  in the taxonomy. This uses the short name (No quotes)** |
-| namespaces() **(V1.1)** | Return a set of namespace uris that are defined in the taxonomy. | taxonomy().namespaces **Returns the namespaces that are defined in the taxonomy.**  |
-| roles() **(V1.2)** | Return a set of roles associated with the dts. | taxonomy().roles |
-| arcroles() **(V1.2)** | Return a set of arc roles associated with the dts. | taxonomy().arcroles |
-| part-elements() **(V1.2)** | Return a set of reference part elements associated with the dts | taxonomy().part-elements |
-| elements() **(V1.2)** | Return a set of elements that are not concepts or part elements | taxonomy().elements() |
-| element(QName) **(V1.2)** | Returns the element in a taxonomy based on the element qname. | taxonomy().element(CustomElement)  **Return the CustomElement from the taxonomy of the instance.**  |
-| data-types() **(V1.2)** | Return a set of data types associated with the dts. | taxonomy().data-types |
-| concepts-by-trait() **(V1.3)** | Takes a single argument of a trait concept or trait concept qname or a set/list of trait concepts or trait concept qnames and returns a set of concepts that have all the supplied traits. Uses the trait relationship and class-subclass relationships defined in the taxonomy.  | taxonomy().concepts-by-trait(OperatingActivity) **Returns all the concepts that have the Operating Activity trait** taxonomy().concepts-by-trait(list(OperatingActivity, Current) **Returns all the concepts that have the Operating Activity trait and Current trait.** |
+| cube(Concept or QName,Role) | Returns a cube from the taxonomy. The first argument is the concept or qname of the cube concept. The role is the drs-role. | taxonomy().cube(StatementTable, ShareholdersEquity)<br>**Returns the cube object** |
+| cubes() | Returns all the cubes in the taxonomy as a set. | taxonomy().cubes<br>**Returns all the cubes in a taxonomy** |
+| effective-weight(QName,Qname) | Returns the effective weight between two concepts aggregated across all calculation networks. Two qname parameters must be passed. | taxonomy().effective-weight(NetCashProvidedByUsedInOperatingActivities, IncomeLossFromEquityMethodInvestments)<br><br>**Returns the effective weight between 2 concepts. This operates over all networks. If the weight is not the same across networks it returns 0. The values can be -1, 1 or 0.** |
+| effective-weight-network(QName,QName,*Role*) | Returns the effective weight between two concepts in a given calculation network. Returns a set of lists containing the  network and effective weight between the 2 concepts. The third parameter (role) is optional. | taxonomy().effective-weight-network(NetCashProvidedByUsedInOperatingActivities ,IncomeLossFromEquityMethodInvestments) <br><br>**Returns the effective weight between 2 concepts by network. This example operates over all networks.** <br><br>taxonomy().effective-weight-network(NetCashProvidedByUsedInOperatingActivities, IncomeLossFromEquityMethodInvestments, StatementCashFlow) <br><br>**Returns the effective weight between 2 concepts by network. This example operates over the statement of cashflows.**  |
+| dimensions()  <br>**(V1.1)** | Return all the dimensions in a taxonomy that are  dimension objects. Dimensions are determined based on the defined hypercubes in the taxonomy, not the datatype of the concept. | taxonomy().dimensions <br>**Returns all the dimensions in a taxonomy**  |
+| dimension(QName) <br>**(V1.1)** | Returns the dimension object with a provided qname. | taxonomy().dimension(us-gaap:CountryAxis).default() <br>**Returns the default member of the us-gaap:CountryAxis** |
+| dimensions-explicit()  <br>**(V1.1)** | Return all the dimensions in a taxonomy that are  explicit dimension objects. | taxonomy().dimensions-explicit <br>**Returns all the explicit dimensions in a taxonomy**  |
+| dimensions-typed()  <br>**(V1.1)** | Return all the dimensions in a taxonomy that are  typed dimension objects. | taxonomy().dimensions-typed <br>**Returns all the typed dimensions in a taxonomy**  |
+| dts-document-locations | Returns the location of all documents comprising the dts. | $US-GAAP.dts-document-locations <br>**Returns the uri of all dts documents as a set.** |
+| entry-point-namespace | Returns the namespace of the entry point for the taxonomy (DTS) used.  | $US-GAAP.entry-point-namespace <br>**Returns the namespace of the us-gaap taxonomy** "[http://xbrl.fasb.org/us-gaap/2019](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd)" |
+| entry-point() | Returns the entry point url of the taxonomy object  | $US-GAAP.entry-point <br>**Returns the url** [http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd) |
+| networks(arcrole, extended link role)  | Returns a set of  network objects from the  taxonomy. Allows the parameters of arc role and extended link role. Both of the parameters are optional. The extended link role can use a short name but should not be in quotes  | taxonomy().networks()  <br>**Returns all the networks in the taxonomy.** taxonomy().networks(parent-child)  <br>**Returns all the parent-child networks in the taxonomy.** taxonomy().networks(parent-child, 'http://www.abc.com/role/ConsolidatedBalanceSheets') <br>**Returns the parent-child network for the consolidated Balance Sheet  in the taxonomy.** taxonomy().networks(parent-child, 'http://www.abc.com/role/ConsolidatedBalanceSheets') <br>**Returns the parent-child network for the consolidated Balance Sheet  in the taxonomy. This uses the short name (No quotes)** |
+| namespaces() <br>**(V1.1)** | Return a set of namespace uris that are defined in the taxonomy. | taxonomy().namespaces <br>**Returns the namespaces that are defined in the taxonomy.**  |
+| roles() <br>**(V1.2)** | Return a set of roles associated with the dts. | taxonomy().roles |
+| arcroles() <br>**(V1.2)** | Return a set of arc roles associated with the dts. | taxonomy().arcroles |
+| part-elements() <br>**(V1.2)** | Return a set of reference part elements associated with the dts | taxonomy().part-elements |
+| elements() <br>**(V1.2)** | Return a set of elements that are not concepts or part elements | taxonomy().elements() |
+| element(QName) <br>**(V1.2)** | Returns the element in a taxonomy based on the element qname. | taxonomy().element(CustomElement)  <br>**Return the CustomElement from the taxonomy of the instance.**  |
+| data-types() <br>(***Proposed***) | *Return a set of data types associated with the dts.* | taxonomy().data-types |
+| concepts-by-trait() <br>**(V1.3)** | Takes a single argument of a trait concept or trait concept qname or a set/list of trait concepts or trait concept qnames and returns a set of concepts that have all the supplied traits. Uses the trait relationship and class-subclass relationships defined in the taxonomy.  | taxonomy().concepts-by-trait(OperatingActivity) <br>**Returns all the concepts that have the Operating Activity trait** taxonomy().concepts-by-trait(list(OperatingActivity, Current) <br>**Returns all the concepts that have the Operating Activity trait and Current trait.** |
 
 ## Network Set Object {#network-set-object}
 
@@ -2175,7 +2175,7 @@ Xule includes the following properties for a Network() object.
 | uri() | Returns the uri of a role. | network.role.uri  <br>**Returns the uri of the role** network.arcrole.uri <br>**Returns the uri of the arcrole** |
 | description() | Returns the description of the role. | network.role.description  <br>**Returns the description of the role** network.arcrole.description <br>**Returns the description  of the arcrole** |
 | used-on() | Returns  a set of qnames of <br>**the extended link element names** the role is used on. | network.role.used-on  <br>**Returns a set of the extended link element names the role is used on.** network.arcrole.used-on <br>**Returns a set the qnames of the arc element  the role is used on.**  |
-| cycles() | Indicates if the arcrole allows cycles. |  |
+| cycles()<br>(***Proposed***) | *Indicates if the arcrole allows cycles.* |  |
 
 ## Relationship Object {#relationship-object}
 
@@ -2240,11 +2240,11 @@ Properties and functions can be used interchangeably, either as a property of an
 | regex-match-all(*pattern*) <br>**(V1.1)** | Same as regex-match except that the "-all" will return a list where a match is made and then the pattern is applied to the rest of the string and the next match is made.  | 'abcdefg'.regex-match-all('de+') <br>**Returns a list of:**  list(dict('end': 6, 'groups': list(), 'match': 'de', 'match-count': 1, 'start': 4)) |
 | regex-match-string(*pattern, optional group number*) <br>**(V1.1)** | Returns the string that matches the regular expression pattern. If there is no match, the value is none. The second parameter allows the number of the group to be returned. Groups are defined in the pattern using parenthesis. | 'abcdefg'.regex-match-string('de+')  <br>**Returns the string 'de'** 'abcdefgabcdefg'.regex-match-string('(c)(d)', 2)  <br>**Returns 'd' because the '(d)' is the second group.**  |
 | regex-match-string-all(*pattern, optional group number*) <br>**(V1.1)** | Same as regex-match-string except that the "-all" will return a list where a match is made and then the pattern is applied to the rest of the string and the next match is made.  | 'abcdefggabcdefg'**.**regex-match-string-all('[cf]([dg])')  <br>**Returns list(cd, fg, cd, fg).** 'abcdefggabcdefg'.regex-match-string-all('[cf]([dg])', 1)  <br>**Returns list(d, g, d, g)**  |
-| replace(search string, replacement string, number of times) <br>**(V1.2)** | Returns a new string based on an existing string. Replace the search string with the replacement string. The 3rd argument indicates how many times to do the replace from left to right. If left off all search items will be replaced. | 'Hello Mr Stains'.replace('Stains','Smith', 1)  = 'Hello Mr Smith' |
+| replace(search string, replacement string, number of times) <br>(***Proposed***) | *Returns a new string based on an existing string. Replace the search string with the replacement string. The 3rd argument indicates how many times to do the replace from left to right. If left off all search items will be replaced.* | *'Hello Mr Stains'.replace('Stains','Smith', 1)  = 'Hello Mr Smith'* |
 | repeat() | Repeats a string value the number of times defined by the argument.  The argument value must be an integer. | '-'.repeat(4) = '----' |
 | split(*delimiter*) | Split a string into a list based on  a defined delimiter character. If an empty string is used as the separator, the returned list will contain 1 item with the entire string in it. | 'Hello Mr Stains'.split(' ')  = list('Hello','Mr','Stains') |
-| starts-with() | Returns a value of true or false if the string starts with a given string. | "Value of Derivatives".starts-with('Value') = true <br>**Returns a value of true** |
-| ends-with() | Returns a value of true or false if the string ends with a given string. | "Value of Derivatives".ends-with('ves') <br>**Returns a value of true** |
+| starts-with() <br>(***Proposed***)| *Returns a value of true or false if the string starts with a given string.* | "Value of Derivatives".starts-with('Value') = true <br>**Returns a value of true** |
+| ends-with()<br>(***Proposed***) | *Returns a value of true or false if the string ends with a given string.* | "Value of Derivatives".ends-with('ves') <br>**Returns a value of true** |
 | string() | Converts a value to string using  builtin formatting. For integers, decimals and floats, the built-in formatting includes comma thousand separators and a limit of 4 decimal places. | 3.string  <br>**Returns a string value of "3"** 1234.string  <br>**Returns a string value of "1,234"** |
 | plain-string() | Converts a value to string. Converts a value to string without formatting. | 3.plain-string  <br>**Returns a string value of "3"** 1234.plain-string  <br>**Returns a string value of "1234"** |
 | substring(*begin index, end index*) | The substring(int beginIndex, int endIndex) returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex. Thus the length of the substring is endIndex-beginIndex + 1. If the last parameter is left off it continues to the end of the string. | 'Hello Mr. Stains'.substring(1,5)  <br>**Returns the string of "Hello"** |
@@ -2271,8 +2271,8 @@ Properties and functions can be used interchangeably, either as a property of an
 | duration(start-date, end-date)) | Pass this function a start and end date in the format yyyy-mm-dd to produce a duration period that can be compared to a fact. | *Function:* {@period = duration('2016-01-01', '2016-12-31')}  <br>**Converts two string dates to a duration for comparing or filtering a  fact.**  |
 | forever() | Generates  a period equal to the forever period | *Function*: {@period = forever}  <br>**Returns all periods that have a period of forever.** |
 | month() | Returns the month (number) from a given date. | *Function:* month(date('2017-12-31'))  <br>**Returns a value of 12.** |
-| is-month-day | Checks that  the value of the element with a datatype of gMonthDayItemType is valid. | *Property:* {@CurrentFiscalYearEndDate** where $fact.is-month-day != true} <br>**Identifies if the value of CurrentFiscalYearEndDate is valid.** |
-| is-leap-year | Identifies if a year(number) is a leap year | *Property:* year(date("2017-12-31")).is-leap-year |
+| is-month-day <br>(***Proposed***)| *Checks that  the value of the element with a datatype of gMonthDayItemType is valid.*| *Property:* {@CurrentFiscalYearEndDate** where $fact.is-month-day != true} <br>**Identifies if the value of CurrentFiscalYearEndDate is valid.** |
+| is-leap-year <br>(***Proposed***)| *Identifies if a year(number) is a leap year* | *Property:* year(date("2017-12-31")).is-leap-year |
 | time-span() | Allows a span of time to be defined for example time-span("P90D"). This uses the XML duration format to return the number of days in the period. This can also be used as a property of any duration. | *function:*$document_period_end_date + (time-span("P4D"))  <br>**Adds 4 days to the value of document period end date.** |
 | year() | Returns the year (number) from a fact or the year from a given date. given date. | *Property:* {where $fact.end.year == '2017'}  <br>*Function:* year(date('2017-12-31'))  <br>**The function and property returns a value of 2017.** |
 
@@ -2299,8 +2299,8 @@ Aggregation functions only work on sets and lists. The values returned from a fa
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| corr(*Y*, *X*) | correlation coefficient |  |
-| regr_r2(*Y*, *X*) | square of the correlation coefficient |  |
+| corr(*Y*, *X*) <br>(***Proposed***)| *correlation coefficient* |  |
+| regr_r2(*Y*, *X*) <br>(***Proposed***)| *square of the correlation coefficient* |  |
 
 ## Existence Functions {#existence-functions}
 
@@ -2309,22 +2309,22 @@ Aggregation functions only work on sets and lists. The values returned from a fa
 | exists() | Tests for the existence of a fact, object. If any fact exists then a value of true is returned. Exists is applicable for checking the existence of facts. Exists will return a value of true when a none value is returned in a set or list. If a fact has a value of nil in the instance then exists returns true. | exists({@Assets}) <br>**Tests if any fact value is reported for assets and returns true or false** <br>exists(list()) <br>**Returns a value of true.** |
 | missing() | Tests for the existence of a fact. If a fact does not exist then a value of true is returned. | missing({covered @Assets}) <br>**Tests if any fact value is not reported for assets. Covered needs to be used with missing if determining if the fact exists in the document at all.** <br>missing(list()) <br>**Returns a value of false.** |
 | first-value | Takes a list of expressions and returns the first expression that has a value.  If no value is returned then no value is returned and the iteration is skipped. This is the same as a fact query that does not return any facts. I.e it is unbound. The function calculates values until it gets one that is not none. | first-value({@Assets},{@CurrentAssets}) <br>**Returns the value of CurrentAssets if Assets is not present. If neither value is present then the iteration is skipped.**  |
-| first-value-or-none **(V1.2)** | This does the same thing as first-value(), except if there are no values in the arguments, then it returns a 'none' value instead of skipping the iteration. | first-value-or-none({@Assets},{@CurrentAssets}) <br>**Returns the value of CurrentAssets if Assets is not present. If neither value is present then a none value is returned.** |
+| first-value-or-none <br>**(V1.2)** | This does the same thing as first-value(), except if there are no values in the arguments, then it returns a 'none' value instead of skipping the iteration. | first-value-or-none({@Assets},{@CurrentAssets}) <br>**Returns the value of CurrentAssets if Assets is not present. If neither value is present then a none value is returned.** |
 
 ## Unit Functions {#unit-functions}
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
 | unit() | Pass this function the unit URI and local name to define a comparable unit with the instance | {@unit = unit(iso4217:USD)} <br>**Returns all fact values reported in USD** |
-| convert-unit(fact, resulting_unit)  | Converts the value of the fact to the resulting unit and returns the result. Only works in those cases where the conversion rate is constant between the unit of the fact  and the resulting unit. The function requires that the datatype of the concept is the same as the datatype defining the unit in the unit registry. Conversions cannot be done where the unit of the fact does not have the same datatype as the resulting member. I.e. a value of 3 feet in length with a datatype of lengthItemType cannot be converted to a unit with a datatype of areaItemType. | convert-unit($fact, unit(uri:m))  |
+| convert-unit(fact, resulting_unit)  <br>(***Proposed***)| *Converts the value of the fact to the resulting unit and returns the result. Only works in those cases where the conversion rate is constant between the unit of the fact  and the resulting unit. The function requires that the datatype of the concept is the same as the datatype defining the unit in the unit registry. Conversions cannot be done where the unit of the fact does not have the same datatype as the resulting member. I.e. a value of 3 feet in length with a datatype of lengthItemType cannot be converted to a unit with a datatype of areaItemType.* | convert-unit($fact, unit(uri:m))  |
 
 ## DTS Functions {#dts-functions}
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
 | qname(namespace, local-name) | Creates a valid qname by providing the namespace-uri and localname as parameters. | qname($ext_namespace,'FairValueInputsLevel2AndLevel3Member') <br>**Defines a qname based on the extension namespace** |
-| taxonomy() | Creates a taxonomy object based on the taxonomy entry point. If no parameter is passed the DTS of the current instance is used. | $US-GAAP **=  taxonomy**('[http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd)')  Returns the US-GAAP taxonomy **taxonomy**() Returns the DTS of the current instance |
-| entry-point-namespace(taxonomy) | Returns the namespace of the entry point for the taxonomy (DTS) used. Takes the taxonomy object as a parameter. | **entry-point-namespace**($US-GAAP) <br>**Returns the namespace of the us-gaap taxonomy** "[http://xbrl.fasb.org/us-gaap/2019](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd)" |
+| taxonomy() | Creates a taxonomy object based on the taxonomy entry point. If no parameter is passed the DTS of the current instance is used. | $US-GAAP =  taxonomy('[http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd)')   <br>**Returns the US-GAAP taxonomy** <br>taxonomy()  <br>**Returns the DTS of the current instance** |
+| entry-point-namespace(taxonomy) | Returns the namespace of the entry point for the taxonomy (DTS) used. Takes the taxonomy object as a parameter. | entry-point-namespace($US-GAAP) <br>**Returns the namespace of the us-gaap taxonomy** "[http://xbrl.fasb.org/us-gaap/2019](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd)" |
 | entry-point() | Returns the entry point uri of the taxonomy object passed as a parameter | **entry-point**($US-GAAP) <br>**Returns the uri** [http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd](http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd) |
 | dts-document-locations | Returns the location of all documents comprising the dts. | **dts-document-locations**($us-gaap) <br>**Returns the uri of all dts documents as a set.** |
 
@@ -2332,16 +2332,16 @@ Aggregation functions only work on sets and lists. The values returned from a fa
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| range(start, stop, step) | The range function generates a list of integer numbers between the given start integer to the stop integer, which is generally used to iterate through a Loop. The range function accepts an integer and returns a list of integers. A single argument represents the stop integer, two arguments are the start and stop integers. The default start integer is 1. The default step integer is 1 unless specified otherwise. | **range**(5) <br>**Returns:** list(1,2,3,4,5) **range**(4,10) <br>**Returns:** list(4, 5, 6, 7, 8, 9, 10)  **range**(4,10,2) <br>**Returns:** list(4, 6, 8, 10) <br>**Use in a loop with list $path: for** \$i **in** **range**(\$path.length) 	\$path[\$i] |
+| range(start, stop, step) | The range function generates a list of integer numbers between the given start integer to the stop integer, which is generally used to iterate through a Loop. The range function accepts an integer and returns a list of integers. A single argument represents the stop integer, two arguments are the start and stop integers. The default start integer is 1. The default step integer is 1 unless specified otherwise. | **range**(5) <br>**Returns:** list(1,2,3,4,5) <br>**range**(4,10) <br>**Returns:** list(4, 5, 6, 7, 8, 9, 10)  <br>**range**(4,10,2) <br>**Returns:** list(4, 6, 8, 10) <br>Use in a loop with list $path: <br>for \$i **in** **range**(\$path.length) 	\$path[\$i] |
 
 ## Data Import and Transformation Functions {#data-import-and-transformation-functions}
 
 | Name | Definition | Examples |
 | :---- | :---- | :---- |
-| csv-data() | csv-data takes 4 arguments. The first 2 are required. 1. file-url: (required) Location and name of the file 2. has headers:  (required) either true or false. If it is true, the first line is ignored. Defaults to false. 3. list of types: (optional). If supplied it must have a type for each column.  If omitted the columns will be strings. Possible values are string, date, decimal, float, int, boolean, qname, list(). 4. as dictionary - optional If supplied and true, the result for the row will be a dictionary using the column names from the header as the key. The function returns a list of rows. The row is either a list or a dictionary (if the 4th argument is supplied and true).  <br>**Limitations**: If the list of types is supplied, no row can have more columns than the length of the list of types. If headers are in the file and returning as a dictionary, no row can have more columns than the header row. <br>**Defining types** Types are defined as a list. I.e. list('string', 'date', 'date'). In some cases the format of the csv is formatted.  In these cases XBRL transforms can be used to transform the data to the appropriate type. The transform and type are provided as a list i.e.  list(ix4:date-day-month-year, 'date'),  | **csv-data**('https://xbrl.us/dqc_06_date_bounds.csv',true, list( 'string', 'string', 'string'))  <br>**Defines a csv file as a source of data. csv-data(**'https://xbrl.us/trans.csv', true, list('string',list(ix4:num-dot-decimal, 'decimal'), list(ix4:date-day-month-year, 'date'), list(ix4:date-day-monthname-year-fr, 'date')) )  <br>**Defines a csv format for the following:** name,amount,date,date2 Mark,"1,234,567.89",06/05/2020,05-juin-1900 Phillip,"9,876.54",09/01/2019,01-septembre-1901  |
-| excel-data() **(V1.2)** | Excel data takes 5 arguments. The first arg is required file-url: (required) Location and name of the file Range: (optional) This can be one of the following: name of sheet, named range, cell range  i.e sheet1\!A1:D3 If not defined it defaults to the active sheet. To add subsequent parameters a value of none must be provided. Has headers: (optional) Boolean value where the default is false. list of types: (optional). If supplied it must have a type for each column.  If omitted the columns will be strings. Possible values are string, date, decimal, float, int, boolean, qname, list(). as dictionary:  (optional) If supplied and true, the result for the row will be a dictionary using the column names from the header as the key.  | **excel-data**('[https://xbrl.us/excel-file.xls](https://xbrl.us/excel-file.xls)', 'sheet1\!A1:D3',true,list('string',list(ix4:num-dot-decimal, 'decimal'), list(ix4:date-day-month-year, 'date'), list(ix4:date-day-monthname-year-fr, 'date')) ) <br>**Defines a an excel file with the  following in sheet1:** name,amount,date,date2 Mark,"1,234,567.89",06/05/2020,05-juin-1900 Phillip,"9,876.54",09/01/2019,01-septembre-1901 |
+| csv-data() | csv-data takes 4 arguments. The first 2 are required. 1. file-url: (required) Location and name of the file 2. has headers:  (required) either true or false. If it is true, the first line is ignored. Defaults to false. 3. list of types: (optional). If supplied it must have a type for each column.  If omitted the columns will be strings. Possible values are string, date, decimal, float, int, boolean, qname, list(). 4. as dictionary - optional If supplied and true, the result for the row will be a dictionary using the column names from the header as the key. The function returns a list of rows. The row is either a list or a dictionary (if the 4th argument is supplied and true).  <br>**Limitations**: If the list of types is supplied, no row can have more columns than the length of the list of types. If headers are in the file and returning as a dictionary, no row can have more columns than the header row. <br>**Defining types** Types are defined as a list. I.e. list('string', 'date', 'date'). In some cases the format of the csv is formatted.  In these cases XBRL transforms can be used to transform the data to the appropriate type. The transform and type are provided as a list i.e.  list(ix4:date-day-month-year, 'date'),  | **csv-data**('https://xbrl.us/dqc_06_date_bounds.csv', true, list( 'string', 'string', 'string'))  <br><br>**Defines a csv file as a source of data.** <br><br> **csv-data**('https://xbrl.us/trans.csv', true, list('string',list(ix4:num-dot-decimal, 'decimal'), list(ix4:date-day-month-year, 'date'), list(ix4:date-day-monthname-year-fr, 'date')) )  <br><br>**Defines a csv format for the following:** <br>name, amount, date, date2 Mark, "1,234,567.89", 06/05/2020, 05-juin-1900 Phillip,"9,876.54", 09/01/2019, 01-septembre-1901  |
+| excel-data() **(V1.2)** | Excel data takes 5 arguments. The first arg is required file-url: (required) Location and name of the file Range: (optional) This can be one of the following: name of sheet, named range, cell range  i.e sheet1\!A1:D3 If not defined it defaults to the active sheet. To add subsequent parameters a value of none must be provided. Has headers: (optional) Boolean value where the default is false. list of types: (optional). If supplied it must have a type for each column.  If omitted the columns will be strings. Possible values are string, date, decimal, float, int, boolean, qname, list(). as dictionary:  (optional) If supplied and true, the result for the row will be a dictionary using the column names from the header as the key.  | **excel-data**('[https://xbrl.us/excel-file.xls](https://xbrl.us/excel-file.xls)', 'sheet1\!A1:D3',true,list('string',list(ix4:num-dot-decimal, 'decimal'), list(ix4:date-day-month-year, 'date'), list(ix4:date-day-monthname-year-fr, 'date')) ) <br>**Defines a an excel file with the  following in sheet1:** name,amount,date,date2 Mark,"1,234,567.89",06/05/2020,05-juin-1900 Phillip, "9,876.54",09/01/2019,01-septembre-1901 |
 | json-data() | json-data takes 1 parameter which  is the url to the json file.  The function returns a dictionary which matches the structure of the json file. | **json-data**('https://xbrl.us/json-file.json')  <br>**Defines a json file as a source of data.** |
-| xml-data-flat() **(V1.2)** | xml-data-flat takes.takes 3 to 5 arguments. The first 3 are required: 1. file url 2. xpath expression to find the nodes you want 3. list of xpath expressions to return the field you want. The node will be the starting point for the xpath 4. list of return types. There should be 1 for each field in the 3rd argument. This is optional. if not supplied, the result will be a string 5. a dictionary of namespace mappings. The key is the prefix and the value is the namespace. This is optional. The namespaces declared in the rule file are always available. Default namespaces are not supported. Any namespace must have a prefix.  | **xml-data-flat**('http://www.xbrl.org/lrr/lrr.xml','lrr:arcroles/lrr:arcrole', list('lrr:roleURI', 'lrr:status')) **Returns a list of role URI and status. xml-data-flat**('http://www.xbrl.org/lrr/lrr.xml'**,** '/lrr:lrr'**, list(**'@version'**,** 'lrr:status'**), list(**'decimal'**,** 'string'**)) The version number is converted to a decimal xml-data-flat**('https://www.sec.gov/Archives/edgar/data/1099219/000162828023018062/information_table.xml'**,** 'j:infoTable', **list(**'j:nameOfIssuer'**,** 'j:titleOfClass'**,** 'j:cusip'**,**'j:value'**), list(**'string'**,**'string'**,**'string'**,**'decimal')**, dict(list(**'j'**,**'[http://www.sec.gov/edgar/document/thirteenf/informationtable](http://www.sec.gov/edgar/document/thirteenf/informationtable)'**))) Example showing namespace map**  |
+| xml-data-flat() **(V1.2)** | xml-data-flat takes.takes 3 to 5 arguments. The first 3 are required: 1. file url 2. xpath expression to find the nodes you want 3. list of xpath expressions to return the field you want. The node will be the starting point for the xpath 4. list of return types. There should be 1 for each field in the 3rd argument. This is optional. if not supplied, the result will be a string 5. a dictionary of namespace mappings. The key is the prefix and the value is the namespace. This is optional. The namespaces declared in the rule file are always available. Default namespaces are not supported. Any namespace must have a prefix.  | **xml-data-flat**('http://www.xbrl.org/lrr/lrr.xml','lrr:arcroles/lrr:arcrole', list('lrr:roleURI', 'lrr:status')) <br><br>**Returns a list of role URI and status.** <br><br>**xml-data-flat**('http://www.xbrl.org/lrr/lrr.xml', '/lrr:lrr', list('@version', 'lrr:status'**), list(**'decimal'**, ** 'string'**)) <br><br>**The version number is converted to a decimal** <br><br>**xml-data-flat**('https://www.sec.gov/Archives/edgar/ data/1099219/000162828023018062/information_table.xml'**,** 'j:infoTable', **list(**'j:nameOfIssuer'**,** 'j:titleOfClass'**,** 'j:cusip'**,**'j:value'**), list(**'string'**,**'string'**,**'string'**,**'decimal')**, dict(list(**'j'**,**'http://www.sec.gov/edgar/document/ thirteenf/informationtable'))) <br>**Example showing namespace map**  |
 
 ## Information Functions {#information-functions}
 
@@ -3141,7 +3141,7 @@ severity error
 | cube | 2 | taxonomy |  |
 | cube-concept | 0 | cube |  |
 | cubes | 0 | taxonomy |  |
-| data-type | 0 | concept, fact |  |
+| data-type | 0 | concept, fact, dimension |  |
 | date | 0 | string |  |
 | day | 0 | instant |  |
 | days | 0 | instant, duration |  |
