@@ -2086,6 +2086,7 @@ Xule includes the following properties for a dimension object.
 | useable-members() | Returns the useable members on a dimension. | dimension.useable-members |
 | nonuseable-members() | Returns the non-useable members on a dimension. | dimension.non-useable-members |
 | cube **(V1.2)** | Return the cube  object that the dimension is on. | dimension.cube |
+| data-type **(V1.2)** | Returns the datatype of a typed dimension.| dimension.data-type.name **Returns the datatype of the typed dimension**|
 
 ## Members Object (Not Yet Implemented) {#members-object-(not-yet-implemented)}
 
