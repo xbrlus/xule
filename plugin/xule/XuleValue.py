@@ -523,7 +523,7 @@ class XuleValue:
             set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in vals]) + ")" 
             return set_value
 
-        elif self.type in ('concept', 'part-element'):
+        elif self.type in ('concept', 'part-element', 'typed-domain'):
             return str(self.value.qname)
         
         elif self.type == ('reference-part'):
