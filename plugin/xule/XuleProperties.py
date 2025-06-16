@@ -874,6 +874,33 @@ def property_members(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, frozenset(members), 'set')
 
+def property_typed_domains(xule_context, object_value, *args):
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        # For each cube get the dimensions
+        typed_doms = set() # this is in case there are not typed domains
+        typed_doms_shadow = set()
+        for cube in cubes:
+            for typed_dims in cube.dimensions:
+                if typed_dims.dimension_concept.isTypedDimension:
+                    typed_doms_shadow.add(typed_dims.dimension_concept.typedDomainElement)
+
+        typed_doms = [xv.XuleValue(xule_context, x, 'typed-domain') for x in typed_doms_shadow]
+        
+        return xv.XuleValue(xule_context, frozenset(typed_doms), 'set', shadow_collection=frozenset(typed_doms_shadow))
+
+def property_typed_domain(xule_context, object_value, *args):
+    if object_value.type == 'concept':
+        dimension_concept = object_value.value
+    else: # this is a dimension type xule value
+        dimension_concept = object_value.value.dimension_concept
+
+    if dimension_concept.isTypedDimension:
+        return xv.XuleValue(xule_context, dimension_concept.typedDomainElement, 'typed-domain')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
+
 def property_aspects(xule_context, object_value, *args):
     if not object_value.is_fact:
         return object_value
@@ -999,7 +1026,7 @@ def property_data_type(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.fact.concept.type, 'type')
     elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.type, 'type')
-    elif object_value.type == 'part-element':
+    elif object_value.type in ('part-element', 'typed-domain'):
         type_value = object_value.value.type
         if type_value is None:
             type_value = object_value.value.typeQname
@@ -3118,6 +3145,8 @@ PROPERTIES = {
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
+              'typed-domains': (property_typed_domains, 0, ('taxonomy',), True),
+              'typed-domain': (property_typed_domain, 0, ('dimension', 'concept',), True),
               'roles': (property_roles, 0, ('taxonomy',), False),
               'arcroles': (property_arcroles, 0, ('taxonomy',), False),
               'data-types': (property_data_types, 0, ('taxonomy', ), False),
@@ -3132,7 +3161,7 @@ PROPERTIES = {
               'attribute': (property_attribute, 1, ('concept', 'part-element','relationship', 'role'), False),
               'balance': (property_balance, 0, ('concept',), False),              
               'base-type': (property_base_type, 0, ('concept', 'fact', 'type'), True),
-              'data-type': (property_data_type, 0, ('concept', 'part-element', 'fact', 'dimension'), True), 
+              'data-type': (property_data_type, 0, ('concept', 'part-element', 'fact', 'dimension', 'typed-domain'), True), 
               'substitution': (property_substitution, 0, ('concept', 'part-element', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
