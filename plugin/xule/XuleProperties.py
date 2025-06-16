@@ -1325,7 +1325,7 @@ def property_lang(xule_context, object_value, *args):
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
-    elif object_value.type in ('concept', 'reference-part'):
+    elif object_value.type in ('concept', 'reference-part', 'part-element', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
     elif object_value.type == 'type':
         if isinstance(object_value.value, QName):
@@ -1339,7 +1339,7 @@ def property_local_name(xule_context, object_value, *args):
 
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
-    elif object_value.type in ('concept', 'part-element', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname.localName, 'string')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.localName, 'string')
@@ -1351,7 +1351,7 @@ def property_local_name(xule_context, object_value, *args):
 def property_namespace_uri(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
-    elif object_value.type in ('concept', 'part-element', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
@@ -1363,7 +1363,7 @@ def property_namespace_uri(xule_context, object_value, *args):
 def property_clark(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.clarkNotation, 'string')
-    elif object_value.type in ('concept', 'part-element', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname.clarkNotation, 'string')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string')
@@ -3195,10 +3195,10 @@ PROPERTIES = {
               'footnotes': (property_footnotes, 0, ('fact',), False),   
               'content': (property_content, 0, ('footnote',), False),   
               'fact': (property_fact, 0, ('footnote',), False),     
-              'name': (property_name, 0, ('fact', 'concept', 'part-element', 'reference-part', 'type'), True),
-              'local-name': (property_local_name, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'type'), True),
-              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'type'), True),
-              'clark': (property_clark, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part'), True),             
+              'name': (property_name, 0, ('fact', 'concept', 'part-element', 'typed-domain', 'reference-part', 'type'), True),
+              'local-name': (property_local_name, 0, ('qname', 'concept', 'part-element', 'typed-domain', 'fact', 'reference-part', 'type'), True),
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'typed-domain', 'type'), True),
+              'clark': (property_clark, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'typed-domain'), True),             
               'period-type': (property_period_type, 0, ('concept',), False),
               'parts': (property_parts, 0, ('reference',), False),
               'part-value': (property_part_value, 0, ('reference-part',), False),
