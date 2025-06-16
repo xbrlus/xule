@@ -2328,6 +2328,7 @@ def process_typed_domain(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
     if 'typed-domain' in log_rec.args:
         arelle_typed_domain = get_model_object(log_rec.args['typed-domain'], cntlr)
         domain_info = extract_element_info(arelle_typed_domain, taxonomy)
+        domain_info['typed-domain-name'] = domain_info.get('element-name')
     else:
         domain_info = dict()
 
