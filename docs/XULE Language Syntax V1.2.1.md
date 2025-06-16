@@ -2095,6 +2095,33 @@ Xule includes the following properties for a dimension object.
 | concept() <br>(***Proposed***)| *Returns the concept associated with a member.* | members.concept  |
 | dimensions() <br>(***Proposed***)| *Returns the dimensions associated with a member* | members.dimensions |
 
+## Typed Domain Object {typed-domain-object}
+
+A Typed Domain represents the typed domain of a dimenion.
+
+### Typed Domain Equality {#typed-domain-equality}
+
+Typed Domains are compared based on qname. A typed domain used in two different dts are considered to be the same typed domain for equality as the qnames are compared.
+
+### Typed Domain Properties (V1.2)	 {#typed-domain-properties-(v1.2)}
+
+Xule includes the following properties for a typed domain object.
+
+| Name | Definition | Examples |
+| :---- | :---- | :---- |
+| attribute(name)<br>(***Proposed***) | Returns the value of a custom attribute based on the name provided to the function. | $fact.concept.attribute(abc)  |
+| data-type | Returns the type of a typed domain. | $fact.concept.data-type.name  <br>**For Assets will return the type object for xbrli:monetaryItemType.** |
+| enumerations <br>(***Proposed***)| Returns a set of enumerated values allowed for the concept. These are the enumerations defined in the type of the typed domain. | concept.data-type.enumerations |
+| has-enumerations <br>(***Proposed***)| Returns a true or false if the concept has enumerations in the datatype. These are the enumerations defined in the type of the typed domain. | concept.data-type.has-enumerations |
+| is-abstract <br>(***Proposed***)| Returns true if the typed domain has an abstract value of true. This attribute can only be on the typed domain object. | concept.is-abstract, {@concept.is-abstract = false}  <br>**For Assets will return false** |
+| is-numeric <br>(***Proposed***)| Returns a boolean result if the typed domain has that type. | $fact.concept.is-numeric <br>**For Assets will return true** |
+| is-type(type) <br>(***Proposed***)| Returns a boolean result if the typed domain has that type. The type is provided as a qname. | $fact.concept.is-type(xbrli:monetaryItemType)   <br>**For Assets will return true** |
+| local-name | Returns the local name of the typed domain name. | $fact.concept.name.local-name   <br>**For Assets will return the string Assets** |
+| name | Returns the qname of the typed domain. This includes the local name and URI. | $fact.concept.name   <br>**For Assets will return us-gaap:Assets** |
+| namespace-uri | Returns the uri of the typed domain name. | $fact.concept.name.namespace-uri  <br>**For Assets will return us-gaap** |
+| clark | Returns the clark notation of the typed domain name. |  |
+| substitution() <br>(***Proposed***) | Returns the substitution group of the concept. | $fact.concept.substitution <br>**For Assets will return xbrli:item** |
+
 ## Taxonomy (DTS) Object {#taxonomy-(dts)-object}
 
 XULE automatically provides access to the taxonomy of the instance via the taxonomy() function. A taxonomy is primarily used to find concepts and navigate relationships.
