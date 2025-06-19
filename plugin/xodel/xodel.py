@@ -1832,6 +1832,16 @@ _XODEL_OUTPUT_ATTRIBUTES = {
     'concept-substitution-group': ('concept', qname_validator),
     'concept-attributes': ('concept', attribute_validator),
     'concept-id': ('concept', string_or_list_of_strings_validator),
+    'concept-typed-domain': ('concept', qname_validator),
+
+    'typed-domain': ('typed-domain', object_validator),
+    'typed-domain-name': ('typed-domain', qname_validator),
+    'typed-domain-namespace': ('typed-domain', string_validator),
+    'typed-domain-nillable': ('typed-domain', boolean_validator),
+    'typed-domain-local-name': ('typed-domain', string_validator),
+    'typed-domain-data-type': ('typed-domain', qname_validator),
+    'typed-domain-id': ('typed-domain', string_or_list_of_strings_validator),
+    'typed-domain-attributes': ('typed-domain', attribute_validator),
 
     'part': ('part', object_validator),
     'part-name': ('part', qname_validator),
@@ -2219,6 +2229,8 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
         concept_info['substitution-group-name'] = resolve_clark_to_qname(log_rec.args['concept-substitution-group'], taxonomy)
     if 'concept-attributes' in log_rec.args:
         concept_info['attributes'].update(json.loads(log_rec.args['concept-attributes']))
+    if 'concept-typed-domain' in log_rec.args:
+        concept_info['typed-domain-name'] = resolve_clark_to_qname(log_rec.args['concept-typed-domain'], taxonomy)
 
     # Check concept name
     if 'concept-name' not in concept_info:
@@ -2231,12 +2243,20 @@ def process_concept(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     if concept_type is None:
             raise XodelException(f"For concept '{concept_info['concept-name'].clark}', do not have the type definition for '{concept_info['type-name'].clark}'")
     
+    # The typed domain needs to be a SXMElement, currently we have a qname
+    if concept_info.get('typed-domain-name') is not None:
+        concept_typed_domain = taxonomy.get('TypedDomain', concept_info.get('typed-domain-name'))
+        if concept_typed_domain is None:
+            raise XodelException(f"For concept '{concept_info['concept-name'].clark}', the typed domain of '{concept_info['typed-domain-name'].clark}' does not exist")
+    else:
+        concept_typed_domain = None
+
     # convert attributes to qnames
     attributes = {resolve_clark_to_qname(k, taxonomy): v for k, v in concept_info['attributes'].items()}
 
     return taxonomy.new('Concept', concept_info.get('concept-name'), concept_type, concept_info.get('is-abstract'),
                             concept_info.get('nillable'), concept_info.get('period-type'), concept_info.get('balance'),
-                            concept_info.get('substitution-group-name'), concept_info.get('id'), attributes)
+                            concept_info.get('substitution-group-name'), concept_info.get('id'), attributes, concept_typed_domain)
 
 def process_part_element(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     
@@ -2273,23 +2293,7 @@ def process_part_element(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
 
     if 'part-data-type' in log_rec.args:
         part_info['type-name'] = resolve_clark_to_qname(log_rec.args['part-data-type'], taxonomy)
-    # if 'concept-abstract' in log_rec.args:
-    #     concept_info['is-abstract'] = json.loads(log_rec.args['concept-abstract'])
-    # if 'concept-nillable' in log_rec.args:
-    #     concept_info['nillable'] = log_rec.args['concept-nillable'].lower()
-    # if 'concept-period-type' in log_rec.args:
-    #     concept_info['period-type'] = log_rec.args['concept-period-type']
-    # if 'concept-balance-type' in log_rec.args:
-    #     if log_rec.args['concept-balance-type'].lower() == 'none':
-    #         try:
-    #             del concept_info['balance']
-    #         except KeyError:
-    #             # don't worry if there isn't a balance-type
-    #             pass
-    #     else:
-    #         concept_info['balance'] = log_rec.args['concept-balance-type'].lower()
-    # if 'concept-substitution-group' in log_rec.args:
-    #     concept_info['substitution-group'] = resolve_clark_to_qname(log_rec.args['concept-substitution-group'], taxonomy)
+   
     if 'part-attributes' in log_rec.args:
         part_info['attributes'].update(json.loads(log_rec.args['part-attributes']))
 
@@ -2312,6 +2316,61 @@ def process_part_element(rule_name, log_rec, taxonomy, options, cntlr, arelle_mo
                             resolve_clark_to_qname('{http://www.xbrl.org/2003/linkbase}part', taxonomy),
                             attributes)
 
+def process_typed_domain(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
+    '''
+    typed-domain
+    typed-domain-name
+    typed-domain-data-type
+    typed-domain-id
+    typed-domain-attributes
+    '''
+    # Check if there is a typed domain element being copied
+    if 'typed-domain' in log_rec.args:
+        arelle_typed_domain = get_model_object(log_rec.args['typed-domain'], cntlr)
+        domain_info = extract_element_info(arelle_typed_domain, taxonomy)
+        domain_info['typed-domain-name'] = domain_info.get('element-name')
+    else:
+        domain_info = dict()
+
+    if 'typed-domain-id' in log_rec.args:
+        domain_info['id'] = log_rec.args['typed-domain-id'].strip()
+
+    if 'typed-domain-name' in log_rec.args:
+        domain_info['typed-domain-name'] = resolve_clark_to_qname(log_rec.args['typed-domain-name'], taxonomy)
+    
+    if 'typed-domain-namespace' in log_rec.args and 'typed-domain-local-name' in log_rec.args:
+        domain_info['typed-domain-name'] = taxonomy.new('QName', log_rec.args['typed-domain-namespace'], log_rec.args['typed-domain-local-name'])
+    else:
+        if 'typed-domain-namespace' in log_rec.args:
+            if 'typed-domain-name' in domain_info:
+                domain_info['typed-domain-name'] = taxonomy.new('QName', log_rec.args['typed-domain-namespace'], domain_info['typed-domain-name'].local_name)
+        if 'typed-domain-local-name' in log_rec.args:
+            if 'typed-domain-name' in domain_info:
+                domain_info['typed-domain-name'] = taxonomy.new('QName', domain_info['typed-domain-name'].namespace, log_rec.args['typed-domain-local-name'])
+
+    if 'typed-domain-nillable' in log_rec.args:
+        domain_info['nillable'] = json.loads(log_rec.args['typed-domain-nillable'].lower())
+
+    if 'typed-domain-data-type' in log_rec.args:
+        domain_info['type-name'] = resolve_clark_to_qname(log_rec.args['typed-domain-data-type'], taxonomy)
+    if 'typed-domain-attributes' in log_rec.args:
+        domain_info['attributes'] = domain_info.get('attributes', {})
+        domain_info['attributes'].update(json.loads(log_rec.args['typed-domain-attributes']))
+
+    # Check name and type
+    if 'typed-domain-name' not in domain_info:
+        raise XodelException(f"Cannot create a typed domain element without a name. Rule: {rule_name}")
+    if 'type-name' not in domain_info:
+        raise XodelException(f"For typed domain element '{domain_info['typed-domain-name'].clark}', type is not found. Rule: {rule_name}")
+
+    domain_type = find_type(taxonomy, domain_info['type-name'], _CNTLR)
+    if domain_type is None:
+        raise XodelException(f"For typed domain element '{domain_info['typed-domain-name'].clark}', type definition '{domain_info['type-name'].clark}' not found. Rule: {rule_name}")
+
+    attributes = {resolve_clark_to_qname(k, taxonomy): v for k, v in domain_info.get('attributes', dict()).items()}
+
+    # The SXM class for a typed domain element may be 'TypedDomain' or similar; adjust as needed.
+    return taxonomy.new('TypedDomain', domain_info.get('typed-domain-name'), domain_type, None, domain_info.get('nillable'), domain_info.get('id'), None, attributes)
 
 def process_role(rule_name, log_rec, taxonomy, options, cntlr, arelle_model):
     '''
@@ -2983,6 +3042,7 @@ _XODEL_COMPONENT_ORDER = collections.OrderedDict({
     'document-entry-point': (process_document_entry_point, no_sort),
     'import2': (process_import2, no_sort),
     'type': (process_type, type_sort),
+    'typed-domain': (process_typed_domain, no_sort),
     'concept': (process_concept, no_sort),
     'part': (process_part_element, no_sort), 
     'role': (process_role, role_uri_sort),
