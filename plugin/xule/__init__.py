@@ -915,7 +915,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 for k, v in file_info.items():
                                     if k != 'file' and k.strip().lower().startswith('xule'): # Only change xule options
                                         setattr(new_options, k.strip().lower(), v)
-                                if getattr(new_options, 'xule_run') or getattr(new_options, 'xule_output_constants') is not None:
+                                if getattr(new_options, 'xule_run', None) or getattr(new_options, 'xule_output_constants', None) is not None:
                                     xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
                                 elif getattr(new_options, 'validate'):
                                     for xule_validator in _xule_validators:

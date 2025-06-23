@@ -34,6 +34,7 @@ from arelle.ModelDtsObject import ModelResource
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
 from aniso8601 import parse_duration
+import arelle.XbrlConst as XbrlConst
 from lxml import etree
 import collections
 import csv
@@ -873,6 +874,33 @@ def property_members(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, frozenset(members), 'set')
 
+def property_typed_domains(xule_context, object_value, *args):
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        # For each cube get the dimensions
+        typed_doms = set() # this is in case there are not typed domains
+        typed_doms_shadow = set()
+        for cube in cubes:
+            for typed_dims in cube.dimensions:
+                if typed_dims.dimension_concept.isTypedDimension:
+                    typed_doms_shadow.add(typed_dims.dimension_concept.typedDomainElement)
+
+        typed_doms = [xv.XuleValue(xule_context, x, 'typed-domain') for x in typed_doms_shadow]
+        
+        return xv.XuleValue(xule_context, frozenset(typed_doms), 'set', shadow_collection=frozenset(typed_doms_shadow))
+
+def property_typed_domain(xule_context, object_value, *args):
+    if object_value.type == 'concept':
+        dimension_concept = object_value.value
+    else: # this is a dimension type xule value
+        dimension_concept = object_value.value.dimension_concept
+
+    if dimension_concept.isTypedDimension:
+        return xv.XuleValue(xule_context, dimension_concept.typedDomainElement, 'typed-domain')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
+
 def property_aspects(xule_context, object_value, *args):
     if not object_value.is_fact:
         return object_value
@@ -979,6 +1007,17 @@ def property_base_type(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.fact.modelXbrl.qnameTypes[object_value.fact.concept.baseXbrliTypeQname], 'type')
     elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.modelXbrl.qnameTypes[object_value.value.baseXbrliTypeQname], 'type')
+    elif object_value.type == 'type':
+        if object_value.value.qname.namespaceURI == XbrlConst.xbrli and object_value.value.qname.localName in _BASE_XBRL_TYPE_LOCAL_NAMES:
+            return object_value
+        else:
+            ancestry = get_type_ancestry(object_value.value)
+            for x in ancestry:
+                if x.qname.namespaceURI == XbrlConst.xbrli and x.qname.localName in _BASE_XBRL_TYPE_LOCAL_NAMES:
+                    return xv.XuleValue(xule_context, x, 'type')
+            # Did not find a base type
+            return xv.XuleValue(xule_context, None, 'none')
+
     else: #none value
         return object_value
  
@@ -987,11 +1026,24 @@ def property_data_type(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.fact.concept.type, 'type')
     elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.type, 'type')
-    elif object_value.type == 'part-element':
+    elif object_value.type in ('part-element', 'typed-domain'):
         type_value = object_value.value.type
         if type_value is None:
             type_value = object_value.value.typeQname
         return xv.XuleValue(xule_context, type_value, 'type')
+    elif object_value.type == 'dimension':
+        if object_value.value.dimension_concept.isExplicitDimension:
+            return xv.XuleValue(xule_context, None, 'none')
+        else: # typed dimension
+            typed_domain_element = object_value.value.dimension_concept.typedDomainElement
+            if typed_domain_element is None:
+                return xv.XuleValue(xule_context, None, 'none')
+            else:
+                type_value = typed_domain_element.type
+                if type_value is None:
+                    type_value = typed_domain_element.typeQname
+                return xv.XuleValue(xule_context, type_value, 'type')
+
     else: #none value
         return object_value
 
@@ -1273,7 +1325,7 @@ def property_lang(xule_context, object_value, *args):
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
-    elif object_value.type in ('concept', 'reference-part'):
+    elif object_value.type in ('concept', 'reference-part', 'part-element', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
     elif object_value.type == 'type':
         if isinstance(object_value.value, QName):
@@ -1287,7 +1339,7 @@ def property_local_name(xule_context, object_value, *args):
 
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
-    elif object_value.type in ('concept', 'part-element', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname.localName, 'string')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.localName, 'string')
@@ -1299,7 +1351,7 @@ def property_local_name(xule_context, object_value, *args):
 def property_namespace_uri(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
-    elif object_value.type in ('concept', 'part-element', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
@@ -1311,7 +1363,7 @@ def property_namespace_uri(xule_context, object_value, *args):
 def property_clark(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname.clarkNotation, 'string')
-    elif object_value.type in ('concept', 'part-element', 'reference-part'):
+    elif object_value.type in ('concept', 'part-element', 'reference-part', 'typed-domain'):
         return xv.XuleValue(xule_context, object_value.value.qname.clarkNotation, 'string')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string')
@@ -2029,6 +2081,7 @@ def property_entry_point_namespace(xule_context, object_value, *args):
 def get_concept(dts, concept_qname):
     if dts is None:
         return None
+        
     concept = dts.qnameConcepts.get(concept_qname)
     if concept is None:
         return None
@@ -2937,6 +2990,109 @@ def property_arcroles(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'role') for x in result_set)), 'set')
 
+def property_data_types(xule_context, object_value, *args):
+    result_set = set()
+    for data_type in object_value.value.qnameTypes.values():
+        if is_derived_xbrl_item_type(data_type):
+            result_set.add(data_type)
+
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'type') for x in result_set)), 'set')
+
+def is_derived_xbrl_item_type(model_type):
+    if model_type.qname.namespaceURI == XbrlConst.xbrli and model_type.qname.localName in _BASE_XBRL_TYPE_LOCAL_NAMES:
+        return False
+    else:
+        ancestry = get_type_ancestry(model_type)
+        if len(ancestry) == 0:
+            # There are no xbrl item types in the ancestry
+            return False
+        else:
+            return True
+
+def get_type_ancestry(model_type):
+    ancestry = get_type_ancestry_detail(model_type)
+    for x in ancestry:
+        if x.qname.namespaceURI == XbrlConst.xbrli and x.qname.localName in _BASE_XBRL_TYPE_LOCAL_NAMES:
+            return ancestry
+    # If we get here, we have not found a base type. 
+    return []
+
+def get_type_ancestry_detail(model_type):
+    """
+    Recursively retrieves the ancestry of typeDerivedFrom for a given modelType.
+
+    :param model_type: The modelType object to retrieve ancestry for.
+    :return: A list of typeDerivedFrom values representing the ancestry.
+    """
+    if model_type is None or not hasattr(model_type, 'typeDerivedFrom'):
+        return []
+
+    # Get the current qnameDerivedFrom
+    derived_from = model_type.typeDerivedFrom
+
+    if derived_from is None:
+        return []
+    
+    # derived_from can be a single item or a list of items.
+    if not isinstance(derived_from, list):
+        derived_from = [derived_from]
+
+    # Check if it is an original xbrl item type. If so this is the end
+    ancestry = []
+    for x in derived_from:
+        if x is not None:
+            if x.qname.namespaceURI == XbrlConst.xbrli and x.qname.localName in _BASE_XBRL_TYPE_LOCAL_NAMES:
+                ancestry += get_type_ancestry_detail(x) + [x]
+
+    return ancestry
+
+_BASE_XBRL_TYPE_LOCAL_NAMES = (
+    "decimalItemType",
+    "floatItemType",
+    "doubleItemType",
+    "integerItemType",
+    "nonPositiveIntegerItemType",
+    "negativeIntegerItemType",
+    "longItemType",
+    "intItemType",
+    "shortItemType",
+    "byteItemType",
+    "nonNegativeIntegerItemType",
+    "unsignedLongItemType",
+    "unsignedIntItemType",
+    "unsignedShortItemType",
+    "unsignedByteItemType",
+    "positiveIntegerItemType",
+    "monetaryItemType",
+    "sharesItemType",
+    "pureItemType",
+    "fractionItemType",
+    "stringItemType",
+    "booleanItemType",
+    "hexBinaryItemType",
+    "base64BinaryItemType",
+    "anyURIItemType",
+    "QNameItemType",
+    "durationItemType",
+    "dateTimeItemType",
+    "timeItemType",
+    "dateItemType",
+    "gYearMonthItemType",
+    "gYearItemType",
+    "gMonthDayItemType",
+    "gDayItemType",
+    "gMonthItemType",
+    "normalizedStringItemType",
+    "tokenItemType",
+    "languageItemType",
+    "NameItemType",
+    "NCNameItemType"
+)
+
+
+
+
+
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
@@ -2989,8 +3145,11 @@ PROPERTIES = {
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
+              'typed-domains': (property_typed_domains, 0, ('taxonomy',), True),
+              'typed-domain': (property_typed_domain, 0, ('dimension', 'concept',), True),
               'roles': (property_roles, 0, ('taxonomy',), False),
               'arcroles': (property_arcroles, 0, ('taxonomy',), False),
+              'data-types': (property_data_types, 0, ('taxonomy', ), False),
               'dimension-type': (property_dimension_type, 0, ('dimension',), True),   
               'members': (property_members, 0, ('dimension',), False),                       
               'aspects': (property_aspects, 0, ('fact',), True),
@@ -3001,8 +3160,8 @@ PROPERTIES = {
               'denominator': (property_denominator, 0, ('unit',), False),
               'attribute': (property_attribute, 1, ('concept', 'part-element','relationship', 'role'), False),
               'balance': (property_balance, 0, ('concept',), False),              
-              'base-type': (property_base_type, 0, ('concept', 'fact'), True),
-              'data-type': (property_data_type, 0, ('concept', 'part-element', 'fact'), True), 
+              'base-type': (property_base_type, 0, ('concept', 'fact', 'type'), True),
+              'data-type': (property_data_type, 0, ('concept', 'part-element', 'fact', 'dimension', 'typed-domain'), True), 
               'substitution': (property_substitution, 0, ('concept', 'part-element', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'part-element', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type','part-element', 'concept', 'fact'), True),
@@ -3036,10 +3195,10 @@ PROPERTIES = {
               'footnotes': (property_footnotes, 0, ('fact',), False),   
               'content': (property_content, 0, ('footnote',), False),   
               'fact': (property_fact, 0, ('footnote',), False),     
-              'name': (property_name, 0, ('fact', 'concept', 'part-element', 'reference-part', 'type'), True),
-              'local-name': (property_local_name, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'type'), True),
-              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'type'), True),
-              'clark': (property_clark, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part'), True),             
+              'name': (property_name, 0, ('fact', 'concept', 'part-element', 'typed-domain', 'reference-part', 'type'), True),
+              'local-name': (property_local_name, 0, ('qname', 'concept', 'part-element', 'typed-domain', 'fact', 'reference-part', 'type'), True),
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'typed-domain', 'type'), True),
+              'clark': (property_clark, 0, ('qname', 'concept', 'part-element', 'fact', 'reference-part', 'typed-domain'), True),             
               'period-type': (property_period_type, 0, ('concept',), False),
               'parts': (property_parts, 0, ('reference',), False),
               'part-value': (property_part_value, 0, ('reference-part',), False),
