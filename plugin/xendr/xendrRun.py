@@ -58,10 +58,10 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
         if False in show_template_results and not True in show_template_results:
             return 
 
-    xule_node_locations = {node_number: xule_node for node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=XULE_NAMESPACE_MAP))}
+    xule_node_locations = {node_number: xule_node for node_number, xule_node in enumerate(template.xpath('.//xule:*', namespaces=XULE_NAMESPACE_MAP))}
     
     # add the node locations to the nodes as attributes. This makes finding the node easier
-    for node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=XULE_NAMESPACE_MAP)):
+    for node_number, xule_node in enumerate(template.xpath('.//xule:*', namespaces=XULE_NAMESPACE_MAP)):
         xule_node.set('{{{}}}xule-pos'.format(XULE_NAMESPACE_MAP['xule']), str(node_number))
 
     line_number_subs = rule_meta_data['line-numbers']
@@ -71,7 +71,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     unit_ids = set()
 
     repeat_attribute_name = '{{{}}}{}'.format(XULE_NAMESPACE_MAP['xule'], 'repeat')
-    repeating_nodes = {x.get(repeat_attribute_name): x for x in template.findall('//*[@xule:repeat]', XULE_NAMESPACE_MAP)}
+    repeating_nodes = {x.get(repeat_attribute_name): x for x in template.findall('.//*[@xule:repeat]', XULE_NAMESPACE_MAP)}
 
     # Separtate the substitutions that repeat from the non repeating. This will allow the non repeating substitutions to be
     # done first, so if a repeating node has a non repeating substitution, it will happend before the repeating node
@@ -117,14 +117,14 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
                           template_number, used_ids, processed_facts, processed_footnotes)
         
     # Remove any left over xule:replace nodes
-    for xule_node in template.findall('//xule:replace', XULE_NAMESPACE_MAP):
+    for xule_node in template.findall('.//xule:replace', XULE_NAMESPACE_MAP):
         parent = xule_node.getparent()
         span = etree.Element('div')
         span.set('class', 'sub-value sub-no-replacement')
         parent.replace(xule_node, span)
 
     # Remove any left over xule template nodes
-    for xule_node in template.findall('//xule:*', XULE_NAMESPACE_MAP):
+    for xule_node in template.findall('.//xule:*', XULE_NAMESPACE_MAP):
         parent = xule_node.getparent()
         if xule_node.tag in ('{{{}}}footnoteFacts'.format(XULE_NAMESPACE_MAP['xule']), '{{{}}}footnotes'.format(XULE_NAMESPACE_MAP['xule'])):
             # move the children to after the current xule:footnoteFacts or xule:footnotes element
@@ -133,7 +133,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
         parent.remove(xule_node)
     
     # Remove any left over xule attributes
-    for xule_node in template.xpath('//*[@xule:*]', namespaces=XULE_NAMESPACE_MAP):
+    for xule_node in template.xpath('.//*[@xule:*]', namespaces=XULE_NAMESPACE_MAP):
         for att_name in xule_node.keys():
             if att_name.startswith('{{{}}}'.format(XULE_NAMESPACE_MAP['xule'])):
                 del xule_node.attrib[att_name]
@@ -171,7 +171,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
     repeating_model_node = None
     if 'name' in sub_info:
         repeat_attribute_name = '{{{}}}{}'.format(XULE_NAMESPACE_MAP['xule'], 'repeat')
-        repeating_nodes = {x.get(repeat_attribute_name): x for x in template.findall('//*[@xule:repeat]', XULE_NAMESPACE_MAP)}
+        repeating_nodes = {x.get(repeat_attribute_name): x for x in template.findall('.//*[@xule:repeat]', XULE_NAMESPACE_MAP)}
         if  sub_info['name'] in repeating_nodes:
             # This is a repeating rule
             repeating_model_node = repeating_nodes[sub_info['name']]
