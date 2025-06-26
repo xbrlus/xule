@@ -100,8 +100,6 @@ def property_xendr_model_object(xule_context, object_value, *args):
         from .xule import XuleValue as xv
     except (ModuleNotFoundError, ImportError):
         from xule import XuleValue as xv
-    if object_value.type == 'none':
-        return xv.XuleValue(xule_context, None, 'none')
     
     if object_value.is_fact:
         #raise XendrException(f"Cannot save {object_value.type} as an internal object")
@@ -109,4 +107,7 @@ def property_xendr_model_object(xule_context, object_value, *args):
         save_arelle_model(object_value.fact.modelXbrl)
         return xv.XuleValue(xule_context, json.dumps((id(object_value.fact.modelXbrl), object_value.fact.objectId())), 'string')
     else:
-        return object_value
+        if object_value.type == 'none':
+            return xv.XuleValue(xule_context, None, 'none')
+        else:
+            return object_value
