@@ -24,6 +24,7 @@ $Change: 22782 $
 DOCSKIP
 """
 import optparse
+import os
 from arelle import PluginManager
 
 """ Xule validator specific variables."""
@@ -165,11 +166,21 @@ def getXulePlugin(cntlr):
     global _xule_plugin_info
     if _xule_plugin_info is None:
         for plugin_name, plugin_info in PluginManager.modulePluginInfos.items():
-            if plugin_info.get('moduleURL') == 'xule':
+            if plugin_info.get('moduleURL', '').endswith('xule'):
                 _xule_plugin_info = plugin_info
                 break
         else:
-            cntlr.addToLog(_("Xule plugin is not loaded. Xule plugin is required to run DQC rules. This plugin should be automatically loaded."))
+            # attempt to find xule plugin
+            # when the xule repo has been cloned under the plugin directory
+            for path, childDirs, files in os.walk(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))):
+                if path.endswith(os.sep + "xule") and childDirs in ([], ["__pycache__"]) and "__init__.py" in files:
+                    _xule_plugin_info = PluginManager.moduleModuleInfo(moduleURL=path)
+                    PluginManager.loadModule(_xule_plugin_info)
+                    PluginManager.pluginConfigChanged = False # don't save this change
+                    _xule_plugin_info = PluginManager.modulePluginInfos[_xule_plugin_info["name"]]
+                    break
+            else:
+                cntlr.addToLog(_("Xule plugin is not loaded. Xule plugin is required to run DQC rules. This plugin should be automatically loaded."))
     
     return _xule_plugin_info
 
