@@ -9,3 +9,4 @@ plugin/xule2
 xuleDateFunctions
 JapanEDINET*.py
 saveXuleQNames.py
+**/__pycache__
