@@ -90,6 +90,9 @@ def xuleMenuTools(cntlr, menu):
     global _cntlr
     _cntlr = cntlr
     
+    if cntlr.config.get('xule_managed_externally', False):
+        return None
+        
     attr_name = 'xule_is_on'
     setattr(cntlr.modelManager, attr_name, cntlr.config.setdefault(attr_name,False))
 
