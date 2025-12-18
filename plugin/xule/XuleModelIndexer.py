@@ -27,6 +27,7 @@ from arelle.XmlValidate import VALID
 from .XuleValue import model_to_xule_entity, model_to_xule_period, model_to_xule_unit, XuleDimensionCube
 import collections
 import datetime
+import decimal
 import itertools as it   
 from .XuleRunTime import XuleProcessingError
 
@@ -258,8 +259,26 @@ def get_decimalized_value(fact_a, fact_b, xule_context):
 
     min_decimals = min(fact_a_decimals, fact_b_decimals)
 
-    fact_a_value = fact_a.xValue if fact_a_decimals == float('inf') else round(fact_a.xValue, min_decimals)
-    fact_b_value = fact_b.xValue if fact_b_decimals == float('inf') else round(fact_b.xValue, min_decimals)
+    def _safe_round_fact_value(fact, min_decimals):
+        if min_decimals == float('inf'):
+            return fact.xValue
+        if isinstance(fact.xValue, decimal.Decimal):
+            # Rounding a Decimal can cause an InvalidOperation error if the
+            # number of digits in the result exceeds the current precision.
+            # Calculate precision: integer digits + decimal digits + buffer.
+            max_val = abs(fact.xValue)
+            integer_digits = 1 if max_val == 0 else max_val.adjusted() + 1
+            buffer = 2
+            required_prec = integer_digits + max(0, min_decimals) + buffer
+
+            if required_prec > decimal.getcontext().prec:
+                with decimal.localcontext() as ctx:
+                    ctx.prec = required_prec
+                    return round(fact.xValue, min_decimals)
+        return round(fact.xValue, min_decimals)
+
+    fact_a_value = _safe_round_fact_value(fact_a, min_decimals)
+    fact_b_value = _safe_round_fact_value(fact_b, min_decimals)
 
     return fact_a_value, fact_a_decimals, fact_b_value, fact_b_decimals
 
