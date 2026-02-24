@@ -1,204 +1,454 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Taxonomy Errors Scanner</title>
+<title>Invalid Conformance Tests — Taxonomy Errors Scanner</title>
 <style>
-body { font-family: monospace; max-width: 900px; margin: 2em auto; padding: 1em; }
-#status { background: #eee; padding: 1em; margin-bottom: 1em; border-radius: 4px; }
-#output { white-space: pre-wrap; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; border-radius: 4px; }
-button { padding: 0.5em 1em; font-size: 1em; cursor: pointer; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1100px; margin: 2em auto; padding: 0 1em; color: #1a1a1a; }
+  h1 { font-size: 1.4em; border-bottom: 2px solid #0366d6; padding-bottom: .4em; }
+  h2 { font-size: 1.1em; margin-top: 2em; }
+  .controls { display: flex; gap: 1em; align-items: center; margin-bottom: 1em; }
+  button { padding: .5em 1.2em; font-size: 1em; cursor: pointer; background: #0366d6; color: #fff; border: none; border-radius: 4px; }
+  button:hover { background: #0250a3; }
+  button:disabled { background: #999; cursor: not-allowed; }
+  #status { background: #f1f3f5; padding: .8em 1em; border-radius: 4px; margin-bottom: 1em; font-family: monospace; font-size: .9em; }
+  #progress-bar { width: 100%; height: 6px; background: #e0e0e0; border-radius: 3px; margin-top: .5em; }
+  #progress-fill { height: 100%; background: #0366d6; border-radius: 3px; transition: width 0.3s; width: 0%; }
+  textarea { width: 100%; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: .8em; border: 1px solid #ccc; border-radius: 4px; padding: .8em; background: #fafbfc; }
+  .copy-btn { font-size: .85em; padding: .3em .8em; background: #28a745; }
+  .copy-btn:hover { background: #218838; }
+  #viewer-frame { width: 100%; height: 400px; border: 1px solid #ddd; margin-top: 1em; display: none; }
+  .note { font-size: .85em; color: #586069; margin-bottom: 1em; }
+  #error-log { max-height: 200px; overflow-y: auto; font-size: .8em; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; padding: .5em; margin-top: 1em; display: none; }
 </style>
 </head>
 <body>
+
 <h1>Invalid Conformance Tests — Taxonomy Errors Scanner</h1>
-<p>This page fetches each Invalid Conformance Test JSON from the taxonomy viewer site, checks if the loaded taxonomy shows "Taxonomy Errors," and outputs a markdown table and list.</p>
-<p><strong>Instructions:</strong> Click the button below and wait. Results will appear as copyable markdown.</p>
-<button onclick="run()">Start Scanning</button>
-<div id="status">Ready.</div>
-<h2>Markdown Output (copy this):</h2>
-<textarea id="output" rows="40" cols="100"></textarea>
+
+<p class="note">
+  <strong>How it works:</strong> This page loads each Invalid Conformance Test JSON file in the 
+  taxonomy viewer (via the <code>?file=</code> URL parameter), waits for the model to load and 
+  validation to complete, then reads the "Taxonomy Errors" section from the rendered page. 
+  Results are formatted as a Markdown table.<br><br>
+  <strong>Important:</strong> This page must be served from the same origin as the taxonomy viewer 
+  (<code>xbrlus.github.io/xule-dev/taxonomy-viewer/</code>) for cross-frame access to work. 
+  If running locally, both pages must be on the same <code>localhost</code> port.
+</p>
+
+<div class="controls">
+  <button id="startBtn" onclick="startScan()">Start Scanning</button>
+  <button id="stopBtn" onclick="stopScan()" disabled>Stop</button>
+  <label><input type="number" id="delayMs" value="4000" min="1000" max="30000" style="width:5em"> ms delay per item</label>
+  <label><input type="checkbox" id="showFrame" onchange="toggleFrame()"> Show viewer</label>
+</div>
+
+<div id="status">Ready. Click "Start Scanning" to begin.</div>
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<h2>Markdown Output <button class="copy-btn" onclick="copyOutput()">Copy to Clipboard</button></h2>
+<textarea id="output" rows="30" readonly></textarea>
+
+<div id="error-log"></div>
+
+<iframe id="viewer-frame" sandbox="allow-scripts allow-same-origin"></iframe>
 
 <script>
-const BASE = "https://xbrlus.github.io/xule-dev/taxonomy-viewer/";
-
-const TESTS = [
-  "CALCULATION-InvalidSummationItemValue","CALCULATION-InvalidSummationItemWeight","CALCULATION-InvalidSummationMultiEntityValue",
-  "MODELTYPE-InvalidInstance","MODELTYPE-RequiredProperty",
-  "CONCEPT-ConceptWithDuplicateProperties","CONCEPT-DuplicateConceptNames","CONCEPT-InvalidDataType",
-  "CONCEPT-PropertiesReferenceDisallowedObjectType","CONCEPT-PropertiesReferenceNonexistentPropertyType","CONCEPT-NamespaceMismatch",
-  "CUBE-AllowDomainFactOnConceptDim","CUBE-ConceptDimensionNotDefined","CUBE-DimensionCubeTypeDoesNotMatchCubeType",
-  "CUBE-DomainNameOnTypedDimension","CUBE-DomainOnPeriodDimension","CUBE-DomainDataTypeOnPeriodDimension",
-  "CUBE-DuplicateDimension","CUBE-ExcludeCubeDoesNotExist","CUBE-ExcludeCubeIsSameCube",
-  "CUBE-ExcludeSharesDimensionalSpaceWithRequired","CUBE-InappropriateCubeTypeReference","CUBE-InappropriateDimensionReference",
-  "CUBE-InappropriateDomainReference","CUBE-InappropriateExcludeCubeReference","CUBE-InappropriateNetworkReference",
-  "CUBE-InvalidCubeProperty","CUBE-InvalidCubeType","CUBE-InvalidIntervalConventionOnNonTimeSeries",
-  "CUBE-MissingConceptDimension","CUBE-NetworkReferencesDomain","CUBE-DimensionNotDimensionObject",
-  "CUBE-FactMissingFromCompleteCube","CUBE-PeriodConstraintConceptNotConcept","CUBE-PeriodConstraintContextNotConcept",
-  "CUBE-PeriodConstraintOnNonPeriodDimension","CUBE-PeriodConstraintRedundantTimeSpan","CUBE-RequiredCubeFactMissing",
-  "CUBETYPE-AllowedCubeDimensionExplicitString","CUBETYPE-BaseCubeTypeDoesNotExist","CUBETYPE-BaseCubeTypeIsDimension",
-  "CUBETYPE-EmptyAllowedCubeDimensions","CUBETYPE-coreDimensionsExpansion","CUBETYPE-duplicateCoreDimension",
-  "CUBETYPE-duplicateDimension","CUBETYPE-invalidCoreDimension","CUBETYPE-invalidDataTypeExpansion",
-  "CUBETYPE-invalidDimensionAddition","CUBETYPE-invalidDimensionClosedExpansion","CUBETYPE-invalidDimensionDataTypeProperty",
-  "CUBETYPE-invalidDimensionReference","CUBETYPE-invalidDimensionRequirementRelaxation","CUBETYPE-invalidPropertyExpansion",
-  "CUBETYPE-invalidPropertyTypeReference","CUBETYPE-invalidRelationshipConstraintRelaxation","CUBETYPE-invalidRelationshipExpansion",
-  "CUBETYPE-invalidRelationshipTypeReference","CUBETYPE-invalidSourceObjectType","CUBETYPE-invalidSourceQName",
-  "CUBETYPE-invalidTargetObjectType","CUBETYPE-invalidTargetQName","CUBETYPE-missingRequiredCubeProperty",
-  "CUBETYPE-missingRequiredDimensionProperty","CUBETYPE-missingRequiredRelationship",
-  "DATATYPE-InvalidBaseCollectionType","DATATYPE-unallowedDatatypeObject",
-  "DIMENSION-InvalidCubeTypeReference","DIMENSION-InvalidDomainDataTypeReference",
-  "DOMAIN-AbstractInTaxonomyDefinedDimensionDomain","DOMAIN-DomainObjectWithDuplicateRelationships",
-  "DOMAIN-DomainClassNotSourceInRelationship","DOMAIN-InvalidRootReference",
-  "DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget","DOMAIN-ExtendClosedDomain",
-  "DOMAIN-DomainTargetNonAllowedObjectType","DOMAIN-InvalidEntityDomainSource","DOMAIN-InvalidEntityDomainSource2",
-  "DOMAIN-InvalidEntityDomainTarget","DOMAIN-InvalidUnitDomainSource",
-  "DOMAIN-StringInDateTaxonomyDefinedDimensionDomain","DOMAIN-MemberInConceptDimensionDomain",
-  "DOMAIN-MultipleDomainClasses","DOMAIN-UnitDomainWIthNonUnit","DOMAIN-UnitObjectInInvalidDomain",
-  "DOMAINCLASS-DomainClassReferencesConceptObject","DOMAINCLASS-ConceptDomainWithEntityChild",
-  "DOMAINCLASS-DimensionDoesNotMatchDomainClass","DOMAINCLASS-EntityDomainWithNonEntityMember",
-  "DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship","DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot",
-  "DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot","DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot",
-  "FACT-RequiredDisclosure","FACT-ValueDataTypeMismatch",
-  "FINAL-DefinesFinalTaxonomyFlag","FINAL-ExtendsFinalTaxonomy","FINAL-ExtendsFinalTaxonomyWithFact",
-  "FINAL-ExtendsFinalTaxonomyNetwork","FINAL-ExtendsFinalTaxonomyObjectWithConcept",
-  "IMPORTTAXONOMY-InvalidObjectType","IMPORTTAXONOMY-InvalidSelectionObjectType",
-  "IMPORTTAXONOMY-InvalidTextSelectionObjectType","IMPORTTAXONOMY-InvalidObjectSelectionObjectType",
-  "IMPORTTAXONOMY-NotInNamespace","IMPORTTAXONOMY-PassThroughPrefixError",
-  "IMPORTTAXONOMY-TaxonomyNotFound","IMPORTTAXONOMY-TaxonomyNotFoundNoFile",
-  "IMPORTTAXONOMY-TaxonomyNotFoundNoQname","IMPORTTAXONOMY-UnknownObject",
-  "LABEL-DuplicateLabels","LABEL-InvalidLabelTypeReference","LABEL-InvalidLanguageCode","LABEL-InvalidRelatedNameReference",
-  "LABELTYPE-InvalidLabelTypeDataTypeReference","LABELTYPE-InvalidLabelTypeEmptyAllowedObjects",
-  "Layout-ValidGroup","Layout-ComplexGrid","Layout-ComplexGridReverse",
+// ─── All Invalid Conformance Test items from the dropdown ───
+const INVALID_TESTS = [
+  "CALCULATION-InvalidSummationItemValue",
+  "CALCULATION-InvalidSummationItemWeight",
+  "CALCULATION-InvalidSummationMultiEntityValue",
+  "MODELTYPE-InvalidInstance",
+  "MODELTYPE-RequiredProperty",
+  "CONCEPT-ConceptWithDuplicateProperties",
+  "CONCEPT-DuplicateConceptNames",
+  "CONCEPT-InvalidDataType",
+  "CONCEPT-PropertiesReferenceDisallowedObjectType",
+  "CONCEPT-PropertiesReferenceNonexistentPropertyType",
+  "CONCEPT-NamespaceMismatch",
+  "CUBE-AllowDomainFactOnConceptDim",
+  "CUBE-ConceptDimensionNotDefined",
+  "CUBE-DimensionCubeTypeDoesNotMatchCubeType",
+  "CUBE-DomainNameOnTypedDimension",
+  "CUBE-DomainOnPeriodDimension",
+  "CUBE-DomainDataTypeOnPeriodDimension",
+  "CUBE-DuplicateDimension",
+  "CUBE-ExcludeCubeDoesNotExist",
+  "CUBE-ExcludeCubeIsSameCube",
+  "CUBE-ExcludeSharesDimensionalSpaceWithRequired",
+  "CUBE-InappropriateCubeTypeReference",
+  "CUBE-InappropriateDimensionReference",
+  "CUBE-InappropriateDomainReference",
+  "CUBE-InappropriateExcludeCubeReference",
+  "CUBE-InappropriateNetworkReference",
+  "CUBE-InvalidCubeProperty",
+  "CUBE-InvalidCubeType",
+  "CUBE-InvalidIntervalConventionOnNonTimeSeries",
+  "CUBE-MissingConceptDimension",
+  "CUBE-NetworkReferencesDomain",
+  "CUBE-DimensionNotDimensionObject",
+  "CUBE-FactMissingFromCompleteCube",
+  "CUBE-PeriodConstraintConceptNotConcept",
+  "CUBE-PeriodConstraintContextNotConcept",
+  "CUBE-PeriodConstraintOnNonPeriodDimension",
+  "CUBE-PeriodConstraintRedundantTimeSpan",
+  "CUBE-RequiredCubeFactMissing",
+  "CUBETYPE-AllowedCubeDimensionExplicitString",
+  "CUBETYPE-BaseCubeTypeDoesNotExist",
+  "CUBETYPE-BaseCubeTypeIsDimension",
+  "CUBETYPE-EmptyAllowedCubeDimensions",
+  "CUBETYPE-coreDimensionsExpansion",
+  "CUBETYPE-duplicateCoreDimension",
+  "CUBETYPE-duplicateDimension",
+  "CUBETYPE-invalidCoreDimension",
+  "CUBETYPE-invalidDataTypeExpansion",
+  "CUBETYPE-invalidDimensionAddition",
+  "CUBETYPE-invalidDimensionClosedExpansion",
+  "CUBETYPE-invalidDimensionDataTypeProperty",
+  "CUBETYPE-invalidDimensionReference",
+  "CUBETYPE-invalidDimensionRequirementRelaxation",
+  "CUBETYPE-invalidPropertyExpansion",
+  "CUBETYPE-invalidPropertyTypeReference",
+  "CUBETYPE-invalidRelationshipConstraintRelaxation",
+  "CUBETYPE-invalidRelationshipExpansion",
+  "CUBETYPE-invalidRelationshipTypeReference",
+  "CUBETYPE-invalidSourceObjectType",
+  "CUBETYPE-invalidSourceQName",
+  "CUBETYPE-invalidTargetObjectType",
+  "CUBETYPE-invalidTargetQName",
+  "CUBETYPE-missingRequiredCubeProperty",
+  "CUBETYPE-missingRequiredDimensionProperty",
+  "CUBETYPE-missingRequiredRelationship",
+  "DATATYPE-InvalidBaseCollectionType",
+  "DATATYPE-unallowedDatatypeObject",
+  "DIMENSION-InvalidCubeTypeReference",
+  "DIMENSION-InvalidDomainDataTypeReference",
+  "DOMAIN-AbstractInTaxonomyDefinedDimensionDomain",
+  "DOMAIN-DomainObjectWithDuplicateRelationships",
+  "DOMAIN-DomainClassNotSourceInRelationship",
+  "DOMAIN-InvalidRootReference",
+  "DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget",
+  "DOMAIN-ExtendClosedDomain",
+  "DOMAIN-DomainTargetNonAllowedObjectType",
+  "DOMAIN-InvalidEntityDomainSource",
+  "DOMAIN-InvalidEntityDomainSource2",
+  "DOMAIN-InvalidEntityDomainTarget",
+  "DOMAIN-InvalidUnitDomainSource",
+  "DOMAIN-StringInDateTaxonomyDefinedDimensionDomain",
+  "DOMAIN-MemberInConceptDimensionDomain",
+  "DOMAIN-MultipleDomainClasses",
+  "DOMAIN-UnitDomainWIthNonUnit",
+  "DOMAIN-UnitObjectInInvalidDomain",
+  "DOMAINCLASS-DomainClassReferencesConceptObject",
+  "DOMAINCLASS-ConceptDomainWithEntityChild",
+  "DOMAINCLASS-DimensionDoesNotMatchDomainClass",
+  "DOMAINCLASS-EntityDomainWithNonEntityMember",
+  "DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship",
+  "DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot",
+  "DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot",
+  "DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot",
+  "FACT-RequiredDisclosure",
+  "FACT-ValueDataTypeMismatch",
+  "FINAL-DefinesFinalTaxonomyFlag",
+  "FINAL-ExtendsFinalTaxonomy",
+  "FINAL-ExtendsFinalTaxonomyWithFact",
+  "FINAL-ExtendsFinalTaxonomyNetwork",
+  "FINAL-ExtendsFinalTaxonomyObjectWithConcept",
+  "IMPORTTAXONOMY-InvalidObjectType",
+  "IMPORTTAXONOMY-InvalidSelectionObjectType",
+  "IMPORTTAXONOMY-InvalidTextSelectionObjectType",
+  "IMPORTTAXONOMY-InvalidObjectSelectionObjectType",
+  "IMPORTTAXONOMY-NotInNamespace",
+  "IMPORTTAXONOMY-PassThroughPrefixError",
+  "IMPORTTAXONOMY-TaxonomyNotFound",
+  "IMPORTTAXONOMY-TaxonomyNotFoundNoFile",
+  "IMPORTTAXONOMY-TaxonomyNotFoundNoQname",
+  "IMPORTTAXONOMY-UnknownObject",
+  "LABEL-DuplicateLabels",
+  "LABEL-InvalidLabelTypeReference",
+  "LABEL-InvalidLanguageCode",
+  "LABEL-InvalidRelatedNameReference",
+  "LABELTYPE-InvalidLabelTypeDataTypeReference",
+  "LABELTYPE-InvalidLabelTypeEmptyAllowedObjects",
+  "Layout-ValidGroup",
+  "Layout-ComplexGrid",
+  "Layout-ComplexGridReverse",
   "MEMBER-MemberInConceptDomain",
-  "NAMESPACE-DocumentNamespaceDoesNotMatch","NAMESPACE-PrefixNotDefined","NAMESPACE-RestrictedPrefix",
-  "NETWORK-DuplicateNetworkNames","NETWORK-InvalidRelationshipTypeNameReference",
-  "NETWORK-NetworkObjectWithDuplicateRelationships","NETWORK-RelationshipsReferenceNonexistentSource",
-  "PROPERTY-InvalidAllowedObject","PROPERTY-UnknownPropertyType",
-  "PROPERTYTYPE-DuplicatePropertyTypeNames","PROPERTYTYPE-InvalidDataTypeReference",
-  "REFERENCE-DuplicateReferenceNames","REFERENCE-ExtendTargetNameAndLanguageBothPresent",
-  "REFERENCE-ExtendTargetNameAndReferenceTypeMismatch","REFERENCE-InvalidLanguageCode",
-  "REFERENCE-InvalidReferenceTypeReference","REFERENCE-InvalidRelatedNamesReference",
-  "REFERENCETYPE-InvalidOrderedProperty","REFERENCETYPE-InvalidRequiredProperty",
-  "RELATIONSHIP-RelationshipDisallowedProperty","RELATIONSHIP-RelationshipMissingRequiredProperty",
-  "UNIT-DuplicateUnitNames","UNIT-InvalidDataType","UNIT-UnitWithDuplicateStringRepresentations",
+  "NAMESPACE-DocumentNamespaceDoesNotMatch",
+  "NAMESPACE-PrefixNotDefined",
+  "NAMESPACE-RestrictedPrefix",
+  "NETWORK-DuplicateNetworkNames",
+  "NETWORK-InvalidRelationshipTypeNameReference",
+  "NETWORK-NetworkObjectWithDuplicateRelationships",
+  "NETWORK-RelationshipsReferenceNonexistentSource",
+  "PROPERTY-InvalidAllowedObject",
+  "PROPERTY-UnknownPropertyType",
+  "PROPERTYTYPE-DuplicatePropertyTypeNames",
+  "PROPERTYTYPE-InvalidDataTypeReference",
+  "REFERENCE-DuplicateReferenceNames",
+  "REFERENCE-ExtendTargetNameAndLanguageBothPresent",
+  "REFERENCE-ExtendTargetNameAndReferenceTypeMismatch",
+  "REFERENCE-InvalidLanguageCode",
+  "REFERENCE-InvalidReferenceTypeReference",
+  "REFERENCE-InvalidRelatedNamesReference",
+  "REFERENCETYPE-InvalidOrderedProperty",
+  "REFERENCETYPE-InvalidRequiredProperty",
+  "RELATIONSHIP-RelationshipDisallowedProperty",
+  "RELATIONSHIP-RelationshipMissingRequiredProperty",
+  "UNIT-DuplicateUnitNames",
+  "UNIT-InvalidDataType",
+  "UNIT-UnitWithDuplicateStringRepresentations",
   "UNIT-UnitWithDataTypeNotMatchingConceptDataType"
 ];
 
-// Multiple possible URL patterns to try
-const PATTERNS = [
-  n => `${BASE}conformance/${n}.json`,
-  n => `${BASE}taxonomies/conformanceTests/invalid/${n}.json`,
-  n => `${BASE}taxonomies/${n}.json`,
-  n => `${BASE}data/conformanceTests/invalid/${n}.json`,
-  n => `${BASE}data/${n}.json`,
-  n => `${BASE}conformanceTests/invalid/${n}.json`,
-  n => `${BASE}${n}.json`,
-];
+let running = false;
+let results = [];
 
-function findErrors(obj, path) {
-  let errs = [];
-  if (!obj || typeof obj !== 'object') return errs;
-  for (const k of Object.keys(obj)) {
-    const lk = k.toLowerCase();
-    if (lk === 'errors' || lk === 'taxonomyerrors' || lk === 'taxonomy-errors' || lk === 'taxonomy_errors') {
-      const v = obj[k];
-      if (v && ((Array.isArray(v) && v.length > 0) || (typeof v === 'string' && v.length > 0) || (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0))) {
-        errs.push({ key: k, value: v, path: (path ? path + '.' : '') + k });
-      }
-    }
-    if (typeof obj[k] === 'object' && obj[k] !== null) {
-      errs = errs.concat(findErrors(obj[k], (path ? path + '.' : '') + k));
-    }
-  }
-  return errs;
+function setStatus(msg) {
+  document.getElementById('status').textContent = msg;
 }
 
-function fmtErr(v) {
-  if (typeof v === 'string') return v;
-  if (Array.isArray(v)) return v.map(x => typeof x === 'string' ? x : JSON.stringify(x)).join('; ');
-  return JSON.stringify(v, null, 2);
+function setProgress(pct) {
+  document.getElementById('progress-fill').style.width = pct + '%';
 }
 
-async function run() {
-  const st = document.getElementById('status');
-  const out = document.getElementById('output');
-  out.value = '';
+function logError(msg) {
+  const el = document.getElementById('error-log');
+  el.style.display = 'block';
+  el.innerHTML += msg + '<br>';
+}
 
-  // 1. Discover URL pattern
-  st.textContent = 'Discovering URL pattern...';
-  let pattern = null;
-  for (const p of PATTERNS) {
-    const url = p(TESTS[0]);
-    try {
-      const r = await fetch(url);
-      if (r.ok) { pattern = p; st.textContent = 'Found pattern: ' + url.replace(TESTS[0]+'.json','*'); break; }
-    } catch(e) {}
-  }
-  if (!pattern) {
-    // Also try fetching the page HTML source to find JS/data refs
-    st.textContent = 'Pattern discovery failed. Fetching page source for clues...';
-    try {
-      const r = await fetch(BASE);
-      const html = await r.text();
-      const scripts = [...html.matchAll(/src="([^"]+)"/g)].map(m=>m[1]);
-      const datarefs = [...html.matchAll(/["']([^"']*\.json[^"']*)["']/g)].map(m=>m[1]);
-      out.value = 'COULD NOT FIND JSON FILES.\n\nScripts: ' + scripts.join('\n') + '\n\nJSON refs: ' + datarefs.join('\n') + '\n\nHTML (first 3000 chars):\n' + html.substring(0,3000);
-    } catch(e) { out.value = 'Error: ' + e.message; }
-    st.textContent = 'Failed. See output for debug info.';
-    return;
-  }
+function toggleFrame() {
+  document.getElementById('viewer-frame').style.display =
+    document.getElementById('showFrame').checked ? 'block' : 'none';
+}
 
-  // 2. Fetch all files
-  const withErrors = [];
-  const withoutErrors = [];
-  const fetchFails = [];
+function copyOutput() {
+  const ta = document.getElementById('output');
+  ta.select();
+  document.execCommand('copy');
+  alert('Copied to clipboard!');
+}
 
-  for (let i = 0; i < TESTS.length; i++) {
-    const name = TESTS[i];
-    st.textContent = `Checking ${name} (${i+1}/${TESTS.length})...`;
-    try {
-      const r = await fetch(pattern(name));
-      if (!r.ok) { fetchFails.push({name, err:'HTTP '+r.status}); continue; }
-      const data = await r.json();
-      const errs = findErrors(data, '');
-      if (errs.length > 0) {
-        withErrors.push({ name, errors: errs.map(e => fmtErr(e.value)).join(' | ') });
-      } else {
-        withoutErrors.push(name);
+function stopScan() {
+  running = false;
+  setStatus('Scan stopped by user.');
+  document.getElementById('startBtn').disabled = false;
+  document.getElementById('stopBtn').disabled = true;
+}
+
+// Attempt to extract taxonomy errors from the viewer's DOM inside the iframe
+function extractErrors(iframeDoc) {
+  const errorTexts = [];
+
+  // Strategy 1: Look for elements with "Taxonomy Errors" heading or class
+  // The viewer likely shows errors in a specific section/panel
+  const allElements = iframeDoc.querySelectorAll('*');
+  let inErrorSection = false;
+  let errorContent = '';
+
+  for (const el of allElements) {
+    const text = (el.textContent || '').trim();
+
+    // Check for "Taxonomy Errors" header/label
+    if (/taxonomy\s*errors?/i.test(text) && text.length < 100) {
+      inErrorSection = true;
+      continue;
+    }
+
+    // If we found the section, grab the content that follows
+    if (inErrorSection && el.children.length === 0 && text.length > 0 && text.length < 5000) {
+      if (!/taxonomy\s*errors?/i.test(text)) {
+        errorTexts.push(text);
       }
-    } catch(e) {
-      fetchFails.push({name, err:e.message});
+      // Reset after collecting first content block
+      if (errorTexts.length > 0) inErrorSection = false;
     }
   }
 
-  // 3. Build markdown
-  let md = '';
+  // Strategy 2: Look for specific error-related CSS classes or IDs
+  const errorSelectors = [
+    '#taxonomy-errors', '.taxonomy-errors', '#taxonomyErrors', '.taxonomyErrors',
+    '[data-errors]', '.error-list', '.errors-panel', '#errors',
+    '.error-message', '.validation-errors', '#error-output'
+  ];
+
+  for (const sel of errorSelectors) {
+    try {
+      const el = iframeDoc.querySelector(sel);
+      if (el && el.textContent.trim().length > 0) {
+        errorTexts.push(el.textContent.trim());
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  // Strategy 3: Look for any element whose text starts with common error patterns
+  if (errorTexts.length === 0) {
+    const candidates = iframeDoc.querySelectorAll('div, pre, code, span, li, p, td');
+    for (const el of candidates) {
+      const t = (el.textContent || '').trim();
+      if (t.length > 10 && t.length < 5000 &&
+          (/error/i.test(t) || /invalid/i.test(t) || /duplicate/i.test(t) ||
+           /missing/i.test(t) || /not\s+found/i.test(t) || /mismatch/i.test(t)) &&
+          el.children.length <= 2) {
+        // Skip navigation elements
+        if (!/Loading model|Model Viewer|Element Names|Labels/i.test(t)) {
+          errorTexts.push(t);
+        }
+      }
+    }
+  }
+
+  // Strategy 4: Check if there's a global JS variable with errors
+  try {
+    const iframeWin = document.getElementById('viewer-frame').contentWindow;
+    if (iframeWin.taxonomyErrors) {
+      errorTexts.push(JSON.stringify(iframeWin.taxonomyErrors));
+    }
+    if (iframeWin.model && iframeWin.model.errors) {
+      errorTexts.push(JSON.stringify(iframeWin.model.errors));
+    }
+  } catch (e) { /* cross-origin blocked */ }
+
+  return [...new Set(errorTexts)]; // deduplicate
+}
+
+function waitForViewerLoad(iframe, timeoutMs) {
+  return new Promise((resolve) => {
+    const start = Date.now();
+    const check = () => {
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        const body = doc.body;
+        if (!body) { setTimeout(check, 300); return; }
+
+        const text = body.textContent || '';
+
+        // Check if the model has loaded (the "Loading model..." text should be gone)
+        const isLoading = /loading\s+model/i.test(text) && !/taxonomy\s*error/i.test(text);
+
+        if (!isLoading || (Date.now() - start > timeoutMs)) {
+          resolve(doc);
+        } else {
+          setTimeout(check, 500);
+        }
+      } catch (e) {
+        // Cross-origin error - can't access iframe
+        if (Date.now() - start > timeoutMs) {
+          resolve(null);
+        } else {
+          setTimeout(check, 500);
+        }
+      }
+    };
+    // Give initial load a moment
+    setTimeout(check, 1500);
+  });
+}
+
+async function startScan() {
+  running = true;
+  results = [];
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('stopBtn').disabled = false;
+  document.getElementById('output').value = '';
+  document.getElementById('error-log').innerHTML = '';
+  document.getElementById('error-log').style.display = 'none';
+
+  const iframe = document.getElementById('viewer-frame');
+  const delay = parseInt(document.getElementById('delayMs').value) || 4000;
+  const baseUrl = 'index.html';
+
+  setStatus('Starting scan...');
+
+  for (let i = 0; i < INVALID_TESTS.length; i++) {
+    if (!running) break;
+
+    const name = INVALID_TESTS[i];
+    const jsonFile = `taxonomies/conformanceTests/invalid/${name}.json`;
+    const viewerUrl = `${baseUrl}?file=${encodeURIComponent(jsonFile)}`;
+
+    setStatus(`[${i+1}/${INVALID_TESTS.length}] Loading: ${name}`);
+    setProgress(Math.round(((i + 1) / INVALID_TESTS.length) * 100));
+
+    // Load the viewer with this test file
+    iframe.src = viewerUrl;
+
+    // Wait for it to load and validate
+    const doc = await waitForViewerLoad(iframe, delay);
+
+    if (!doc) {
+      logError(`⚠ ${name}: Could not access iframe (cross-origin?)`);
+      results.push({ name, errors: null, status: 'cross-origin-error' });
+      continue;
+    }
+
+    // Extract errors
+    const errors = extractErrors(doc);
+    const fullText = doc.body ? doc.body.textContent : '';
+    const hasTaxonomyErrors = /taxonomy\s*errors?/i.test(fullText);
+
+    if (errors.length > 0) {
+      results.push({ name, errors: errors.join(' | '), status: 'has_errors' });
+    } else if (hasTaxonomyErrors) {
+      // The heading exists but we couldn't extract specific error text
+      results.push({ name, errors: '(Taxonomy Errors detected — details not captured)', status: 'has_errors' });
+    } else {
+      results.push({ name, errors: null, status: 'no_errors' });
+    }
+
+    // Small pause between items
+    await new Promise(r => setTimeout(r, 300));
+  }
+
+  // Build markdown output
+  buildMarkdown();
+
+  running = false;
+  document.getElementById('startBtn').disabled = false;
+  document.getElementById('stopBtn').disabled = true;
+  setStatus(`Done! Scanned ${results.length}/${INVALID_TESTS.length} items.`);
+}
+
+function buildMarkdown() {
+  const withErrors = results.filter(r => r.status === 'has_errors');
+  const withoutErrors = results.filter(r => r.status === 'no_errors');
+  const failed = results.filter(r => r.status === 'cross-origin-error');
+
+  let md = '# Invalid Conformance Tests — Taxonomy Errors\n\n';
+
   if (withErrors.length > 0) {
+    md += '## Items with Taxonomy Errors\n\n';
     md += '| Label | Taxonomy Errors |\n';
     md += '|---|---|\n';
     for (const r of withErrors) {
-      md += `| ${r.name} | ${r.errors.replace(/\|/g,'\\|').replace(/\n/g,' ')} |\n`;
+      const safeErrors = (r.errors || '').replace(/\|/g, '\\|').replace(/\n/g, ' ').replace(/\r/g, '');
+      md += `| ${r.name} | ${safeErrors} |\n`;
     }
     md += '\n';
-  } else {
-    md += '_No items with Taxonomy Errors found._\n\n';
   }
 
   if (withoutErrors.length > 0) {
-    md += 'Items without Taxonomy Errors:\n\n';
-    for (const n of withoutErrors) {
-      md += `- ${n}\n`;
+    md += '## Items without Taxonomy Errors\n\n';
+    for (const r of withoutErrors) {
+      md += `- ${r.name}\n`;
     }
+    md += '\n';
   }
 
-  if (fetchFails.length > 0) {
-    md += '\n\nFetch failures:\n';
-    for (const f of fetchFails) md += `- ${f.name}: ${f.err}\n`;
+  if (failed.length > 0) {
+    md += '## Items that could not be checked\n\n';
+    for (const r of failed) {
+      md += `- ${r.name} (cross-origin access denied)\n`;
+    }
+    md += '\n';
   }
 
-  out.value = md;
-  st.textContent = `Done! With errors: ${withErrors.length}, Without errors: ${withoutErrors.length}, Fetch fails: ${fetchFails.length}`;
+  document.getElementById('output').value = md;
 }
 </script>
+
 </body>
 </html>
