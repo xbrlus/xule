@@ -1,0 +1,971 @@
+/* OIM Taxonomy Viewer Styles */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+#tree-container {
+    width: 50%;
+    min-width: 200px;
+    max-width: 80%;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+}
+
+#resize-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    cursor: col-resize;
+    background: transparent;
+    z-index: 10;
+}
+
+#resize-handle:hover,
+#resize-handle.dragging {
+    background: #4CAF50;
+}
+
+#details-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+#labels-refs {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#attributes-panel, #labels-panel, #references-panel, #locations-panel {
+    flex: 0 0 auto;
+    overflow-y: auto;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fafafa;
+}
+
+#attributes-panel:last-child, #labels-panel:last-child, #references-panel:last-child, #locations-panel:last-child {
+    border-bottom: none;
+}
+
+/* Panel heading styles for better visual distinction */
+#attributes-panel h3, #labels-panel h3, #references-panel h3, #locations-panel h3 {
+    margin: 0 0 15px 0;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+#attributes-panel h3 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#labels-panel h3 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+#references-panel h3 {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+#locations-panel h3 {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+#attributes-content table, #labels-content table, #references-content table, #locations-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#attributes-content th, #attributes-content td, #labels-content th, #labels-content td, #references-content th, #references-content td, #locations-content th, #locations-content td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+#details {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+#labels-refs {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+li {
+    cursor: pointer;
+}
+
+.node {
+    padding: 5px;
+    border: 1px solid #eee;
+    margin: 2px;
+}
+
+.node:hover {
+    background-color: #f0f0f0;
+}
+
+.node.selected {
+    background-color: #b3d9ff;
+    border-color: #4da6ff;
+}
+
+.collapsed > ul {
+    display: none;
+}
+
+.expanded > ul {
+    display: block;
+}
+
+#loading {
+    display: none;
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;  
+    float: right !important; 
+    margin-right: 33%; 
+    padding: 0px 10px;
+    background: #F9F9F9; 
+}
+
+.tabs {
+    display: flow;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    border: none;
+    background: #f9f9f9;
+    cursor: pointer;
+    border-top: 2px solid #ccc;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    margin-right: 2px;
+}
+
+.tab-button:hover {
+    background: #eee;
+}
+
+.tab-button.active {
+    background: white;
+    border-bottom: 2px solid white;
+    margin-bottom: -2px;
+    font-weight: bold;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.self-reference-error {
+    background-color: #ffcccc !important;
+    border: 2px solid #ff0000 !important;
+    color: #cc0000;
+    font-weight: bold;
+}
+
+.self-reference-error:hover {
+    background-color: #ffaaaa !important;
+}
+
+.node-icon {
+    display: inline-block;
+    width: 16px;
+    text-align: center;
+    margin-right: 4px;
+    font-size: 12px;
+}
+
+.filter-container {
+    margin: 10px 0;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.filter-container label {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.filter-container select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    min-width: 200px;
+}
+
+.context-menu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border-radius: 3px;
+    z-index: 1000;
+    padding: 5px 0;
+    min-width: 150px;
+}
+
+.context-menu-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.context-menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.details-tabs {
+    display: flex;
+    border-bottom: 2px solid #4CAF50;
+    background-color: #f9f9f9;
+    padding: 0 10px;
+}
+
+.details-tab-button {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.details-tab-button:hover {
+    background-color: #e8e8e8;
+}
+
+.details-tab-button.active {
+    color: #4CAF50;
+    border-bottom-color: #4CAF50;
+    font-weight: bold;
+}
+
+.details-tab-content {
+    display: none;
+    height: 100%;
+    overflow: hidden;
+}
+
+.details-tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Import paths container - needs scrolling */
+#import-paths-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+#import-paths-content {
+    min-height: min-content;
+}
+
+/* Component tabs styles */
+.component-tabs {
+    display: flow;
+    border-bottom: 2px solid #4CAF50;
+    background-color: #f9f9f9;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.component-tab-button {
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: #555;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.component-tab-button:hover {
+    background-color: #e8e8e8;
+}
+
+.component-tab-button.active {
+    color: #4CAF50;
+    border-bottom-color: #4CAF50;
+    font-weight: bold;
+}
+
+.component-tab-content {
+    display: none;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.component-tab-content.active {
+    display: block;
+}
+
+#cube-grid-container {
+    flex: 1;
+    overflow: auto;
+    padding: 10px;
+}
+
+#cube-grid {
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+#cube-grid th, #cube-grid td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;
+}
+
+#cube-grid th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#cube-grid .concept-cell {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+#cube-grid .dimension-header {
+    background-color: #e3f2fd;
+    text-align: center;
+}
+
+/* Cube grid table styling (for fact grids) */
+.cube-grid {
+    border-collapse: collapse;
+    font-size: 12px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.cube-grid th, .cube-grid td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.cube-grid th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.cube-grid .concept-cell {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+/* ===== FactSources Styles ===== */
+.factSources-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.factSource-item {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.factSource-header {
+    cursor: pointer;
+    padding: 10px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.factSource-header:hover {
+    background: #e9ecef;
+}
+
+.expand-icon {
+    display: inline-block;
+    width: 20px;
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.facts-container {
+    padding: 10px;
+    padding-left: 30px;
+}
+
+.factSource-item .facts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.factSource-item .fact-item {
+    padding: 5px 10px;
+    margin: 2px 0;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.factSource-item .fact-item:hover {
+    background-color: #f0f0f0;
+}
+
+.factSource-item .fact-item.selected {
+    background-color: #e3f2fd;
+    font-weight: bold;
+}
+}
+
+/* Highlighted cell for fact */
+.cube-grid td.highlight {
+    background-color: #fff9c4 !important;
+    border: 2px solid #fbc02d !important;
+    font-weight: bold !important;
+    color: #f57f17 !important;
+}
+
+/* Root mismatch popup styles */
+.root-mismatch-popup {
+    position: fixed;
+    background: white;
+    border: 2px solid #2196F3;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 10000;
+    max-width: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.root-mismatch-popup h4 {
+    margin: 0 0 10px 0;
+    color: #2196F3;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.root-mismatch-popup .close-btn {
+    cursor: pointer;
+    font-size: 20px;
+    color: #666;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 20px;
+}
+
+.root-mismatch-popup .close-btn:hover {
+    color: #000;
+}
+
+.root-mismatch-popup .section {
+    margin-bottom: 15px;
+}
+
+.root-mismatch-popup .section-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 13px;
+}
+
+.root-mismatch-popup .item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.root-mismatch-popup .item-list li {
+    padding: 5px 10px;
+    margin: 2px 0;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    cursor: text;
+    user-select: text;
+}
+
+.root-mismatch-popup .item-list li:hover {
+    background: #e8f4f8;
+}
+
+.root-mismatch-popup .copy-all-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.root-mismatch-popup .copy-all-btn:hover {
+    background: #1976D2;
+}
+
+.root-mismatch-popup .copied-message {
+    color: #4CAF50;
+    font-size: 11px;
+    margin-left: 10px;
+    display: none;
+}
+
+/* Facts list styles */
+.facts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fact-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s;
+}
+
+.fact-item:hover {
+    background-color: #f5f5f5;
+}
+
+.fact-item.selected {
+    background-color: #e3f2fd;
+    border-left: 3px solid #2196F3;
+}
+
+.fact-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.fact-details {
+    padding: 10px;
+}
+
+.fact-details h3 {
+    margin-top: 0;
+    color: #2196F3;
+}
+
+.fact-details h4 {
+    margin: 15px 0 8px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.fact-dimensions-table,
+.fact-values-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.fact-dimensions-table th,
+.fact-dimensions-table td,
+.fact-values-table th,
+.fact-values-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.fact-dimensions-table th,
+.fact-values-table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+.fact-dimensions-table tr:hover,
+.fact-values-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.no-data {
+    padding: 20px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* Layout Tab Styles */
+.z-axis-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.z-axis-tab-button {
+    padding: 8px 16px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px 4px 0 0;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.z-axis-tab-button:hover {
+    background-color: #e0e0e0;
+}
+
+.z-axis-tab-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.z-axis-grid {
+    margin-top: 10px;
+}
+
+li.active {
+    background-color: #e3f2fd;
+    border-left: 3px solid #007bff;
+    font-weight: 600;
+}
+
+li:hover {
+    background-color: #f5f5f5;
+}
+
+/* Template View and Data Table View tab scrolling */
+#templateView-tab,
+#dataTableView-tab {
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+}
+
+#templateView-tab > div,
+#dataTableView-tab > div {
+    min-width: min-content;
+}
+
+/* Ensure tables in these tabs don't get constrained */
+#templateView-tab table,
+#dataTableView-tab table {
+    min-width: 100%;
+    width: auto;
+}
+
+/* Style the scrollbars for better visibility */
+#templateView-tab::-webkit-scrollbar,
+#dataTableView-tab::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+}
+
+#templateView-tab::-webkit-scrollbar-track,
+#dataTableView-tab::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#templateView-tab::-webkit-scrollbar-thumb,
+#dataTableView-tab::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+#templateView-tab::-webkit-scrollbar-thumb:hover,
+#dataTableView-tab::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* ===== Search Panel Styles ===== */
+.search-panel {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+.search-panel.active {
+    display: flex;
+}
+
+.search-header {
+    flex: 0 0 auto;
+    padding: 15px;
+    border-bottom: 2px solid #4CAF50;
+    background-color: #f9f9f9;
+}
+
+.search-input-container {
+    flex: 0 0 auto;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+.search-results {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    min-height: 0; /* Important for flex scrolling */
+    max-height: 100%;
+}
+
+.search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    margin-right: 10px;
+    text-transform: uppercase;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Scrollbar styles for search results */
+.search-results::-webkit-scrollbar {
+    width: 10px;
+}
+
+.search-results::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* Markdown View Styles */
+.markdown-content h1 {
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3em;
+}
+
+.markdown-content h2 {
+    font-size: 1.5em;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3em;
+}
+
+.markdown-content h3 {
+    font-size: 1.25em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.markdown-content h4 {
+    font-size: 1em;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+}
+
+.markdown-content code {
+    background-color: #f5f5f5;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.markdown-content pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+}
+
+.markdown-content pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid #ddd;
+    margin: 0;
+    padding-left: 15px;
+    color: #666;
+}
+
+.markdown-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.markdown-content table th,
+.markdown-content table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.markdown-content table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    padding-left: 2em;
+}
+
+.markdown-content a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.markdown-content a:hover {
+    text-decoration: underline;
+}
+
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+#markdown-preview-tab {
+    overflow: hidden;
+}
+
+#markdown-preview-container {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#markdown-preview-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Value Source Resolution Styles */
+.value-source-info {
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+}
+
+.error-text {
+    color: #d00;
+    font-weight: bold;
+}
+
+.original-value {
+    cursor: help;
+    color: #0066cc;
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Taxonomy Errors Scanner</title>
+<style>
+body { font-family: monospace; max-width: 900px; margin: 2em auto; padding: 1em; }
+#status { background: #eee; padding: 1em; margin-bottom: 1em; border-radius: 4px; }
+#output { white-space: pre-wrap; background: #f8f8f8; padding: 1em; border: 1px solid #ccc; border-radius: 4px; }
+button { padding: 0.5em 1em; font-size: 1em; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Invalid Conformance Tests — Taxonomy Errors Scanner</h1>
+<p>This page fetches each Invalid Conformance Test JSON from the taxonomy viewer site, checks if the loaded taxonomy shows "Taxonomy Errors," and outputs a markdown table and list.</p>
+<p><strong>Instructions:</strong> Click the button below and wait. Results will appear as copyable markdown.</p>
+<button onclick="run()">Start Scanning</button>
+<div id="status">Ready.</div>
+<h2>Markdown Output (copy this):</h2>
+<textarea id="output" rows="40" cols="100"></textarea>
+
+<script>
+const BASE = "https://xbrlus.github.io/xule-dev/taxonomy-viewer/";
+
+const TESTS = [
+  "CALCULATION-InvalidSummationItemValue","CALCULATION-InvalidSummationItemWeight","CALCULATION-InvalidSummationMultiEntityValue",
+  "MODELTYPE-InvalidInstance","MODELTYPE-RequiredProperty",
+  "CONCEPT-ConceptWithDuplicateProperties","CONCEPT-DuplicateConceptNames","CONCEPT-InvalidDataType",
+  "CONCEPT-PropertiesReferenceDisallowedObjectType","CONCEPT-PropertiesReferenceNonexistentPropertyType","CONCEPT-NamespaceMismatch",
+  "CUBE-AllowDomainFactOnConceptDim","CUBE-ConceptDimensionNotDefined","CUBE-DimensionCubeTypeDoesNotMatchCubeType",
+  "CUBE-DomainNameOnTypedDimension","CUBE-DomainOnPeriodDimension","CUBE-DomainDataTypeOnPeriodDimension",
+  "CUBE-DuplicateDimension","CUBE-ExcludeCubeDoesNotExist","CUBE-ExcludeCubeIsSameCube",
+  "CUBE-ExcludeSharesDimensionalSpaceWithRequired","CUBE-InappropriateCubeTypeReference","CUBE-InappropriateDimensionReference",
+  "CUBE-InappropriateDomainReference","CUBE-InappropriateExcludeCubeReference","CUBE-InappropriateNetworkReference",
+  "CUBE-InvalidCubeProperty","CUBE-InvalidCubeType","CUBE-InvalidIntervalConventionOnNonTimeSeries",
+  "CUBE-MissingConceptDimension","CUBE-NetworkReferencesDomain","CUBE-DimensionNotDimensionObject",
+  "CUBE-FactMissingFromCompleteCube","CUBE-PeriodConstraintConceptNotConcept","CUBE-PeriodConstraintContextNotConcept",
+  "CUBE-PeriodConstraintOnNonPeriodDimension","CUBE-PeriodConstraintRedundantTimeSpan","CUBE-RequiredCubeFactMissing",
+  "CUBETYPE-AllowedCubeDimensionExplicitString","CUBETYPE-BaseCubeTypeDoesNotExist","CUBETYPE-BaseCubeTypeIsDimension",
+  "CUBETYPE-EmptyAllowedCubeDimensions","CUBETYPE-coreDimensionsExpansion","CUBETYPE-duplicateCoreDimension",
+  "CUBETYPE-duplicateDimension","CUBETYPE-invalidCoreDimension","CUBETYPE-invalidDataTypeExpansion",
+  "CUBETYPE-invalidDimensionAddition","CUBETYPE-invalidDimensionClosedExpansion","CUBETYPE-invalidDimensionDataTypeProperty",
+  "CUBETYPE-invalidDimensionReference","CUBETYPE-invalidDimensionRequirementRelaxation","CUBETYPE-invalidPropertyExpansion",
+  "CUBETYPE-invalidPropertyTypeReference","CUBETYPE-invalidRelationshipConstraintRelaxation","CUBETYPE-invalidRelationshipExpansion",
+  "CUBETYPE-invalidRelationshipTypeReference","CUBETYPE-invalidSourceObjectType","CUBETYPE-invalidSourceQName",
+  "CUBETYPE-invalidTargetObjectType","CUBETYPE-invalidTargetQName","CUBETYPE-missingRequiredCubeProperty",
+  "CUBETYPE-missingRequiredDimensionProperty","CUBETYPE-missingRequiredRelationship",
+  "DATATYPE-InvalidBaseCollectionType","DATATYPE-unallowedDatatypeObject",
+  "DIMENSION-InvalidCubeTypeReference","DIMENSION-InvalidDomainDataTypeReference",
+  "DOMAIN-AbstractInTaxonomyDefinedDimensionDomain","DOMAIN-DomainObjectWithDuplicateRelationships",
+  "DOMAIN-DomainClassNotSourceInRelationship","DOMAIN-InvalidRootReference",
+  "DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget","DOMAIN-ExtendClosedDomain",
+  "DOMAIN-DomainTargetNonAllowedObjectType","DOMAIN-InvalidEntityDomainSource","DOMAIN-InvalidEntityDomainSource2",
+  "DOMAIN-InvalidEntityDomainTarget","DOMAIN-InvalidUnitDomainSource",
+  "DOMAIN-StringInDateTaxonomyDefinedDimensionDomain","DOMAIN-MemberInConceptDimensionDomain",
+  "DOMAIN-MultipleDomainClasses","DOMAIN-UnitDomainWIthNonUnit","DOMAIN-UnitObjectInInvalidDomain",
+  "DOMAINCLASS-DomainClassReferencesConceptObject","DOMAINCLASS-ConceptDomainWithEntityChild",
+  "DOMAINCLASS-DimensionDoesNotMatchDomainClass","DOMAINCLASS-EntityDomainWithNonEntityMember",
+  "DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship","DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot",
+  "DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot","DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot",
+  "FACT-RequiredDisclosure","FACT-ValueDataTypeMismatch",
+  "FINAL-DefinesFinalTaxonomyFlag","FINAL-ExtendsFinalTaxonomy","FINAL-ExtendsFinalTaxonomyWithFact",
+  "FINAL-ExtendsFinalTaxonomyNetwork","FINAL-ExtendsFinalTaxonomyObjectWithConcept",
+  "IMPORTTAXONOMY-InvalidObjectType","IMPORTTAXONOMY-InvalidSelectionObjectType",
+  "IMPORTTAXONOMY-InvalidTextSelectionObjectType","IMPORTTAXONOMY-InvalidObjectSelectionObjectType",
+  "IMPORTTAXONOMY-NotInNamespace","IMPORTTAXONOMY-PassThroughPrefixError",
+  "IMPORTTAXONOMY-TaxonomyNotFound","IMPORTTAXONOMY-TaxonomyNotFoundNoFile",
+  "IMPORTTAXONOMY-TaxonomyNotFoundNoQname","IMPORTTAXONOMY-UnknownObject",
+  "LABEL-DuplicateLabels","LABEL-InvalidLabelTypeReference","LABEL-InvalidLanguageCode","LABEL-InvalidRelatedNameReference",
+  "LABELTYPE-InvalidLabelTypeDataTypeReference","LABELTYPE-InvalidLabelTypeEmptyAllowedObjects",
+  "Layout-ValidGroup","Layout-ComplexGrid","Layout-ComplexGridReverse",
+  "MEMBER-MemberInConceptDomain",
+  "NAMESPACE-DocumentNamespaceDoesNotMatch","NAMESPACE-PrefixNotDefined","NAMESPACE-RestrictedPrefix",
+  "NETWORK-DuplicateNetworkNames","NETWORK-InvalidRelationshipTypeNameReference",
+  "NETWORK-NetworkObjectWithDuplicateRelationships","NETWORK-RelationshipsReferenceNonexistentSource",
+  "PROPERTY-InvalidAllowedObject","PROPERTY-UnknownPropertyType",
+  "PROPERTYTYPE-DuplicatePropertyTypeNames","PROPERTYTYPE-InvalidDataTypeReference",
+  "REFERENCE-DuplicateReferenceNames","REFERENCE-ExtendTargetNameAndLanguageBothPresent",
+  "REFERENCE-ExtendTargetNameAndReferenceTypeMismatch","REFERENCE-InvalidLanguageCode",
+  "REFERENCE-InvalidReferenceTypeReference","REFERENCE-InvalidRelatedNamesReference",
+  "REFERENCETYPE-InvalidOrderedProperty","REFERENCETYPE-InvalidRequiredProperty",
+  "RELATIONSHIP-RelationshipDisallowedProperty","RELATIONSHIP-RelationshipMissingRequiredProperty",
+  "UNIT-DuplicateUnitNames","UNIT-InvalidDataType","UNIT-UnitWithDuplicateStringRepresentations",
+  "UNIT-UnitWithDataTypeNotMatchingConceptDataType"
+];
+
+// Multiple possible URL patterns to try
+const PATTERNS = [
+  n => `${BASE}conformance/${n}.json`,
+  n => `${BASE}taxonomies/conformanceTests/invalid/${n}.json`,
+  n => `${BASE}taxonomies/${n}.json`,
+  n => `${BASE}data/conformanceTests/invalid/${n}.json`,
+  n => `${BASE}data/${n}.json`,
+  n => `${BASE}conformanceTests/invalid/${n}.json`,
+  n => `${BASE}${n}.json`,
+];
+
+function findErrors(obj, path) {
+  let errs = [];
+  if (!obj || typeof obj !== 'object') return errs;
+  for (const k of Object.keys(obj)) {
+    const lk = k.toLowerCase();
+    if (lk === 'errors' || lk === 'taxonomyerrors' || lk === 'taxonomy-errors' || lk === 'taxonomy_errors') {
+      const v = obj[k];
+      if (v && ((Array.isArray(v) && v.length > 0) || (typeof v === 'string' && v.length > 0) || (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0))) {
+        errs.push({ key: k, value: v, path: (path ? path + '.' : '') + k });
+      }
+    }
+    if (typeof obj[k] === 'object' && obj[k] !== null) {
+      errs = errs.concat(findErrors(obj[k], (path ? path + '.' : '') + k));
+    }
+  }
+  return errs;
+}
+
+function fmtErr(v) {
+  if (typeof v === 'string') return v;
+  if (Array.isArray(v)) return v.map(x => typeof x === 'string' ? x : JSON.stringify(x)).join('; ');
+  return JSON.stringify(v, null, 2);
+}
+
+async function run() {
+  const st = document.getElementById('status');
+  const out = document.getElementById('output');
+  out.value = '';
+
+  // 1. Discover URL pattern
+  st.textContent = 'Discovering URL pattern...';
+  let pattern = null;
+  for (const p of PATTERNS) {
+    const url = p(TESTS[0]);
+    try {
+      const r = await fetch(url);
+      if (r.ok) { pattern = p; st.textContent = 'Found pattern: ' + url.replace(TESTS[0]+'.json','*'); break; }
+    } catch(e) {}
+  }
+  if (!pattern) {
+    // Also try fetching the page HTML source to find JS/data refs
+    st.textContent = 'Pattern discovery failed. Fetching page source for clues...';
+    try {
+      const r = await fetch(BASE);
+      const html = await r.text();
+      const scripts = [...html.matchAll(/src="([^"]+)"/g)].map(m=>m[1]);
+      const datarefs = [...html.matchAll(/["']([^"']*\.json[^"']*)["']/g)].map(m=>m[1]);
+      out.value = 'COULD NOT FIND JSON FILES.\n\nScripts: ' + scripts.join('\n') + '\n\nJSON refs: ' + datarefs.join('\n') + '\n\nHTML (first 3000 chars):\n' + html.substring(0,3000);
+    } catch(e) { out.value = 'Error: ' + e.message; }
+    st.textContent = 'Failed. See output for debug info.';
+    return;
+  }
+
+  // 2. Fetch all files
+  const withErrors = [];
+  const withoutErrors = [];
+  const fetchFails = [];
+
+  for (let i = 0; i < TESTS.length; i++) {
+    const name = TESTS[i];
+    st.textContent = `Checking ${name} (${i+1}/${TESTS.length})...`;
+    try {
+      const r = await fetch(pattern(name));
+      if (!r.ok) { fetchFails.push({name, err:'HTTP '+r.status}); continue; }
+      const data = await r.json();
+      const errs = findErrors(data, '');
+      if (errs.length > 0) {
+        withErrors.push({ name, errors: errs.map(e => fmtErr(e.value)).join(' | ') });
+      } else {
+        withoutErrors.push(name);
+      }
+    } catch(e) {
+      fetchFails.push({name, err:e.message});
+    }
+  }
+
+  // 3. Build markdown
+  let md = '';
+  if (withErrors.length > 0) {
+    md += '| Label | Taxonomy Errors |\n';
+    md += '|---|---|\n';
+    for (const r of withErrors) {
+      md += `| ${r.name} | ${r.errors.replace(/\|/g,'\\|').replace(/\n/g,' ')} |\n`;
+    }
+    md += '\n';
+  } else {
+    md += '_No items with Taxonomy Errors found._\n\n';
+  }
+
+  if (withoutErrors.length > 0) {
+    md += 'Items without Taxonomy Errors:\n\n';
+    for (const n of withoutErrors) {
+      md += `- ${n}\n`;
+    }
+  }
+
+  if (fetchFails.length > 0) {
+    md += '\n\nFetch failures:\n';
+    for (const f of fetchFails) md += `- ${f.name}: ${f.err}\n`;
+  }
+
+  out.value = md;
+  st.textContent = `Done! With errors: ${withErrors.length}, Without errors: ${withoutErrors.length}, Fetch fails: ${fetchFails.length}`;
+}
+</script>
+</body>
+</html>

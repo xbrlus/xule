@@ -1,0 +1,1144 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "filer": "https://example.com/filer",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "filer"
+  },
+  "xbrlModel": {
+    "name": "filer:FilerRulesEntryPoint",
+    "concepts": [
+      {
+        "name": "filer:ModelEntryPoint",
+        "dataType": "xs:anyURI",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:RequiredConcepts",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:FilingFormat",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:EntityIdentifier",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:AllowedUnits",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:DecimalAccuracy",
+        "dataType": "xs:integer",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:NilValueHandling",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:DuplicateFactsAllowed",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ScaleOfNumbers",
+        "dataType": "xs:integer",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:DisallowedHtmlCharacters",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:FilingRequirements",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:RegulatoryRule",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ActiveContentProhibited",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ProhibitedActiveContentTypes",
+        "dataType": "filer:stringCollection",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ExtendedCharacterSetsAllowed",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ImagesPermittedByReference",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ImagesPermittedByEncoding",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ExternalReferencesAllowed",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:XhtmlMustBeWellFormed",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:ExcludedHtmlTags",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:CssInlineAllowed",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:CssAtTopAllowed",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:CssReferencedAllowed",
+        "dataType": "xs:boolean",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:RequiredLanguage",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:PermittedObjectTypes",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:PermittedPropertyTypes",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "filer:PermittedRelationshipTypes",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      }
+    ],
+    "members": [
+      { "name": "filer:Form10-K" },
+      { "name": "filer:Form10-Q" },
+      { "name": "filer:Form20-F" },
+      { "name": "filer:Form8-K" },
+      { "name": "filer:FormS-1" },
+      { "name": "filer:FormDEF14A" }
+    ],
+    "dimensions": [
+      {
+        "name": "filer:FormTypeAxis",
+        "domainClass": "filer:FormType"
+      }
+    ],
+    "domainClasses": [
+      { "name": "filer:FormType" }
+    ],
+    "domains": [
+      {
+        "name": "filer:FormTypeDomain",
+        "root": "filer:FormType",
+        "relationships": [
+          { "source": "filer:FormType", "target": "filer:Form10-K" },
+          { "source": "filer:FormType", "target": "filer:Form10-Q" },
+          { "source": "filer:FormType", "target": "filer:Form20-F" },
+          { "source": "filer:FormType", "target": "filer:Form8-K" },
+          { "source": "filer:FormType", "target": "filer:FormS-1" },
+          { "source": "filer:FormType", "target": "filer:FormDEF14A" }
+        ]
+      },
+      {
+        "name": "filer:FilerRulesDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "filer:ModelEntryPoint" },
+          { "source": "xbrl:conceptDomain", "target": "filer:RequiredConcepts" },
+          { "source": "xbrl:conceptDomain", "target": "filer:FilingFormat" },
+          { "source": "xbrl:conceptDomain", "target": "filer:EntityIdentifier" },
+          { "source": "xbrl:conceptDomain", "target": "filer:AllowedUnits" },
+          { "source": "xbrl:conceptDomain", "target": "filer:DecimalAccuracy" },
+          { "source": "xbrl:conceptDomain", "target": "filer:NilValueHandling" },
+          { "source": "xbrl:conceptDomain", "target": "filer:DuplicateFactsAllowed" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ScaleOfNumbers" },
+          { "source": "xbrl:conceptDomain", "target": "filer:DisallowedHtmlCharacters" },
+          { "source": "xbrl:conceptDomain", "target": "filer:RegulatoryRule" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ActiveContentProhibited" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ProhibitedActiveContentTypes" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ExtendedCharacterSetsAllowed" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ImagesPermittedByReference" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ImagesPermittedByEncoding" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ExternalReferencesAllowed" },
+          { "source": "xbrl:conceptDomain", "target": "filer:XhtmlMustBeWellFormed" },
+          { "source": "xbrl:conceptDomain", "target": "filer:ExcludedHtmlTags" },
+          { "source": "xbrl:conceptDomain", "target": "filer:CssInlineAllowed" },
+          { "source": "xbrl:conceptDomain", "target": "filer:CssAtTopAllowed" },
+          { "source": "xbrl:conceptDomain", "target": "filer:CssReferencedAllowed" },
+          { "source": "xbrl:conceptDomain", "target": "filer:RequiredLanguage" },
+          { "source": "xbrl:conceptDomain", "target": "filer:PermittedObjectTypes" },
+          { "source": "xbrl:conceptDomain", "target": "filer:PermittedPropertyTypes" },
+          { "source": "xbrl:conceptDomain", "target": "filer:PermittedRelationshipTypes" }
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "relatedName": "filer:FormTypeAxis",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form Type [Axis]"
+      },
+      {
+        "relatedName": "filer:FormType",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form Type [Domain]"
+      },
+      {
+        "relatedName": "filer:Form10-K",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form 10-K"
+      },
+      {
+        "relatedName": "filer:Form10-K",
+        "labelType": "xbrl:iconLabel",
+        "language": "en",
+        "value": "📋"
+      },
+      {
+        "relatedName": "filer:Form10-Q",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form 10-Q"
+      },
+      {
+        "relatedName": "filer:Form10-Q",
+        "labelType": "xbrl:iconLabel",
+        "language": "en",
+        "value": "📋"
+      },
+      {
+        "relatedName": "filer:Form20-F",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form 20-F"
+      },
+      {
+        "relatedName": "filer:Form20-F",
+        "labelType": "xbrl:iconLabel",
+        "language": "en",
+        "value": "📋"
+      },
+      {
+        "relatedName": "filer:Form8-K",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form 8-K"
+      },
+      {
+        "relatedName": "filer:Form8-K",
+        "labelType": "xbrl:iconLabel",
+        "language": "en",
+        "value": "📋"
+      },
+      {
+        "relatedName": "filer:FormS-1",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form S-1"
+      },
+      {
+        "relatedName": "filer:FormS-1",
+        "labelType": "xbrl:iconLabel",
+        "language": "en",
+        "value": "📋"
+      },
+      {
+        "relatedName": "filer:FormDEF14A",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Form DEF 14A"
+      },
+      {
+        "relatedName": "filer:FormDEF14A",
+        "labelType": "xbrl:iconLabel",
+        "language": "en",
+        "value": "📋"
+      },
+      {
+        "relatedName": "filer:ModelEntryPoint",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Model Entry Point"
+      },
+      {
+        "relatedName": "filer:ModelEntryPoint",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "The URI reference to the taxonomy entry point that must be used for filing."
+      },
+      {
+        "relatedName": "filer:RequiredConcepts",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Required Concepts"
+      },
+      {
+        "relatedName": "filer:RequiredConcepts",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of concepts that must be disclosed in the filing. Each concept should be reported with appropriate context."
+      },
+      {
+        "relatedName": "filer:FilingFormat",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Filing Format"
+      },
+      {
+        "relatedName": "filer:FilingFormat",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "The format required for the filing submission (e.g., XBRL-JSON, XBRL-CSV, XBRL-XML)."
+      },
+      {
+        "relatedName": "filer:EntityIdentifier",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Entity Identifier"
+      },
+      {
+        "relatedName": "filer:EntityIdentifier",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "The entity identifier scheme that must be used (e.g., LEI, CIK, custom identifier)."
+      },
+      {
+        "relatedName": "filer:AllowedUnits",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Allowed Units"
+      },
+      {
+        "relatedName": "filer:AllowedUnits",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of allowed unit measures for numeric facts (e.g., USD, shares, pure)."
+      },
+      {
+        "relatedName": "filer:DecimalAccuracy",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Decimal Accuracy"
+      },
+      {
+        "relatedName": "filer:DecimalAccuracy",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "The number of decimal places required for numeric facts. Negative values indicate rounding (e.g., -3 means thousands)."
+      },
+      {
+        "relatedName": "filer:NilValueHandling",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Nil Value Handling"
+      },
+      {
+        "relatedName": "filer:NilValueHandling",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Specifies how nil values should be handled: 'prohibited' - nil values not allowed, 'required' - nil must be explicit, 'optional' - nil values may be used."
+      },
+      {
+        "relatedName": "filer:DuplicateFactsAllowed",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Duplicate Facts Allowed"
+      },
+      {
+        "relatedName": "filer:DuplicateFactsAllowed",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether duplicate facts with the same context and unit are allowed in the filing."
+      },
+      {
+        "relatedName": "filer:ScaleOfNumbers",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Scale of Numbers"
+      },
+      {
+        "relatedName": "filer:ScaleOfNumbers",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "The scale factor for numeric values: 0 = units, 3 = thousands, 6 = millions, -2 = hundredths."
+      },
+      {
+        "relatedName": "filer:DisallowedHtmlCharacters",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Disallowed HTML Characters"
+      },
+      {
+        "relatedName": "filer:DisallowedHtmlCharacters",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of HTML characters or tags that are prohibited in text block facts (e.g., <script>, <iframe>, javascript:)."
+      },
+      {
+        "relatedName": "filer:FilingRequirements",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Filing Requirements"
+      },
+      {
+        "relatedName": "filer:FilingRequirements",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Abstract grouping for all filing requirement concepts."
+      },
+      {
+        "relatedName": "filer:RegulatoryRule",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Regulatory Rule"
+      },
+      {
+        "relatedName": "filer:RegulatoryRule",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Reference to the specific regulatory rule or regulation number."
+      },
+      {
+        "relatedName": "filer:ActiveContentProhibited",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Active Content Prohibited"
+      },
+      {
+        "relatedName": "filer:ActiveContentProhibited",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether active content is prohibited in the filing. Active content includes scripts, applets, and other executable code."
+      },
+      {
+        "relatedName": "filer:ProhibitedActiveContentTypes",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Prohibited Active Content Types"
+      },
+      {
+        "relatedName": "filer:ProhibitedActiveContentTypes",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of specific active content types that are prohibited (e.g., <script>, <applet>, <object>, <embed>, javascript:, vbscript:, onload=, onclick=)."
+      },
+      {
+        "relatedName": "filer:ExtendedCharacterSetsAllowed",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Extended Character Sets Allowed"
+      },
+      {
+        "relatedName": "filer:ExtendedCharacterSetsAllowed",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Specifies which extended character sets are allowed (e.g., UTF-8, ISO-8859-1). May specify 'ASCII-only' if extended characters are prohibited."
+      },
+      {
+        "relatedName": "filer:ImagesPermittedByReference",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Images Permitted By Reference"
+      },
+      {
+        "relatedName": "filer:ImagesPermittedByReference",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether images may be included by URL reference (e.g., <img src='http://...'>) in text blocks."
+      },
+      {
+        "relatedName": "filer:ImagesPermittedByEncoding",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Images Permitted By Encoding"
+      },
+      {
+        "relatedName": "filer:ImagesPermittedByEncoding",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether images may be included using data URI encoding (e.g., data:image/png;base64,...) in text blocks."
+      },
+      {
+        "relatedName": "filer:ExternalReferencesAllowed",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "External References Allowed"
+      },
+      {
+        "relatedName": "filer:ExternalReferencesAllowed",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether external references to stylesheets, scripts, or other resources are allowed in the filing."
+      },
+      {
+        "relatedName": "filer:XhtmlMustBeWellFormed",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "XHTML Must Be Well-Formed"
+      },
+      {
+        "relatedName": "filer:XhtmlMustBeWellFormed",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether XHTML content must be well-formed XML (properly closed tags, valid nesting, etc.)."
+      },
+      {
+        "relatedName": "filer:ExcludedHtmlTags",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Excluded HTML Tags"
+      },
+      {
+        "relatedName": "filer:ExcludedHtmlTags",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of HTML tags that are explicitly excluded from use (e.g., <frameset>, <frame>, <iframe>, <meta http-equiv>, <base>)."
+      },
+      {
+        "relatedName": "filer:CssInlineAllowed",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "CSS Inline Allowed"
+      },
+      {
+        "relatedName": "filer:CssInlineAllowed",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether inline CSS styling using style attributes is allowed (e.g., <p style='color:red'>)."
+      },
+      {
+        "relatedName": "filer:CssAtTopAllowed",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "CSS At Top Allowed"
+      },
+      {
+        "relatedName": "filer:CssAtTopAllowed",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether CSS style blocks are allowed at the top of text blocks (e.g., <style>...</style>)."
+      },
+      {
+        "relatedName": "filer:CssReferencedAllowed",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "CSS Referenced Allowed"
+      },
+      {
+        "relatedName": "filer:CssReferencedAllowed",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Indicates whether CSS may be referenced from external stylesheets (e.g., <link rel='stylesheet' href='...'>)."
+      },
+      {
+        "relatedName": "filer:RequiredLanguage",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Required Language"
+      },
+      {
+        "relatedName": "filer:RequiredLanguage",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "The language code that must be used for text content (e.g., 'en', 'en-US', 'fr'). May specify multiple languages separated by commas."
+      },
+      {
+        "relatedName": "filer:PermittedObjectTypes",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Permitted Object Types"
+      },
+      {
+        "relatedName": "filer:PermittedObjectTypes",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of object types that are permitted in the filing (e.g., xbrl:conceptObject, xbrl:memberObject, xbrl:entityObject). May use 'all' to permit all types."
+      },
+      {
+        "relatedName": "filer:PermittedPropertyTypes",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Permitted Property Types"
+      },
+      {
+        "relatedName": "filer:PermittedPropertyTypes",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of property types that are permitted in the filing. This restricts which properties can be used on objects."
+      },
+      {
+        "relatedName": "filer:PermittedRelationshipTypes",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Permitted Relationship Types"
+      },
+      {
+        "relatedName": "filer:PermittedRelationshipTypes",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "List of relationship types that are permitted in networks (e.g., presentation, calculation, definition). This controls which network types can be used."
+      }
+    ],
+    "dataTypes": [
+            {
+                "name": "filer:stringCollection",
+                "baseType": "xbrli:collection",
+                "collectionType": {
+                    "dataTypesAllowed":["xs:string"],
+                    "uniqueValues":true,
+                    "orderedValues":false
+                }
+            }
+        ],
+    "networks": [
+      {
+        "name": "filer:FilingRequirementsPresentation",
+        "relationshipTypeName": "xbrl:parent-child",
+        "roots": ["filer:FilingRequirements"],
+        "relationships": [
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ModelEntryPoint",
+            "order": 1.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:RequiredConcepts",
+            "order": 2.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:FilingFormat",
+            "order": 3.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:EntityIdentifier",
+            "order": 4.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:AllowedUnits",
+            "order": 5.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:DecimalAccuracy",
+            "order": 6.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:NilValueHandling",
+            "order": 7.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:DuplicateFactsAllowed",
+            "order": 8.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ScaleOfNumbers",
+            "order": 9.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:DisallowedHtmlCharacters",
+            "order": 10.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:RegulatoryRule",
+            "order": 11.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ActiveContentProhibited",
+            "order": 12.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ProhibitedActiveContentTypes",
+            "order": 13.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ExtendedCharacterSetsAllowed",
+            "order": 14.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ImagesPermittedByReference",
+            "order": 15.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ImagesPermittedByEncoding",
+            "order": 16.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ExternalReferencesAllowed",
+            "order": 17.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:XhtmlMustBeWellFormed",
+            "order": 18.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:ExcludedHtmlTags",
+            "order": 19.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:CssInlineAllowed",
+            "order": 20.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:CssAtTopAllowed",
+            "order": 21.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:CssReferencedAllowed",
+            "order": 22.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:RequiredLanguage",
+            "order": 23.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:PermittedObjectTypes",
+            "order": 24.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:PermittedPropertyTypes",
+            "order": 25.0
+          },
+          {
+            "source": "filer:FilingRequirements",
+            "target": "filer:PermittedRelationshipTypes",
+            "order": 26.0
+          }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "filer:FilingRulesCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "filer:FilerRulesDomain"
+          },
+          {
+            "dimensionName": "filer:FormTypeAxis",
+            "domainName": "filer:FormTypeDomain"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          }
+        ],
+        "cubeNetworks": [
+                    "filer:FilingRequirementsPresentation"
+                ]
+
+      }
+    ],
+    "facts": [
+      {
+        "name": "filer:f1",
+        "factValues": [
+          {
+            "name": "filer:fV1",
+            "value": "https://xbrl.sec.gov/dei/2025/dei-2025.json"
+          },
+          {
+            "name": "filer:fV1DUP",
+            "value": "https://xbrl.sec.gov/dei/2026/dei-2026.json"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ModelEntryPoint",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f2",
+        "factValues": [
+          {
+            "name": "filer:fV2",
+            "value": "dei:EntityRegistrantName, dei:EntityCentralIndexKey, dei:DocumentType, dei:DocumentPeriodEndDate"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:RequiredConcepts",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f3",
+        "factValues": [
+          {
+            "name": "filer:fV3",
+            "value": "XBRL-JSON"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:FilingFormat",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f4",
+        "factValues": [
+          {
+            "name": "filer:fV4",
+            "value": "CIK"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:EntityIdentifier",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f5",
+        "factValues": [
+          {
+            "name": "filer:fV5",
+            "value": "USD, shares, pure"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:AllowedUnits",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f6",
+        "factValues": [
+          {
+            "name": "filer:fV6",
+            "value": "-3"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:DecimalAccuracy",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f7",
+        "factValues": [
+          {
+            "name": "filer:fV7",
+            "value": "optional"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:NilValueHandling",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f8",
+        "factValues": [
+          {
+            "name": "filer:fV8",
+            "value": "false"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:DuplicateFactsAllowed",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f9",
+        "factValues": [
+          {
+            "name": "filer:fV9",
+            "value": "0"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ScaleOfNumbers",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f10",
+        "factValues": [
+          {
+            "name": "filer:fV10",
+            "value": "<script>, <iframe>, javascript:, onclick="
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:DisallowedHtmlCharacters",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f11",
+        "factValues": [
+          {
+            "name": "filer:fV11",
+            "value": "17 CFR 232.405"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:RegulatoryRule",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f12",
+        "factValues": [
+          {
+            "name": "filer:fV12",
+            "value": "true"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ActiveContentProhibited",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f13",
+        "factValues": [
+          {
+            "name": "filer:fV13",
+            "value": "<script>, <applet>, <object>, <embed>, javascript:, vbscript:"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ProhibitedActiveContentTypes",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f14",
+        "factValues": [
+          {
+            "name": "filer:fV14",
+            "value": "UTF-8"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ExtendedCharacterSetsAllowed",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f15",
+        "factValues": [
+          {
+            "name": "filer:fV15",
+            "value": "false"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ImagesPermittedByReference",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f16",
+        "factValues": [
+          {
+            "name": "filer:fV16",
+            "value": "true"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ImagesPermittedByEncoding",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f17",
+        "factValues": [
+          {
+            "name": "filer:fV17",
+            "value": "false"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ExternalReferencesAllowed",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f18",
+        "factValues": [
+          {
+            "name": "filer:fV18",
+            "value": "true"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:XhtmlMustBeWellFormed",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f19",
+        "factValues": [
+          {
+            "name": "filer:fV19",
+            "value": "<frameset>, <frame>, <iframe>, <meta http-equiv>, <base>"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:ExcludedHtmlTags",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f20",
+        "factValues": [
+          {
+            "name": "filer:fV20",
+            "value": "true"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:CssInlineAllowed",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f21",
+        "factValues": [
+          {
+            "name": "filer:fV21",
+            "value": "false"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:CssAtTopAllowed",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f22",
+        "factValues": [
+          {
+            "name": "filer:fV22",
+            "value": "false"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:CssReferencedAllowed",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f23",
+        "factValues": [
+          {
+            "name": "filer:fV23",
+            "value": "en"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:RequiredLanguage",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f24",
+        "factValues": [
+          {
+            "name": "filer:fV24",
+            "value": "xbrl:conceptObject, xbrl:memberObject, xbrl:entityObject, xbrl:unitObject"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:PermittedObjectTypes",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f25",
+        "factValues": [
+          {
+            "name": "filer:fV25",
+            "value": "xbrla:balance, xbrli:periodType"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:PermittedPropertyTypes",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      },
+      {
+        "name": "filer:f26",
+        "factValues": [
+          {
+            "name": "filer:fV26",
+            "value": "xbrl:parent-child, xbrl:summation-item"
+          }
+        ],
+        "factDimensions": {
+          "xbrl:concept": "filer:PermittedRelationshipTypes",
+          "filer:FormTypeAxis": "filer:Form10-K"
+        }
+      }
+    ]
+  }
+}

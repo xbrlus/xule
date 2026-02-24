@@ -1,0 +1,151 @@
+/* Model comparison and diff styles */
+.diff-report {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.diff-report.identical {
+    border-color: #4caf50;
+    background-color: #e8f5e9;
+}
+
+.diff-report h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.diff-report.identical h3 {
+    color: #2e7d32;
+}
+
+.diff-report code {
+    background-color: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.diff-section {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.diff-section h5 {
+    margin-top: 0;
+    color: #1976d2;
+}
+
+.diff-added {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #e8f5e9;
+    border-left: 4px solid #4caf50;
+}
+
+.diff-added strong {
+    color: #2e7d32;
+}
+
+.diff-removed {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+}
+
+.diff-removed strong {
+    color: #c62828;
+}
+
+.diff-modified {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff3e0;
+    border-left: 4px solid #ff9800;
+}
+
+.diff-modified strong {
+    color: #e65100;
+}
+
+.diff-section ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+.diff-section li {
+    margin: 3px 0;
+}
+
+.old-value {
+    color: #c62828;
+    text-decoration: line-through;
+}
+
+.new-value {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+#modelComparisonButtons {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#modelComparisonButtons button {
+    padding: 8px 16px;
+    border: 1px solid #1976d2;
+    background-color: #2196f3;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#modelComparisonButtons button:hover {
+    background-color: #1976d2;
+}
+
+#modelComparisonButtons input[type="file"] {
+    display: none;
+}
+
+#modelComparisonButtons label {
+    padding: 8px 16px;
+    border: 1px solid #1976d2;
+    background-color: #2196f3;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#modelComparisonButtons label:hover {
+    background-color: #1976d2;
+}
+
+#modelHashDisplay {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #e3f2fd;
+    border: 1px solid #1976d2;
+    border-radius: 4px;
+}
+
+#modelHashDisplay code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    word-break: break-all;
+}
+
+#diffResultsDisplay {
+    margin: 15px 0;
+}

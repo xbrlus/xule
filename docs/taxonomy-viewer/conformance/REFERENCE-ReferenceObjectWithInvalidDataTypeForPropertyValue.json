@@ -1,0 +1,37 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Reference Object With Invalid DataType For Property Value."
+  },
+  "xbrlModel": {
+    "name": "exp:ReferenceObjectWithInvalidDataTypeForPropertyValue",
+    "version": "2025",
+    "propertyTypes": [
+      {
+        "name": "exp:IntegerProperty",
+        "dataType": "xs:integer",
+        "allowedObjects": ["xbrl:referenceObject"]
+      }
+    ],
+    "references": [
+      {
+        "name": "exp:myReference",
+        "referenceType": "xbrl:reference",
+        "properties": [
+          {
+            "property": "exp:IntegerProperty",
+            "value": "NotAnInteger"
+          }
+        ]
+      }
+    ]
+  }
+}

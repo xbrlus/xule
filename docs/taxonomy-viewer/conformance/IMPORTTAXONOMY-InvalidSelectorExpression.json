@@ -1,0 +1,29 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "urlMapping": {
+            "exp":  ["../examples/exampleTaxonomy.json"]
+            },
+    "documentNamespace": "ext",
+    "description": "ERROR: selections uses an invalid selection statement. Should be periodType and not period."
+  },
+  "xbrlModel": {
+    "name": "exp:ImportTaxonomyInvalidSelection",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:SampleTaxonomy",
+        "selections": [
+          "xbrl:conceptObject where period == instant" 
+        ]
+      }
+    ]
+  }
+}

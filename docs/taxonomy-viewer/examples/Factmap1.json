@@ -1,0 +1,152 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp":  "http://example.com/taxonomy",
+            "lei": "http://standards.iso.org/iso/17442",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrla": "http://xbrl.org/accounting",
+            "iso4217": "http://www.xbrl.org/2003/iso4217",
+            "utr": "https://xbrl.org/2025/utr",
+            "xbrli":"https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "ref":"https://xbrl.org/2025/ref",
+            "dei": "http://xbrl.sec.gov/dei/2025",
+            "mini2": "http://example.com/mini2"
+            },
+        "documentNamespace":"exp",
+        "urlMapping": {
+            "mini2": ["../examples/copilot-mini2.json"],
+            "xbrla": ["../spec-taxonomies/xbrla.json"]
+            },
+        "sourceMapping": {
+                "exp:SalesEventData":["SalesEventTable.csv"],
+                "exp:xbrlJsonData": ["xbrlJsonData.json"],
+                "exp:xbrl21Data": ["xbrl21Data.xml"]
+            }
+    },
+    "xbrlModel": {
+        "name": "exp:Factmap1",
+        "version": "1.0",
+         "importedTaxonomies": [
+            {
+                "xbrlModelName": "us-gaap:US-GAAP-2025"
+            }
+        ],
+        "factSources" : [
+                        {
+                        "name": "exp:SalesEventData",
+                        "factMapName": "exp:SalesEventCSVFactMap"
+                        },
+                        {
+                        "name": "exp:xbrlJsonData",
+                        "factMapName": "xbrl:OIM-JSON"
+                        },
+                        {
+                        "name": "exp:xbrl21Data",
+                        "factMapName": "xbrl:XBRL21XML",
+                        "namespaceMaps": [
+                            {
+                                "fromNamespace": "http://fasb.org/us-gaap/2025",
+                                "toNamespace": "http://fasb.org/us-gaap/2024"
+                            }
+                        ]
+                        }
+                    ],
+        "factMaps": [
+            {
+                "name":"exp:SalesEventCSVFactMap",
+                "tableTemplate": {
+                    "columns": [
+                        {
+                            "columnName":"Event_id"
+                        },
+                        {
+                            "columnName":"description",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:EventDescription"
+                            }
+                        },
+                        {
+                            "columnName":"Event_Date",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:EventDate"
+                            }
+                        },
+                        {
+                            "columnName":"Functional_Currency",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:FunctionalCurrency"
+                            }
+                        },
+                        {
+                            "columnName":"Functional_Amount",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:FunctionalAmount"
+                            }
+                        },
+                        {
+                            "columnName":"Reporting_Currency",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:ReportingCurrency"
+                            }
+                        },
+                        {
+                            "columnName":"Reporting_Amount",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:ReportingAmount"
+                            }
+                        },
+                        {
+                            "columnName":"Country",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:Country"
+                            }
+                        },
+                        {
+                            "columnName":"Product_Identifier",
+                            "factDimensions": {
+                                "xbrl:concept": "exp:ProductIdentifier"
+                            }
+                        }
+                    ],
+                    "rowIdColumn": "Event_id",
+                    "factDimensions": {
+                        "exp:SaleEventDimension": "$Event_id"
+                    }
+                }
+            },
+            {
+                "name":"exp:json-map",
+                "jsonTemplateMap": {
+                    "factDimensions": {
+                        "xbrl:concept": "exp:EventDescription",
+                        "exp:SaleEventDimension": "$.event/id"
+                    },
+                    "valuePath": "$.event/description"
+                }
+            }
+        ],
+        "facts":
+        [
+            {
+                "name": "exp:fp46",
+                "factValues" : [
+                    {
+                        "name": "exp:f46",
+                        "value": "182478931",
+                        "decimals":0
+                    }
+                ],
+                "factDimensions":{
+                    "xbrl:concept": "ferc:CurrentLiabilities",
+                    "xbrl:entity": "cid:C008984",
+                    "xbrl:period": "2025-09-30T00:00:00",
+                    "xbrl:unit": "iso4217:USD"
+                }
+            }
+        ]
+    }
+
+}

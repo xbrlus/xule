@@ -1,0 +1,36 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli":"https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+     "documentNamespace": "exp",
+    "description": "ERROR: allowedCubeDimensions references a concept object, not a dimension."
+  },
+  "xbrlModel": {
+    "name": "exp:CubeTypeAllowedCubeDimensionIsConcept",
+    "version": "2025",
+    "concepts": [
+      { "name": "exp:MyConcept", "dataType": "xs:string", "periodType": "duration" }
+    ],
+    "cubeTypes": [
+      {
+        "name": "exp:myCubeType",
+        "coreDimensions": ["xbrl:concept", "xbrl:unit", "xbrl:entity"],
+        "cubeDimensionConstraints" : {
+            "allowed": [
+                {
+                    "dimensionName": "exp:MyConcept",
+                    "required": true
+                }
+            ],
+            "closed" : true
+        }
+      }
+    ]
+  }
+}

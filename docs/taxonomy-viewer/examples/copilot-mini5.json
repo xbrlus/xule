@@ -1,0 +1,160 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "mini5": "http://example.com/mini5",
+      "xbrl": "https://xbrl.org/2025",
+     	"xbrla": "http://xbrl.org/accounting",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "mini5",
+    "urlMapping": {
+              "xbrla": ["../spec-taxonomies/xbrla.json"]
+            }
+  },
+  "xbrlModel": {
+    "name": "mini5:Mini5Taxonomy",
+    "frameworkName": "mini-framework",
+    "version": "2025",
+    "importedTaxonomies": [
+        {
+            "xbrlModelName": "xbrla:AccountingModel"
+        }
+    ],
+    "dataTypes": [
+      {
+        "name": "xbrl:balanceType",
+        "baseType": "xs:string",
+        "enumeration": ["debit", "credit"]
+      }
+    ],
+    "abstracts": [
+      { "name": "mini5:StatementOfFinancialPosition" }
+    ],
+    "concepts": [
+      {
+        "name": "mini5:Assets",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant",
+        "nillable": true,
+        "properties": [
+          { "property": "xbrla:balance", "value": "debit" }
+        ]
+      },
+      {
+        "name": "mini5:Liabilities",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant",
+        "nillable": true,
+        "properties": [
+          { "property": "xbrla:balance", "value": "credit" }
+        ]
+      }
+    ],
+    "members": [
+      { "name": "mini5:NorthAmerica" },
+      { "name": "mini5:Europe" }
+    ],
+    "dimensions": [
+      {
+        "name": "mini5:Geography",
+        "domainClass": "mini5:GeographyRootDomain"
+      }
+    ],
+    "domainClasses": [
+      { "name": "mini5:GeographyRootDomain" }
+    ],
+    "domains": [
+      {
+        "name": "mini5:GeographyDomain",
+        "root": "mini5:GeographyRootDomain",
+        "relationships": [
+          { "source": "mini5:GeographyRootDomain", "target": "mini5:NorthAmerica" },
+          { "source": "mini5:GeographyRootDomain", "target": "mini5:Europe" }
+        ]
+      }
+    ],
+    "entities": [
+      { "name": "mini5:Entity1" }
+    ],
+    "units": [
+      { "name": "mini5:USD", "dataType": "xbrli:monetary" }
+    ],
+    "labels": [
+      {
+        "relatedName": "mini5:Assets",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Assets"
+      },
+      {
+        "relatedName": "mini5:Liabilities",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Liabilities"
+      }
+    ],
+    "groups": [
+      {
+        "name": "mini5:balanceSheetGroup",
+        "groupURI": "http://example.com/mini/balance-sheet"
+      }
+    ],
+    "groupContents": [
+      {
+        "groupName": "mini5:balanceSheetGroup",
+        "relatedNames": ["mini5:balanceSheetCube"]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "mini5:balanceSheetCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept"
+          },
+          {
+            "dimensionName": "xbrl:period",
+            "periodConstraints": [
+              {
+                "periodType": "instant",
+                "endDate": { "value": "2025-12-31" }
+              }
+            ]
+          },
+          {
+            "dimensionName": "mini5:Geography"
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          },
+          {
+            "dimensionName": "xbrl:unit"
+          }
+        ]
+      }
+    ],
+    "networks": [
+      {
+        "name": "mini5:PresentationNetwork",
+        "relationshipTypeName": "xbrl:parent-child",
+        "roots": ["mini5:StatementOfFinancialPosition"],
+        "relationships": [
+          {
+            "source": "mini5:StatementOfFinancialPosition",
+            "target": "mini5:Assets",
+            "order": 1
+          },
+          {
+            "source": "mini5:StatementOfFinancialPosition",
+            "target": "mini5:Liabilities",
+            "order": 2
+          }
+        ]
+      }
+    ]
+  }
+}

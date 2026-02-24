@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tableModel
+  xmlns="http://xbrl.org/2014/table/model"
+  xmlns:rend="http://www.xbrl.org/table-examples"
+  xmlns:xbrli="http://www.xbrl.org/2003/instance">
+    <!--Entry point file: dimension-domain-table.xml-->
+    <tableSet>
+        <!--TableSet linkbase file: dimension-domain-table.xml, line 27-->
+        <!--TableSet linkrole: http://www.xbrl.org/table-examples/table1-->
+        <label>Simple table with a domain-member tree</label>
+        <table>
+            <headers axis="y">
+                <group>
+                    <!--Breakdown node file: dimension-domain-table.xml, line 58-->
+                    <label>Domain-member tree for dimension F</label>
+                    <header>
+                        <cell span="9">
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value/>
+                            </constraint>
+                        </cell>
+                    </header>
+                    <header>
+                        <cell rollup="true"/>
+                        <cell span="3">
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f1</value>
+                            </constraint>
+                        </cell>
+                        <cell span="5">
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f4</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                    <header>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell>
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f2</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f3</value>
+                            </constraint>
+                        </cell>
+                        <cell rollup="true"/>
+                        <cell span="4">
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f5</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                    <header>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell>
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f6</value>
+                            </constraint>
+                        </cell>
+                        <cell span="3">
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f7</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                    <header>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell>
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f8</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table1-y.1-->
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f9</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <headers axis="x">
+                <group>
+                    <!--Breakdown node file: dimension-domain-table.xml, line 32-->
+                    <label>Two columns (primary items m1, m2)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table1-x.1-->
+                            <label>Label: m1</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table1-x.2-->
+                            <label>Label: m2</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <cells axis="z">
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                </cells>
+            </cells>
+        </table>
+    </tableSet>
+</tableModel>

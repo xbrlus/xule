@@ -1,0 +1,46 @@
+{
+  "documentInfo": {
+    "documentType": "http://xbrl.org/YYYY/xbrl-csv",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/carb",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "utr": "https://xbrl.org/2025/utr"
+    },
+    "linkTypes": {
+      "footnote": "http://www.xbrl.org/2003/arcrole/fact-footnote"
+    },
+    "linkGroups": {
+      "_": "http://www.xbrl.org/2003/role/link"
+    },
+    "taxonomy": [
+      "CARB_PM_taxonomy.json"
+    ]
+  },
+  "tables": {
+    "HourlyPM25": {
+      "template": "HourlyPM25",
+      "url": "CARB_PM_data.csv"
+    }
+  },
+  "tableTemplates": {
+    "HourlyPM25Template": {
+      "columns": {
+        "local-name": {},
+        "county-id": {},
+        "county": {},
+        "factvalue": {
+          "dimensions": {
+            "concept": "exp:PM25Concentration",
+            "exp:PMTime": "$datetime",
+            "exp:County": "$county",
+            "unit": "$unit"
+          }
+        },
+        "datetime": {},
+        "sample-id": {},
+        "unit": {}
+      }
+    }
+  }
+}

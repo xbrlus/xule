@@ -1,0 +1,47 @@
+{
+    "documentInfo": {
+        "documentType": "http://xbrl.org/YYYY/xbrl-csv",
+        "namespaces": {    
+            "iso4217": "http://www.xbrl.org/2003/iso4217",
+            "xbrli":	"http://www.xbrl.org/2003/instance",
+            "exp": "http://example.com/taxonomy",
+            "utr": "https://xbrl.org/2025/utr",
+            "lei": "http://standards.iso.org/iso/17442"
+        },
+        "linkTypes": {
+        "footnote": "http://www.xbrl.org/2003/arcrole/fact-footnote"
+        },
+        "linkGroups":{
+        "_": "http://www.xbrl.org/2003/role/link"
+        },
+        "taxonomy": [
+            "HourlyDemandTaxonomy.json"
+        ]
+    },
+    "tables": {
+        "HourlyDemand": {
+            "template": "HourlyDemand",
+            "url": "HourlyDemandMegawatts.csv"
+        }
+    },
+    "tableTemplates": {
+        "HourlyDemand": {
+            "columns": {          
+                "local-name": {},
+                "entity-id": {},
+                "entity": {},
+                "factvalue": { 
+                        "dimensions": {
+                            "concept": "exp:PlanningAreaHourlyDemandMegawatts",
+                            "exp:TimeSeriesHourlyDemand": "$datetime",
+                            "exp:GridOperator":  "$entity",
+                            "unit": "$unit" 
+                        }
+                        },
+                "datetime":{},
+                "report-id": {},
+                "unit":{}
+            }
+        }
+    }
+}

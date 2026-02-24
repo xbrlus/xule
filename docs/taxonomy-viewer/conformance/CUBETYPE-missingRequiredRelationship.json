@@ -1,0 +1,48 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/missingrequiredrelationship",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:missingRequiredRelationship: Missing Required Relationship"
+    },
+    "xbrlModel": {
+        "name": "test:MissingRequiredRelationshipTest",
+        "version": "1.0",
+        "relationshipTypes": [
+            {
+                "name": "test:TestRelationshipType",
+                "cycles": "any"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "test:BaseCubeType",
+                "cubeRelationships": {
+                    "required": [
+                        {
+                            "type": "test:TestRelationshipType",
+                            "source": {
+                                "qname": "xbrl:concept"
+                            },
+                            "target": {
+                                "qname": "xbrl:entity"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "test:DerivedCubeType",
+                "baseCubeType": "test:BaseCubeType",
+                "cubeRelationships": {
+                    "required": []
+                }
+            }
+        ]
+    }
+}

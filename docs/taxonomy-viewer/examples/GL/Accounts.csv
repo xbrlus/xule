@@ -1,0 +1,64 @@
+glAccountNumber,accountType,glAccountName,sourceSystem,xbrlConcept
+10001,BANK,BoA,XERO,us-gaap:Cash
+1204,CURRENT,Accounts receivable,XERO,us-gaap:AccountsReceivableNetCurrent
+12041,CURRENT,Accounts receivable (MJ),XERO,us-gaap:AccountsReceivableNetCurrent
+1206,CURRENT,Accounts Receivable (Online),XERO,us-gaap:AccountsReceivableNetCurrent
+1210,CURRENT,CDQ Fees Receivable,XERO,us-gaap:AccountsReceivableNetCurrent
+1215,CURRENT,Suspense for XII salary,XERO,us-gaap:AccountsAndOtherReceivablesNetCurrent
+1300,PREPAYMENT,Prepaid expenses,XERO,us-gaap:PrepaidExpenseCurrent
+1520,TERMLIAB,Accumulated depreciation,XERO,us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment
+1521,NONCURRENT,Development - Web & App,XERO,us-gaap:PropertyPlantAndEquipmentGross
+1600,CURRENT,Other assets,XERO,us-gaap:OtherAssetsCurrent
+2000,CURRLIAB,Accounts payable,XERO,us-gaap:AccountsPayableCurrent
+20001,CURRLIAB,Accounts payable (MJ),XERO,us-gaap:AccountsPayableCurrent
+2010,CURRLIAB,Accrued expenses,XERO,us-gaap:AccruedLiabilitiesCurrent
+2020,CURRLIAB,Credit Card Payable,XERO,us-gaap:AccountsPayableCurrent
+2052,CURRLIAB,Accrued leave,XERO,us-gaap:AccountsPayableCurrent
+2054,CURRLIAB,Payroll funding,XERO,us-gaap:AccountsPayableCurrent
+2080,CURRLIAB,Due to XII,XERO,us-gaap:AccountsPayableCurrent
+210,CURRLIAB,Unpaid Expense Claims,XERO,us-gaap:AccountsPayableCurrent
+2100,CURRLIAB,Deferred revenue,XERO,us-gaap:DeferredRevenueCurrent
+2200,CURRLIAB,Membership Dues Deferred,XERO,us-gaap:DeferredRevenueCurrent
+240,CURRLIAB,EIDL - CARES Act (SBA),XERO,us-gaap:DeferredRevenueCurrent
+241,CURRLIAB,PPP - CARES Act (SBA),XERO,us-gaap:DeferredRevenueCurrent
+265,CURRLIAB,Tracking Transfers,XERO,us-gaap:AccountsPayableCurrent
+4008,REVENUE,Consulting Services,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4015,REVENUE,Certificate Program,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4020,REVENUE,Registration Revenue,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4022,REVENUE,Sponsorship,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4035,REVENUE,SEC Filer Membership,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4040,REVENUE,FERC Filer Membership,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4100,REVENUE,Membership Dues,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4150,REVENUE,Center for Data Quality Fees (CDQ),XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+4241,OTHERINCOME,PPP - CARES Act (SBA) Forgiveness,XERO,us-gaap:OtherNonoperatingIncome
+4300,REVENUE,Miscellaneous Revenue,XERO,us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax
+5000,EXPENSE,Salaries,XERO,us-gaap:LaborAndRelatedExpense
+50002,EXPENSE,Salaries - PPP,XERO,us-gaap:LaborAndRelatedExpense
+50003,EXPENSE,Salaries - XII,XERO,us-gaap:LaborAndRelatedExpense
+5005,EXPENSE,Vacation,XERO,us-gaap:LaborAndRelatedExpense
+5010,EXPENSE,Payroll Taxes,XERO,us-gaap:LaborAndRelatedExpense
+50103,EXPENSE,Payroll Taxes - XII,XERO,us-gaap:LaborAndRelatedExpense
+5020,EXPENSE,Benefits,XERO,us-gaap:LaborAndRelatedExpense
+50200,EXPENSE,Benefits - 401k Match,XERO,us-gaap:LaborAndRelatedExpense
+50202,EXPENSE,Benefits - PPP,XERO,us-gaap:LaborAndRelatedExpense
+50203,EXPENSE,Benefits - 401 K Match XII,XERO,us-gaap:LaborAndRelatedExpense
+6000,EXPENSE,Accounting,XERO,us-gaap:OtherGeneralAndAdministrativeExpense
+6010,EXPENSE,Audit,XERO,us-gaap:OtherGeneralAndAdministrativeExpense
+6020,EXPENSE,Legal,XERO,us-gaap:OtherGeneralAndAdministrativeExpense
+6030,EXPENSE,IT Infrastructure,XERO,us-gaap:CommunicationsAndInformationTechnology
+6040,EXPENSE,Consulting Fees,XERO,us-gaap:CostDirectLabor
+6080,EXPENSE,Marketing,XERO,us-gaap:MarketingAndAdvertisingExpense
+6190,EXPENSE,Awards,XERO,us-gaap:MarketingAndAdvertisingExpense
+6300,EXPENSE,Office Supplies,XERO,us-gaap:SuppliesExpense
+6340,EXPENSE,Depreciation Expense,XERO,us-gaap:Depreciation
+6350,EXPENSE,Insurance,XERO,us-gaap:GeneralInsuranceExpense
+6360,EXPENSE,Computer Services & Software,XERO,us-gaap:CommunicationsAndInformationTechnology
+63601,EXPENSE,Computer Services & Software - CDQ,XERO,us-gaap:CommunicationsAndInformationTechnology
+6370,EXPENSE,Postage & Delivery,XERO,us-gaap:PostageExpense
+6390,EXPENSE,"Dues, Licenses & Fees",XERO,us-gaap:OtherGeneralAndAdministrativeExpense
+6395,EXPENSE,XBRL International Dues,XERO,us-gaap:FranchisorCosts
+6400,EXPENSE,"Telephone, Internet & Fax",XERO,us-gaap:CommunicationsAndInformationTechnology
+6430,EXPENSE,Bank Charges,XERO,us-gaap:OtherGeneralAndAdministrativeExpense
+6440,EXPENSE,Payroll Processing,XERO,us-gaap:OtherGeneralAndAdministrativeExpense
+64403,EXPENSE,Payroll Processing - XII,XERO,us-gaap:OtherGeneralAndAdministrativeExpense
+9000,EXPENSE,Other Expenses,XERO,us-gaap:OtherGeneralAndAdministrativeExpense

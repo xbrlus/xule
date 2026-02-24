@@ -1,0 +1,62 @@
+/* Error Display Styles for Taxonomy Builder */
+
+/* Main error container */
+.errors-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff0f0;
+    border-radius: 5px;
+    border: 2px solid #ff6b6b;
+}
+
+/* Error section container */
+.error-section {
+    margin-bottom: 15px;
+}
+
+/* Error section title */
+.error-section-title {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #e03131;
+}
+
+/* Error list container */
+.error-list {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ffc9c9;
+}
+
+/* Individual error list item */
+.error-list-item {
+    margin-bottom: 8px;
+}
+
+/* Error code styling */
+.error-code {
+    color: #c92a2a;
+}
+
+/* Code elements in error messages */
+.error-highlight-code {
+    background: #ffe0e0;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* Indented error details */
+.error-detail-indent {
+    margin-left: 20px;
+}
+
+/* Error message text */
+.error-message-text {
+    color: #555;
+}

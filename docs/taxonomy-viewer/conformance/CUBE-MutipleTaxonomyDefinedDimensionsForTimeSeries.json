@@ -1,0 +1,72 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli":"https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Time series cube has more than one taxonomy-defined dimension"
+  },
+  "xbrlModel": {
+    "name": "exp:MultipleTaxonomyDefinedDimensionsTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "none",
+        "nillable": true
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:TimeSeriesDimension1",
+        "domainClass": "exp:TimeSeriesDomainClass"
+      },
+      {
+        "name": "exp:TimeSeriesDimension2",
+        "domainClass": "exp:TimeSeriesDomainClass"
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:TimeSeriesDomainClass",
+        "allowedDomainItems" : ["xs:dateTime"]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeMultipleTaxonomyDefinedDimensions",
+        "cubeType": "xbrla:timeSeriesCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "exp:TimeSeriesDimension1"
+          },
+          {
+            "dimensionName": "exp:TimeSeriesDimension2"
+          },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          }
+        ]
+      }
+    ],
+     "domains": [
+        {
+                "name": "exp:PrimaryTimeSeriesDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:PeakGridElectricityDemand"
+                    }
+                ]
+            }
+    ]
+  }
+}

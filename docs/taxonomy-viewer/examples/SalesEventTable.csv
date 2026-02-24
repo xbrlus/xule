@@ -1,0 +1,11 @@
+Event_id,description,Event_Date,Functional_Currency,Functional_Amount,Reporting_Currency,Reporting_Amount,Country,Product_Identifier
+E001,Product sale in New York store,2025-01-15T14:30:00,iso4217:USD,1250.50,iso4217:USD,1250.50,exp:Country_USA,PROD-12345
+E002,Online purchase from Toronto customer,2025-01-16T09:15:00,iso4217:CAD,875.25,iso4217:USD,645.80,exp:Country_Canada,PROD-67890
+E003,Wholesale order London warehouse,2025-01-17T11:45:00,iso4217:GBP,3500.00,iso4217:USD,4375.00,exp:Country_UK,PROD-12345
+E004,Retail sale Chicago location,2025-01-18T16:20:00,iso4217:USD,2100.75,iso4217:USD,2100.75,exp:Country_USA,PROD-54321
+E005,Export sale to Mexico City,2025-01-19T10:05:00,iso4217:MXN,18500.00,iso4217:USD,1085.30,exp:Country_Mexico,PROD-67890
+E006,Corporate bulk order Vancouver,2025-01-20T13:50:00,iso4217:CAD,5600.00,iso4217:USD,4130.00,exp:Country_Canada,PROD-11111
+E007,Direct customer sale Boston,2025-01-21T15:30:00,iso4217:USD,950.00,iso4217:USD,950.00,exp:Country_USA,PROD-54321
+E008,International shipment Manchester,2025-01-22T08:40:00,iso4217:GBP,1850.50,iso4217:USD,2313.13,exp:Country_UK,PROD-11111
+E009,Distributor order Los Angeles,2025-01-23T12:15:00,iso4217:USD,4750.25,iso4217:USD,4750.25,exp:Country_USA,PROD-12345
+E010,Cross-border sale Guadalajara,2025-01-24T14:55:00,iso4217:MXN,12300.00,iso4217:USD,721.80,exp:Country_Mexico,PROD-54321

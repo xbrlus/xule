@@ -1,0 +1,77 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: cubeDimensions.domainName references a concept object instead of a domain object."
+  },
+  "xbrlModel": {
+    "name": "exp:CubeDomainWrongTypeTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:SomeConcept",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      },
+      {
+        "name": "exp:SomeConcept2",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:SomeDimension",
+        "domainClass": "exp:someDomainClass"
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeWithInvalidDomainReference",
+        "cubeDimensions": [
+          {
+            "dimensionName": "exp:SomeDimension",
+            "domainName": "exp:SomeConceptDomain"
+          },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:SomeConceptDomain"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+        },
+        {
+            "dimensionName": "xbrl:entity"
+        }
+        ]
+      }
+    ],
+    "domains": [
+      {
+                "name": "exp:SomeConceptDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:SomeConcept2"
+                    }
+                ]
+            }
+    ],
+    "domainClasses": [
+      {
+        "name":"exp:someDomainClass"
+      }
+    ]
+  }
+}

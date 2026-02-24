@@ -1,0 +1,28 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"srt-types": "http://fasb.org/srt-types/2025",
+			"xbrli": "https://xbrl.org/2025/instance",
+			"xbrl": "https://xbrl.org/2025",
+			"xs": "http://www.w3.org/2001/XMLSchema"
+			
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "srt-types"
+	},
+	"xbrlModel": {
+		"name": "srt-types:StandardizedReportingTaxonomyTypes",
+        "version": "1.0.0",
+		"dataTypes": [
+			{
+				"name": "srt-types:perUnitItemType",
+				"baseType": "xs:decimal"
+			},
+			{
+				"name": "srt-types:financialInstrumentGlobalIdentifierItemType",
+				"baseType": "xs:token"
+			}
+		]
+	}
+}

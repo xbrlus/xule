@@ -1,0 +1,37 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Domain Object With Invalid Property Reference"
+  },
+  "xbrlModel": {
+    "name": "exp:DomainObjectWithInvalidPropertyReference",
+    "version": "2025",
+   "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:DomainWithInvalidPropertyReference",
+        "root": "xbrl:conceptDomain",
+        "properties": [
+          {
+            "property": "exp:NonexistentPropertyType",
+            "value": "test"
+          }
+        ]
+      }
+    ]
+}
+}

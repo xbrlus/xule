@@ -1,0 +1,50 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "iso4217": "http://www.xbrl.org/2003/iso4217"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Invalid Data Type."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidDataType",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ],
+    "units": [
+      {
+        "name": "exp:USD2",
+        "dataType": "xbrli:power" 
+      }
+    ],
+    "facts" : [
+        {
+        "name": "exp:f12345",
+        "factValues" : [
+                    {
+                        "name": "exp:fV1",
+                        "value": "100000",
+                        "decimals":2
+                    }
+                ],
+        "factDimensions":{
+          "xbrl:concept": "exp:Revenue",
+          "xbrl:unit": "exp:USD2",
+          "xbrl:entity": "exp:12345",
+          "xbrl:period": "2025-01-01T00:00:00Z/2025-12-31T23:59:59Z"
+        }
+    }
+    ]
+}
+}

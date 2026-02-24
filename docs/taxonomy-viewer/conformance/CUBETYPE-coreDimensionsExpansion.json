@@ -1,0 +1,37 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/coredimensionsexpansion",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:coreDimensionsExpansion: Core Dimensions Expansion"
+    },
+    "xbrlModel": {
+        "name": "test:CoreDimensionsExpansionTest",
+        "version": "1.0",
+        "cubeTypes": [
+            {
+                "name": "test:BaseCubeType",
+                "coreDimensions": [
+                    "xbrl:concept",
+                    "xbrl:period",
+                    "xbrl:entity"
+                ]
+            },
+            {
+                "name": "test:DerivedCubeType",
+                "baseCubeType": "test:BaseCubeType",
+                "coreDimensions": [
+                    "xbrl:concept",
+                    "xbrl:period",
+                    "xbrl:entity",
+                    "xbrl:unit"
+                ]
+            }
+        ]
+    }
+}

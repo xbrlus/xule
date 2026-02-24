@@ -1,0 +1,1349 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"xbrli": "https://xbrl.org/2025/instance",
+			"xbrl": "https://xbrl.org/2025",
+			"xs": "http://www.w3.org/2001/XMLSchema",
+			"ecd": "http://xbrl.sec.gov/ecd/2025",
+			"us-gaap": "http://fasb.org/us-gaap/2025"
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "ecd",
+		"urlMapping":{
+            "us-gaap": ["us-gaap-elts-2025.json"]
+        }
+	},
+	"xbrlModel": {
+		"name": "ecd:ExecutiveCompensationDisclosureTaxonomy",
+		"version": "1.0.0",
+		"importedTaxonomies": [
+            {
+                "xbrlModelName": "us-gaap:GAAP-elts-Taxonomy"
+            }
+            
+        ],
+		"abstracts": [
+			{
+				"name": "ecd:PayVsPerformanceDisclosureWithAdditionalMeasuresLineItems"
+			},
+			{
+				"name": "ecd:PvpTabularListsLineItems"
+			},
+			{
+				"name": "ecd:TabularListMeasuresLineItems"
+			},
+			{
+				"name": "ecd:RecoveryOfErrCompDisclosureLineItems"
+			},
+			{
+				"name": "ecd:ForgoneRecoveriesLineItems"
+			},
+			{
+				"name": "ecd:OutstandingRecoveriesLineItems"
+			},
+			{
+				"name": "ecd:AwardTmgDiscLineItems"
+			},
+			{
+				"name": "ecd:AwardsCloseToMnpiDiscLineItems"
+			},
+			{
+				"name": "ecd:InsiderTradingArrLineItems"
+			},
+			{
+				"name": "ecd:InsiderTradingPoliciesProcLineItems"
+			},
+			{
+				"name": "ecd:PayVsPerformanceDisclosureLineItems"
+			},
+			{
+				"name": "ecd:PayVsPerformanceTableLineItems"
+			},
+			{
+				"name": "ecd:PvpMeasuresLineItems"
+			},
+			{
+				"name": "ecd:AdjLineItems"
+			}
+		],
+		"concepts": [
+			{
+				"name": "ecd:AwardTmgMnpiCnsdrdFlag",
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "ecd:PvpTableTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "ecd:AwardTmgPredtrmndFlag"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "ecd:AwardTmgMethodTextBlock"
+			},
+			{
+				"name": "ecd:AwardTmgMnpiDiscTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:RestatementDoesNotRequireRecoveryTextBlock"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"nillable": true,
+				"name": "ecd:OutstandingRecoveryCompAmt"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:OutstandingRecoveryIndName",
+				"dataType": "xs:string",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"name": "ecd:ForgoneRecoveryDueToDisqualificationOfTaxBenefitsAmt"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"name": "ecd:ForgoneRecoveryDueToViolationOfHomeCountryLawAmt",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"name": "ecd:ForgoneRecoveryDueToExpenseOfEnforcementAmt"
+			},
+			{
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:ForgoneRecoveryIndName"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:ForgoneRecoveryExplanationOfImpracticabilityTextBlock",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:AggtErrCompNotYetDeterminedTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "ecd:OutstandingAggtErrCompAmt",
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "ecd:EqtyAwrdsAdjFnTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "ecd:PnsnBnftsAdjFnTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "ecd:TabularListTableTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:InsiderTrdPoliciesProcNotAdoptedTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:InsiderTrdPoliciesProcAdoptedFlag",
+				"periodType": "duration",
+				"dataType": "xs:boolean"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"name": "ecd:AwardTmgHowMnpiCnsdrdTextBlock",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:CompActuallyPaidVsOtherMeasureTextBlock"
+			},
+			{
+				"name": "ecd:TotalShareholderRtnVsPeerGroupTextBlock",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"dataType": "xbrli:sharesType",
+				"nillable": true,
+				"name": "ecd:TrdArrSecuritiesAggAvailAmt",
+				"periodType": "instant"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:CompActuallyPaidVsCoSelectedMeasureTextBlock"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:duration",
+				"name": "ecd:TrdArrDuration",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:CompActuallyPaidVsNetIncomeTextBlock"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:string",
+				"name": "ecd:TrdArrTerminationDate",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "ecd:CompActuallyPaidVsTotalShareholderRtnTextBlock"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:TrdArrExpirationDate",
+				"periodType": "duration",
+				"dataType": "xs:string"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:EquityValuationAssumptionDifferenceFnTextBlock",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"name": "ecd:TrdArrAdoptionDate",
+				"dataType": "xs:string",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"name": "ecd:AdjToNonPeoNeoCompFnTextBlock",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:TrdArrIndTitle",
+				"dataType": "xs:string",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "ecd:AdjToPeoCompFnTextBlock"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:string",
+				"name": "ecd:TrdArrIndName",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:normalizedString",
+				"name": "ecd:PeoName",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:NamedExecutiveOfficersFnTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:AdjToCompAmt"
+			},
+			{
+				"name": "ecd:MtrlTermsOfTrdArrTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "ecd:NonRule10b51ArrTrmntdFlag"
+			},
+			{
+				"name": "ecd:NonRule10b51ArrAdoptedFlag",
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "ecd:Rule10b51ArrTrmntdFlag"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:Rule10b51ArrAdoptedFlag",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"name": "ecd:OtherPerfMeasureAmt",
+				"dataType": "xs:decimal",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:normalizedString",
+				"nillable": true,
+				"name": "ecd:MeasureName"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:pureType",
+				"name": "ecd:UndrlygSecurityMktPriceChngPct",
+				"periodType": "instant"
+			},
+			{
+				"name": "ecd:NonGaapMeasureDescriptionTextBlock",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:AwardGrantDateFairValue",
+				"periodType": "instant",
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"name": "ecd:CoSelectedMeasureName",
+				"dataType": "xs:normalizedString"
+			},
+			{
+				"name": "ecd:AwardExrcPrice",
+				"periodType": "instant",
+				"dataType": "xbrli:perShare",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:decimal",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "ecd:CoSelectedMeasureAmt"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:AwardUndrlygSecuritiesAmt",
+				"dataType": "xs:decimal",
+				"periodType": "instant"
+			},
+			{
+				"name": "ecd:PeerGroupTotalShareholderRtnAmt",
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:string",
+				"nillable": true,
+				"periodType": "instant",
+				"name": "ecd:AwardsCloseToMnpiDiscIndName"
+			},
+			{
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "ecd:MnpiDiscTimedForCompValFlag",
+				"periodType": "duration"
+			},
+			{
+				"name": "ecd:NonPeoNeoAvgCompActuallyPaidAmt",
+				"dataType": "xbrli:monetary",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "ecd:AwardsCloseToMnpiDiscTableTextBlock"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:PeoTotalCompAmt",
+				"dataType": "xbrli:monetary",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "ecd:StkPrcOrTsrEstimationMethodTextBlock"
+			},
+			{
+				"name": "ecd:ErrCompAnalysisTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "ecd:AggtErrCompAmt",
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "ecd:RestatementDeterminationDate",
+				"dataType": "xs:date",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "ecd:Additional402vDisclosureTextBlock"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "ecd:ChangedPeerGroupFnTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "ecd:PeerGroupIssuersFnTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "ecd:TotalShareholderRtnAmt",
+				"periodType": "duration",
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:PeoActuallyPaidCompAmt",
+				"periodType": "duration",
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"nillable": true,
+				"name": "ecd:NonPeoNeoAvgTotalCompAmt",
+				"dataType": "xbrli:monetary",
+				"periodType": "duration"
+			}
+		],
+		"cubes": [
+			{
+				"cubeNetworks": [],
+				"name": "ecd:PvpTabularListsTable_TabularListsByExecutiveCategory_Cube",
+				"cubeDimensions": [
+					{
+						"dimensionName": "ecd:ExecutiveCategoryAxis",
+						"domainName": "ecd:AllExecutiveCategoriesMember_TabularListsByExecutiveCategory_DDomain",
+						"allowDomainFacts": true
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "ecd:IndividualAxis",
+						"domainName": "ecd:AllIndividualsMember_TabularListsByExecutiveCategory_DDomain"
+					},
+					{
+						"dimensionName": "xbrl:concept",
+						"domainName": "ecd:PvpTabularListsTable_TabularListsByExecutiveCategory_PDomain"
+					},
+					{
+						"dimensionName": "xbrl:period",
+						"allowDomainFacts": true
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:unit"
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				],
+				"cubeType": "xbrl:reportCube"
+			},
+			{
+				"name": "ecd:PvpMeasuresTable_PvpMeasures_Cube",
+				"cubeDimensions": [
+					{
+						"dimensionName": "ecd:MeasureAxis",
+						"allowDomainFacts": false
+					},
+					{
+						"domainName": "ecd:PvpMeasuresTable_PvpMeasures_PDomain",
+						"dimensionName": "xbrl:concept"
+					},
+					{
+						"dimensionName": "xbrl:period",
+						"allowDomainFacts": true
+					},
+					{
+						"dimensionName": "xbrl:unit",
+						"allowDomainFacts": true
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				],
+				"cubeType": "xbrl:reportCube",
+				"cubeNetworks": []
+			},
+			{
+				"name": "ecd:PvpTabularListTable_TabularListMeasures_Cube",
+				"cubeNetworks": [],
+				"cubeType": "xbrl:reportCube",
+				"cubeDimensions": [
+					{
+						"allowDomainFacts": true,
+						"domainName": "ecd:AllExecutiveCategoriesMember_TabularListMeasures_DDomain",
+						"dimensionName": "ecd:ExecutiveCategoryAxis"
+					},
+					{
+						"dimensionName": "ecd:MeasureAxis",
+						"allowDomainFacts": false
+					},
+					{
+						"dimensionName": "ecd:IndividualAxis",
+						"domainName": "ecd:AllIndividualsMember_TabularListMeasures_DDomain",
+						"allowDomainFacts": true
+					},
+					{
+						"domainName": "ecd:PvpTabularListTable_TabularListMeasures_PDomain",
+						"dimensionName": "xbrl:concept"
+					},
+					{
+						"dimensionName": "xbrl:period",
+						"allowDomainFacts": true
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:unit"
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				]
+			},
+			{
+				"name": "ecd:PvpTable_PvpTable_Cube",
+				"cubeType": "xbrl:reportCube",
+				"cubeDimensions": [
+					{
+						"allowDomainFacts": true,
+						"domainName": "ecd:AllIndividualsMember_PvpTable_DDomain",
+						"dimensionName": "ecd:IndividualAxis"
+					},
+					{
+						"domainName": "ecd:PvpTable_PvpTable_PDomain",
+						"dimensionName": "xbrl:concept"
+					},
+					{
+						"dimensionName": "xbrl:period",
+						"allowDomainFacts": true
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:unit"
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				],
+				"cubeNetworks": []
+			},
+			{
+				"name": "ecd:PvpWithAdditionalMeasuresTable_PvpDisclosureWithAdditionalMeasures_Cube",
+				"cubeType": "xbrl:reportCube",
+				"cubeDimensions": [
+					{
+						"dimensionName": "ecd:ExecutiveCategoryAxis",
+						"allowDomainFacts": true,
+						"domainName": "ecd:AllExecutiveCategoriesMember_PvpDisclosureWithAdditionalMeasures_DDomain"
+					},
+					{
+						"domainName": "ecd:AllIndividualsMember_PvpDisclosureWithAdditionalMeasures_DDomain",
+						"allowDomainFacts": true,
+						"dimensionName": "ecd:IndividualAxis"
+					},
+					{
+						"allowDomainFacts": false,
+						"dimensionName": "ecd:MeasureAxis"
+					},
+					{
+						"domainName": "ecd:PvpWithAdditionalMeasuresTable_PvpDisclosureWithAdditionalMeasures_PDomain",
+						"dimensionName": "xbrl:concept"
+					},
+					{
+						"dimensionName": "xbrl:period",
+						"allowDomainFacts": true
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:unit"
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				],
+				"cubeNetworks": []
+			},
+			{
+				"cubeType": "xbrl:reportCube",
+				"cubeDimensions": [
+					{
+						"domainName": "ecd:AllIndividualsMember_OutstandingRecoveries_DDomain",
+						"dimensionName": "ecd:IndividualAxis",
+						"allowDomainFacts": true
+					},
+					{
+						"allowDomainFacts": false,
+						"dimensionName": "ecd:RestatementDateAxis"
+					},
+					{
+						"domainName": "ecd:OutstandingRecoveriesByIndTable_OutstandingRecoveries_PDomain",
+						"dimensionName": "xbrl:concept"
+					},
+					{
+						"dimensionName": "xbrl:period",
+						"allowDomainFacts": true
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:unit"
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				],
+				"cubeNetworks": [],
+				"name": "ecd:OutstandingRecoveriesByIndTable_OutstandingRecoveries_Cube"
+			},
+			{
+				"cubeType": "xbrl:reportCube",
+				"cubeNetworks": [],
+				"name": "ecd:PvpAdjTable_PvpAdjustmentsToCompensation_Cube",
+				"cubeDimensions": [
+					{
+						"dimensionName": "ecd:ExecutiveCategoryAxis",
+						"domainName": "ecd:AllExecutiveCategoriesMember_PvpAdjustmentsToCompensation_DDomain",
+						"allowDomainFacts": true
+					},
+					{
+						"dimensionName": "ecd:AdjToCompAxis",
+						"allowDomainFacts": true,
+						"domainName": "ecd:AllAdjToCompMember_PvpAdjustmentsToCompensation_DDomain"
+					},
+					{
+						"allowDomainFacts": true,
+						"domainName": "ecd:AllIndividualsMember_PvpAdjustmentsToCompensation_DDomain",
+						"dimensionName": "ecd:IndividualAxis"
+					},
+					{
+						"domainName": "ecd:PvpAdjTable_PvpAdjustmentsToCompensation_PDomain",
+						"dimensionName": "xbrl:concept"
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:period"
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:unit"
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				]
+			},
+			{
+				"cubeDimensions": [
+					{
+						"allowDomainFacts": false,
+						"dimensionName": "ecd:RestatementDateAxis"
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "ecd:IndividualAxis",
+						"domainName": "ecd:AllIndividualsMember_ForgoneRecoveries_DDomain"
+					},
+					{
+						"domainName": "ecd:ForgoneRecoveriesByIndTable_ForgoneRecoveries_PDomain",
+						"dimensionName": "xbrl:concept"
+					},
+					{
+						"allowDomainFacts": true,
+						"dimensionName": "xbrl:period"
+					},
+					{
+						"dimensionName": "xbrl:unit",
+						"allowDomainFacts": true
+					},
+					{
+						"dimensionName": "xbrl:entity"
+					}
+				],
+				"cubeType": "xbrl:reportCube",
+				"cubeNetworks": [],
+				"name": "ecd:ForgoneRecoveriesByIndTable_ForgoneRecoveries_Cube"
+			}
+		],
+		"domains": [
+			{
+				"name": "ecd:PvpTable_PvpTable_PDomain",
+				"relationships": [
+					{
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:PeoTotalCompAmt",
+						"order": 2
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 3,
+						"target": "ecd:PeoActuallyPaidCompAmt"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 4,
+						"target": "ecd:NonPeoNeoAvgTotalCompAmt"
+					},
+					{
+						"target": "ecd:NonPeoNeoAvgCompActuallyPaidAmt",
+						"source": "xbrl:conceptDomain",
+						"order": 5
+					},
+					{
+						"order": 6,
+						"target": "ecd:TotalShareholderRtnAmt",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"order": 7,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:PeerGroupTotalShareholderRtnAmt"
+					},
+					{
+						"target": "us-gaap:NetIncomeLoss",
+						"order": 8,
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 9,
+						"target": "ecd:CoSelectedMeasureAmt"
+					}
+				],
+				"root": "xbrl:conceptDomain"
+			},
+			{
+				"root": "ecd:AllIndividualsMember",
+				"relationships": [],
+				"name": "ecd:AllIndividualsMember_PvpAdjustmentsToCompensation_DDomain"
+			},
+			{
+				"root": "ecd:AllIndividualsMember",
+				"name": "ecd:AllIndividualsMember_OutstandingRecoveries_DDomain",
+				"relationships": []
+			},
+			{
+				"relationships": [],
+				"name": "ecd:AllExecutiveCategoriesMember_TabularListsByExecutiveCategory_DDomain",
+				"root": "ecd:AllExecutiveCategoriesMember"
+			},
+			{
+				"relationships": [],
+				"name": "ecd:AllExecutiveCategoriesMember_PvpDisclosureWithAdditionalMeasures_DDomain",
+				"root": "ecd:AllExecutiveCategoriesMember"
+			},
+			{
+				"root": "ecd:AllIndividualsMember",
+				"name": "ecd:AllIndividualsMember_PvpTable_DDomain",
+				"relationships": []
+			},
+			{
+				"relationships": [],
+				"root": "ecd:AllIndividualsMember",
+				"name": "ecd:AllIndividualsMember_TabularListMeasures_DDomain"
+			},
+			{
+				"name": "ecd:AllIndividualsMember_PvpDisclosureWithAdditionalMeasures_DDomain",
+				"root": "ecd:AllIndividualsMember",
+				"relationships": []
+			},
+			{
+				"relationships": [],
+				"name": "ecd:AllExecutiveCategoriesMember_TabularListMeasures_DDomain",
+				"root": "ecd:AllExecutiveCategoriesMember"
+			},
+			{
+				"root": "ecd:AllExecutiveCategoriesMember",
+				"name": "ecd:AllExecutiveCategoriesMember_PvpAdjustmentsToCompensation_DDomain",
+				"relationships": []
+			},
+			{
+				"relationships": [],
+				"name": "ecd:AllIndividualsMember_ForgoneRecoveries_DDomain",
+				"root": "ecd:AllIndividualsMember"
+			},
+			{
+				"relationships": [],
+				"root": "ecd:AllIndividualsMember",
+				"name": "ecd:AllIndividualsMember_InsiderTradingArrangementsByInd_DDomain"
+			},
+			{
+				"root": "ecd:AllAdjToCompMember",
+				"name": "ecd:AllAdjToCompMember_PvpAdjustmentsToCompensation_DDomain",
+				"relationships": []
+			},
+			{
+				"name": "ecd:AllIndividualsMember_TabularListsByExecutiveCategory_DDomain",
+				"relationships": [],
+				"root": "ecd:AllIndividualsMember"
+			},
+			{
+				"name": "ecd:PvpTabularListsTable_TabularListsByExecutiveCategory_PDomain",
+				"root": "xbrl:conceptDomain",
+				"relationships": [
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 2,
+						"target": "ecd:TabularListTableTextBlock"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 3,
+						"target": "ecd:PeoName"
+					}
+				]
+			},
+			{
+				"relationships": [
+					{
+						"target": "ecd:MeasureName",
+						"source": "xbrl:conceptDomain",
+						"order": 2
+					},
+					{
+						"order": 3,
+						"target": "ecd:NonGaapMeasureDescriptionTextBlock",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 4,
+						"target": "ecd:OtherPerfMeasureAmt"
+					}
+				],
+				"name": "ecd:PvpMeasuresTable_PvpMeasures_PDomain",
+				"root": "xbrl:conceptDomain"
+			},
+			{
+				"root": "xbrl:conceptDomain",
+				"name": "ecd:ErrCompRecoveryTable_ErrCompDisclosure_PDomain",
+				"relationships": [
+					{
+						"order": 2,
+						"target": "ecd:RestatementDeterminationDate",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 3,
+						"target": "ecd:AggtErrCompAmt"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 4,
+						"target": "ecd:ErrCompAnalysisTextBlock"
+					},
+					{
+						"order": 5,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:StkPrcOrTsrEstimationMethodTextBlock"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 6,
+						"target": "ecd:OutstandingAggtErrCompAmt"
+					},
+					{
+						"target": "ecd:AggtErrCompNotYetDeterminedTextBlock",
+						"source": "xbrl:conceptDomain",
+						"order": 7
+					},
+					{
+						"order": 8,
+						"target": "ecd:RestatementDoesNotRequireRecoveryTextBlock",
+						"source": "xbrl:conceptDomain"
+					}
+				]
+			},
+			{
+				"root": "xbrl:conceptDomain",
+				"relationships": [
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 2,
+						"target": "ecd:MeasureName"
+					}
+				],
+				"name": "ecd:PvpTabularListTable_TabularListMeasures_PDomain"
+			},
+			{
+				"root": "xbrl:conceptDomain",
+				"name": "ecd:PvpWithAdditionalMeasuresTable_PvpDisclosureWithAdditionalMeasures_PDomain",
+				"relationships": [
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 2,
+						"target": "ecd:CompActuallyPaidVsOtherMeasureTextBlock"
+					}
+				]
+			},
+			{
+				"relationships": [
+					{
+						"target": "ecd:OutstandingRecoveryIndName",
+						"order": 2,
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"order": 3,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:OutstandingRecoveryCompAmt"
+					}
+				],
+				"root": "xbrl:conceptDomain",
+				"name": "ecd:OutstandingRecoveriesByIndTable_OutstandingRecoveries_PDomain"
+			},
+			{
+				"root": "xbrl:conceptDomain",
+				"name": "ecd:PvpTable_PvpDisclosure_PDomain",
+				"relationships": [
+					{
+						"order": 2,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:PvpTableTextBlock"
+					},
+					{
+						"target": "ecd:CoSelectedMeasureName",
+						"order": 3,
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:NamedExecutiveOfficersFnTextBlock",
+						"order": 4
+					},
+					{
+						"order": 5,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:PeerGroupIssuersFnTextBlock"
+					},
+					{
+						"order": 6,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:ChangedPeerGroupFnTextBlock"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 7,
+						"target": "ecd:AdjToPeoCompFnTextBlock"
+					},
+					{
+						"target": "ecd:AdjToNonPeoNeoCompFnTextBlock",
+						"order": 8,
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"target": "ecd:EquityValuationAssumptionDifferenceFnTextBlock",
+						"source": "xbrl:conceptDomain",
+						"order": 9
+					},
+					{
+						"order": 10,
+						"target": "ecd:CompActuallyPaidVsTotalShareholderRtnTextBlock",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"order": 11,
+						"target": "ecd:CompActuallyPaidVsNetIncomeTextBlock",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"target": "ecd:TotalShareholderRtnVsPeerGroupTextBlock",
+						"source": "xbrl:conceptDomain",
+						"order": 12
+					},
+					{
+						"order": 13,
+						"target": "ecd:CompActuallyPaidVsCoSelectedMeasureTextBlock",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"order": 14,
+						"target": "ecd:Additional402vDisclosureTextBlock",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 15,
+						"target": "ecd:PnsnBnftsAdjFnTextBlock"
+					},
+					{
+						"target": "ecd:EqtyAwrdsAdjFnTextBlock",
+						"source": "xbrl:conceptDomain",
+						"order": 16
+					}
+				]
+			},
+			{
+				"root": "xbrl:conceptDomain",
+				"name": "ecd:PvpAdjTable_PvpAdjustmentsToCompensation_PDomain",
+				"relationships": [
+					{
+						"order": 2,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:AdjToCompAmt"
+					}
+				]
+			},
+			{
+				"root": "xbrl:conceptDomain",
+				"relationships": [
+					{
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:MtrlTermsOfTrdArrTextBlock",
+						"order": 2
+					},
+					{
+						"order": 3,
+						"target": "ecd:TrdArrIndName",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:TrdArrIndTitle",
+						"order": 4
+					},
+					{
+						"order": 5,
+						"target": "ecd:Rule10b51ArrAdoptedFlag",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"order": 6,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:Rule10b51ArrTrmntdFlag"
+					},
+					{
+						"target": "ecd:NonRule10b51ArrAdoptedFlag",
+						"source": "xbrl:conceptDomain",
+						"order": 7
+					},
+					{
+						"order": 8,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:TrdArrAdoptionDate"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 9,
+						"target": "ecd:NonRule10b51ArrTrmntdFlag"
+					},
+					{
+						"target": "ecd:TrdArrTerminationDate",
+						"order": 10,
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 11,
+						"target": "ecd:TrdArrExpirationDate"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:TrdArrDuration",
+						"order": 12
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 13,
+						"target": "ecd:TrdArrSecuritiesAggAvailAmt"
+					}
+				],
+				"name": "ecd:TradingArrByIndTable_InsiderTradingArrangementsByInd_PDomain"
+			},
+			{
+				"relationships": [
+					{
+						"order": 2,
+						"target": "ecd:InsiderTrdPoliciesProcAdoptedFlag",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 3,
+						"target": "ecd:InsiderTrdPoliciesProcNotAdoptedTextBlock"
+					}
+				],
+				"root": "xbrl:conceptDomain",
+				"name": "ecd:InsiderTradingPoliciesProcTable_InsiderTradingPoliciesProc_PDomain"
+			},
+			{
+				"relationships": [
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 2,
+						"target": "ecd:ForgoneRecoveryIndName"
+					},
+					{
+						"target": "ecd:ForgoneRecoveryDueToExpenseOfEnforcementAmt",
+						"source": "xbrl:conceptDomain",
+						"order": 3
+					},
+					{
+						"order": 4,
+						"target": "ecd:ForgoneRecoveryDueToViolationOfHomeCountryLawAmt",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"target": "ecd:ForgoneRecoveryDueToDisqualificationOfTaxBenefitsAmt",
+						"source": "xbrl:conceptDomain",
+						"order": 5
+					},
+					{
+						"target": "ecd:ForgoneRecoveryExplanationOfImpracticabilityTextBlock",
+						"order": 6,
+						"source": "xbrl:conceptDomain"
+					}
+				],
+				"name": "ecd:ForgoneRecoveriesByIndTable_ForgoneRecoveries_PDomain",
+				"root": "xbrl:conceptDomain"
+			},
+			{
+				"name": "ecd:AwardsCloseToMnpiDiscTable_AwardsCloseToMnpiDisc_PDomain",
+				"relationships": [
+					{
+						"target": "ecd:AwardsCloseToMnpiDiscIndName",
+						"source": "xbrl:conceptDomain",
+						"order": 2
+					},
+					{
+						"order": 3,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:AwardUndrlygSecuritiesAmt"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:AwardExrcPrice",
+						"order": 4
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 5,
+						"target": "ecd:AwardGrantDateFairValue"
+					},
+					{
+						"target": "ecd:UndrlygSecurityMktPriceChngPct",
+						"source": "xbrl:conceptDomain",
+						"order": 6
+					}
+				],
+				"root": "xbrl:conceptDomain"
+			},
+			{
+				"relationships": [
+					{
+						"order": 2,
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:AwardTmgMnpiDiscTextBlock"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"target": "ecd:AwardTmgMethodTextBlock",
+						"order": 3
+					},
+					{
+						"target": "ecd:AwardTmgPredtrmndFlag",
+						"order": 4,
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 5,
+						"target": "ecd:AwardTmgMnpiCnsdrdFlag"
+					},
+					{
+						"target": "ecd:AwardTmgHowMnpiCnsdrdTextBlock",
+						"order": 6,
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"order": 7,
+						"target": "ecd:MnpiDiscTimedForCompValFlag",
+						"source": "xbrl:conceptDomain"
+					},
+					{
+						"target": "ecd:AwardsCloseToMnpiDiscTableTextBlock",
+						"order": 8,
+						"source": "xbrl:conceptDomain"
+					}
+				],
+				"root": "xbrl:conceptDomain",
+				"name": "ecd:AwardTmgDiscTable_AwardTimingDisclosure_PDomain"
+			}
+		],
+		"domainClasses": [
+			{
+				"name": "ecd:AllExecutiveCategoriesMember"
+			},
+			{
+				"name": "ecd:AllAdjToCompMember"
+			},
+			{
+				"name": "ecd:AllTradingArrangementsMember"
+			},
+			{
+				"name": "ecd:AllIndividualsMember"
+			},
+			{
+				"name": "ecd:MeasureRoot",
+				"allowedDomainItems": ["xs:string"]
+			},
+			{
+				"name": "ecd:RestatementDateRoot",
+				"allowedDomainItems": ["xs:string"]
+			}
+		],
+		"members": [
+			{
+				"name": "ecd:NonNeosMember"
+			},
+			{
+				"name": "ecd:DvddsOrOthrErngsPdOnEqtyAwrdsNtOthrwsRflctdInTtlCompForCvrdYrMember"
+			},
+			{
+				"name": "ecd:FrValAsOfPrrYrEndOfEqtyAwrdsGrntdInPrrYrsFldVstngCondsDrngCvrdYrMember"
+			},
+			{
+				"name": "ecd:ChngInFrValAsOfVstngDtOfPrrYrEqtyAwrdsVstdInCvrdYrMember"
+			},
+			{
+				"name": "ecd:VstngDtFrValOfEqtyAwrdsGrntdAndVstdInCvrdYrMember"
+			},
+			{
+				"name": "ecd:ChngInFrValOfOutsdngAndUnvstdEqtyAwrdsGrntdInPrrYrsMember"
+			},
+			{
+				"name": "ecd:YrEndFrValOfEqtyAwrdsGrntdInCvrdYrOutsdngAndUnvstdMember"
+			},
+			{
+				"name": "ecd:NonPeoNeoMember"
+			},
+			{
+				"name": "ecd:PeoMember"
+			},
+			{
+				"name": "ecd:EqtyAwrdsAdjsExclgValRprtdInSummryCompstnTblMember"
+			},
+			{
+				"name": "ecd:EqtyAwrdsInSummryCompstnTblForAplblYrMember"
+			},
+			{
+				"name": "ecd:EqtyAwrdsAdjsMember"
+			},
+			{
+				"name": "ecd:PnsnAdjsPrrSvcCstMember"
+			},
+			{
+				"name": "ecd:PnsnAdjsSvcCstMember"
+			},
+			{
+				"name": "ecd:AggtPnsnAdjsSvcCstMember"
+			},
+			{
+				"name": "ecd:AggtChngPnsnValInSummryCompstnTblForAplblYrMember"
+			}
+		],
+		"dimensions": [
+			{
+				"name": "ecd:AdjToCompAxis",
+				"domainClass": "ecd:AllAdjToCompMember"
+			},
+			{
+				"domainClass": "ecd:AllTradingArrangementsMember",
+				"name": "ecd:TradingArrAxis"
+			},
+			{
+				"domainClass": "ecd:MeasureRoot",
+				"name": "ecd:MeasureAxis"
+			},
+			{
+				"domainClass": "ecd:AllIndividualsMember",
+				"name": "ecd:IndividualAxis"
+			},
+			{
+				"name": "ecd:ExecutiveCategoryAxis",
+				"domainClass": "ecd:AllExecutiveCategoriesMember"
+			},
+			{
+				"name": "ecd:RestatementDateAxis",
+				"domainClass": "ecd:RestatementDateRoot"
+			}
+		]
+	}
+}

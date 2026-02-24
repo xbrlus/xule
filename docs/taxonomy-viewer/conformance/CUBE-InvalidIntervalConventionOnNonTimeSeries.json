@@ -1,0 +1,64 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": { 
+        "exp": "http://example.com/taxonomy",
+        "xbrl": "https://xbrl.org/2025", 
+        "xbrli": "https://xbrl.org/2025/instance",
+        "xs": "http://www.w3.org/2001/XMLSchema" },
+    "documentNamespace": "exp",
+    "description": "ERROR: intervalConvention used on a reference cube."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidConvention",
+    "version": "2025",
+    "dimensions": [
+      {
+        "name": "exp:ProductCodeDimension",
+        "domainClass": "exp:ProductCodeDimensionDomainClass",
+        "cubeTypes": ["xbrl:referenceCube"]
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:ProductCodeDimensionDomainClass",
+        "allowedDomainItems" : ["xs:string"],
+        "properties": [
+          { "property": "xbrl:intervalConvention", "value": "StartTime" }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:ProductReferenceCube",
+        "cubeDimensions": [ { "dimensionName": "exp:ProductCodeDimension" },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          }
+         ]
+      }
+    ],
+     "domains": [
+        {
+                "name": "exp:PrimaryTimeSeriesDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:PeakGridElectricityDemand"
+                    }
+                ]
+            }
+    ],
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "none",
+        "nillable": true
+      }
+    ]
+  }
+}

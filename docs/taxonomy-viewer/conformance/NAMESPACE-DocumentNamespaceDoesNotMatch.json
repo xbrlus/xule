@@ -1,0 +1,28 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "documentNamespace": "exp1",
+    "description": "Error: oimte:documentNamespaceHasNoPrefix. The documentNamespace does not match any defined namespace prefix."
+  },
+  "xbrlModel": {
+    "name": "exp:documentNamespaceIsInvalid",
+    "version": "2025",
+    "members": [
+      {
+        "name": "exp:RegionEurope",
+        "properties": [
+          { "property": "exp:RegionType", "value": "continent" }
+        ]
+      }
+    ],
+    "propertyTypes": [
+      { "name": "exp:RegionType", "dataType": "xs:string" }
+    ]
+  }
+}

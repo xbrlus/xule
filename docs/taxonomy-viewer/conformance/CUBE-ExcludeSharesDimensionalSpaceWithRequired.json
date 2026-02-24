@@ -1,0 +1,203 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli":"https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Cube has excludeCubes and requiredCubes that share the same dimensional space."
+  },
+  "xbrlModel": {
+    "name": "exp:SharedDimensionalSpaceTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration",
+        "nillable": true
+      },
+      {
+        "name": "exp:Expenses",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration",
+        "nillable": true
+      },
+      {
+        "name": "exp:NetIncome",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration",
+        "nillable": true
+      }
+    ],
+    "members": [
+      {
+        "name": "exp:ProductA",
+        "domainClasses": ["exp:ProductDomainClass"]
+      },
+      {
+        "name": "exp:ProductB",
+        "domainClasses": ["exp:ProductDomainClass"]
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:ProductDimension",
+        "domainClass": "exp:ProductDomainClass"
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:ProductDomainClass"
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:ProductDomain",
+        "root": "exp:ProductDomainClass",
+        "relationships": [
+          {
+            "source": "exp:ProductDomainClass",
+            "target": "exp:ProductA"
+          },
+          {
+            "source": "exp:ProductDomainClass",
+            "target": "exp:ProductB"
+          }
+        ]
+      },
+      {
+        "name": "exp:ProductDomain2",
+        "root": "exp:ProductDomainClass",
+        "relationships": [
+          {
+            "source": "exp:ProductDomainClass",
+            "target": "exp:ProductA"
+          }
+        ]
+      },
+      {
+        "name": "exp:ConceptDomain1",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Revenue"
+          }
+        ]
+      },
+      {
+        "name": "exp:ConceptDomain2",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Revenue"
+          }
+        ]
+      },
+      {
+        "name": "exp:ConceptDomain3",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+        {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Revenue"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Expenses"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:NetIncome"
+          }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:ExcludeCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:ConceptDomain1"
+          },
+          {
+            "dimensionName": "exp:ProductDimension",
+            "domainName": "exp:ProductDomain"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ]
+      },
+      {
+        "name": "exp:RequiredCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:ConceptDomain2"
+          },
+          {
+            "dimensionName": "exp:ProductDimension",
+            "domainName": "exp:ProductDomain2"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ]
+      },
+      {
+        "name": "exp:MainCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:ConceptDomain3"
+          },
+          {
+            "dimensionName": "exp:ProductDimension",
+            "domainName": "exp:ProductDomain"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ],
+        "excludeCubes": [
+          "exp:ExcludeCube"
+        ],
+        "requiredCubes": [
+          "exp:RequiredCube"
+        ]
+      }
+    ]
+  }
+}

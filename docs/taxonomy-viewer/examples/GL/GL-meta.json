@@ -1,0 +1,36 @@
+{
+    "documentInfo": {
+        "documentType": "http://xbrl.org/YYYY/xbrl-csv",
+        "namespaces": {    
+            "iso4217": "http://www.xbrl.org/2003/iso4217",
+            "xbrli":	"http://www.xbrl.org/2003/instance",
+            "exp": "http://example.com/taxonomy",
+            "utr": "https://xbrl.org/2025/utr",
+            "lei": "http://standards.iso.org/iso/17442",
+             "gl-exp": "http://example.com/gl"
+        },
+        "linkTypes": {
+        "footnote": "http://www.xbrl.org/2003/arcrole/fact-footnote"
+        },
+        "linkGroups":{
+        "_": "http://www.xbrl.org/2003/role/link"
+        },
+        "taxonomy": [
+            "gl-exp.json"
+        ]
+    },
+    "tables": {
+        "Journals": {
+            "template": "gl-exp:Journals",
+            "url": "Journals.csv"
+        },
+        "Lines": {
+            "template": "gl-exp:Lines",
+            "url": "Lines.csv"
+        },
+        "Accounts": {
+            "template": "gl-exp:Accounts",
+            "url": "Accounts.csv"
+        }
+    }
+}

@@ -1,0 +1,116 @@
+// Groups builder module
+import { getTaxonomyData } from './state.js';
+import { getIconForType } from './utils.js';
+
+// Display mode state (name or label)
+let groupsDisplayMode = 'name';
+
+/**
+ * Get the display text for a group based on current display mode
+ */
+function getGroupDisplayText(group, taxonomyData) {
+    if (groupsDisplayMode === 'label') {
+        // Look up labels in the taxonomy.labels array
+        if (taxonomyData && taxonomyData.taxonomy && taxonomyData.taxonomy.labels) {
+            // Find the standard xbrl:label for this group in English
+            const label = taxonomyData.taxonomy.labels.find(l => 
+                l.relatedName === group.name && 
+                (l.labelType === 'xbrl:label' || !l.labelType) &&
+                l.language && l.language.startsWith('en')
+            );
+            if (label && label.value) {
+                return label.value;
+            }
+        }
+        // Fallback to name if no label found
+        return group.name;
+    }
+    // Default to name
+    return group.name;
+}
+
+/**
+ * Build and display the groups list
+ */
+export function buildGroups() {
+    console.log('[Groups Builder] buildGroups called');
+    const taxonomyData = getTaxonomyData();
+    console.log('[Groups Builder] taxonomyData:', taxonomyData);
+    const groupsContentContainer = document.getElementById('groups-content');
+    console.log('[Groups Builder] groupsContentContainer:', groupsContentContainer);
+    if (!groupsContentContainer) {
+        console.warn('[Groups Builder] groups-content container not found!');
+        return;
+    }
+
+    groupsContentContainer.innerHTML = '';
+    const groupsUl = document.createElement('ul');
+
+    if (taxonomyData && taxonomyData.taxonomy && taxonomyData.taxonomy.groups) {
+        console.log('[Groups Builder] Groups found:', taxonomyData.taxonomy.groups.length);
+        
+        // Create a sorted list by name
+        const sortedGroups = [...taxonomyData.taxonomy.groups].sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
+        
+        sortedGroups.forEach(group => {
+            const li = document.createElement('li');
+            
+            // Add icon for group
+            const icon = document.createElement('span');
+            icon.className = 'node-icon';
+            icon.textContent = getIconForType('group');
+            li.appendChild(icon);
+            
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = getGroupDisplayText(group, taxonomyData);
+            li.appendChild(nameSpan);
+            
+            li.classList.add('node');
+            li.dataset.type = 'group';
+            li.dataset.obj = JSON.stringify(group);
+            groupsUl.appendChild(li);
+        });
+    } else {
+        console.warn('[Groups Builder] No groups found in taxonomy data');
+        console.warn('[Groups Builder] taxonomyData structure:', {
+            hasTaxonomyData: !!taxonomyData,
+            hasTaxonomy: !!(taxonomyData && taxonomyData.taxonomy),
+            hasGroups: !!(taxonomyData && taxonomyData.taxonomy && taxonomyData.taxonomy.groups)
+        });
+    }
+
+    groupsContentContainer.appendChild(groupsUl);
+    
+    // Call the global attachNodeHandlers from the main file
+    if (window.attachNodeHandlers) {
+        window.attachNodeHandlers(groupsUl);
+    }
+}
+
+/**
+ * Set the display mode for groups
+ */
+export function setGroupsDisplayMode(mode) {
+    if (mode === 'name' || mode === 'label') {
+        groupsDisplayMode = mode;
+        buildGroups(); // Rebuild to apply new display mode
+    }
+}
+
+/**
+ * Initialize groups display mode dropdown
+ */
+export function initGroupsDisplayModeDropdown() {
+    const dropdown = document.getElementById('groups-display-mode');
+    if (dropdown) {
+        dropdown.addEventListener('change', (e) => {
+            setGroupsDisplayMode(e.target.value);
+        });
+        console.log('[Groups Builder] Display mode dropdown initialized');
+    } else {
+        console.warn('[Groups Builder] groups-display-mode dropdown not found');
+    }
+}
+

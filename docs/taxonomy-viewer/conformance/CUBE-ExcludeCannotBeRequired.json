@@ -1,0 +1,103 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli":"https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Cube includes the same cube in both excludeCubes and requiredCubes."
+  },
+  "xbrlModel": {
+    "name": "exp:ConflictingCubeRefsTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetaryItemType",
+        "periodType": "duration",
+        "nillable": true
+      },
+      {
+        "name": "exp:NetIncome",
+        "dataType": "xbrli:monetaryItemType",
+        "periodType": "duration",
+        "nillable": true
+      }
+    ],
+    "dimensions": [],
+    "cubes": [
+      {
+        "name": "exp:FinancialStatementCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:FinancialItemsDomain"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ]
+      },
+      {
+        "name": "exp:MainCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:ConceptDomain"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ],
+        "excludeCubes": [
+          "exp:FinancialStatementCube"
+        ],
+        "requiredCubes": [
+          "exp:FinancialStatementCube"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:ConceptDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Revenue"
+          }
+        ]
+      },
+      {
+        "name": "exp:FinancialItemsDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:NetIncome"
+          }
+        ]
+      }
+    ]
+  }
+}

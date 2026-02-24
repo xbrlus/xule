@@ -1,0 +1,66 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": { 
+            "exp": "http://example.com/taxonomy", 
+            "xbrl": "https://xbrl.org/2025", 
+            "xbrli": "https://xbrl.org/2025/instance", 
+            "xs": "http://www.w3.org/2001/XMLSchema" },
+    "documentNamespace": "exp",
+    "description": "ERROR: missing Interval on time series dimension."
+  },
+  "xbrlModel": {
+    "name": "exp:TimeSeriesMissingInterval",
+    "version": "2025",
+    "dimensions": [
+      {
+        "name": "exp:FaultyTimeDim",
+        "domainClass": "exp:FaultyTimeDimDomainClass",
+        "cubeTypes": ["xbrla:timeSeriesCube"],
+        "properties": [
+          { "property": "xbrl:timeSeriesType", "value": "Raw" },
+          { "property": "xbrl:completeTimeSeries", "value": true }
+        ]
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:FaultyTimeDimDomainClass",
+        "allowedDomainItems" : ["xs:dateTime"]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:FaultyTimeSeriesCube",
+        "cubeDimensions": [ 
+            { "dimensionName": "exp:FaultyTimeDim" },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          }
+         ]
+      }
+    ],
+     "domains": [
+        {
+                "name": "exp:PrimaryTimeSeriesDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:PeakGridElectricityDemand"
+                    }
+                ]
+            }
+    ],
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "none",
+        "nillable": true
+      }
+    ]
+  }
+}

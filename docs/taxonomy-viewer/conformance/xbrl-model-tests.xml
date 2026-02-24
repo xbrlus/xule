@@ -1,0 +1,2019 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../infrastructure/test.xsl"?>
+<testcase
+    xmlns="http://xbrl.org/2008/conformance"
+    xmlns:oimte="https://xbrl.org/2025/oimtaxonomy/error">
+  <creator>
+    <name>Author</name>
+    <email>abc@def.com</email>
+  </creator>
+  <number>XBRL Model</number>
+  <name>XBRL Model Certification Tests</name>
+  <description>
+    XBRL Model Certification Tests
+  </description>
+  <variation id="CONCEPT-ConceptWithDuplicateProperties">
+    <description>File CONCEPT-ConceptWithDuplicateProperties.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-ConceptWithDuplicateProperties.json</instance>
+    </data>
+    <result>
+      <error>oimte:conflictingPropertyValues</error>
+    </result>
+  </variation>
+  <variation id="CONCEPT-DuplicateConceptNames">
+    <description>File CONCEPT-DuplicateConceptNames.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-DuplicateConceptNames.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateObjects</error>
+    </result>
+  </variation>
+  <variation id="CONCEPT-InvalidDataType">
+    <description>File CONCEPT-InvalidDataType.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-InvalidDataType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CONCEPT-NamespaceMismatch">
+    <description>File CONCEPT-NamespaceMismatch.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-NamespaceMismatch.json</instance>
+    </data>
+    <result>
+      <error>oimte:objectNamespaceMismatch</error>
+    </result>
+  </variation>
+  <variation id="CONCEPT-PropertiesReferenceDisallowedObjectType">
+    <description>File CONCEPT-PropertiesReferenceDisallowedObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-PropertiesReferenceDisallowedObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:disallowedObjectProperty</error>
+    </result>
+  </variation>
+  <variation id="CONCEPT-PropertiesReferenceNonexistentPropertyType">
+    <description>File CONCEPT-PropertiesReferenceNonexistentPropertyType.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-PropertiesReferenceNonexistentPropertyType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-AllowDomainFactOnConceptDim">
+    <description>File CUBE-AllowDomainFactOnConceptDim.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-AllowDomainFactOnConceptDim.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidAllowDomainFactsPropertyOnConceptDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBE-AllowDomainFactsOnConceptDimension">
+    <description>File CUBE-AllowDomainFactsOnConceptDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-AllowDomainFactsOnConceptDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidAllowDomainFactsPropertyOnConceptDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBE-ConceptDimensionNotDefined">
+    <description>File CUBE-ConceptDimensionNotDefined.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-ConceptDimensionNotDefined.json</instance>
+    </data>
+    <result>
+      <error>oimte:cubeMissingConceptDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBE-DimensionCubeTypeDoesNotMatchCubeType">
+    <description>File CUBE-DimensionCubeTypeDoesNotMatchCubeType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-DimensionCubeTypeDoesNotMatchCubeType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidCubeType</error>
+    </result>
+  </variation>
+  <variation id="CUBE-DimensionNotDimensionObject">
+    <description>File CUBE-DimensionNotDimensionObject.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-DimensionNotDimensionObject.json</instance>
+    </data>
+    <result>
+      <error>oimte:dimensionNameNotDimensionObject</error>
+    </result>
+  </variation>
+  <variation id="CUBE-DomainDataTypeOnPeriodDimension">
+    <description>File CUBE-DomainDataTypeOnPeriodDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-DomainDataTypeOnPeriodDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:domainUsedOnPeriodDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBE-DomainNameOnTypedDimension">
+    <description>File CUBE-DomainNameOnTypedDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-DomainNameOnTypedDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:domainClassMismatchWithDomain</error>
+      <error>oimte:invalidDomainObject</error>
+    </result>
+  </variation>
+  <variation id="CUBE-DomainOnPeriodDImension">
+    <description>File CUBE-DomainOnPeriodDImension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-DomainOnPeriodDImension.json</instance>
+    </data>
+    <result>
+      <error>oimte:domainUsedOnPeriodDimension</error>
+      <error>oimte:invalidCubeDimensionDomainName</error>
+    </result>
+  </variation>
+  <variation id="CUBE-DuplicateDimension">
+    <description>File CUBE-DuplicateDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-DuplicateDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateDimensionsInCube</error>
+    </result>
+  </variation>
+  <variation id="CUBE-ExcludeCannotBeRequired">
+    <description>File CUBE-ExcludeCannotBeRequired.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-ExcludeCannotBeRequired.json</instance>
+    </data>
+    <result>
+      <error>oimte:excludeCubeCannotBeRequiredCube</error>
+    </result>
+  </variation>
+  <variation id="CUBE-ExcludeCubeDoesNotExist">
+    <description>File CUBE-ExcludeCubeDoesNotExist.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-ExcludeCubeDoesNotExist.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-ExcludeCubeIsSameCube">
+    <description>File CUBE-ExcludeCubeIsSameCube.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-ExcludeCubeIsSameCube.json</instance>
+    </data>
+    <result>
+      <error>oimte:excludeCubeSelfReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-ExcludeSharesDimensionalSpaceWithRequired">
+    <description>File CUBE-ExcludeSharesDimensionalSpaceWithRequired.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-ExcludeSharesDimensionalSpaceWithRequired.json</instance>
+    </data>
+    <result>
+      <error>oimte:excludeCubeSharesDimensionalSpaceWithRequiredCube</error>
+    </result>
+  </variation>
+  <variation id="CUBE-FactMissingFromCompleteCube">
+    <description>File CUBE-FactMissingFromCompleteCube.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-FactMissingFromCompleteCube.json</instance>
+    </data>
+    <result>
+      <error>oimte:factMissingFromCube</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InappropriateCubeTypeReference">
+    <description>File CUBE-InappropriateCubeTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InappropriateCubeTypeReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InappropriateDimensionReference">
+    <description>File CUBE-InappropriateDimensionReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InappropriateDimensionReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:cubeMissingConceptDimension</error>
+      <error>oimte:dimensionNameNotDimensionObject</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InappropriateDomainReference">
+    <description>File CUBE-InappropriateDomainReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InappropriateDomainReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidCubeDimensionDomainName</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InappropriateExcludeCubeReference">
+    <description>File CUBE-InappropriateExcludeCubeReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InappropriateExcludeCubeReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidCubeDimensionDomainName</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InappropriateNetworkReference">
+    <description>File CUBE-InappropriateNetworkReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InappropriateNetworkReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InvalidCubeProperty">
+    <description>File CUBE-InvalidCubeProperty.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InvalidCubeProperty.json</instance>
+    </data>
+    <result>
+      <error>oimte:disallowedObjectProperty</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InvalidCubeType">
+    <description>File CUBE-InvalidCubeType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InvalidCubeType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-MissingConceptDimension">
+    <description>File CUBE-MissingConceptDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-MissingConceptDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:cubeMissingConceptDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBE-PeriodConstraintConceptNotConcept">
+    <description>File CUBE-PeriodConstraintConceptNotConcept.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-PeriodConstraintConceptNotConcept.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-PeriodConstraintContextNotConcept">
+    <description>File CUBE-PeriodConstraintContextNotConcept.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-PeriodConstraintContextNotConcept.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBE-PeriodConstraintOnNonPeriodDimension">
+    <description>File CUBE-PeriodConstraintOnNonPeriodDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-PeriodConstraintOnNonPeriodDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidPeriodConstraintDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBE-PeriodConstraintRedundantTimeSpan">
+    <description>File CUBE-PeriodConstraintRedundantTimeSpan.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-PeriodConstraintRedundantTimeSpan.json</instance>
+    </data>
+    <result>
+      <error>oimte:redundantTimeSpanProperty</error>
+    </result>
+  </variation>
+  <variation id="CUBE-PeriodConstraintValidTimeSpan">
+    <description>File CUBE-PeriodConstraintValidTimeSpan.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-PeriodConstraintValidTimeSpan.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CUBE-RequiredCubeDimensionalSpaceMissing">
+    <description>File CUBE-RequiredCubeDimensionalSpaceMissing.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-RequiredCubeDimensionalSpaceMissing.json</instance>
+    </data>
+    <result>
+      <error>oimte:requiredCubeDimensionalSpaceMissingFromCube</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-BaseCubeTypeIsDimension">
+    <description>File CUBETYPE-BaseCubeTypeIsDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-BaseCubeTypeIsDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-coreDimensionsExpansion">
+    <description>File CUBETYPE-coreDimensionsExpansion.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-coreDimensionsExpansion.json</instance>
+    </data>
+    <result>
+      <error>oimte:coreDimensionsExpansion</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-duplicateCoreDimension">
+    <description>File CUBETYPE-duplicateCoreDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-duplicateCoreDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateCoreDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-duplicateDimension">
+    <description>File CUBETYPE-duplicateDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-duplicateDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidCoreDimension">
+    <description>File CUBETYPE-invalidCoreDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidCoreDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidCoreDimension</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidDataTypeExpansion">
+    <description>File CUBETYPE-invalidDataTypeExpansion.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidDataTypeExpansion.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDataTypeExpansion</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidDimensionAddition">
+    <description>File CUBETYPE-invalidDimensionAddition.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidDimensionAddition.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDimensionAddition</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidDimensionClosedExpansion">
+    <description>File CUBETYPE-invalidDimensionClosedExpansion.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidDimensionClosedExpansion.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDimensionClosedExpansion</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidDimensionDataTypeProperty">
+    <description>File CUBETYPE-invalidDimensionDataTypeProperty.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidDimensionDataTypeProperty.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDimensionDataTypeProperty</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidDimensionReference">
+    <description>File CUBETYPE-invalidDimensionReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidDimensionReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDimensionReference</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidDimensionRequirementRelaxation">
+    <description>File CUBETYPE-invalidDimensionRequirementRelaxation.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidDimensionRequirementRelaxation.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDimensionRequirementRelaxation</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidPropertyExpansion">
+    <description>File CUBETYPE-invalidPropertyExpansion.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidPropertyExpansion.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidPropertyExpansion</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidPropertyTypeReference">
+    <description>File CUBETYPE-invalidPropertyTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidPropertyTypeReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidPropertyTypeReference</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidRelationshipConstraintRelaxation">
+    <description>File CUBETYPE-invalidRelationshipConstraintRelaxation.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidRelationshipConstraintRelaxation.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidRelationshipConstraintRelaxation</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidRelationshipExpansion">
+    <description>File CUBETYPE-invalidRelationshipExpansion.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidRelationshipExpansion.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidRelationshipExpansion</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidRelationshipTypeReference">
+    <description>File CUBETYPE-invalidRelationshipTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidRelationshipTypeReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidRelationshipTypeReference</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidSourceObjectType">
+    <description>File CUBETYPE-invalidSourceObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidSourceObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidSourceObjectType</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidSourceQName">
+    <description>File CUBETYPE-invalidSourceQName.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidSourceQName.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidSourceQName</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidTargetObjectType">
+    <description>File CUBETYPE-invalidTargetObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidTargetObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidTargetObjectType</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-invalidTargetQName">
+    <description>File CUBETYPE-invalidTargetQName.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-invalidTargetQName.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidTargetQName</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-missingRequiredCubeProperty">
+    <description>File CUBETYPE-missingRequiredCubeProperty.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-missingRequiredCubeProperty.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingRequiredCubeProperty</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-missingRequiredDimensionProperty">
+    <description>File CUBETYPE-missingRequiredDimensionProperty.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-missingRequiredDimensionProperty.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingRequiredDimensionProperty</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-missingRequiredRelationship">
+    <description>File CUBETYPE-missingRequiredRelationship.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-missingRequiredRelationship.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingRequiredRelationship</error>
+    </result>
+  </variation>
+  <variation id="DATATYPE-InvalidBaseCollectionType">
+    <description>File DATATYPE-InvalidBaseCollectionType.json</description>
+    <data>
+      <instance readMeFirst="true">DATATYPE-InvalidBaseCollectionType.json</instance>
+    </data>
+    <result>
+      <error>oimte:collectionTypeWithoutCollectionBaseType</error>
+    </result>
+  </variation>
+  <variation id="DATATYPE-unallowedDatatypeObject">
+    <description>File DATATYPE-unallowedDatatypeObject.json</description>
+    <data>
+      <instance readMeFirst="true">DATATYPE-unallowedDatatypeObject.json</instance>
+    </data>
+    <result>
+      <error>oimte:unallowedDataTypeObject</error>
+    </result>
+  </variation>
+  <variation id="DIMENSION-InvalidCubeTypeReference">
+    <description>File DIMENSION-InvalidCubeTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">DIMENSION-InvalidCubeTypeReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidCubeType</error>
+    </result>
+  </variation>
+  <variation id="DIMENSION-InvalidDomainDataTypeReference">
+    <description>File DIMENSION-InvalidDomainDataTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">DIMENSION-InvalidDomainDataTypeReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDataTypeForDomainClass</error>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-AbstractInTaxonomyDefinedDimensionDomain">
+    <description>File DOMAIN-AbstractInTaxonomyDefinedDimensionDomain.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-AbstractInTaxonomyDefinedDimensionDomain.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDomainObject</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-DomainClassNotSourceInRelationship">
+    <description>File DOMAIN-DomainClassNotSourceInRelationship.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-DomainClassNotSourceInRelationship.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingDomainClassSource</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-DomainTargetNonAllowedObjectType">
+    <description>File DOMAIN-DomainTargetNonAllowedObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-DomainTargetNonAllowedObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDomainObject</error>
+      <error>oimte:invalidDomainRelationshipTarget</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ExtendClosedDomain">
+    <description>File DOMAIN-ExtendClosedDomain.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ExtendClosedDomain.json</instance>
+    </data>
+    <result>
+      <error>oimte:cannotExtendCompleteDomain</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-InvalidEntityDomainSource">
+    <description>File DOMAIN-InvalidEntityDomainSource.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-InvalidEntityDomainSource.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingDomainClassSource</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-InvalidEntityDomainTarget">
+    <description>File DOMAIN-InvalidEntityDomainTarget.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-InvalidEntityDomainTarget.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidEntityDomainTarget</error>
+      <error>oimte:invalidDomainObject</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-InvalidRootReference">
+    <description>File DOMAIN-InvalidRootReference.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-InvalidRootReference.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDomainClass</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-InvalidUnitDomainSource">
+    <description>File DOMAIN-InvalidUnitDomainSource.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-InvalidUnitDomainSource.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingDomainClassSource</error>
+      <error>oimte:invalidUnitDomainSource</error>
+      <error>oimte:invalidDomainObject</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-MultipleDomainClasses">
+    <description>File DOMAIN-MultipleDomainClasses.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-MultipleDomainClasses.json</instance>
+    </data>
+    <result>
+      <error>oimte:multipleDomainClasses</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-UnitDomainWIthNonUnit">
+    <description>File DOMAIN-UnitDomainWIthNonUnit.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-UnitDomainWIthNonUnit.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidUnitDomainTarget</error>
+      <error>oimte:invalidDomainObject</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-UnitObjectInInvalidDomain">
+    <description>File DOMAIN-UnitObjectInInvalidDomain.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-UnitObjectInInvalidDomain.json</instance>
+    </data>
+    <result>
+      <error>oimte:unitInNonUnitDomain</error>
+      <error>oimte:invalidDomainObject</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-DomainClassReferencesConceptObject">
+    <description>File DOMAINCLASS-DomainClassReferencesConceptObject.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-DomainClassReferencesConceptObject.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDomainClass</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship">
+    <description>File DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidDomainClassTarget</error>
+      <error>oimte:missingDomainClassSource</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot">
+    <description>File DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidConceptDomainClass</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot">
+    <description>File DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidLanguageDomainClass</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot">
+    <description>File DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidUnitDomainClass</error>
+    </result>
+  </variation>
+  <variation id="FACT-ValueDataTypeMismatch">
+    <description>File FACT-ValueDataTypeMismatch.json</description>
+    <data>
+      <instance readMeFirst="true">FACT-ValueDataTypeMismatch.json</instance>
+    </data>
+    <result>
+      <error>oimte:factValueDataTypeMismatch</error>
+    </result>
+  </variation>
+  <variation id="FINAL-ExtendsFinalTaxonomy">
+    <description>File FINAL-ExtendsFinalTaxonomy.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-ExtendsFinalTaxonomy.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidFinalTaxonomyModification</error>
+    </result>
+  </variation>
+  <variation id="FINAL-ExtendsFinalTaxonomyNetwork">
+    <description>File FINAL-ExtendsFinalTaxonomyNetwork.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-ExtendsFinalTaxonomyNetwork.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidFinalTaxonomyObject</error>
+    </result>
+  </variation>
+  <variation id="FINAL-ExtendsFinalTaxonomyNewNetwork">
+    <description>File FINAL-ExtendsFinalTaxonomyNewNetwork.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-ExtendsFinalTaxonomyNewNetwork.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FINAL-ExtendsFinalTaxonomyObjectWithConcept">
+    <description>File FINAL-ExtendsFinalTaxonomyObjectWithConcept.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-ExtendsFinalTaxonomyObjectWithConcept.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidFinalTaxonomyObjectType</error>
+    </result>
+  </variation>
+  <variation id="FINAL-ExtendsFinalTaxonomyObjectWithMember">
+    <description>File FINAL-ExtendsFinalTaxonomyObjectWithMember.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-ExtendsFinalTaxonomyObjectWithMember.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FINAL-ExtendsFinalTaxonomyWithFact">
+    <description>File FINAL-ExtendsFinalTaxonomyWithFact.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-ExtendsFinalTaxonomyWithFact.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-InvalidObjectSelectionObjectType">
+    <description>File IMPORTTAXONOMY-InvalidObjectSelectionObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-InvalidObjectSelectionObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidReferenceToImportTaxonomyObject</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-InvalidObjectType">
+    <description>File IMPORTTAXONOMY-InvalidObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-InvalidObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidImportObjectType</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-InvalidSelectionObjectType">
+    <description>File IMPORTTAXONOMY-InvalidSelectionObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-InvalidSelectionObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidReferenceToImportTaxonomyObject</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-InvalidTextSelectionObjectType">
+    <description>File IMPORTTAXONOMY-InvalidTextSelectionObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-InvalidTextSelectionObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidReferenceToImportTaxonomyObject</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-PassThroughPrefixError">
+    <description>File IMPORTTAXONOMY-PassThroughPrefixError.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-PassThroughPrefixError.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidObjectNamespacePrefix</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-TaxonomyNotFound">
+    <description>File IMPORTTAXONOMY-TaxonomyNotFound.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-TaxonomyNotFound.json</instance>
+    </data>
+    <result>
+      <error>oimte:taxonomyNotFound</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-TaxonomyNotFoundNoFile">
+    <description>File IMPORTTAXONOMY-TaxonomyNotFoundNoFile.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-TaxonomyNotFoundNoFile.json</instance>
+    </data>
+    <result>
+      <error>oimte:taxonomyNotFound</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-TaxonomyNotFoundNoQName">
+    <description>File IMPORTTAXONOMY-TaxonomyNotFoundNoQName.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-TaxonomyNotFoundNoQName.json</instance>
+    </data>
+    <result>
+      <error>oimte:taxonomyNotFound</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-UnknownObject">
+    <description>File IMPORTTAXONOMY-UnknownObject.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-UnknownObject.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="LABEL-InvalidLanguageCode">
+    <description>File LABEL-InvalidLanguageCode.json</description>
+    <data>
+      <instance readMeFirst="true">LABEL-InvalidLanguageCode.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidLanguage</error>
+    </result>
+  </variation>
+  <variation id="MODELTYPE-RequiredProperty">
+    <description>File MODELTYPE-RequiredProperty.json</description>
+    <data>
+      <instance readMeFirst="true">MODELTYPE-RequiredProperty.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingRequiredModelTypeProperty</error>
+    </result>
+  </variation>
+  <variation id="MODELTYPE-invalidInstance">
+    <description>File MODELTYPE-invalidInstance.json</description>
+    <data>
+      <instance readMeFirst="true">MODELTYPE-invalidInstance.json</instance>
+    </data>
+    <result>
+      <error>oimte:disallowedObjectModelType</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-DocumentNamespaceDoesNotMatch">
+    <description>File NAMESPACE-DocumentNamespaceDoesNotMatch.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-DocumentNamespaceDoesNotMatch.json</instance>
+    </data>
+    <result>
+      <error>oimte:documentNamespaceHasNoPrefix</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-PrefixNotDefined">
+    <description>File NAMESPACE-PrefixNotDefined.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-PrefixNotDefined.json</instance>
+    </data>
+    <result>
+      <error>oimte:objectNamespacePrefixNotDefined</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-RestrictedPrefix">
+    <description>File NAMESPACE-RestrictedPrefix.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-RestrictedPrefix.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidObjectNamespacePrefix</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-DuplicateNetworkNames">
+    <description>File NETWORK-DuplicateNetworkNames.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-DuplicateNetworkNames.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateObjects</error>
+    </result>
+  </variation>
+  <variation id="PROPERTYTYPE-DuplicatePropertyTypeNames">
+    <description>File PROPERTYTYPE-DuplicatePropertyTypeNames.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTYTYPE-DuplicatePropertyTypeNames.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateObjects</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-DuplicateReferenceNames">
+    <description>File REFERENCE-DuplicateReferenceNames.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-DuplicateReferenceNames.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateObjects</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-ExtendTargetNameAndLanguageBothPresent">
+    <description>File REFERENCE-ExtendTargetNameAndLanguageBothPresent.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-ExtendTargetNameAndLanguageBothPresent.json</instance>
+    </data>
+    <result>
+      <error>oimte:referenceLanguageRedefined</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-ExtendTargetNameAndReferenceTypeMismatch">
+    <description>File REFERENCE-ExtendTargetNameAndReferenceTypeMismatch.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-ExtendTargetNameAndReferenceTypeMismatch.json</instance>
+    </data>
+    <result>
+      <error>oimte:referenceTypeRedefined</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-InvalidLanguageCode">
+    <description>File REFERENCE-InvalidLanguageCode.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-InvalidLanguageCode.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidLanguage</error>
+    </result>
+  </variation>
+  <variation id="UNIT-DuplicateUnitNames">
+    <description>File UNIT-DuplicateUnitNames.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-DuplicateUnitNames.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateObjects</error>
+    </result>
+  </variation>
+  <variation id="CONCEPT-ValidBasic">
+    <description>File CONCEPT-ValidBasic.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-ValidBasic.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CONCEPT-ValidCustomDataType">
+    <description>File CONCEPT-ValidCustomDataType.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-ValidCustomDataType.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CONCEPT-ValidEnumerationDomain">
+    <description>File CONCEPT-ValidEnumerationDomain.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-ValidEnumerationDomain.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CONCEPT-ValidNillable">
+    <description>File CONCEPT-ValidNillable.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-ValidNillable.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CONCEPT-ValidProperties">
+    <description>File CONCEPT-ValidProperties.json</description>
+    <data>
+      <instance readMeFirst="true">CONCEPT-ValidProperties.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CUBE-FactNotInCube">
+    <description>File CUBE-FactNotInCube.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-FactNotInCube.json</instance>
+    </data>
+    <result>
+      <error>tbd001</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InvalidIntervalConventionOnNonTimeSeries">
+    <description>File CUBE-InvalidIntervalConventionOnNonTimeSeries.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InvalidIntervalConventionOnNonTimeSeries.json</instance>
+    </data>
+    <result>
+      <error>tbd002</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InvalidMissingIntervalOfMeasurement">
+    <description>File CUBE-InvalidMissingIntervalOfMeasurement.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InvalidMissingIntervalOfMeasurement.json</instance>
+    </data>
+    <result>
+      <error>tbd003</error>
+    </result>
+  </variation>
+  <variation id="CUBE-InvalidTimeSeriesTypeOnNonTimeSeriesDimension">
+    <description>File CUBE-InvalidTimeSeriesTypeOnNonTimeSeriesDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InvalidTimeSeriesTypeOnNonTimeSeriesDimension.json</instance>
+    </data>
+    <result>
+      <error>tbd004</error>
+    </result>
+  </variation>
+  <variation id="CUBE-MutipleTaxonomyDefinedDimensionsForTimeSeries">
+    <description>File CUBE-MutipleTaxonomyDefinedDimensionsForTimeSeries.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-MutipleTaxonomyDefinedDimensionsForTimeSeries.json</instance>
+    </data>
+    <result>
+      <error>tbd005</error>
+    </result>
+  </variation>
+  <variation id="CUBE-NetworkReferencesDomain">
+    <description>File CUBE-NetworkReferencesDomain.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-NetworkReferencesDomain.json</instance>
+    </data>
+    <result>
+      <error>tbd006</error>
+    </result>
+  </variation>
+  <variation id="CUBE-TimeSeriesCubeInvalidPeriodDImension">
+    <description>File CUBE-TimeSeriesCubeInvalidPeriodDImension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-TimeSeriesCubeInvalidPeriodDImension.json</instance>
+    </data>
+    <result>
+      <error>tbd007</error>
+    </result>
+  </variation>
+  <variation id="CUBE-TypedDimensionUsesDomain">
+    <description>File CUBE-TypedDimensionUsesDomain.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-TypedDimensionUsesDomain.json</instance>
+    </data>
+    <result>
+      <error>tbd008</error>
+    </result>
+  </variation>
+  <variation id="CUBE-TypedSortOnExplicitDimension">
+    <description>File CUBE-TypedSortOnExplicitDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-TypedSortOnExplicitDimension.json</instance>
+    </data>
+    <result>
+      <error>tbd009</error>
+    </result>
+  </variation>
+  <variation id="CUBE-ValidExcludedIntervals">
+    <description>File CUBE-ValidExcludedIntervals.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-ValidExcludedIntervals.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CUBE-ValidTimeSeriesComplete">
+    <description>File CUBE-ValidTimeSeriesComplete.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-ValidTimeSeriesComplete.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="CUBE-timeSeriesCubeInvalidDImension">
+    <description>File CUBE-timeSeriesCubeInvalidDImension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-timeSeriesCubeInvalidDImension.json</instance>
+    </data>
+    <result>
+      <error>tbd010</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-AllowedCubeDimensionExplicitString">
+    <description>File CUBETYPE-AllowedCubeDimensionExplicitString.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-AllowedCubeDimensionExplicitString.json</instance>
+    </data>
+    <result>
+      <error>tbd011</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-AllowedCubeDimensionIsConcept">
+    <description>File CUBETYPE-AllowedCubeDimensionIsConcept.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-AllowedCubeDimensionIsConcept.json</instance>
+    </data>
+    <result>
+      <error>tbd012</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-AllowedCubeDimensionIsConceptDimension">
+    <description>File CUBETYPE-AllowedCubeDimensionIsConceptDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-AllowedCubeDimensionIsConceptDimension.json</instance>
+    </data>
+    <result>
+      <error>tbd013</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-AllowedCubeDimensionNoDimensionType">
+    <description>File CUBETYPE-AllowedCubeDimensionNoDimensionType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-AllowedCubeDimensionNoDimensionType.json</instance>
+    </data>
+    <result>
+      <error>tbd014</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-AllowedCubeDimensionsWithPeriodDimension">
+    <description>File CUBETYPE-AllowedCubeDimensionsWithPeriodDimension.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-AllowedCubeDimensionsWithPeriodDimension.json</instance>
+    </data>
+    <result>
+      <error>tbd015</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-AllowedCubeDimensionsWithTaxonomyDefinedDimensionFalse">
+    <description>File CUBETYPE-AllowedCubeDimensionsWithTaxonomyDefinedDimensionFalse.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-AllowedCubeDimensionsWithTaxonomyDefinedDimensionFalse.json</instance>
+    </data>
+    <result>
+      <error>tbd016</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-BaseCubeTypeDoesNotExist">
+    <description>File CUBETYPE-BaseCubeTypeDoesNotExist.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-BaseCubeTypeDoesNotExist.json</instance>
+    </data>
+    <result>
+      <error>tbd017</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-BaseCubeTypeWithForbiddenProperties">
+    <description>File CUBETYPE-BaseCubeTypeWithForbiddenProperties.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-BaseCubeTypeWithForbiddenProperties.json</instance>
+    </data>
+    <result>
+      <error>tbd018</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-EmptyAllowedCubeDimensions">
+    <description>File CUBETYPE-EmptyAllowedCubeDimensions.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-EmptyAllowedCubeDimensions.json</instance>
+    </data>
+    <result>
+      <error>tbd019</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-InvalidAllowedCubeDimensionReference">
+    <description>File CUBETYPE-InvalidAllowedCubeDimensionReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-InvalidAllowedCubeDimensionReference.json</instance>
+    </data>
+    <result>
+      <error>tbd020</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-RequiredCubeRelationshipInvalidSource">
+    <description>File CUBETYPE-RequiredCubeRelationshipInvalidSource.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-RequiredCubeRelationshipInvalidSource.json</instance>
+    </data>
+    <result>
+      <error>tbd021</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-RequiredCubeRelationshipInvalidSourceObject">
+    <description>File CUBETYPE-RequiredCubeRelationshipInvalidSourceObject.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-RequiredCubeRelationshipInvalidSourceObject.json</instance>
+    </data>
+    <result>
+      <error>tbd022</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-RequiredCubeRelationshipInvalidTypeReference">
+    <description>File CUBETYPE-RequiredCubeRelationshipInvalidTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-RequiredCubeRelationshipInvalidTypeReference.json</instance>
+    </data>
+    <result>
+      <error>tbd023</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-RequiredCubeRelationshipMissingType">
+    <description>File CUBETYPE-RequiredCubeRelationshipMissingType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-RequiredCubeRelationshipMissingType.json</instance>
+    </data>
+    <result>
+      <error>tbd024</error>
+    </result>
+  </variation>
+  <variation id="CUBETYPE-RequiredCubeRelationshipWrongTargetType">
+    <description>File CUBETYPE-RequiredCubeRelationshipWrongTargetType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBETYPE-RequiredCubeRelationshipWrongTargetType.json</instance>
+    </data>
+    <result>
+      <error>tbd025</error>
+    </result>
+  </variation>
+  <variation id="DIMENSION-InvalidDomainClassReference">
+    <description>File DIMENSION-InvalidDomainClassReference.json</description>
+    <data>
+      <instance readMeFirst="true">DIMENSION-InvalidDomainClassReference.json</instance>
+    </data>
+    <result>
+      <error>tbd026</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-DomainClassUsedAsTargetInRelationships">
+    <description>File DOMAIN-DomainClassUsedAsTargetInRelationships.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-DomainClassUsedAsTargetInRelationships.json</instance>
+    </data>
+    <result>
+      <error>tbd027</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-DomainObjectWithDuplicateRelationships">
+    <description>File DOMAIN-DomainObjectWithDuplicateRelationships.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-DomainObjectWithDuplicateRelationships.json</instance>
+    </data>
+    <result>
+      <error>tbd028</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-DomainObjectWithInvalidPropertyReference">
+    <description>File DOMAIN-DomainObjectWithInvalidPropertyReference.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-DomainObjectWithInvalidPropertyReference.json</instance>
+    </data>
+    <result>
+      <error>tbd029</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-InvalidEntityDomainSource2">
+    <description>File DOMAIN-InvalidEntityDomainSource2.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-InvalidEntityDomainSource2.json</instance>
+    </data>
+    <result>
+      <error>tbd030</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-InvalidExtendTargetNameReference">
+    <description>File DOMAIN-InvalidExtendTargetNameReference.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-InvalidExtendTargetNameReference.json</instance>
+    </data>
+    <result>
+      <error>tbd031</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-MemberInConceptDimensionDomain">
+    <description>File DOMAIN-MemberInConceptDimensionDomain.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-MemberInConceptDimensionDomain.json</instance>
+    </data>
+    <result>
+      <error>tbd032</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-RelationshipsReferenceInvalidSourceType">
+    <description>File DOMAIN-RelationshipsReferenceInvalidSourceType.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-RelationshipsReferenceInvalidSourceType.json</instance>
+    </data>
+    <result>
+      <error>tbd033</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget">
+    <description>File DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget.json</instance>
+    </data>
+    <result>
+      <error>tbd034</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-StringInDateTaxonomyDefinedDimensionDomain">
+    <description>File DOMAIN-StringInDateTaxonomyDefinedDimensionDomain.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-StringInDateTaxonomyDefinedDimensionDomain.json</instance>
+    </data>
+    <result>
+      <error>tbd035</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidRelationshipsClosed">
+    <description>File DOMAIN-ValidRelationshipsClosed.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidRelationshipsClosed.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-ConceptDomainWithEntityChild">
+    <description>File DOMAINCLASS-ConceptDomainWithEntityChild.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-ConceptDomainWithEntityChild.json</instance>
+    </data>
+    <result>
+      <error>tbd036</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-ConceptDomainWithMemberChild">
+    <description>File DOMAINCLASS-ConceptDomainWithMemberChild.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-ConceptDomainWithMemberChild.json</instance>
+    </data>
+    <result>
+      <error>tbd037</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-ConceptDomainWithUnitChild">
+    <description>File DOMAINCLASS-ConceptDomainWithUnitChild.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-ConceptDomainWithUnitChild.json</instance>
+    </data>
+    <result>
+      <error>tbd038</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-DimensionDoesNotMatchDomainClass">
+    <description>File DOMAINCLASS-DimensionDoesNotMatchDomainClass.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-DimensionDoesNotMatchDomainClass.json</instance>
+    </data>
+    <result>
+      <error>tbd039</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-EntityDomainWithNonEntityMember">
+    <description>File DOMAINCLASS-EntityDomainWithNonEntityMember.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-EntityDomainWithNonEntityMember.json</instance>
+    </data>
+    <result>
+      <error>tbd040</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-RootDoesNotMatchDomainClass">
+    <description>File DOMAINCLASS-RootDoesNotMatchDomainClass.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-RootDoesNotMatchDomainClass.json</instance>
+    </data>
+    <result>
+      <error>tbd041</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot">
+    <description>File DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json</instance>
+    </data>
+    <result>
+      <error>tbd042</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-UnitDomainWithConceptChild">
+    <description>File DOMAINCLASS-UnitDomainWithConceptChild.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-UnitDomainWithConceptChild.json</instance>
+    </data>
+    <result>
+      <error>tbd043</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-UnitDomainWithEntityChild">
+    <description>File DOMAINCLASS-UnitDomainWithEntityChild.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-UnitDomainWithEntityChild.json</instance>
+    </data>
+    <result>
+      <error>tbd044</error>
+    </result>
+  </variation>
+  <variation id="DOMAINCLASS-UnitDomainWithMemberChild">
+    <description>File DOMAINCLASS-UnitDomainWithMemberChild.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAINCLASS-UnitDomainWithMemberChild.json</instance>
+    </data>
+    <result>
+      <error>tbd045</error>
+    </result>
+  </variation>
+  <variation id="FACT-RequiredDisclosure">
+    <description>File FACT-RequiredDisclosure.json</description>
+    <data>
+      <instance readMeFirst="true">FACT-RequiredDisclosure.json</instance>
+    </data>
+    <result>
+      <error>tbd046</error>
+    </result>
+  </variation>
+  <variation id="FACT-RequiredDisclosureNotPresent">
+    <description>File FACT-RequiredDisclosureNotPresent.json</description>
+    <data>
+      <instance readMeFirst="true">FACT-RequiredDisclosureNotPresent.json</instance>
+    </data>
+    <result>
+      <error>tbd047</error>
+    </result>
+  </variation>
+  <variation id="FACTSET-ValidFactMap">
+    <description>File FACTSET-ValidFactMap.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSET-ValidFactMap.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FACTSET-ValidFactMapExternalFile">
+    <description>File FACTSET-ValidFactMapExternalFile.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSET-ValidFactMapExternalFile.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FACTSET-ValidFactMapWithFootnote">
+    <description>File FACTSET-ValidFactMapWithFootnote.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSET-ValidFactMapWithFootnote.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FACTSET-ValidFactMapWithFootnoteURL">
+    <description>File FACTSET-ValidFactMapWithFootnoteURL.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSET-ValidFactMapWithFootnoteURL.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FINAL-DefinesFinalTaxonomyFlag">
+    <description>File FINAL-DefinesFinalTaxonomyFlag.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-DefinesFinalTaxonomyFlag.json</instance>
+    </data>
+    <result>
+      <error>tbd048</error>
+    </result>
+  </variation>
+  <variation id="FINAL-DefinesFinalTaxonomyObject">
+    <description>File FINAL-DefinesFinalTaxonomyObject.json</description>
+    <data>
+      <instance readMeFirst="true">FINAL-DefinesFinalTaxonomyObject.json</instance>
+    </data>
+    <result>
+      <error>tbd049</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-InvalidSelectorExpression">
+    <description>File IMPORTTAXONOMY-InvalidSelectorExpression.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-InvalidSelectorExpression.json</instance>
+    </data>
+    <result>
+      <error>tbd050</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-NotInNamespace">
+    <description>File IMPORTTAXONOMY-NotInNamespace.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-NotInNamespace.json</instance>
+    </data>
+    <result>
+      <error>tbd051</error>
+    </result>
+  </variation>
+  <variation id="IMPORTTAXONOMY-TaxonomyNotFoundNoQname">
+    <description>File IMPORTTAXONOMY-TaxonomyNotFoundNoQname.json</description>
+    <data>
+      <instance readMeFirst="true">IMPORTTAXONOMY-TaxonomyNotFoundNoQname.json</instance>
+    </data>
+    <result>
+      <error>tbd052</error>
+    </result>
+  </variation>
+  <variation id="LABEL-DuplicateLabels">
+    <description>File LABEL-DuplicateLabels.json</description>
+    <data>
+      <instance readMeFirst="true">LABEL-DuplicateLabels.json</instance>
+    </data>
+    <result>
+      <error>tbd053</error>
+    </result>
+  </variation>
+  <variation id="LABEL-InvalidLabelTypeReference">
+    <description>File LABEL-InvalidLabelTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">LABEL-InvalidLabelTypeReference.json</instance>
+    </data>
+    <result>
+      <error>tbd054</error>
+    </result>
+  </variation>
+  <variation id="LABEL-InvalidRelatedNameReference">
+    <description>File LABEL-InvalidRelatedNameReference.json</description>
+    <data>
+      <instance readMeFirst="true">LABEL-InvalidRelatedNameReference.json</instance>
+    </data>
+    <result>
+      <error>tbd055</error>
+    </result>
+  </variation>
+  <variation id="LABEL-LabelObjectWithInvalidDataTypeForValue">
+    <description>File LABEL-LabelObjectWithInvalidDataTypeForValue.json</description>
+    <data>
+      <instance readMeFirst="true">LABEL-LabelObjectWithInvalidDataTypeForValue.json</instance>
+    </data>
+    <result>
+      <error>tbd056</error>
+    </result>
+  </variation>
+  <variation id="LABEL-LabelObjectWithInvalidPropertyReference">
+    <description>File LABEL-LabelObjectWithInvalidPropertyReference.json</description>
+    <data>
+      <instance readMeFirst="true">LABEL-LabelObjectWithInvalidPropertyReference.json</instance>
+    </data>
+    <result>
+      <error>tbd057</error>
+    </result>
+  </variation>
+  <variation id="LABEL-LabelOnDisallowedObjectType">
+    <description>File LABEL-LabelOnDisallowedObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">LABEL-LabelOnDisallowedObjectType.json</instance>
+    </data>
+    <result>
+      <error>tbd058</error>
+    </result>
+  </variation>
+  <variation id="LABELTYPE-InvalidLabelTypeAllowedObjects">
+    <description>File LABELTYPE-InvalidLabelTypeAllowedObjects.json</description>
+    <data>
+      <instance readMeFirst="true">LABELTYPE-InvalidLabelTypeAllowedObjects.json</instance>
+    </data>
+    <result>
+      <error>tbd059</error>
+    </result>
+  </variation>
+  <variation id="LABELTYPE-InvalidLabelTypeDataTypeReference">
+    <description>File LABELTYPE-InvalidLabelTypeDataTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">LABELTYPE-InvalidLabelTypeDataTypeReference.json</instance>
+    </data>
+    <result>
+      <error>tbd060</error>
+    </result>
+  </variation>
+  <variation id="LABELTYPE-InvalidLabelTypeEmptyAllowedObjects">
+    <description>File LABELTYPE-InvalidLabelTypeEmptyAllowedObjects.json</description>
+    <data>
+      <instance readMeFirst="true">LABELTYPE-InvalidLabelTypeEmptyAllowedObjects.json</instance>
+    </data>
+    <result>
+      <error>tbd061</error>
+    </result>
+  </variation>
+  <variation id="Layout-ComplexGrid">
+    <description>File Layout-ComplexGrid.json</description>
+    <data>
+      <instance readMeFirst="true">Layout-ComplexGrid.json</instance>
+    </data>
+    <result>
+      <error>tbd062</error>
+    </result>
+  </variation>
+  <variation id="Layout-ComplexGridReverse">
+    <description>File Layout-ComplexGridReverse.json</description>
+    <data>
+      <instance readMeFirst="true">Layout-ComplexGridReverse.json</instance>
+    </data>
+    <result>
+      <error>tbd063</error>
+    </result>
+  </variation>
+  <variation id="Layout-ValidGroup">
+    <description>File Layout-ValidGroup.json</description>
+    <data>
+      <instance readMeFirst="true">Layout-ValidGroup.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="MEMBER-MemberInConceptDomain">
+    <description>File MEMBER-MemberInConceptDomain.json</description>
+    <data>
+      <instance readMeFirst="true">MEMBER-MemberInConceptDomain.json</instance>
+    </data>
+    <result>
+      <error>tbd064</error>
+    </result>
+  </variation>
+  <variation id="MEMBER-ValidBasic">
+    <description>File MEMBER-ValidBasic.json</description>
+    <data>
+      <instance readMeFirst="true">MEMBER-ValidBasic.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="MEMBER-ValidWithProperties">
+    <description>File MEMBER-ValidWithProperties.json</description>
+    <data>
+      <instance readMeFirst="true">MEMBER-ValidWithProperties.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="MODELTYPE-InvalidInstance">
+    <description>File MODELTYPE-InvalidInstance.json</description>
+    <data>
+      <instance readMeFirst="true">MODELTYPE-InvalidInstance.json</instance>
+    </data>
+    <result>
+      <error>tbd065</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-InvalidRelationshipTypeNameReference">
+    <description>File NETWORK-InvalidRelationshipTypeNameReference.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-InvalidRelationshipTypeNameReference.json</instance>
+    </data>
+    <result>
+      <error>tbd066</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-NetworkObjectWithDuplicateRelationships">
+    <description>File NETWORK-NetworkObjectWithDuplicateRelationships.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-NetworkObjectWithDuplicateRelationships.json</instance>
+    </data>
+    <result>
+      <error>tbd067</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-NetworkObjectWithDuplicateRoots">
+    <description>File NETWORK-NetworkObjectWithDuplicateRoots.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-NetworkObjectWithDuplicateRoots.json</instance>
+    </data>
+    <result>
+      <error>tbd068</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-NetworkObjectWithInvalidRootsReference">
+    <description>File NETWORK-NetworkObjectWithInvalidRootsReference.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-NetworkObjectWithInvalidRootsReference.json</instance>
+    </data>
+    <result>
+      <error>tbd069</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-RelationshipWithInvalidPreferredLabelProperty">
+    <description>File NETWORK-RelationshipWithInvalidPreferredLabelProperty.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-RelationshipWithInvalidPreferredLabelProperty.json</instance>
+    </data>
+    <result>
+      <error>tbd070</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-RelationshipWithInvalidPropertyReference">
+    <description>File NETWORK-RelationshipWithInvalidPropertyReference.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-RelationshipWithInvalidPropertyReference.json</instance>
+    </data>
+    <result>
+      <error>tbd071</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-RelationshipsReferenceInvalidSourceOrTargetType">
+    <description>File NETWORK-RelationshipsReferenceInvalidSourceOrTargetType.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-RelationshipsReferenceInvalidSourceOrTargetType.json</instance>
+    </data>
+    <result>
+      <error>tbd072</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-RelationshipsReferenceNonexistentSource">
+    <description>File NETWORK-RelationshipsReferenceNonexistentSource.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-RelationshipsReferenceNonexistentSource.json</instance>
+    </data>
+    <result>
+      <error>tbd073</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-RelationshipsReferenceNonexistentTarget">
+    <description>File NETWORK-RelationshipsReferenceNonexistentTarget.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-RelationshipsReferenceNonexistentTarget.json</instance>
+    </data>
+    <result>
+      <error>tbd074</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-RootOfNetworkDoesNotMatchActualRoot">
+    <description>File NETWORK-RootOfNetworkDoesNotMatchActualRoot.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-RootOfNetworkDoesNotMatchActualRoot.json</instance>
+    </data>
+    <result>
+      <error>tbd075</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-ValidBasic">
+    <description>File NETWORK-ValidBasic.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-ValidBasic.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="NETWORK-ValidEmptyProperties">
+    <description>File NETWORK-ValidEmptyProperties.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-ValidEmptyProperties.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="NETWORK-ValidMixedPropertyTypes">
+    <description>File NETWORK-ValidMixedPropertyTypes.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-ValidMixedPropertyTypes.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="NETWORK-ValidPropertiesWithRoots">
+    <description>File NETWORK-ValidPropertiesWithRoots.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-ValidPropertiesWithRoots.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="PROPERTY-InvalidAllowedObject">
+    <description>File PROPERTY-InvalidAllowedObject.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTY-InvalidAllowedObject.json</instance>
+    </data>
+    <result>
+      <error>tbd076</error>
+    </result>
+  </variation>
+  <variation id="PROPERTY-InvalidPropertyObject">
+    <description>File PROPERTY-InvalidPropertyObject.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTY-InvalidPropertyObject.json</instance>
+    </data>
+    <result>
+      <error>tbd077</error>
+    </result>
+  </variation>
+  <variation id="PROPERTY-UnknownPropertyType">
+    <description>File PROPERTY-UnknownPropertyType.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTY-UnknownPropertyType.json</instance>
+    </data>
+    <result>
+      <error>tbd078</error>
+    </result>
+  </variation>
+  <variation id="PROPERTYTYPE-InvalidAllowedObjectsReference">
+    <description>File PROPERTYTYPE-InvalidAllowedObjectsReference.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTYTYPE-InvalidAllowedObjectsReference.json</instance>
+    </data>
+    <result>
+      <error>tbd079</error>
+    </result>
+  </variation>
+  <variation id="PROPERTYTYPE-InvalidDataTypeForEnumerationDomain">
+    <description>File PROPERTYTYPE-InvalidDataTypeForEnumerationDomain.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTYTYPE-InvalidDataTypeForEnumerationDomain.json</instance>
+    </data>
+    <result>
+      <error>tbd080</error>
+    </result>
+  </variation>
+  <variation id="PROPERTYTYPE-InvalidDataTypeReference">
+    <description>File PROPERTYTYPE-InvalidDataTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTYTYPE-InvalidDataTypeReference.json</instance>
+    </data>
+    <result>
+      <error>tbd081</error>
+    </result>
+  </variation>
+  <variation id="PROPERTYTYPE-InvalidEnumerationDomainReference">
+    <description>File PROPERTYTYPE-InvalidEnumerationDomainReference.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTYTYPE-InvalidEnumerationDomainReference.json</instance>
+    </data>
+    <result>
+      <error>tbd082</error>
+    </result>
+  </variation>
+  <variation id="PROPERTYTYPE-PropertyTypeWithDuplicateAllowedObjects">
+    <description>File PROPERTYTYPE-PropertyTypeWithDuplicateAllowedObjects.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTYTYPE-PropertyTypeWithDuplicateAllowedObjects.json</instance>
+    </data>
+    <result>
+      <error>tbd083</error>
+    </result>
+  </variation>
+  <variation id="PROPERTYTYPE-RequiredLinkPropertiesNotInAllowedLinkProperties">
+    <description>File PROPERTYTYPE-RequiredLinkPropertiesNotInAllowedLinkProperties.json</description>
+    <data>
+      <instance readMeFirst="true">PROPERTYTYPE-RequiredLinkPropertiesNotInAllowedLinkProperties.json</instance>
+    </data>
+    <result>
+      <error>tbd084</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-InvalidReferenceTypeReference">
+    <description>File REFERENCE-InvalidReferenceTypeReference.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-InvalidReferenceTypeReference.json</instance>
+    </data>
+    <result>
+      <error>tbd085</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-InvalidRelatedNamesReference">
+    <description>File REFERENCE-InvalidRelatedNamesReference.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-InvalidRelatedNamesReference.json</instance>
+    </data>
+    <result>
+      <error>tbd086</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-ReferenceObjectWithInvalidDataTypeForPropertyValue">
+    <description>File REFERENCE-ReferenceObjectWithInvalidDataTypeForPropertyValue.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-ReferenceObjectWithInvalidDataTypeForPropertyValue.json</instance>
+    </data>
+    <result>
+      <error>tbd087</error>
+    </result>
+  </variation>
+  <variation id="REFERENCE-ReferenceObjectWithInvalidPropertyReference">
+    <description>File REFERENCE-ReferenceObjectWithInvalidPropertyReference.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCE-ReferenceObjectWithInvalidPropertyReference.json</instance>
+    </data>
+    <result>
+      <error>tbd088</error>
+    </result>
+  </variation>
+  <variation id="REFERENCETYPE-InvalidOrderedProperty">
+    <description>File REFERENCETYPE-InvalidOrderedProperty.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCETYPE-InvalidOrderedProperty.json</instance>
+    </data>
+    <result>
+      <error>tbd089</error>
+    </result>
+  </variation>
+  <variation id="REFERENCETYPE-InvalidRequiredProperty">
+    <description>File REFERENCETYPE-InvalidRequiredProperty.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCETYPE-InvalidRequiredProperty.json</instance>
+    </data>
+    <result>
+      <error>tbd090</error>
+    </result>
+  </variation>
+  <variation id="REFERENCETYPE-RefersToInvalidAllowedObject">
+    <description>File REFERENCETYPE-RefersToInvalidAllowedObject.json</description>
+    <data>
+      <instance readMeFirst="true">REFERENCETYPE-RefersToInvalidAllowedObject.json</instance>
+    </data>
+    <result>
+      <error>tbd091</error>
+    </result>
+  </variation>
+  <variation id="RELATIONSHIP-RelationshipDisallowedProperty">
+    <description>File RELATIONSHIP-RelationshipDisallowedProperty.json</description>
+    <data>
+      <instance readMeFirst="true">RELATIONSHIP-RelationshipDisallowedProperty.json</instance>
+    </data>
+    <result>
+      <error>tbd092</error>
+    </result>
+  </variation>
+  <variation id="RELATIONSHIP-RelationshipMissingRequiredProperty">
+    <description>File RELATIONSHIP-RelationshipMissingRequiredProperty.json</description>
+    <data>
+      <instance readMeFirst="true">RELATIONSHIP-RelationshipMissingRequiredProperty.json</instance>
+    </data>
+    <result>
+      <error>tbd093</error>
+    </result>
+  </variation>
+  <variation id="UNIT-InvalidDataType">
+    <description>File UNIT-InvalidDataType.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-InvalidDataType.json</instance>
+    </data>
+    <result>
+      <error>tbd094</error>
+    </result>
+  </variation>
+  <variation id="UNIT-UnitWithDataTypeNotMatchingConceptDataType">
+    <description>File UNIT-UnitWithDataTypeNotMatchingConceptDataType.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-UnitWithDataTypeNotMatchingConceptDataType.json</instance>
+    </data>
+    <result>
+      <error>tbd095</error>
+    </result>
+  </variation>
+  <variation id="UNIT-UnitWithDuplicateStringRepresentations">
+    <description>File UNIT-UnitWithDuplicateStringRepresentations.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-UnitWithDuplicateStringRepresentations.json</instance>
+    </data>
+    <result>
+      <error>tbd096</error>
+    </result>
+  </variation>
+  <variation id="UNIT-UnitWithInvalidStringRepresentation">
+    <description>File UNIT-UnitWithInvalidStringRepresentation.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-UnitWithInvalidStringRepresentation.json</instance>
+    </data>
+    <result>
+      <error>tbd097</error>
+    </result>
+  </variation>
+  <variation id="UNIT-UnitWithStringRepresentationSameDataType">
+    <description>File UNIT-UnitWithStringRepresentationSameDataType.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-UnitWithStringRepresentationSameDataType.json</instance>
+    </data>
+    <result>
+      <error>tbd098</error>
+    </result>
+  </variation>
+  <variation id="CALCULATION-InvalidSummationItemWeight">
+    <description>File CALCULATION-InvalidSummationItemWeight.json</description>
+    <data>
+      <instance readMeFirst="true">CALCULATION-InvalidSummationItemWeight.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidCalculationRelationship</error>
+    </result>
+  </variation>
+</testcase>

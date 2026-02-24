@@ -1,0 +1,35 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/invalidrelationshiptypereference",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:invalidRelationshipTypeReference: Invalid Relationship Type Reference"
+    },
+    "xbrlModel": {
+        "name": "test:InvalidRelationshipTypeReferenceTest",
+        "version": "1.0",
+        "cubeTypes": [
+            {
+                "name": "test:TestCubeType",
+                "cubeRelationships": {
+                    "required": [
+                        {
+                            "type": "test:NonExistentRelationshipType",
+                            "source": {
+                                "qname": "xbrl:concept"
+                            },
+                            "target": {
+                                "qname": "xbrl:entity"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

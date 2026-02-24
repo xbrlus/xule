@@ -1,0 +1,45 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/duplicatedimension",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:duplicateDimension: Duplicate Dimension in Constraint"
+    },
+    "xbrlModel": {
+        "name": "test:DuplicateDimensionTest",
+        "version": "1.0",
+        "domainClasses": [
+            {
+                "name": "test:TestDomainClass"
+            }
+        ],
+        "dimensions": [
+            {
+                "name": "test:TestDimension",
+                "domainClass": "test:TestDomainClass"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "test:TestCubeType",
+                "cubeDimensionConstraints": {
+                    "allowed": [
+                        {
+                            "dimensionName": "test:TestDimension",
+                            "type": "explicit"
+                        },
+                        {
+                            "dimensionName": "test:TestDimension",
+                            "type": "explicit"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

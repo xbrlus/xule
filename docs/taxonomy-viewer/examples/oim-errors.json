@@ -1,0 +1,103 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "oimte": "https://xbrl.org/2025/oimtaxonomy/error",
+            "oime": "http://www.xbrl.org/2021/oim/error",
+            "oim-errors": "http://example.com/oim-errors",
+            "xbrl": "https://xbrl.org/2025",
+            "specDoc": "https://xbrl.org/2025/oimtaxonomy/documentation",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "oim-errors",
+        "urlMapping": {
+            "oime":  [".././spec-taxonomies/oime.json"],
+            "oimte": [".././spec-taxonomies/oimte.json"],
+            "specDoc": [".././spec-taxonomies/documentation.json"]
+            }
+    },
+    "xbrlModel": {
+        "name": "oim-errors:CombinedErrorsTaxonomy",
+        "version": "1.0",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "oime:ErrorsTaxonomy"
+            },
+            {
+                "xbrlModelName": "oimte:ErrorsTaxonomy"
+            },
+            {
+                "xbrlModelName": "specDoc:DocumentationTaxonomy"
+            }
+            ],
+        "relationshipTypes": [
+                    {
+                        "name": "oim-errors:implemented-error",
+                        "cycles": "none",
+                        "sourceObjects": ["xbrl:memberObject"],
+                        "targetObjects": ["xbrl:memberObject"]
+                    }
+                ],
+        "networks": [
+            {
+                "name": "oim-errors:ErrorsImplemented",
+                "relationshipTypeName": "oim-errors:implemented-error",
+                "roots": [
+                    "oime:invalidJSON",
+                    "oime:invalidJSONStructure",
+                    "oimte:cubeMissingConceptDimension",
+                    "oimte:dimensionNameNotDimensionObject",
+                    "oimte:invalidAllowDomainFactsPropertyOnConceptDimension",
+                    "oimte:domainUsedOnPeriodDimension",
+                    "oimte:invalidCubeDimensionDomainName",
+                    "oimte:invalidLanguage",
+                    "oimte:conflictingPropertyValues",
+                    "oimte:invalidDomainClass",
+                    "oimte:invalidDomainClassTarget",
+                    "oimte:invalidConceptDomainClass",
+                    "oimte:invalidLanguageDomainClass",
+                    "oimte:invalidUnitDomainClass",
+                    "oimte:disallowedObjectProperty",
+                    "oimte:domainClassMismatchWithDomain",
+                    "oimte:duplicateDimensionsInCube",
+                    "oimte:invalidJSONStructureMissingRequiredProperty",
+                    "oimte:invalidJSONStructureInvalidPropertyDefined",
+                    "oimte:cannotExtendCompleteDomain",
+                    "oimte:invalidDomainRelationshipTarget",
+                    "oimte:objectNamespacePrefixNotDefined",
+                    "oimte:invalidObjectNamespacePrefix",
+                    "oimte:invalidQNameReference",
+                    "oimte:excludeCubeSelfReference",
+                    "oimte:duplicateObjects",
+                    "oimte:invalidReferenceToImportTaxonomyObject",
+                    "oimte:invalidFinalTaxonomyModification",
+                    "oimte:invalidFinalTaxonomyObjectType",
+                    "oimte:invalidFinalTaxonomyObject",
+                    "oimte:invalidEntityDomainSource",
+                    "oimte:invalidEntityDomainTarget",
+                    "oimte:invalidUnitDomainSource",
+                    "oimte:invalidUnitDomainTarget",
+                    "oimte:unitInNonUnitDomain",
+                    "oimte:invalidPeriodConstraintDimension",
+                    "oimte:invalidCubeType",
+                    "oimte:invalidDataTypeForDomainClass",
+                    "oimte:redundantTimeSpanProperty",
+                    "oimte:missingDomainClassSource",
+                    "oimte:invalidDomainObject",
+                    "oimte:multipleDomainClasses",
+                    "oimte:invalidImportObjectType",
+                    "oimte:invalidDataTypeExpansion",
+                    "oimte:invalidCoreDimension",
+                    "oimte:duplicateDimension",
+                    "oimte:disallowedObjectModelType",
+                    "oimte:missingRequiredModelTypeProperty",
+                    "oimte:factValueDataTypeMismatch",
+                    "oimte:referenceLanguageRedefined",
+                    "oimte:referenceTypeRedefined"
+
+                ]
+            }
+        ]
+    }
+}

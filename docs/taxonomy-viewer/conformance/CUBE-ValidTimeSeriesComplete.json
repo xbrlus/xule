@@ -1,0 +1,76 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": { 
+        "exp": "http://example.com/taxonomy", 
+        "xbrl": "https://xbrl.org/2025", 
+        "xbrli": "https://xbrl.org/2025/instance", 
+        "xs": "http://www.w3.org/2001/XMLSchema" 
+        },
+    "documentNamespace": "exp"
+  },
+  "xbrlModel": {
+    "name": "exp:TimeSeriesCompleteTaxonomy",
+    "version": "2025",
+    "dataTypes": [],
+    "propertyTypes": [],
+    "dimensions": [
+      {
+        "name": "exp:TimeSeriesPeakDemandDimension",
+        "domainClass": "exp:TimeSeriesPeakDemandRoot",
+        "cubeTypes": ["xbrla:timeSeriesCube"]
+        
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:IntervalTimeSeriesCube",
+        "cubeDimensions": [ 
+            { "dimensionName": "exp:TimeSeriesPeakDemandDimension" }, 
+            { "dimensionName": "xbrl:concept",
+                "domainName": "exp:PrimaryTimeSeriesDomain"
+            }
+         ]
+      }
+    ],
+     "domains": [
+        {
+                "name": "exp:PrimaryTimeSeriesDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:PeakGridElectricityDemandMax"
+                    }
+                ]
+            }
+    ],
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemandMax",
+        "dataType": "xbrli:power",
+        "periodType": "none",
+        "nillable": true,
+        "properties" : [
+                    {
+                        "property": "xbrl:aggregation", 
+                        "value": "max"
+                    }
+                ]
+      }
+    ],
+    "domainClasses": [
+            {
+                "name": "exp:TimeSeriesPeakDemandRoot",
+                "allowedDomainItems" : ["xs:dateTime"],
+                "properties": [
+                      { "property": "xbrl:intervalOfMeasurement", "value": "PT1H" },
+                      { "property": "xbrl:timeSeriesType", "value": "Aggregated" },
+                      { "property": "xbrl:intervalConvention", "value": "StartTime" },
+                      { "property": "xbrl:completeTimeSeries", "value": true }
+                ]
+              }
+          ]
+    }
+}

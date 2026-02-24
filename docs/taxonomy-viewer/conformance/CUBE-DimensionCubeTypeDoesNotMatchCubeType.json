@@ -1,0 +1,69 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": { 
+        "exp": "http://example.com/taxonomy",
+        "xbrl": "https://xbrl.org/2025", 
+        "xbrli": "https://xbrl.org/2025/instance",
+        "xs": "http://www.w3.org/2001/XMLSchema" },
+    "documentNamespace": "exp",
+    "description": "ERROR: oimte:invalidCubeType - Dimension Cube type does not match Cube type."
+  },
+  "xbrlModel": {
+    "name": "exp:DimensionCubeTypeUsedOnInvalidCubeType",
+    "version": "2025",
+    "dimensions": [
+      {
+        "name": "exp:ProductCodeDimension",
+        "domainClass": "exp:ProductCodeDimensionDomainClass",
+        "cubeTypes": ["exp:PeakGridElectricityDemand"]
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:ProductCodeDimensionDomainClass",
+        "allowedDomainItems" : ["xs:dateTime"],
+        "properties": [
+          { "property": "xbrl:intervalConvention", "value": "StartTime" }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:ProductReferenceCube",
+        "cubeDimensions": [ 
+          { 
+            "dimensionName": "exp:ProductCodeDimension",
+            "domainDataType": "xs:dateTime",
+            "allowDomainFacts": false
+         },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          }
+         ]
+      }
+    ],
+     "domains": [
+        {
+                "name": "exp:PrimaryTimeSeriesDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:PeakGridElectricityDemand"
+                    }
+                ]
+            }
+    ],
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "none",
+        "nillable": true
+      }
+    ]
+  }
+}

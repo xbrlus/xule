@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tableModel
+  xmlns="http://xbrl.org/2014/table/model"
+  xmlns:rend="http://www.xbrl.org/table-examples"
+  xmlns:xbrli="http://www.xbrl.org/2003/instance">
+    <!--Entry point file: mixed-periods-instance.xml-->
+    <tableSet>
+        <!--TableSet linkbase file: mixed-periods-table.xml, line 27-->
+        <!--TableSet linkrole: http://www.xbrl.org/table-examples/table3-->
+        <label>Rule nodes with both instant and duration period rules</label>
+        <table>
+            <headers axis="y">
+                <group>
+                    <!--Breakdown node file: mixed-periods-table.xml, line 72-->
+                    <label>Three rows (primary items m1, m2, o1)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table3-y.1-->
+                            <label>Label: m1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table3-y.2-->
+                            <label>Label: m2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m2</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table3-y.3-->
+                            <label>Label: o1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>3</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o1</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <headers axis="x">
+                <group>
+                    <!--Breakdown node file: mixed-periods-table.xml, line 33-->
+                    <label>Three columns (periods 2001-12-31, 2002-12-31, 2002)</label>
+                    <header>
+                        <cell span="3">
+                            <!--Cell id table3-x.1-->
+                            <label>Label: Period = 2002</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>3</label>
+                            <constraint>
+                                <aspect>period</aspect>
+                                <value>
+                                    <xbrli:startDate>2002-01-01T00:00:00.000000Z</xbrli:startDate>
+                                    <xbrli:endDate>2003-01-01T00:00:00.000000Z</xbrli:endDate>
+                                </value>
+                            </constraint>
+                        </cell>
+                    </header>
+                    <header>
+                        <cell>
+                            <!--Cell id table3-x.1.1-->
+                            <label>Label: Period = Start</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>period</aspect>
+                                <value>
+                                    <xbrli:instant>2002-01-01T00:00:00.000000Z</xbrli:instant>
+                                </value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table3-x.1.2-->
+                            <label>Label: Period = End</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>period</aspect>
+                                <value>
+                                    <xbrli:instant>2003-01-01T00:00:00.000000Z</xbrli:instant>
+                                </value>
+                            </constraint>
+                        </cell>
+                        <cell rollup="true"/>
+                    </header>
+                </group>
+            </headers>
+            <cells axis="z">
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell>
+                            <!--rend:m1: context start, value 101, file mixed-periods-instance.xml, line 42-->
+                            <fact>mixed-periods-instance.xml#m1_start</fact>
+                        </cell>
+                        <cell>
+                            <!--rend:m1: context end, value 102, file mixed-periods-instance.xml, line 43-->
+                            <fact>mixed-periods-instance.xml#m1_end</fact>
+                        </cell>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell>
+                            <!--rend:m2: context start, value 201, file mixed-periods-instance.xml, line 44-->
+                            <fact>mixed-periods-instance.xml#m2_start</fact>
+                        </cell>
+                        <cell>
+                            <!--rend:m2: context end, value 202, file mixed-periods-instance.xml, line 45-->
+                            <fact>mixed-periods-instance.xml#m2_end</fact>
+                        </cell>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                        <cell>
+                            <!--rend:o1: context year, value 303, file mixed-periods-instance.xml, line 46-->
+                            <fact>mixed-periods-instance.xml#o1_year</fact>
+                        </cell>
+                    </cells>
+                </cells>
+            </cells>
+        </table>
+    </tableSet>
+</tableModel>

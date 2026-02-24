@@ -1,0 +1,86 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp":  "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "iso4217": "http://www.xbrl.org/2003/iso4217",
+            "utr": "https://xbrl.org/2025/utr",
+            "xbrli":"https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description" : "oimte:factValueDataTypeMismatch: Revenue fact has a date value instead of monetary, ReportDate fact has a numeric value instead of date, ShareCount fact has a text value instead of numeric"
+    },
+    "xbrlModel": {
+        "name": "exp:FactValueDataTypeMismatch",
+        "concepts": [
+            {
+                "name": "exp:Revenue",
+                "periodType": "duration",
+                "dataType": "xbrli:monetary"
+            },
+            {
+                "name": "exp:ReportDate",
+                "periodType": "duration",
+                "dataType": "xs:date"
+            },
+            {
+                "name": "exp:ShareCount",
+                "periodType": "instant",
+                "dataType": "xbrli:sharesType"
+            }
+        ],
+        "entities": [
+            {
+                "name": "exp:Company1"
+            }
+        ],
+        "facts": [
+            {
+                "name": "exp:RevenueFactWithDateValue",
+                "factDimensions": {
+                    "xbrl:concept": "exp:Revenue",
+                    "xbrl:period": "2023-12-31",
+                    "xbrl:entity": "exp:Company1",
+                    "xbrl:unit": "iso4217:USD"
+                },
+                "factValues": [
+                    {
+                        "name": "exp:fv1",
+                        "value": "2024-01-01"
+                    }
+                ]
+            },
+            {
+                "name": "exp:DateFactWithNumericValue",
+                "factDimensions": {
+                    "xbrl:concept": "exp:ReportDate",
+                    "xbrl:period": "2023-12-31",
+                    "xbrl:entity": "exp:Company1"
+                },
+                "factValues": [
+                    {
+                        "name": "exp:fv2",
+                        "value": "12345"
+                    }
+                ]
+            },
+            {
+                "name": "exp:SharesFactWithTextValue",
+                "factDimensions": {
+                    "xbrl:concept": "exp:ShareCount",
+                    "xbrl:period": "2023-12-31",
+                    "xbrl:entity": "exp:Company1"
+                },
+                "factValues": [
+                    {
+                        "name": "exp:fv3",
+                        "value": "not a number"
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: domainName is used on the xbrl:period dimension, which is not allowed."
+  },
+  "xbrlModel": {
+    "name": "exp:DomainOnPeriodDimensionTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "duration",
+        "nillable": true
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:PrimaryTimeSeriesDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:PeakGridElectricityDemand"
+          }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeWithDomainOnPeriodDimension",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:period",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+        },
+        {
+            "dimensionName": "xbrl:entity"
+        }
+        ]
+      }
+    ]
+  }
+}

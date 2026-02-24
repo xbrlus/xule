@@ -1,0 +1,91 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: DomainClass does not match the dimension of the cube."
+  },
+  "xbrlModel": {
+    "name": "exp:DimensionDoesNotMatchDomainClass",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:SomeConcept",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      }
+    ],
+    "members": [
+      {
+        "name": "exp:SomeCountryMember"
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:ExplicitCountryDimension",
+        "domainClass": "exp:CountryDimensionRoot"
+      }
+    ],
+    "domainClasses":[
+      {
+        "name": "exp:CountryDomainClass"
+      },
+      {
+        "name": "exp:CountryDimensionRoot"
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:PrimaryTimeSeriesDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:SomeConcept"
+          }
+        ]
+      },
+      {
+        "name": "exp:CountryDomain",
+        "root": "exp:CountryDomainClass",
+        "relationships": [
+          {
+            "source": "exp:CountryDomainClass",
+            "target": "exp:SomeCountryMember"
+          }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeWithDomainClassDimensionMismatch",
+        "cubeDimensions": [
+          {
+            "dimensionName": "exp:ExplicitCountryDimension",
+            "domainName": "exp:CountryDomain"
+          },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+        },
+        {
+            "dimensionName": "xbrl:entity"
+        }
+        ]
+      }
+    ]
+  }
+}

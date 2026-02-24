@@ -1,0 +1,216 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"us-types": "http://fasb.org/us-types/2025",
+			"xbrli": "https://xbrl.org/2025/instance",
+			"xbrl": "https://xbrl.org/2025",
+			"xs": "http://www.w3.org/2001/XMLSchema"
+			
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "srt-types"
+	},
+	"xbrlModel": {
+		"name": "us-types:USGaapTaxonomyTypes",
+        "version": "1.0.0",
+		"dataTypes": [
+			{
+				"enumeration": [
+					"Entire Investment Pledged",
+					"Investment Pledged",
+					"Partial Investment Pledged"
+				],
+				"baseType": "xs:token",
+				"name": "us-types:investmentPledgedItemType"
+			},
+			{
+				"baseType": "xs:token",
+				"enumeration": [
+					"Expensed as incurred",
+					"Expensed first time advertising takes place"
+				],
+				"name": "us-types:advertisingExpenseMethodItemType"
+			},
+			{
+				"baseType": "xs:token",
+				"enumeration": [
+					"Excluded",
+					"Included"
+				],
+				"name": "us-types:includedExcludedItemType"
+			},
+			{
+				"baseType": "xs:token",
+				"enumeration": [
+					"Issuer",
+					"Registrant"
+				],
+				"name": "us-types:costBearerItemType"
+			},
+			{
+				"enumeration": [
+					"Implemented",
+					"NA",
+					"No",
+					"Other",
+					"Pending"
+				],
+				"name": "us-types:fundingImprovementAndRehabilitationPlanItemType",
+				"baseType": "xs:token"
+			},
+			{
+				"enumeration": [
+					"Fixed",
+					"Floating"
+				],
+				"name": "us-types:interestRateItemType",
+				"baseType": "xs:token"
+			},
+			{
+				"name": "us-types:MalpracticeInsurance-OccurrenceOrClaims-madeItemType",
+				"baseType": "xs:token",
+				"enumeration": [
+					"Claims-made",
+					"Occurrence"
+				]
+			},
+			{
+				"enumeration": [
+					"Recognizing credit loss expense",
+					"Reversing interest income",
+					"Reversing interest income and recognizing credit loss expense"
+				],
+				"baseType": "xs:token",
+				"name": "us-types:accruedInterestWriteOffMethodItemType"
+			},
+			{
+				"name": "us-types:zoneStatusItemType",
+				"enumeration": [
+					"Green",
+					"NA",
+					"Orange",
+					"Other",
+					"Red",
+					"Yellow"
+				],
+				"baseType": "xs:token"
+			},
+			{
+				"name": "us-types:fundedStatusItemType",
+				"enumeration": [
+					"At least 80 percent",
+					"Between 65 and less than 80 percent",
+					"Less than 65 percent",
+					"NA"
+				],
+				"baseType": "xs:token"
+			},
+			{
+				"baseType": "xs:token",
+				"name": "us-types:capitalizationPolicyType",
+				"enumeration": [
+					"Capitalization",
+					"No capitalization",
+					"Prospective capitalization"
+				]
+			},
+			{
+				"baseType": "xs:token",
+				"name": "us-types:authorizedUnlimitedItemType",
+				"enumeration": [
+					"Unlimited"
+				]
+			},
+			{
+				"baseType": "xs:token",
+				"name": "us-types:nineDigitItemType"
+			},
+			{
+				"name": "us-types:controlOfRightsItemType",
+				"enumeration": [
+					"Holder",
+					"Issuer"
+				],
+				"baseType": "xs:token"
+			},
+			{
+				"baseType": "xs:token",
+				"enumeration": [
+					"Applied only to contracts not completed",
+					"Applied to all contracts"
+				],
+				"name": "us-types:contractApplicationItemType"
+			},
+			{
+				"baseType": "xs:token",
+				"enumeration": [
+					"Topic 606",
+					"Topic 842"
+				],
+				"name": "us-types:combinedComponentType"
+			},
+			{
+				"enumeration": [
+					"Estimating expected forfeitures",
+					"Recognizing forfeitures when they occur"
+				],
+				"name": "us-types:forfeitureMethod",
+				"baseType": "xs:token"
+			},
+			{
+				"enumeration": [
+					"NA",
+					"No",
+					"Yes"
+				],
+				"baseType": "xs:token",
+				"name": "us-types:surchargeItemType"
+			},
+			{
+				"baseType": "xs:token",
+				"name": "us-types:threeDigitItemType"
+			},
+			{
+				"enumeration": [
+					"Predecessor",
+					"Successor"
+				],
+				"baseType": "xs:token",
+				"name": "us-types:financialDesignationType"
+			},
+			{
+				"name": "us-types:surchargeMethodGSIB",
+				"baseType": "xs:token",
+				"enumeration": [
+					"Method 1",
+					"Method 2"
+				]
+			},
+			{
+				"name": "us-types:distributionsReceivedApproach",
+				"enumeration": [
+					"Cumulative earnings",
+					"Nature of distribution"
+				],
+				"baseType": "xs:token"
+			},
+			{
+				"name": "us-types:yesNoItemType",
+				"baseType": "xs:token",
+				"enumeration": [
+					"No",
+					"Yes"
+				]
+			},
+			{
+				"baseType": "xs:token",
+				"name": "us-types:giltiPolicyType",
+				"enumeration": [
+					"Deferred tax recognized",
+					"Tax as incurred"
+				]
+			}
+		]
+	}
+}

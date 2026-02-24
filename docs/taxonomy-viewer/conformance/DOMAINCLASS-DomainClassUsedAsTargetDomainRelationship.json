@@ -1,0 +1,33 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Domain class Used as a Target in a Domain Relationship"
+  },
+  "xbrlModel": {
+    "name": "exp:DomainClassUsedAsTargetDomainRelationship",
+    "version": "2025",
+    "domainClasses": [
+      { "name": "exp:Root1" }
+    ],
+    "domains": [
+      {
+        "name": "exp:Domain1",
+        "root": "exp:Root1",
+        "relationships": [
+          {
+            "source": "exp:Domain1",
+            "target": "exp:Root1"
+          }
+        ]
+      }
+    ]
+  }
+}

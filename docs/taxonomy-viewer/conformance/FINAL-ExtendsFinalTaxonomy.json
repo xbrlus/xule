@@ -1,0 +1,38 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "documentNamespace": "exp_ext",
+        "namespaces": {
+            "exp":  "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "iso4217": "http://www.xbrl.org/2003/iso4217",
+            "utr": "https://xbrl.org/2025/utr",
+            "xbrli":"https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "mini3": "http://example.com/mini3",
+            "exp_extF2": "http://example.com/ext-final-taxonomy2",
+            "ext3": "http://example.com/ext3"
+            
+            },
+        "urlMapping": {
+            "exp_extF2":  ["FINAL-DefinesFinalTaxonomyFlag.json"]
+            }
+    },
+    "xbrlModel": {
+        "name": "ext3:InvalidExtensionTaxonomyFinal",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "exp_extF2:ExtensionTaxonomyFinal"
+            }
+        ],
+        "concepts": [
+            {
+                "name": "ext3:AssetsExtra",
+                "dataType": "xbrli:monetary",
+                "periodType": "instant",
+                "nillable": true
+            }
+        ]
+    }
+}

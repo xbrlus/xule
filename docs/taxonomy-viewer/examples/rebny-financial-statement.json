@@ -1,0 +1,860 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "rebny": "http://example.com/rebny",
+      "xbrl": "https://xbrl.org/2025",
+      "iso4217": "http://www.xbrl.org/2003/iso4217",
+      "xbrli": "https://xbrl.org/2025/instance"
+    },
+    "documentNamespace": "rebny",
+    "description": "REBNY Financial Statement - Co-op/Condo Purchase Application Taxonomy",
+     "sourceMapping": {
+                "rebny:FinancialApplication":["../examples/coop-financials-2.pdf"]
+            }
+  },
+  "xbrlModel": {
+    "name": "rebny:FinancialStatementModel",
+    "concepts": [
+      {
+        "name": "rebny:ApplicantName",
+        "periodType": "instant",
+        "dataType": "xs:string"
+      },
+      {
+        "name": "rebny:ApplicantAddress",
+        "periodType": "instant",
+        "dataType": "xs:string"
+      },
+      {
+        "name": "rebny:CoApplicantName",
+        "periodType": "instant",
+        "dataType": "xs:string"
+      },
+      {
+        "name": "rebny:CoApplicantAddress",
+        "periodType": "instant",
+        "dataType": "xs:string"
+      },
+      {
+        "name": "rebny:BaseMonthlySalary",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:OvertimeMonthly",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:BonusesMonthly",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:CommissionsMonthly",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:DividendsInterest",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:NetRentalIncome",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:OtherIncome",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:TotalMonthlyIncome",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:MaintenanceExpense",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:ApartmentFinancing",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:OtherMortgages",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:BankLoans",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:AutoLoans",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:CreditCardDebtMonthly",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:TotalHousingExpenses",
+        "periodType": "duration",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:CashMoneyMarketFunds",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:ContractDeposit",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:StocksBondsBrokerageAccounts",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:InvestmentInOwnBusiness",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:AccountsReceivable",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:RealEstateOwned",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:AutomobilesAsset",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:PersonalPropertyFurniture",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:LifeInsuranceCashValue",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:RetirementFunds401k",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:KEOGH",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:ProfitSharingPension",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:OtherAssets",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:TotalAssets",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:NotesPayableToBanks",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:NotesPayableToRelatives",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:NotesPayableToOthers",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:InstallAccountsPayable",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:AutomobileLiability",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:OtherAccountsPayable",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:MortgagesPayable",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:UnpaidRealEstateTaxes",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:UnpaidIncomeTaxes",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:ChattelMortgages",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:LoansOnLifeInsurance",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:CreditCardDebtLiability",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:OtherDebts",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:TotalLiabilities",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:NetWorth",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      },
+      {
+        "name": "rebny:FinancialInstitutionName",
+        "periodType": "instant",
+        "dataType": "xs:string"
+      },
+      {
+        "name": "rebny:AccountType",
+        "periodType": "instant",
+        "dataType": "xs:string"
+      },
+      {
+        "name": "rebny:AccountBalance",
+        "periodType": "instant",
+        "dataType": "xbrli:monetary"
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "rebny:ApplicantAxis",
+        "domainClass": "rebny:applicantClass"
+      }
+    ],
+    "domainClasses": [
+        {
+            "name" : "rebny:applicantClass"
+        }
+    ],
+    "domains": [
+      {
+        "name": "rebny:ApplicantDomain",
+        "root": "rebny:applicantClass",
+        "relationships": [
+          {
+            "source": "rebny:applicantClass",
+            "target": "rebny:PrimaryApplicantMember"
+          },
+          {
+            "source": "rebny:applicantClass",
+            "target": "rebny:CoApplicantMember"
+          },
+          {
+            "source": "rebny:applicantClass",
+            "target": "rebny:JointMember"
+          }
+        ]
+      },
+      {
+        "name": "rebny:PrimaryDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:ApplicantName"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:ApplicantAddress"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:CoApplicantName"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:CoApplicantAddress"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:BaseMonthlySalary"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:OvertimeMonthly"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:BonusesMonthly"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:CommissionsMonthly"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:DividendsInterest"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:NetRentalIncome"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:OtherIncome"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:TotalMonthlyIncome"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:MaintenanceExpense"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:ApartmentFinancing"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:OtherMortgages"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:BankLoans"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:AutoLoans"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:CreditCardDebtMonthly"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:TotalHousingExpenses"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:CashMoneyMarketFunds"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:ContractDeposit"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:StocksBondsBrokerageAccounts"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:InvestmentInOwnBusiness"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:AccountsReceivable"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:RealEstateOwned"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:AutomobilesAsset"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:PersonalPropertyFurniture"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:LifeInsuranceCashValue"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:RetirementFunds401k"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:KEOGH"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:ProfitSharingPension"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:OtherAssets"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:TotalAssets"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:NotesPayableToBanks"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:NotesPayableToRelatives"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:NotesPayableToOthers"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:InstallAccountsPayable"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:AutomobileLiability"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:OtherAccountsPayable"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:MortgagesPayable"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:UnpaidRealEstateTaxes"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:UnpaidIncomeTaxes"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:ChattelMortgages"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:LoansOnLifeInsurance"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:CreditCardDebtLiability"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:OtherDebts"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:TotalLiabilities"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:NetWorth"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:FinancialInstitutionName"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:AccountType"
+          },
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "rebny:AccountBalance"
+          }
+        ]
+      }
+    ],
+    "cubes": [
+        {
+            "name": "rebny:applicantCube",
+            "cubeType": "xbrl:reportCube",
+            "cubeDimensions": [
+                    {
+                        "dimensionName": "rebny:ApplicantAxis",
+                        "domainName": "rebny:ApplicantDomain",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:PrimaryCountryDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "allowDomainFacts": true
+                    }
+                ]
+        }
+    ],
+    "members": [
+      {
+        "name": "rebny:ApplicantMember"
+      },
+      {
+        "name": "rebny:PrimaryApplicantMember"
+      },
+      {
+        "name": "rebny:CoApplicantMember"
+      },
+      {
+        "name": "rebny:JointMember"
+      }
+    ],
+    "entities": [
+      {
+        "name": "rebny:Applicant"
+      }
+    ],
+    "facts": [
+      {
+        "name": "rebny:fact_applicant_name",
+        "factDimensions": {
+          "xbrl:concept": "rebny:ApplicantName",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_applicant_name",
+            "valueSources": [
+              {
+                "source": "rebny:FinancialApplication",
+                "formField": "applicant",
+                "medium": "pdf"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_applicant_address",
+        "factDimensions": {
+          "xbrl:concept": "rebny:ApplicantAddress",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_applicant_address",
+            "valueSources": [
+              {
+                "id": "address",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_base_salary_app",
+        "factDimensions": {
+          "xbrl:concept": "rebny:BaseMonthlySalary",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-01-01T00:00:00/2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_base_salary_app",
+            "valueSources": [
+              {
+                "id": "base_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_bonuses_app",
+        "factDimensions": {
+          "xbrl:concept": "rebny:BonusesMonthly",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-01-01T00:00:00/2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_bonuses_app",
+            "valueSources": [
+              {
+                "id" : "bonus_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_total_income_app",
+        "factDimensions": {
+          "xbrl:concept": "rebny:TotalMonthlyIncome",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-01-01T00:00:00/2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_total_income_app",
+            "valueSources": [
+              {
+                "id" : "income_total_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_maintenance_expense",
+        "factDimensions": {
+          "xbrl:concept": "rebny:MaintenanceExpense",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-01-01T00:00:00/2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_maintenance_expense",
+            "valueSources": [
+              {
+                "id" : "maint_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_apt_financing",
+        "factDimensions": {
+          "xbrl:concept": "rebny:ApartmentFinancing",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-01-01T00:00:00/2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_apt_financing",
+            "valueSources": [
+              {
+                "id" : "aptfin_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_total_expenses",
+        "factDimensions": {
+          "xbrl:concept": "rebny:TotalHousingExpenses",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-01-01T00:00:00/2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_total_expenses",
+            "valueSources": [
+              {
+                "id" : "expenses_total",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_cash_app",
+        "factDimensions": {
+          "xbrl:concept": "rebny:CashMoneyMarketFunds",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_cash_app",
+            "valueSources": [
+              {
+                "id" : "cash_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_contract_deposit",
+        "factDimensions": {
+          "xbrl:concept": "rebny:ContractDeposit",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_contract_deposit",
+            "valueSources": [
+              {
+                "id" : "contract_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_401k_app",
+        "factDimensions": {
+          "xbrl:concept": "rebny:RetirementFunds401k",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_401k_app",
+            "valueSources": [
+              {
+                "id" : "401k_app",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_total_assets",
+        "factDimensions": {
+          "xbrl:concept": "rebny:TotalAssets",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_total_assets",
+            "valueSources": [
+              {
+                "id" : "total_assets",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_total_liabilities",
+        "factDimensions": {
+          "xbrl:concept": "rebny:TotalLiabilities",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_total_liabilities",
+            "valueSources": [
+              {
+                "id" : "total_liab",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "rebny:fact_net_worth",
+        "factDimensions": {
+          "xbrl:concept": "rebny:NetWorth",
+          "xbrl:entity": "rebny:Applicant",
+          "xbrl:period": "2026-02-03T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "rebny:ApplicantAxis": "rebny:PrimaryApplicantMember"
+        },
+        "factValues": [
+          {
+            "name": "rebny:fv_net_worth",
+            "valueSources": [
+              {
+                "id" : "net_worth",
+                "medium": "html"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

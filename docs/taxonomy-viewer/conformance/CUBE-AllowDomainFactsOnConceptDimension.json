@@ -1,0 +1,66 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli":"https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: allowDomainFacts: true is defined for the concept dimension of a cube."
+  },
+  "xbrlModel": {
+    "name": "exp:AllowDomainFactsOnConceptDimensionTaxonomy",
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "none",
+        "nillable": true
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:TimeSeriesDimension",
+        "domainClass": "exp:TimeSeriesDomainClass"
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:TimeSeriesDomainClass",
+        "allowedDomainItems" : ["xs:dateTime"]
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:PrimaryTimeSeriesDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:PeakGridElectricityDemand"
+          }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeWithAllowDomainFactsOnConcept",
+        "cubeType": "xbrla:timeSeriesCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "exp:TimeSeriesDimension",
+            "domainDataType": "xs:dateTime"
+          },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain",
+            "allowDomainFacts": true
+          }
+        ]
+      }
+    ]
+  }
+}

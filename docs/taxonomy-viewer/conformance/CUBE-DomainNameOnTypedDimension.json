@@ -1,0 +1,102 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli":"https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "xbrla": "http://xbrl.org/accounting"
+    },
+    "documentNamespace": "exp",
+    "urlMapping": {
+            "xbrla": ["../spec-taxonomies/xbrla.json"]
+            },
+    "description": "ERROR: The domain is defined with relationships when the allowed domain is typed."
+  },
+  "xbrlModel": {
+    "name": "exp:DomainNameWithTypedDimensionDimension",
+    "version": "2025",
+     "importedTaxonomies": [
+            {
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+        ],
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "none",
+        "nillable": true
+      },
+      {
+        "name": "exp:EventDate",
+        "dataType": "xs:dateTime",
+        "periodType": "none"
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:TypedDimension",
+        "domainClass": "exp:MyTypedDimensionRoot"
+      }
+    ],
+    "domainClasses": [
+      {
+        "name" : "exp:MyTypedDimensionRoot",
+        "allowedDomainItems" : ["xs:token"]
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:SomeDomain",
+        "root": "exp:MyTypedDimensionRoot",
+        "relationships": [
+          {
+                "source": "exp:MyTypedDimensionRoot",
+                "target": "exp:PeakGridElectricityDemand"
+            }
+          ]
+      },
+      {
+        "name": "exp:PrimaryTimeSeriesDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+            {
+                "source": "xbrl:conceptDomain",
+                "target": "exp:PeakGridElectricityDemand"
+            }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeWithTypedDimensionDomainName",
+        "cubeType": "xbrla:eventCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "exp:TypedDimension",
+            "domainName": "exp:SomeDomain"
+          },
+          {
+           "dimensionName": "xbrl:concept",
+           "domainName": "exp:PrimaryTimeSeriesDomain"
+          }
+        ]
+      }
+    ],
+    "networks":[
+      {
+        "name": "exp:NetworkEventDateNetwork",
+        "relationshipTypeName": "xbrl:concept-refDimension",
+        "relationships": [
+          {
+            "source": "exp:EventDate",
+            "target": "xbrl:period"
+          }
+        ]
+      }
+    ]
+  }
+}

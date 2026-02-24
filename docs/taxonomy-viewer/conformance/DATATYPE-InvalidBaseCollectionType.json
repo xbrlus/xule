@@ -1,0 +1,29 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: oimte:collectionTypeWithoutCollectionBaseType Defines collection type without the collection base type. The collectionType object MUST only be defined when the baseType property is defined as an xbrli:collection."
+  },
+  "xbrlModel": {
+    "name": "exp:DefinedCollectionTypeWithoutCollectionBaseType",
+    "version": "2025",
+    "dataTypes":[
+    {
+        "name": "exp:myQNameCollectionType",
+        "baseType": "xs:integer",
+        "collectionType": {
+            "dataTypesAllowed":["xs:QName"],
+            "uniqueValues":true,
+            "orderedValues":false
+                }
+    }
+    ]
+  }
+}

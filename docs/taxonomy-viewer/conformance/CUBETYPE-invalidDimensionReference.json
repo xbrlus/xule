@@ -1,0 +1,35 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/invaliddimensionreference",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:invalidDimensionReference: Invalid Dimension Reference"
+    },
+    "xbrlModel": {
+        "name": "test:InvalidDimensionReferenceTest",
+        "version": "1.0",
+        "domainClasses": [
+            {
+                "name": "test:TestDomainClass"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "test:TestCubeType",
+                "cubeDimensionConstraints": {
+                    "allowed": [
+                        {
+                            "dimensionName": "test:NonExistentDimension",
+                            "type": "explicit"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025"
+    },
+    "documentNamespace": "exp",
+    "description": "Valid member object with required properties."
+  },
+  "xbrlModel": {
+    "name": "exp:ValidBasicMemberTaxonomy",
+    "version": "2025",
+    "members": [
+      {
+        "name": "exp:RegionNorthAmerica"
+      }
+    ]
+  }
+}

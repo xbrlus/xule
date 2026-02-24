@@ -1,0 +1,40 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/missingrequiredcubeproperty",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:missingRequiredCubeProperty: Missing Required Cube Property"
+    },
+    "xbrlModel": {
+        "name": "test:MissingRequiredCubePropertyTest",
+        "version": "1.0",
+        "propertyTypes": [
+            {
+                "name": "test:TestPropertyType",
+                "dataType": "xs:string"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "test:BaseCubeType",
+                "cubeProperties": {
+                    "required": [
+                        "test:TestPropertyType"
+                    ]
+                }
+            },
+            {
+                "name": "test:DerivedCubeType",
+                "baseCubeType": "test:BaseCubeType",
+                "cubeProperties": {
+                    "required": []
+                }
+            }
+        ]
+    }
+}

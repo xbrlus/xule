@@ -1,0 +1,213 @@
+{
+   "documentInfo": {
+      "documentType": "https://xbrl.org/2026/model",
+      "namespaces": {
+         "rend": "http://www.xbrl.org/table-examples",
+         "table": "http://xbrl.org/2014/table"
+      }
+   },
+   "xbrlModel": {
+      "name": "table:table",
+      "namespace": "http://xbrl.org/2014/table",
+      "version": "1.0",
+      "modelForm": "compiled",
+      "importedTaxonomies": [],
+      "abstracts": [],
+      "concepts": [],
+      "cubes": [
+            {
+                "name": "rend:ExampleCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "rend:F",
+                        "domainName": "rend:FDomain",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "rend:PrimaryCountryDomain"
+                    }
+                ]
+            }
+      ],
+      "domains": [
+                  {
+                "name": "rend:Fdomain",
+                "root":"rend:f0",
+                "relationships": [
+                   {
+                      "source": "rend:f0",
+                      "target": "rend:f1",
+                      "order": 1
+                   },
+                   {
+                      "source": "rend:f1",
+                      "target": "rend:f2",
+                      "order": 1
+                   },
+                   {
+                      "source": "rend:f1",
+                      "target": "rend:f3",
+                      "order": 2
+                   },
+                   {
+                      "source": "rend:f0",
+                      "target": "rend:f4",
+                      "order": 2
+                   },
+                   {
+                      "source": "rend:f4",
+                      "target": "rend:f5",
+                      "order": 1
+                   },
+                   {
+                      "source": "rend:f5",
+                      "target": "rend:f6",
+                      "order": 1
+                   },
+                   {
+                      "source": "rend:f5",
+                      "target": "rend:f7",
+                      "order": 2
+                   },
+                   {
+                      "source": "rend:f7",
+                      "target": "rend:f8",
+                      "order": 1
+                   },
+                   {
+                      "source": "rend:f7",
+                      "target": "rend:f9",
+                      "order": 2
+                   }
+                ]
+            },
+        ],
+        "domainClasses" : [
+            {
+                "name": "rend:f0"
+            }
+       ]
+      "networks": [
+      ],
+      "labels": [
+         {
+            "relatedName": "rend:F",
+            "language": "en",
+            "labelType": "label",
+            "value": "F"
+         },
+         {
+            "relatedName": "rend:f0",
+            "language": "en",
+            "labelType": "label",
+            "value": "f0"
+         },
+         {
+            "relatedName": "rend:f1",
+            "language": "en",
+            "labelType": "label",
+            "value": "f1"
+         },
+         {
+            "relatedName": "rend:f2",
+            "language": "en",
+            "labelType": "label",
+            "value": "f2"
+         },
+         {
+            "relatedName": "rend:f3",
+            "language": "en",
+            "labelType": "label",
+            "value": "f3"
+         },
+         {
+            "relatedName": "rend:f4",
+            "language": "en",
+            "labelType": "label",
+            "value": "f4"
+         },
+         {
+            "relatedName": "rend:f5",
+            "language": "en",
+            "labelType": "label",
+            "value": "f5"
+         },
+         {
+            "relatedName": "rend:f6",
+            "language": "en",
+            "labelType": "label",
+            "value": "f6"
+         },
+         {
+            "relatedName": "rend:f7",
+            "language": "en",
+            "labelType": "label",
+            "value": "f7"
+         },
+         {
+            "relatedName": "rend:f8",
+            "language": "en",
+            "labelType": "label",
+            "value": "f8"
+         },
+         {
+            "relatedName": "rend:f9",
+            "language": "en",
+            "labelType": "label",
+            "value": "f9"
+         }
+      ],
+      "labelTypes": [],
+      "references": []
+   },
+   "layout": {
+      "name": "table:table_layout",
+      "xbrlModelName": "table:table",
+      "dataTables": [
+         {
+            "name": "table:table1",
+            "cubeName": "rend:ExampleCube",
+            "xAxis": {
+               "axisLabels": [
+                  [
+                     {
+                        "language": "en",
+                        "value": "Label: m1",
+                        "labelType": "xbrl:label"
+                     },
+                     {
+                        "language": "en",
+                        "value": "Label: m2",
+                        "labelType": "xbrl:label"
+                     }
+                  ]
+               ],
+               "axisDimensions": [
+                  {
+                     "xbrl:concept": "rend:m1"
+                  },
+                  {
+                     "xbrl:concept": "rend:m2"
+                  }
+               ]
+            },
+            "yAxis": {
+               "axisLabels": [
+                     {
+                        "language": "en",
+                        "labelSource": "rend:ExampleDimension",
+                        "labelType": "xbrl:label"
+                     }
+               ],
+               "axisDimensions": [
+                  {
+                     "rend:F": "rend:Fdomain"
+                  }
+               ]
+            },
+            "zAxis": {}
+         }
+      ]
+   }
+}

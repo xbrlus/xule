@@ -1,0 +1,769 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"country": "http://xbrl.sec.gov/country/2025",
+			"xbrli": "https://xbrl.org/2025/instance",
+			"xbrl": "https://xbrl.org/2025",
+			"xs": "http://www.w3.org/2001/XMLSchema"
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "country"
+	},
+	"xbrlModel": {
+		"name": "country:CountryTaxonomy",
+        "version": "1.0.0",
+		"members": [
+			{
+				"name": "country:AO"
+			},
+			{
+				"name": "country:AG"
+			},
+			{
+				"name": "country:AD"
+			},
+			{
+				"name": "country:AL"
+			},
+			{
+				"name": "country:AM"
+			},
+			{
+				"name": "country:AF"
+			},
+			{
+				"name": "country:AI"
+			},
+			{
+				"name": "country:AE"
+			},
+			{
+				"name": "country:AQ"
+			},
+			{
+				"name": "country:AS"
+			},
+			{
+				"name": "country:AR"
+			},
+			{
+				"name": "country:AU"
+			},
+			{
+				"name": "country:AT"
+			},
+			{
+				"name": "country:AW"
+			},
+			{
+				"name": "country:AX"
+			},
+			{
+				"name": "country:AZ"
+			},
+			{
+				"name": "country:AllCountriesDomain"
+			},
+			{
+				"name": "country:BA"
+			},
+			{
+				"name": "country:BB"
+			},
+			{
+				"name": "country:BD"
+			},
+			{
+				"name": "country:BE"
+			},
+			{
+				"name": "country:BF"
+			},
+			{
+				"name": "country:BG"
+			},
+			{
+				"name": "country:BH"
+			},
+			{
+				"name": "country:BI"
+			},
+			{
+				"name": "country:BJ"
+			},
+			{
+				"name": "country:BL"
+			},
+			{
+				"name": "country:BM"
+			},
+			{
+				"name": "country:BN"
+			},
+			{
+				"name": "country:BO"
+			},
+			{
+				"name": "country:BQ"
+			},
+			{
+				"name": "country:BR"
+			},
+			{
+				"name": "country:BS"
+			},
+			{
+				"name": "country:BT"
+			},
+			{
+				"name": "country:BV"
+			},
+			{
+				"name": "country:BW"
+			},
+			{
+				"name": "country:BY"
+			},
+			{
+				"name": "country:BZ"
+			},
+			{
+				"name": "country:CA"
+			},
+			{
+				"name": "country:CC"
+			},
+			{
+				"name": "country:CD"
+			},
+			{
+				"name": "country:CF"
+			},
+			{
+				"name": "country:CG"
+			},
+			{
+				"name": "country:CH"
+			},
+			{
+				"name": "country:CI"
+			},
+			{
+				"name": "country:CK"
+			},
+			{
+				"name": "country:CL"
+			},
+			{
+				"name": "country:CM"
+			},
+			{
+				"name": "country:CN"
+			},
+			{
+				"name": "country:CO"
+			},
+			{
+				"name": "country:CR"
+			},
+			{
+				"name": "country:CU"
+			},
+			{
+				"name": "country:CV"
+			},
+			{
+				"name": "country:CW"
+			},
+			{
+				"name": "country:CX"
+			},
+			{
+				"name": "country:CY"
+			},
+			{
+				"name": "country:CZ"
+			},
+			{
+				"name": "country:DE"
+			},
+			{
+				"name": "country:DJ"
+			},
+			{
+				"name": "country:DK"
+			},
+			{
+				"name": "country:DM"
+			},
+			{
+				"name": "country:DO"
+			},
+			{
+				"name": "country:DZ"
+			},
+			{
+				"name": "country:EC"
+			},
+			{
+				"name": "country:EE"
+			},
+			{
+				"name": "country:EG"
+			},
+			{
+				"name": "country:EH"
+			},
+			{
+				"name": "country:ER"
+			},
+			{
+				"name": "country:ES"
+			},
+			{
+				"name": "country:ET"
+			},
+			{
+				"name": "country:FI"
+			},
+			{
+				"name": "country:FJ"
+			},
+			{
+				"name": "country:FK"
+			},
+			{
+				"name": "country:FM"
+			},
+			{
+				"name": "country:FO"
+			},
+			{
+				"name": "country:FR"
+			},
+			{
+				"name": "country:GA"
+			},
+			{
+				"name": "country:GB"
+			},
+			{
+				"name": "country:GD"
+			},
+			{
+				"name": "country:GE"
+			},
+			{
+				"name": "country:GF"
+			},
+			{
+				"name": "country:GG"
+			},
+			{
+				"name": "country:GH"
+			},
+			{
+				"name": "country:GI"
+			},
+			{
+				"name": "country:GL"
+			},
+			{
+				"name": "country:GM"
+			},
+			{
+				"name": "country:GN"
+			},
+			{
+				"name": "country:GP"
+			},
+			{
+				"name": "country:GQ"
+			},
+			{
+				"name": "country:GR"
+			},
+			{
+				"name": "country:GS"
+			},
+			{
+				"name": "country:GT"
+			},
+			{
+				"name": "country:GU"
+			},
+			{
+				"name": "country:GW"
+			},
+			{
+				"name": "country:GY"
+			},
+			{
+				"name": "country:HK"
+			},
+			{
+				"name": "country:HM"
+			},
+			{
+				"name": "country:HN"
+			},
+			{
+				"name": "country:HR"
+			},
+			{
+				"name": "country:HT"
+			},
+			{
+				"name": "country:HU"
+			},
+			{
+				"name": "country:ID"
+			},
+			{
+				"name": "country:IE"
+			},
+			{
+				"name": "country:IL"
+			},
+			{
+				"name": "country:IM"
+			},
+			{
+				"name": "country:IN"
+			},
+			{
+				"name": "country:IO"
+			},
+			{
+				"name": "country:IQ"
+			},
+			{
+				"name": "country:IR"
+			},
+			{
+				"name": "country:IS"
+			},
+			{
+				"name": "country:IT"
+			},
+			{
+				"name": "country:JE"
+			},
+			{
+				"name": "country:JM"
+			},
+			{
+				"name": "country:JO"
+			},
+			{
+				"name": "country:JP"
+			},
+			{
+				"name": "country:KE"
+			},
+			{
+				"name": "country:KG"
+			},
+			{
+				"name": "country:KH"
+			},
+			{
+				"name": "country:KI"
+			},
+			{
+				"name": "country:KM"
+			},
+			{
+				"name": "country:KN"
+			},
+			{
+				"name": "country:KP"
+			},
+			{
+				"name": "country:KR"
+			},
+			{
+				"name": "country:KW"
+			},
+			{
+				"name": "country:KY"
+			},
+			{
+				"name": "country:KZ"
+			},
+			{
+				"name": "country:LA"
+			},
+			{
+				"name": "country:LB"
+			},
+			{
+				"name": "country:LC"
+			},
+			{
+				"name": "country:LI"
+			},
+			{
+				"name": "country:LK"
+			},
+			{
+				"name": "country:LR"
+			},
+			{
+				"name": "country:LS"
+			},
+			{
+				"name": "country:LT"
+			},
+			{
+				"name": "country:LU"
+			},
+			{
+				"name": "country:LV"
+			},
+			{
+				"name": "country:LY"
+			},
+			{
+				"name": "country:MA"
+			},
+			{
+				"name": "country:MC"
+			},
+			{
+				"name": "country:MD"
+			},
+			{
+				"name": "country:ME"
+			},
+			{
+				"name": "country:MF"
+			},
+			{
+				"name": "country:MG"
+			},
+			{
+				"name": "country:MH"
+			},
+			{
+				"name": "country:MK"
+			},
+			{
+				"name": "country:ML"
+			},
+			{
+				"name": "country:MM"
+			},
+			{
+				"name": "country:MN"
+			},
+			{
+				"name": "country:MO"
+			},
+			{
+				"name": "country:MP"
+			},
+			{
+				"name": "country:MQ"
+			},
+			{
+				"name": "country:MR"
+			},
+			{
+				"name": "country:MS"
+			},
+			{
+				"name": "country:MT"
+			},
+			{
+				"name": "country:MU"
+			},
+			{
+				"name": "country:MV"
+			},
+			{
+				"name": "country:MW"
+			},
+			{
+				"name": "country:MX"
+			},
+			{
+				"name": "country:MY"
+			},
+			{
+				"name": "country:MZ"
+			},
+			{
+				"name": "country:NA"
+			},
+			{
+				"name": "country:NC"
+			},
+			{
+				"name": "country:NE"
+			},
+			{
+				"name": "country:NF"
+			},
+			{
+				"name": "country:NG"
+			},
+			{
+				"name": "country:NI"
+			},
+			{
+				"name": "country:NL"
+			},
+			{
+				"name": "country:NO"
+			},
+			{
+				"name": "country:NP"
+			},
+			{
+				"name": "country:NR"
+			},
+			{
+				"name": "country:NU"
+			},
+			{
+				"name": "country:NZ"
+			},
+			{
+				"name": "country:OM"
+			},
+			{
+				"name": "country:PA"
+			},
+			{
+				"name": "country:PE"
+			},
+			{
+				"name": "country:PF"
+			},
+			{
+				"name": "country:PG"
+			},
+			{
+				"name": "country:PH"
+			},
+			{
+				"name": "country:PK"
+			},
+			{
+				"name": "country:PL"
+			},
+			{
+				"name": "country:PM"
+			},
+			{
+				"name": "country:PN"
+			},
+			{
+				"name": "country:PR"
+			},
+			{
+				"name": "country:PS"
+			},
+			{
+				"name": "country:PT"
+			},
+			{
+				"name": "country:PW"
+			},
+			{
+				"name": "country:PY"
+			},
+			{
+				"name": "country:QA"
+			},
+			{
+				"name": "country:RE"
+			},
+			{
+				"name": "country:RO"
+			},
+			{
+				"name": "country:RS"
+			},
+			{
+				"name": "country:RU"
+			},
+			{
+				"name": "country:RW"
+			},
+			{
+				"name": "country:SA"
+			},
+			{
+				"name": "country:SB"
+			},
+			{
+				"name": "country:SC"
+			},
+			{
+				"name": "country:SD"
+			},
+			{
+				"name": "country:SE"
+			},
+			{
+				"name": "country:SG"
+			},
+			{
+				"name": "country:SH"
+			},
+			{
+				"name": "country:SI"
+			},
+			{
+				"name": "country:SJ"
+			},
+			{
+				"name": "country:SK"
+			},
+			{
+				"name": "country:SL"
+			},
+			{
+				"name": "country:SM"
+			},
+			{
+				"name": "country:SN"
+			},
+			{
+				"name": "country:SO"
+			},
+			{
+				"name": "country:SR"
+			},
+			{
+				"name": "country:ST"
+			},
+			{
+				"name": "country:SS"
+			},
+			{
+				"name": "country:SV"
+			},
+			{
+				"name": "country:SX"
+			},
+			{
+				"name": "country:SY"
+			},
+			{
+				"name": "country:SZ"
+			},
+			{
+				"name": "country:TC"
+			},
+			{
+				"name": "country:TD"
+			},
+			{
+				"name": "country:TF"
+			},
+			{
+				"name": "country:TG"
+			},
+			{
+				"name": "country:TH"
+			},
+			{
+				"name": "country:TJ"
+			},
+			{
+				"name": "country:TK"
+			},
+			{
+				"name": "country:TL"
+			},
+			{
+				"name": "country:TM"
+			},
+			{
+				"name": "country:TN"
+			},
+			{
+				"name": "country:TO"
+			},
+			{
+				"name": "country:TR"
+			},
+			{
+				"name": "country:TT"
+			},
+			{
+				"name": "country:TV"
+			},
+			{
+				"name": "country:TW"
+			},
+			{
+				"name": "country:TZ"
+			},
+			{
+				"name": "country:UA"
+			},
+			{
+				"name": "country:UG"
+			},
+			{
+				"name": "country:UM"
+			},
+			{
+				"name": "country:US"
+			},
+			{
+				"name": "country:UY"
+			},
+			{
+				"name": "country:UZ"
+			},
+			{
+				"name": "country:VA"
+			},
+			{
+				"name": "country:VC"
+			},
+			{
+				"name": "country:VE"
+			},
+			{
+				"name": "country:VG"
+			},
+			{
+				"name": "country:VI"
+			},
+			{
+				"name": "country:VN"
+			},
+			{
+				"name": "country:VU"
+			},
+			{
+				"name": "country:WF"
+			},
+			{
+				"name": "country:WS"
+			},
+			{
+				"name": "country:YE"
+			},
+			{
+				"name": "country:YT"
+			},
+			{
+				"name": "country:ZA"
+			},
+			{
+				"name": "country:ZM"
+			},
+			{
+				"name": "country:ZW"
+			}
+		]
+	}
+}

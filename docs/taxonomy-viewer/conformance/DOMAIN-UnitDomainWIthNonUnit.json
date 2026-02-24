@@ -1,0 +1,42 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "iso4217": "http://www.xbrl.org/2003/iso4217"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: oimte:invalidUnitDomainTarget - Concept object defined in unit domain"
+  },
+  "xbrlModel": {
+    "name": "exp:ConceptObjectInUnitdDomain",
+    "version": "2025",
+    "domains": [
+      {
+        "name": "exp:MyUnitDomain",
+        "root": "xbrl:unitDomain",
+        "relationships": [
+          {
+            "source": "xbrl:unitDomain",
+            "target": "exp:Revenue"
+          },
+         {
+            "source": "xbrl:unitDomain",
+            "target": "iso4217:USD"
+          }
+        ]
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ]
+}
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: domainDataType property allows xs:date but not xs:token which is defined on the dimension."
+  },
+  "xbrlModel": {
+    "name": "exp:DimensionInvalidDomainDataTypeReference",
+    "version": "2025",
+    "dimensions": [
+      {
+        "name": "exp:MyDimension",
+        "domainClass": "exp:MyDimensionRoot"
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:MyDimensionRoot" ,
+        "allowedDomainItems": ["xs:date"]
+     }
+    ],
+     "cubes": [
+      {
+        "name": "exp:myCube",
+        "cubeType": "exp:myCubeType",
+        "cubeDimensions": [
+         {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          },
+          {
+            "dimensionName": "exp:MyDimension",
+            "domainDataType": "xs:token",
+            "allowDomainFacts": false
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ]
+      }
+    ]
+  }
+}

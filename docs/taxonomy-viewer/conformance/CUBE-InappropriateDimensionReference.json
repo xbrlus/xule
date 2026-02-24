@@ -1,0 +1,42 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: cubeDimensions.dimensionName references a concept object instead of a dimension object."
+  },
+  "xbrlModel": {
+    "name": "exp:CubeDimensionWrongTypeTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:SomeConcept",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeWithInvalidDimensionReference",
+        "cubeDimensions": [
+          { "dimensionName": "exp:SomeConcept" },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+        },
+        {
+            "dimensionName": "xbrl:entity"
+        }
+        ]
+      }
+    ]
+  }
+}

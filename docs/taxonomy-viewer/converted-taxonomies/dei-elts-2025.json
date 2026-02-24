@@ -1,0 +1,1812 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"xbrli": "https://xbrl.org/2025/instance",
+			"xbrl": "https://xbrl.org/2025",
+     		"xbrla": "http://xbrl.org/accounting",
+			"xs": "http://www.w3.org/2001/XMLSchema",
+			"dei": "http://xbrl.sec.gov/dei/2025"
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "dei",
+		"urlMapping": {
+            "xbrla": ["../spec-taxonomies/xbrla.json"]
+            }
+	},
+	"xbrlModel": {
+		"name": "dei:DocumentEntityInformationTaxonomy",
+        "version": "1.0.0",
+		"importedTaxonomies": [
+            {
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+        ],
+		"abstracts": [
+			{
+				"name": "dei:CoverAbstract"
+			},
+			{
+				"name": "dei:DocumentInformationLineItems"
+			},
+			{
+				"name": "dei:EntityInformationLineItems"
+			},
+			{
+				"name": "dei:EntityAddressesLineItems"
+			},
+			{
+				"name": "dei:EntityContactPersonnelLineItems"
+			},
+			{
+				"name": "dei:EntityPhoneFaxNumbersLineItems"
+			},
+			{
+				"name": "dei:EntityListingsLineItems"
+			},
+			{
+				"name": "dei:NameChangeEventLineItems"
+			},
+			{
+				"name": "dei:EntityLocationLineItems"
+			},
+			{
+				"name": "dei:EntityNorthAmericanIndustryClassificationsLineItems"
+			},
+			{
+				"name": "dei:EntitySectorIndustryClassificationsLineItems"
+			},
+			{
+				"name": "dei:DeprecatedItemsForDEI"
+			},
+			{
+				"name": "dei:ReservedItemsForDeiAbstract"
+			},
+			{
+				"name": "dei:UTR"
+			},
+			{
+				"name": "dei:AuditorLineItems"
+			}
+		],
+		"concepts": [
+			{
+				"name": "dei:EntityAddressAddressLine2",
+				"periodType": "duration",
+				"dataType": "xs:normalizedString",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"dataType": "dei:edgarExchangeCodeItemType",
+				"nillable": true,
+				"name": "dei:SecurityExchangeName"
+			},
+			{
+				"name": "dei:TradingSymbol",
+				"periodType": "duration",
+				"dataType": "dei:tradingSymbolItemType",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "dei:AuditorOpinionTextBlock"
+			},
+			{
+				"name": "dei:NoTradingSymbolFlag",
+				"dataType": "dei:trueItemType",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "dei:AuditorLocation",
+				"dataType": "dei:internationalNameItemType",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "dei:securityTitleItemType",
+				"nillable": true,
+				"name": "dei:Security12bTitle",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:AuditorFirmId",
+				"dataType": "dei:nonemptySequenceNumberItemType",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:AuditorName",
+				"dataType": "dei:internationalNameItemType",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:normalizedString",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:Extension"
+			},
+			{
+				"name": "dei:LocalPhoneNumber",
+				"periodType": "duration",
+				"dataType": "xs:normalizedString",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:EntityAddressRegion",
+				"nillable": true,
+				"dataType": "xs:normalizedString"
+			},
+			{
+				"nillable": true,
+				"name": "dei:CityAreaCode",
+				"periodType": "duration",
+				"dataType": "xs:normalizedString"
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:CountryRegion",
+				"nillable": true,
+				"dataType": "xs:normalizedString"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:string",
+				"nillable": true,
+				"name": "dei:PhoneFaxNumberDescription"
+			},
+			{
+				"name": "dei:EntityAddressPostalZipCode",
+				"dataType": "xs:normalizedString",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityAddressCountry",
+				"periodType": "duration",
+				"dataType": "dei:countryCodeItemType"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "dei:stateOrProvinceItemType",
+				"name": "dei:EntityAddressStateOrProvince"
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:EntityAddressCityOrTown",
+				"nillable": true,
+				"dataType": "xs:normalizedString"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityOtherIdentificationType",
+				"dataType": "xs:normalizedString",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:normalizedString",
+				"nillable": true,
+				"name": "dei:EntityAddressAddressLine3",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityDataUniversalNumberingSystemNumber",
+				"periodType": "duration",
+				"dataType": "dei:nineDigitItemType"
+			},
+			{
+				"dataType": "xs:date",
+				"nillable": true,
+				"name": "dei:EntityInformationDateToChangeFormerLegalOrRegisteredName",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:normalizedString",
+				"name": "dei:EntityAddressAddressLine1",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:normalizedString",
+				"nillable": true,
+				"name": "dei:EntityOtherIdentificationValue",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:ContactPersonnelFaxNumber",
+				"dataType": "xs:normalizedString",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:EntitySectorIndustryClassificationPrimary",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "dei:yesNoItemType"
+			},
+			{
+				"name": "dei:ContactPersonnelEmailAddress",
+				"periodType": "duration",
+				"dataType": "xs:normalizedString",
+				"nillable": true
+			},
+			{
+				"name": "dei:ContactPersonnelName",
+				"nillable": true,
+				"dataType": "xs:normalizedString",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:string",
+				"nillable": true,
+				"name": "dei:EntityAddressAddressDescription"
+			},
+			{
+				"name": "dei:ApproximateDateOfCommencementOfProposedSaleToThePublic",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "dei:dateOrAsapItemType"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityNorthAmericanIndustryClassificationPrimary",
+				"periodType": "duration",
+				"dataType": "dei:yesNoItemType"
+			},
+			{
+				"name": "dei:EntityIncorporationDateOfIncorporation",
+				"dataType": "xs:date",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"dataType": "dei:currencyItemType",
+				"nillable": true,
+				"name": "dei:EntityReportingCurrencyISOCode",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:ParentEntityLegalName",
+				"periodType": "duration",
+				"dataType": "xs:string",
+				"nillable": true
+			},
+			{
+				"dataType": "dei:countryCodeItemType",
+				"nillable": true,
+				"name": "dei:EntityHomeCountryISOCode",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:string",
+				"nillable": true,
+				"name": "dei:EntityLegalForm"
+			},
+			{
+				"name": "dei:EntityLocationPrimary",
+				"periodType": "duration",
+				"dataType": "dei:yesNoItemType",
+				"nillable": true
+			},
+			{
+				"dataType": "dei:legalEntityIdentifierItemType",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:LegalEntityIdentifier"
+			},
+			{
+				"nillable": true,
+				"dataType": "dei:invCompanyType",
+				"name": "dei:EntityInvCompanyType",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:normalizedString",
+				"nillable": true,
+				"name": "dei:EntityInformationFormerLegalOrRegisteredName"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"nillable": true,
+				"periodType": "instant",
+				"name": "dei:EntityPublicFloat"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:EntityExTransitionPeriod"
+			},
+			{
+				"dataType": "xs:anyURI",
+				"nillable": true,
+				"periodType": "duration",
+				"name": "dei:ContactPersonnelUniformResourceLocatorURL"
+			},
+			{
+				"name": "dei:EntityEmergingGrowthCompany",
+				"dataType": "xs:boolean",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:EntitySmallBusiness",
+				"dataType": "xs:boolean"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityFilerCategory",
+				"dataType": "dei:filerCategoryItemType",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:EntityShellCompany",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityCurrentReportingStatus",
+				"periodType": "duration",
+				"dataType": "dei:yesNoItemType"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityVoluntaryFilers",
+				"periodType": "duration",
+				"dataType": "dei:yesNoItemType"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "dei:yesNoItemType",
+				"nillable": true,
+				"name": "dei:EntityWellKnownSeasonedIssuer"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:FormerFiscalYearEndDate",
+				"dataType": "xs:gMonthDay"
+			},
+			{
+				"dataType": "xs:gMonthDay",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:CurrentFiscalYearEndDate"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xs:decimal",
+				"name": "dei:EntityNumberOfEmployees"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"name": "dei:DocumentInformationTextBlock",
+				"nillable": true
+			},
+			{
+				"dataType": "dei:edgarStateCountryItemType",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:EntityIncorporationStateCountryCode"
+			},
+			{
+				"name": "dei:DocumentsIncorporatedByReferenceTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:string",
+				"nillable": true,
+				"name": "dei:EntityAccountingStandard",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:EntityTaxIdentificationNumber",
+				"nillable": true,
+				"dataType": "dei:employerIdItemType"
+			},
+			{
+				"dataType": "dei:sicNumberItemType",
+				"name": "dei:EntityPrimarySicNumber",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "dei:InvestmentCompanyActFileNumber",
+				"dataType": "dei:fileNumberItemType",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:EntityFileNumber",
+				"dataType": "dei:fileNumberItemType"
+			},
+			{
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:EntityListingSecurityTradingCurrency"
+			},
+			{
+				"name": "dei:EntityListingDescription",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:string"
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:EntityCentralIndexKey",
+				"dataType": "dei:centralIndexKeyItemType",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:pureType",
+				"periodType": "instant",
+				"nillable": true,
+				"name": "dei:EntityListingDepositoryReceiptRatio"
+			},
+			{
+				"dataType": "xs:normalizedString",
+				"nillable": true,
+				"name": "dei:EntityRegistrantName",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"dataType": "dei:yesNoItemType",
+				"name": "dei:EntityListingForeign",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:EntityListingPrimary",
+				"periodType": "duration",
+				"dataType": "dei:yesNoItemType",
+				"nillable": true
+			},
+			{
+				"periodType": "instant",
+				"name": "dei:EntityCommonStockSharesOutstanding",
+				"nillable": true,
+				"dataType": "xbrli:sharesType"
+			},
+			{
+				"name": "dei:EntityListingParValuePerShare",
+				"nillable": true,
+				"dataType": "xbrli:perShare",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"dataType": "dei:securityReportingObligationItemType",
+				"name": "dei:SecurityReportingObligation",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "dei:fileNumberItemType",
+				"nillable": true,
+				"name": "dei:ContainedFileInformationFileNumber"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "dei:securityTitleItemType",
+				"name": "dei:Security12gTitle"
+			},
+			{
+				"nillable": true,
+				"name": "dei:ContainedFileInformationFileType",
+				"dataType": "xs:normalizedString",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:ContainedFileInformationFileDescription",
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "dei:ContainedFileInformationFileName",
+				"periodType": "duration",
+				"dataType": "xs:normalizedString",
+				"nillable": true
+			},
+			{
+				"name": "dei:DocumentSynopsis",
+				"nillable": true,
+				"dataType": "xs:normalizedString",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:DocumentSubtitle",
+				"dataType": "xs:normalizedString",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "dei:DocumentTitle",
+				"dataType": "xs:normalizedString",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "dei:DocumentName",
+				"dataType": "xs:normalizedString",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:string",
+				"nillable": true,
+				"periodType": "duration",
+				"name": "dei:DocumentCopyrightInformation"
+			},
+			{
+				"name": "dei:DocumentVersion",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:normalizedString"
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:DocumentPeriodEndDate",
+				"nillable": true,
+				"dataType": "xs:date"
+			},
+			{
+				"nillable": true,
+				"name": "dei:DocumentEffectiveDate",
+				"dataType": "xs:date",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:DocumentCreationDate",
+				"periodType": "duration",
+				"dataType": "xs:date"
+			},
+			{
+				"name": "dei:DocumentDescription",
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"name": "dei:DocumentFiscalPeriodFocus",
+				"dataType": "dei:fiscalPeriodItemType"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:gYear",
+				"nillable": true,
+				"name": "dei:DocumentFiscalYearFocus"
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"name": "dei:IcfrAuditorAttestationFlag"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:string",
+				"nillable": true,
+				"name": "dei:AmendmentDescription"
+			},
+			{
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:AmendmentFlag",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EntityBankruptcyProceedingsReportingCurrent",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:PreCommencementIssuerTenderOffer",
+				"dataType": "xs:boolean",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "dei:PreCommencementTenderOffer",
+				"periodType": "duration",
+				"dataType": "xs:boolean"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:SolicitingMaterial"
+			},
+			{
+				"nillable": true,
+				"name": "dei:WrittenCommunications",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "dei:fileNumberItemType",
+				"name": "dei:ExhibitsOnly462dFileNumber"
+			},
+			{
+				"name": "dei:ExhibitsOnly462d",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:NoSubstantiveChanges462cFileNumber",
+				"periodType": "duration",
+				"dataType": "dei:fileNumberItemType",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:NoSubstantiveChanges462c",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"name": "dei:AdditionalSecurities462bFileNumber",
+				"periodType": "duration",
+				"dataType": "dei:fileNumberItemType",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"name": "dei:AdditionalSecurities462b"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:boolean",
+				"periodType": "duration",
+				"name": "dei:NewEffectiveDateForPreviousFiling"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EffectiveOnDate486a",
+				"periodType": "duration",
+				"dataType": "xs:date"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:boolean",
+				"name": "dei:EffectiveOnSetDate486a",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:boolean",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:EffectiveAfter60Days486a"
+			},
+			{
+				"dataType": "xs:date",
+				"nillable": true,
+				"periodType": "duration",
+				"name": "dei:EffectiveOnDate486b"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:EffectiveOnSetDate486b"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:EffectiveUponFiling486b"
+			},
+			{
+				"name": "dei:EffectiveWhenDeclaredSection8c",
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "dei:AdditionalSecuritiesEffective413b",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:EffectiveUponFiling462e",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:DelayedOrContinuousOffering",
+				"dataType": "xs:boolean"
+			},
+			{
+				"name": "dei:DividendOrInterestReinvestmentPlanOnly",
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"dataType": "dei:otherReportingStandardItemNumberItemType",
+				"name": "dei:OtherReportingStandardItemNumber",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "dei:DocumentAccountingStandard",
+				"dataType": "dei:accountingStandardItemType"
+			},
+			{
+				"name": "dei:AuditedAnnualFinancialStatements",
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:AnnualInformationForm",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "dei:sequenceNumberItemType",
+				"nillable": true,
+				"name": "dei:InvestmentCompanyRegistrationAmendmentNumber",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "dei:InvestmentCompanyRegistrationAmendment",
+				"periodType": "duration",
+				"dataType": "xs:boolean"
+			},
+			{
+				"name": "dei:InvestmentCompanyActRegistration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:PostEffectiveAmendmentNumber",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "dei:sequenceNumberItemType"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:boolean",
+				"name": "dei:PostEffectiveAmendment"
+			},
+			{
+				"nillable": true,
+				"name": "dei:PreEffectiveAmendmentNumber",
+				"periodType": "duration",
+				"dataType": "dei:sequenceNumberItemType"
+			},
+			{
+				"nillable": true,
+				"name": "dei:PreEffectiveAmendment",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:RegistrationStatementAmendmentNumber",
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "dei:sequenceNumberItemType"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:DocumentRegistrationStatement"
+			},
+			{
+				"dataType": "dei:yesNoItemType",
+				"name": "dei:EntityInteractiveDataCurrent",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "dei:DocumentShellCompanyEventDate",
+				"dataType": "xs:date",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:DocumentFinStmtRestatementRecoveryAnalysisFlag",
+				"nillable": true,
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:DocumentFinStmtErrorCorrectionFlag",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:DocumentShellCompanyReport"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:date",
+				"name": "dei:DocumentPeriodStartDate"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "dei:DocumentTransitionReport"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:boolean",
+				"name": "dei:DocumentQuarterlyReport",
+				"periodType": "duration"
+			},
+			{
+				"name": "dei:DocumentAnnualReport",
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"name": "dei:DocumentType",
+				"nillable": true,
+				"dataType": "dei:submissionTypeItemType"
+			}
+		],
+		"dataTypes": [
+			{
+				"baseType": "xs:token",
+				"enumeration": [
+					"N-1",
+					"N-1A",
+					"N-2",
+					"N-3",
+					"N-4",
+					"N-5",
+					"N-6",
+					"S-1 or S-3",
+					"S-6"
+				],
+				"name": "dei:invCompanyType"
+			},
+			{
+				"enumeration": [
+					"BOX",
+					"BX",
+					"C2",
+					"CBOE",
+					"CHX",
+					"CboeBYX",
+					"CboeBZX",
+					"CboeEDGA",
+					"CboeEDGX",
+					"GEMX",
+					"IEX",
+					"ISE",
+					"MIAX",
+					"MRX",
+					"NASDAQ",
+					"NONE",
+					"NYSE",
+					"NYSEAMER",
+					"NYSEArca",
+					"NYSENAT",
+					"PEARL",
+					"Phlx"
+				],
+				"name": "dei:edgarExchangeCodeItemType",
+				"baseType": "xs:normalizedString"
+			},
+			{
+				"name": "dei:submissionTypeItemType",
+				"baseType": "xs:string"
+			},
+			{
+				"baseType": "xs:token",
+				"name": "dei:dateOrAsapItemType"
+			},
+			{
+				"name": "dei:currencyItemType",
+				"baseType": "xs:token"
+			},
+			{
+				"baseType": "xs:token",
+				"name": "dei:countryCodeItemType",
+				"enumeration": [
+					"AD",
+					"AE",
+					"AF",
+					"AG",
+					"AI",
+					"AL",
+					"AM",
+					"AO",
+					"AQ",
+					"AR",
+					"AS",
+					"AT",
+					"AU",
+					"AW",
+					"AX",
+					"AZ",
+					"BA",
+					"BB",
+					"BD",
+					"BE",
+					"BF",
+					"BG",
+					"BH",
+					"BI",
+					"BJ",
+					"BL",
+					"BM",
+					"BN",
+					"BO",
+					"BQ",
+					"BR",
+					"BS",
+					"BT",
+					"BV",
+					"BW",
+					"BY",
+					"BZ",
+					"CA",
+					"CC",
+					"CD",
+					"CF",
+					"CG",
+					"CH",
+					"CI",
+					"CK",
+					"CL",
+					"CM",
+					"CN",
+					"CO",
+					"CR",
+					"CU",
+					"CV",
+					"CW",
+					"CX",
+					"CY",
+					"CZ",
+					"DE",
+					"DJ",
+					"DK",
+					"DM",
+					"DO",
+					"DZ",
+					"EC",
+					"EE",
+					"EG",
+					"EH",
+					"ER",
+					"ES",
+					"ET",
+					"FI",
+					"FJ",
+					"FK",
+					"FM",
+					"FO",
+					"FR",
+					"GA",
+					"GB",
+					"GD",
+					"GE",
+					"GF",
+					"GG",
+					"GH",
+					"GI",
+					"GL",
+					"GM",
+					"GN",
+					"GP",
+					"GQ",
+					"GR",
+					"GS",
+					"GT",
+					"GU",
+					"GW",
+					"GY",
+					"HK",
+					"HM",
+					"HN",
+					"HR",
+					"HT",
+					"HU",
+					"ID",
+					"IE",
+					"IL",
+					"IM",
+					"IN",
+					"IO",
+					"IQ",
+					"IR",
+					"IS",
+					"IT",
+					"JE",
+					"JM",
+					"JO",
+					"JP",
+					"KE",
+					"KG",
+					"KH",
+					"KI",
+					"KM",
+					"KN",
+					"KP",
+					"KR",
+					"KW",
+					"KY",
+					"KZ",
+					"LA",
+					"LB",
+					"LC",
+					"LI",
+					"LK",
+					"LR",
+					"LS",
+					"LT",
+					"LU",
+					"LV",
+					"LY",
+					"MA",
+					"MC",
+					"MD",
+					"ME",
+					"MF",
+					"MG",
+					"MH",
+					"MK",
+					"ML",
+					"MM",
+					"MN",
+					"MO",
+					"MP",
+					"MQ",
+					"MR",
+					"MS",
+					"MT",
+					"MU",
+					"MV",
+					"MW",
+					"MX",
+					"MY",
+					"MZ",
+					"NA",
+					"NC",
+					"NE",
+					"NF",
+					"NG",
+					"NI",
+					"NL",
+					"NO",
+					"NP",
+					"NR",
+					"NU",
+					"NZ",
+					"OM",
+					"PA",
+					"PE",
+					"PF",
+					"PG",
+					"PH",
+					"PK",
+					"PL",
+					"PM",
+					"PN",
+					"PR",
+					"PS",
+					"PT",
+					"PW",
+					"PY",
+					"QA",
+					"RE",
+					"RO",
+					"RS",
+					"RU",
+					"RW",
+					"SA",
+					"SB",
+					"SC",
+					"SD",
+					"SE",
+					"SG",
+					"SH",
+					"SI",
+					"SJ",
+					"SK",
+					"SL",
+					"SM",
+					"SN",
+					"SO",
+					"SR",
+					"SS",
+					"ST",
+					"SV",
+					"SX",
+					"SY",
+					"SZ",
+					"TC",
+					"TD",
+					"TF",
+					"TG",
+					"TH",
+					"TJ",
+					"TK",
+					"TL",
+					"TM",
+					"TN",
+					"TO",
+					"TR",
+					"TT",
+					"TV",
+					"TW",
+					"TZ",
+					"UA",
+					"UG",
+					"UM",
+					"US",
+					"UY",
+					"UZ",
+					"VA",
+					"VC",
+					"VE",
+					"VG",
+					"VI",
+					"VN",
+					"VU",
+					"WF",
+					"WS",
+					"YE",
+					"YT",
+					"ZA",
+					"ZM",
+					"ZW"
+				]
+			},
+			{
+				"name": "dei:nonemptySequenceNumberItemType",
+				"baseType": "xs:token"
+			},
+			{
+				"name": "dei:legalEntityIdentifierItemType",
+				"baseType": "xs:string"
+			},
+			{
+				"name": "dei:otherReportingStandardItemNumberItemType",
+				"baseType": "xs:normalizedString",
+				"enumeration": [
+					"Item 17",
+					"Item 18"
+				]
+			},
+			{
+				"name": "dei:yesNoItemType",
+				"enumeration": [
+					"No",
+					"Yes"
+				],
+				"baseType": "xs:token"
+			},
+			{
+				"name": "dei:fileNumberItemType",
+				"baseType": "xs:string"
+			},
+			{
+				"enumeration": [
+					"1A",
+					"1B",
+					"1C",
+					"1D",
+					"1E",
+					"1F",
+					"1G",
+					"1H",
+					"1J",
+					"1K",
+					"1L",
+					"1M",
+					"1N",
+					"1P",
+					"1Q",
+					"1R",
+					"1S",
+					"1T",
+					"1U",
+					"1V",
+					"1W",
+					"1X",
+					"1Y",
+					"1Z",
+					"2A",
+					"2B",
+					"2C",
+					"2D",
+					"2E",
+					"2G",
+					"2H",
+					"2J",
+					"2K",
+					"2L",
+					"2M",
+					"2N",
+					"2P",
+					"2Q",
+					"A0",
+					"A1",
+					"A2",
+					"A3",
+					"A4",
+					"A5",
+					"A6",
+					"A7",
+					"A8",
+					"A9",
+					"AK",
+					"AL",
+					"AR",
+					"AZ",
+					"B0",
+					"B1",
+					"B2",
+					"B3",
+					"B4",
+					"B5",
+					"B6",
+					"B7",
+					"B8",
+					"B9",
+					"C0",
+					"C1",
+					"C3",
+					"C4",
+					"C5",
+					"C6",
+					"C7",
+					"C8",
+					"C9",
+					"CA",
+					"CO",
+					"CT",
+					"D0",
+					"D1",
+					"D2",
+					"D3",
+					"D4",
+					"D5",
+					"D6",
+					"D7",
+					"D8",
+					"D9",
+					"DC",
+					"DE",
+					"E0",
+					"E1",
+					"E2",
+					"E3",
+					"E4",
+					"E8",
+					"E9",
+					"F0",
+					"F1",
+					"F2",
+					"F3",
+					"F4",
+					"F5",
+					"F6",
+					"F7",
+					"F8",
+					"F9",
+					"FL",
+					"G0",
+					"G1",
+					"G2",
+					"G3",
+					"G4",
+					"G6",
+					"G7",
+					"G8",
+					"G9",
+					"GA",
+					"GU",
+					"H1",
+					"H2",
+					"H3",
+					"H4",
+					"H5",
+					"H6",
+					"H7",
+					"H8",
+					"H9",
+					"HI",
+					"I0",
+					"I3",
+					"I4",
+					"I5",
+					"I6",
+					"IA",
+					"ID",
+					"IL",
+					"IN",
+					"J0",
+					"J1",
+					"J2",
+					"J3",
+					"J4",
+					"J5",
+					"J6",
+					"J8",
+					"J9",
+					"K0",
+					"K1",
+					"K2",
+					"K3",
+					"K4",
+					"K5",
+					"K6",
+					"K7",
+					"K8",
+					"K9",
+					"KS",
+					"KY",
+					"L0",
+					"L2",
+					"L3",
+					"L6",
+					"L7",
+					"L8",
+					"L9",
+					"LA",
+					"M0",
+					"M2",
+					"M3",
+					"M4",
+					"M5",
+					"M6",
+					"M7",
+					"M8",
+					"M9",
+					"MA",
+					"MD",
+					"ME",
+					"MI",
+					"MN",
+					"MO",
+					"MS",
+					"MT",
+					"N0",
+					"N1",
+					"N2",
+					"N4",
+					"N5",
+					"N6",
+					"N7",
+					"N8",
+					"N9",
+					"NC",
+					"ND",
+					"NE",
+					"NH",
+					"NJ",
+					"NM",
+					"NV",
+					"NY",
+					"O0",
+					"O1",
+					"O2",
+					"O3",
+					"O4",
+					"O5",
+					"O9",
+					"OH",
+					"OK",
+					"OR",
+					"P0",
+					"P1",
+					"P2",
+					"P3",
+					"P4",
+					"P5",
+					"P6",
+					"P7",
+					"P8",
+					"PA",
+					"PR",
+					"Q1",
+					"Q2",
+					"Q3",
+					"Q4",
+					"Q5",
+					"Q6",
+					"Q7",
+					"Q8",
+					"R0",
+					"R1",
+					"R2",
+					"R4",
+					"R5",
+					"R6",
+					"R8",
+					"R9",
+					"RI",
+					"S0",
+					"S1",
+					"S3",
+					"S4",
+					"S5",
+					"S6",
+					"S8",
+					"S9",
+					"SC",
+					"SD",
+					"T0",
+					"T1",
+					"T2",
+					"T3",
+					"T6",
+					"T7",
+					"T8",
+					"TN",
+					"TX",
+					"U0",
+					"U1",
+					"U3",
+					"U5",
+					"U7",
+					"U8",
+					"U9",
+					"UT",
+					"V0",
+					"V1",
+					"V2",
+					"V3",
+					"V6",
+					"V7",
+					"V8",
+					"V9",
+					"VA",
+					"VI",
+					"VT",
+					"W0",
+					"W1",
+					"W2",
+					"W3",
+					"W4",
+					"W5",
+					"W6",
+					"W7",
+					"W8",
+					"W9",
+					"WA",
+					"WI",
+					"WV",
+					"WY",
+					"X0",
+					"X1",
+					"X2",
+					"X3",
+					"X4",
+					"X5",
+					"X8",
+					"XX",
+					"Y0",
+					"Y3",
+					"Y4",
+					"Y5",
+					"Y6",
+					"Y7",
+					"Y8",
+					"Y9",
+					"Z0",
+					"Z1",
+					"Z2",
+					"Z3",
+					"Z4",
+					"Z5"
+				],
+				"name": "dei:edgarStateCountryItemType",
+				"baseType": "xs:string"
+			},
+			{
+				"name": "dei:securityTitleItemType",
+				"baseType": "xs:normalizedString"
+			},
+			{
+				"baseType": "xs:token",
+				"name": "dei:employerIdItemType"
+			},
+			{
+				"baseType": "xs:normalizedString",
+				"name": "dei:tradingSymbolItemType"
+			},
+			{
+				"baseType": "xs:token",
+				"name": "dei:sequenceNumberItemType"
+			},
+			{
+				"name": "dei:fiscalPeriodItemType",
+				"enumeration": [
+					"FY",
+					"Q1",
+					"Q2",
+					"Q3"
+				],
+				"baseType": "xs:token"
+			},
+			{
+				"baseType": "xs:string",
+				"name": "dei:filerCategoryItemType",
+				"enumeration": [
+					"Accelerated Filer",
+					"Large Accelerated Filer",
+					"Non-accelerated Filer"
+				]
+			},
+			{
+				"name": "dei:nineDigitItemType",
+				"baseType": "xs:token"
+			},
+			{
+				"baseType": "xs:string",
+				"enumeration": [
+					"15(d)"
+				],
+				"name": "dei:securityReportingObligationItemType"
+			},
+			{
+				"baseType": "xs:token",
+				"name": "dei:centralIndexKeyItemType"
+			},
+			{
+				"name": "dei:internationalNameItemType",
+				"baseType": "xs:token"
+			},
+			{
+				"name": "dei:stateOrProvinceItemType",
+				"baseType": "xs:string",
+				"enumeration": [
+					"AB",
+					"AK",
+					"AL",
+					"AR",
+					"AZ",
+					"BC",
+					"CA",
+					"CO",
+					"CT",
+					"DC",
+					"DE",
+					"FL",
+					"GA",
+					"HI",
+					"IA",
+					"ID",
+					"IL",
+					"IN",
+					"KS",
+					"KY",
+					"LA",
+					"MA",
+					"MB",
+					"MD",
+					"ME",
+					"MI",
+					"MN",
+					"MO",
+					"MS",
+					"MT",
+					"NB",
+					"NC",
+					"ND",
+					"NE",
+					"NH",
+					"NJ",
+					"NL",
+					"NM",
+					"NS",
+					"NT",
+					"NU",
+					"NV",
+					"NY",
+					"OH",
+					"OK",
+					"ON",
+					"OR",
+					"PA",
+					"PE",
+					"QC",
+					"RI",
+					"SC",
+					"SD",
+					"SK",
+					"TN",
+					"TX",
+					"UT",
+					"VA",
+					"VT",
+					"WA",
+					"WI",
+					"WV",
+					"WY",
+					"YT"
+				]
+			},
+			{
+				"enumeration": [
+					"International Financial Reporting Standards",
+					"Other",
+					"U.S. GAAP"
+				],
+				"name": "dei:accountingStandardItemType",
+				"baseType": "xs:string"
+			},
+			{
+				"baseType": "xs:normalizedString",
+				"name": "dei:sicNumberItemType"
+			},
+			{
+				"enumeration": [
+					"true"
+				],
+				"name": "dei:trueItemType",
+				"baseType": "xs:string"
+			}
+		],
+		"members": [
+			{
+				"name": "dei:MailingAddressMember"
+			},
+			{
+				"name": "dei:AccountingAddressMember"
+			},
+			{
+				"name": "dei:ContactAddressMember"
+			},
+			{
+				"name": "dei:LegalAddressMember"
+			},
+			{
+				"name": "dei:SectorDomain"
+			},
+			{
+				"name": "dei:ContactFaxMember"
+			},
+			{
+				"name": "dei:ContactPhoneMember"
+			},
+			{
+				"name": "dei:AccountingFaxMember"
+			},
+			{
+				"name": "dei:AccountingPhoneMember"
+			},
+			{
+				"name": "dei:LegalFaxMember"
+			},
+			{
+				"name": "dei:LegalPhoneMember"
+			},
+			{
+				"name": "dei:GeneralFaxMember"
+			},
+			{
+				"name": "dei:GeneralPhoneMember"
+			},
+			{
+				"name": "dei:OtherAddressMember"
+			},
+			{
+				"name": "dei:InvestorRelationsFaxMember"
+			},
+			{
+				"name": "dei:FormerAddressMember"
+			},
+			{
+				"name": "dei:InvestorRelationsPhoneMember"
+			},
+			{
+				"name": "dei:BusinessContactMember"
+			},
+			{
+				"name": "dei:PhoneFaxNumberTypeDomain"
+			},
+			{
+				"name": "dei:AddressTypeDomain"
+			},
+			{
+				"name": "dei:NAICSDomain"
+			},
+			{
+				"name": "dei:LocationDomain"
+			},
+			{
+				"name": "dei:HumanResourcesContactMember"
+			},
+			{
+				"name": "dei:InvestorRelationsContactMember"
+			},
+			{
+				"name": "dei:AccountingContactMember"
+			},
+			{
+				"name": "dei:LegalContactMember"
+			},
+			{
+				"name": "dei:DocumentContactMember"
+			},
+			{
+				"name": "dei:ContactPersonTypeDomain"
+			},
+			{
+				"name": "dei:AdrMember"
+			},
+			{
+				"name": "dei:EntityDomain"
+			},
+			{
+				"name": "dei:ExchangeDomain"
+			},
+			{
+				"name": "dei:DocumentDomain"
+			}
+		]
+	}
+}

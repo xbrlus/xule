@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tableModel
+  xmlns="http://xbrl.org/2014/table/model"
+  xmlns:rend="http://www.xbrl.org/table-examples"
+  xmlns:xbrli="http://www.xbrl.org/2003/instance">
+    <!--Entry point file: table-linkbase-simple-table.xml-->
+    <tableSet>
+        <!--TableSet linkbase file: table-linkbase-simple-table.xml, line 40-->
+        <!--TableSet linkrole: http://www.xbrl.org/table-examples/table1-->
+        <label>Simple table with two columns (dimension D = d1, d2), and two rows (primary items m1, m2)</label>
+        <table>
+            <headers axis="y">
+                <group>
+                    <!--Breakdown node file: table-linkbase-simple-table.xml, line 132-->
+                    <label>Two rows (primary items m1, m2)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table1-y.1-->
+                            <label>Label: m1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table1-y.2-->
+                            <label>Label: m2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <headers axis="x">
+                <group>
+                    <!--Breakdown node file: table-linkbase-simple-table.xml, line 51-->
+                    <label>Two columns (dimension D = d1, d2)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table1-x.1-->
+                            <label>Label: D = d1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>rend:D</aspect>
+                                <value>rend:d1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table1-x.2-->
+                            <label>Label: D = d2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>rend:D</aspect>
+                                <value>rend:d2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <cells axis="z">
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                </cells>
+            </cells>
+        </table>
+    </tableSet>
+</tableModel>

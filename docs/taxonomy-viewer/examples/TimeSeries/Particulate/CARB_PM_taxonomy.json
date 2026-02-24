@@ -1,0 +1,181 @@
+{
+  "$schema": "../../../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/carb",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "utr": "https://xbrl.org/2025/utr"
+    },
+    "documentNamespace": "exp"
+  },
+  "xbrlModel": {
+    "name": "exp:CARB_PM",
+    "version": "2025",
+    "dataTypes": [
+      {
+        "name": "exp:concentration",
+        "baseType": "xs:decimal",
+        "unitType" : {
+                "dataTypeNumerator": "xbrli:mass",
+                "dataTypeDenominator": "xbrli:volume"
+        }
+      }
+    ],
+    "units": [
+      {
+        "name": "exp:UGM3",
+        "dataType" : "exp:concentration"
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:PMTime",
+        "domainClass": "exp:PMTimeRoot",
+        "cubeTypes": ["xbrla:timeSeriesCube"]
+      },
+      {
+       "name": "exp:County",
+       "domainClass": "exp:CountyRoot"
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:PrimaryPMDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "exp:PM25ConcentrationMax" }
+        ]
+      }
+    ],
+    "domainClasses": [
+      { "name": "exp:CountyRoot" },
+      { "name": "exp:PMTimeRoot",
+        "allowedDomainItems": ["xs:dateTime"],
+        "properties": [
+          {"property": "xbrl:intervalOfMeasurement","value" : "PT1H"},
+                            {"property": "xbrl:timeSeriesType","value" : "Aggregated"},
+                            {"property": "xbrl:aggregation","value" : "max"},
+                            {"property": "xbrl:intervalConvention","value" : "StartTime"},
+                            {"property": "xbrl:completeTimeSeries","value" : false }
+        ]
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp:PM25ConcentrationMax",
+        "dataType": "exp:concentration",
+        "periodType": "duration",
+        "nillable": false,
+        "properties": [
+          { "property": "xbrl:aggregation", "value": "max" }
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "relatedName": "exp:PM25ConcentrationMax",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "PM2.5 Concentration (ug/m3)"
+      },
+      {
+        "relatedName": "exp:PMTime",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "PM Time (timestamp)"
+      },
+      {
+        "relatedName": "exp:County",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "County"
+      },
+      {
+        "relatedName": "exp:UGM3",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Micrograms per cubic metre (µg/m3)"
+      },
+      {
+        "relatedName": "exp:concentration",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Concentration (decimal)"
+      },
+      {
+        "relatedName": "exp:CARB_PM",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "CARB PM Taxonomy"
+      },
+      {
+        "relatedName": "exp:CountyRoot",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "County (root)"
+      },
+      {
+        "relatedName": "exp:PM25ByCountyHourly",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "PM2.5 by County (Hourly)"
+      },
+      {
+        "relatedName": "exp:PMTime",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Timestamp representing the start of the hourly measurement interval for PM2.5 samples. Values are ISO 8601 date-time strings, UTC recommended."
+      },
+      {
+        "relatedName": "exp:County",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "California county name used to disaggregate PM2.5 measurements; members are county-level identifiers or QNames in the taxonomy."
+      },
+      {
+        "relatedName": "exp:UGM3",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Unit of measure: micrograms per cubic metre (µg/m3), used for PM2.5 concentration values."
+      },
+      {
+        "relatedName": "exp:concentration",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Data type for concentration measurements (decimal). This dataType is associated with the unit exp:UGM3."
+      },
+      {
+        "relatedName": "exp:CARB_PM",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Taxonomy module providing definitions and cube structure for CARB PM2.5 reporting by county."
+      },
+      {
+        "relatedName": "exp:CountyRoot",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Root node for the county domain; member relationships connect the root to county members."
+      },
+      {
+        "relatedName": "exp:PM25ByCountyHourly",
+        "labelType": "xbrl:documentation",
+        "language": "en",
+        "value": "Cube defining hourly PM2.5 facts disaggregated by county and unit; includes a typed time-series dimension for timestamps."
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:PM25ByCountyHourly",
+        "cubeDimensions": [
+          { "dimensionName": "exp:PMTime" },
+          { "dimensionName": "xbrl:concept", "domainName": "exp:PrimaryPMDomain" },
+          { "dimensionName": "exp:County" },
+          {"dimensionName": "xbrl:unit"}
+        ]
+      }
+    ]
+  }
+}

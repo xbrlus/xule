@@ -1,0 +1,1526 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "req": "http://xbrl.org/2024/oim-requirements",
+            "xbrl": "http://www.xbrl.org/2003/instance",
+            "xbrli": "http://www.xbrl.org/2003/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        }
+    },
+    "xbrlModel": {
+        "name": "req:OIMRequirementsTaxonomy",
+        "version": "1.0",
+        "modelForm": "module",
+        "abstracts": [
+            {
+                "name": "req:GeneralRequirements"
+            },
+            {
+                "name": "req:TaxonomyRolesExtensionAndModularisation"
+            },
+            {
+                "name": "req:TaxonomyRoleUseCases"
+            },
+            {
+                "name": "req:ExtensionUseCases"
+            },
+            {
+                "name": "req:RestrictingTaxonomyExtension"
+            },
+            {
+                "name": "req:ImportingSpecificComponents"
+            },
+            {
+                "name": "req:SelectiveLoading"
+            },
+            {
+                "name": "req:AddOnBundles"
+            },
+            {
+                "name": "req:DimensionalModel"
+            },
+            {
+                "name": "req:FactPositions"
+            },
+            {
+                "name": "req:TaxonomySuppliedFacts"
+            },
+            {
+                "name": "req:Properties"
+            },
+            {
+                "name": "req:FactAttributes"
+            },
+            {
+                "name": "req:FactAttributeUseCases"
+            },
+            {
+                "name": "req:RelationshipsAndRelationshipTypes"
+            },
+            {
+                "name": "req:SupportForDifferentReportTypes"
+            },
+            {
+                "name": "req:RecordBasedReportingRequirements"
+            },
+            {
+                "name": "req:SpecificRecordBasedDataTypes"
+            },
+            {
+                "name": "req:ReportConstraints"
+            },
+            {
+                "name": "req:TabularReportingRequirements"
+            },
+            {
+                "name": "req:TechnicalRequirements"
+            }
+        ],
+        "members": [
+            {
+                "name": "req:ReqGen001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqGen002",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqGen003",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqGen004",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqGen005",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqExt001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqExt002",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqExt003",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqExt004",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqExt005",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqExt006",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqExt007",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqDim001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqDim002",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqFp001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqTf001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqProp001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqProp002",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqProp003",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqProp004",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqProp005",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqAtt001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqRel001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqRt001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqRt002",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqRt003",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqRt004",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqRt005",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr002",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr003",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr004",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr005",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr006",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr007",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr010",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr011",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqNfr012",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqRc001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqTab001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:ReqTech001",
+                "domainClasses": ["req:RequirementClass"]
+            },
+            {
+                "name": "req:UseCaseRegulatoryDataCollection",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseDataPublication",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseEntitySpecificExtension",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseTaxonomyComponentReuse",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseBuildingReportingRequirementsTaxonomy",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseMultiLanguageTaxonomyLabels",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseThirdPartyTranslations",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseDataQualityRules",
+                "domainClasses": ["req:UseCaseClass"]
+            },
+            {
+                "name": "req:UseCaseFactPositionRelationships",
+                "domainClasses": ["req:UseCaseClass"]
+            }
+        ],
+        "domainClasses": [
+            {
+                "name": "req:RequirementClass",
+                "allowedDomainItems": ["xbrl:memberObject"]
+            },
+            {
+                "name": "req:UseCaseClass",
+                "allowedDomainItems": ["xbrl:memberObject"]
+            }
+        ],
+        "domains": [
+            {
+                "name": "req:AllRequirements",
+                "root": "req:RequirementClass",
+                "relationships": [
+                    {"source": "req:RequirementClass", "target": "req:ReqGen001", "order": 1},
+                    {"source": "req:RequirementClass", "target": "req:ReqGen002", "order": 2},
+                    {"source": "req:RequirementClass", "target": "req:ReqGen003", "order": 3},
+                    {"source": "req:RequirementClass", "target": "req:ReqGen004", "order": 4},
+                    {"source": "req:RequirementClass", "target": "req:ReqGen005", "order": 5},
+                    {"source": "req:RequirementClass", "target": "req:ReqExt001", "order": 6},
+                    {"source": "req:RequirementClass", "target": "req:ReqExt002", "order": 7},
+                    {"source": "req:RequirementClass", "target": "req:ReqExt003", "order": 8},
+                    {"source": "req:RequirementClass", "target": "req:ReqExt004", "order": 9},
+                    {"source": "req:RequirementClass", "target": "req:ReqExt005", "order": 10},
+                    {"source": "req:RequirementClass", "target": "req:ReqExt006", "order": 11},
+                    {"source": "req:RequirementClass", "target": "req:ReqExt007", "order": 12},
+                    {"source": "req:RequirementClass", "target": "req:ReqDim001", "order": 13},
+                    {"source": "req:RequirementClass", "target": "req:ReqDim002", "order": 14},
+                    {"source": "req:RequirementClass", "target": "req:ReqFp001", "order": 15},
+                    {"source": "req:RequirementClass", "target": "req:ReqTf001", "order": 16},
+                    {"source": "req:RequirementClass", "target": "req:ReqProp001", "order": 17},
+                    {"source": "req:RequirementClass", "target": "req:ReqProp002", "order": 18},
+                    {"source": "req:RequirementClass", "target": "req:ReqProp003", "order": 19},
+                    {"source": "req:RequirementClass", "target": "req:ReqProp004", "order": 20},
+                    {"source": "req:RequirementClass", "target": "req:ReqProp005", "order": 21},
+                    {"source": "req:RequirementClass", "target": "req:ReqAtt001", "order": 22},
+                    {"source": "req:RequirementClass", "target": "req:ReqRel001", "order": 23},
+                    {"source": "req:RequirementClass", "target": "req:ReqRt001", "order": 24},
+                    {"source": "req:RequirementClass", "target": "req:ReqRt002", "order": 25},
+                    {"source": "req:RequirementClass", "target": "req:ReqRt003", "order": 26},
+                    {"source": "req:RequirementClass", "target": "req:ReqRt004", "order": 27},
+                    {"source": "req:RequirementClass", "target": "req:ReqRt005", "order": 28},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr001", "order": 29},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr002", "order": 30},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr003", "order": 31},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr004", "order": 32},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr005", "order": 33},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr006", "order": 34},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr007", "order": 35},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr010", "order": 36},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr011", "order": 37},
+                    {"source": "req:RequirementClass", "target": "req:ReqNfr012", "order": 38},
+                    {"source": "req:RequirementClass", "target": "req:ReqRc001", "order": 39},
+                    {"source": "req:RequirementClass", "target": "req:ReqTab001", "order": 40},
+                    {"source": "req:RequirementClass", "target": "req:ReqTech001", "order": 41}
+                ]
+            },
+            {
+                "name": "req:AllUseCases",
+                "root": "req:UseCaseClass",
+                "relationships": [
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseRegulatoryDataCollection", "order": 1},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseDataPublication", "order": 2},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseEntitySpecificExtension", "order": 3},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseTaxonomyComponentReuse", "order": 4},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseBuildingReportingRequirementsTaxonomy", "order": 5},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseMultiLanguageTaxonomyLabels", "order": 6},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseThirdPartyTranslations", "order": 7},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseDataQualityRules", "order": 8},
+                    {"source": "req:UseCaseClass", "target": "req:UseCaseFactPositionRelationships", "order": 9}
+                ]
+            }
+        ],
+        "relationshipTypes": [
+            {
+                "name": "req:use-case",
+                "uri": "http://xbrl.org/2024/oim-requirements/use-case",
+                "cycles": "none",
+                "sourceObjects": ["xbrl:memberObject"],
+                "targetObjects": ["xbrl:memberObject"]
+            }
+        ],
+        "networks": [
+            {
+                "name": "req:RequirementsPresentation",
+                "relationshipTypeName": "xbrl:parent-child",
+                "roots": [
+                    "req:GeneralRequirements",
+                    "req:TaxonomyRolesExtensionAndModularisation",
+                    "req:DimensionalModel",
+                    "req:TaxonomySuppliedFacts",
+                    "req:Properties",
+                    "req:FactAttributes",
+                    "req:RelationshipsAndRelationshipTypes",
+                    "req:SupportForDifferentReportTypes",
+                    "req:ReportConstraints",
+                    "req:TabularReportingRequirements",
+                    "req:TechnicalRequirements"
+                ],
+                "relationships": [
+                    {"source": "req:GeneralRequirements", "target": "req:ReqGen001", "order": 1},
+                    {"source": "req:GeneralRequirements", "target": "req:ReqGen002", "order": 2},
+                    {"source": "req:GeneralRequirements", "target": "req:ReqGen003", "order": 3},
+                    {"source": "req:GeneralRequirements", "target": "req:ReqGen004", "order": 4},
+                    {"source": "req:GeneralRequirements", "target": "req:ReqGen005", "order": 5},
+                    {"source": "req:TaxonomyRolesExtensionAndModularisation", "target": "req:RestrictingTaxonomyExtension", "order": 1},
+                    {"source": "req:RestrictingTaxonomyExtension", "target": "req:ReqExt001", "order": 1},
+                    {"source": "req:TaxonomyRolesExtensionAndModularisation", "target": "req:ImportingSpecificComponents", "order": 2},
+                    {"source": "req:ImportingSpecificComponents", "target": "req:ReqExt002", "order": 1},
+                    {"source": "req:ImportingSpecificComponents", "target": "req:ReqExt003", "order": 2},
+                    {"source": "req:TaxonomyRolesExtensionAndModularisation", "target": "req:SelectiveLoading", "order": 3},
+                    {"source": "req:SelectiveLoading", "target": "req:ReqExt004", "order": 1},
+                    {"source": "req:TaxonomyRolesExtensionAndModularisation", "target": "req:AddOnBundles", "order": 4},
+                    {"source": "req:AddOnBundles", "target": "req:ReqExt005", "order": 1},
+                    {"source": "req:AddOnBundles", "target": "req:ReqExt006", "order": 2},
+                    {"source": "req:AddOnBundles", "target": "req:ReqExt007", "order": 3},
+                    {"source": "req:DimensionalModel", "target": "req:ReqDim001", "order": 1},
+                    {"source": "req:DimensionalModel", "target": "req:ReqDim002", "order": 2},
+                    {"source": "req:DimensionalModel", "target": "req:FactPositions", "order": 3},
+                    {"source": "req:FactPositions", "target": "req:ReqFp001", "order": 1},
+                    {"source": "req:TaxonomySuppliedFacts", "target": "req:ReqTf001", "order": 1},
+                    {"source": "req:Properties", "target": "req:ReqProp001", "order": 1},
+                    {"source": "req:Properties", "target": "req:ReqProp002", "order": 2},
+                    {"source": "req:Properties", "target": "req:ReqProp003", "order": 3},
+                    {"source": "req:Properties", "target": "req:ReqProp004", "order": 4},
+                    {"source": "req:Properties", "target": "req:ReqProp005", "order": 5},
+                    {"source": "req:FactAttributes", "target": "req:ReqAtt001", "order": 1},
+                    {"source": "req:RelationshipsAndRelationshipTypes", "target": "req:ReqRel001", "order": 1},
+                    {"source": "req:RelationshipsAndRelationshipTypes", "target": "req:ReqRt001", "order": 2},
+                    {"source": "req:RelationshipsAndRelationshipTypes", "target": "req:ReqRt002", "order": 3},
+                    {"source": "req:RelationshipsAndRelationshipTypes", "target": "req:ReqRt003", "order": 4},
+                    {"source": "req:RelationshipsAndRelationshipTypes", "target": "req:ReqRt004", "order": 5},
+                    {"source": "req:RelationshipsAndRelationshipTypes", "target": "req:ReqRt005", "order": 6},
+                    {"source": "req:SupportForDifferentReportTypes", "target": "req:RecordBasedReportingRequirements", "order": 1},
+                    {"source": "req:RecordBasedReportingRequirements", "target": "req:ReqNfr001", "order": 1},
+                    {"source": "req:RecordBasedReportingRequirements", "target": "req:ReqNfr002", "order": 2},
+                    {"source": "req:RecordBasedReportingRequirements", "target": "req:ReqNfr003", "order": 3},
+                    {"source": "req:RecordBasedReportingRequirements", "target": "req:ReqNfr004", "order": 4},
+                    {"source": "req:RecordBasedReportingRequirements", "target": "req:ReqNfr005", "order": 5},
+                    {"source": "req:SupportForDifferentReportTypes", "target": "req:SpecificRecordBasedDataTypes", "order": 2},
+                    {"source": "req:SpecificRecordBasedDataTypes", "target": "req:ReqNfr006", "order": 1},
+                    {"source": "req:SpecificRecordBasedDataTypes", "target": "req:ReqNfr007", "order": 2},
+                    {"source": "req:SpecificRecordBasedDataTypes", "target": "req:ReqNfr010", "order": 3},
+                    {"source": "req:SpecificRecordBasedDataTypes", "target": "req:ReqNfr011", "order": 4},
+                    {"source": "req:SpecificRecordBasedDataTypes", "target": "req:ReqNfr012", "order": 5},
+                    {"source": "req:ReportConstraints", "target": "req:ReqRc001", "order": 1},
+                    {"source": "req:TabularReportingRequirements", "target": "req:ReqTab001", "order": 1},
+                    {"source": "req:TechnicalRequirements", "target": "req:ReqTech001", "order": 1}
+                ]
+            },
+            {
+                "name": "req:UseCaseToRequirementNetwork",
+                "relationshipTypeName": "req:use-case",
+                "roots": [
+                    "req:UseCaseRegulatoryDataCollection",
+                    "req:UseCaseDataPublication",
+                    "req:UseCaseEntitySpecificExtension",
+                    "req:UseCaseTaxonomyComponentReuse",
+                    "req:UseCaseBuildingReportingRequirementsTaxonomy",
+                    "req:UseCaseMultiLanguageTaxonomyLabels",
+                    "req:UseCaseThirdPartyTranslations",
+                    "req:UseCaseDataQualityRules",
+                    "req:UseCaseFactPositionRelationships"
+                ],
+                "relationships": [
+                    {"source": "req:UseCaseEntitySpecificExtension", "target": "req:ReqExt001"},
+                    {"source": "req:UseCaseTaxonomyComponentReuse", "target": "req:ReqExt002"},
+                    {"source": "req:UseCaseTaxonomyComponentReuse", "target": "req:ReqExt003"},
+                    {"source": "req:UseCaseMultiLanguageTaxonomyLabels", "target": "req:ReqExt004"},
+                    {"source": "req:UseCaseThirdPartyTranslations", "target": "req:ReqExt005"},
+                    {"source": "req:UseCaseThirdPartyTranslations", "target": "req:ReqExt006"},
+                    {"source": "req:UseCaseDataQualityRules", "target": "req:ReqExt005"},
+                    {"source": "req:UseCaseDataQualityRules", "target": "req:ReqExt007"},
+                    {"source": "req:UseCaseFactPositionRelationships", "target": "req:ReqFp001"}
+                ]
+            }
+        ],
+        "labels": [
+            {
+                "relatedName": "req:ReqGen001",
+                "language": "en",
+                "value": "REQ-GEN001-OIM-Compatibility",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqGen001",
+                "language": "en",
+                "value": "The OIM taxonomy model should be consistent with the OIM report model, as currently defined. An update to the OIM report model may be considered if it enables a significant improvement to the OIM taxonomy model.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqGen001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqGen002",
+                "language": "en",
+                "value": "REQ-GEN002-Completeness",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqGen002",
+                "language": "en",
+                "value": "The OIM taxonomy model must be able to provide functionality equivalent to that of XBRL 2.1 constructs that are in common use and consistent with current XBRL best practice. It is not necessary for the OIM taxonomy model to represent everything that is currently possible within XBRL 2.1's XML syntax.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqGen002",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqGen003",
+                "language": "en",
+                "value": "REQ-GEN003-Ordering",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqGen003",
+                "language": "en",
+                "value": "Where the OIM taxonomy model specifies a component as being a collection of items, the model must explicitly state whether the order of those items is semantically significant.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqGen003",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqGen004",
+                "language": "en",
+                "value": "REQ-GEN004-ObjectIdentifiers",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqGen004",
+                "language": "en",
+                "value": "Taxonomy objects should have a globally unique identifier. Object identifiers should be consistent across different object types.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqGen004",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqGen005",
+                "language": "en",
+                "value": "REQ-GEN005-BackwardsCompatibility",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqGen005",
+                "language": "en",
+                "value": "It should be possible to convert existing XBRL 2.1 taxonomies into the OIM taxonomy model, provided that they use functionality within scope of the OIM taxonomy model. Due to the different modelling approaches in use in existing taxonomies, the conversion process may require some configuration in order to define mapping into OIM taxonomy model constructs.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqGen005",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqExt001",
+                "language": "en",
+                "value": "REQ-EXT001-RestrictExtension",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqExt001",
+                "language": "en",
+                "value": "It should be possible for a reporting requirements taxonomy to constrain the ways in which an extension can modify the taxonomy model. Such constraints include: preventing modification or removal of labels or references for existing concepts; preventing the creation of additional labels or references for existing concepts; preventing modification of dimensional structures, such as adding members to a domain. It should be possible to define such constraints at the component level.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqExt001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqExt002",
+                "language": "en",
+                "value": "REQ-EXT002-EfficientReuse",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqExt002",
+                "language": "en",
+                "value": "It should be possible to efficiently re-use specific components from a large taxonomy.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqExt002",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqExt003",
+                "language": "en",
+                "value": "REQ-EXT003-ExportControl",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqExt003",
+                "language": "en",
+                "value": "When importing a taxonomy, it should be possible to control which components of the imported taxonomy are made available to users of the importing taxonomy.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqExt003",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqExt004",
+                "language": "en",
+                "value": "REQ-EXT004-ImportIdentification",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqExt004",
+                "language": "en",
+                "value": "Where a taxonomy imports another taxonomy, it should be possible to determine the nature of the imported components from the import mechanism, so that a processor can avoid or defer loading unnecessary components.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqExt004",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqExt005",
+                "language": "en",
+                "value": "REQ-EXT005-ExtensionBundles",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqExt005",
+                "language": "en",
+                "value": "It should be possible to define a taxonomy that provides additional resources for another taxonomy.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqExt005",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqExt006",
+                "language": "en",
+                "value": "REQ-EXT006-ExtensionBundleTarget",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqExt006",
+                "language": "en",
+                "value": "Add-on bundles should explicitly identify the taxonomy that they are intended to extend.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqExt006",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqExt007",
+                "language": "en",
+                "value": "REQ-EXT007-TaxonomyComposition",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqExt007",
+                "language": "en",
+                "value": "It should be possible for a user to augment the taxonomy of a report with compatible add-on bundles.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqExt007",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqDim001",
+                "language": "en",
+                "value": "REQ-DIM001-HypercubeDimensionConstraints",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqDim001",
+                "language": "en",
+                "value": "It should be possible for a hypercube to define any dimension other than the concept core dimension as being required, optional or prohibited (the concept core dimension is required for all facts). These constraints control which facts are included in a hypercube. This extends the functionality in XBRL 2.1 by: allowing taxonomy-defined typed dimensions to be defined as optional; and allowing control over core dimensions.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqDim001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqDim002",
+                "language": "en",
+                "value": "REQ-DIM002-CoreDimensions",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqDim002",
+                "language": "en",
+                "value": "It should be possible for a hypercube to constrain core dimensions, such as period, units and entity, in addition to taxonomy-defined dimensions. The constraints should include specifying dimensions as required, prohibited or optional for a hypercube. Note that although entity and period must be reported explicitly under XBRL 2.1 syntax, the OIM Report Model treats them as optional. The OIM taxonomy model should be consistent with the OIM report model on this point.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqDim002",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqFp001",
+                "language": "en",
+                "value": "REQ-FP001-Relationship",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqFp001",
+                "language": "en",
+                "value": "It should be possible to define relationships between fact positions and other taxonomy components.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqFp001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqTf001",
+                "language": "en",
+                "value": "REQ-TF001-TaxonomyFacts",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqTf001",
+                "language": "en",
+                "value": "It should be possible to include facts in a taxonomy. This is intended to support facts that would be common across all reports using a taxonomy, such as a tax rate.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqTf001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqProp001",
+                "language": "en",
+                "value": "REQ-PROP001-PropertyModel",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqProp001",
+                "language": "en",
+                "value": "The OIM taxonomy model should support a general-purpose mechanism for defining properties for associating key/value metadata with taxonomy objects.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqProp001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqProp002",
+                "language": "en",
+                "value": "REQ-PROP002-PropertyTypes",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqProp002",
+                "language": "en",
+                "value": "Property definitions should specify the datatype for corresponding values.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqProp002",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqProp003",
+                "language": "en",
+                "value": "REQ-PROP003-CollectionTypes",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqProp003",
+                "language": "en",
+                "value": "Properties should support list and set-based datatypes.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqProp003",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqProp004",
+                "language": "en",
+                "value": "REQ-PROP004-PropertyApplicability",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqProp004",
+                "language": "en",
+                "value": "The model should enable a property definition to specify the categories of objects to which the property may be applied (e.g. concepts, dimensions, domains, relationship types, cubes, or other taxonomy components).",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqProp004",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqProp005",
+                "language": "en",
+                "value": "REQ-PROP005-PropertyExtensibility",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqProp005",
+                "language": "en",
+                "value": "It should be possible for extension taxonomies to define additional properties, or extend the applicability of existing properties, subject to any restrictions imposed by a reporting requirements taxonomy.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqProp005",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqAtt001",
+                "language": "en",
+                "value": "REQ-ATT001-FactAttributes",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqAtt001",
+                "language": "en",
+                "value": "The OIM taxonomy model should provide a mechanism for defining structured attributes that may be associated with facts. Attributes allow additional, non-dimensional information to be associated with a fact value.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqAtt001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqRel001",
+                "language": "en",
+                "value": "REQ-REL001-Relationships",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqRel001",
+                "language": "en",
+                "value": "The OIM taxonomy model should support relationships between taxonomy components.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqRel001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqRt001",
+                "language": "en",
+                "value": "REQ-RT001-RelationshipTypes",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqRt001",
+                "language": "en",
+                "value": "It should be possible for a taxonomy to define custom relationship types.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqRt001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqRt002",
+                "language": "en",
+                "value": "REQ-RT002-RelationshipTypes",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqRt002",
+                "language": "en",
+                "value": "The OIM taxonomy model should define relationship types as objects that can be used by the same taxonomy, or re-used in other taxonomies.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqRt002",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqRt003",
+                "language": "en",
+                "value": "REQ-RT003-Hierarchical-types",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqRt003",
+                "language": "en",
+                "value": "A relationship type should define whether the relationship type is hierarchical or non-hierarchical.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqRt003",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqRt004",
+                "language": "en",
+                "value": "REQ-RT004-RelationshipApplicability",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqRt004",
+                "language": "en",
+                "value": "A relationship type should define the types of taxonomy components it can relate (e.g., concept-to-concept, domain-to-member, cube-to-dimension, property-to-object).",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqRt004",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqRt005",
+                "language": "en",
+                "value": "REQ-RT005-RelationshipOrdering",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqRt005",
+                "language": "en",
+                "value": "Relationship types should define whether ordering between relationships of that type is significant.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqRt005",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr001",
+                "language": "en",
+                "value": "REQ-NFR001-RecordData",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr001",
+                "language": "en",
+                "value": "The OIM taxonomy model should support reporting of record-based data. Record-based data is data that consists of repeating sets of facts.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr002",
+                "language": "en",
+                "value": "REQ-NFR002-MandatoryRecordFields",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr002",
+                "language": "en",
+                "value": "It should be possible to specify the fields that make up a record, and to specify fields as being mandatory within a record, or optional.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr002",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr003",
+                "language": "en",
+                "value": "REQ-NFR003-UniqueRecordFields",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr003",
+                "language": "en",
+                "value": "It should be possible to specify a field, or set of fields, that must be unique across all reported records.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr003",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr004",
+                "language": "en",
+                "value": "REQ-NFR004-RecordPrimaryKey",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr004",
+                "language": "en",
+                "value": "It should be possible to specify a field, or set of fields, that form a unique identifier (primary key) for a record.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr004",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr005",
+                "language": "en",
+                "value": "REQ-NFR005-RecordForeignKey",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr005",
+                "language": "en",
+                "value": "It should be possible to specify a field, or set of fields, that reference the identifier of another record.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr005",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr006",
+                "language": "en",
+                "value": "REQ-NFR006-EventData",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr006",
+                "language": "en",
+                "value": "Event data is data where each record relates to a specific event. Records will include a mandatory field containing the date and time of the event.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr006",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr007",
+                "language": "en",
+                "value": "REQ-NFR007-ReferenceData",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr007",
+                "language": "en",
+                "value": "Reference data is data that does not change, or changes very slowly, with the passage of time.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr007",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr010",
+                "language": "en",
+                "value": "REQ-NFR010-PositionData",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr010",
+                "language": "en",
+                "value": "Position data is data that is reported at a point in time.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr010",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr011",
+                "language": "en",
+                "value": "REQ-NFR011-ListingData",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr011",
+                "language": "en",
+                "value": "Listing data is data that that is reported about individual items or units.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr011",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqNfr012",
+                "language": "en",
+                "value": "REQ-NFR012-TimeSeriesData",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqNfr012",
+                "language": "en",
+                "value": "Time-series data is data consisting of repeated measurements of a set of data points at a predefined interval.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqNfr012",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqRc001",
+                "language": "en",
+                "value": "REQ-RC001-MandatoryElements",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqRc001",
+                "language": "en",
+                "value": "It should be possible for an OIM taxonomy model to specify certain fact positions as being mandatory, indicating that facts must be reported for those fact positions in a report.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqRc001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqTab001",
+                "language": "en",
+                "value": "REQ-TAB001-TabularReporting",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqTab001",
+                "language": "en",
+                "value": "The development of the OIM taxonomy model should yield a roadmap for future development of specifications that provide a coherent set of tabular reporting features.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqTab001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReqTech001",
+                "language": "en",
+                "value": "REQ-TECH001-XMLSchema",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReqTech001",
+                "language": "en",
+                "value": "The OIM taxonomy model may make use of the XML Schema data type system. The OIM taxonomy model must not depend on XML schema complex content models, or other parts of the XML Schema specification.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:ReqTech001",
+                "language": "en",
+                "value": "📋",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:UseCaseRegulatoryDataCollection",
+                "language": "en",
+                "value": "Use case: regulatory data collection",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseRegulatoryDataCollection",
+                "language": "en",
+                "value": "XBRL adoption has, to a large extent, been driven by regulatory data collection systems. In such a system, a data collection authority publishes a set of reporting requirements that reports submitted to them must comply with. XBRL taxonomies provide a standardised way of communicating these reporting requirements in a structured format. A taxonomy published by, or nominated by, a data collection authority for use by XBRL reports is referred to as a reporting requirements taxonomy. Reporting requirements taxonomies include constraints that reports must adhere to in order to be accepted by the data collection system. XBRL 2.1 taxonomies have limited scope for capturing such constraints in declarative format, and are often accompanied by filing manuals that describe additional filing rules. The OIM taxonomy model should aim to increase the scope of rules that can be captured in a taxonomy, and thus reduce the reliance on separate filing manuals.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseDataPublication",
+                "language": "en",
+                "value": "Use case: data publication",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseDataPublication",
+                "language": "en",
+                "value": "CSV is often used to publish large datasets. Using xBRL-CSV for this purpose retains the simplicity of the CSV format whilst providing structured XBRL taxonomy metadata, such as descriptions, translations, links to authoritative definitions, and domain hierarchies. In this use case, there is no reporting requirements taxonomy, as the taxonomy is selected or created by the same entity as the data publisher.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseEntitySpecificExtension",
+                "language": "en",
+                "value": "Use case: entity-specific extension taxonomy",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseEntitySpecificExtension",
+                "language": "en",
+                "value": "In some filing scenarios, an XBRL report will need to use concepts, dimensions or members that are specific to that entity, and which are therefore not included in the reporting requirements taxonomy. In this case, the report preparer will create an entity-specific report taxonomy that adds the additional definitions. In such an environment the reporting requirements taxonomy is the taxonomy on which the report taxonomy is based. The data collection authority will typically wish to constrain the types of extension permitted in the report taxonomy. For example, the filer may be permitted to add new concepts and labels, but not to modify or remove the labels for existing concepts.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseTaxonomyComponentReuse",
+                "language": "en",
+                "value": "Use case: taxonomy component re-use",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseTaxonomyComponentReuse",
+                "language": "en",
+                "value": "Taxonomies will often import common components from other taxonomies. For example, XBRL International publishes taxonomies containing definitions for the Legal Entity Identifier (LEI), and code lists for ISO currency and country codes. Re-using these definitions prompts consistency between different reporting environments, and reduces effort required to create taxonomies. Similarly, one reporting domain may make use of definitions from another. For example, sustainability reporting may make use of some financial reporting definitions. When building an XBRL taxonomy for such a domain, it is desirable to re-use (rather than redefine) definitions from an authoritative taxonomy, such as the relevant accounting standard taxonomy.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseBuildingReportingRequirementsTaxonomy",
+                "language": "en",
+                "value": "Use case: building a reporting requirements taxonomy",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseBuildingReportingRequirementsTaxonomy",
+                "language": "en",
+                "value": "A data collection authority may create a reporting requirements taxonomy by importing other taxonomies. For example, the European Single Electronic Filing (ESEF) system publishes an ESEF reporting requirements taxonomy that imports the IFRS accounting standard taxonomy. This use case is similar to the previous use case; the difference is that in this case, the imported taxonomy provides the vast majority of the reporting definitions, and the reporting requirements taxonomy provides a small number of additional concepts needed by the filing system.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseMultiLanguageTaxonomyLabels",
+                "language": "en",
+                "value": "Use case: multi-language taxonomy label resources",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseMultiLanguageTaxonomyLabels",
+                "language": "en",
+                "value": "Labels for taxonomy definitions are often translated into different languages. A particular user will typically only require labels in a single language. It is desirable to avoid unneeded labels, or to defer loading them until they are requested. This is not currently possible as, under the XBRL 2.1 discovery process, any imported file may import other components of any type.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseThirdPartyTranslations",
+                "language": "en",
+                "value": "Use case: third-party translations",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseThirdPartyTranslations",
+                "language": "en",
+                "value": "In some cases, translations of taxonomies are developed by third parties, and may be published after the publication of the underlying taxonomy. Users should be able to easily add additional labels that are released separately from the main taxonomy. XBRL 2.1 does not provide a mechanism for adding additional resources to a taxonomy; the DTS is effectively fixed by the set of taxonomy URLs referenced by the report.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseDataQualityRules",
+                "language": "en",
+                "value": "Use case: data quality rules",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseDataQualityRules",
+                "language": "en",
+                "value": "Data quality rules are automated rules that identify potential issues with the data in an XBRL report. Unlike filing rules, a failure of such rules would not generally lead to a rejection of the filing, and the rules may be maintained by a third party. It should be possible for users to selectively apply such additional rules, in order to test for conformance with data quality rules. In XBRL 2.1, XBRL Formula rules form part of the DTS, which is effectively fixed by the set of taxonomy URLs referenced by the report. As such there is no standard way to augment the DTS with additional rules.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:UseCaseFactPositionRelationships",
+                "language": "en",
+                "value": "Use case: fact position relationships",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:UseCaseFactPositionRelationships",
+                "language": "en",
+                "value": "A common scenario in financial reporting is to disclose a figure that is the total for a particular breakdown, and also disclose that the total amount is attributable to a component of that breakdown. This is often done implicitly by omitting a separate figure for the total. This creates a challenge for XBRL reporting, as tagging the figure as either the total or the component risks losing information. Allowing relationships to be associated with fact positions would allow the definition of a relationship to associate the fact position with the domain member representing the specific component to capture this information.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "req:GeneralRequirements",
+                "language": "en",
+                "value": "General Requirements",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:GeneralRequirements",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:TaxonomyRolesExtensionAndModularisation",
+                "language": "en",
+                "value": "Taxonomy Roles, Extension and Modularisation",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:TaxonomyRolesExtensionAndModularisation",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:RestrictingTaxonomyExtension",
+                "language": "en",
+                "value": "Restricting Taxonomy Extension",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:RestrictingTaxonomyExtension",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ImportingSpecificComponents",
+                "language": "en",
+                "value": "Importing Specific Components",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ImportingSpecificComponents",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:SelectiveLoading",
+                "language": "en",
+                "value": "Selective Loading",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:SelectiveLoading",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:AddOnBundles",
+                "language": "en",
+                "value": "Add-on Bundles",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:AddOnBundles",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:DimensionalModel",
+                "language": "en",
+                "value": "Dimensional Model",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:DimensionalModel",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:FactPositions",
+                "language": "en",
+                "value": "Fact Positions",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:FactPositions",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:TaxonomySuppliedFacts",
+                "language": "en",
+                "value": "Taxonomy-supplied Facts",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:TaxonomySuppliedFacts",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:Properties",
+                "language": "en",
+                "value": "Properties",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:Properties",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:FactAttributes",
+                "language": "en",
+                "value": "Fact Attributes",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:FactAttributes",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:RelationshipsAndRelationshipTypes",
+                "language": "en",
+                "value": "Relationships and Relationship Types",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:RelationshipsAndRelationshipTypes",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:SupportForDifferentReportTypes",
+                "language": "en",
+                "value": "Support for Different Report Types",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:SupportForDifferentReportTypes",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:RecordBasedReportingRequirements",
+                "language": "en",
+                "value": "Record-based Reporting Requirements",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:RecordBasedReportingRequirements",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:SpecificRecordBasedDataTypes",
+                "language": "en",
+                "value": "Specific Record-based Data Types",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:SpecificRecordBasedDataTypes",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:ReportConstraints",
+                "language": "en",
+                "value": "Report Constraints",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:ReportConstraints",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:TabularReportingRequirements",
+                "language": "en",
+                "value": "Tabular Reporting Requirements",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:TabularReportingRequirements",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            },
+            {
+                "relatedName": "req:TechnicalRequirements",
+                "language": "en",
+                "value": "Technical Requirements",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "req:TechnicalRequirements",
+                "language": "en",
+                "value": "📁",
+                "labelType": "xbrl:iconLabel"
+            }
+        ]
+    }
+}

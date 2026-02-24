@@ -1,0 +1,494 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "s2c_AM": "http://eiopa.europa.eu/xbrl/s2c/dict/am",
+      "s2c_dim": "http://eiopa.europa.eu/xbrl/s2c/dict/dim",
+      "s2md_met": "http://eiopa.europa.eu/xbrl/s2md/dict/met",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "http://www.xbrl.org/2003/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "Valid Layout."
+  },
+  "xbrlModel": {
+    "name": "exp:S.03.01.04.02",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:mi587",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi586",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi589",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi588",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi584",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi592",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi593",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi594",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi612",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:mi590",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant"
+      }
+    ],
+    "members": [
+      {
+        "name": "exp:x112"
+      },
+      {
+        "name": "exp:x113"
+      },
+      {
+        "name": "exp:x95"
+      },
+      {
+        "name": "exp:x109"
+      }
+    ],
+    "abstracts": [
+        {
+            "name": "exp:ValueGuaranteedAssetsLiabilities"
+         },
+        {
+            "name": "exp:PositionsHeld"
+        },
+        {
+            "name": "exp:PositionsPledged"
+            }
+
+    ],
+    "dimensions": [
+      {
+        "name": "exp:TA",
+        "domainClass": "exp:TypesOfAmountClass"
+      },
+      {
+        "name": "exp:TB",
+        "domainClass": "exp:InsuranceReinsuranceBusinessClass"
+      },
+      {
+        "name": "exp:VG",
+        "domainClass": "exp:ValuationGeneralClass"
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "exp:TypesOfAmountClass"
+      },
+      {
+        "name": "exp:InsuranceReinsuranceBusinessClass"
+      },
+      {
+        "name": "exp:ValuationGeneralClass"
+      }
+    ],
+    "networks": [
+      {
+        "name": "exp:CollateralMetricsPresentationNetwork",
+        "relationshipTypeName": "xbrl:parent-child",
+        "roots": ["exp:ValueGuaranteedAssetsLiabilities"],
+        "relationships": [
+          {"source":"exp:ValueGuaranteedAssetsLiabilities","target": "exp:PositionsHeld"},
+          {"source":"exp:ValueGuaranteedAssetsLiabilities","target": "exp:PositionsPledged"},
+          {"source":"exp:PositionsHeld","target": "exp:mi584"},
+          {"source":"exp:PositionsHeld","target": "exp:mi586"},
+          {"source":"exp:PositionsHeld","target": "exp:mi587"},
+          {"source":"exp:PositionsHeld","target": "exp:mi588"},
+          {"source":"exp:PositionsHeld","target": "exp:mi589"},
+          {"source":"exp:PositionsPledged","target": "exp:mi590"},
+          {"source":"exp:PositionsPledged","target": "exp:mi592"},
+          {"source":"exp:PositionsPledged","target": "exp:mi593"},
+          {"source":"exp:PositionsPledged","target": "exp:mi594"},
+          {"source":"exp:PositionsPledged","target": "exp:mi612"}
+        ]
+    }
+    ],
+    "domains": [
+      {
+        "name": "exp:CollateralMetrics",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {"source":"xbrl:conceptDomain","target": "exp:mi584"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi586"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi587"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi588"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi589"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi590"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi592"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi593"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi594"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi612"}
+        ]
+      },
+      {
+        "name": "exp:InvalidLiabilitiesMetrics",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {"source":"xbrl:conceptDomain","target": "exp:mi590"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi592"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi593"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi594"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi612"}
+        ]
+      },
+      {
+        "name": "exp:InvalidAssetsMetrics",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {"source":"xbrl:conceptDomain","target": "exp:mi584"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi586"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi587"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi588"},
+          {"source":"xbrl:conceptDomain","target": "exp:mi589"}
+        ]
+      },
+      {
+        "name": "exp:TypesOfAmountDomain",
+        "root": "exp:TypesOfAmountClass",
+        "relationships": [
+          {"source":"exp:TypesOfAmountClass","target": "exp:x112"},
+          {"source":"exp:TypesOfAmountClass","target": "exp:x113"}
+        ]
+      },
+      {
+        "name": "exp:TypesOfAmountInvalidAssetsDomain",
+        "root": "exp:TypesOfAmountClass",
+        "relationships": [
+          {"source":"exp:TypesOfAmountClass","target": "exp:x113"}
+        ]
+      },
+      {
+        "name": "exp:TypesOfAmountInvalidLiabilitiesDomain",
+        "root": "exp:TypesOfAmountClass",
+        "relationships": [
+          {"source":"exp:TypesOfAmountClass","target": "exp:x112"}
+        ]
+      },
+      {
+        "name": "exp:ValuationDomain",
+        "root": "exp:ValuationGeneralClass",
+        "relationships": [
+          {"source":"exp:ValuationGeneralClass","target": "exp:x95"}
+        ]
+      },
+      {
+        "name": "exp:InsuranceReinsuranceDomain",
+        "root": "exp:InsuranceReinsuranceBusinessClass",
+        "relationships": [
+          {"source":"exp:InsuranceReinsuranceBusinessClass","target": "exp:x109"}
+        ]
+      }
+    ],
+    "labels": [
+      {"relatedName": "exp:mi584", "labelType": "xbrl:label", "value": "Collateral held - Total", "language": "en"},
+      {"relatedName": "exp:mi586", "labelType": "xbrl:label", "value": "Collateral held - Derivatives", "language": "en"},
+      {"relatedName": "exp:mi587", "labelType": "xbrl:label", "value": "Collateral held - Loans made or bonds purchased", "language": "en"},
+      {"relatedName": "exp:mi588", "labelType": "xbrl:label", "value": "Collateral held - Other collateral held", "language": "en"},
+      {"relatedName": "exp:mi589", "labelType": "xbrl:label", "value": "Collateral held - Assets pledged by reinsurers for ceded technical provisions", "language": "en"},
+      {"relatedName": "exp:mi590", "labelType": "xbrl:label", "value": "Collateral pledged - Total collateral pledged", "language": "en"},
+      {"relatedName": "exp:mi592", "labelType": "xbrl:label", "value": "Collateral pledged - Loans received or bonds issued", "language": "en"},
+      {"relatedName": "exp:mi593", "labelType": "xbrl:label", "value": "Collateral pledged - Derivatives", "language": "en"},
+      {"relatedName": "exp:mi594", "labelType": "xbrl:label", "value": "Collateral pledged - Cedants for technical provisions (reinsurance accepted)", "language": "en"},
+      {"relatedName": "exp:mi612", "labelType": "xbrl:label", "value": "Collateral pledged - Other collateral pledged", "language": "en"},
+      {"relatedName": "exp:x95", "labelType": "xbrl:label", "value": "Valuation General", "language": "en"},
+      {"relatedName": "exp:x109", "labelType": "xbrl:label", "value": "Reinsurance accepted", "language": "en"},
+      {"relatedName": "exp:x112", "labelType": "xbrl:label", "value": "Value of assets for which collateral is held", "language": "en"},
+      {"relatedName": "exp:x113", "labelType": "xbrl:label", "value": "Value of liabilities for which collateral is pledged", "language": "en"},
+      {"relatedName": "exp:TA", "labelType": "xbrl:label", "value": "Amount type", "language": "en"},
+      {"relatedName": "exp:TB", "labelType": "xbrl:label", "value": "Insurance/reinsurance business", "language": "en"},
+      {"relatedName": "exp:VG", "labelType": "xbrl:label", "value": "Valuation", "language": "en"},
+      {"relatedName": "exp:PositionsHeld", "labelType": "xbrl:label", "value": "Collateral Held", "language": "en"},
+      {"relatedName": "exp:PositionsPledged", "labelType": "xbrl:label", "value": "Collateral Pledged", "language": "en"}
+      
+    ],
+    "cubes": [
+      {
+        "name": "exp:CollateralMetricsCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:CollateralMetrics"
+          },
+          {
+            "dimensionName": "exp:TA",
+            "domainName": "exp:TypesOfAmountDomain"
+          },
+          {
+            "dimensionName": "exp:TB",
+            "domainName": "exp:InsuranceReinsuranceDomain",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "exp:VG",
+            "domainName": "exp:ValuationDomain"
+           },
+         {
+            "dimensionName": "xbrl:period"
+                
+        },
+        {
+            "dimensionName": "xbrl:entity" 
+        }     
+        ],
+        "excludeCubes": [ "exp:invalidAssetsCube","exp:invalidLiabilitiesCube" ]
+      },
+      {
+        "name": "exp:invalidAssetsCube",
+        "cubeType": "xbrl:negativeCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:InvalidAssetsMetrics"
+          },
+          {
+            "dimensionName": "exp:TA",
+            "domainName": "exp:TypesOfAmountInvalidAssetsDomain"
+          },
+          {
+            "dimensionName": "exp:TB",
+            "domainName": "exp:InsuranceReinsuranceDomain",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "exp:VG",
+            "domainName": "exp:ValuationDomain"
+           },
+          {
+            "dimensionName": "xbrl:period"
+            
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ]
+      },
+      {
+        "name": "exp:invalidLiabilitiesCube",
+        "cubeType": "xbrl:negativeCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:InvalidLiabilitiesMetrics"
+          },
+          {
+            "dimensionName": "exp:TA",
+            "domainName": "exp:TypesOfAmountInvalidLiabilitiesDomain"
+          },
+          {
+            "dimensionName": "exp:TB",
+            "domainName": "exp:InsuranceReinsuranceDomain",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "exp:VG",
+            "domainName": "exp:ValuationDomain"
+           },
+          {
+            "dimensionName": "xbrl:period"
+            
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          }
+        ]
+      }
+    ],
+     "layouts": [
+            {
+                "name": "exp:SampleTaxonomyLayout",
+                "tableConstruction": "topDown",
+                "dataTables": [
+                    {
+                        "name": "exp:CollateralMetricsCubeTable",
+                        "cubeName": "exp:CollateralMetricsCube",
+                        "tableType":"gridLayout",
+                        "xAxis": {
+                            "axisHeaders": [
+                                {
+                                    "dimensionName": "exp:TA",
+                                    "labelType": "xbrl:label",
+                                    "axisNetwork": "exp:TypesOfAmountDomain"
+                                }
+                            ],
+                            "gridAxis": {
+                                "axisItems" : [
+                                    {
+                                        "axisId" : "C0030",
+                                        "dimensions" : {
+                                              "exp:TA": "exp:x112",
+                                              "exp:VG": "exp:x95"
+                                        }
+                                        
+                                    },
+                                    {
+                                        "axisId" : "C0040",
+                                        "dimensions" : {
+                                              "exp:TA": "exp:x113",
+                                              "exp:VG": "exp:x95"
+                                        }
+                                    }
+                                    ]
+                                }
+                        },
+                        "yAxis": {
+                            "axisHeaders": [
+                                {
+                                    "dimensionName": "xbrl:concept",
+                                    "labelType": "xbrl:label",
+                                    "axisNetwork": "exp:CollateralMetricsPresentationNetwork",
+                                    "groupDuplicateLabels": true
+                                }
+                            ],
+                             "gridAxis": {
+                                "axisGroups":[
+                                    {
+                                    "axisStart" : 1,
+                                    "dimensionName": "xbrl:concept",    
+                                    "axisNetwork": "exp:CollateralMetrics",
+                                    "axisIds": ["R0100","R0110","R0120","R0130","R0200","R0210","R0220","R0230","R0240","R0300"]
+                                    }
+                            ]
+                            }                         
+                        },
+                        "tablePoints": [
+                                {
+                                    "gridCoordinates" :
+                                        {
+                                        "yAxis": 8,
+                                        "zAxis": 1
+                                        },
+                                    "dimensions" : 
+                                        {
+                                        "exp:TB": "exp:x109"
+                                        }
+                                }
+                            ],
+                        "zAxis": {
+                            "gridAxis": {
+                                "axisGroups" : [
+                                    {
+                                        "dimensionName":"xbrl:period"
+                                    },
+                                    {
+                                        "dimensionName":"xbrl:entity"
+                                    }
+                                    ]
+                                }
+
+                        }
+                    },
+                    {
+                        "name": "exp:CollateralMetricsCubeTable2",
+                        "cubeName": "exp:CollateralMetricsCube",
+                        "tableType":"gridLayout",
+                        "xAxis": {
+                            
+                            "gridAxis": {
+                                "axisItems" : [
+                                    {
+                                        "dimensions" : {
+                                              "exp:TA": "exp:x112",
+                                              "exp:VG": "exp:x95"
+                                        }
+                                        
+                                    },
+                                    {
+                                        "dimensions" : {
+                                              "exp:TA": "exp:x113",
+                                              "exp:VG": "exp:x95"
+                                        }
+                                    }
+                                    ]
+                                }
+                        },
+                        "yAxis": {
+                            "axisHeaders": [
+                                {
+                                    "dimensionName": "xbrl:concept",
+                                    "labelType": "xbrl:label",
+                                    "axisNetwork": "exp:CollateralMetricsPresentationNetwork",
+                                    "groupDuplicateLabels": true
+                                }
+                            ],
+                             "gridAxis": {
+                                "axisGroups":[
+                                    {
+                                    "axisStart" : 1,
+                                    "dimensionName": "xbrl:concept",    
+                                    "axisNetwork": "exp:CollateralMetrics",
+                                    "axisIds": ["R0100","R0110","R0120","R0130","R0200","R0210","R0220","R0230","R0240","R0300"]
+                                    }
+                            ]
+                            }                         
+                        },
+                        "tablePoints": [
+                                {
+                                    "gridCoordinates" :
+                                        {
+                                        "yAxis": 8,
+                                        "zAxis": 1
+                                        },
+                                    "dimensions" : 
+                                        {
+                                        "exp:TB": "exp:x109"
+                                        }
+                                }
+                            ],
+                        "zAxis": {
+                            "gridAxis": {
+                                "axisGroups" : [
+                                    {
+                                        "dimensionName":"xbrl:period"
+                                    },
+                                    {
+                                        "dimensionName":"xbrl:entity"
+                                    }
+                                    ]
+                                }
+
+                        }
+                    }
+                ]
+            }
+        ]
+  }
+}

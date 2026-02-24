@@ -1,0 +1,65 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/invaliddimensionaddition",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:invalidDimensionAddition: Invalid Dimension Addition"
+    },
+    "xbrlModel": {
+        "name": "test:InvalidDimensionAdditionTest",
+        "version": "1.0",
+        "domainClasses": [
+            {
+                "name": "test:TestDomainClass1"
+            },
+            {
+                "name": "test:TestDomainClass2"
+            }
+        ],
+        "dimensions": [
+            {
+                "name": "test:TestDimension1",
+                "domainClass": "test:TestDomainClass1"
+            },
+            {
+                "name": "test:TestDimension2",
+                "domainClass": "test:TestDomainClass2"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "test:BaseCubeType",
+                "cubeDimensionConstraints": {
+                    "allowed": [
+                        {
+                            "dimensionName": "test:TestDimension1",
+                            "type": "explicit"
+                        }
+                    ],
+                    "closed" : true
+                }
+            },
+            {
+                "name": "test:DerivedCubeType",
+                "baseCubeType": "test:BaseCubeType",
+                "cubeDimensionConstraints": {
+                    "allowed": [
+                        {
+                            "dimensionName": "test:TestDimension1",
+                            "type": "explicit"
+                        },
+                        {
+                            "dimensionName": "test:TestDimension2",
+                            "type": "explicit"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

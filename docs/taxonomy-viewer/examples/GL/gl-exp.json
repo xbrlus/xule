@@ -1,0 +1,375 @@
+{
+  "$schema": "../../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "gl-exp": "http://example.com/gl",
+      "lei": "http://standards.iso.org/iso/17442",
+      "gl": "https://xbrl.org/gl-base/2025",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "iso4217": "http://www.xbrl.org/2003/iso4217"
+    },
+    "urlMapping": {
+            "gl":  ["gl-base.json"]
+            },
+    "sourceMapping": {
+        "gl-exp:Journals":["Journals.csv"],
+        "gl-exp:Lines":["Lines.csv"],
+        "gl-exp:Accounts":["Accounts.csv"]
+    }
+    ,
+    "documentNamespace": "gl-exp"
+  },
+  "xbrlModel": {
+    "name": "gl-exp:GLExampleJournalsTaxonomy",
+    "frameworkName": "AuditDataAPI",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "gl:GLBaseTaxonomy"
+      }
+    ],
+    "cubes": [
+      {
+        "name": "gl-exp:GLTransactionEventCube",
+        "cubeType": "xbrla:eventCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "gl-exp:JournalEventDomain"
+          },
+          {
+            "dimensionName": "gl:GLTransactionEventAxis"
+          }
+        ],
+        "cubeNetworks": [
+          "gl-exp:GLDatePeriodNetwork"
+        ]
+      },
+      {
+        "name": "gl-exp:GLJournalLineItemCube",
+        "cubeType": "xbrla:journalCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "gl-exp:JournalLineItemDomain"
+          },
+          {
+            "dimensionName": "gl:GLJournalLineItemAxis"
+          }
+        ],
+        "cubeNetworks": [
+          "gl-exp:GLJournalLineItemNetwork"
+        ]
+      },
+      {
+        "name": "gl-exp:GLAccountReferenceCube",
+        "cubeType": "xbrla:referenceCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "gl-exp:AccountDetailsDomain"
+          },
+          {
+            "dimensionName": "gl:GLAccountDetailsAxis"
+          }
+        ],
+        "cubeNetworks": [
+          "gl-exp:GLAccountDetailsNetwork"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "name": "gl-exp:JournalEventDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "gl:JournalID" },
+          { "source": "xbrl:conceptDomain", "target": "gl:FiscalYear" },
+          { "source": "xbrl:conceptDomain", "target": "gl:Period" },
+          { "source": "xbrl:conceptDomain", "target": "gl:EffectiveDate" },
+          { "source": "xbrl:conceptDomain", "target": "gl:JEHeaderDescription" },
+          { "source": "xbrl:conceptDomain", "target": "gl:Source" },
+          { "source": "xbrl:conceptDomain", "target": "gl:BusinessUnitCode" },
+          { "source": "xbrl:conceptDomain", "target": "gl:ReversalIndicator" },
+          { "source": "xbrl:conceptDomain", "target": "gl:ReversalJournalId" },
+          { "source": "xbrl:conceptDomain", "target": "gl:CancellationSign" },
+          { "source": "xbrl:conceptDomain", "target": "gl:EnteredBy" },
+          { "source": "xbrl:conceptDomain", "target": "gl:EnteredDate" },
+          { "source": "xbrl:conceptDomain", "target": "gl:LastModifiedBy" },
+          { "source": "xbrl:conceptDomain", "target": "gl:LastModifiedDate" },
+          { "source": "xbrl:conceptDomain", "target": "gl:ApprovedBy" },
+          { "source": "xbrl:conceptDomain", "target": "gl:ApprovedDate" },
+          { "source": "xbrl:conceptDomain", "target": "gl:EntityIdentifier" },
+          { "source": "xbrl:conceptDomain", "target": "gl:SourceSystem" }
+        ]
+      },
+      {
+        "name": "gl-exp:JournalLineItemDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "gl:JournalID"},
+          { "source": "xbrl:conceptDomain", "target": "gl:GLAccountNumber"},
+          { "source": "xbrl:conceptDomain", "target": "gl:GLAccountConcept"},
+          { "source": "xbrl:conceptDomain", "target": "gl:JournalIDLineNumber" },
+          { "source": "xbrl:conceptDomain", "target": "gl:JELineDescription" },
+          { "source": "xbrl:conceptDomain", "target": "gl:FunctionalAmount" },
+          { "source": "xbrl:conceptDomain", "target": "gl:FunctionalCurrency" },
+          { "source": "xbrl:conceptDomain", "target": "gl:ReportingAmount" },
+          { "source": "xbrl:conceptDomain", "target": "gl:ReportingCurrency" },
+          { "source": "xbrl:conceptDomain", "target": "gl:LocalAmount" },
+          { "source": "xbrl:conceptDomain", "target": "gl:LocalCurrency" },
+          { "source": "xbrl:conceptDomain", "target": "gl:TransactionAmount" },
+          { "source": "xbrl:conceptDomain", "target": "gl:TransactionCurrency" }
+        ]
+      },
+      {
+        "name": "gl-exp:AccountDetailsDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "gl:GLAccountNumber" },
+          { "source": "xbrl:conceptDomain", "target": "gl:AccountType" },
+          { "source": "xbrl:conceptDomain", "target": "gl:GLAccountName" },
+          { "source": "xbrl:conceptDomain", "target": "gl:SourceSystem" }
+        ]
+      }
+    ],
+    "networks": [
+         {
+                "name": "gl-exp:GLDatePeriodNetwork",
+                "relationshipTypeName": "xbrl:concept-refDimension",
+                "roots": [
+                    "gl:EffectiveDate"
+                ],
+                "relationships": [
+                    {
+                        "source": "gl:EffectiveDate",
+                        "target": "xbrl:period"
+                    }
+                ]
+        },
+        {
+            "name": "gl-exp:GLJournalLineItemNetwork",
+            "relationshipTypeName": "xbrl:concept-refDimension",
+            "roots": [
+                "gl:JournalID","gl:GLAccountNumber"
+            ],
+            "relationships": [
+                {
+                    "source": "gl:JournalID",
+                    "target": "gl:GLTransactionEventAxis"
+                },
+                {
+                    "source": "gl:GLAccountNumber",
+                    "target": "gl:GLAccountDetailsAxis"
+                }
+            ]
+        },
+        {
+                "name": "gl-exp:UnitNetwork",
+                "relationshipTypeName": "xbrl:unit-factConcept",
+                "roots": [
+                    "iso4217:USD"
+                ],
+                "relationships": [
+                    {
+                        "source": "iso4217:USD",
+                        "target": "gl:FunctionalAmount"
+                    }
+                ]
+        },
+        {
+            "name": "gl-exp:GLAccountDetailsNetwork",
+            "relationshipTypeName": "xbrl:concept-refDimension",
+            "roots": [
+                "gl:GLAccountNumber","gl:GLAccountConcept"
+            ],
+            "relationships": [
+                {
+                    "source": "gl:GLAccountNumber",
+                    "target": "gl:GLAccountDetailsAxis"
+                },
+                {
+                    "source": "gl:GLAccountConcept",
+                    "target": "xbrl:concept"
+                }
+            ]
+        }
+    ],
+    "factSources" : [
+        {
+            "name": "gl-exp:Journals",
+            "factMapName": "gl-exp:JournalsMap"
+        },
+        {
+            "name": "gl-exp:Lines",
+            "factMapName": "gl-exp:LinesMap"
+        },
+        {
+            "name": "gl-exp:Accounts",
+            "factMapName": "gl-exp:AccountsMap"
+        }
+    ],
+    "tableTemplates": [
+        {
+            "name": "gl-exp:AccountsTemplate",
+                "columns": [  
+                    {
+                        "columnName":"glAccountNumber", 
+                        "factDimensions": {
+                                "xbrl:concept": "gl:GLAccountNumber",     
+                                "gl:GLAccountDetailsAxis": "$glAccountNumber"
+                            }
+                    },
+                    {
+                        "columnName":"accountType",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:AccountType",
+                            "gl:GLAccountDetailsAxis": "$glAccountNumber"
+                        }
+                    },
+                    {
+                        "columnName":"glAccountName",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:GLAccountName",
+                            "gl:GLAccountDetailsAxis": "$glAccountNumber"
+                        }
+                    },
+                    {
+                        "columnName":"sourceSystem",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:SourceSystem",
+                            "gl:GLAccountDetailsAxis": "$glAccountNumber"
+                        }
+                    },
+
+                    {
+                        "columnName":"xbrlConcept",
+                        "factDimensions" : {
+                            "xbrl:concept" : "gl:GLAccountConcept",
+                            "gl:GLAccountDetailsAxis": "$glAccountNumber"
+                        }
+                    }
+                ]
+            },
+            {
+                "name":"gl-exp:LinesTemplate",
+
+                "columns": [   
+                    {"columnName":"JournalGUID"},     
+                    {"columnName":"journalId",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:JournalID",
+                            "gl:GLJournalLineItemAxis": "$journalIDLineNumber"
+                        }
+                    },
+                    {"columnName":"fiscalYear"},
+                    {"columnName":"period"},
+                    {"columnName":"journalIDLineNumber"},
+                    {"columnName":"glAccountNumber",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:GLAccountNumber",
+                            "gl:GLJournalLineItemAxis": "$journalIDLineNumber"
+                        }
+                        
+                    },
+                    {"columnName":"AccountType"},
+                    {"columnName":"AccountName"},
+                    {"columnName":"jeLineDescription",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:JELineDescription",
+                            "gl:GLJournalLineItemAxis": "$journalIDLineNumber"
+                        }
+                    },
+                    {"columnName":"functionalAmount",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:FunctionalAmount",
+                            "gl:GLJournalLineItemAxis": "$journalIDLineNumber"
+                        },
+                        "decimals": -2
+                    },
+                    {"columnName":"functionalCurrency",
+                        "factDimensions": {
+                            "xbrl:concept": "gl:FunctionalCurrency",
+                            "gl:GLJournalLineItemAxis": "$journalIDLineNumber"
+                        }
+                    }
+                ]
+            },
+            {
+                "name":"exp:JournalsTemplate",   
+                "columns": [         
+                        {"columnName":"JournalGUID"},
+                        {"columnName":"effectiveDate",
+                            "factDimensions": {
+                                "xbrl:concept": "gl:EffectiveDate",
+                                "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        },
+                        {"columnName":"journalId",
+                            "factDimensions": {
+                                "xbrl:concept": "gl:JournalID", 
+                                "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        },
+                        {"columnName":"fiscalYear",
+                            "factDimensions": {
+                                "xbrl:concept": "gl:FiscalYear",
+                                "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        },
+                        {"columnName":"period",
+                            "factDimensions": {
+                            "xbrl:concept": "gl:Period",              
+                            "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        },
+                        {"columnName":"enteredDate", 
+                            "factDimensions": {
+                                "xbrl:concept": "gl:EnteredDate",
+                                "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        },
+                        {"columnName":"jeHeaderDescription",
+                            "factDimensions": {
+                                "xbrl:concept": "gl:JEHeaderDescription",
+                                "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        },
+                        {"columnName":"SourceID"},
+                        {"columnName":"source",
+                            "factDimensions": {
+                                "xbrl:concept": "gl:Source",
+                                "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        },
+                        {"columnName":"sourceSystem",
+                            "factDimensions": {
+                                "xbrl:concept": "gl:SourceSystem",
+                                "gl:GLTransactionEventAxis": "$journalId"
+                            }
+                        }
+                      ]
+                  } 
+    ],
+    "factMaps": [
+            {
+              "name": "gl-exp:AccountsMap",
+              "cubeName": "gl-exp:GLAccountReferenceCube",
+              "templateName": "gl-exp:AccountsTemplate"
+            },
+            {
+              "name":"gl-exp:LinesMap",
+              "cubeName": "gl-exp:GLJournalLineItemCube",
+              "templateName": "gl-exp:LinesTemplate"
+            },
+            {
+                "name":"gl-exp:JournalsMap",
+                "cubeName": "gl-exp:GLTransactionEventCube",
+                "templateName":"exp:JournalsTemplate"
+            }
+    ]
+  }
+}

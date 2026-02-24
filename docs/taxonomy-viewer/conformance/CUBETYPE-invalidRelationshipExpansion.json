@@ -1,0 +1,71 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/invalidrelationshipexpansion",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:invalidRelationshipExpansion: Invalid Relationship Expansion"
+    },
+    "xbrlModel": {
+        "name": "test:InvalidRelationshipExpansionTest",
+        "version": "1.0",
+        "relationshipTypes": [
+            {
+                "name": "test:TestRelationshipType1",
+                "cycles": "any"
+            },
+            {
+                "name": "test:TestRelationshipType2",
+                "cycles": "any"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "test:BaseCubeType",
+                "cubeRelationships": {
+                    "allowed": [
+                        {
+                            "type": "test:TestRelationshipType1",
+                            "source": {
+                                "qname": "xbrl:concept"
+                            },
+                            "target": {
+                                "qname": "xbrl:entity"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "test:DerivedCubeType",
+                "baseCubeType": "test:BaseCubeType",
+                "cubeRelationships": {
+                    "allowed": [
+                        {
+                            "type": "test:TestRelationshipType1",
+                            "source": {
+                                "qname": "xbrl:concept"
+                            },
+                            "target": {
+                                "qname": "xbrl:entity"
+                            }
+                        },
+                        {
+                            "type": "test:TestRelationshipType2",
+                            "source": {
+                                "qname": "xbrl:concept"
+                            },
+                            "target": {
+                                "qname": "xbrl:period"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tableModel
+  xmlns="http://xbrl.org/2014/table/model"
+  xmlns:rend="http://www.xbrl.org/table-examples"
+  xmlns:xbrli="http://www.xbrl.org/2003/instance">
+    <!--Entry point file: table-linkbase-simple-table-dual-z-axes.xml-->
+    <tableSet>
+        <!--TableSet linkbase file: table-linkbase-simple-table-dual-z-axes.xml, line 40-->
+        <!--TableSet linkrole: http://www.xbrl.org/table-examples/table7-->
+        <label>Table with dual breakdowns on the z-axis</label>
+        <table>
+            <headers axis="z">
+                <group>
+                    <!--Breakdown node file: table-linkbase-simple-table-dual-z-axes.xml, line 51-->
+                    <label>Two slices (dimension F = f1, f2)</label>
+                    <header>
+                        <cell span="2">
+                            <!--Cell id table7-z1.1-->
+                            <label>Label: F = f1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f1</value>
+                            </constraint>
+                        </cell>
+                        <cell span="2">
+                            <!--Cell id table7-z1.2-->
+                            <label>Label: F = f2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>rend:F</aspect>
+                                <value>rend:f2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+                <group>
+                    <!--Breakdown node file: table-linkbase-simple-table-dual-z-axes.xml, line 131-->
+                    <label>Two slices (dimension G = g1, g2)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table7-z2.1-->
+                            <label>Label: G = g1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>rend:G</aspect>
+                                <value>rend:g1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table7-z2.2-->
+                            <label>Label: G = g2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>rend:G</aspect>
+                                <value>rend:g2</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table7-z2.1-->
+                            <label>Label: G = g1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>rend:G</aspect>
+                                <value>rend:g1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table7-z2.2-->
+                            <label>Label: G = g2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>rend:G</aspect>
+                                <value>rend:g2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <headers axis="y">
+                <group>
+                    <!--Breakdown node file: table-linkbase-simple-table-dual-z-axes.xml, line 291-->
+                    <label>Two rows (primary items m1, m2)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table7-y.1-->
+                            <label>Label: m1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table7-y.2-->
+                            <label>Label: m2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:m2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <headers axis="x">
+                <group>
+                    <!--Breakdown node file: table-linkbase-simple-table-dual-z-axes.xml, line 211-->
+                    <label>Two columns (dimension D = d1, d2)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table7-x.1-->
+                            <label>Label: D = d1</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>1</label>
+                            <constraint>
+                                <aspect>rend:D</aspect>
+                                <value>rend:d1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table7-x.2-->
+                            <label>Label: D = d2</label>
+                            <!--Label role: coordinate-code, lang en-US-->
+                            <label>2</label>
+                            <constraint>
+                                <aspect>rend:D</aspect>
+                                <value>rend:d2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <cells axis="z">
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                </cells>
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                </cells>
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                </cells>
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                </cells>
+            </cells>
+        </table>
+    </tableSet>
+</tableModel>

@@ -1,0 +1,30 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "Valid concept object with properties array."
+  },
+  "xbrlModel": {
+    "name": "exp:ValidPropertiesConceptTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:InterestRate",
+        "dataType": "xs:decimal",
+        "periodType": "duration",
+        "properties": [
+          { "property": "exp:RateType", "value": "fixed" }
+        ]
+      }
+    ],
+    "propertyTypes": [
+      { "name": "exp:RateType", "dataType": "xs:string" }
+    ]
+  }
+}

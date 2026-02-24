@@ -1,0 +1,44 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Concept Object defined as a Property object."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidPropertyObject",
+    "version": "2025",
+    "labels": [
+      {
+        "relatedName": "exp:TestConcept",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Test",
+        "properties": [
+          {
+            "property": "exp:ConceptProperty",
+            "value": "credit"
+          }
+        ]
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp:TestConcept",
+        "dataType": "xs:string",
+        "periodType": "instant"
+      },
+      {
+        "name": "exp:ConceptProperty",
+        "dataType": "xs:string",
+        "periodType": "instant"
+      }
+    ]
+  }
+}

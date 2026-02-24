@@ -1,0 +1,117 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "documentNamespace": "exp_ext",
+        "namespaces": {
+            "exp":  "http://example.com/taxonomy",
+            "mini": "http://example.com/mini",
+            "exp_ext": "http://example.com/ext-taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "iso4217": "http://www.xbrl.org/2003/iso4217",
+            "utr": "https://xbrl.org/2025/utr",
+            "xbrli":"https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "ferc-form-60": "http://ferc.gov/form/2025-04-01/ferc-form-60",
+            "ferc": "http://ferc.gov/form/2025-04-01/ferc",
+            "mini3": "http://example.com/mini3"
+            },
+        "urlMapping": {
+            "exp":  ["exampleTaxonomy.json"],
+            "mini": ["copilot-mini.json"],
+            "ferc": ["../converted-taxonomies/form-60_2025-04-01.json"],
+            "ferc-form-60": ["../converted-taxonomies/form-60_2025-04-01.json"],
+            "mini3": ["copilot-mini3.json"] 
+            }
+    },
+    "xbrlModel": {
+        "name": "exp_ext:ExtensionTaxonomy",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "exp:SampleTaxonomy"
+            },
+            {
+                "xbrlModelName": "mini:MiniTaxonomy",
+                "importObjects": ["mini:Assets", "mini:GeographyDomain"]
+            },
+            {
+                "xbrlModelName": "ferc:FERCForm60-2025-04-01",
+                "importObjects": ["ferc-form-60:NotesToFinancialStatements_parent-child_Network"]
+            },
+            {
+                "xbrlModelName": "mini3:MiniTaxonomy3",
+                "importObjectTypes": ["xbrl:memberObject"]
+            },
+            {
+                "xbrlModelName": "mini3:MiniTaxonomy3",
+                "importObjectTypes": ["xbrl:abstractObject"]
+            }
+        ],
+        "concepts": [
+            {
+                "name": "exp_ext:EarningsPerShare",
+                "dataType": "xbrli:percent",
+                "periodType": "duration",
+                "nillable": true
+            }
+        ],
+        "labels": [
+            {
+                "relatedName": "exp:Country",
+                "language": "en",
+                "value": "A field representing an enumerated list of countries defined as QNames.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "exp_ext:EarningsPerShare",
+                "language": "en",
+                "value": "Earnings Per Share (EPS)",
+                "labelType": "xbrl:label"
+            }
+        ],
+        "references": [
+            {
+                "extendTargetName": "exp:myReference",
+                "relatedNames": [
+                    "exp:Country_Mexico"
+                ],
+                "referenceType": "exp:myReferenceType"
+            }
+        ],
+        "domains": [
+            {
+                "extendTargetName": "exp:DomainOfCountries",
+                "relationships": [
+                    {
+                        "source": "exp:DomainOfCountriesRoot",
+                        "target": "exp:Country_Mexico",
+                        "order": 1
+                    }
+                ]
+            }
+        ],
+        "networks": [
+            {
+                "extendTargetName": "exp:Network2",
+                "relationships": [
+                    {
+                        "source": "exp:StatementOfIncome",
+                        "target": "exp_ext:EarningsPerShare",
+                        "order": 6
+                    }
+                ]
+            }
+        ],
+        "facts": [
+            {
+                "extendTargetName": "exp:f12351",
+                "properties":[
+                    {
+                        "property": "xbrl:requiresFactValue",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    }
+}

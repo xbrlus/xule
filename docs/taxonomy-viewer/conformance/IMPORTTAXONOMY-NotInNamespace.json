@@ -1,0 +1,29 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "urlMapping": {
+            "exp":  ["../examples/exampleTaxonomy.json"]
+            },
+    "documentNamespace": "ext",
+    "description": "ERROR: importObjectTypes includes an imported taxonomy that is not defined in the namespace."
+  },
+  "xbrlModel": {
+    "name": "ext:ImportTaxonomyWithUndefinedNamespace",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp2:SampleTaxonomy",
+        "importObjectTypes": [
+          "xbrl:conceptObject"
+        ]
+      }
+    ]
+  }
+}

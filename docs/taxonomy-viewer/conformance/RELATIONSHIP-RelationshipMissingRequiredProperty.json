@@ -1,0 +1,43 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Relationship object missing a required property."
+  },
+  "xbrlModel": {
+    "name": "exp:RelationshipMissingRequiredProperty",
+    "version": "2025",
+    "relationshipTypes": [
+      {
+        "name": "exp:requiresWeight",
+        "cycles": "none",
+        "allowedLinkProperties": ["xbrl:weight"],
+        "requiredLinkProperties": ["xbrl:weight"],
+        "sourceObjects": ["xbrl:conceptObject"],
+        "targetObjects": ["xbrl:conceptObject"]
+      }
+    ],
+    "concepts": [
+      { "name": "exp:ConceptA", "dataType": "xs:string", "periodType": "instant" },
+      { "name": "exp:ConceptB", "dataType": "xs:string", "periodType": "instant" }
+    ],
+    "networks": [
+      {
+        "name": "exp:TestNetwork",
+        "relationshipTypeName": "exp:requiresWeight",
+        "relationships": [
+          {
+            "source": "exp:ConceptA",
+            "target": "exp:ConceptB"
+          }
+        ]
+      }
+    ]
+  }
+}

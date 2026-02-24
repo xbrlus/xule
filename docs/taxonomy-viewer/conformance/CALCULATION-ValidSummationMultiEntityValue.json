@@ -1,0 +1,486 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "iso4217": "http://www.xbrl.org/2003/iso4217"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Balance sheet calculation network defines a calculation total for Liabilities of 350,000 that is incorrect for example company 2. Expected error: oimte:inconsistentCalculationUsingRounding"
+  },
+  "xbrlModel": {
+    "name": "exp:CalculationInconsistentCalculationTaxonomy",
+    "version": "2025",
+
+    "concepts": [
+      { "name": "exp:Revenues",                     "dataType": "xbrli:monetary", "periodType": "duration" },
+      { "name": "exp:CostOfGoodsSold",               "dataType": "xbrli:monetary", "periodType": "duration" },
+      { "name": "exp:GrossProfit",                   "dataType": "xbrli:monetary", "periodType": "duration" },
+      { "name": "exp:Expenses",                      "dataType": "xbrli:monetary", "periodType": "duration" },
+      { "name": "exp:NetIncome",                     "dataType": "xbrli:monetary", "periodType": "duration" },
+      { "name": "exp:Cash",                          "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:AccountsReceivable",            "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:Inventory",                     "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:TotalAssets",                   "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:AccountsPayable",               "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:ShortTermDebt",                 "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:AccruedExpenses",               "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:TotalLiabilities",              "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:ShareholdersEquity",            "dataType": "xbrli:monetary", "periodType": "instant" },
+      { "name": "exp:ShareholdersEquityAndLiabilities", "dataType": "xbrli:monetary", "periodType": "instant" }
+    ],
+
+    "domains": [
+      {
+        "name": "exp:IncomeStatementDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "exp:Revenues" },
+          { "source": "xbrl:conceptDomain", "target": "exp:CostOfGoodsSold" },
+          { "source": "xbrl:conceptDomain", "target": "exp:GrossProfit" },
+          { "source": "xbrl:conceptDomain", "target": "exp:Expenses" },
+          { "source": "xbrl:conceptDomain", "target": "exp:NetIncome" }
+        ]
+      },
+      {
+        "name": "exp:BalanceSheetDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "exp:Cash" },
+          { "source": "xbrl:conceptDomain", "target": "exp:AccountsReceivable" },
+          { "source": "xbrl:conceptDomain", "target": "exp:Inventory" },
+          { "source": "xbrl:conceptDomain", "target": "exp:TotalAssets" },
+          { "source": "xbrl:conceptDomain", "target": "exp:AccountsPayable" },
+          { "source": "xbrl:conceptDomain", "target": "exp:ShortTermDebt" },
+          { "source": "xbrl:conceptDomain", "target": "exp:AccruedExpenses" },
+          { "source": "xbrl:conceptDomain", "target": "exp:TotalLiabilities" },
+          { "source": "xbrl:conceptDomain", "target": "exp:ShareholdersEquity" },
+          { "source": "xbrl:conceptDomain", "target": "exp:ShareholdersEquityAndLiabilities" }
+        ]
+      },
+      {
+        "name": "exp:BalanceSheetEntityDomain",
+        "root": "xbrl:entityDomain",
+        "relationships": [
+          { "source": "xbrl:entityDomain", "target": "exp:ExampleCompany" }
+        ]
+      }
+    ],
+
+    "networks": [
+      {
+        "name": "exp:IncomeStatementPresentation",
+        "relationshipTypeName": "xbrl:parent-child",
+        "roots": ["exp:NetIncome"],
+        "relationships": [
+          { "source": "exp:NetIncome",    "target": "exp:GrossProfit" },
+          { "source": "exp:NetIncome",    "target": "exp:Expenses" },
+          { "source": "exp:GrossProfit",  "target": "exp:Revenues" },
+          { "source": "exp:GrossProfit",  "target": "exp:CostOfGoodsSold" }
+        ]
+      },
+      {
+        "name": "exp:IncomeStatementCalculation",
+        "relationshipTypeName": "xbrl:summation-item",
+        "roots": ["exp:NetIncome"],
+        "relationships": [
+          {
+            "source": "exp:GrossProfit",
+            "target": "exp:Revenues",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:GrossProfit",
+            "target": "exp:CostOfGoodsSold",
+            "properties": [{ "property": "xbrl:weight", "value": "-1" }]
+          },
+          {
+            "source": "exp:NetIncome",
+            "target": "exp:GrossProfit",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:NetIncome",
+            "target": "exp:Expenses",
+            "properties": [{ "property": "xbrl:weight", "value": "-1" }]
+          }
+        ]
+      },
+      {
+        "name": "exp:BalanceSheetPresentation",
+        "relationshipTypeName": "xbrl:parent-child",
+        "roots": ["exp:TotalAssets", "exp:ShareholdersEquityAndLiabilities"],
+        "relationships": [
+          { "source": "exp:TotalAssets",                    "target": "exp:Cash" },
+          { "source": "exp:TotalAssets",                    "target": "exp:AccountsReceivable" },
+          { "source": "exp:TotalAssets",                    "target": "exp:Inventory" },
+          { "source": "exp:ShareholdersEquityAndLiabilities", "target": "exp:TotalLiabilities" },
+          { "source": "exp:ShareholdersEquityAndLiabilities", "target": "exp:ShareholdersEquity" },
+          { "source": "exp:TotalLiabilities",               "target": "exp:AccountsPayable" },
+          { "source": "exp:TotalLiabilities",               "target": "exp:ShortTermDebt" },
+          { "source": "exp:TotalLiabilities",               "target": "exp:AccruedExpenses" }
+        ]
+      },
+      {
+        "name": "exp:BalanceSheetCalculation",
+        "relationshipTypeName": "xbrl:summation-item",
+        "roots": ["exp:TotalAssets", "exp:ShareholdersEquityAndLiabilities"],
+        "relationships": [
+          {
+            "source": "exp:TotalAssets",
+            "target": "exp:Cash",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:TotalAssets",
+            "target": "exp:AccountsReceivable",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:TotalAssets",
+            "target": "exp:Inventory",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:TotalLiabilities",
+            "target": "exp:AccountsPayable",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:TotalLiabilities",
+            "target": "exp:ShortTermDebt",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:TotalLiabilities",
+            "target": "exp:AccruedExpenses",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:ShareholdersEquityAndLiabilities",
+            "target": "exp:TotalLiabilities",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:ShareholdersEquityAndLiabilities",
+            "target": "exp:ShareholdersEquity",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          }
+        ]
+      }
+    ],
+
+    "cubes": [
+      {
+        "name": "exp:IncomeStatementCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeNetworks": [
+          "exp:IncomeStatementPresentation",
+          "exp:IncomeStatementCalculation"
+        ],
+        "cubeDimensions": [
+          { "dimensionName": "xbrl:period" },
+          { "dimensionName": "xbrl:concept", "domainName": "exp:IncomeStatementDomain" },
+          { "dimensionName": "xbrl:unit", "allowDomainFacts": true },
+          { "dimensionName": "xbrl:entity" }
+        ]
+      },
+      {
+        "name": "exp:BalanceSheetCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeNetworks": [
+          "exp:BalanceSheetPresentation",
+          "exp:BalanceSheetCalculation"
+        ],
+        "cubeDimensions": [
+          { "dimensionName": "xbrl:period" },
+          { "dimensionName": "xbrl:concept", "domainName": "exp:BalanceSheetDomain" },
+          { "dimensionName": "xbrl:unit", "allowDomainFacts": true },
+          { "dimensionName": "xbrl:entity", "domainName": "exp:BalanceSheetEntityDomain" }
+        ]
+      }
+    ],
+
+    "entities": [
+      { "name": "exp:ExampleCompany" },
+      { "name": "exp:ExampleCompany2" }
+    ],
+
+    "facts": [
+      {
+        "name": "exp:RevenuesFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:Revenues",
+          "xbrl:period": "2025-01-01T00:00:00/2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "1000000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:CostOfGoodsSoldFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:CostOfGoodsSold",
+          "xbrl:period": "2025-01-01T00:00:00/2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "600000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:GrossProfitFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:GrossProfit",
+          "xbrl:period": "2025-01-01T00:00:00/2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "400000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:ExpensesFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:Expenses",
+          "xbrl:period": "2025-01-01T00:00:00/2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "150000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:NetIncomeFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:NetIncome",
+          "xbrl:period": "2025-01-01T00:00:00/2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "250000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:CashFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:Cash",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "300000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:AccountsReceivableFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:AccountsReceivable",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "200000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:InventoryFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:Inventory",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "150000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:TotalAssetsFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:TotalAssets",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "650000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:AccountsPayableFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:AccountsPayable",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "100000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:ShortTermDebtFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:ShortTermDebt",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "80000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:AccruedExpensesFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:AccruedExpenses",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "70000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:TotalLiabilitiesFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:TotalLiabilities",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "250000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:ShareholdersEquityFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:ShareholdersEquity",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "400000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:ShareholdersEquityAndLiabilitiesFact",
+        "factDimensions": {
+          "xbrl:concept": "exp:ShareholdersEquityAndLiabilities",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany"
+        },
+        "factValues": [{ "value": "650000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:CashFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:Cash",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "300000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:AccountsReceivableFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:AccountsReceivable",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "200000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:InventoryFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:Inventory",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "150000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:TotalAssetsFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:TotalAssets",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "650000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:AccountsPayableFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:AccountsPayable",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "100000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:ShortTermDebtFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:ShortTermDebt",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "80000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:AccruedExpensesFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:AccruedExpenses",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "70000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:TotalLiabilitiesFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:TotalLiabilities",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "350000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:ShareholdersEquityFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:ShareholdersEquity",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "400000", "decimals": 0 }]
+      },
+      {
+        "name": "exp:ShareholdersEquityAndLiabilitiesFact2",
+        "factDimensions": {
+          "xbrl:concept": "exp:ShareholdersEquityAndLiabilities",
+          "xbrl:period": "2026-01-01T00:00:00",
+          "xbrl:unit": "iso4217:USD",
+          "xbrl:entity": "exp:ExampleCompany2"
+        },
+        "factValues": [{ "value": "650000", "decimals": 0 }]
+      }
+    ],
+
+    "labels": [
+      { "relatedName": "exp:Revenues",                        "labelType": "xbrl:label", "language": "en", "value": "Revenues" },
+      { "relatedName": "exp:CostOfGoodsSold",                 "labelType": "xbrl:label", "language": "en", "value": "Cost of Goods Sold" },
+      { "relatedName": "exp:GrossProfit",                     "labelType": "xbrl:label", "language": "en", "value": "Gross Profit" },
+      { "relatedName": "exp:Expenses",                        "labelType": "xbrl:label", "language": "en", "value": "Expenses" },
+      { "relatedName": "exp:NetIncome",                       "labelType": "xbrl:label", "language": "en", "value": "Net Income" },
+      { "relatedName": "exp:Cash",                            "labelType": "xbrl:label", "language": "en", "value": "Cash" },
+      { "relatedName": "exp:AccountsReceivable",              "labelType": "xbrl:label", "language": "en", "value": "Accounts Receivable" },
+      { "relatedName": "exp:Inventory",                       "labelType": "xbrl:label", "language": "en", "value": "Inventory" },
+      { "relatedName": "exp:TotalAssets",                     "labelType": "xbrl:label", "language": "en", "value": "Total Assets" },
+      { "relatedName": "exp:AccountsPayable",                 "labelType": "xbrl:label", "language": "en", "value": "Accounts Payable" },
+      { "relatedName": "exp:ShortTermDebt",                   "labelType": "xbrl:label", "language": "en", "value": "Short-Term Debt" },
+      { "relatedName": "exp:AccruedExpenses",                 "labelType": "xbrl:label", "language": "en", "value": "Accrued Expenses" },
+      { "relatedName": "exp:TotalLiabilities",                "labelType": "xbrl:label", "language": "en", "value": "Total Liabilities" },
+      { "relatedName": "exp:ShareholdersEquity",              "labelType": "xbrl:label", "language": "en", "value": "Shareholders Equity" },
+      { "relatedName": "exp:ShareholdersEquityAndLiabilities","labelType": "xbrl:label", "language": "en", "value": "Shareholders Equity and Liabilities" },
+      { "relatedName": "exp:IncomeStatementCube",             "labelType": "xbrl:label", "language": "en", "value": "Income Statement" },
+      { "relatedName": "exp:BalanceSheetCube",                "labelType": "xbrl:label", "language": "en", "value": "Balance Sheet" }
+    ]
+  }
+}

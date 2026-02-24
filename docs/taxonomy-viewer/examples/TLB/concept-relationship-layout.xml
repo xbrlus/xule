@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tableModel
+  xmlns="http://xbrl.org/2014/table/model"
+  xmlns:rend="http://www.xbrl.org/table-examples"
+  xmlns:xbrli="http://www.xbrl.org/2003/instance">
+    <!--Entry point file: concept-relationship-node-mixed-sources-table.xml-->
+    <tableSet>
+        <!--TableSet linkbase file: concept-relationship-node-mixed-sources-table.xml, line 27-->
+        <!--TableSet linkrole: http://www.xbrl.org/table-examples/table9-->
+        <label>Concept relationship node with both relationship sources and relationship source expressions</label>
+        <table>
+            <headers axis="y">
+                <group>
+                    <!--Breakdown node file: concept-relationship-node-mixed-sources-table.xml, line 58-->
+                    <label>Presentation tree for primary items</label>
+                    <header>
+                        <cell span="4">
+                            <!--Cell id table9-y.1-->
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o5</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table9-y.1-->
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o1</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table9-y.1-->
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o2</value>
+                            </constraint>
+                        </cell>
+                    </header>
+                    <header>
+                        <cell rollup="true"/>
+                        <cell>
+                            <!--Cell id table9-y.1-->
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o6</value>
+                            </constraint>
+                        </cell>
+                        <cell span="2">
+                            <!--Cell id table9-y.1-->
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o7</value>
+                            </constraint>
+                        </cell>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                    </header>
+                    <header>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                        <cell>
+                            <!--Cell id table9-y.1-->
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o8</value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table9-y.1-->
+                            <constraint>
+                                <aspect>concept</aspect>
+                                <value>rend:o9</value>
+                            </constraint>
+                        </cell>
+                        <cell rollup="true"/>
+                        <cell rollup="true"/>
+                    </header>
+                </group>
+            </headers>
+            <headers axis="x">
+                <group>
+                    <!--Breakdown node file: concept-relationship-node-mixed-sources-table.xml, line 32-->
+                    <label>Two columns (periods 2001, 2002)</label>
+                    <header>
+                        <cell>
+                            <!--Cell id table9-x.1-->
+                            <label>Label: 2001</label>
+                            <constraint>
+                                <aspect>period</aspect>
+                                <value>
+                                    <xbrli:startDate>2001-01-01T00:00:00.000000Z</xbrli:startDate>
+                                    <xbrli:endDate>2002-01-01T00:00:00.000000Z</xbrli:endDate>
+                                </value>
+                            </constraint>
+                        </cell>
+                        <cell>
+                            <!--Cell id table9-x.2-->
+                            <label>Label: 2002</label>
+                            <constraint>
+                                <aspect>period</aspect>
+                                <value>
+                                    <xbrli:startDate>2002-01-01T00:00:00.000000Z</xbrli:startDate>
+                                    <xbrli:endDate>2003-01-01T00:00:00.000000Z</xbrli:endDate>
+                                </value>
+                            </constraint>
+                        </cell>
+                    </header>
+                </group>
+            </headers>
+            <cells axis="z">
+                <cells axis="y">
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                    <cells axis="x">
+                        <cell/>
+                        <cell/>
+                    </cells>
+                </cells>
+            </cells>
+        </table>
+    </tableSet>
+</tableModel>

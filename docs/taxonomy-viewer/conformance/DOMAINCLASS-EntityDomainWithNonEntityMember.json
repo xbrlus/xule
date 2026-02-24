@@ -1,0 +1,50 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: entityDomain used on a businessAcquisitionAxis, but domain includes a relationship to a member object (not an entity object)."
+  },
+  "xbrlModel": {
+    "name": "exp:EntityDomainWithNonEntityMember",
+    "version": "2025",
+    "domains": [
+      {
+        "name": "exp:BusinessAcquisitionDomain",
+        "root": "xbrl:entityDomain",
+        "relationships": [
+          {
+            "source": "xbrl:entityDomain",
+            "target": "exp:NotAnEntityMember"
+          },
+          {
+            "source": "xbrl:entityDomain",
+            "target": "exp:SomeEntity"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:businessAcquisitionAxis",
+        "domainClass": "xbrl:entityDomain"
+      }
+    ],
+    "members": [
+      {
+        "name": "exp:NotAnEntityMember"
+      }
+    ],
+    "entities": [
+      {
+        "name": "exp:SomeEntity"
+      }
+    ]
+  }
+  }

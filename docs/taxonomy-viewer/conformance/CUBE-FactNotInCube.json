@@ -1,0 +1,98 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "iso4217": "http://www.xbrl.org/2003/iso4217"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: fact object not in any cube."
+  },
+  "xbrlModel": {
+    "name": "exp:FactNotInCube",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:PeakGridElectricityDemand",
+        "dataType": "xbrli:power",
+        "periodType": "duration",
+        "nillable": true
+      },
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration",
+        "nillable": true
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:PrimaryTimeSeriesDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:PeakGridElectricityDemand"
+          }
+        ]
+      },
+      {
+        "name": "exp:RevenueDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Revenue"
+          }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:CubeWithDomainOnPeriodDimension",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:PrimaryTimeSeriesDomain"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+        },
+        {
+            "dimensionName": "xbrl:entity"
+        }
+        ]
+      }
+    ],
+    "entities": [
+        {
+            "name": "exp:Entity123"
+        }
+        ],
+    "facts": [
+       {
+          "name": "exp:RevenueFact",
+          "factValues": [
+            {
+              "value": "1000000",
+              "decimals": 0
+          }],
+          "factDimensions": {
+            "xbrl:concept": "exp:Revenue",
+            "xbrl:period": "2019-01-01T00:00:00/2020-01-01T00:00:00",
+            "xbrl:unit": "iso4217:USD",
+            "xbrl:entity": "exp:Entity123"
+          }
+        }
+    ]
+  }
+}

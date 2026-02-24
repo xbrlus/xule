@@ -1,0 +1,436 @@
+{
+   "$schema": "../../oim-taxonomy-schema.json",
+   "documentInfo": {
+      "documentType": "https://xbrl.org/2026/model",
+      "namespaces": {
+         "rend": "http://www.xbrl.org/table-examples",
+         "table": "http://xbrl.org/2014/table"
+      }
+   },
+   "xbrlModel": {
+      "name": "table:table",
+      "version": "1.0",
+      "modelForm": "module",
+      "importedTaxonomies": [],
+      "abstracts": [],
+      "concepts": [],
+      "cubes": [],
+      "domains": [],
+      "domainClasses": [],
+      "networks": [
+         {
+            "name": "table:network1",
+            "relationshipTypeName": "xbrl:parent-child",
+            "roots": [
+                "rend:o5",
+                "rend:o1",
+                "rend:o2"
+            ],
+            "relationships": [
+               {
+                  "source": "rend:o5",
+                  "target": "rend:o6",
+                  "order": 1
+               },
+               {
+                  "source": "rend:o5",
+                  "target": "rend:o7",
+                  "order": 2
+               },
+               {
+                  "source": "rend:o7",
+                  "target": "rend:o8",
+                  "order": 1
+               },
+               {
+                  "source": "rend:o7",
+                  "target": "rend:o9",
+                  "order": 2
+               }
+            ]
+         }
+      ],
+      "labels": [
+         {
+            "relatedName": "rend:D",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "D"
+         },
+         {
+            "relatedName": "rend:E",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "E"
+         },
+         {
+            "relatedName": "rend:F",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "F"
+         },
+         {
+            "relatedName": "rend:G",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "G"
+         },
+         {
+            "relatedName": "rend:H",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "H"
+         },
+         {
+            "relatedName": "rend:I",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "I"
+         },
+         {
+            "relatedName": "rend:R",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "R"
+         },
+         {
+            "relatedName": "rend:T",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "T"
+         },
+         {
+            "relatedName": "rend:base",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "primary items"
+         },
+         {
+            "relatedName": "rend:d0",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "d0"
+         },
+         {
+            "relatedName": "rend:d1",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "d1"
+         },
+         {
+            "relatedName": "rend:d2",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "d2"
+         },
+         {
+            "relatedName": "rend:d3",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "d3"
+         },
+         {
+            "relatedName": "rend:d4",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "d4"
+         },
+         {
+            "relatedName": "rend:d5",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "d5"
+         },
+         {
+            "relatedName": "rend:e0",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "e0"
+         },
+         {
+            "relatedName": "rend:e1",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "e1"
+         },
+         {
+            "relatedName": "rend:e2",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "e2"
+         },
+         {
+            "relatedName": "rend:e3",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "e3"
+         },
+         {
+            "relatedName": "rend:e4",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "e4"
+         },
+         {
+            "relatedName": "rend:e5",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "e5"
+         },
+         {
+            "relatedName": "rend:f0",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f0"
+         },
+         {
+            "relatedName": "rend:f1",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f1"
+         },
+         {
+            "relatedName": "rend:f2",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f2"
+         },
+         {
+            "relatedName": "rend:f3",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f3"
+         },
+         {
+            "relatedName": "rend:f4",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f4"
+         },
+         {
+            "relatedName": "rend:f5",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f5"
+         },
+         {
+            "relatedName": "rend:f6",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f6"
+         },
+         {
+            "relatedName": "rend:f7",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f7"
+         },
+         {
+            "relatedName": "rend:f8",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f8"
+         },
+         {
+            "relatedName": "rend:f9",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "f9"
+         },
+         {
+            "relatedName": "rend:g0",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g0"
+         },
+         {
+            "relatedName": "rend:g1",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g1"
+         },
+         {
+            "relatedName": "rend:g2",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g2"
+         },
+         {
+            "relatedName": "rend:g3",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g3"
+         },
+         {
+            "relatedName": "rend:g4",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g4"
+         },
+         {
+            "relatedName": "rend:g5",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g5"
+         },
+         {
+            "relatedName": "rend:g6",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g6"
+         },
+         {
+            "relatedName": "rend:g7",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g7"
+         },
+         {
+            "relatedName": "rend:g8",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g8"
+         },
+         {
+            "relatedName": "rend:g9",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "g9"
+         },
+         {
+            "relatedName": "rend:m1",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "m1"
+         },
+         {
+            "relatedName": "rend:m2",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "m2"
+         },
+         {
+            "relatedName": "rend:m3",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "m3"
+         },
+         {
+            "relatedName": "rend:m4",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "m4"
+         },
+         {
+            "relatedName": "rend:m5",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "m5"
+         },
+         {
+            "relatedName": "rend:o1",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o1"
+         },
+         {
+            "relatedName": "rend:o2",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o2"
+         },
+         {
+            "relatedName": "rend:o3",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o3"
+         },
+         {
+            "relatedName": "rend:o4",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o4"
+         },
+         {
+            "relatedName": "rend:o5",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o5"
+         },
+         {
+            "relatedName": "rend:o6",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o6"
+         },
+         {
+            "relatedName": "rend:o7",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o7"
+         },
+         {
+            "relatedName": "rend:o8",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o8"
+         },
+         {
+            "relatedName": "rend:o9",
+            "language": "en",
+            "labelType": "xbrl:label",
+            "value": "o9"
+         }
+      ],
+      "labelTypes": [],
+      "references": [],
+  
+      "layouts": [
+         {
+         "name": "table:table_layout",
+         "xbrlModelName": "table:table",
+         "dataTables": [
+            {
+               "name": "table:table9",
+               "xAxis": {
+                  "axisLabels": [
+                        [{
+                           "language": "en",
+                           "value": "Label: 2001",
+                           "labelType": "xbrl:label"
+                        },
+                        {
+                           "language": "en",
+                           "value": "Label: 2002",
+                           "labelType": "xbrl:label"
+                        }]
+                  ],
+                  "axisDimensions": [
+                     {
+                        "xbrl:period": "2001-01-01T00:00:00.000000Z/2002-01-01T00:00:00.000000Z"
+                     },
+                     {
+                        "xbrl:period": "2002-01-01T00:00:00.000000Z/2003-01-01T00:00:00.000000Z"
+                     }
+                  ]
+               },
+               "yAxis": {
+                  "axisLabels": [
+                        [{
+                           "language": "en",
+                           "valueSource": "xbrl:conceptObject",
+                           "labelType": "xbrl:label"
+                        }]
+                  ],
+                  "axisDimensions": [
+                     {
+                        "xbrl:concept": "table:network1"
+                     }
+                  ]
+               }
+            }
+         ]
+      }
+      ]
+   }
+}

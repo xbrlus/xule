@@ -1,0 +1,36 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "Valid: Network object with properties referencing different property types."
+  },
+  "xbrlModel": {
+    "name": "exp:NetworkMixedPropertyTypes",
+    "version": "2025",
+    "propertyTypes": [
+      { "name": "exp:networkStringProperty", "dataType": "xs:string" },
+      { "name": "exp:networkBooleanProperty", "dataType": "xs:boolean" }
+    ],
+    "networks": [
+      {
+        "name": "exp:Network3",
+        "relationshipTypeName": "xbrl:parent-child",
+        "properties": [
+            {
+                "property" :"exp:networkStringProperty",
+                "value": "Network String Value"},
+            {
+                "property": "exp:networkBooleanProperty", 
+                "value": true}
+            ]
+      }
+    ]
+  }
+}

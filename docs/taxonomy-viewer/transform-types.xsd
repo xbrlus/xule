@@ -1,0 +1,1108 @@
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:ixt="http://www.xbrl.org/inlineXBRL/transformation/2022-02-16" targetNamespace="http://www.xbrl.org/inlineXBRL/transformation/2022-02-16">
+<!-- Dates written out in Bulgarian. -->
+<xs:simpleType name="dateDayMonthnameBgType">
+<xs:annotation>
+<xs:documentation>
+Bulgarian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 февруари").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ян|фев|мар|апр|май|маи|юни|юли|авг|сеп|окт|ное|дек|ЯН|ФЕВ|МАР|АПР|МАЙ|МАИ|ЮНИ|ЮЛИ|АВГ|СЕП|ОКТ|НОЕ|ДЕК|Ян|Фев|Мар|Апр|Май|Маи|Юни|Юли|Авг|Сеп|Окт|Ное|Дек)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearBgType">
+<xs:annotation>
+<xs:documentation>
+Bulgarian date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 февруари 2008 г.").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ян|фев|мар|апр|май|маи|юни|юли|авг|сеп|окт|ное|дек|ЯН|ФЕВ|МАР|АПР|МАЙ|МАИ|ЮНИ|ЮЛИ|АВГ|СЕП|ОКТ|НОЕ|ДЕК|Ян|Фев|Мар|Апр|Май|Маи|Юни|Юли|Авг|Сеп|Окт|Ное|Дек)[^0-9]+([0-9]{1,2}|[0-9]{4})[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearBgType">
+<xs:annotation>
+<xs:documentation>
+Bulgarian date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(ян|фев|мар|апр|май|маи|юни|юли|авг|сеп|окт|ное|дек|ЯН|ФЕВ|МАР|АПР|МАЙ|МАИ|ЮНИ|ЮЛИ|АВГ|СЕП|ОКТ|НОЕ|ДЕК|Ян|Фев|Мар|Апр|Май|Маи|Юни|Юли|Авг|Сеп|Окт|Ное|Дек)[^0-9]+([0-9]{1,2}|[0-9]{4})[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Czech. -->
+<xs:simpleType name="dateDayMonthnameCsType">
+<xs:annotation>
+<xs:documentation>
+Czech date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. února").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ledna|února|unora|března|brezna|dubna|května|kvetna|června|cervna|července|cervence|srpna|září|zari|října|rijna|listopadu|prosince|led|úno|uno|bře|bre|dub|kvě|kve|čvn|cvn|čvc|cvc|srp|zář|zar|říj|rij|lis|pro|LEDNA|ÚNORA|UNORA|BŘEZNA|BREZNA|DUBNA|KVĚTNA|KVETNA|ČERVNA|CERVNA|ČERVENCE|CERVENCE|SRPNA|ZÁŘÍ|ZARI|ŘÍJNA|RIJNA|LISTOPADU|PROSINCE|LED|ÚNO|UNO|BŘE|BRE|DUB|KVĚ|KVE|ČVN|CVN|ČVC|CVC|SRP|ZÁŘ|ZAR|ŘÍJ|RIJ|LIS|PRO|Ledna|Února|Unora|Března|Brezna|Dubna|Května|Kvetna|Června|Cervna|Července|Cervence|Srpna|Září|Zari|Října|Rijna|Listopadu|Prosince|Led|Úno|Uno|Bře|Bre|Dub|Kvě|Kve|Čvn|Cvn|Čvc|Cvc|Srp|Zář|Zar|Říj|Rij|Lis|Pro)\.?"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearCsType">
+<xs:annotation>
+<xs:documentation>
+Czech date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. února 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ledna|února|unora|března|brezna|dubna|května|kvetna|června|cervna|července|cervence|srpna|září|zari|října|rijna|listopadu|prosince|led|úno|uno|bře|bre|dub|kvě|kve|čvn|cvn|čvc|cvc|srp|zář|zar|říj|rij|lis|pro|LEDNA|ÚNORA|UNORA|BŘEZNA|BREZNA|DUBNA|KVĚTNA|KVETNA|ČERVNA|CERVNA|ČERVENCE|CERVENCE|SRPNA|ZÁŘÍ|ZARI|ŘÍJNA|RIJNA|LISTOPADU|PROSINCE|LED|ÚNO|UNO|BŘE|BRE|DUB|KVĚ|KVE|ČVN|CVN|ČVC|CVC|SRP|ZÁŘ|ZAR|ŘÍJ|RIJ|LIS|PRO|Ledna|Února|Unora|Března|Brezna|Dubna|Května|Kvetna|Června|Cervna|Července|Cervence|Srpna|Září|Zari|Října|Rijna|Listopadu|Prosince|Led|Úno|Uno|Bře|Bre|Dub|Kvě|Kve|Čvn|Cvn|Čvc|Cvc|Srp|Zář|Zar|Říj|Rij|Lis|Pro)[^0-9a-zA-Z]+[^0-9]*([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearCsType">
+<xs:annotation>
+<xs:documentation>
+Czech date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(leden|ledna|lednu|únor|unor|února|unora|únoru|unoru|březen|brezen|března|brezna|březnu|breznu|duben|dubna|dubnu|květen|kveten|května|kvetna|květnu|kvetnu|červen|cerven|června|cervna|červnu|cervnu|červenec|cervenec|července|cervence|červenci|cervenci|srpen|srpna|srpnu|září|zari|říjen|rijen|října|rijna|říjnu|rijnu|listopad|listopadu|prosinec|prosince|prosinci|led|úno|uno|bře|bre|dub|kvě|kve|čvn|cvn|čvc|cvc|srp|zář|zar|říj|rij|lis|pro|LEDEN|LEDNA|LEDNU|ÚNOR|UNOR|ÚNORA|UNORA|ÚNORU|UNORU|BŘEZEN|BREZEN|BŘEZNA|BREZNA|BŘEZNU|BREZNU|DUBEN|DUBNA|DUBNU|KVĚTEN|KVETEN|KVĚTNA|KVETNA|KVĚTNU|KVETNU|ČERVEN|CERVEN|ČERVNA|CERVNA|ČERVNU|CERVNU|ČERVENEC|CERVENEC|ČERVENCE|CERVENCE|ČERVENCI|CERVENCI|SRPEN|SRPNA|SRPNU|ZÁŘÍ|ZARI|ŘÍJEN|RIJEN|ŘÍJNA|RIJNA|ŘÍJNU|RIJNU|LISTOPAD|LISTOPADU|PROSINEC|PROSINCE|PROSINCI|LED|ÚNO|UNO|BŘE|BRE|DUB|KVĚ|KVE|ČVN|CVN|ČVC|CVC|SRP|ZÁŘ|ZAR|ŘÍJ|RIJ|LIS|PRO|Leden|Ledna|Lednu|Únor|Unor|Února|Unora|Únoru|Unoru|Březen|Brezen|Března|Brezna|Březnu|Breznu|Duben|Dubna|Dubnu|Květen|Kveten|Května|Kvetna|Květnu|Kvetnu|Červen|Cerven|Června|Cervna|Červnu|Cervnu|Červenec|Cervenec|Července|Cervence|Červenci|Cervenci|Srpen|Srpna|Srpnu|Září|Zari|Říjen|Rijen|Října|Rijna|Říjnu|Rijnu|Listopad|Listopadu|Prosinec|Prosince|Prosinci|Led|Úno|Uno|Bře|Bre|Dub|Kvě|Kve|Čvn|Cvn|Čvc|Cvc|Srp|Zář|Zar|Říj|Rij|Lis|Pro)[^0-9a-zA-Z]+[^0-9]*([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Welsh. -->
+<xs:simpleType name="dateDayMonthnameCyType">
+<xs:annotation>
+<xs:documentation>
+Welsh date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30ain Chwefror").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^0-9a-zA-Z]+(ion|chwe|maw|ebr|mai|meh|gor|aws|med|hyd|tach|rhag|ION|CHWE|MAW|EBR|MAI|MEH|GOR|AWS|MED|HYD|TACH|RHAG|Ion|Chwe|Maw|Ebr|Mai|Meh|Gor|Aws|Med|Hyd|Tach|Rhag)[^0-9]{0,7}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearCyType">
+<xs:annotation>
+<xs:documentation>
+Welsh date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30ain Chwefror 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^0-9a-zA-Z]+(ion|chwe|maw|ebr|mai|meh|gor|aws|med|hyd|tach|rhag|ION|CHWE|MAW|EBR|MAI|MEH|GOR|AWS|MED|HYD|TACH|RHAG|Ion|Chwe|Maw|Ebr|Mai|Meh|Gor|Aws|Med|Hyd|Tach|Rhag)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearCyType">
+<xs:annotation>
+<xs:documentation>
+Welsh date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(ion|chwe|maw|faw|ebr|mai|fai|meh|feh|gor|ngor|aws|med|fed|hyd|tach|dach|nhach|thach|rhag|rag|ION|CHWE|MAW|FAW|EBR|MAI|FAI|MEH|FEH|GOR|NGOR|AWS|MED|FED|HYD|TACH|DACH|NHACH|THACH|RHAG|RAG|Ion|Chwe|Maw|Faw|Ebr|Mai|Fai|Meh|Feh|Gor|Ngor|Aws|Med|Fedi|Hyd|Tach|Dach|Nhach|Thach|Rhag|Rag)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in German. -->
+<xs:simpleType name="dateDayMonthnameDeType">
+<xs:annotation>
+<xs:documentation>
+German date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. Februar").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|jän|jaen|feb|mär|maer|mar|apr|mai|jun|jul|aug|sep|okt|nov|dez|JAN|JÄN|JAEN|FEB|MÄR|MAER|MAR|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ|Jan|Jän|Jaen|Feb|Mär|Maer|Mar|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearDeType">
+<xs:annotation>
+<xs:documentation>
+German date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. Februar 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|jän|jaen|feb|mär|maer|mar|apr|mai|jun|jul|aug|sep|okt|nov|dez|JAN|JÄN|JAEN|FEB|MÄR|MAER|MAR|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ|Jan|Jän|Jaen|Feb|Mär|Maer|Mar|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearDeType">
+<xs:annotation>
+<xs:documentation>
+German date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|jän|jaen|feb|mär|maer|mar|apr|mai|jun|jul|aug|sep|okt|nov|dez|JAN|JÄN|JAEN|FEB|MÄR|MAER|MAR|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ|Jan|Jän|Jaen|Feb|Mär|Maer|Mar|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Greek. -->
+<xs:simpleType name="dateDayMonthnameElType">
+<xs:annotation>
+<xs:documentation>
+Greek date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 Φεβρουαρίου").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ιαν|ίαν|φεβ|μάρ|μαρ|απρ|άπρ|αρίλ|άρίλ|αριλ|άριλ|μαΐ|μαι|μάι|μαϊ|μάϊ|ιούν|ίούν|ίουν|ιουν|ιούλ|ίούλ|ίουλ|ίουλ|ιουλ|αύγ|αυγ|σεπ|οκτ|όκτ|νοέ|νοε|δεκ|ΙΑΝ|ΊΑΝ|IΑΝ|ΦΕΒ|ΜΆΡ|ΜΑΡ|ΑΠΡ|ΆΠΡ|AΠΡ|AΡΙΛ|ΆΡΙΛ|ΑΡΙΛ|ΜΑΪ́|ΜΑΙ|ΜΆΙ|ΜΑΪ|ΜΆΪ|ΙΟΎΝ|ΊΟΎΝ|ΊΟΥΝ|IΟΥΝ|ΙΟΥΝ|IΟΥΝ|ΙΟΎΛ|ΊΟΎΛ|ΊΟΥΛ|IΟΎΛ|ΙΟΥΛ|IΟΥΛ|ΑΎΓ|ΑΥΓ|ΣΕΠ|ΟΚΤ|ΌΚΤ|OΚΤ|ΝΟΈ|ΝΟΕ|ΔΕΚ|Ιαν|Ίαν|Iαν|Φεβ|Μάρ|Μαρ|Απρ|Άπρ|Aπρ|Αρίλ|Άρίλ|Aρίλ|Aριλ|Άριλ|Αριλ|Μαΐ|Μαι|Μάι|Μαϊ|Μάϊ|Ιούν|Ίούν|Ίουν|Iούν|Ιουν|Iουν|Ιούλ|Ίούλ|Ίουλ|Iούλ|Ιουλ|Iουλ|Αύγ|Αυγ|Σεπ|Οκτ|Όκτ|Oκτ|Νοέ|Νοε|Δεκ)[^0-9]{0,8}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearElType">
+<xs:annotation>
+<xs:documentation>
+Greek date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 Φεβρουαρίου 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ιαν|ίαν|φεβ|μάρ|μαρ|απρ|άπρ|αρίλ|άρίλ|αριλ|άριλ|μαΐ|μαι|μάι|μαϊ|μάϊ|ιούν|ίούν|ίουν|ιουν|ιούλ|ίούλ|ίουλ|ίουλ|ιουλ|αύγ|αυγ|σεπ|οκτ|όκτ|νοέ|νοε|δεκ|ΙΑΝ|ΊΑΝ|IΑΝ|ΦΕΒ|ΜΆΡ|ΜΑΡ|ΑΠΡ|ΆΠΡ|AΠΡ|AΡΙΛ|ΆΡΙΛ|ΑΡΙΛ|ΜΑΪ́|ΜΑΙ|ΜΆΙ|ΜΑΪ|ΜΆΪ|ΙΟΎΝ|ΊΟΎΝ|ΊΟΥΝ|IΟΎΝ|ΙΟΥΝ|IΟΥΝ|ΙΟΎΛ|ΊΟΎΛ|ΊΟΥΛ|IΟΎΛ|ΙΟΥΛ|IΟΥΛ|ΑΎΓ|ΑΥΓ|ΣΕΠ|ΟΚΤ|ΌΚΤ|OΚΤ|ΝΟΈ|ΝΟΕ|ΔΕΚ|Ιαν|Ίαν|Iαν|Φεβ|Μάρ|Μαρ|Απρ|Άπρ|Aπρ|Αρίλ|Άρίλ|Aρίλ|Aριλ|Άριλ|Αριλ|Μαΐ|Μαι|Μάι|Μαϊ|Μάϊ|Ιούν|Ίούν|Ίουν|Iούν|Ιουν|Iουν|Ιούλ|Ίούλ|Ίουλ|Iούλ|Ιουλ|Iουλ|Αύγ|Αυγ|Σεπ|Οκτ|Όκτ|Oκτ|Νοέ|Νοε|Δεκ)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearElType">
+<xs:annotation>
+<xs:documentation>
+Greek date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(ιαν|ίαν|φεβ|μάρ|μαρ|απρ|άπρ|αρίλ|άρίλ|αριλ|άριλ|μαΐ|μαι|μάι|μαϊ|μάϊ|ιούν|ίούν|ίουν|ιουν|ιούλ|ίούλ|ίουλ|ίουλ|ιουλ|αύγ|αυγ|σεπ|οκτ|όκτ|νοέ|νοε|δεκ|ΙΑΝ|ΊΑΝ|IΑΝ|ΦΕΒ|ΜΆΡ|ΜΑΡ|ΑΠΡ|ΆΠΡ|AΠΡ|AΡΙΛ|ΆΡΙΛ|ΑΡΙΛ|ΜΑΪ́|ΜΑΙ|ΜΆΙ|ΜΑΪ|ΜΆΪ|ΙΟΎΝ|ΊΟΎΝ|ΊΟΥΝ|IΟΎΝ|ΙΟΥΝ|IΟΥΝ|ΙΟΎΛ|ΊΟΎΛ|ΊΟΥΛ|IΟΎΛ|ΙΟΥΛ|IΟΥΛ|ΑΎΓ|ΑΥΓ|ΣΕΠ|ΟΚΤ|ΌΚΤ|OΚΤ|ΝΟΈ|ΝΟΕ|ΔΕΚ|Ιαν|Ίαν|Iαν|Φεβ|Μάρ|Μαρ|Απρ|Άπρ|Aπρ|Αρίλ|Άρίλ|Aρίλ|Aριλ|Άριλ|Αριλ|Μαΐ|Μαι|Μάι|Μαϊ|Μάϊ|Ιούν|Ίούν|Ίουν|Iούν|Ιουν|Iουν|Ιούλ|Ίούλ|Ίουλ|Iούλ|Ιουλ|Iουλ|Αύγ|Αυγ|Σεπ|Οκτ|Όκτ|Oκτ|Νοέ|Νοε|Δεκ)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Spanish. -->
+<xs:simpleType name="dateDayMonthnameEsType">
+<xs:annotation>
+<xs:documentation>
+Spanish date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 de febrero").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic|ENE|FEB|MAR|ABR|MAY|JUN|JUL|AGO|SEP|OCT|NOV|DIC|Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)[^0-9]{0,7}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearEsType">
+<xs:annotation>
+<xs:documentation>
+Spanish date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 de febrero de 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic|ENE|FEB|MAR|ABR|MAY|JUN|JUL|AGO|SEP|OCT|NOV|DIC|Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearEsType">
+<xs:annotation>
+<xs:documentation>
+Spanish date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic|ENE|FEB|MAR|ABR|MAY|JUN|JUL|AGO|SEP|OCT|NOV|DIC|Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Estonian. -->
+<xs:simpleType name="dateDayMonthnameEtType">
+<xs:annotation>
+<xs:documentation>
+Estonian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. veebruar").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jaan|veebr|märts|marts|apr|mai|juuni|juuli|aug|sept|okt|nov|dets|JAAN|VEEBR|MÄRTS|MARTS|APR|MAI|JUUNI|JUULI|AUG|SEPT|OKT|NOV|DETS|Jaan|Veebr|Märts|Marts|Apr|Mai|Juuni|Juuli|Aug|Sept|Okt|Nov|Dets)[^0-9]{0,5}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearEtType">
+<xs:annotation>
+<xs:documentation>
+Estonian date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. veebruar 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jaan|veebr|märts|marts|apr|mai|juuni|juuli|aug|sept|okt|nov|dets|JAAN|VEEBR|MÄRTS|MARTS|APR|MAI|JUUNI|JUULI|AUG|SEPT|OKT|NOV|DETS|Jaan|Veebr|Märts|Marts|Apr|Mai|Juuni|Juuli|Aug|Sept|Okt|Nov|Dets)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearEtType">
+<xs:annotation>
+<xs:documentation>
+Estonian date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jaan|veebr|märts|marts|apr|mai|juuni|juuli|aug|sept|okt|nov|dets|JAAN|VEEBR|MÄRTS|MARTS|APR|MAI|JUUNI|JUULI|AUG|SEPT|OKT|NOV|DETS|Jaan|Veebr|Märts|Marts|Apr|Mai|Juuni|Juuli|Aug|Sept|Okt|Nov|Dets)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Finnish. -->
+<xs:simpleType name="dateDayMonthnameFiType">
+<xs:annotation>
+<xs:documentation>
+Finnish date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. helmikuuta").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^0-9a-zA-Z]+(tam|hel|maa|huh|tou|kes|hei|elo|syy|lok|mar|jou|TAM|HEL|MAA|HUH|TOU|KES|HEI|ELO|SYY|LOK|MAR|JOU|Tam|Hel|Maa|Huh|Tou|Kes|Hei|Elo|Syy|Lok|Mar|Jou)[^0-9]{0,8}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearFiType">
+<xs:annotation>
+<xs:documentation>
+Finnish date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. helmikuuta 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^0-9a-zA-Z]+(tam|hel|maa|huh|tou|kes|hei|elo|syy|lok|mar|jou|TAM|HEL|MAA|HUH|TOU|KES|HEI|ELO|SYY|LOK|MAR|JOU|Tam|Hel|Maa|Huh|Tou|Kes|Hei|Elo|Syy|Lok|Mar|Jou)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearFiType">
+<xs:annotation>
+<xs:documentation>
+Finnish date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(tam|hel|maa|huh|tou|kes|hei|elo|syy|lok|mar|jou|TAM|HEL|MAA|HUH|TOU|KES|HEI|ELO|SYY|LOK|MAR|JOU|Tam|Hel|Maa|Huh|Tou|Kes|Hei|Elo|Syy|Lok|Mar|Jou)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in French. -->
+<xs:simpleType name="dateDayMonthnameFrType">
+<xs:annotation>
+<xs:documentation>
+French date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 février").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(janv|févr|fevr|mars|avr|mai|juin|juil|août|aout|sept|oct|nov|déc|dec|JANV|FÉVR|FEVR|MARS|AVR|MAI|JUIN|JUIL|AOÛT|AOUT|SEPT|OCT|NOV|DÉC|DEC|Janv|Févr|Fevr|Mars|Avr|Mai|Juin|Juil|Août|Aout|Sept|Oct|Nov|Déc|Dec)[^0-9]{0,5}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearFrType">
+<xs:annotation>
+<xs:documentation>
+French date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 février 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(janv|févr|fevr|mars|avr|mai|juin|juil|août|aout|sept|oct|nov|déc|dec|JANV|FÉVR|FEVR|MARS|AVR|MAI|JUIN|JUIL|AOÛT|AOUT|SEPT|OCT|NOV|DÉC|DEC|Janv|Févr|Fevr|Mars|Avr|Mai|Juin|Juil|Août|Aout|Sept|Oct|Nov|Déc|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearFrType">
+<xs:annotation>
+<xs:documentation>
+French date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(janv|févr|fevr|mars|avr|mai|juin|juil|août|aout|sept|oct|nov|déc|dec|JANV|FÉVR|FEVR|MARS|AVR|MAI|JUIN|JUIL|AOÛT|AOUT|SEPT|OCT|NOV|DÉC|DEC|Janv|Févr|Fevr|Mars|Avr|Mai|Juin|Juil|Août|Aout|Sept|Oct|Nov|Déc|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Croatian. -->
+<xs:simpleType name="dateDayMonthnameHrType">
+<xs:annotation>
+<xs:documentation>
+Croatian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. veljače").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(sij|velj|ožu|ozu|tra|svi|lip|srp|kol|ruj|lis|stu|pro|SIJ|VELJ|OŽU|OZU|TRA|SVI|LIP|SRP|KOL|RUJ|LIS|STU|PRO|Sij|Velj|Ožu|Ozu|Tra|Svi|Lip|Srp|Kol|Ruj|Lis|Stu|Pro)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearHrType">
+<xs:annotation>
+<xs:documentation>
+Croatian date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. veljače 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(sij|velj|ožu|ozu|tra|svi|lip|srp|kol|ruj|lis|stu|pro|SIJ|VELJ|OŽU|OZU|TRA|SVI|LIP|SRP|KOL|RUJ|LIS|STU|PRO|Sij|Velj|Ožu|Ozu|Tra|Svi|Lip|Srp|Kol|Ruj|Lis|Stu|Pro)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearHrType">
+<xs:annotation>
+<xs:documentation>
+Croatian date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(sij|velj|ožu|ozu|tra|svi|lip|srp|kol|ruj|lis|stu|pro|SIJ|VELJ|OŽU|OZU|TRA|SVI|LIP|SRP|KOL|RUJ|LIS|STU|PRO|Sij|Velj|Ožu|Ozu|Tra|Svi|Lip|Srp|Kol|Ruj|Lis|Stu|Pro)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Hungarian. -->
+<xs:simpleType name="dateMonthnameDayHuType">
+<xs:annotation>
+<xs:documentation>
+Hungarian date in the order "month day". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "február 30").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|feb|márc|marc|ápr|apr|máj|maj|jún|jun|júl|jul|aug|szept|okt|nov|dec|JAN|FEB|MÁRC|MARC|ÁPR|APR|MÁJ|MAJ|JÚN|JUN|JÚL|JUL|AUG|SZEPT|OKT|NOV|DEC|Jan|Feb|Márc|Marc|Ápr|Apr|Máj|Maj|Jún|Jun|Júl|Jul|Aug|Szept|Okt|Nov|Dec)[^0-9]{0,7}[^0-9]+[0-9]{1,2}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthnameDayHuType">
+<xs:annotation>
+<xs:documentation>
+Hungarian date in the order "year month day". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "2008. február 30").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[0-9]{4})[^0-9]+(jan|feb|márc|marc|ápr|apr|máj|maj|jún|jun|júl|jul|aug|szept|okt|nov|dec|JAN|FEB|MÁRC|MARC|ÁPR|APR|MÁJ|MAJ|JÚN|JUN|JÚL|JUL|AUG|SZEPT|OKT|NOV|DEC|Jan|Feb|Márc|Marc|Ápr|Apr|Máj|Maj|Jún|Jun|Júl|Jul|Aug|Szept|Okt|Nov|Dec)[^0-9]+[0-9]{1,2}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthnameHuType">
+<xs:annotation>
+<xs:documentation>
+Hungarian date in the order "year month". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[0-9]{4})[^0-9]+(jan|feb|márc|marc|ápr|apr|máj|maj|jún|jun|júl|jul|aug|szept|okt|nov|dec|JAN|FEB|MÁRC|MARC|ÁPR|APR|MÁJ|MAJ|JÚN|JUN|JÚL|JUL|AUG|SZEPT|OKT|NOV|DEC|Jan|Feb|Márc|Marc|Ápr|Apr|Máj|Maj|Jún|Jun|Júl|Jul|Aug|Szept|Okt|Nov|Dec)[^0-9]{0,7}"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Italian. -->
+<xs:simpleType name="dateDayMonthnameItType">
+<xs:annotation>
+<xs:documentation>
+Italian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 febbraio").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(gen|feb|mar|apr|mag|giu|lug|ago|set|ott|nov|dic|GEN|FEB|MAR|APR|MAG|GIU|LUG|AGO|SET|OTT|NOV|DIC|Gen|Feb|Mar|Apr|Mag|Giu|Lug|Ago|Set|Ott|Nov|Dic)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearItType">
+<xs:annotation>
+<xs:documentation>
+Italian date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 febbraio 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(gen|feb|mar|apr|mag|giu|lug|ago|set|ott|nov|dic|GEN|FEB|MAR|APR|MAG|GIU|LUG|AGO|SET|OTT|NOV|DIC|Gen|Feb|Mar|Apr|Mag|Giu|Lug|Ago|Set|Ott|Nov|Dic)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearItType">
+<xs:annotation>
+<xs:documentation>
+Italian date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(gen|feb|mar|apr|mag|giu|lug|ago|set|ott|nov|dic|GEN|FEB|MAR|APR|MAG|GIU|LUG|AGO|SET|OTT|NOV|DIC|Gen|Feb|Mar|Apr|Mag|Giu|Lug|Ago|Set|Ott|Nov|Dic)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Lithuanian. -->
+<xs:simpleType name="dateMonthnameDayLtType">
+<xs:annotation>
+<xs:documentation>
+Lithuanian date in the order "month day". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "Vasaris 30 d").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(sau|vas|kov|bal|geg|bir|lie|rugp|rgp|rugs|rgs|spa|spl|lap|gru|grd|SAU|VAS|KOV|BAL|GEG|BIR|LIE|RUGP|RGP|RUGS|RGS|SPA|SPL|LAP|GRU|GRD|Sau|Vas|Kov|Bal|Geg|Bir|Lie|Rugp|Rgp|Rugs|Rgs|Spa|Spl|Lap|Gru|Grd)[^0-9]{0,6}[^0-9]+[0-9]{1,2}[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthnameDayLtType">
+<xs:annotation>
+<xs:documentation>
+Lithuanian date in the order "year month day". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "2008 m. Vasaris 30 d").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[0-9]{4})[^0-9]*[^0-9a-zA-Z]+(sau|vas|kov|bal|geg|bir|lie|rugp|rgp|rugs|rgs|spa|spl|lap|gru|grd|SAU|VAS|KOV|BAL|GEG|BIR|LIE|RUGP|RGP|RUGS|RGS|SPA|SPL|LAP|GRU|GRD|Sau|Vas|Kov|Bal|Geg|Bir|Lie|Rugp|Rgp|Rugs|Rgs|Spa|Spl|Lap|Gru|Grd)[^0-9]+[0-9]{1,2}[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthnameLtType">
+<xs:annotation>
+<xs:documentation>
+Lithuanian date in the order "year month". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[0-9]{4})[^0-9]*[^0-9a-zA-Z]+(sau|vas|kov|bal|geg|bir|lie|rugp|rgp|rugs|rgs|spa|spl|lap|gru|grd|SAU|VAS|KOV|BAL|GEG|BIR|LIE|RUGP|RGP|RUGS|RGS|SPA|SPL|LAP|GRU|GRD|Sau|Vas|Kov|Bal|Geg|Bir|Lie|Rugp|Rgp|Rugs|Rgs|Spa|Spl|Lap|Gru|Grd)[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Latvian. -->
+<xs:simpleType name="dateDayMonthnameLvType">
+<xs:annotation>
+<xs:documentation>
+Latvian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. februāris").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(janv|febr|marts|apr|maijs|jūn|jun|jūl|jul|aug|sept|okt|nov|dec|JANV|FEBR|MARTS|APR|MAIJS|JŪN|JUN|JŪL|JUL|AUG|SEPT|OKT|NOV|DEC|Janv|Febr|Marts|Apr|Maijs|Jūn|Jun|Jūl|Jul|Aug|Sept|Okt|Nov|Dec)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearDayMonthnameLvType">
+<xs:annotation>
+<xs:documentation>
+Latvian date in the order "year day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "2008. gada 30. februāris").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[0-9]{4})[^0-9]+[0-9]{1,2}[^0-9]+(janv|febr|marts|apr|maijs|jūn|jun|jūl|jul|aug|sept|okt|nov|dec|JANV|FEBR|MARTS|APR|MAIJS|JŪN|JUN|JŪL|JUL|AUG|SEPT|OKT|NOV|DEC|Janv|Febr|Marts|Apr|Maijs|Jūn|Jun|Jūl|Jul|Aug|Sept|Okt|Nov|Dec)[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthnameLvType">
+<xs:annotation>
+<xs:documentation>
+Latvian date in the order "year month". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[0-9]{4})[^0-9]+(janv|febr|marts|apr|maijs|jūn|jun|jūl|jul|aug|sept|okt|nov|dec|JANV|FEBR|MARTS|APR|MAIJS|JŪN|JUN|JŪL|JUL|AUG|SEPT|OKT|NOV|DEC|Janv|Febr|Marts|Apr|Maijs|Jūn|Jun|Jūl|Jul|Aug|Sept|Okt|Nov|Dec)[^0-9]{0,7}"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Dutch. -->
+<xs:simpleType name="dateDayMonthnameNlType">
+<xs:annotation>
+<xs:documentation>
+Dutch date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 februari").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|maa|mrt|apr|mei|jun|jul|aug|sep|okt|nov|dec|JAN|FEB|MAA|MRT|APR|MEI|JUN|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Maa|Mrt|Apr|Mei|Jun|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearNlType">
+<xs:annotation>
+<xs:documentation>
+Dutch date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 februari 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|maa|mrt|apr|mei|jun|jul|aug|sep|okt|nov|dec|JAN|FEB|MAA|MRT|APR|MEI|JUN|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Maa|Mrt|Apr|Mei|Jun|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearNlType">
+<xs:annotation>
+<xs:documentation>
+Dutch date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|feb|maa|mrt|apr|mei|jun|jul|aug|sep|okt|nov|dec|JAN|FEB|MAA|MRT|APR|MEI|JUN|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Maa|Mrt|Apr|Mei|Jun|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Norwegian. -->
+<xs:simpleType name="dateDayMonthnameNoType">
+<xs:annotation>
+<xs:documentation>
+Norwegian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. februar").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|mai|jun|jul|aug|sep|okt|nov|des|JAN|FEB|MAR|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DES|Jan|Feb|Mar|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Des)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearNoType">
+<xs:annotation>
+<xs:documentation>
+Norwegian date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. februar 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|mai|jun|jul|aug|sep|okt|nov|des|JAN|FEB|MAR|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DES|Jan|Feb|Mar|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Des)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearNoType">
+<xs:annotation>
+<xs:documentation>
+Norwegian date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|feb|mar|apr|mai|jun|jul|aug|sep|okt|nov|des|JAN|FEB|MAR|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DES|Jan|Feb|Mar|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Des)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Polish. -->
+<xs:simpleType name="dateDayMonthnamePlType">
+<xs:annotation>
+<xs:documentation>
+Polish date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. lutego").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^0-9a-zA-Z]+(sty|lut|mar|kwi|maj|cze|lip|sie|wrz|paź|paz|lis|gru|STY|LUT|MAR|KWI|MAJ|CZE|LIP|SIE|WRZ|PAŹ|PAZ|LIS|GRU|Sty|Lut|Mar|Kwi|Maj|Cze|Lip|Sie|Wrz|Paź|Paz|Lis|Gru)[^0-9]{0,9}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearPlType">
+<xs:annotation>
+<xs:documentation>
+Polish date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. lutego 2008 r").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^0-9a-zA-Z]+(sty|lut|mar|kwi|maj|cze|lip|sie|wrz|paź|paz|lis|gru|STY|LUT|MAR|KWI|MAJ|CZE|LIP|SIE|WRZ|PAŹ|PAZ|LIS|GRU|Sty|Lut|Mar|Kwi|Maj|Cze|Lip|Sie|Wrz|Paź|Paz|Lis|Gru)[^0-9]+([0-9]{1,2}|[0-9]{4})[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearPlType">
+<xs:annotation>
+<xs:documentation>
+Polish date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(sty|lut|mar|kwi|maj|cze|lip|sie|wrz|paź|paz|lis|gru|STY|LUT|MAR|KWI|MAJ|CZE|LIP|SIE|WRZ|PAŹ|PAZ|LIS|GRU|Sty|Lut|Mar|Kwi|Maj|Cze|Lip|Sie|Wrz|Paź|Paz|Lis|Gru)[^0-9]+([0-9]{1,2}|[0-9]{4})[^0-9]*"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Portuguese. -->
+<xs:simpleType name="dateDayMonthnamePtType">
+<xs:annotation>
+<xs:documentation>
+Portuguese date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 de fevereiro").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez|JAN|FEV|MAR|ABR|MAI|JUN|JUL|AGO|SET|OUT|NOV|DEZ|Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearPtType">
+<xs:annotation>
+<xs:documentation>
+Portuguese date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 de fevereiro de 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez|JAN|FEV|MAR|ABR|MAI|JUN|JUL|AGO|SET|OUT|NOV|DEZ|Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearPtType">
+<xs:annotation>
+<xs:documentation>
+Portuguese date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez|JAN|FEV|MAR|ABR|MAI|JUN|JUL|AGO|SET|OUT|NOV|DEZ|Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Roman numerals. -->
+<xs:simpleType name="dateDayMonthromanType">
+<xs:annotation>
+<xs:documentation>
+Roman date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 II").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^XVIxvi]((I?(X|V|I)I{0,3})|(i?(x|v|i)i{0,3}))"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthromanYearType">
+<xs:annotation>
+<xs:documentation>
+Roman date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 II 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]*[^XVIxvi]((I?(X|V|I)I{0,3})|(i?(x|v|i)i{0,3}))[^XVIxvi][^0-9]*([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthromanYearType">
+<xs:annotation>
+<xs:documentation>
+Roman date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="((I?(X|V|I)I{0,3})|(i?(x|v|i)i{0,3}))[^XVIxvi][^0-9]*([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Romanian. -->
+<xs:simpleType name="dateDayMonthnameRoType">
+<xs:annotation>
+<xs:documentation>
+Romanian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 februarie").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ian|feb|mar|apr|mai|iun|iul|aug|sep|oct|noi|nov|dec|IAN|FEB|MAR|APR|MAI|IUN|IUL|AUG|SEP|OCT|NOI|NOV|DEC|Ian|Feb|Mar|Apr|Mai|Iun|Iul|Aug|Sep|Oct|Noi|Nov|Dec)[^0-9]{0,7}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearRoType">
+<xs:annotation>
+<xs:documentation>
+Romanian date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30 februarie 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(ian|feb|mar|apr|mai|iun|iul|aug|sep|oct|noi|nov|dec|IAN|FEB|MAR|APR|MAI|IUN|IUL|AUG|SEP|OCT|NOI|NOV|DEC|Ian|Feb|Mar|Apr|Mai|Iun|Iul|Aug|Sep|Oct|Noi|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearRoType">
+<xs:annotation>
+<xs:documentation>
+Romanian date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(ian|feb|mar|apr|mai|iun|iul|aug|sep|oct|noi|nov|dec|IAN|FEB|MAR|APR|MAI|IUN|IUL|AUG|SEP|OCT|NOI|NOV|DEC|Ian|Feb|Mar|Apr|Mai|Iun|Iul|Aug|Sep|Oct|Noi|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Slovak. -->
+<xs:simpleType name="dateDayMonthnameSkType">
+<xs:annotation>
+<xs:documentation>
+Slovak date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. februára").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|máj|maj|jún|jun|júl|jul|aug|sep|okt|nov|dec|JAN|FEB|MAR|APR|MÁJ|MAJ|JÚN|JUN|JÚL|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Máj|Maj|Jún|Jun|Júl|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearSkType">
+<xs:annotation>
+<xs:documentation>
+Slovak date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. februára 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|máj|maj|jún|jun|júl|jul|aug|sep|okt|nov|dec|JAN|FEB|MAR|APR|MÁJ|MAJ|JÚN|JUN|JÚL|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Máj|Maj|Jún|Jun|Júl|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearSkType">
+<xs:annotation>
+<xs:documentation>
+Slovak date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|feb|mar|apr|máj|maj|jún|jun|júl|jul|aug|sep|okt|nov|dec|JAN|FEB|MAR|APR|MÁJ|MAJ|JÚN|JUN|JÚL|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Máj|Maj|Jún|Jun|Júl|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Slovenian. -->
+<xs:simpleType name="dateDayMonthnameSlType">
+<xs:annotation>
+<xs:documentation>
+Slovenian date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. februar").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|maj|jun|jul|avg|sep|okt|nov|dec|JAN|FEB|MAR|APR|MAJ|JUN|JUL|AVG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Maj|Jun|Jul|Avg|Sep|Okt|Nov|Dec)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearSlType">
+<xs:annotation>
+<xs:documentation>
+Slovenian date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. februar 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|maj|jun|jul|avg|sep|okt|nov|dec|JAN|FEB|MAR|APR|MAJ|JUN|JUL|AVG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Maj|Jun|Jul|Avg|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearSlType">
+<xs:annotation>
+<xs:documentation>
+Slovenian date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|feb|mar|apr|maj|jun|jul|avg|sep|okt|nov|dec|JAN|FEB|MAR|APR|MAJ|JUN|JUL|AVG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Maj|Jun|Jul|Avg|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Danish or Swedish. -->
+<xs:simpleType name="dateDayMonthnameDaSvType">
+<xs:annotation>
+<xs:documentation>
+Danish or Swedish date in the order "day month". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30. februar").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|maj|jun|jul|aug|sep|okt|nov|dec|JAN|FEB|MAR|APR|MAJ|JUN|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Maj|Jun|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]{0,6}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearDaSvType">
+<xs:annotation>
+<xs:documentation>
+Danish or Swedish date in the order "day month year". Accepts 1 or 2 digits for day. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30. februar 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(jan|feb|mar|apr|maj|jun|jul|aug|sep|okt|nov|dec|JAN|FEB|MAR|APR|MAJ|JUN|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Maj|Jun|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearDaSvType">
+<xs:annotation>
+<xs:documentation>
+Danish or Swedish date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(jan|feb|mar|apr|maj|jun|jul|aug|sep|okt|nov|dec|JAN|FEB|MAR|APR|MAJ|JUN|JUL|AUG|SEP|OKT|NOV|DEC|Jan|Feb|Mar|Apr|Maj|Jun|Jul|Aug|Sep|Okt|Nov|Dec)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in English. -->
+<xs:simpleType name="dateDayMonthnameEnType">
+<xs:annotation>
+<xs:documentation>
+English date in the order "day month". Accepts 1 or 2 digits for day, with optional ordinal suffix. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30th February").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearEnType">
+<xs:annotation>
+<xs:documentation>
+English date in the order "day month year". Accepts 1 or 2 digits for day, with optional ordinal suffix. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30th February 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)[^0-9]+([0-9]{1,2}|[0-9]{4})"></xs:pattern>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameDayEnType">
+<xs:annotation>
+<xs:documentation>
+English date in the order "month day". Accepts 1 or 2 digits for day, with optional ordinal suffix of one or two letters. Accepts months in full or abbreviated form. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "February 30th").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)[^0-9]+[0-9]{1,2}[a-zA-Z]{0,2}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameDayYearEnType">
+<xs:annotation>
+<xs:documentation>
+English date in the order "month day year". Accepts 1 or 2 digits for day, with optional ordinal suffix. Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "February 30th, 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)[^0-9]+[0-9]{1,2}[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearEnType">
+<xs:annotation>
+<xs:documentation>
+English date in the order "month year". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthnameEnType">
+<xs:annotation>
+<xs:documentation>
+English date in the order "year month". Accepts months in full or abbreviated form. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[0-9]{4})[^0-9]+(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out with Japanese eras. -->
+<xs:simpleType name="dateJpnEraYearMonthType">
+<xs:annotation>
+<xs:documentation>
+Japanese date in the order "era year month" (e.g. "令和元年5月").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(明治|明|大正|大|昭和|昭|平成|平|令和|令)[\s ]*([0-9０-９]{1,2}|元)[\s ]*(年)[\s ]*([0-9０-９]{1,2})[\s ]*(月)"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateJpnEraYearMonthDayType">
+<xs:annotation>
+<xs:documentation>
+Japanese date in the order "era year month day" (e.g. "令和元年5月31日").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(明治|明|大正|大|昭和|昭|平成|平|令和|令)[\s ]*([0-9０-９]{1,2}|元)[\s ]*(年)[\s ]*([0-9０-９]{1,2})[\s ]*(月)[\s ]*([0-9０-９]{1,2})[\s ]*(日)"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Numeric dates -->
+<xs:simpleType name="dateDayMonthType">
+<xs:annotation>
+<xs:documentation>
+Numeric date in the order "day month". Accepts 1 or 2 digits for day. Accepts 1 or 2 digits for month. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "30 02").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+[0-9]{1,2}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthYearType">
+<xs:annotation>
+<xs:documentation>
+Numeric date in the order "day month year". Accepts 1 or 2 digits for day. Accepts 1 or 2 digits for month. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "30-02-2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9०-९]{1,2}[^0-9०-९]+[0-9०-९]{1,2}[^0-9०-९]+([0-9०-९]{1,2}|[0-9०-९]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthDayType">
+<xs:annotation>
+<xs:documentation>
+Numeric date in the order "month day". Accepts 1 or 2 digits for day. Accepts 1 or 2 digits for month. Requires a non-numeric separator. The schema does not enforce valid day of month (e.g., it accepts "02 30").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+[0-9]{1,2}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthDayYearType">
+<xs:annotation>
+<xs:documentation>
+Numeric date in the order "month day year". Accepts 1 or 2 digits for day. Accepts 1 or 2 digits for month. Accepts 1, 2 or 4 digits for year. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "02/30/2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9]{1,2}[^0-9]+[0-9]{1,2}[^0-9]+([0-9]{1,2}|[0-9]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthYearType">
+<xs:annotation>
+<xs:documentation>
+Numeric date in the order "month year". Accepts 1 or 2 digits for month. Accepts 1, 2 or 4 digits for year. Requires a non-numeric separator. The schema does not enforce valid month (e.g., it accepts "13 2008").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[0-9०-९]{1,2}[^0-9०-९]+([0-9०-९]{1,2}|[0-9०-९]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthDayType">
+<xs:annotation>
+<xs:documentation>
+Numeric date in the order "year month day". Accepts 1 or 2 digits for day. Accepts 1 or 2 digits for month. Accepts 1, 2 or 4 digits for year. Numeric values may be represented by halfwidth or fullwidth forms. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "2008 2 30").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9０-９]{1,2}|[0-9０-９]{4})[^0-9０-９]+[0-9０-９]{1,2}[^0-9０-９]+[0-9０-９]{1,2}[^0-9０-９]*"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateYearMonthType">
+<xs:annotation>
+<xs:documentation>
+Numeric date in the order "year month". Accepts 1, 2 or 4 digits for year. Accepts 1 or 2 digits for month. Requires a non-numeric separator. The schema does not enforce valid month (e.g., it accepts "2008 13").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9０-９]{1,2}|[0-9０-９]{4})[^0-9０-９]+[0-9０-９]{1,2}[^0-9０-９]*"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Dates written out in Hindi. -->
+<xs:simpleType name="dateIndDayMonthnameYearHiType">
+<xs:annotation>
+<xs:documentation>
+Hindi date based on the Indian National Calendar in the order "day month year". Accepts 1 or 2 digits for day, in Arabic or Devanagari numerals. Accepts Hindi names for Saka months or equivalent Latin transliterations. Accepts 2 or 4 digits for year, in Arabic or Devanagari numerals. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "45 Chaitra 2001"). The part of the regular expression representing the month is divided by round brackets into twelve capture groups with each set of contents corresponding to the alternative acceptable expressions for the respective month.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[०-९]{1,2})[^0-9०-९]+((C\S*ait|चैत्र)|(Vai|वैशाख|बैसाख)|(Jy|ज्येष्ठ)|(dha|ḍha|आषाढ|आषाढ़)|(vana|Śrāvaṇa|श्रावण|सावन)|(Bh\S+dra|Proṣṭhapada|भाद्रपद|भादो)|(in|आश्विन)|(K\S+rti|कार्तिक)|(M\S+rga|Agra|मार्गशीर्ष|अगहन)|(Pau|पौष)|(M\S+gh|माघ)|(Ph\S+lg|फाल्गुन))[^0-9०-९]+([0-9]{2}|[0-9]{4}|[०-९]{2}|[०-९]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateDayMonthnameYearHiType">
+<xs:annotation>
+<xs:documentation>
+Hindi date based on the Gregorian Calendar in the order "day month year". Accepts 1 or 2 digits for day, in Arabic or Devanagari numerals. Accepts unabbreviated Hindi names for Gregorian Calendar months. Accepts 2 or 4 digits for year, in Arabic or Devanagari numerals. Requires non-numeric separators. The schema does not enforce valid day of month (e.g., it accepts "45 जनवरी 2001").
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9]{1,2}|[०-९]{1,2})[^0-9०-९]+(जनवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|अक्टूबर|नवंबर|दिसंबर)[^0-9०-९]+([0-9]{2}|[0-9]{4}|[०-९]{2}|[०-९]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="dateMonthnameYearHiType">
+<xs:annotation>
+<xs:documentation>
+Hindi date based on the Gregorian Calendar in the order "month year". Requires unabbreviated Hindi names for Gregorian Calendar months. Accepts 2 or 4 digits for year, in Arabic or Devanagari numerals. Requires a non-numeric separator.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="(जनवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|अक्टूबर|नवंबर|दिसंबर)[^0-9०-९]+([0-9]{2}|[0-9]{4}|[०-९]{2}|[०-९]{4})"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- Other transformations -->
+<xs:simpleType name="fixedEmptyType">
+<xs:annotation>
+<xs:documentation>
+String type with no content.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:length value="0"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="fixedFalseType">
+<xs:annotation>
+<xs:documentation>
+Boolean type with the value false.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:boolean">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="false"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="fixedTrueType">
+<xs:annotation>
+<xs:documentation>
+Boolean type with the value true.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:boolean">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="true"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="fixedZeroType">
+<xs:annotation>
+<xs:documentation>
+As xs:integer with the value zero.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:integer">
+<xs:enumeration value="0"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="nonNegativeDecimalType">
+<xs:annotation>
+<xs:documentation>
+As xs:decimal but not negative.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:decimal">
+<xs:minInclusive value="0"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="numCommaDecimalType">
+<xs:annotation>
+<xs:documentation>
+Positive numeric values with a comma for the fraction separator. No signs or exponentials accepted. Dot, space or no-break space allowed as optional digit separators. If there is a fraction separator, then it must be followed by at least one digit.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[\.  0-9]*(,[  0-9]+)?"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="numCommaDecimalAposType">
+<xs:annotation>
+<xs:documentation>
+Positive numeric values with a comma for the fraction separator. No signs or exponentials accepted. Dot, space, no-break space and various apostrophe-like punctuation allowed as optional digit separators. If there is a fraction separator, then it must be followed by at least one digit.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[\.'`´’′  0-9]*(,[  0-9]+)?"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="numDotDecimalType">
+<xs:annotation>
+<xs:documentation>
+Positive numeric values with a dot for the fraction separator. No signs or exponentials accepted. Comma, space or no-break space allowed as optional digit separators. If there is a fraction separator, then it must be followed by at least one digit.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[,  0-9]*(\.[  0-9]+)?"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="numDotDecimalAposType">
+<xs:annotation>
+<xs:documentation>
+Positive numeric values with a dot for the fraction separator. No signs or exponentials accepted. Comma, space, no-break space, and various apostrophe-like punctuation allowed as optional digit separators. If there is a fraction separator, then it must be followed by at least one digit.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="[,'`´’′  0-9]*(\.[  0-9]+)?"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="numUnitDecimalType">
+<xs:annotation>
+<xs:documentation>
+Positive numeric values with unit string suffixes. No signs or exponentials accepted. Must have at least one digit before and after the first unit string suffix. The fraction part is limited to two digits and is assumed to be in hundredths. Numeric values may be represented by halfwidth or fullwidth forms. Dot, comma or fullwidth comma allowed as optional digit separators. Unit string suffix is required after integer part but optional after fraction part; thus: '３，０００円５銭', '3.000 euro 5 cent'.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9０-９\.,，]+)([^0-9０-９\.,，][^0-9０-９]*)([0-9０-９]{1,2})([^0-9０-９]*)"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="numUnitDecimalAposType">
+<xs:annotation>
+<xs:documentation>
+Positive numeric values with unit string suffixes. No signs or exponentials accepted. Must have at least one digit before and after the first unit string suffix. The fraction part is limited to two digits and is assumed to be in hundredths. Numeric values may be represented by halfwidth or fullwidth forms. Dot, comma, fullwidth comma, and various apostrophe-like characters allowed as optional digit separators. Unit string suffix is required after integer part but optional after fraction part; thus: '３，０００円５銭', '3.000 euro 5 cent'.
+</xs:documentation>
+</xs:annotation>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="collapse"/>
+<xs:pattern value="([0-9０-９\.,，'`´’′＇]+)([^0-9０-９\.,，'`´’′＇][^0-9０-９]*)([0-9０-９]{1,2})([^0-9０-９]*)"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:schema>

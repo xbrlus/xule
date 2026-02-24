@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OIM Taxonomy Tree Viewer</title>
+    <link rel="stylesheet" href="taxonomy-viewer.css?v=43">
+    <link rel="stylesheet" href="model-diff.css">
+    <link rel="stylesheet" href="js/error-display.css">
+    <!-- Markdown parser for rendering markdown content -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Version 43: Added Relationship Types sub-tab to Types tab -->
+</head>
+<body>
+    <div id="tree-container">
+        <div id="resize-handle"></div>
+        <h2><div id="loading" style="display: none;">Loading model...</div>Model Viewer</h2>
+        <select id="taxonomy-select">
+            <optgroup label="Examples">
+                <option value="./examples/exampleTaxonomy.json">exampleTaxonomy.json</option>
+                <option value="./examples/copilot-mini.json">copilot-mini.json</option>
+                <option value="./examples/copilot-mini2.json">copilot-mini2.json</option>
+                <option value="./examples/copilot-mini3.json">copilot-mini3.json</option>
+                <option value="./examples/copilot-mini5.json">copilot-mini5.json</option>
+                <option value="./examples/exampleTaxonomyCompiled.json">exampleTaxonomyCompiled.json</option>
+                <option value="./examples/extension.json">extension.json (imports exampleTaxonomy)</option>
+                <option value="./examples/extensionFinal.json">extensionFinal.json (imports exampleTaxonomy)</option>
+                <option value="./examples/extendFromFinal.json">extendFromFinal.json (imports extensionFinal)</option>
+                <option value="./examples/aapl-10K-20250927-factset.json">aapl-10K-20250927-factset.json</option>
+                <option value="./examples/GL/gl-base.json">GL/gl-base.json</option>
+                <option value="./examples/GL/gl-exp.json">GL/gl-exp.json</option>
+                <option value="./examples/TimeSeries/GridDemand/HourlyDemandTaxonomy.json">HourlyDemandTaxonomy.json</option>
+                <option value="./examples/TimeSeries/Particulate/CARB_PM_taxonomy.json">CARB_PM_taxonomy.json</option>
+                <option value="./examples/cms.json">cms.json</option>
+                <option value="./examples/filerRulesModel.json">filerRulesModel.json</option>
+                <option value="./examples/oim-errors.json">oim-errors.json</option>
+                <option value="./examples/rebny-financial-statement.json">rebny-financial-statement.json</option>
+                <option value="./examples/oim-requirements-taxonomy.json">oim-requirements-taxonomy.json</option>
+            </optgroup>
+            <optgroup label="Spec Taxonomies">
+                <option value="./spec-taxonomies/oimte.json">oimte.json</option>
+                <option value="./spec-taxonomies/oime.json">oime.json</option>
+                <option value="./spec-taxonomies/types.json">types.json</option>
+                <option value="./spec-taxonomies/xbrlSpec.json">xbrlSpec.json</option>
+                <option value="./spec-taxonomies/xbrla.json">xbrla.json</option>
+                <option value="./spec-taxonomies/iso4217.json">iso4217.json</option>
+                <option value="./spec-taxonomies/ref.json">ref.json</option>
+                <option value="./spec-taxonomies/transform-types.json">transform-types.json</option>
+                <option value="./spec-taxonomies/utr.json">utr.json</option>
+                <option value="./spec-taxonomies/documentation.json">documentation.json</option>
+            </optgroup>
+            <optgroup label="Converted Taxonomies">
+                <option value="./converted-taxonomies/us-gaap-entryPoint-std-2025.json">us-gaap-entryPoint-std-2025.json</option>
+                <option value="./converted-taxonomies/form-60_2025-04-01.json">form-60_2025-04-01.json</option>
+                <option value="./converted-taxonomies/form-6_2025-04-01.json">form-6_2025-04-01.json</option>
+                <option value="./converted-taxonomies/full_ifrs_entry_point_2024-03-27.json">full_ifrs_entry_point_2024-03-27.json</option>
+                <option value="./converted-taxonomies/ecd-elts-2025.json">ecd-elts-2025.json</option>
+                <option value="./converted-taxonomies/us-gaap-elts-2025.json">us-gaap-elts-2025.json</option>
+                <option value="./converted-taxonomies/srt-elts-2025.json">srt-elts-2025.json</option>
+                <option value="./converted-taxonomies/aapl-10K-20250927.json">aapl-10K-20250927.json</option> 
+            </optgroup>
+            <optgroup label="Conformance Tests">
+                <option value="./conformance/CALCULATION-ValidSummationMultiEntityValue.json">CALCULATION-ValidSummationMultiEntityValue.json</option>
+                <option value="./conformance/CONCEPT-ValidBasic.json">CONCEPT-ValidBasic.json</option>
+                <option value="./conformance/CONCEPT-ValidCustomDataType.json">CONCEPT-ValidCustomDataType.json</option>
+                <option value="./conformance/CONCEPT-ValidEnumerationDomain.json">CONCEPT-ValidEnumerationDomain.json</option>
+                <option value="./conformance/CONCEPT-ValidNillable.json">CONCEPT-ValidNillable.json</option>
+                <option value="./conformance/CONCEPT-ValidProperties.json">CONCEPT-ValidProperties.json</option>
+                <option value="./conformance/CUBE-ValidExcludedIntervals.json">CUBE-ValidExcludedIntervals.json</option>
+                <option value="./conformance/CUBE-ValidTimeSeriesComplete.json">CUBE-ValidTimeSeriesComplete.json</option>
+                <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json</option>
+                <option value="./conformance/FACT-RequiredDisclosure.json">FACT-RequiredDisclosure.json</option>
+                <option value="./conformance/FACTSET-ValidFactMap.json">FACTSET-ValidFactMap.json</option>
+                <option value="./conformance/FACTSET-ValidFactMapWithFootnote.json">FACTSET-ValidFactMapWithFootnote.json</option>
+                <option value="./conformance/FACTSET-ValidFactMapWithFootnoteURL.json">FACTSET-ValidFactMapWithFootnoteURL.json</option>
+                <option value="./conformance/FACTSET-ValidFactMapExternalFile.json">FACTSET-ValidFactMapExternalFile.json</option>
+                <option value="./conformance/FINAL-ExtendsFinalTaxonomyNewNetwork.json">FINAL-ExtendsFinalTaxonomyNewNetwork.json</option>
+                <option value="./conformance/FINAL-ExtendsFinalTaxonomyObjectWithMember.json">FINAL-ExtendsFinalTaxonomyObjectWithMember.json</option>
+                <option value="./conformance/MEMBER-ValidBasic.json">MEMBER-ValidBasic.json</option>
+                <option value="./conformance/MEMBER-ValidWithProperties.json">MEMBER-ValidWithProperties.json</option>
+                <option value="./conformance/NETWORK-ValidBasic.json">NETWORK-ValidBasic.json</option>
+                <option value="./conformance/NETWORK-ValidEmptyProperties.json">NETWORK-ValidEmptyProperties.json</option>
+                <option value="./conformance/NETWORK-ValidMixedPropertyTypes.json">NETWORK-ValidMixedPropertyTypes.json</option>
+                <option value="./conformance/NETWORK-ValidPropertiesWithRoots.json">NETWORK-ValidPropertiesWithRoots.json</option>
+            </optgroup>
+            <optgroup label="Invalid Conformance Tests">
+                <option value="./conformance/CALCULATION-InvalidSummationItemValue.json">CALCULATION-InvalidSummationItemValue.json</option>
+                <option value="./conformance/CALCULATION-InvalidSummationItemWeight.json">CALCULATION-InvalidSummationItemWeight.json</option>
+                <option value="./conformance/CALCULATION-InvalidSummationMultiEntityValue.json">CALCULATION-InvalidSummationMultiEntityValue.json</option>
+                <option value="./conformance/MODELTYPE-InvalidInstance.json">MODELTYPE-InvalidInstance.json</option>
+                <option value="./conformance/MODELTYPE-RequiredProperty.json">MODELTYPE-RequiredProperty.json</option>
+                <option value="./conformance/CONCEPT-ConceptWithDuplicateProperties.json">CONCEPT-ConceptWithDuplicateProperties.json</option>
+                <option value="./conformance/CONCEPT-DuplicateConceptNames.json">CONCEPT-DuplicateConceptNames.json</option>
+                <option value="./conformance/CONCEPT-InvalidDataType.json">CONCEPT-InvalidDataType.json</option>
+                <option value="./conformance/CONCEPT-PropertiesReferenceDisallowedObjectType.json">CONCEPT-PropertiesReferenceDisallowedObjectType.json</option>
+                <option value="./conformance/CONCEPT-PropertiesReferenceNonexistentPropertyType.json">CONCEPT-PropertiesReferenceNonexistentPropertyType.json</option>
+                <option value="./conformance/CONCEPT-NamespaceMismatch.json">CONCEPT-NamespaceMismatch.json</option>
+                <option value="./conformance/CUBE-AllowDomainFactOnConceptDim.json">CUBE-AllowDomainFactOnConceptDim.json</option>
+                <option value="./conformance/CUBE-ConceptDimensionNotDefined.json">CUBE-ConceptDimensionNotDefined.json</option>
+                <option value="./conformance/CUBE-DimensionCubeTypeDoesNotMatchCubeType.json">CUBE-DimensionCubeTypeDoesNotMatchCubeType.json</option>
+                <option value="./conformance/CUBE-DomainNameOnTypedDimension.json">CUBE-DomainNameOnTypedDimension.json</option>
+                <option value="./conformance/CUBE-DomainOnPeriodDimension.json">CUBE-DomainOnPeriodDimension.json</option>
+                <option value="./conformance/CUBE-DomainDataTypeOnPeriodDimension.json">CUBE-DomainDataTypeOnPeriodDimension.json</option>
+                <option value="./conformance/CUBE-DuplicateDimension.json">CUBE-DuplicateDimension.json</option>
+                <option value="./conformance/CUBE-ExcludeCubeDoesNotExist.json">CUBE-ExcludeCubeDoesNotExist.json</option>
+                <option value="./conformance/CUBE-ExcludeCubeIsSameCube.json">CUBE-ExcludeCubeIsSameCube.json</option>
+                <option value="./conformance/CUBE-ExcludeSharesDimensionalSpaceWithRequired.json">CUBE-ExcludeSharesDimensionalSpaceWithRequired.json</option>
+                <option value="./conformance/CUBE-InappropriateCubeTypeReference.json">CUBE-InappropriateCubeTypeReference.json</option>
+                <option value="./conformance/CUBE-InappropriateDimensionReference.json">CUBE-InappropriateDimensionReference.json</option>
+                <option value="./conformance/CUBE-InappropriateDomainReference.json">CUBE-InappropriateDomainReference.json</option>
+                <option value="./conformance/CUBE-InappropriateDomainReference.json">CUBE-InappropriateExcludeCubeReference.json</option>
+                <option value="./conformance/CUBE-InappropriateNetworkReference.json">CUBE-InappropriateNetworkReference.json</option>
+                <option value="./conformance/CUBE-InvalidCubeProperty.json">CUBE-InvalidCubeProperty.json</option>
+                <option value="./conformance/CUBE-InvalidCubeType.json">CUBE-InvalidCubeType.json</option>   
+                <option value="./conformance/CUBE-InvalidIntervalConventionOnNonTimeSeries.json">CUBE-InvalidIntervalConventionOnNonTimeSeries.json</option> 
+                <option value="./conformance/CUBE-MissingConceptDimension.json">CUBE-MissingConceptDimension.json</option>
+                <option value="./conformance/CUBE-NetworkReferencesDomain.json">CUBE-NetworkReferencesDomain.json</option>
+                <option value="./conformance/CUBE-DimensionNotDimensionObject.json">CUBE-DimensionNotDimensionObject.json</option>
+                <option value="./conformance/CUBE-DomainOnPeriodDimension.json">CUBE-DomainOnPeriodDimension.json</option>
+                <option value="./conformance/CUBE-FactMissingFromCompleteCube.json">CUBE-FactMissingFromCompleteCube.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintConceptNotConcept.json">CUBE-PeriodConstraintConceptNotConcept.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintContextNotConcept.json">CUBE-PeriodConstraintContextNotConcept.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintOnNonPeriodDimension.json">CUBE-PeriodConstraintOnNonPeriodDimension.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintRedundantTimeSpan.json">CUBE-PeriodConstraintRedundantTimeSpan.json</option>
+                <option value="./conformance/CUBE-RequiredCubeFactMissing.json">CUBE-RequiredCubeFactMissing.json</option>
+                <option value="./conformance/CUBETYPE-AllowedCubeDimensionExplicitString.json">CUBETYPE-AllowedCubeDimensionExplicitString.json</option>
+                <option value="./conformance/CUBETYPE-BaseCubeTypeDoesNotExist.json">CUBETYPE-BaseCubeTypeDoesNotExist.json</option>
+                <option value="./conformance/CUBETYPE-BaseCubeTypeIsDimension.json">CUBETYPE-BaseCubeTypeIsDimension.json</option>
+                <option value="./conformance/CUBETYPE-EmptyAllowedCubeDimensions.json">CUBETYPE-EmptyAllowedCubeDimensions.json</option>
+                <option value="./conformance/CUBETYPE-coreDimensionsExpansion.json">CUBETYPE-coreDimensionsExpansion.json</option>
+                <option value="./conformance/CUBETYPE-duplicateCoreDimension.json">CUBETYPE-duplicateCoreDimension.json</option>
+                <option value="./conformance/CUBETYPE-duplicateDimension.json">CUBETYPE-duplicateDimension.json</option>
+                <option value="./conformance/CUBETYPE-invalidCoreDimension.json">CUBETYPE-invalidCoreDimension.json</option>
+                <option value="./conformance/CUBETYPE-invalidDataTypeExpansion.json">CUBETYPE-invalidDataTypeExpansion.json</option>
+                <option value="./conformance/CUBETYPE-invalidDimensionAddition.json">CUBETYPE-invalidDimensionAddition.json</option>
+                <option value="./conformance/CUBETYPE-invalidDimensionClosedExpansion.json">CUBETYPE-invalidDimensionClosedExpansion.json</option>
+                <option value="./conformance/CUBETYPE-invalidDimensionDataTypeProperty.json">CUBETYPE-invalidDimensionDataTypeProperty.json</option>
+                <option value="./conformance/CUBETYPE-invalidDimensionReference.json">CUBETYPE-invalidDimensionReference.json</option>
+                <option value="./conformance/CUBETYPE-invalidDimensionRequirementRelaxation.json">CUBETYPE-invalidDimensionRequirementRelaxation.json</option>
+                <option value="./conformance/CUBETYPE-invalidPropertyExpansion.json">CUBETYPE-invalidPropertyExpansion.json</option>
+                <option value="./conformance/CUBETYPE-invalidPropertyTypeReference.json">CUBETYPE-invalidPropertyTypeReference.json</option>
+                <option value="./conformance/CUBETYPE-invalidRelationshipConstraintRelaxation.json">CUBETYPE-invalidRelationshipConstraintRelaxation.json</option>
+                <option value="./conformance/CUBETYPE-invalidRelationshipExpansion.json">CUBETYPE-invalidRelationshipExpansion.json</option>
+                <option value="./conformance/CUBETYPE-invalidRelationshipTypeReference.json">CUBETYPE-invalidRelationshipTypeReference.json</option>
+                <option value="./conformance/CUBETYPE-invalidSourceObjectType.json">CUBETYPE-invalidSourceObjectType.json</option>
+                <option value="./conformance/CUBETYPE-invalidSourceQName.json">CUBETYPE-invalidSourceQName.json</option>
+                <option value="./conformance/CUBETYPE-invalidTargetObjectType.json">CUBETYPE-invalidTargetObjectType.json</option>
+                <option value="./conformance/CUBETYPE-invalidTargetQName.json">CUBETYPE-invalidTargetQName.json</option>
+                <option value="./conformance/CUBETYPE-missingRequiredCubeProperty.json">CUBETYPE-missingRequiredCubeProperty.json</option>
+                <option value="./conformance/CUBETYPE-missingRequiredDimensionProperty.json">CUBETYPE-missingRequiredDimensionProperty.json</option>
+                <option value="./conformance/CUBETYPE-missingRequiredRelationship.json">CUBETYPE-missingRequiredRelationship.json</option>
+                <option value="./conformance/DATATYPE-InvalidBaseCollectionType.json">DATATYPE-InvalidBaseCollectionType.json</option>
+                <option value="./conformance/DATATYPE-unallowedDatatypeObject.json">DATATYPE-unallowedDatatypeObject.json</option>
+                <option value="./conformance/DIMENSION-InvalidCubeTypeReference.json">DIMENSION-InvalidCubeTypeReference.json</option>
+                <option value="./conformance/DIMENSION-InvalidDomainDataTypeReference.json">DIMENSION-InvalidDomainDataTypeReference.json</option>
+                <option value="./conformance/DOMAIN-AbstractInTaxonomyDefinedDimensionDomain.json">DOMAIN-AbstractInTaxonomyDefinedDimensionDomain.json</option>
+                <option value="./conformance/DOMAIN-DomainObjectWithDuplicateRelationships.json">DOMAIN-DomainObjectWithDuplicateRelationships.json</option>
+                <option value="./conformance/DOMAIN-DomainClassNotSourceInRelationship.json">DOMAIN-DomainClassNotSourceInRelationship.json</option>
+                <option value="./conformance/DOMAIN-InvalidRootReference.json">DOMAIN-InvalidRootReference.json</option>
+                <option value="./conformance/DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget.json">DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget.json</option>
+                <option value="./conformance/DOMAIN-ExtendClosedDomain.json">DOMAIN-ExtendClosedDomain.json</option>
+                <option value="./conformance/DOMAIN-DomainTargetNonAllowedObjectType.json">DOMAIN-DomainTargetNonAllowedObjectType.json</option>
+                <option value="./conformance/DOMAIN-InvalidEntityDomainSource.json">DOMAIN-InvalidEntityDomainSource.json</option>
+                <option value="./conformance/DOMAIN-InvalidEntityDomainSource2.json">DOMAIN-InvalidEntityDomainSource2.json</option>
+                <option value="./conformance/DOMAIN-InvalidEntityDomainTarget.json">DOMAIN-InvalidEntityDomainTarget.json</option>
+                <option value="./conformance/DOMAIN-InvalidUnitDomainSource.json">DOMAIN-InvalidUnitDomainSource.json</option>
+                <option value="./conformance/DOMAIN-StringInDateTaxonomyDefinedDimensionDomain.json">DOMAIN-StringInDateTaxonomyDefinedDimensionDomain.json</option>
+                <option value="./conformance/DOMAIN-MemberInConceptDimensionDomain.json">DOMAIN-MemberInConceptDimensionDomain.json</option>
+                <option value="./conformance/DOMAIN-MultipleDomainClasses.json">DOMAIN-MultipleDomainClasses.json</option>
+                <option value="./conformance/DOMAIN-UnitDomainWIthNonUnit.json">DOMAIN-UnitDomainWIthNonUnit.json</option>
+                <option value="./conformance/DOMAIN-UnitObjectInInvalidDomain.json">DOMAIN-UnitObjectInInvalidDomain.json</option>
+                <option value="./conformance/DOMAINCLASS-DomainClassReferencesConceptObject.json">DOMAINCLASS-DomainClassReferencesConceptObject.json</option>
+                <option value="./conformance/DOMAINCLASS-ConceptDomainWithEntityChild.json">DOMAINCLASS-ConceptDomainWithEntityChild.json</option>
+                <option value="./conformance/DOMAINCLASS-DimensionDoesNotMatchDomainClass.json">DOMAINCLASS-DimensionDoesNotMatchDomainClass.json</option>
+                <option value="./conformance/DOMAINCLASS-EntityDomainWithNonEntityMember.json">DOMAINCLASS-EntityDomainWithNonEntityMember.json</option>
+                <option value="./conformance/DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship.json">DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship.json</option>
+                <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot.json</option>
+                <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json</option>
+                <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json</option>
+                <option value="./conformance/FACT-RequiredDisclosure.json">FACT-RequiredDisclosure.json</option>
+                <option value="./conformance/FACT-ValueDataTypeMismatch.json">FACT-ValueDataTypeMismatch.json</option>
+                <option value="./conformance/FINAL-DefinesFinalTaxonomyFlag.json">FINAL-DefinesFinalTaxonomyFlag.json</option>
+                <option value="./conformance/FINAL-ExtendsFinalTaxonomy.json">FINAL-ExtendsFinalTaxonomy.json</option>
+                <option value="./conformance/FINAL-ExtendsFinalTaxonomyWithFact.json">FINAL-ExtendsFinalTaxonomyWithFact.json</option>
+                <option value="./conformance/FINAL-ExtendsFinalTaxonomyNetwork.json">FINAL-ExtendsFinalTaxonomyNetwork.json</option>
+                <option value="./conformance/FINAL-ExtendsFinalTaxonomyObjectWithConcept.json">FINAL-ExtendsFinalTaxonomyObjectWithConcept.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-InvalidObjectType.json">IMPORTTAXONOMY-InvalidObjectType.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-InvalidSelectionObjectType.json">IMPORTTAXONOMY-InvalidSelectionObjectType.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-InvalidTextSelectionObjectType.json">IMPORTTAXONOMY-InvalidTextSelectionObjectType.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-InvalidObjectSelectionObjectType.json">IMPORTTAXONOMY-InvalidObjectSelectionObjectType.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-NotInNamespace.json">IMPORTTAXONOMY-NotInNamespace.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-PassThroughPrefixError.json">IMPORTTAXONOMY-PassThroughPrefixError.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-TaxonomyNotFound.json">IMPORTTAXONOMY-TaxonomyNotFound.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-TaxonomyNotFoundNoFile.json">IMPORTTAXONOMY-TaxonomyNotFoundNoFile.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-TaxonomyNotFoundNoQname.json">IMPORTTAXONOMY-TaxonomyNotFoundNoQname.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-UnknownObject.json">IMPORTTAXONOMY-UnknownObject.json</option>
+                <option value="./conformance/LABEL-DuplicateLabels.json">LABEL-DuplicateLabels.json</option>
+                <option value="./conformance/LABEL-InvalidLabelTypeReference.json">LABEL-InvalidLabelTypeReference.json</option>
+                <option value="./conformance/LABEL-InvalidLanguageCode.json">LABEL-InvalidLanguageCode.json</option>
+                <option value="./conformance/LABEL-InvalidRelatedNameReference.json">LABEL-InvalidRelatedNameReference.json</option>
+                <option value="./conformance/LABELTYPE-InvalidLabelTypeDataTypeReference.json">LABELTYPE-InvalidLabelTypeDataTypeReference.json</option>
+                <option value="./conformance/LABELTYPE-InvalidLabelTypeEmptyAllowedObjects.json">LABELTYPE-InvalidLabelTypeEmptyAllowedObjects.json</option>
+                <option value="./conformance/Layout-ValidGroup.json">Layout-ValidGroup.json</option>
+                <option value="./conformance/Layout-ComplexGrid.json">Layout-ComplexGrid.json</option>
+                <option value="./conformance/Layout-ComplexGridReverse.json">Layout-ComplexGridReverse.json</option>
+                <option value="./conformance/MEMBER-MemberInConceptDomain.json">MEMBER-MemberInConceptDomain.json</option>
+                <option value="./conformance/NAMESPACE-DocumentNamespaceDoesNotMatch.json">NAMESPACE-DocumentNamespaceDoesNotMatch.json</option>
+                <option value="./conformance/NAMESPACE-PrefixNotDefined.json">NAMESPACE-PrefixNotDefined.json</option>
+                <option value="./conformance/NAMESPACE-RestrictedPrefix.json">NAMESPACE-RestrictedPrefix.json</option>
+                <option value="./conformance/NETWORK-DuplicateNetworkNames.json">NETWORK-DuplicateNetworkNames.json</option>
+                <option value="./conformance/NETWORK-InvalidRelationshipTypeNameReference.json">NETWORK-InvalidRelationshipTypeNameReference.json</option>
+                <option value="./conformance/NETWORK-NetworkObjectWithDuplicateRelationships.json">NETWORK-NetworkObjectWithDuplicateRelationships.json</option>
+                <option value="./conformance/NETWORK-RelationshipsReferenceNonexistentSource.json">NETWORK-RelationshipsReferenceNonexistentSource.json</option>
+                <option value="./conformance/PROPERTY-InvalidAllowedObject.json">PROPERTY-InvalidAllowedObject.json</option>
+                <option value="./conformance/PROPERTY-UnknownPropertyType.json">PROPERTY-UnknownPropertyType.json</option>
+                <option value="./conformance/PROPERTYTYPE-DuplicatePropertyTypeNames.json">PROPERTYTYPE-DuplicatePropertyTypeNames.json</option>
+                <option value="./conformance/PROPERTYTYPE-InvalidDataTypeReference.json">PROPERTYTYPE-InvalidDataTypeReference.json</option>
+                <option value="./conformance/REFERENCE-DuplicateReferenceNames.json">REFERENCE-DuplicateReferenceNames.json</option>
+                <option value="./conformance/REFERENCE-ExtendTargetNameAndLanguageBothPresent.json">REFERENCE-ExtendTargetNameAndLanguageBothPresent.json</option>
+                <option value="./conformance/REFERENCE-ExtendTargetNameAndReferenceTypeMismatch.json">REFERENCE-ExtendTargetNameAndReferenceTypeMismatch.json</option>
+                <option value="./conformance/REFERENCE-InvalidLanguageCode.json">REFERENCE-InvalidLanguageCode.json</option>
+                <option value="./conformance/REFERENCE-InvalidReferenceTypeReference.json">REFERENCE-InvalidReferenceTypeReference.json</option>
+                <option value="./conformance/REFERENCE-InvalidRelatedNamesReference.json">REFERENCE-InvalidRelatedNamesReference.json</option>
+                <option value="./conformance/REFERENCETYPE-InvalidOrderedProperty.json">REFERENCETYPE-InvalidOrderedProperty.json</option>
+                <option value="./conformance/REFERENCETYPE-InvalidRequiredProperty.json">REFERENCETYPE-InvalidRequiredProperty.json</option>
+                <option value="./conformance/RELATIONSHIP-RelationshipDisallowedProperty.json">RELATIONSHIP-RelationshipDisallowedProperty.json</option>
+                <option value="./conformance/RELATIONSHIP-RelationshipMissingRequiredProperty.json">RELATIONSHIP-RelationshipMissingRequiredProperty.json</option>
+                <option value="./conformance/UNIT-DuplicateUnitNames.json">UNIT-DuplicateUnitNames.json</option>
+                <option value="./conformance/UNIT-InvalidDataType.json">UNIT-InvalidDataType.json</option>
+                <option value="./conformance/UNIT-UnitWithDuplicateStringRepresentations.json">UNIT-UnitWithDuplicateStringRepresentations.json</option>
+                <option value="./conformance/UNIT-UnitWithDataTypeNotMatchingConceptDataType.json">UNIT-UnitWithDataTypeNotMatchingConceptDataType.json</option>
+        </select>
+        <div class="tabs">
+            <button class="tab-button active" data-tab="taxonomy">Model</button>
+            <button class="tab-button" data-tab="groups">Groups</button>
+            <button class="tab-button" data-tab="networks">Networks</button>
+            <button class="tab-button" data-tab="domains">Domains</button>
+            <button class="tab-button" data-tab="components">Components</button>
+            <button class="tab-button" data-tab="types">Types</button>
+            <button class="tab-button" data-tab="facts">Facts</button>
+            <button class="tab-button" data-tab="layout">Layout</button>
+        </div>
+        <div id="taxonomy-info" class="tab-content active"></div>
+        <div id="groups-tree" class="tab-content">
+            <div class="filter-container">
+                <label for="groups-display-mode">Display:</label>
+                <select id="groups-display-mode">
+                    <option value="name">Element Names</option>
+                    <option value="label">Labels</option>
+                </select>
+            </div>
+            <div id="groups-content"></div>
+        </div>
+        <div id="networks-tree" class="tab-content">
+            <div class="filter-container">
+                <label for="relationship-type-filter">Filter by Relationship Type:</label>
+                <select id="relationship-type-filter">
+                    <option value="all">All Relationship Types</option>
+                </select>
+            </div>
+            <div class="filter-container">
+                <label for="display-mode-filter">Display Mode:</label>
+                <select id="display-mode-filter">
+                    <option value="name">Element Name</option>
+                    <option value="label">xbrl:label</option>
+                </select>
+            </div>
+            <div id="networks-list"></div>
+        </div>
+        <div id="domains-tree" class="tab-content">
+            <div class="filter-container">
+                <label for="domain-display-mode-filter">Display Mode:</label>
+                <select id="domain-display-mode-filter">
+                    <option value="name">Element Name</option>
+                    <option value="label">xbrl:label</option>
+                </select>
+            </div>
+            <div id="domains-list"></div>
+        </div>
+        <div id="components-tree" class="tab-content">
+            <div class="component-tabs">
+                <button class="component-tab-button active" data-component-tab="concepts">Concepts</button>
+                <button class="component-tab-button" data-component-tab="cubes">Cubes</button>
+                <button class="component-tab-button" data-component-tab="dimensions">Dimensions</button>
+                <button class="component-tab-button" data-component-tab="domainClasses">Domain Classs</button>
+                <button class="component-tab-button" data-component-tab="units">Units</button>
+                <button class="component-tab-button" data-component-tab="members">Members</button>
+                <button class="component-tab-button" data-component-tab="abstracts">Abstracts</button>
+                <button class="component-tab-button" data-component-tab="entities">Entities</button>
+                <button class="component-tab-button" data-component-tab="transforms">Transforms</button>
+            </div>
+            <div id="concepts-list" class="component-tab-content active"></div>
+            <div id="cubes-list" class="component-tab-content"></div>
+            <div id="dimensions-list" class="component-tab-content"></div>
+            <div id="domainClasses-list" class="component-tab-content"></div>
+            <div id="units-list" class="component-tab-content"></div>
+            <div id="members-list" class="component-tab-content"></div>
+            <div id="abstracts-list" class="component-tab-content"></div>
+            <div id="entities-list" class="component-tab-content"></div>
+            <div id="transforms-list" class="component-tab-content"></div>
+        </div>
+        <div id="types-tree" class="tab-content">
+            <div class="component-tabs">
+                <button class="component-tab-button active" data-component-tab="propertyTypes">Property Types</button>
+                <button class="component-tab-button" data-component-tab="dataTypes">Data Types</button>
+                <button class="component-tab-button" data-component-tab="cubeTypes">Cube Types</button>
+                <button class="component-tab-button" data-component-tab="labelTypes">Label Types</button>
+                <button class="component-tab-button" data-component-tab="referenceTypes">Reference Types</button>
+                <button class="component-tab-button" data-component-tab="relationshipTypes">Relationship Types</button>
+                <button class="component-tab-button" data-component-tab="modelTypes">Model Types</button>
+            </div>
+            <div id="propertyTypes-list" class="component-tab-content active"></div>
+            <div id="dataTypes-list" class="component-tab-content"></div>
+            <div id="cubeTypes-list" class="component-tab-content"></div>
+            <div id="labelTypes-list" class="component-tab-content"></div>
+            <div id="referenceTypes-list" class="component-tab-content"></div>
+            <div id="relationshipTypes-list" class="component-tab-content"></div>
+            <div id="modelTypes-list" class="component-tab-content"></div>
+        </div>
+        <div id="facts-tree" class="tab-content">
+            <div class="component-tabs">
+                <button class="component-tab-button active" data-component-tab="facts">Fact Positions</button>
+                <button class="component-tab-button" data-component-tab="factSources">Fact Sources</button>
+                <button class="component-tab-button" data-component-tab="tableTemplates">Fact Maps</button>
+            </div>
+            <div id="facts-list" class="component-tab-content active"></div>
+            <div id="factSources-list" class="component-tab-content"></div>
+            <div id="tableTemplates-list" class="component-tab-content">
+                <div class="filter-container">
+                    <label for="template-display-mode">Display:</label>
+                    <select id="template-display-mode">
+                        <option value="name">Element Names</option>
+                        <option value="label">Labels</option>
+                    </select>
+                </div>
+                <div id="table-templates-content"></div>
+            </div>
+        </div>
+        <div id="layout-tree" class="tab-content">
+            <div class="filter-container">
+                <label for="datatable-display-mode">Display:</label>
+                <select id="datatable-display-mode">
+                    <option value="name">Element Names</option>
+                    <option value="label">Labels</option>
+                </select>
+            </div>
+            <div id="data-tables-content"></div>
+        </div>
+    </div>
+    <div id="details-container">
+        <div class="details-tabs" id="details-tabs" style="display: none;">
+            <button class="details-tab-button active" data-details-tab="properties">Properties</button>
+            <button class="details-tab-button" data-details-tab="contents" style="display: none;">Contents</button>
+            <button class="details-tab-button" data-details-tab="grid" style="display: none;">Grid View</button>
+            <button class="details-tab-button" data-details-tab="layout" style="display: none;">Layout</button>
+            <button class="details-tab-button" data-details-tab="fact-view" style="display: none;">Fact View</button>
+            <button class="details-tab-button" data-details-tab="markdown-preview" style="display: none;">Markdown View</button>
+            <button class="details-tab-button" data-details-tab="import-paths" style="display: none;">Import Paths</button>
+            <button class="details-tab-button" data-details-tab="final-taxonomy" style="display: none;">Final Taxonomy</button>
+            <button class="details-tab-button" data-details-tab="json-view" style="display: none;">JSON View</button>
+        </div>
+        <div id="properties-tab" class="details-tab-content active">
+            <div id="labels-refs">
+                <div id="attributes-panel">
+                    <h3>Attributes</h3>
+                    <div id="attributes-content">Select a node to view attributes.</div>
+                </div>
+                <div id="labels-panel">
+                    <h3>Labels</h3>
+                    <div id="labels-content">Select a node to view related labels.</div>
+                </div>
+                <div id="references-panel">
+                    <h3>References</h3>
+                    <div id="references-content">Select a node to view related references.</div>
+                </div>
+                <div id="locations-panel">
+                    <h3>QName Locations</h3>
+                    <div id="locations-content">Select a node to view network and domain locations.</div>
+                </div>
+            </div>
+            <div id="details">
+                <h2>Details</h2>
+                <pre id="details-content">Select a node to view details.</pre>
+            </div>
+        </div>
+        <div id="contents-tab" class="details-tab-content">
+            <div id="group-contents-container">
+                <div id="group-contents-content"></div>
+            </div>
+        </div>
+        <div id="grid-tab" class="details-tab-content">
+            <div id="cube-grid-container">
+                <div id="cube-grid-content"></div>
+            </div>
+        </div>
+        <div id="layout-tab" class="details-tab-content">
+            <div id="layout-container">
+                <div id="layout-content"></div>
+            </div>
+        </div>
+        <div id="fact-view-tab" class="details-tab-content">
+            <div id="cube-fact-view-container">
+                <div id="cube-fact-view-content"></div>
+            </div>
+        </div>
+        <div id="markdown-preview-tab" class="details-tab-content">
+            <div id="markdown-preview-container">
+                <div id="markdown-preview-content"></div>
+            </div>
+        </div>
+        <div id="import-paths-tab" class="details-tab-content">
+            <div id="import-paths-container">
+                <div id="import-paths-content"></div>
+            </div>
+        </div>
+        <div id="final-taxonomy-tab" class="details-tab-content">
+            <div id="final-taxonomy-container">
+                <div id="final-taxonomy-content"></div>
+            </div>
+        </div>
+        <div id="json-view-tab" class="details-tab-content">
+            <div id="json-view-container">
+                <div id="json-view-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load new modular code (module) -->
+    <script type="module" src="js/main.js?v=131"></script>
+    <!-- Version 99: Fixed xAxis gridHeaders order - headers now render above grid coordinates (R0010, etc), coordinates are not part of header span -->
+</body>
+</html>

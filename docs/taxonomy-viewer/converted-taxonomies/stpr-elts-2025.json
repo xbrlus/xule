@@ -1,0 +1,224 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"srt": "http://fasb.org/srt/2025",
+			"srt-types": "http://fasb.org/srt-types/2025",
+			"us-types": "http://fasb.org/us-types/2025",
+			"country": "http://xbrl.sec.gov/country/2025",
+			"ref": "https://xbrl.org/2025/ref",
+			"stpr": "http://xbrl.sec.gov/stpr/2025",
+			"xbrli": "https://xbrl.org/2025/instance",
+			"us-gaap": "http://fasb.org/us-gaap/2025",
+			"xbrl": "https://xbrl.org/2025",
+			"xs": "http://www.w3.org/2001/XMLSchema",
+			"dei": "http://xbrl.sec.gov/dei/2025",
+			"aapl": "http://www.apple.com/20250927",
+			"cyd": "http://xbrl.sec.gov/cyd/2025",
+			"ecd": "http://xbrl.sec.gov/ecd/2025"
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "stpr"
+	},
+	"xbrlModel": {
+		"name": "stpr:StateProvinceTaxonomy",
+        "version": "1.0.0",
+		"members": [
+			{
+				"name": "stpr:AK"
+			},
+			{
+				"name": "stpr:AL"
+			},
+			{
+				"name": "stpr:AR"
+			},
+			{
+				"name": "stpr:AZ"
+			},
+			{
+				"name": "stpr:CA"
+			},
+			{
+				"name": "stpr:CO"
+			},
+			{
+				"name": "stpr:CT"
+			},
+			{
+				"name": "stpr:DC"
+			},
+			{
+				"name": "stpr:DE"
+			},
+			{
+				"name": "stpr:FL"
+			},
+			{
+				"name": "stpr:GA"
+			},
+			{
+				"name": "stpr:HI"
+			},
+			{
+				"name": "stpr:IA"
+			},
+			{
+				"name": "stpr:ID"
+			},
+			{
+				"name": "stpr:IL"
+			},
+			{
+				"name": "stpr:IN"
+			},
+			{
+				"name": "stpr:KS"
+			},
+			{
+				"name": "stpr:KY"
+			},
+			{
+				"name": "stpr:LA"
+			},
+			{
+				"name": "stpr:MA"
+			},
+			{
+				"name": "stpr:MD"
+			},
+			{
+				"name": "stpr:ME"
+			},
+			{
+				"name": "stpr:MI"
+			},
+			{
+				"name": "stpr:MN"
+			},
+			{
+				"name": "stpr:MO"
+			},
+			{
+				"name": "stpr:MS"
+			},
+			{
+				"name": "stpr:MT"
+			},
+			{
+				"name": "stpr:NC"
+			},
+			{
+				"name": "stpr:ND"
+			},
+			{
+				"name": "stpr:NE"
+			},
+			{
+				"name": "stpr:NH"
+			},
+			{
+				"name": "stpr:NJ"
+			},
+			{
+				"name": "stpr:NM"
+			},
+			{
+				"name": "stpr:NV"
+			},
+			{
+				"name": "stpr:NY"
+			},
+			{
+				"name": "stpr:OH"
+			},
+			{
+				"name": "stpr:OK"
+			},
+			{
+				"name": "stpr:OR"
+			},
+			{
+				"name": "stpr:PA"
+			},
+			{
+				"name": "stpr:RI"
+			},
+			{
+				"name": "stpr:SC"
+			},
+			{
+				"name": "stpr:SD"
+			},
+			{
+				"name": "stpr:TN"
+			},
+			{
+				"name": "stpr:TX"
+			},
+			{
+				"name": "stpr:UT"
+			},
+			{
+				"name": "stpr:VA"
+			},
+			{
+				"name": "stpr:VT"
+			},
+			{
+				"name": "stpr:WA"
+			},
+			{
+				"name": "stpr:WI"
+			},
+			{
+				"name": "stpr:WV"
+			},
+			{
+				"name": "stpr:WY"
+			},
+			{
+				"name": "stpr:CA-AB"
+			},
+			{
+				"name": "stpr:CA-BC"
+			},
+			{
+				"name": "stpr:CA-MB"
+			},
+			{
+				"name": "stpr:CA-NB"
+			},
+			{
+				"name": "stpr:CA-NL"
+			},
+			{
+				"name": "stpr:CA-NT"
+			},
+			{
+				"name": "stpr:CA-NS"
+			},
+			{
+				"name": "stpr:CA-NU"
+			},
+			{
+				"name": "stpr:CA-ON"
+			},
+			{
+				"name": "stpr:CA-PE"
+			},
+			{
+				"name": "stpr:CA-QC"
+			},
+			{
+				"name": "stpr:CA-SK"
+			},
+			{
+				"name": "stpr:CA-YT"
+			},
+			{
+				"name": "stpr:ActiveStateProvinceCodeDomain"
+			}
+		]
+	}
+}

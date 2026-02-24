@@ -1,0 +1,2958 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"srt": "http://fasb.org/srt/2025",
+			"srt-types": "http://fasb.org/srt-types/2025",
+			"xbrli": "https://xbrl.org/2025/instance",
+			"xbrl": "https://xbrl.org/2025",
+     		"xbrla": "http://xbrl.org/accounting",
+			"xs": "http://www.w3.org/2001/XMLSchema"
+			
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "srt",
+		"urlMapping": {
+			"srt-types": ["srt-types-2025.json"],
+			"xbrla": ["../spec-taxonomies/xbrla.json"]
+		}
+	},
+	"xbrlModel": {
+		"name": "srt:StandardizedReportingTaxonomy",
+        "version": "1.0.0",
+		"importedTaxonomies": [
+            {
+                "xbrlModelName": "srt-types:StandardizedReportingTaxonomyTypes"
+			},
+			{
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+		],
+		"abstracts": [
+			{
+				"name": "srt:ComputationOfNetCapitalRequirementAlternativeStandardAbstract"
+			},
+			{
+				"name": "srt:RegulatoryCapitalRequirementsAbstract"
+			},
+			{
+				"name": "srt:DevelopmentWellsDrilledLineItems"
+			},
+			{
+				"name": "srt:DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesLineItems"
+			},
+			{
+				"name": "srt:ExploratoryWellsDrilledLineItems"
+			},
+			{
+				"name": "srt:GasAndOilAcreageLineItems"
+			},
+			{
+				"name": "srt:ItemsIncludedInConsolidatedStatementOfFinancialConditionAbstract"
+			},
+			{
+				"name": "srt:MinimumNetCapitalRequiredAbstract"
+			},
+			{
+				"name": "srt:OilAndGasDeliveryCommitmentsAndContractsLineItems"
+			},
+			{
+				"name": "srt:ReserveQuantitiesLineItems"
+			},
+			{
+				"name": "srt:ProvedDevelopedAndUndevelopedReserveEnergyRollForward"
+			},
+			{
+				"name": "srt:LifeInsuranceInForceNetAbstract"
+			},
+			{
+				"name": "srt:PrincipalSourcesOfChangeInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAbstract"
+			},
+			{
+				"name": "srt:ProductiveWellsLineItems"
+			},
+			{
+				"name": "srt:RealEstateAndAccumulatedDepreciationLineItems"
+			},
+			{
+				"name": "srt:ReinsurancePremiumsForInsuranceCompaniesByProductSegmentLineItems"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateLineItems"
+			},
+			{
+				"name": "srt:CondensedBalanceSheetStatementsCaptionsLineItems"
+			},
+			{
+				"name": "srt:CondensedIncomeStatementsCaptionsLineItems"
+			},
+			{
+				"name": "srt:IncreaseDecreaseInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesRollForward"
+			},
+			{
+				"name": "srt:CondensedCashFlowStatementsCaptionsLineItems"
+			},
+			{
+				"name": "srt:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersLineItems"
+			},
+			{
+				"name": "srt:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersAbstract"
+			},
+			{
+				"name": "srt:SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesAbstract"
+			},
+			{
+				"name": "srt:SupplementaryInsuranceInformationBySegmentLineItems"
+			},
+			{
+				"name": "srt:ValuationAndQualifyingAccountsDisclosureLineItems"
+			},
+			{
+				"name": "srt:RealEstateWriteDownOrReserveLineItems"
+			},
+			{
+				"name": "srt:DistributionOfAssetsLiabilitiesAndStockholdersEquityLineItems"
+			},
+			{
+				"name": "srt:InterestEarningAssetsAverageYieldAbstract"
+			},
+			{
+				"name": "srt:DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesFutureNetCashFlowsAbstract"
+			},
+			{
+				"name": "srt:DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesStandardizedMeasureAbstract"
+			},
+			{
+				"name": "srt:IncreaseDecreaseInProvedDevelopedAndUndevelopedReservesRollForward"
+			},
+			{
+				"name": "srt:InterestRateAndInterestDifferentialAnalysisLineItems"
+			},
+			{
+				"name": "srt:FinancingReceivableBeforeAllowanceForCreditLossMaturityLineItems"
+			},
+			{
+				"name": "srt:FinancingReceivableCreditRatioLineItems"
+			},
+			{
+				"name": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesReportableDataLineItems"
+			},
+			{
+				"name": "srt:RealEstateAndAccumulatedDepreciationOtherRequiredDisclosuresAbstract"
+			},
+			{
+				"name": "srt:SecDisclosureSecurityRegisteredOrBeingRegisteredAbstract"
+			},
+			{
+				"name": "srt:GuarantorAndIssuerGuaranteedSecurityLineItems"
+			},
+			{
+				"name": "srt:AffiliateCollateralizedSecurityLineItems"
+			},
+			{
+				"name": "srt:GuarantorAndIssuerGuaranteedSecurityAbstract"
+			},
+			{
+				"name": "srt:AffiliateCollateralizedSecurityAbstract"
+			},
+			{
+				"name": "srt:InterestBearingLiabilitiesAverageRatePaidAbstract"
+			},
+			{
+				"name": "srt:StatisticalDisclosureForBanksAbstract"
+			},
+			{
+				"name": "srt:PlatformOperatorCryptoAssetLineItems"
+			},
+			{
+				"name": "srt:PlatformOperatorCryptoAssetAbstract"
+			},
+			{
+				"name": "srt:UseNameOfCryptoAssetAsValueForMemberUnderCryptoAssetDomainGuidance",
+				"properties": [
+					{
+						"property": "xbrl:abstractDataType",
+						"value": "xbrli:guidance"
+					}
+				]
+			},
+			{
+				"name": "srt:ShareRepurchaseProgramAbstract"
+			},
+			{
+				"name": "srt:ShareRepurchaseProgramLineItems"
+			},
+			{
+				"name": "srt:CondensedStatementOfIncomeCaptionsLineItems"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateOtherRequiredDisclosuresAbstract"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateWriteDownOrReserveLineItems"
+			},
+			{
+				"name": "srt:OilAndGasInProcessActivitiesLineItems"
+			},
+			{
+				"name": "srt:AlternativeNetCapitalRequirementAbstract"
+			},
+			{
+				"name": "srt:AlternativeExcessNetCapitalAbstract"
+			},
+			{
+				"name": "srt:ExcessNetCapitalAt1500PercentAbstract"
+			},
+			{
+				"name": "srt:NetCapitalExcessShortageUnderCommodityExchangeActAbstract"
+			},
+			{
+				"name": "srt:CondensedFinancialStatementsCaptionsLineItems"
+			},
+			{
+				"name": "srt:OilAndGasStandardizedMeasureDiscountedFutureNetCashFlowMineralInPlaceSalePurchaseAbstract"
+			},
+			{
+				"name": "srt:OilAndGasStandardizedMeasureDiscountedFutureNetCashFlowDevelopmentAndProductionCostsAbstract"
+			},
+			{
+				"name": "srt:ConsolidatedOilAndGasProductionAbstract"
+			},
+			{
+				"name": "srt:CondensedFinancialInformationOfParentCompanyOnlyDisclosureAbstract"
+			},
+			{
+				"name": "srt:RealEstateAndAccumulatedDepreciationDisclosureAbstract"
+			},
+			{
+				"name": "srt:CommonDomainMembersAbstract"
+			},
+			{
+				"name": "srt:BrokersAndDealersAbstract"
+			},
+			{
+				"name": "srt:ExtractiveIndustriesAbstract"
+			},
+			{
+				"name": "srt:ValuationAndQualifyingAccountsAbstract"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateAbstract"
+			},
+			{
+				"name": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesAbstract"
+			},
+			{
+				"name": "srt:SupplementaryInsuranceInformationAbstract"
+			},
+			{
+				"name": "srt:LongTermSupplyAgreementsWithGovernmentsOrAuthoritiesAbstract"
+			}
+		],
+		"concepts": [
+			{
+				"dataType": "xbrli:volume",
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesNetPeriodIncreaseDecrease",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"periodType": "instant",
+				"name": "srt:StockRepurchaseProgramAuthorizedAmount1",
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"periodType": "instant",
+				"name": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesTenPercentAnnualDiscountForEstimatedTimingOfCashFlows",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				]
+			},
+			{
+				"periodType": "instant",
+				"enumerationDomain": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain_ExtensibleEnumerationLists_EDomain",
+				"name": "srt:PlatformOperatorCryptoAssetSecureAndProtectFromLossExtensibleEnumeration",
+				"dataType": "xbrli:enumerationSet",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"name": "srt:PlatformOperatorCryptoAssetTableTextBlock",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:CondensedStatementOfComprehensiveIncomeTableTextBlock"
+			},
+			{
+				"dataType": "xbrli:volume",
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesPurchasesOfMineralsInPlace",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xbrli:volume",
+				"nillable": true,
+				"name": "srt:OilAndGasDeliveryCommitmentsAndContractsRemainingContractualVolume"
+			},
+			{
+				"name": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesProductionCosts",
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				]
+			},
+			{
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"dataType": "xbrli:monetary",
+				"name": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesNetCashFlows",
+				"periodType": "instant",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"dataType": "xbrli:monetary",
+				"name": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesIncomeTaxExpense",
+				"periodType": "instant"
+			},
+			{
+				"name": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesDevelopmentCosts",
+				"periodType": "instant",
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"name": "srt:LifeInsuranceInForceNet",
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:LifeInsuranceInForcePercentageAssumedToNet"
+			},
+			{
+				"periodType": "instant",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"name": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesCashInflows"
+			},
+			{
+				"dataType": "xbrli:enumerationSet",
+				"enumerationDomain": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain_ExtensibleEnumerationLists_EDomain",
+				"nillable": true,
+				"name": "srt:PlatformOperatorCryptoAssetCryptographicKeyInformationExtensibleEnumeration",
+				"periodType": "instant"
+			},
+			{
+				"enumerationDomain": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsDomain_ExtensibleEnumerationLists_EDomain",
+				"nillable": true,
+				"name": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePeriodicPaymentTermsExtensibleEnumeration",
+				"dataType": "xbrli:enumerationSet",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:LifeInsuranceInForceAssumed",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"periodType": "instant",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				]
+			},
+			{
+				"nillable": true,
+				"name": "srt:LifeInsuranceInForceGross",
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"periodType": "instant"
+			},
+			{
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"name": "srt:LifeInsuranceInForceCeded",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"periodType": "instant"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesSaleOfMineralInPlaceEnergy",
+				"dataType": "xbrli:energy",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:energy",
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReserveExtensionAndDiscoveryEnergy"
+			},
+			{
+				"nillable": true,
+				"name": "srt:StockRepurchaseProgramExpirationDate",
+				"dataType": "xs:date",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReserveNetEnergyPeriodIncreaseDecrease",
+				"dataType": "xbrli:energy",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReserveProductionEnergy",
+				"dataType": "xbrli:energy",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:ProvedDevelopedAndUndevelopedReserveRevisionOfPreviousEstimateEnergy",
+				"periodType": "duration",
+				"dataType": "xbrli:energy",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:energy",
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReservePurchaseOfMineralInPlaceEnergy",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:PlatformOperatorCryptoAssetPolicyTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:energy",
+				"name": "srt:ProvedDevelopedAndUndevelopedReserveImprovedRecoveryEnergy"
+			},
+			{
+				"dataType": "xbrli:energy",
+				"name": "srt:ProvedDevelopedAndUndevelopedReserveNetEnergy",
+				"periodType": "instant",
+				"nillable": true
+			},
+			{
+				"name": "srt:OilAndGasStandardizedMeasureDiscountedFutureNetCashFlowDevelopmentAndProductionCosts",
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				]
+			},
+			{
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"periodType": "instant",
+				"name": "srt:OilAndGasProvedReserveQuantityGovernmentRequirementInclusionOfReserveOtherThanProved"
+			},
+			{
+				"name": "srt:FinancialInstrumentGlobalIdentifierFigi",
+				"dataType": "srt-types:financialInstrumentGlobalIdentifierItemType",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "srt:OilAndGasStandardizedMeasureDiscountedFutureNetCashFlowConsolidatedSubsidiaryWithNoncontrollingInterest",
+				"dataType": "xs:boolean",
+				"periodType": "instant"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"name": "srt:OilAndGasStandardizedMeasureDiscountedFutureNetCashFlowMineralInPlaceSalePurchase",
+				"nillable": true,
+				"periodType": "duration",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				]
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesProduction",
+				"periodType": "duration",
+				"dataType": "xbrli:volume"
+			},
+			{
+				"dataType": "xbrli:enumerationSet",
+				"enumerationDomain": "srt:SegmentGeographicalDomain_ExtensibleEnumerationLists_EDomain",
+				"periodType": "instant",
+				"name": "srt:OilAndGasProvedReserveQuantityGovernmentRequirementInclusionOfReserveOtherThanProvedNameOfCountryExtensibleEnumeration",
+				"nillable": true
+			},
+			{
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"periodType": "instant",
+				"nillable": true,
+				"name": "srt:OilAndGasStandardizedMeasureDiscountedFutureNetCashFlowConsolidatedSubsidiaryWithNoncontrollingInterestAmount",
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xbrli:volume",
+				"nillable": true,
+				"name": "srt:ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterestVolume"
+			},
+			{
+				"dataType": "xs:boolean",
+				"name": "srt:OilAndGasProvedReserveQuantityRoyaltyInterestOwnedNotAvailable",
+				"periodType": "instant",
+				"nillable": true
+			},
+			{
+				"name": "srt:OilAndGasProvedReserveQuantityGovernmentRestrictionExclusionFromDisclosedQuantityNameOfCountryExtensibleEnumeration",
+				"periodType": "instant",
+				"dataType": "xbrli:enumerationSet",
+				"enumerationDomain": "srt:SegmentGeographicalDomain_ExtensibleEnumerationLists_EDomain",
+				"nillable": true
+			},
+			{
+				"periodType": "instant",
+				"name": "srt:OilAndGasProvedReserveQuantityGovernmentRestrictionExclusionFromDisclosedQuantity",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"periodType": "instant",
+				"nillable": true,
+				"name": "srt:OilAndGasProvedReserveQuantityRoyaltyInterestOwnedNotAvailableOwnershipPercentage",
+				"dataType": "xbrli:percent"
+			},
+			{
+				"name": "srt:ContractualObligationFiscalYearMaturityScheduleTableTextBlock",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xs:boolean",
+				"name": "srt:ProvedReserveQuantityLocationInHomeCountry"
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"name": "srt:PlatformOperatorCryptoAssetHeldForUser",
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"dataType": "xs:boolean",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantOmittedInformation"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:enumerationSet",
+				"periodType": "duration",
+				"name": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantNameExtensibleEnumeration",
+				"enumerationDomain": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantNameDomain_ExtensibleEnumerationLists_EDomain"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:percent",
+				"periodType": "duration",
+				"name": "srt:FederalFundsSoldAverageYield"
+			},
+			{
+				"name": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantSeparateFiling",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"nillable": true,
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"name": "srt:AlternativeNetCapitalRequirement1"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"periodType": "duration",
+				"name": "srt:SecSchedule1217InsuranceCompaniesReinsuranceAndCoinsuranceIncomeNettedAgainstPremiumCeded",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"enumerationDomain": "srt:CryptoAssetDomain_ExtensibleEnumerationLists_EDomain",
+				"dataType": "xbrli:enumerationSet",
+				"name": "srt:PlatformOperatorCryptoAssetExtensibleEnumeration",
+				"nillable": true,
+				"periodType": "instant"
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"name": "srt:ScheduleOfCondensedIncomeStatementTableTextBlock",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"enumerationDomain": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain_ExtensibleEnumerationLists_EDomain",
+				"nillable": true,
+				"dataType": "xbrli:enumerationSet",
+				"periodType": "instant",
+				"name": "srt:PlatformOperatorCryptoAssetInternalRecordkeepingExtensibleEnumeration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:OilAndGasQuantitiesReceivedUnderLongTermSupplyAgreementsWithGovernmentsOrAuthorities",
+				"dataType": "xbrli:volume",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:PlatformOperatorCryptoAssetTextBlock"
+			},
+			{
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:FinancingReceivableBeforeAllowanceForCreditLossAverageYield",
+				"periodType": "duration"
+			},
+			{
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"name": "srt:SafeguardingLiabilityPlatformOperatorCryptoAsset",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"name": "srt:SafeguardingAssetPlatformOperatorCryptoAsset",
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"name": "srt:TaxableInvestmentSecuritiesAverageYield",
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xbrli:percent"
+			},
+			{
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:SavingsDepositLiabilitiesAverageRatePaid",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:TimeDepositLiabilitiesAverageRatePaid",
+				"dataType": "xbrli:percent",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:volume",
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesExtensionsDiscoveriesAndAdditions",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:NontaxableInvestmentSecuritiesAverageYield",
+				"periodType": "duration",
+				"dataType": "xbrli:percent"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:FinancingReceivableWriteoffAfterRecoveryToAverageOutstandingPercent"
+			},
+			{
+				"nillable": true,
+				"name": "srt:InterestBearingDepositsInBanksAverageYield",
+				"dataType": "xbrli:percent",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:percent",
+				"name": "srt:FinancingReceivableAllowanceForCreditLossToOutstandingPercent",
+				"periodType": "instant"
+			},
+			{
+				"dataType": "xs:boolean",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:GuarantorAndIssuerPreacquisitionSummarizedFinancialInformation"
+			},
+			{
+				"dataType": "xbrli:percent",
+				"name": "srt:FinancingReceivableNonaccrualToOutstandingPercent",
+				"periodType": "instant",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProvedOilAndGasReserveQuantitiesApplicableToLongTermSupplyAgreementsWithGovernmentsOrAuthorities",
+				"dataType": "xbrli:volume",
+				"periodType": "instant"
+			},
+			{
+				"periodType": "instant",
+				"name": "srt:FinancingReceivableAllowanceForCreditLossToNonaccrualPercent",
+				"nillable": true,
+				"dataType": "xbrli:percent"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:FederalFundsPurchasedAverageRatePaid"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"name": "srt:ScheduleOfChangesInStandardizedMeasureOfDiscountedFutureNetCashFlowsTableTextBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "srt:DemandDepositLiabilitiesInterestBearingAverageRatePaid",
+				"dataType": "xbrli:percent",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"periodType": "instant",
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"dataType": "xbrli:monetary",
+				"name": "srt:MortgageLoansOnRealEstateFederalIncomeTaxBasis1"
+			},
+			{
+				"name": "srt:MinimumRemainingTermsOfLeasesAndConcessionsOnUndevelopedAcreage1",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:duration"
+			},
+			{
+				"name": "srt:PreviouslyEstimatedDevelopmentCostsIncurred",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"periodType": "duration"
+			},
+			{
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"name": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAccretionOfDiscount"
+			},
+			{
+				"periodType": "instant",
+				"nillable": true,
+				"name": "srt:OilAndGasDeliveryCommitmentsAndContractsAvailableAmountsToBeReceived",
+				"dataType": "xbrli:volume"
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"name": "srt:MortgageLoansOnRealEstatePriorLiens1",
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				]
+			},
+			{
+				"name": "srt:SECScheduleIIIRealEstateNumberOfUnits",
+				"periodType": "duration",
+				"dataType": "xs:integer",
+				"nillable": true
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstatePeriodicPaymentTermsBalloonPaymentToBeReceived",
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				]
+			},
+			{
+				"periodType": "instant",
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesNet",
+				"dataType": "xbrli:volume"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:volume",
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesSalesOfMineralsInPlace"
+			},
+			{
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "srt:AffiliateGroupPreacquisitionSummarizedFinancialInformation",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true,
+				"name": "srt:AffiliateGroupSecurityPledgedAsCollateralNotMaterial"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:string",
+				"name": "srt:SECScheduleIIIRealEstateTransactionsWithAffiliatesDisclosure",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesImprovedRecovery",
+				"periodType": "duration",
+				"dataType": "xbrli:volume"
+			},
+			{
+				"name": "srt:AffiliateGroupSecurityPledgedAsCollateralNotMateriallyDifferent",
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "srt:AffiliateSecurityPledgedAsCollateralTradingMarket",
+				"periodType": "duration",
+				"dataType": "xs:boolean"
+			},
+			{
+				"name": "srt:SecuritiesPurchasedUnderAgreementsToResellAverageYield",
+				"periodType": "duration",
+				"dataType": "xbrli:percent",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:AffiliateCollateralizedSecurityTableTextBlock"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:AffiliateCollateralizedSecurityTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:ProvedDevelopedAndUndevelopedReservesRevisionsOfPreviousEstimatesIncreaseDecrease",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:volume"
+			},
+			{
+				"nillable": true,
+				"name": "srt:FinanceSubsidiaryIssuerGuaranteedByParent",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:FinanceSubsidiaryIssuerCoissuedWithParent",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:boolean"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:ShortTermInvestmentsOtherAverageYield"
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xs:boolean",
+				"name": "srt:ObligorGroupNotMateriallyDifferent"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:ObligorGroupNotMaterial",
+				"dataType": "xs:boolean"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "srt:DistributionOfAssetsLiabilitiesAndStockholdersEquityTableTextBlock"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:LongTermDebtAverageRatePaid"
+			},
+			{
+				"periodType": "duration",
+				"name": "srt:GuarantorAndIssuerGuaranteedSecurityTableTextBlock",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:ShortTermDebtOtherAverageRatePaid",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"name": "srt:GuarantorAndIssuerGuaranteedSecurityTextBlock",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "srt:InterestEarningAssetsAverageYield",
+				"dataType": "xbrli:percent",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "srt:FinancingReceivableCreditRatioTableTextBlock"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:CommercialPaperAverageRatePaid"
+			},
+			{
+				"name": "srt:FinancingReceivableCreditRatioTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "srt:FinancingReceivableBeforeAllowanceForCreditLossMaturityTableTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProductionBarrelsOfOilEquivalents1",
+				"dataType": "xbrli:energy",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:InterestRateAndInterestDifferentialAnalysisTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xbrli:energy",
+				"nillable": true,
+				"name": "srt:ProvedUndevelopedReserveBOE1"
+			},
+			{
+				"nillable": true,
+				"periodType": "instant",
+				"name": "srt:ProvedDevelopedReservesBOE1",
+				"dataType": "xbrli:energy"
+			},
+			{
+				"name": "srt:FinancingReceivableBeforeAllowanceForCreditLossMaturityTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "srt:InterestRateAndInterestDifferentialAnalysisTableTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:MinimumNetCapitalRequiredForBrokerDealerSubsidiary1",
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				]
+			},
+			{
+				"name": "srt:ReservesShareOfEquityMethodInvesteesNetProvedOilAndGasReserves",
+				"dataType": "xbrli:volume",
+				"nillable": true,
+				"periodType": "instant"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"name": "srt:RequiredNetCapitalUnderCommodityExchangeAct1",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"name": "srt:SecuritiesSoldUnderAgreementsToRepurchaseAverageRatePaid",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xbrli:percent",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:InterestBearingLiabilitiesAverageRatePaid"
+			},
+			{
+				"name": "srt:MinimumNetCapitalRequiredForEntity1",
+				"periodType": "instant",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"dataType": "xbrli:monetary",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "srt:DistributionOfAssetsLiabilitiesAndStockholdersEquityTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xbrli:percent",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:InterestEarningAssetsNetYield"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:ScheduleOfCondensedBalanceSheetTableTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:FinancingReceivableBeforeAllowanceForCreditLossToTotalPercent",
+				"periodType": "instant",
+				"dataType": "xbrli:percent",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"name": "srt:MinimumNetCapitalRequired1",
+				"periodType": "instant",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				]
+			},
+			{
+				"nillable": true,
+				"name": "srt:GasAndOilAreaDevelopedNet",
+				"periodType": "instant",
+				"dataType": "xbrli:area"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:area",
+				"name": "srt:GasAndOilAreaUndevelopedGross",
+				"periodType": "instant"
+			},
+			{
+				"nillable": true,
+				"name": "srt:GasAndOilAreaDevelopedGross",
+				"dataType": "xbrli:area",
+				"periodType": "instant"
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xbrli:area",
+				"nillable": true,
+				"name": "srt:GasAndOilAreaUndevelopedNet"
+			},
+			{
+				"name": "srt:ScheduleOfCondensedCashFlowStatementTableTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "srt:SecSchedule1229InvestmentInMortgageLoansOnRealEstateLocationOfPropertyExtensibleList",
+				"enumerationDomain": "srt:SegmentGeographicalDomain_ExtensibleEnumerationLists_EDomain",
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xbrli:enumerationSet"
+			},
+			{
+				"periodType": "instant",
+				"dataType": "xs:boolean",
+				"name": "srt:ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterest",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:date",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:RealEstateAndAccumulatedDepreciationDateAcquired1"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:date",
+				"name": "srt:RealEstateAndAccumulatedDepreciationDateOfConstruction1"
+			},
+			{
+				"dataType": "xs:string",
+				"name": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesCarryingAmountExplanation",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"name": "srt:RealEstateAndAccumulatedDepreciationDisclosureTextBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "srt:CondensedFinancialStatementsTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"name": "srt:ScheduleOfCondensedFinancialStatementsTableTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xbrli:sharesType",
+				"nillable": true,
+				"periodType": "instant",
+				"name": "srt:StockRepurchaseProgramNumberOfSharesAuthorizedToBeRepurchased"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:volume",
+				"name": "srt:ProvedUndevelopedReserveVolume",
+				"periodType": "instant"
+			},
+			{
+				"periodType": "duration",
+				"name": "srt:MortgageLoanOnRealEstateFinalMaturityDate",
+				"nillable": true,
+				"dataType": "xs:date"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"name": "srt:SalesAndTransfersOfOilAndGasProducedNetOfProductionCosts",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "instant",
+				"name": "srt:TwoPercentOfDebitItems",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"dataType": "xbrli:monetary",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:string",
+				"name": "srt:RealEstateWriteDownOrReserveBasis",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "srt:OilAndGasDeliveryCommitmentsAndContractsDisclosureTextBlock"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"name": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesOther",
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				]
+			},
+			{
+				"periodType": "duration",
+				"name": "srt:SupplementaryInsuranceInformationForInsuranceCompaniesDisclosureTextBlock",
+				"nillable": true,
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateInterestRate",
+				"dataType": "xbrli:percent",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ScheduleOfValuationAndQualifyingAccountsDisclosureTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"name": "srt:SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesTextBlock"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ScheduleOfSupplementalInformationForPropertyCasualtyInsuranceUnderwritersTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:BankLoans",
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"periodType": "instant",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"nillable": true,
+				"name": "srt:RevisionsOfPreviousQuantityEstimates"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"name": "srt:MortgageLoansOnRealEstatePrincipalAmountOfDelinquentLoans",
+				"periodType": "instant",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:string",
+				"name": "srt:SignificantChangesInReserves",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ScheduleOfProductiveWellsTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "srt:ScheduleOfProvedDevelopedAndUndevelopedOilAndGasReserveQuantitiesTextBlock"
+			},
+			{
+				"name": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReserves",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"periodType": "instant"
+			},
+			{
+				"nillable": true,
+				"name": "srt:StandardizedMeasureOfDiscountedFutureCashFlowsRelatingToProvedReservesDisclosureTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:OilAndGasNetProductionAverageSalesPriceAndAverageProductionCostsDisclosureTextBlock"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:MortgageLoansOnRealEstateByLoanDisclosureTextBlock"
+			},
+			{
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"name": "srt:MortgageLoansOnRealEstatePeriodicPaymentTerms",
+				"nillable": true
+			},
+			{
+				"name": "srt:ScheduleOfGasAndOilAcreageTextBlock",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:ScheduleOfDevelopmentWellsDrilledTextBlock"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "srt:ScheduleOfExploratoryWellsDrilledTextBlock"
+			},
+			{
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"name": "srt:MortgageLoansOnRealEstateFaceAmountOfMortgages",
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"nillable": true
+			},
+			{
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"name": "srt:RealEstateAndAccumulatedDepreciationAmountOfEncumbrances",
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"periodType": "duration",
+				"name": "srt:ScheduleOfOilAndGasInProcessActivitiesTextBlock",
+				"nillable": true,
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateWriteDownOrReserveBasis",
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:MortgageLoansOnRealEstatePeriodicPaymentTermsVaryingAmounts",
+				"dataType": "xs:string"
+			},
+			{
+				"nillable": true,
+				"dataType": "xs:integer",
+				"periodType": "instant",
+				"name": "srt:ProductiveGasWellsNumberOfWellsNet"
+			},
+			{
+				"nillable": true,
+				"name": "srt:ProductiveOilWellsNumberOfWellsGross",
+				"dataType": "xs:integer",
+				"periodType": "instant"
+			},
+			{
+				"dataType": "xs:integer",
+				"periodType": "instant",
+				"nillable": true,
+				"name": "srt:ProductiveGasWellsNumberOfWellsGross"
+			},
+			{
+				"nillable": true,
+				"periodType": "instant",
+				"dataType": "xs:integer",
+				"name": "srt:ProductiveOilWellsNumberOfWellsNet"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"name": "srt:MortgageLoansOnRealEstateCollectionsOfPrincipal",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"periodType": "instant",
+				"name": "srt:PayablesToBrokerDealersAndClearingOrganizations",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "srt:MinimumFinancialRequirementsForFuturesCommissionMerchantsUnderCommodityExchangeActTextBlock"
+			},
+			{
+				"name": "srt:PayablesToCustomers",
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"name": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesPeriodIncreaseDecrease",
+				"dataType": "xbrli:monetary",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "srt:AverageSalesPrices",
+				"dataType": "srt-types:perUnitItemType",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "srt:NetCapitalUnderCommodityExchangeActComputation",
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				]
+			},
+			{
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"nillable": true,
+				"dataType": "xbrli:monetary",
+				"periodType": "duration",
+				"name": "srt:NetIncreaseDecreaseInSalesAndTransferPricesAndProductionCosts"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"name": "srt:NetCapital",
+				"periodType": "instant"
+			},
+			{
+				"name": "srt:RealEstateOtherDisclosures",
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "srt:NetCapitalInExcessOfFivePercentOfDebitItems",
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"name": "srt:IncreaseDecreaseInFutureIncomeTaxExpenseEstimatesOnFutureCashFlowsRelatedToProvedOilAndGasReserves",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"periodType": "duration",
+				"name": "srt:IncreaseDecreaseInEstimatedFutureDevelopmentCosts",
+				"dataType": "xbrli:monetary",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"name": "srt:CapitalRequirementOfConsolidatedBrokerDealerSubsidiaryElectingAlternativeMethod"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"name": "srt:IncreaseDueToPurchasesOfMineralsInPlace",
+				"nillable": true,
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"periodType": "instant",
+				"name": "srt:RealEstateFederalIncomeTaxBasis",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "debit"
+					}
+				],
+				"periodType": "duration",
+				"name": "srt:ExtensionsDiscoveriesAdditionsAndImprovedRecoveryLessRelatedCosts",
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:integer",
+				"nillable": true,
+				"name": "srt:ExploratoryWellsDrilledNetNonproductive"
+			},
+			{
+				"dataType": "xs:integer",
+				"periodType": "duration",
+				"name": "srt:ExploratoryWellsDrilledNetProductive",
+				"nillable": true
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateRenewedAndExtended",
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "instant",
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				],
+				"name": "srt:NetCapitalExcessShortageUnderCommodityExchangeAct",
+				"dataType": "xbrli:monetary",
+				"nillable": true
+			},
+			{
+				"name": "srt:AlternativeExcessNetCapital",
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"nillable": true,
+				"periodType": "instant",
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"periodType": "instant",
+				"dataType": "xbrli:monetary",
+				"nillable": true,
+				"name": "srt:DraftsPayable"
+			},
+			{
+				"dataType": "xbrli:monetary",
+				"name": "srt:ExcessNetCapitalAt1500Percent",
+				"periodType": "instant",
+				"nillable": true,
+				"properties": [
+					{
+						"value": "credit",
+						"property": "xbrla:balance"
+					}
+				]
+			},
+			{
+				"dataType": "xs:decimal",
+				"name": "srt:ProductiveOilWellsNumberOfWellsWithMultipleCompletionsGross",
+				"nillable": true,
+				"periodType": "instant"
+			},
+			{
+				"name": "srt:SignificantEconomicInterestInStandardizedMeasureOfDiscountedFutureNetCashFlowsAttributableToConsolidatedSubsidiaryIesWithSignificantMinorityInterests",
+				"periodType": "duration",
+				"nillable": true,
+				"dataType": "xs:string"
+			},
+			{
+				"periodType": "instant",
+				"nillable": true,
+				"name": "srt:ProductiveOilWellsNumberOfWellsWithMultipleCompletionsNet",
+				"dataType": "xs:decimal"
+			},
+			{
+				"name": "srt:WellsInProcessOfDrilling",
+				"dataType": "xs:decimal",
+				"periodType": "instant",
+				"nillable": true
+			},
+			{
+				"name": "srt:DevelopmentWellsDrilledNetProductive",
+				"dataType": "xs:integer",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"dataType": "xs:string",
+				"nillable": true,
+				"name": "srt:DescriptionOfSignificantProvisionsOfLongTermObligationsOfParentCompany",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:DescriptionOfMaterialContingenciesOfParentCompany"
+			},
+			{
+				"name": "srt:WellsTemporarilySuspended",
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xs:decimal"
+			},
+			{
+				"name": "srt:DevelopmentWellsDrilledNetNonproductive",
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xs:integer"
+			},
+			{
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:MortgageLoansOnRealEstateReserves"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:integer",
+				"nillable": true,
+				"name": "srt:MortgageLoansOnRealEstateNumberOfLoans"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "srt:DescriptionOfMandatoryDividendOrRedemptionProvisionsOfRedeemableStockOfParentCompany",
+				"dataType": "xs:string"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xs:string",
+				"nillable": true,
+				"name": "srt:DescriptionOfNetCapitalRequirementsUnderCommodityExchangeAct"
+			},
+			{
+				"nillable": true,
+				"name": "srt:MortgageLoansOnRealEstatePeriodicPaymentTermsLevelPayments",
+				"dataType": "xs:string",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateTransactionsWithAffiliates",
+				"periodType": "duration",
+				"dataType": "xs:string",
+				"nillable": true
+			},
+			{
+				"name": "srt:DescriptionOfGuaranteesGivenByParentCompany",
+				"dataType": "xs:string",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"periodType": "instant",
+				"nillable": true,
+				"dataType": "xs:decimal",
+				"name": "srt:OilAndGasDeliveryCommitmentsAndContractsSignificantSuppliesDedicatedOrContractedToEntity"
+			},
+			{
+				"name": "srt:ComputationOfNetCapitalUnderSecuritiesAndExchangeCommissionRegulationTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"name": "srt:DecreaseDueToSalesOfMineralsInPlace",
+				"nillable": true,
+				"properties": [
+					{
+						"property": "xbrla:balance",
+						"value": "credit"
+					}
+				],
+				"dataType": "xbrli:monetary",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "srt-types:perUnitItemType",
+				"name": "srt:ConsolidatedOilAndGasProductionCostsPerUnitOfProduction",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:volume",
+				"periodType": "instant",
+				"name": "srt:ProvedDevelopedReservesVolume"
+			},
+			{
+				"periodType": "instant",
+				"properties": [
+					{
+						"value": "debit",
+						"property": "xbrla:balance"
+					}
+				],
+				"name": "srt:MortgageLoansOnRealEstateDelinquentPrincipalOrInterestAcquiredFromAffiliates",
+				"nillable": true,
+				"dataType": "xbrli:monetary"
+			},
+			{
+				"nillable": true,
+				"name": "srt:AdditionalInformationNecessaryToPreventDisclosureOfDiscountsFutureNetCashFlowsFromBeingMisleading",
+				"dataType": "xs:string",
+				"periodType": "duration"
+			},
+			{
+				"name": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			}
+		],
+		"domainClasses": [
+			{
+				"name": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsDomain"
+			},
+			{
+				"name": "srt:CryptoAssetDomain"
+			},
+			{
+				"name": "srt:RangeMember"
+			},
+			{
+				"name": "srt:SegmentGeographicalDomain"
+			},
+			{
+				"name": "srt:NameOfMajorCustomerDomain"
+			},
+			{
+				"name": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain"
+			},
+			{
+				"name": "srt:RepurchaseAgreementCounterpartyNameDomain"
+			},
+			{
+				"name": "srt:ConsolidationItemsDomain"
+			},
+			{
+				"name": "srt:ProductsAndServicesDomain"
+			},
+			{
+				"name": "srt:TitleOfIndividualWithRelationshipToEntityDomain"
+			},
+			{
+				"name": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantNameDomain"
+			}
+		],
+		"domains": [
+			{
+				"root": "srt:CryptoAssetDomain",
+				"relationships": [
+					{
+						"target": "srt:CryptoAssetOtherMember",
+						"source": "srt:CryptoAssetDomain",
+						"order": 10
+					}
+				],
+				"name": "srt:CryptoAssetDomain_ExtensibleEnumerationLists_EDomain"
+			},
+			{
+				"root": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsDomain",
+				"relationships": [
+					{
+						"order": 10,
+						"target": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsLevelMember",
+						"source": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsDomain"
+					},
+					{
+						"target": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsVaryingMember",
+						"source": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsDomain",
+						"order": 20
+					}
+				],
+				"name": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsDomain_ExtensibleEnumerationLists_EDomain"
+			},
+			{
+				"root": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantNameDomain",
+				"relationships": [
+					{
+						"order": 10,
+						"target": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantOtherMember",
+						"source": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantNameDomain"
+					}
+				],
+				"name": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantNameDomain_ExtensibleEnumerationLists_EDomain"
+			},
+			{
+				"root": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain",
+				"relationships": [
+					{
+						"order": 10,
+						"source": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain",
+						"target": "srt:PlatformOperatorCryptoAssetAgentMember"
+					},
+					{
+						"order": 20,
+						"target": "srt:PlatformOperatorCryptoAssetEntityMember",
+						"source": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain"
+					},
+					{
+						"target": "srt:PlatformOperatorCryptoAssetPlatformUserMember",
+						"source": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain",
+						"order": 30
+					},
+					{
+						"source": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain",
+						"target": "srt:PlatformOperatorCryptoAssetThirdPartyMember",
+						"order": 40
+					}
+				],
+				"name": "srt:PlatformOperatorCryptoAssetResponsiblePartyDomain_ExtensibleEnumerationLists_EDomain"
+			},
+			{
+				"relationships": [
+					{
+						"order": 10,
+						"target": "srt:ManagementMember",
+						"source": "srt:TitleOfIndividualWithRelationshipToEntityDomain"
+					},
+					{
+						"target": "srt:BoardOfDirectorsChairmanMember",
+						"source": "srt:ManagementMember",
+						"order": 10
+					},
+					{
+						"order": 20,
+						"source": "srt:ManagementMember",
+						"target": "srt:DirectorMember"
+					},
+					{
+						"order": 30,
+						"target": "srt:ExecutiveOfficerMember",
+						"source": "srt:ManagementMember"
+					},
+					{
+						"target": "srt:ChiefExecutiveOfficerMember",
+						"source": "srt:ManagementMember",
+						"order": 40
+					},
+					{
+						"source": "srt:ManagementMember",
+						"order": 50,
+						"target": "srt:ChiefFinancialOfficerMember"
+					},
+					{
+						"order": 60,
+						"target": "srt:ChiefOperatingOfficerMember",
+						"source": "srt:ManagementMember"
+					},
+					{
+						"source": "srt:ManagementMember",
+						"order": 70,
+						"target": "srt:ControllerMember"
+					},
+					{
+						"source": "srt:ManagementMember",
+						"order": 80,
+						"target": "srt:ExecutiveVicePresidentMember"
+					},
+					{
+						"target": "srt:VicePresidentMember",
+						"source": "srt:ManagementMember",
+						"order": 90
+					},
+					{
+						"source": "srt:ManagementMember",
+						"order": 100,
+						"target": "srt:PresidentMember"
+					},
+					{
+						"source": "srt:ManagementMember",
+						"order": 110,
+						"target": "srt:OfficerMember"
+					}
+				],
+				"name": "srt:TitleOfIndividualWithRelationshipToEntityDomain_ExtensibleEnumerationLists_EDomain",
+				"root": "srt:TitleOfIndividualWithRelationshipToEntityDomain"
+			},
+			{
+				"root": "srt:NameOfMajorCustomerDomain",
+				"name": "srt:NameOfMajorCustomerDomain_ExtensibleEnumerationLists_EDomain"
+			},
+			{
+				"root": "srt:RepurchaseAgreementCounterpartyNameDomain",
+				"name": "srt:RepurchaseAgreementCounterpartyNameDomain_ExtensibleEnumerationLists_EDomain"
+			},
+			{
+				"name": "srt:SegmentGeographicalDomain_ExtensibleEnumerationLists_EDomain",
+				"root": "srt:SegmentGeographicalDomain"
+			},
+			{
+				"root": "srt:RangeMember",
+				"relationships": [
+					{
+						"order": 0,
+						"source": "srt:RangeMember",
+						"target": "srt:MinimumMember"
+					},
+					{
+						"target": "srt:MaximumMember",
+						"order": 1,
+						"source": "srt:RangeMember"
+					}
+				],
+				"name": "srt:RangeMember_IncomeTaxesAdditionalInformationDetails_DDomain"
+			},
+			{
+				"root": "srt:ConsolidationItemsDomain",
+				"name": "srt:ConsolidationItemsDomain_SegmentInformationandGeographicDataInformationbyReportableSegmentDetails_DDomain"
+			},
+			{
+				"root": "srt:SegmentGeographicalDomain",
+				"name": "srt:SegmentGeographicalDomain_SegmentInformationandGeographicDataNetSalesforCountriesthatIndividuallyAccountedforMorethan10oftheTotalDetails_DDomain"
+			},
+			{
+				"name": "srt:NameOfMajorCustomerDomain_FinancialInstrumentsAdditionalInformationDetails_DDomain",
+				"root": "srt:NameOfMajorCustomerDomain"
+			},
+			{
+				"root": "srt:SegmentGeographicalDomain",
+				"name": "srt:SegmentGeographicalDomain_SegmentInformationandGeographicDataLongLivedAssetsforCountriesthatIndividuallyAccountedforMorethan10oftheTotalDetails_DDomain"
+			},
+			{
+				"root": "srt:RangeMember",
+				"name": "srt:RangeMember_LeasesAdditionalInformationDetails_DDomain",
+				"relationships": [
+					{
+						"source": "srt:RangeMember",
+						"target": "srt:MinimumMember",
+						"order": 0
+					},
+					{
+						"order": 1,
+						"source": "srt:RangeMember",
+						"target": "srt:MaximumMember"
+					}
+				]
+			},
+			{
+				
+				"name": "srt:ProductsAndServicesDomain_CONSOLIDATEDSTATEMENTSOFOPERATIONS_DDomain",
+				"root": "srt:ProductsAndServicesDomain"
+			},
+			{
+				"name": "srt:ProductsAndServicesDomain_RevenueDisaggregatedNetSalesandPortionofNetSalesThatWasPreviouslyDeferredDetails_DDomain",
+				"root": "srt:ProductsAndServicesDomain"
+			},
+			{
+				"root": "srt:RangeMember",
+				"name": "srt:RangeMember_DebtSummaryofTermDebtDetails_DDomain",
+				"relationships": [
+					{
+						"target": "srt:MinimumMember",
+						"source": "srt:RangeMember",
+						"order": 0
+					},
+					{
+						"order": 1,
+						"source": "srt:RangeMember",
+						"target": "srt:MaximumMember"
+					}
+				]
+			}
+		],
+		"cubes": [
+			
+		],
+		"members": [
+			{
+				"name": "srt:PlatformOperatorCryptoAssetAgentMember"
+			},
+			{
+				"name": "srt:PlatformOperatorCryptoAssetEntityMember"
+			},
+			{
+				"name": "srt:PlatformOperatorCryptoAssetThirdPartyMember"
+			},
+			{
+				"name": "srt:PlatformOperatorCryptoAssetPlatformUserMember"
+			},
+			{
+				"name": "srt:OtherCurrencyMember"
+			},
+			{
+				"name": "srt:SecSchedule1218SupplementalInformationPropertyCasualtyInsuranceUnderwritersAffiliatedRegistrantOtherMember"
+			},
+			{
+				"name": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsLevelMember"
+			},
+			{
+				"name": "srt:SecSchedule1229RealEstateCompanyInvestmentInMortgageLoanOnRealEstatePaymentTermsVaryingMember"
+			},
+			{
+				"name": "srt:ConsolidatedPropertyAndCasualtyInsuranceEntityMember"
+			},
+			{
+				"name": "srt:EquityMethodInvesteeNameDomain"
+			},
+			{
+				"name": "srt:RestatementAdjustmentMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankAdvancesBranchOfFHLBBankStateDomain"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateLoanCategoryDomain"
+			},
+			{
+				"name": "srt:EquityInvestmentInPropertyAndCasualtyInsuranceInvesteeMember"
+			},
+			{
+				"name": "srt:RealEstateAndAccumulatedDepreciationNameOfPropertyDomain"
+			},
+			{
+				"name": "srt:RetailSiteMember"
+			},
+			{
+				"name": "srt:PropertyCasualtyInsuranceUnderwritersAffiliationWithRegistrantDomain"
+			},
+			{
+				"name": "srt:UnconsolidatedPropertyAndCasualtyInsuranceEntityMember"
+			},
+			{
+				"name": "srt:ConsolidationEliminationsMember"
+			},
+			{
+				"name": "srt:SubsidiariesMember"
+			},
+			{
+				"name": "srt:AffiliatedEntityMember"
+			},
+			{
+				"name": "srt:ManagementMember"
+			},
+			{
+				"name": "srt:BoardOfDirectorsChairmanMember"
+			},
+			{
+				"name": "srt:DirectorMember"
+			},
+			{
+				"name": "srt:ExecutiveOfficerMember"
+			},
+			{
+				"name": "srt:ChiefExecutiveOfficerMember"
+			},
+			{
+				"name": "srt:ChiefFinancialOfficerMember"
+			},
+			{
+				"name": "srt:ChiefOperatingOfficerMember"
+			},
+			{
+				"name": "srt:ControllerMember"
+			},
+			{
+				"name": "srt:ExecutiveVicePresidentMember"
+			},
+			{
+				"name": "srt:VicePresidentMember"
+			},
+			{
+				"name": "srt:PresidentMember"
+			},
+			{
+				"name": "srt:OfficerMember"
+			},
+			{
+				"name": "srt:PartnershipInterestMember"
+			},
+			{
+				"name": "srt:CrudeOilAndNGLPerBarrelMember"
+			},
+			{
+				"name": "srt:NaturalGasPerThousandCubicFeetMember"
+			},
+			{
+				"name": "srt:ScenarioUnspecifiedDomain"
+			},
+			{
+				"name": "srt:ScenarioForecastMember"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateNamePropertyTypeDomain"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateWriteDownOrReserveLoanDomain"
+			},
+			{
+				"name": "srt:ParentCompanyMember"
+			},
+			{
+				"name": "srt:TypeOfReserveDomain"
+			},
+			{
+				"name": "srt:NaturalGasReservesMember"
+			},
+			{
+				"name": "srt:NaturalGasLiquidsReservesMember"
+			},
+			{
+				"name": "srt:OilReservesMember"
+			},
+			{
+				"name": "srt:ScenarioPreviouslyReportedMember"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateLoanTypeDomain"
+			},
+			{
+				"name": "srt:GuarantorSubsidiariesMember"
+			},
+			{
+				"name": "srt:NonGuarantorSubsidiariesMember"
+			},
+			{
+				"name": "srt:MortgageLoansOnRealEstateOriginalLoanAmountDomain"
+			},
+			{
+				"name": "srt:MortgageLoansUnder250000Member"
+			},
+			{
+				"name": "srt:MortgageLoansBetween250000And499999Member"
+			},
+			{
+				"name": "srt:MortgageLoansBetween500000And749999Member"
+			},
+			{
+				"name": "srt:MortgageLoansBetween750000And999999Member"
+			},
+			{
+				"name": "srt:MortgageLoansOver1000000Member"
+			},
+			{
+				"name": "srt:ExternalCreditRatingMoodysMember"
+			},
+			{
+				"name": "srt:ExternalCreditRatingStandardPoorsMember"
+			},
+			{
+				"name": "srt:StandardPoorsAAARatingMember"
+			},
+			{
+				"name": "srt:FitchAAARatingMember"
+			},
+			{
+				"name": "srt:ExternalCreditRatingFitchMember"
+			},
+			{
+				"name": "srt:StandardPoorsAAPlusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsAARatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsAAMinusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsAPlusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsARatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsAMinusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBBBPlusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBBBRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBBBMinusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBBPlusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBBRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBBMinusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBPlusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsBMinusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsCCCPlusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsCCCRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsCCCMinusRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsCCRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsCRatingMember"
+			},
+			{
+				"name": "srt:StandardPoorsDRatingMember"
+			},
+			{
+				"name": "srt:FitchAAPlusRatingMember"
+			},
+			{
+				"name": "srt:FitchAARatingMember"
+			},
+			{
+				"name": "srt:FitchAAMinusRatingMember"
+			},
+			{
+				"name": "srt:FitchAPlusRatingMember"
+			},
+			{
+				"name": "srt:FitchARatingMember"
+			},
+			{
+				"name": "srt:FitchAMinusRatingMember"
+			},
+			{
+				"name": "srt:FitchBBBPlusRatingMember"
+			},
+			{
+				"name": "srt:FitchBBBRatingMember"
+			},
+			{
+				"name": "srt:FitchBBBMinusRatingMember"
+			},
+			{
+				"name": "srt:FitchBBPlusRatingMember"
+			},
+			{
+				"name": "srt:FitchBBRatingMember"
+			},
+			{
+				"name": "srt:FitchBBMinusRatingMember"
+			},
+			{
+				"name": "srt:FitchBPlusRatingMember"
+			},
+			{
+				"name": "srt:CryptoAssetOtherMember"
+			},
+			{
+				"name": "srt:FitchBRatingMember"
+			},
+			{
+				"name": "srt:FitchBMinusRatingMember"
+			},
+			{
+				"name": "srt:FitchCCCPlusRatingMember"
+			},
+			{
+				"name": "srt:FitchCCCRatingMember"
+			},
+			{
+				"name": "srt:FitchCCCMinusRatingMember"
+			},
+			{
+				"name": "srt:FitchCCRatingMember"
+			},
+			{
+				"name": "srt:FitchCRatingMember"
+			},
+			{
+				"name": "srt:FitchDRatingMember"
+			},
+			{
+				"name": "srt:MoodysAaaRatingMember"
+			},
+			{
+				"name": "srt:MoodysAa1RatingMember"
+			},
+			{
+				"name": "srt:MoodysAa2RatingMember"
+			},
+			{
+				"name": "srt:MoodysAa3RatingMember"
+			},
+			{
+				"name": "srt:MoodysA1RatingMember"
+			},
+			{
+				"name": "srt:MoodysA2RatingMember"
+			},
+			{
+				"name": "srt:MoodysA3RatingMember"
+			},
+			{
+				"name": "srt:MoodysBaa1RatingMember"
+			},
+			{
+				"name": "srt:MoodysBaa2RatingMember"
+			},
+			{
+				"name": "srt:MoodysBaa3RatingMember"
+			},
+			{
+				"name": "srt:MoodysBa1RatingMember"
+			},
+			{
+				"name": "srt:MoodysBa2RatingMember"
+			},
+			{
+				"name": "srt:MoodysBa3RatingMember"
+			},
+			{
+				"name": "srt:MoodysB1RatingMember"
+			},
+			{
+				"name": "srt:MoodysB2RatingMember"
+			},
+			{
+				"name": "srt:MoodysB3RatingMember"
+			},
+			{
+				"name": "srt:MoodysCaa1RatingMember"
+			},
+			{
+				"name": "srt:MoodysCaa2RatingMember"
+			},
+			{
+				"name": "srt:MoodysCaa3RatingMember"
+			},
+			{
+				"name": "srt:MoodysCaRatingMember"
+			},
+			{
+				"name": "srt:MoodysCRatingMember"
+			},
+			{
+				"name": "srt:SyntheticOilMember"
+			},
+			{
+				"name": "srt:SyntheticGasMember"
+			},
+			{
+				"name": "srt:OtherNonrenewableNaturalResourcesMember"
+			},
+			{
+				"name": "srt:MaximumMember"
+			},
+			{
+				"name": "srt:MinimumMember"
+			},
+			{
+				"name": "srt:AircraftTypeMember"
+			},
+			{
+				"name": "srt:FuelMember"
+			},
+			{
+				"name": "srt:CrudeOilMember"
+			},
+			{
+				"name": "srt:HeatingOilMember"
+			},
+			{
+				"name": "srt:SubsidiaryIssuerMember"
+			},
+			{
+				"name": "srt:LitigationCaseTypeDomain"
+			},
+			{
+				"name": "srt:ProFormaMember"
+			},
+			{
+				"name": "srt:ShareRepurchaseProgramDomain"
+			},
+			{
+				"name": "srt:ApartmentBuildingMember"
+			},
+			{
+				"name": "srt:ConsolidatedEntityExcludingVariableInterestEntitiesVIEMember"
+			},
+			{
+				"name": "srt:WarehouseMember"
+			},
+			{
+				"name": "srt:IndustrialPropertyMember"
+			},
+			{
+				"name": "srt:OfficeBuildingMember"
+			},
+			{
+				"name": "srt:HotelMember"
+			},
+			{
+				"name": "srt:OtherPropertyMember"
+			},
+			{
+				"name": "srt:B737800Member"
+			},
+			{
+				"name": "srt:B757200Member"
+			},
+			{
+				"name": "srt:B777200Member"
+			},
+			{
+				"name": "srt:A320200Member"
+			},
+			{
+				"name": "srt:A330200Member"
+			},
+			{
+				"name": "srt:B737700Member"
+			},
+			{
+				"name": "srt:WeightedAverageMember"
+			},
+			{
+				"name": "srt:CreditRatingAMBestDomain"
+			},
+			{
+				"name": "srt:AMBestAPlusPlusRatingMember"
+			},
+			{
+				"name": "srt:AMBestAPlusRatingMember"
+			},
+			{
+				"name": "srt:AMBestARatingMember"
+			},
+			{
+				"name": "srt:AMBestAMinusRatingMember"
+			},
+			{
+				"name": "srt:AMBestBPlusPlusRatingMember"
+			},
+			{
+				"name": "srt:AMBestBPlusRatingMember"
+			},
+			{
+				"name": "srt:AMBestBRatingMember"
+			},
+			{
+				"name": "srt:AMBestBMinusRatingMember"
+			},
+			{
+				"name": "srt:AMBestCPlusPlusRatingMember"
+			},
+			{
+				"name": "srt:AMBestCPlusRatingMember"
+			},
+			{
+				"name": "srt:AMBestCRatingMember"
+			},
+			{
+				"name": "srt:AMBestCMinusRatingMember"
+			},
+			{
+				"name": "srt:AMBestDRatingMember"
+			},
+			{
+				"name": "srt:AMBestERatingMember"
+			},
+			{
+				"name": "srt:AMBestFRatingMember"
+			},
+			{
+				"name": "srt:AMBestSRatingMember"
+			},
+			{
+				"name": "srt:ReportableGeographicalComponentsMember"
+			},
+			{
+				"name": "srt:GeographyEliminationsMember"
+			},
+			{
+				"name": "srt:ReportableLegalEntitiesMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfAtlantaMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfBostonMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfChicagoMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfCincinnatiMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfDallasMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfDesMoinesMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfIndianapolisMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfNewYorkMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfPittsburghMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfSanFranciscoMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfSeattleMember"
+			},
+			{
+				"name": "srt:FederalHomeLoanBankOfTopekaMember"
+			},
+			{
+				"name": "srt:EuropeMember"
+			},
+			{
+				"name": "srt:AsiaMember"
+			},
+			{
+				"name": "srt:NorthAmericaMember"
+			},
+			{
+				"name": "srt:SouthAmericaMember"
+			},
+			{
+				"name": "srt:AfricaMember"
+			},
+			{
+				"name": "srt:AmericasMember"
+			},
+			{
+				"name": "srt:AsiaPacificMember"
+			},
+			{
+				"name": "srt:CentralAmericaMember"
+			},
+			{
+				"name": "srt:LatinAmericaMember"
+			},
+			{
+				"name": "srt:EnergyDomain"
+			},
+			{
+				"name": "srt:B737Member"
+			},
+			{
+				"name": "srt:B717Member"
+			},
+			{
+				"name": "srt:B717200Member"
+			},
+			{
+				"name": "srt:B737900Member"
+			},
+			{
+				"name": "srt:B737MaxMember"
+			},
+			{
+				"name": "srt:B737820Member"
+			},
+			{
+				"name": "srt:B757Member"
+			},
+			{
+				"name": "srt:B757223Member"
+			},
+			{
+				"name": "srt:B767Member"
+			},
+			{
+				"name": "srt:B767200Member"
+			},
+			{
+				"name": "srt:B767300Member"
+			},
+			{
+				"name": "srt:B767323Member"
+			},
+			{
+				"name": "srt:B777Member"
+			},
+			{
+				"name": "srt:B777223Member"
+			},
+			{
+				"name": "srt:B777300Member"
+			},
+			{
+				"name": "srt:A320Member"
+			},
+			{
+				"name": "srt:A320NeoMember"
+			},
+			{
+				"name": "srt:A312Member"
+			},
+			{
+				"name": "srt:A300Member"
+			},
+			{
+				"name": "srt:A330Member"
+			},
+			{
+				"name": "srt:CRJMember"
+			},
+			{
+				"name": "srt:CRJ700Member"
+			},
+			{
+				"name": "srt:CRJ900Member"
+			},
+			{
+				"name": "srt:CRJ200Member"
+			},
+			{
+				"name": "srt:EMBMember"
+			},
+			{
+				"name": "srt:EMB120Member"
+			},
+			{
+				"name": "srt:EMB135Member"
+			},
+			{
+				"name": "srt:EMB145Member"
+			},
+			{
+				"name": "srt:MultifamilyMember"
+			},
+			{
+				"name": "srt:SingleFamilyMember"
+			},
+			{
+				"name": "srt:ConsolidatedEntitiesDomain"
+			},
+			{
+				"name": "srt:OwnershipDomain"
+			},
+			{
+				"name": "srt:RestatementDomain"
+			},
+			{
+				"name": "srt:MedianMember"
+			},
+			{
+				"name": "srt:ArithmeticAverageMember"
+			},
+			{
+				"name": "srt:CumulativeEffectPeriodOfAdoptionDomain"
+			},
+			{
+				"name": "srt:CumulativeEffectPeriodOfAdoptionAdjustmentMember"
+			},
+			{
+				"name": "srt:CumulativeEffectPeriodOfAdoptionAdjustedBalanceMember"
+			},
+			{
+				"name": "srt:RevisionOfPriorPeriodErrorCorrectionAdjustmentMember"
+			},
+			{
+				"name": "srt:RevisionOfPriorPeriodAccountingStandardsUpdateAdjustmentMember"
+			},
+			{
+				"name": "srt:RevisionOfPriorPeriodChangeInAccountingPrincipleAdjustmentMember"
+			},
+			{
+				"name": "srt:RevisionOfPriorPeriodReclassificationAdjustmentMember"
+			},
+			{
+				"name": "srt:InterestEarningAssetAndInterestBearingLiabilityInterestChangeInVolumeMember"
+			},
+			{
+				"name": "srt:InterestEarningAssetAndInterestBearingLiabilityInterestChangeInRateMember"
+			},
+			{
+				"name": "srt:ObligorGroupMember"
+			},
+			{
+				"name": "srt:ReportableLegalEntityObligorGroupAfterEliminationMember"
+			},
+			{
+				"name": "srt:ConsolidationEliminationObligorGroupMember"
+			},
+			{
+				"name": "srt:ConsolidationEliminationObligorGroupAndNonobligorSubsidiaryMember"
+			},
+			{
+				"name": "srt:ReportableLegalEntityAffiliateGroupSecurityPledgedAsCollateralAfterEliminationMember"
+			},
+			{
+				"name": "srt:ConsolidationEliminationAffiliateGroupAndRegistrantMember"
+			},
+			{
+				"name": "srt:ConsolidationEliminationAffiliateGroupAndNotPartOfAffiliateGroupMember"
+			},
+			{
+				"name": "srt:InterestEarningAssetAndInterestBearingLiabilityInterestChangeTypeDomain"
+			}
+		],
+		"dimensions": [
+			{
+				"name": "srt:MajorCustomersAxis",
+				"domainClass": "srt:NameOfMajorCustomerDomain"
+			},
+			{
+				"domainClass": "srt:RangeMember",
+				"name": "srt:RangeAxis"
+			},
+			{
+				"domainClass": "srt:SegmentGeographicalDomain",
+				"name": "srt:StatementGeographicalAxis"
+			},
+			{
+				"name": "srt:ConsolidationItemsAxis",
+				"domainClass": "srt:ConsolidationItemsDomain"
+			},
+			{
+				"domainClass": "srt:ProductsAndServicesDomain",
+				"name": "srt:ProductOrServiceAxis"
+			}
+		]
+	}
+}

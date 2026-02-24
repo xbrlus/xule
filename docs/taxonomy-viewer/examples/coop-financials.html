@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>REBNY Financial Statement — Fillable Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#fff; --muted:#6b7280; --accent:#0f172a;
+    --field-bg:#fbfdff; --line:#e6e9ef;
+  }
+  html,body{height:100%; margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; background:var(--bg); color:var(--accent);}
+  .wrap{max-width:1100px; margin:28px auto; padding:22px; background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95)); border-radius:10px; box-shadow:0 6px 20px rgba(15,23,42,0.06);}
+  header{display:flex; align-items:flex-start; gap:18px; margin-bottom:8px;}
+  header img{height:36px;}
+  h1{font-size:20px; margin:0; font-weight:700;}
+  .meta{display:flex; gap:10px; margin-top:8px; align-items:center;}
+  .meta label{font-size:13px; color:var(--muted); min-width:86px;}
+  .meta input{padding:8px 10px; border:1px solid var(--line); border-radius:6px; background:var(--field-bg); min-width:260px;}
+  .grid{display:grid; gap:18px; grid-template-columns: 1fr;}
+  /* Monthly / Assets & Liabilities layout */
+  .row{display:flex; gap:18px;}
+  .card{background:var(--card); padding:14px; border-radius:8px; border:1px solid var(--line); box-shadow:0 2px 6px rgba(15,23,42,0.02);}
+  .two-col{display:grid; grid-template-columns: 1fr 550px; gap:18px;}
+  .section-title{font-weight:700; font-size:14px; margin-bottom:8px;}
+  table{width:100%; border-collapse:collapse;}
+  th,td{padding:6px 8px; border-bottom:1px dashed var(--line); vertical-align:middle; font-size:13px;}
+  th{ text-align:left; color:var(--muted); font-weight:600; font-size:12px; background:transparent;}
+  .right{ text-align:right; }
+  input[type="text"], input[type="number"], select{
+    width:100%; box-sizing:border-box; padding:8px 8px; border-radius:6px; border:1px solid var(--line); background:var(--field-bg);
+    font-size:13px;
+  }
+    /* right-align numeric inputs */
+  input[type="number"],
+  input[type="number"].currency {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .currency{ text-align:right; font-variant-numeric: tabular-nums; }
+  .small{font-size:12px; color:var(--muted);}
+  .totals{
+    display:flex; justify-content:space-between; gap:10px; margin-top:10px; align-items:center;
+  }
+  .totals .big{font-weight:700; font-size:16px;}
+  .itemized{margin-top:10px;}
+  .btns{display:flex; gap:10px; margin-top:14px;}
+  button{padding:8px 12px; border-radius:8px; border:0; background:#0b5cff; color:white; cursor:pointer; font-weight:600;}
+  button.secondary{background:#e6e9ef; color:var(--accent);}
+  @media (max-width:980px){
+    .two-col{grid-template-columns: 1fr; }
+    header{flex-direction:column; align-items:flex-start;}
+    .meta input{min-width:0;}
+  }
+  /* print styles */
+  @media print{
+    body{background:white;}
+    .wrap{box-shadow:none; border:0; margin:0; padding:0;}
+    .btns, button{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap" role="main">
+  <header>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='44'%3E%3Ctext x='0' y='24' font-family='Georgia, serif' font-size='22' fill='%230c1220'%3EREBNY%3C/text%3E%3C/svg%3E" alt="REBNY logo">
+    <div>
+      <h1>Financial Statement</h1>
+      <div class="small" style="margin-top:6px;">Please complete all applicable fields. Fields with totals update automatically.</div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- Applicant / Co-Applicant -->
+    <div class="card">
+      <div style="display:flex; gap:12px; align-items:center;">
+        <div style="flex:1;">
+          <label class="small" for="applicant">Applicant:</label>
+          <input id="applicant" name="applicant" type="text" placeholder="Full name (e.g., Teresa A. Fischer)" value="Teresa A. Fischer">
+          <label class="small" for="address" style="margin-top:6px;">Address:</label>
+          <input id="address" name="address" type="text" placeholder="Street, apt, city, state, ZIP" value="511 W 189TH ST. APT 2G, New York, NY 10040">
+        </div>
+        <div style="flex:1;">
+          <label class="small" for="coapplicant">Co-Applicant:</label>
+          <input id="coapplicant" name="coapplicant" type="text" placeholder="Co-Applicant name">
+          <label class="small" for="coaddress" style="margin-top:6px;">Address:</label>
+          <input id="coaddress" name="coaddress" type="text" placeholder="Co-Applicant address">
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly Sources & Projected Housing Expenses -->
+    <div class="two-col">
+      <div class="card">
+        <div class="section-title">Monthly Sources of Income (Applicant / Co-Applicant)</div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:42%;">Income</th>
+              <th style="width:26%;">Applicant</th>
+              <th style="width:26%;">Co-Applicant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Base monthly salary:</td>
+              <td><input id="base_app" type="number" step="0.01" value="9333.33" oninput="recalcIncome()"></td>
+              <td><input id="base_co" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Overtime (monthly):</td>
+              <td><input id="ot_app" type="number" step="0.01" value="" oninput="recalcIncome()"></td>
+              <td><input id="ot_co" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Bonuses (monthly):</td>
+              <td><input id="bonus_app" type="number" step="0.01" value="1250.00" oninput="recalcIncome()"></td>
+              <td><input id="bonus_co" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Commissions (monthly):</td>
+              <td><input id="comm_app" type="number" step="0.01" value="" oninput="recalcIncome()"></td>
+              <td><input id="comm_co" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Dividends / Interest:</td>
+              <td><input id="div_app" type="number" step="0.01" value="" oninput="recalcIncome()"></td>
+              <td><input id="div_co" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Net rental income (Net):</td>
+              <td><input id="rent_app" type="number" step="0.01" value="" oninput="recalcIncome()"></td>
+              <td><input id="rent_co" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Other income (itemize):</td>
+              <td><input id="other_app" type="number" step="0.01" value="" oninput="recalcIncome()"></td>
+              <td><input id="other_co" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td><strong>TOTAL:</strong></td>
+              <td class="currency"><strong id="income_total_app">$10,583.33</strong></td>
+              <td class="currency"><strong id="income_total_co">$0.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Projected Housing Expenses (Applicant / Co-Applicant / Joint)</div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:45%;">Expenses</th>
+              <th style="width:18%;">Applicant<br/>(after closing)</th>
+              <th style="width:18%;">Co-Applicant<br/>(after closing)</th>
+              <th style="width:18%;">Joint/Total<br/>(after closing)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Maintenance:</td>
+              <td><input id="maint_app" type="number" step="0.01" value="883.76" oninput="recalcExpenses()"></td>
+              <td><input id="maint_co" type="number" step="0.01" value=""></td>
+              <td><input id="maint_joint" type="number" step="0.01" value="" oninput="recalcExpenses()"></td>
+            </tr>
+            <tr>
+              <td>Apt. Financing:</td>
+              <td><input id="aptfin_app" type="number" step="0.01" value="1556.75" oninput="recalcExpenses()"></td>
+              <td><input id="aptfin_co" type="number" step="0.01" value=""></td>
+              <td><input id="aptfin_joint" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Other Mortgages:</td>
+              <td><input id="mort_app" type="number" step="0.01" value="" oninput="recalcExpenses()"></td>
+              <td><input id="mort_co" type="number" step="0.01" value=""></td>
+              <td><input id="mort_joint" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Bank Loans:</td>
+              <td><input id="bankloan_app" type="number" step="0.01" value="" oninput="recalcExpenses()"></td>
+              <td><input id="bankloan_co" type="number" step="0.01" value=""></td>
+              <td><input id="bankloan_joint" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Auto Loans:</td>
+              <td><input id="autoloan_app" type="number" step="0.01" value="" oninput="recalcExpenses()"></td>
+              <td><input id="autoloan_co" type="number" step="0.01" value=""></td>
+              <td><input id="autoloan_joint" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td>Credit Card Debt:</td>
+              <td><input id="cc_app" type="number" step="0.01" value="" oninput="recalcExpenses()"></td>
+              <td><input id="cc_co" type="number" step="0.01" value=""></td>
+              <td><input id="cc_joint" type="number" step="0.01" value=""></td>
+            </tr>
+            <tr>
+              <td><strong>TOTAL:</strong></td>
+              <td class="currency"><strong id="expenses_total">$2,440.51</strong></td>
+              <td class="currency"><strong id="expenses_total_co">$0.00</strong></td>
+              <td class="currency"><strong id="expenses_total_joint">$0.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Assets & Liabilities -->
+    <div class="two-col">
+      <div class="card">
+        <div class="section-title">Assets & Liabilities — Assets</div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:48%;">Assets</th>
+              <th style="width:26%;">Applicant</th>
+              <th style="width:26%;">Co-Applicant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Cash / Money Market Funds (Sch A):</td><td><input id="cash_app" type="number" step="0.01" value="137983.89" oninput="recalcAssets()"></td><td><input id="cash_co" type="number" step="0.01" value=""></td></tr>
+            <tr><td>Contract deposit:</td><td><input id="contract_app" type="number" step="0.01" value="36500.00" oninput="recalcAssets()"></td><td><input id="contract_co" type="number" value=""></td></tr>
+            <tr><td>Stocks & bonds / Brokerage Accounts (Schedule B):</td><td><input id="stocks_app" type="number" step="0.01" value=""></td><td><input id="stocks_co" type="number" step="0.01" value=""></td></tr>
+            <tr><td>Investment in own business:</td><td><input id="invbus_app" type="number" step="0.01" value=""></td><td><input id="invbus_co" type="number"></td></tr>
+            <tr><td>Accounts receivable:</td><td><input id="ar_app" type="number" step="0.01" value=""></td><td><input id="ar_co" type="number"></td></tr>
+            <tr><td>Real estate owned (Schedule C):</td><td><input id="re_app" type="number" step="0.01" value=""></td><td><input id="re_co" type="number"></td></tr>
+            <tr><td>Automobiles:</td><td><input id="auto_app" type="number" step="0.01" value=""></td><td><input id="auto_co" type="number"></td></tr>
+            <tr><td>Personal property & furniture:</td><td><input id="ppf_app" type="number"></td><td><input id="ppf_co" type="number"></td></tr>
+            <tr><td>Life insurance (cash value):</td><td><input id="life_app" type="number"></td><td><input id="life_co" type="number"></td></tr>
+            <tr><td>Retirement funds / IRA: 401k:</td><td><input id="401k_app" type="number" step="0.01" value="1095408.33" oninput="recalcAssets()"></td><td><input id="401k_co" type="number"></td></tr>
+            <tr><td>KEOGH:</td><td><input id="keogh_app" type="number"></td><td><input id="keogh_co" type="number"></td></tr>
+            <tr><td>Profit sharing / pension:</td><td><input id="pension_app" type="number"></td><td><input id="pension_co" type="number"></td></tr>
+            <tr><td>Other assets (Schedule D):</td><td><input id="otherassets_app" type="number"></td><td><input id="otherassets_co" type="number"></td></tr>
+            <tr>
+              <td><strong>TOTAL ASSETS:</strong></td>
+              <td class="currency"><strong id="total_assets">$1,269,892.22</strong></td>
+              <td class="currency"><strong id="total_assets_co">$0.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Liabilities (Applicant / Co-Applicant)</div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:60%;">Liabilities</th>
+              <th style="width:20%;">Applicant (present)</th>
+              <th style="width:20%;">Co-Applicant (present)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Notes payable to banks:</td><td><input id="npbank_app" type="number" oninput="recalcLiabilities()"></td><td><input id="npbank_co" type="number"></td></tr>
+            <tr><td>Notes payable to relatives:</td><td><input id="nprel_app" type="number" oninput="recalcLiabilities()"></td><td><input id="nprel_co" type="number"></td></tr>
+            <tr><td>Notes payable to others:</td><td><input id="npothers_app" type="number" oninput="recalcLiabilities()"></td><td><input id="npothers_co" type="number"></td></tr>
+            <tr><td>Install accounts payable:</td><td><input id="iap_app" type="number" oninput="recalcLiabilities()"></td><td><input id="iap_co" type="number"></td></tr>
+            <tr><td>Automobile:</td><td><input id="liauto_app" type="number" oninput="recalcLiabilities()"></td><td><input id="liauto_co" type="number"></td></tr>
+            <tr><td>Other accounts payable:</td><td><input id="oap_app" type="number" oninput="recalcLiabilities()"></td><td><input id="oap_co" type="number"></td></tr>
+            <tr><td>Mortgages payable:</td><td><input id="mortpay_app" type="number" oninput="recalcLiabilities()"></td><td><input id="mortpay_co" type="number"></td></tr>
+            <tr><td>Unpaid real estate taxes:</td><td><input id="taxes_app" type="number" oninput="recalcLiabilities()"></td><td><input id="taxes_co" type="number"></td></tr>
+            <tr><td>Unpaid income taxes:</td><td><input id="inctax_app" type="number" oninput="recalcLiabilities()"></td><td><input id="inctax_co" type="number"></td></tr>
+            <tr><td>Chattel mortgages:</td><td><input id="chattel_app" type="number" oninput="recalcLiabilities()"></td><td><input id="chattel_co" type="number"></td></tr>
+            <tr><td>Loans on life insurance:</td><td><input id="loanlife_app" type="number" oninput="recalcLiabilities()"></td><td><input id="loanlife_co" type="number"></td></tr>
+            <tr><td>Credit card debt:</td><td><input id="ccdebt_app" type="number" oninput="recalcLiabilities()"></td><td><input id="ccdebt_co" type="number"></td></tr>
+            <tr><td>Other debts - itemize:</td><td><input id="otherdebt_app" type="number" oninput="recalcLiabilities()"></td><td><input id="otherdebt_co" type="number"></td></tr>
+            <tr>
+              <td><strong>TOTAL LIABILITIES:</strong></td>
+              <td class="currency"><strong id="total_liab">$0.00</strong></td>
+              <td class="currency"><strong id="total_liab_co">$0.00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>NET WORTH:</strong></td>
+              <td class="currency" colspan="2"><strong id="net_worth">$1,269,892.22</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Itemized Schedule of Assets & Liabilities (Schedule A) -->
+    <div class="card itemized">
+      <div class="section-title">Itemized Schedule of Assets & Liabilities — Schedule A (Cash)</div>
+      <div class="small" style="margin-bottom:8px;">Attach additional pages if necessary. Totals should match cash line above.</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:38%;">Applicant/Co-Applicant</th>
+            <th style="width:32%;">Financial Institution</th>
+            <th style="width:20%;">Type of account</th>
+            <th style="width:10%;" class="right">Account Balance</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleA">
+          <tr>
+            <td><input type="text" value="Applicant"></td>
+            <td><input type="text" value="Citizens"></td>
+            <td><input type="text" value="Checking"></td>
+            <td><input type="number" step="0.01" value="2000.00" class="currency" oninput="recalcScheduleA()"></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="Applicant"></td>
+            <td><input type="text" value="Citizens"></td>
+            <td><input type="text" value="Money Market"></td>
+            <td><input type="number" step="0.01" value="123000.00" class="currency" oninput="recalcScheduleA()"></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="Applicant"></td>
+            <td><input type="text" value="Chase"></td>
+            <td><input type="text" value="Checking"></td>
+            <td><input type="number" step="0.01" value="12414.99" class="currency" oninput="recalcScheduleA()"></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="Applicant"></td>
+            <td><input type="text" value="Chase"></td>
+            <td><input type="text" value="Savings"></td>
+            <td><input type="number" step="0.01" value="568.90" class="currency" oninput="recalcScheduleA()"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="right small"><strong>Schedule A Total (Cash):</strong></td>
+            <td class="currency"><strong id="scheduleA_total">$137,983.89</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="btns" style="margin-top:10px;">
+        <button type="button" onclick="addScheduleRow()">+ Add Row</button>
+        <button type="button" class="secondary" onclick="window.print()">Print</button>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:8px;">
+      <button onclick="downloadJSON()">Download (JSON)</button>
+      <button class="secondary" onclick="resetForm()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Utility: safe parse float
+  function toNum(v){ let n = parseFloat(v); return isNaN(n)?0:n; }
+  // Formatting for visual currency
+  function fmt(v){ return '$' + Number(v).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+  function recalcIncome(){
+    const fieldsApp = ['base_app','ot_app','bonus_app','comm_app','div_app','rent_app','other_app'];
+    const fieldsCo  = ['base_co','ot_co','bonus_co','comm_co','div_co','rent_co','other_co'];
+    let sumApp=0, sumCo=0;
+    fieldsApp.forEach(id=> sumApp += toNum(document.getElementById(id).value));
+    fieldsCo.forEach(id=> sumCo += toNum(document.getElementById(id).value));
+    document.getElementById('income_total_app').textContent = fmt(sumApp);
+    document.getElementById('income_total_co').textContent = fmt(sumCo);
+  }
+
+  function recalcExpenses(){
+    const appIds = ['maint_app','aptfin_app','mort_app','bankloan_app','autoloan_app','cc_app'];
+    const coIds  = ['maint_co','aptfin_co','mort_co','bankloan_co','autoloan_co','cc_co'];
+    const jointIds = ['maint_joint','aptfin_joint','mort_joint','bankloan_joint','autoloan_joint','cc_joint'];
+    let sumApp=0,sumCo=0,sumJoint=0;
+    appIds.forEach(id=> sumApp += toNum(document.getElementById(id).value));
+    coIds.forEach(id=> sumCo += toNum(document.getElementById(id).value));
+    jointIds.forEach(id=> sumJoint += toNum(document.getElementById(id).value));
+    document.getElementById('expenses_total').textContent = fmt(sumApp);
+    document.getElementById('expenses_total_co').textContent = fmt(sumCo);
+    document.getElementById('expenses_total_joint').textContent = fmt(sumJoint);
+  }
+
+  function recalcAssets(){
+    const ids = ['cash_app','contract_app','stocks_app','invbus_app','ar_app','re_app','auto_app','ppf_app','life_app','401k_app','keogh_app','pension_app','otherassets_app'];
+    let total=0;
+    ids.forEach(id=> total += toNum(document.getElementById(id).value));
+    document.getElementById('total_assets').textContent = fmt(total);
+    // Update Schedule A total if schedule sum differs (we keep schedule independent)
+    recalcScheduleA();
+    recalcNetWorth();
+  }
+
+  function recalcLiabilities(){
+    const ids = ['npbank_app','nprel_app','npothers_app','iap_app','liauto_app','oap_app','mortpay_app','taxes_app','inctax_app','chattel_app','loanlife_app','ccdebt_app','otherdebt_app'];
+    let total=0;
+    ids.forEach(id=> total += toNum(document.getElementById(id).value));
+    document.getElementById('total_liab').textContent = fmt(total);
+    document.getElementById('total_liab_co').textContent = fmt(0); // co-app separate sums could be computed similarly
+    recalcNetWorth();
+  }
+
+  function recalcScheduleA(){
+    let t=0;
+    const tbody = document.getElementById('scheduleA');
+    Array.from(tbody.querySelectorAll('input[type="number"]')).forEach(inp => { t += toNum(inp.value); });
+    document.getElementById('scheduleA_total').textContent = fmt(t);
+    // if the cash_app field exists and differs, we leave both visible; user can reconcile.
+  }
+
+  function recalcNetWorth(){
+    const assets = toNum(document.getElementById('total_assets').textContent.replace(/[^0-9.-]+/g,"")) || 0;
+    const liabilities = toNum(document.getElementById('total_liab').textContent.replace(/[^0-9.-]+/g,"")) || 0;
+    const net = assets - liabilities;
+    document.getElementById('net_worth').textContent = fmt(net);
+  }
+
+  // Add row to schedule A
+  function addScheduleRow(){
+    const tbody = document.getElementById('scheduleA');
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td><input type="text" placeholder="Applicant or Co-Applicant"></td>'
+                 + '<td><input type="text" placeholder="Financial Institution"></td>'
+                 + '<td><input type="text" placeholder="Type of account"></td>'
+                 + '<td><input type="number" step="0.01" value="0.00" class="currency" oninput="recalcScheduleA()"></td>';
+    tbody.appendChild(tr);
+  }
+
+  // Reset form (simple)
+  function resetForm(){
+    if(!confirm('Reset all fields to default values?')) return;
+    document.querySelectorAll('input').forEach(i=>{
+      if(i.type==='number') i.value = '';
+      else if(i.type==='text') i.value = '';
+    });
+    // restore a few example defaults used in the image
+    document.getElementById('applicant').value = 'Teresa A. Fischer';
+    document.getElementById('address').value = '511 W 189TH ST. APT 2G, New York, NY, 10040';
+    document.getElementById('base_app').value = 9333.33;
+    document.getElementById('bonus_app').value = 1250.00;
+    document.getElementById('maint_app').value = 883.76;
+    document.getElementById('aptfin_app').value = 1556.75;
+    document.getElementById('cash_app').value = 137983.89;
+    document.getElementById('contract_app').value = 36500.00;
+    document.getElementById('401k_app').value = 1095408.33;
+    // recompute totals
+    recalcIncome(); recalcExpenses(); recalcAssets(); recalcLiabilities(); recalcScheduleA(); recalcNetWorth();
+  }
+
+  // Download JSON of the form for saving
+  function downloadJSON(){
+    const data = {};
+    document.querySelectorAll('input').forEach(i=>{
+      data[i.id || i.name || ('field_'+Math.random().toString(36).slice(2,7))] = i.value;
+    });
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'rebny-financial-statement.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  // initial calculations
+  window.addEventListener('load', ()=>{
+    recalcIncome(); recalcExpenses(); recalcAssets(); recalcLiabilities(); recalcScheduleA(); recalcNetWorth();
+  });
+</script>
+</body>
+</html>

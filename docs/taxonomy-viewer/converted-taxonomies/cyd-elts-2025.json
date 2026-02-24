@@ -1,0 +1,257 @@
+{
+	"$schema": "../oim-taxonomy-schema.json",
+	"documentInfo": {
+		"namespaces": {
+			"xbrli": "https://xbrl.org/2025/instance",
+			"xbrl": "https://xbrl.org/2025",
+			"xs": "http://www.w3.org/2001/XMLSchema",
+			"cyd": "http://xbrl.sec.gov/cyd/2025"
+		},
+		"documentType": "https://xbrl.org/2026/model",
+		"documentNamespace": "cyd"
+	},
+	"xbrlModel": {
+		"name": "cyd:CybersecurityTaxonomy",
+        "version": "1.0.0",
+		"abstracts": [
+			{
+				"name": "cyd:CybersecurityRiskManagementStrategyAndGovernanceLineItems"
+			},
+			{
+				"name": "cyd:CybersecurityRiskManagementStrategyAndGovernanceAbstract"
+			},
+			{
+				"name": "cyd:MaterialCybersecurityIncidentAbstract"
+			},
+			{
+				"name": "cyd:MaterialCybersecurityIncidentLineItems"
+			}
+		],
+		"concepts": [
+			{
+				"name": "cyd:MaterialCybersecurityIncidentInformationNotAvailableOrUndeterminedTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			},
+			{
+				"periodType": "duration",
+				"name": "cyd:MaterialCybersecurityIncidentMaterialImpactOrReasonablyLikelyMaterialImpactTextBlock",
+				"nillable": true,
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"name": "cyd:MaterialCybersecurityIncidentTimingTextBlock",
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"name": "cyd:MaterialCybersecurityIncidentScopeTextBlock",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"nillable": true,
+				"name": "cyd:MaterialCybersecurityIncidentNatureTextBlock",
+				"dataType": "xbrli:textBlock"
+			},
+			{
+				"name": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleReportToBoardFlag",
+				"dataType": "xs:boolean",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "cyd:CybersecurityRiskProcessForInformingManagementOrCommitteesResponsibleTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "cyd:CybersecurityRiskManagementExpertiseOfManagementResponsibleTextBlock",
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration",
+				"nillable": true
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleFlag",
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"name": "cyd:CybersecurityRiskRoleOfManagementTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "cyd:CybersecurityRiskProcessForInformingBoardCommitteeOrSubcommitteeResponsibleForOversightTextBlock"
+			},
+			{
+				"name": "cyd:CybersecurityRiskBoardCommitteeOrSubcommitteeResponsibleForOversightTextBlock",
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			},
+			{
+				"name": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock",
+				"nillable": true,
+				"dataType": "xbrli:textBlock",
+				"periodType": "duration"
+			},
+			{
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "cyd:CybersecurityRiskMateriallyAffectedOrReasonablyLikelyToMateriallyAffectRegistrantTextBlock",
+				"periodType": "duration"
+			},
+			{
+				"name": "cyd:CybersecurityRiskMateriallyAffectedOrReasonablyLikelyToMateriallyAffectRegistrantFlag",
+				"nillable": true,
+				"periodType": "duration",
+				"dataType": "xs:boolean"
+			},
+			{
+				"dataType": "xs:boolean",
+				"name": "cyd:CybersecurityRiskThirdPartyOversightAndIdentificationProcessesFlag",
+				"nillable": true,
+				"periodType": "duration"
+			},
+			{
+				"nillable": true,
+				"name": "cyd:CybersecurityRiskManagementThirdPartyEngagedFlag",
+				"periodType": "duration",
+				"dataType": "xs:boolean"
+			},
+			{
+				"periodType": "duration",
+				"name": "cyd:CybersecurityRiskManagementProcessesIntegratedTextBlock",
+				"dataType": "xbrli:textBlock",
+				"nillable": true
+			},
+			{
+				"name": "cyd:CybersecurityRiskManagementProcessesIntegratedFlag",
+				"nillable": true,
+				"dataType": "xs:boolean",
+				"periodType": "duration"
+			},
+			{
+				"periodType": "duration",
+				"dataType": "xbrli:textBlock",
+				"nillable": true,
+				"name": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock"
+			}
+		],
+		"members": [
+			{
+				"name": "cyd:MaterialCybersecurityIncidentDomain"
+			}
+		],
+		"domains": [
+			{
+				"relationships": [
+					{
+						"source": "xbrl:conceptDomain",
+						"order": 2,
+						"target": "cyd:CybersecurityRiskManagementStrategyAndGovernanceLineItems"
+					},
+					{
+						"target": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock",
+						"order": 1,
+						"source": "cyd:CybersecurityRiskManagementStrategyAndGovernanceLineItems"
+					},
+					{
+						"target": "cyd:CybersecurityRiskManagementProcessesIntegratedFlag",
+						"order": 1,
+						"source": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock"
+					},
+					{
+						"order": 2,
+						"source": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock",
+						"target": "cyd:CybersecurityRiskManagementProcessesIntegratedTextBlock"
+					},
+					{
+						"order": 3,
+						"source": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock",
+						"target": "cyd:CybersecurityRiskManagementThirdPartyEngagedFlag"
+					},
+					{
+						"source": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock",
+						"order": 4,
+						"target": "cyd:CybersecurityRiskThirdPartyOversightAndIdentificationProcessesFlag"
+					},
+					{
+						"target": "cyd:CybersecurityRiskMateriallyAffectedOrReasonablyLikelyToMateriallyAffectRegistrantFlag",
+						"order": 5,
+						"source": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock"
+					},
+					{
+						"target": "cyd:CybersecurityRiskMateriallyAffectedOrReasonablyLikelyToMateriallyAffectRegistrantTextBlock",
+						"source": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock",
+						"order": 6
+					},
+					{
+						"source": "cyd:CybersecurityRiskManagementStrategyAndGovernanceLineItems",
+						"order": 2,
+						"target": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock"
+					},
+					{
+						"order": 1,
+						"target": "cyd:CybersecurityRiskBoardCommitteeOrSubcommitteeResponsibleForOversightTextBlock",
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock"
+					},
+					{
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock",
+						"target": "cyd:CybersecurityRiskProcessForInformingBoardCommitteeOrSubcommitteeResponsibleForOversightTextBlock",
+						"order": 2
+					},
+					{
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock",
+						"order": 3,
+						"target": "cyd:CybersecurityRiskRoleOfManagementTextBlock"
+					},
+					{
+						"target": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleFlag",
+						"order": 4,
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock"
+					},
+					{
+						"target": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleTextBlock",
+						"order": 5,
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock"
+					},
+					{
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock",
+						"order": 6,
+						"target": "cyd:CybersecurityRiskManagementExpertiseOfManagementResponsibleTextBlock"
+					},
+					{
+						"order": 7,
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock",
+						"target": "cyd:CybersecurityRiskProcessForInformingManagementOrCommitteesResponsibleTextBlock"
+					},
+					{
+						"target": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleReportToBoardFlag",
+						"source": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock",
+						"order": 8
+					}
+				],
+				"root": "xbrl:conceptDomain",
+				"name": "cyd:CybersecurityRiskManagementStrategyAndGovernanceTable_CybersecurityRiskManagementAndStrategyDisclosure_PDomain"
+			}
+		]
+	}
+}

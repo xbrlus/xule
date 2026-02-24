@@ -1,0 +1,190 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "mini2": "http://example.com/mini2",
+      "xbrl": "https://xbrl.org/2025",
+     	"xbrla": "http://xbrl.org/accounting",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "mini2",
+    "urlMapping": {
+              "xbrla": ["../spec-taxonomies/xbrla.json"]
+            }
+  },
+  "xbrlModel": {
+    "name": "mini2:MiniTaxonomy2",
+    "frameworkName": "mini-framework",
+    "version": "2025",
+     "importedTaxonomies": [
+        {
+            "xbrlModelName": "xbrla:AccountingModel"
+        }
+    ],
+    "dataTypes": [
+      {
+        "name": "xbrl:balanceType",
+        "baseType": "xs:string",
+        "enumeration": ["debit", "credit"]
+      }
+    ],
+    "abstracts": [
+      { "name": "mini2:StatementOfFinancialPosition" }
+    ],
+    "concepts": [
+      {
+        "name": "mini2:Inventory",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant",
+        "nillable": true,
+        "properties": [
+          { "property": "xbrla:balance", "value": "debit" }
+        ]
+      },
+      {
+        "name": "mini2:LongTermDebt",
+        "dataType": "xbrli:monetary",
+        "periodType": "instant",
+        "nillable": true,
+        "properties": [
+          { "property": "xbrla:balance", "value": "credit" }
+        ]
+      },
+      {
+        "name": "mini2:Depreciation",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration",
+        "nillable": true,
+        "properties": [
+          { "property": "xbrla:balance", "value": "debit" }
+        ]
+      },
+      {
+        "name": "mini2:SalariesExpense",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration",
+        "nillable": true,
+        "properties": [
+          { "property": "xbrla:balance", "value": "debit" }
+        ]
+      }
+    ],
+    "members": [
+      { "name": "mini2:SouthAmerica" },
+      { "name": "mini2:Asia" }
+    ],
+    "dimensions": [
+      {
+        "name": "mini2:Geography",
+        "domainClass": "mini2:GeographyRootDomain"
+      }
+    ],
+    "domainClasses": [
+      { "name": "mini2:GeographyRootDomain" }
+    ],
+    "domains": [
+      {
+        "name": "mini2:GeographyDomain",
+        "root": "mini2:GeographyRootDomain",
+        "relationships": [
+          { "source": "mini2:GeographyRootDomain", "target": "mini2:SouthAmerica" },
+          { "source": "mini2:GeographyRootDomain", "target": "mini2:Asia" }
+        ]
+      }
+    ],
+    "entities": [
+      { "name": "mini2:Entity1" }
+    ],
+    "units": [
+      { "name": "mini2:USD", "dataType": "xbrli:monetary" }
+    ],
+    "labels": [
+      {
+        "relatedName": "mini2:Inventory",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Inventory"
+      },
+      {
+        "relatedName": "mini2:LongTermDebt",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Long Term Debt"
+      },
+      {
+        "relatedName": "mini2:SalariesExpense",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Salaries Expense"
+      },
+      {
+        "relatedName": "mini2:Depreciation",
+        "labelType": "xbrl:label",
+        "language": "en",
+        "value": "Depreciation"
+      }
+    ],
+    "groups": [
+      {
+        "name": "xbrl:balanceSheetGroup",
+        "groupURI": "http://example.com/mini/balance-sheet"
+      }
+    ],
+    "groupContents": [
+      {
+        "groupName": "xbrl:balanceSheetGroup",
+        "relatedNames": ["xbrl:balanceSheetCube"]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "xbrl:balanceSheetCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept"
+          },
+          {
+            "dimensionName": "xbrl:period",
+            "periodConstraints": [
+              {
+                "periodType": "instant",
+                "endDate": { "value": "2025-12-31" }
+              }
+            ]
+          },
+          {
+            "dimensionName": "mini2:Geography"
+          },
+          {
+            "dimensionName": "xbrl:entity"
+          },
+          {
+            "dimensionName": "xbrl:unit"
+          }
+        ]
+      }
+    ],
+    "networks": [
+      {
+        "name": "mini2:PresentationNetwork",
+        "relationshipTypeName": "xbrl:parent-child",
+        "roots": ["mini2:StatementOfFinancialPosition"],
+        "relationships": [
+          {
+            "source": "mini2:StatementOfFinancialPosition",
+            "target": "mini2:Inventory",
+            "order": 1
+          },
+          {
+            "source": "mini2:StatementOfFinancialPosition",
+            "target": "mini2:LongTermDebt",
+            "order": 2
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Invalid Language Codes."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidLanguageCode",
+    "version": "2025",
+    "labels": [
+      {
+        "relatedName": "exp:Revenue",
+        "language": "en-U$",
+        "value": "Total Revenue",
+        "labelType": "xbrl:label"
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ]
+  }
+}

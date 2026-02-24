@@ -1,0 +1,50 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "ferc": "http://ferc.gov/form/2025-04-01/ferc",
+      "ferc-form-6": "http://ferc.gov/form/2025-04-01/ferc-form-6",
+      "ferc-parts": "http://www.ferc.gov/form/parts",
+      "ferc-types": "http://ferc.gov/form/2025-04-01/types",
+      "ref": "https://xbrl.org/2025/ref",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrla": "http://xbrl.org/accounting",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "cid": "http://www.ferc.gov/CID"
+    },
+    "urlMapping": {
+            "ferc":  ["../converted-taxonomies/form-6_2025-04-01.json"]
+            },
+    "sourceMapping": {
+        "ext:getInstance": ["https://ecollection.ferc.gov/api/DownloadDocument/368942/1?filename=274723-C000758-Form_6Q-2025-Q3.xbrl"]
+    },
+    "documentNamespace": "ext",
+    "description": "Create Facts from Existing Instance."
+  },
+  "xbrlModel": {
+    "name": "ext:FERCForm6Taxonomy",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "ferc:FERCForm6-2025-04-01"
+      }
+    ],
+    "factSources": [
+        {
+            "name" : "ext:getInstance",
+            "factMapName": "xbrl:XBRL21XML"
+        }
+    ],
+    "labels": [
+        {
+            "relatedName": "ext:getInstance",
+            "labelType": "xbrl:label",
+            "value": "Get Instance Facts",
+            "language": "en"
+        }
+    ]
+  }
+}
