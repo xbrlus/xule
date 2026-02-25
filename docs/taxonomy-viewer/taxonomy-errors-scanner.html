@@ -5,29 +5,34 @@
 <title>Invalid Conformance Tests — Taxonomy Errors Scanner</title>
 <style>
   * { box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1200px; margin: 2em auto; padding: 0 1em; color: #1a1a1a; }
-  h1 { font-size: 1.4em; border-bottom: 2px solid #0366d6; padding-bottom: .4em; }
-  h2 { font-size: 1.1em; margin-top: 2em; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         max-width: 1200px; margin: 2em auto; padding: 0 1em; color: #1a1a1a; }
+  h1   { font-size: 1.4em; border-bottom: 2px solid #0366d6; padding-bottom: .4em; }
+  h2   { font-size: 1.1em; margin-top: 2em; }
   .controls { display: flex; flex-wrap: wrap; gap: .8em; align-items: center; margin-bottom: 1em; }
-  button { padding: .5em 1.2em; font-size: 1em; cursor: pointer; background: #0366d6; color: #fff; border: none; border-radius: 4px; }
-  button:hover { background: #0250a3; }
+  button { padding: .5em 1.2em; font-size: 1em; cursor: pointer;
+           background: #0366d6; color: #fff; border: none; border-radius: 4px; }
+  button:hover    { background: #0250a3; }
   button:disabled { background: #999; cursor: not-allowed; }
-  #status { background: #f1f3f5; padding: .8em 1em; border-radius: 4px; margin-bottom: .5em; font-family: monospace; font-size: .85em; white-space: pre-wrap; }
+  #status      { background: #f1f3f5; padding: .8em 1em; border-radius: 4px;
+                 margin-bottom: .5em; font-family: monospace; font-size: .85em; white-space: pre-wrap; }
   #progress-bar { width: 100%; height: 6px; background: #e0e0e0; border-radius: 3px; margin-bottom: 1em; }
-  #progress-fill { height: 100%; background: #0366d6; border-radius: 3px; transition: width 0.3s; width: 0%; }
-  textarea { width: 100%; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: .78em; border: 1px solid #ccc; border-radius: 4px; padding: .8em; background: #fafbfc; }
-  .copy-btn { font-size: .85em; padding: .3em .8em; background: #28a745; }
+  #progress-fill{ height: 100%; background: #0366d6; border-radius: 3px;
+                  transition: width 0.3s; width: 0%; }
+  textarea     { width: 100%; font-family: "SFMono-Regular", Consolas, monospace;
+                 font-size: .78em; border: 1px solid #ccc; border-radius: 4px;
+                 padding: .8em; background: #fafbfc; }
+  .copy-btn    { font-size: .85em; padding: .3em .8em; background: #28a745; }
   .copy-btn:hover { background: #218838; }
-  .save-btn { font-size: .85em; padding: .3em .8em; background: #6f42c1; }
+  .save-btn    { font-size: .85em; padding: .3em .8em; background: #6f42c1; }
   .save-btn:hover { background: #5a32a3; }
-  #viewer-frame { width: 100%; height: 500px; border: 1px solid #ddd; border-radius: 4px; margin-top: 1em; }
-  .note { font-size: .85em; color: #586069; margin-bottom: 1em; line-height: 1.5; }
-  #log { max-height: 250px; overflow-y: auto; font-size: .78em; font-family: monospace; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: .5em; margin-top: .5em; }
-  .log-ok  { color: #28a745; }
-  .log-err { color: #dc3545; }
-  .log-warn{ color: #856404; }
-  .log-info{ color: #0366d6; }
-  label { font-size: .9em; }
+  #viewer-frame{ width: 100%; height: 500px; border: 1px solid #ddd; border-radius: 4px; margin-top: 1em; }
+  .note        { font-size: .85em; color: #586069; margin-bottom: 1em; line-height: 1.5; }
+  #log         { max-height: 300px; overflow-y: auto; font-size: .78em; font-family: monospace;
+                 background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: .5em; margin-top: .5em; }
+  .log-ok  { color: #28a745; } .log-err { color: #dc3545; }
+  .log-warn{ color: #856404; } .log-info{ color: #0366d6; }
+  label    { font-size: .9em; }
   input[type=number] { width: 5em; padding: .2em; }
 </style>
 </head>
@@ -36,23 +41,26 @@
 <h1>Invalid Conformance Tests — Taxonomy Errors Scanner</h1>
 
 <p class="note">
-  <strong>Deploy this file</strong> alongside <code>index.html</code> in the taxonomy viewer
-  directory so it shares the same origin. It loads each Invalid Conformance Test in the viewer
-  via <code>index.html?file=…</code>, polls the iframe DOM for
-  <code>&lt;div class="errors-container"&gt;</code>, and captures its rendered HTML into a
-  Markdown table.<br>
-  Items <em>with</em> Taxonomy Errors appear in the table; items <em>without</em> are listed
-  below it.
+  <strong>Deploy this file</strong> in the same directory as the taxonomy viewer's
+  <code>index.html</code> (same origin required for iframe DOM access).
+  It navigates the viewer to each Invalid Conformance Test via
+  <code>index.html?file=…</code>, waits for the page to finish rendering,
+  then captures the content of <code>&lt;div class="errors-container"&gt;</code>.<br>
+  Items with errors → Markdown table.  Items without → unordered list.
 </p>
 
 <div class="controls">
   <button id="startBtn" onclick="startScan()">&#9654; Start Scanning</button>
   <button id="stopBtn"  onclick="stopScan()" disabled>&#9632; Stop</button>
-  <label>Wait per item: <input type="number" id="delayMs" value="6000" min="2000" max="60000" step="500"> ms</label>
-  <label>Poll interval: <input type="number" id="pollMs" value="400" min="100" max="2000" step="100"> ms</label>
+  <label>Settle time:
+    <input type="number" id="settleMs" value="3000" min="1000" max="30000" step="500"> ms
+  </label>
+  <label>Max wait:
+    <input type="number" id="maxMs" value="10000" min="3000" max="60000" step="1000"> ms
+  </label>
 </div>
 
-<div id="status">Ready &#8212; click Start Scanning.</div>
+<div id="status">Ready — click Start Scanning.</div>
 <div id="progress-bar"><div id="progress-fill"></div></div>
 
 <h2>
@@ -70,10 +78,9 @@
 
 <script>
 /* ================================================================
-   LIST: every item under the "Invalid Conformance Tests" optgroup
-   in the taxonomy viewer dropdown at index.html
+   Full list of items under the "Invalid Conformance Tests" optgroup
    ================================================================ */
-const INVALID_TESTS = [
+var INVALID_TESTS = [
   "CALCULATION-InvalidSummationItemValue",
   "CALCULATION-InvalidSummationItemWeight",
   "CALCULATION-InvalidSummationMultiEntityValue",
@@ -221,13 +228,13 @@ const INVALID_TESTS = [
   "UNIT-UnitWithDataTypeNotMatchingConceptDataType"
 ];
 
-let running = false;
-let results = [];
+var running = false;
+var results = [];
 
 /* ── UI helpers ──────────────────────────────────────────── */
 
 function setStatus(msg) { document.getElementById('status').textContent = msg; }
-function setProgress(pct) { document.getElementById('progress-fill').style.width = pct + '%'; }
+function setProgress(pct){ document.getElementById('progress-fill').style.width = pct + '%'; }
 
 function log(msg, cls) {
   var el = document.getElementById('log');
@@ -262,98 +269,209 @@ function stopScan() {
   log('Scan stopped by user.', 'log-warn');
 }
 
-/* ── Poll the iframe for .errors-container ───────────────── */
+/* ================================================================
+   CORE: Navigate the iframe and wait for the viewer to finish
+   rendering, then read div.errors-container.
 
-function waitForErrorsContainer(iframe, maxWait, pollMs) {
+   Strategy (fixes the "always times out" bug):
+   ─────────────────────────────────────────────
+   OLD (broken): polled for "Loading model..." text to disappear.
+     → That text is a PERMANENT <h2> label — it never goes away.
+     → So the poll always hit the timeout.
+
+   NEW (this version):
+     1. Set iframe.src and wait for the iframe's "load" event
+        (fires when the viewer HTML + scripts have loaded).
+     2. After "load", use a MutationObserver on the iframe body
+        to detect when new DOM nodes stop being added (the viewer
+        JS fetches the JSON then mutates the DOM to show results).
+     3. If div.errors-container appears with content at ANY point
+        during observation, resolve immediately with that content.
+     4. When DOM mutations stop for `settleMs` (default 3 s),
+        do a final check for .errors-container and resolve.
+     5. Hard cap at `maxMs` (default 10 s) to avoid hanging.
+   ================================================================ */
+
+function loadAndCapture(iframe, url, settleMs, maxMs) {
   return new Promise(function (resolve) {
-    var t0 = Date.now();
+    var settled    = false;
+    var observer   = null;
+    var settleTimer= null;
+    var maxTimer   = null;
 
-    function poll() {
-      if (!running) { resolve({html:null, status:'stopped'}); return; }
+    /* ── Cleanup everything ── */
+    function done(html, status, extra) {
+      if (settled) return;          // prevent double-resolve
+      settled = true;
+      if (observer)    { try { observer.disconnect(); } catch(_){} }
+      if (settleTimer) clearTimeout(settleTimer);
+      if (maxTimer)    clearTimeout(maxTimer);
+      resolve({ html: html, status: status, extra: extra || '' });
+    }
+
+    /* ── Check for .errors-container right now ── */
+    function checkErrors() {
+      try {
+        var doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!doc || !doc.body) return null;
+
+        // Primary: div.errors-container
+        var ec = doc.querySelector('div.errors-container');
+        if (ec && ec.innerHTML.trim().length > 0) return ec.innerHTML.trim();
+
+        // Fallback selectors (in case class name varies)
+        var fallbacks = ['.errors-container', '#errors-container',
+                         '.error-container', '#error-container'];
+        for (var i = 0; i < fallbacks.length; i++) {
+          var el = doc.querySelector(fallbacks[i]);
+          if (el && el.innerHTML.trim().length > 0) return el.innerHTML.trim();
+        }
+      } catch (e) {
+        // cross-origin
+      }
+      return null;
+    }
+
+    /* ── Snapshot the iframe body's child count for stability check ── */
+    function bodySignature() {
+      try {
+        var doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!doc || !doc.body) return '';
+        // Use total element count + total text length as a rough signature
+        return doc.body.querySelectorAll('*').length + ':' +
+               doc.body.textContent.length;
+      } catch(e) { return ''; }
+    }
+
+    /* ── Hard timeout ── */
+    maxTimer = setTimeout(function () {
+      var html = checkErrors();
+      if (html) {
+        done(html, 'has_errors', 'captured at max-timeout');
+      } else {
+        done(null, 'no_errors', 'max-timeout reached with no .errors-container');
+      }
+    }, maxMs);
+
+    /* ── After iframe fires "load", start observing DOM mutations ── */
+    function onFrameLoaded() {
+      // Immediate check — errors might already be rendered
+      var html = checkErrors();
+      if (html) { done(html, 'has_errors', 'immediate'); return; }
 
       var doc;
       try {
         doc = iframe.contentDocument || iframe.contentWindow.document;
       } catch (e) {
-        if (Date.now() - t0 > maxWait) { resolve({html:null, status:'cross-origin'}); return; }
-        setTimeout(poll, pollMs);
+        done(null, 'cross-origin', e.message);
         return;
       }
 
-      if (!doc || !doc.body) { setTimeout(poll, pollMs); return; }
-
-      // Primary target: <div class="errors-container">
-      var ec = doc.querySelector('div.errors-container');
-      if (ec && ec.innerHTML.trim().length > 0) {
-        resolve({html: ec.innerHTML.trim(), status:'has_errors'});
+      if (!doc || !doc.body) {
+        done(null, 'no_body', 'iframe body unavailable');
         return;
       }
 
-      // Detect whether model is still loading
-      var bodyText = doc.body.textContent || '';
-      var loading  = /loading\s+model/i.test(bodyText);
+      // Start a MutationObserver: every time the DOM changes,
+      // check for .errors-container and reset the settle timer.
+      function onMutation() {
+        // Check for errors on every mutation
+        var h = checkErrors();
+        if (h) { done(h, 'has_errors', 'observed mutation'); return; }
 
-      if (!loading) {
-        // Model finished — give one extra beat then final check
-        setTimeout(function () {
-          try {
-            var doc2 = iframe.contentDocument || iframe.contentWindow.document;
-            var ec2  = doc2.querySelector('div.errors-container');
-            if (ec2 && ec2.innerHTML.trim().length > 0) {
-              resolve({html: ec2.innerHTML.trim(), status:'has_errors'});
-            } else {
-              resolve({html: null, status:'no_errors'});
-            }
-          } catch (e2) {
-            resolve({html: null, status:'cross-origin'});
+        // Reset the "settled" countdown — DOM is still changing
+        if (settleTimer) clearTimeout(settleTimer);
+        settleTimer = setTimeout(function () {
+          // DOM has been quiet for settleMs — final check
+          var h2 = checkErrors();
+          if (h2) {
+            done(h2, 'has_errors', 'post-settle');
+          } else {
+            done(null, 'no_errors', 'DOM settled with no .errors-container');
           }
-        }, 600);
-        return;
+        }, settleMs);
       }
 
-      // Timeout
-      if (Date.now() - t0 > maxWait) {
-        var ecLast = doc.querySelector('div.errors-container');
-        if (ecLast && ecLast.innerHTML.trim().length > 0) {
-          resolve({html: ecLast.innerHTML.trim(), status:'has_errors'});
+      try {
+        observer = new MutationObserver(onMutation);
+        observer.observe(doc.body, { childList: true, subtree: true, characterData: true });
+      } catch (e) {
+        // If MutationObserver fails, fall back to polling
+        log('  (MutationObserver unavailable, using poll fallback)', 'log-warn');
+      }
+
+      // Also start the initial settle timer in case there are NO mutations
+      // (e.g. the viewer already finished before observer attached)
+      settleTimer = setTimeout(function () {
+        var h3 = checkErrors();
+        if (h3) {
+          done(h3, 'has_errors', 'initial-settle');
         } else {
-          resolve({html: null, status:'timeout'});
+          done(null, 'no_errors', 'no mutations observed');
         }
-        return;
-      }
+      }, settleMs);
 
-      setTimeout(poll, pollMs);
+      // Additionally, poll at intervals as a safety net
+      var pollCount = 0;
+      var pollMax   = Math.ceil(maxMs / 500);
+      function safePoll() {
+        if (settled || !running) return;
+        pollCount++;
+        var h4 = checkErrors();
+        if (h4) { done(h4, 'has_errors', 'poll #' + pollCount); return; }
+        if (pollCount < pollMax) setTimeout(safePoll, 500);
+      }
+      setTimeout(safePoll, 800);
     }
 
-    // Small initial delay for the iframe to begin navigation
-    setTimeout(poll, 600);
+    /* ── Kick off: set the iframe src and listen for load ── */
+    iframe.onload = function () {
+      // Small delay to let the viewer JS initialize after HTML load
+      setTimeout(onFrameLoaded, 300);
+    };
+
+    iframe.src = url;
   });
 }
 
-/* ── Convert the captured .errors-container HTML → text ──── */
+/* ── Convert captured HTML to plain text for the MD table cell ── */
 
 function errorsHtmlToText(html) {
   var div = document.createElement('div');
   div.innerHTML = html;
 
-  // Collect distinct text chunks from leaf-ish elements
   var parts = [];
   var seen  = {};
-  var nodes = div.querySelectorAll('li, p, div, span, td, dt, dd, h3, h4, h5, pre, code');
+
+  // Try to get individual error items
+  var nodes = div.querySelectorAll('li, p, dt, dd, h3, h4, h5, pre, code');
   for (var i = 0; i < nodes.length; i++) {
     var n = nodes[i];
-    // Skip containers that have children we'll visit individually
-    if (n.querySelector('li, p, div, span, td')) continue;
+    if (n.querySelector('li, p')) continue; // skip containers
     var t = n.textContent.trim().replace(/\s+/g, ' ');
     if (t && !seen[t]) { seen[t] = true; parts.push(t); }
   }
+
+  // If no structured children, walk top-level divs/spans
+  if (parts.length === 0) {
+    var divs = div.querySelectorAll('div, span, td');
+    for (var j = 0; j < divs.length; j++) {
+      var d = divs[j];
+      if (d.children.length > 3) continue; // skip wrapper divs
+      var t2 = d.textContent.trim().replace(/\s+/g, ' ');
+      if (t2 && !seen[t2] && t2.length > 3) { seen[t2] = true; parts.push(t2); }
+    }
+  }
+
+  // Last resort: full text
   if (parts.length === 0) {
     parts.push(div.textContent.trim().replace(/\s+/g, ' '));
   }
+
   return parts.join('; ').replace(/\|/g, '\\|').replace(/[\r\n]+/g, ' ');
 }
 
-/* ── Main scan ───────────────────────────────────────────── */
+/* ── Main scan loop ──────────────────────────────────────── */
 
 async function startScan() {
   running = true;
@@ -363,11 +481,12 @@ async function startScan() {
   document.getElementById('output').value = '';
   document.getElementById('log').innerHTML = '';
 
-  var iframe  = document.getElementById('viewer-frame');
-  var maxWait = parseInt(document.getElementById('delayMs').value) || 6000;
-  var pollMs  = parseInt(document.getElementById('pollMs').value)  || 400;
+  var iframe   = document.getElementById('viewer-frame');
+  var settleMs = parseInt(document.getElementById('settleMs').value) || 3000;
+  var maxMs    = parseInt(document.getElementById('maxMs').value)    || 10000;
 
-  log('Starting scan of ' + INVALID_TESTS.length + ' items  (max ' + maxWait + ' ms, poll ' + pollMs + ' ms)', 'log-info');
+  log('Starting scan of ' + INVALID_TESTS.length + ' items  (settle=' + settleMs + 'ms, max=' + maxMs + 'ms)', 'log-info');
+  setStatus('Scanning 0 / ' + INVALID_TESTS.length);
 
   for (var i = 0; i < INVALID_TESTS.length; i++) {
     if (!running) break;
@@ -376,48 +495,40 @@ async function startScan() {
     setProgress(Math.round((i / INVALID_TESTS.length) * 100));
     setStatus('[' + (i+1) + '/' + INVALID_TESTS.length + ']  ' + name);
 
-    // Navigate iframe to viewer with this test file
     var jsonPath = 'taxonomies/conformanceTests/invalid/' + name + '.json';
-    iframe.src = 'index.html?file=' + encodeURIComponent(jsonPath);
+    var url      = 'index.html?file=' + encodeURIComponent(jsonPath);
 
-    var res = await waitForErrorsContainer(iframe, maxWait, pollMs);
+    var res = await loadAndCapture(iframe, url, settleMs, maxMs);
     results.push({ name: name, html: res.html, status: res.status });
 
     // Log
-    switch (res.status) {
-      case 'has_errors':
-        log('OK  ' + name + '  →  errors captured (' + (res.html||'').length + ' chars)', 'log-ok');
-        break;
-      case 'no_errors':
-        log('--  ' + name + '  →  no .errors-container content', 'log-info');
-        break;
-      case 'timeout':
-        log('!!  ' + name + '  →  timed out', 'log-warn');
-        break;
-      case 'cross-origin':
-        log('XX  ' + name + '  →  cross-origin (deploy to same origin!)', 'log-err');
-        break;
-      default:
-        log('??  ' + name + '  →  ' + res.status, 'log-warn');
+    if (res.status === 'has_errors') {
+      var preview = errorsHtmlToText(res.html || '').substring(0, 100);
+      log('OK  ' + name + '  errors: ' + preview + '...  [' + res.extra + ']', 'log-ok');
+    } else if (res.status === 'no_errors') {
+      log('--  ' + name + '  no .errors-container  [' + res.extra + ']', 'log-info');
+    } else {
+      log('??  ' + name + '  status=' + res.status + '  [' + res.extra + ']', 'log-warn');
     }
 
-    // Let the browser breathe
+    // Brief pause between items
     await new Promise(function(r){ setTimeout(r, 150); });
   }
 
   buildMarkdown();
   setProgress(100);
+
   running = false;
   document.getElementById('startBtn').disabled = false;
   document.getElementById('stopBtn').disabled  = true;
 
-  var ne = results.filter(function(r){return r.status==='has_errors';}).length;
-  var nn = results.filter(function(r){return r.status==='no_errors';}).length;
-  setStatus('Done — ' + ne + ' with errors, ' + nn + ' without errors, ' + results.length + ' total.');
+  var ne = results.filter(function(r){ return r.status === 'has_errors'; }).length;
+  var nn = results.filter(function(r){ return r.status === 'no_errors'; }).length;
+  setStatus('Done!  ' + ne + ' with errors, ' + nn + ' without.  Total: ' + results.length);
   log('Scan complete.  ' + ne + ' with errors, ' + nn + ' without.', 'log-ok');
 }
 
-/* ── Build Markdown output ───────────────────────────────── */
+/* ── Build Markdown ──────────────────────────────────────── */
 
 function buildMarkdown() {
   var withErr = results.filter(function(r){ return r.status === 'has_errors'; });
@@ -444,7 +555,7 @@ function buildMarkdown() {
   }
 
   if (other.length > 0) {
-    md += '## Other (timeout / cross-origin / stopped)\n\n';
+    md += '## Other (cross-origin / stopped)\n\n';
     for (var k = 0; k < other.length; k++) {
       md += '- ' + other[k].name + ' (' + other[k].status + ')\n';
     }
