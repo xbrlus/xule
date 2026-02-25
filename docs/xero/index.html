@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xero &times; Notifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="24" height="24" rx="4" fill="#c8f542" opacity="0.1" stroke="#c8f542" stroke-width="1"/>
+        <path d="M8 14h12M14 8v12" stroke="#c8f542" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-xero">XERO</span>
+      <span class="logo-sep">&times;</span>
+      <span class="logo-notifier">NOTIFIER</span>
+    </div>
+    <div class="header-status">
+      <div class="status-dot" id="statusDot"></div>
+      <span id="statusLabel">WEBHOOK CONNECTED</span>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    <button class="tab active" data-tab="dashboard">dashboard</button>
+    <button class="tab" data-tab="setup">setup</button>
+    <button class="tab" data-tab="code">code</button>
+  </nav>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- DASHBOARD TAB -->
+    <div class="tab-panel fade-in" id="panel-dashboard">
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card" style="border-top-color: #c8f542;">
+          <div class="stat-label">Notifications Sent</div>
+          <div class="stat-value" style="color: #c8f542;" id="statCount">3</div>
+        </div>
+        <div class="stat-card" style="border-top-color: #7eb8f5;">
+          <div class="stat-label">Recipient</div>
+          <div class="stat-value" style="color: #7eb8f5;">D. Tauriello</div>
+        </div>
+        <div class="stat-card" style="border-top-color: #f5a742;">
+          <div class="stat-label">Trigger</div>
+          <div class="stat-value" style="color: #f5a742;">Bill Submitted</div>
+        </div>
+      </div>
+
+      <!-- Credentials panel -->
+      <div class="panel creds-panel" id="credsPanel">
+        <div class="creds-header">
+          <div>
+            <div class="test-title">Credentials</div>
+            <div class="test-subtitle">Enter your Google OAuth Client ID &amp; Xero secret, then authorise Gmail access</div>
+          </div>
+          <div class="creds-status">
+            <span class="creds-dot" id="credsDot"></span>
+            <span id="credsLabel">Not configured</span>
+          </div>
+        </div>
+
+        <!-- Row 1: Google Client ID + Xero Secret -->
+        <div class="creds-fields">
+          <div class="cred-field">
+            <label class="cred-label" for="googleClientId">Google OAuth Client ID</label>
+            <div class="cred-input-wrap">
+              <input class="cred-input" type="password" id="googleClientId"
+                     placeholder="xxxxxxxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false" />
+              <button class="cred-toggle" data-target="googleClientId" title="Show / hide" type="button">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 7s2-4 6-4 6 4 6 4-2 4-6 4-6-4-6-4z" stroke="#666" stroke-width="1" stroke-linecap="round"/>
+                  <circle cx="7" cy="7" r="1.5" stroke="#666" stroke-width="1"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="cred-field">
+            <label class="cred-label" for="xeroSecret">Xero Client Secret</label>
+            <div class="cred-input-wrap">
+              <input class="cred-input" type="password" id="xeroSecret"
+                     placeholder="your-xero-client-secret" autocomplete="off" spellcheck="false" />
+              <button class="cred-toggle" data-target="xeroSecret" title="Show / hide" type="button">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 7s2-4 6-4 6 4 6 4-2 4-6 4-6-4-6-4z" stroke="#666" stroke-width="1" stroke-linecap="round"/>
+                  <circle cx="7" cy="7" r="1.5" stroke="#666" stroke-width="1"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Save + Connect Google -->
+        <div class="creds-actions">
+          <button class="save-btn" id="saveCredsBtn" type="button">Save Credentials</button>
+          <button class="google-btn" id="connectGoogleBtn" type="button" disabled>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M15.68 8.18c0-.57-.05-1.11-.14-1.64H8v3.1h4.3a3.68 3.68 0 01-1.6 2.41v2h2.58c1.51-1.39 2.4-3.44 2.4-5.87z" fill="#4285F4"/>
+              <path d="M8 16c2.16 0 3.97-.71 5.3-1.93l-2.58-2a4.8 4.8 0 01-7.14-2.52H.96v2.07A8 8 0 008 16z" fill="#34A853"/>
+              <path d="M3.58 9.55A4.8 4.8 0 013.38 8c0-.54.09-1.07.2-1.55V4.38H.96A8 8 0 000 8c0 1.29.31 2.51.96 3.62l2.62-2.07z" fill="#FBBC05"/>
+              <path d="M8 3.18c1.22 0 2.31.42 3.17 1.24l2.37-2.37A8 8 0 00.96 4.38L3.58 6.45A4.8 4.8 0 018 3.18z" fill="#EA4335"/>
+            </svg>
+            Connect Gmail
+          </button>
+          <button class="clear-btn" id="clearCredsBtn" type="button">Clear</button>
+        </div>
+
+        <!-- Google auth status bar -->
+        <div class="google-auth-bar hidden" id="googleAuthBar">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="#c8f542" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="googleAuthLabel">Gmail connected &mdash; ready to send</span>
+          <button class="revoke-btn" id="revokeGoogleBtn" type="button">Disconnect</button>
+        </div>
+      </div>
+
+      <!-- Test panel -->
+      <div class="panel" id="testPanel">
+        <div class="test-row">
+          <div>
+            <div class="test-title">Test Notification</div>
+            <div class="test-subtitle">Send a test email to <span class="highlight-blue">david.tauriello@xbrl.us</span> via Gmail API</div>
+          </div>
+          <button class="send-btn" id="sendBtn" disabled title="Connect Gmail first" type="button">Send Test &rarr;</button>
+        </div>
+        <div class="test-result hidden" id="testResult"></div>
+      </div>
+
+      <!-- Log -->
+      <div class="log-heading">Notification Log</div>
+      <div class="log-list" id="eventLog"></div>
+
+    </div>
+
+    <!-- SETUP TAB -->
+    <div class="tab-panel hidden" id="panel-setup">
+      <div class="setup-wrapper">
+        <h1 class="section-title">Setup Guide</h1>
+        <p class="section-subtitle">Configure Google OAuth and Xero webhooks to send email notifications to
+          <span class="highlight-blue">david.tauriello@xbrl.us</span> when a bill is submitted for approval.</p>
+
+        <div class="setup-step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Create a Google OAuth Client</div>
+            <div class="step-content">In Google Cloud Console, go to APIs &amp; Services &rarr; Credentials. Create an OAuth 2.0 Client ID of type <strong>Web application</strong>. Add your app&apos;s origin to Authorised JavaScript Origins (e.g. http://localhost:5500). Copy the <strong>Client ID</strong> &mdash; you don&apos;t need the client secret for the browser flow.</div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Enable the Gmail API</div>
+            <div class="step-content">In the same Google Cloud project, go to APIs &amp; Services &rarr; Library and enable the <strong>Gmail API</strong>. Also add the OAuth scope <code>https://www.googleapis.com/auth/gmail.send</code> to your consent screen.</div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Enter Credentials &amp; Connect Gmail</div>
+            <div class="step-content">On the Dashboard tab, paste your <strong>Google OAuth Client ID</strong> and your <strong>Xero Client Secret</strong>, then click <strong>Save Credentials</strong>. A <strong>Connect Gmail</strong> button will appear &mdash; click it to complete the Google OAuth flow and grant the app permission to send email on your behalf.</div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Register Xero Webhook</div>
+            <div class="step-content">In your Xero Developer portal, go to your app &rarr; Webhooks. Add a new webhook pointing to your server URL (e.g. https://your-domain.com/xero/webhook). Subscribe to the <strong>Invoices</strong> event type. The webhook key is used for HMAC-SHA256 signature verification.</div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Deploy &amp; Test</div>
+            <div class="step-content">Deploy the backend to any Node.js host (Railway, Render, Fly.io, etc.). Use the Dashboard tab to send a test notification and confirm delivery to david.tauriello@xbrl.us. Then submit a real bill in Xero &mdash; you&apos;ll receive an email within seconds.</div>
+          </div>
+        </div>
+
+        <div class="setup-note">
+          &#10003; The webhook handler only sends emails for bills with type ACCPAY (Accounts Payable) and status SUBMITTED &mdash; no noise from other invoice events.
+        </div>
+      </div>
+    </div>
+
+    <!-- CODE TAB -->
+    <div class="tab-panel hidden" id="panel-code">
+      <h1 class="section-title">Backend Code</h1>
+      <p class="section-subtitle">Drop this into your Node.js project. Install dependencies:
+        <span class="highlight-blue">express</span>,
+        <span class="highlight-blue">xero-node</span>,
+        <span class="highlight-blue">googleapis</span>
+      </p>
+      <pre class="code-block" id="codeBlock"></pre>
+      <p class="code-note">The backend uses a Google service account (or stored OAuth refresh token) to call the Gmail API directly &mdash; no third-party email libraries needed.</p>
+    </div>
+
+  </main>
+
+  <!-- Google Identity Services SDK (for OAuth token popup) -->
+  <script src="https://accounts.google.com/gsi/client" async></script>
+  <script src="app.js"></script>
+</body>
+</html>
