@@ -5,22 +5,30 @@
 <title>Invalid Conformance Tests — Taxonomy Errors Scanner</title>
 <style>
   * { box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1100px; margin: 2em auto; padding: 0 1em; color: #1a1a1a; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1200px; margin: 2em auto; padding: 0 1em; color: #1a1a1a; }
   h1 { font-size: 1.4em; border-bottom: 2px solid #0366d6; padding-bottom: .4em; }
   h2 { font-size: 1.1em; margin-top: 2em; }
-  .controls { display: flex; gap: 1em; align-items: center; margin-bottom: 1em; }
+  .controls { display: flex; flex-wrap: wrap; gap: .8em; align-items: center; margin-bottom: 1em; }
   button { padding: .5em 1.2em; font-size: 1em; cursor: pointer; background: #0366d6; color: #fff; border: none; border-radius: 4px; }
   button:hover { background: #0250a3; }
   button:disabled { background: #999; cursor: not-allowed; }
-  #status { background: #f1f3f5; padding: .8em 1em; border-radius: 4px; margin-bottom: 1em; font-family: monospace; font-size: .9em; }
-  #progress-bar { width: 100%; height: 6px; background: #e0e0e0; border-radius: 3px; margin-top: .5em; }
+  #status { background: #f1f3f5; padding: .8em 1em; border-radius: 4px; margin-bottom: .5em; font-family: monospace; font-size: .85em; white-space: pre-wrap; }
+  #progress-bar { width: 100%; height: 6px; background: #e0e0e0; border-radius: 3px; margin-bottom: 1em; }
   #progress-fill { height: 100%; background: #0366d6; border-radius: 3px; transition: width 0.3s; width: 0%; }
-  textarea { width: 100%; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: .8em; border: 1px solid #ccc; border-radius: 4px; padding: .8em; background: #fafbfc; }
+  textarea { width: 100%; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: .78em; border: 1px solid #ccc; border-radius: 4px; padding: .8em; background: #fafbfc; }
   .copy-btn { font-size: .85em; padding: .3em .8em; background: #28a745; }
   .copy-btn:hover { background: #218838; }
-  #viewer-frame { width: 100%; height: 400px; border: 1px solid #ddd; margin-top: 1em; display: none; }
-  .note { font-size: .85em; color: #586069; margin-bottom: 1em; }
-  #error-log { max-height: 200px; overflow-y: auto; font-size: .8em; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; padding: .5em; margin-top: 1em; display: none; }
+  .save-btn { font-size: .85em; padding: .3em .8em; background: #6f42c1; }
+  .save-btn:hover { background: #5a32a3; }
+  #viewer-frame { width: 100%; height: 500px; border: 1px solid #ddd; border-radius: 4px; margin-top: 1em; }
+  .note { font-size: .85em; color: #586069; margin-bottom: 1em; line-height: 1.5; }
+  #log { max-height: 250px; overflow-y: auto; font-size: .78em; font-family: monospace; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: .5em; margin-top: .5em; }
+  .log-ok  { color: #28a745; }
+  .log-err { color: #dc3545; }
+  .log-warn{ color: #856404; }
+  .log-info{ color: #0366d6; }
+  label { font-size: .9em; }
+  input[type=number] { width: 5em; padding: .2em; }
 </style>
 </head>
 <body>
@@ -28,34 +36,43 @@
 <h1>Invalid Conformance Tests — Taxonomy Errors Scanner</h1>
 
 <p class="note">
-  <strong>How it works:</strong> This page loads each Invalid Conformance Test JSON file in the 
-  taxonomy viewer (via the <code>?file=</code> URL parameter), waits for the model to load and 
-  validation to complete, then reads the "Taxonomy Errors" section from the rendered page. 
-  Results are formatted as a Markdown table.<br><br>
-  <strong>Important:</strong> This page must be served from the same origin as the taxonomy viewer 
-  (<code>xbrlus.github.io/xule-dev/taxonomy-viewer/</code>) for cross-frame access to work. 
-  If running locally, both pages must be on the same <code>localhost</code> port.
+  <strong>Deploy this file</strong> alongside <code>index.html</code> in the taxonomy viewer
+  directory so it shares the same origin. It loads each Invalid Conformance Test in the viewer
+  via <code>index.html?file=…</code>, polls the iframe DOM for
+  <code>&lt;div class="errors-container"&gt;</code>, and captures its rendered HTML into a
+  Markdown table.<br>
+  Items <em>with</em> Taxonomy Errors appear in the table; items <em>without</em> are listed
+  below it.
 </p>
 
 <div class="controls">
-  <button id="startBtn" onclick="startScan()">Start Scanning</button>
-  <button id="stopBtn" onclick="stopScan()" disabled>Stop</button>
-  <label><input type="number" id="delayMs" value="4000" min="1000" max="30000" style="width:5em"> ms delay per item</label>
-  <label><input type="checkbox" id="showFrame" onchange="toggleFrame()"> Show viewer</label>
+  <button id="startBtn" onclick="startScan()">&#9654; Start Scanning</button>
+  <button id="stopBtn"  onclick="stopScan()" disabled>&#9632; Stop</button>
+  <label>Wait per item: <input type="number" id="delayMs" value="6000" min="2000" max="60000" step="500"> ms</label>
+  <label>Poll interval: <input type="number" id="pollMs" value="400" min="100" max="2000" step="100"> ms</label>
 </div>
 
-<div id="status">Ready. Click "Start Scanning" to begin.</div>
+<div id="status">Ready &#8212; click Start Scanning.</div>
 <div id="progress-bar"><div id="progress-fill"></div></div>
 
-<h2>Markdown Output <button class="copy-btn" onclick="copyOutput()">Copy to Clipboard</button></h2>
-<textarea id="output" rows="30" readonly></textarea>
+<h2>
+  Markdown Output
+  <button class="copy-btn" onclick="copyOutput()">&#128203; Copy</button>
+  <button class="save-btn" onclick="saveOutput()">&#128190; Save .md</button>
+</h2>
+<textarea id="output" rows="28" readonly></textarea>
 
-<div id="error-log"></div>
+<h2>Scan Log</h2>
+<div id="log"></div>
 
-<iframe id="viewer-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+<h2>Viewer Frame</h2>
+<iframe id="viewer-frame"></iframe>
 
 <script>
-// ─── All Invalid Conformance Test items from the dropdown ───
+/* ================================================================
+   LIST: every item under the "Invalid Conformance Tests" optgroup
+   in the taxonomy viewer dropdown at index.html
+   ================================================================ */
 const INVALID_TESTS = [
   "CALCULATION-InvalidSummationItemValue",
   "CALCULATION-InvalidSummationItemWeight",
@@ -89,6 +106,7 @@ const INVALID_TESTS = [
   "CUBE-MissingConceptDimension",
   "CUBE-NetworkReferencesDomain",
   "CUBE-DimensionNotDimensionObject",
+  "CUBE-DomainOnPeriodDimension",
   "CUBE-FactMissingFromCompleteCube",
   "CUBE-PeriodConstraintConceptNotConcept",
   "CUBE-PeriodConstraintContextNotConcept",
@@ -206,242 +224,229 @@ const INVALID_TESTS = [
 let running = false;
 let results = [];
 
-function setStatus(msg) {
-  document.getElementById('status').textContent = msg;
-}
+/* ── UI helpers ──────────────────────────────────────────── */
 
-function setProgress(pct) {
-  document.getElementById('progress-fill').style.width = pct + '%';
-}
+function setStatus(msg) { document.getElementById('status').textContent = msg; }
+function setProgress(pct) { document.getElementById('progress-fill').style.width = pct + '%'; }
 
-function logError(msg) {
-  const el = document.getElementById('error-log');
-  el.style.display = 'block';
-  el.innerHTML += msg + '<br>';
-}
-
-function toggleFrame() {
-  document.getElementById('viewer-frame').style.display =
-    document.getElementById('showFrame').checked ? 'block' : 'none';
+function log(msg, cls) {
+  var el = document.getElementById('log');
+  var d  = document.createElement('div');
+  if (cls) d.className = cls;
+  d.textContent = msg;
+  el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
 }
 
 function copyOutput() {
-  const ta = document.getElementById('output');
-  ta.select();
+  var ta = document.getElementById('output');
+  ta.select(); ta.setSelectionRange(0, ta.value.length);
   document.execCommand('copy');
-  alert('Copied to clipboard!');
+  alert('Copied!');
+}
+
+function saveOutput() {
+  var blob = new Blob([document.getElementById('output').value], {type:'text/markdown'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'taxonomy-errors.md';
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 function stopScan() {
   running = false;
-  setStatus('Scan stopped by user.');
+  setStatus('Stopped.');
   document.getElementById('startBtn').disabled = false;
-  document.getElementById('stopBtn').disabled = true;
+  document.getElementById('stopBtn').disabled  = true;
+  log('Scan stopped by user.', 'log-warn');
 }
 
-// Attempt to extract taxonomy errors from the viewer's DOM inside the iframe
-function extractErrors(iframeDoc) {
-  const errorTexts = [];
+/* ── Poll the iframe for .errors-container ───────────────── */
 
-  // Strategy 1: Look for elements with "Taxonomy Errors" heading or class
-  // The viewer likely shows errors in a specific section/panel
-  const allElements = iframeDoc.querySelectorAll('*');
-  let inErrorSection = false;
-  let errorContent = '';
+function waitForErrorsContainer(iframe, maxWait, pollMs) {
+  return new Promise(function (resolve) {
+    var t0 = Date.now();
 
-  for (const el of allElements) {
-    const text = (el.textContent || '').trim();
+    function poll() {
+      if (!running) { resolve({html:null, status:'stopped'}); return; }
 
-    // Check for "Taxonomy Errors" header/label
-    if (/taxonomy\s*errors?/i.test(text) && text.length < 100) {
-      inErrorSection = true;
-      continue;
-    }
-
-    // If we found the section, grab the content that follows
-    if (inErrorSection && el.children.length === 0 && text.length > 0 && text.length < 5000) {
-      if (!/taxonomy\s*errors?/i.test(text)) {
-        errorTexts.push(text);
-      }
-      // Reset after collecting first content block
-      if (errorTexts.length > 0) inErrorSection = false;
-    }
-  }
-
-  // Strategy 2: Look for specific error-related CSS classes or IDs
-  const errorSelectors = [
-    '#taxonomy-errors', '.taxonomy-errors', '#taxonomyErrors', '.taxonomyErrors',
-    '[data-errors]', '.error-list', '.errors-panel', '#errors',
-    '.error-message', '.validation-errors', '#error-output'
-  ];
-
-  for (const sel of errorSelectors) {
-    try {
-      const el = iframeDoc.querySelector(sel);
-      if (el && el.textContent.trim().length > 0) {
-        errorTexts.push(el.textContent.trim());
-      }
-    } catch (e) { /* ignore */ }
-  }
-
-  // Strategy 3: Look for any element whose text starts with common error patterns
-  if (errorTexts.length === 0) {
-    const candidates = iframeDoc.querySelectorAll('div, pre, code, span, li, p, td');
-    for (const el of candidates) {
-      const t = (el.textContent || '').trim();
-      if (t.length > 10 && t.length < 5000 &&
-          (/error/i.test(t) || /invalid/i.test(t) || /duplicate/i.test(t) ||
-           /missing/i.test(t) || /not\s+found/i.test(t) || /mismatch/i.test(t)) &&
-          el.children.length <= 2) {
-        // Skip navigation elements
-        if (!/Loading model|Model Viewer|Element Names|Labels/i.test(t)) {
-          errorTexts.push(t);
-        }
-      }
-    }
-  }
-
-  // Strategy 4: Check if there's a global JS variable with errors
-  try {
-    const iframeWin = document.getElementById('viewer-frame').contentWindow;
-    if (iframeWin.taxonomyErrors) {
-      errorTexts.push(JSON.stringify(iframeWin.taxonomyErrors));
-    }
-    if (iframeWin.model && iframeWin.model.errors) {
-      errorTexts.push(JSON.stringify(iframeWin.model.errors));
-    }
-  } catch (e) { /* cross-origin blocked */ }
-
-  return [...new Set(errorTexts)]; // deduplicate
-}
-
-function waitForViewerLoad(iframe, timeoutMs) {
-  return new Promise((resolve) => {
-    const start = Date.now();
-    const check = () => {
+      var doc;
       try {
-        const doc = iframe.contentDocument || iframe.contentWindow.document;
-        const body = doc.body;
-        if (!body) { setTimeout(check, 300); return; }
-
-        const text = body.textContent || '';
-
-        // Check if the model has loaded (the "Loading model..." text should be gone)
-        const isLoading = /loading\s+model/i.test(text) && !/taxonomy\s*error/i.test(text);
-
-        if (!isLoading || (Date.now() - start > timeoutMs)) {
-          resolve(doc);
-        } else {
-          setTimeout(check, 500);
-        }
+        doc = iframe.contentDocument || iframe.contentWindow.document;
       } catch (e) {
-        // Cross-origin error - can't access iframe
-        if (Date.now() - start > timeoutMs) {
-          resolve(null);
-        } else {
-          setTimeout(check, 500);
-        }
+        if (Date.now() - t0 > maxWait) { resolve({html:null, status:'cross-origin'}); return; }
+        setTimeout(poll, pollMs);
+        return;
       }
-    };
-    // Give initial load a moment
-    setTimeout(check, 1500);
+
+      if (!doc || !doc.body) { setTimeout(poll, pollMs); return; }
+
+      // Primary target: <div class="errors-container">
+      var ec = doc.querySelector('div.errors-container');
+      if (ec && ec.innerHTML.trim().length > 0) {
+        resolve({html: ec.innerHTML.trim(), status:'has_errors'});
+        return;
+      }
+
+      // Detect whether model is still loading
+      var bodyText = doc.body.textContent || '';
+      var loading  = /loading\s+model/i.test(bodyText);
+
+      if (!loading) {
+        // Model finished — give one extra beat then final check
+        setTimeout(function () {
+          try {
+            var doc2 = iframe.contentDocument || iframe.contentWindow.document;
+            var ec2  = doc2.querySelector('div.errors-container');
+            if (ec2 && ec2.innerHTML.trim().length > 0) {
+              resolve({html: ec2.innerHTML.trim(), status:'has_errors'});
+            } else {
+              resolve({html: null, status:'no_errors'});
+            }
+          } catch (e2) {
+            resolve({html: null, status:'cross-origin'});
+          }
+        }, 600);
+        return;
+      }
+
+      // Timeout
+      if (Date.now() - t0 > maxWait) {
+        var ecLast = doc.querySelector('div.errors-container');
+        if (ecLast && ecLast.innerHTML.trim().length > 0) {
+          resolve({html: ecLast.innerHTML.trim(), status:'has_errors'});
+        } else {
+          resolve({html: null, status:'timeout'});
+        }
+        return;
+      }
+
+      setTimeout(poll, pollMs);
+    }
+
+    // Small initial delay for the iframe to begin navigation
+    setTimeout(poll, 600);
   });
 }
+
+/* ── Convert the captured .errors-container HTML → text ──── */
+
+function errorsHtmlToText(html) {
+  var div = document.createElement('div');
+  div.innerHTML = html;
+
+  // Collect distinct text chunks from leaf-ish elements
+  var parts = [];
+  var seen  = {};
+  var nodes = div.querySelectorAll('li, p, div, span, td, dt, dd, h3, h4, h5, pre, code');
+  for (var i = 0; i < nodes.length; i++) {
+    var n = nodes[i];
+    // Skip containers that have children we'll visit individually
+    if (n.querySelector('li, p, div, span, td')) continue;
+    var t = n.textContent.trim().replace(/\s+/g, ' ');
+    if (t && !seen[t]) { seen[t] = true; parts.push(t); }
+  }
+  if (parts.length === 0) {
+    parts.push(div.textContent.trim().replace(/\s+/g, ' '));
+  }
+  return parts.join('; ').replace(/\|/g, '\\|').replace(/[\r\n]+/g, ' ');
+}
+
+/* ── Main scan ───────────────────────────────────────────── */
 
 async function startScan() {
   running = true;
   results = [];
   document.getElementById('startBtn').disabled = true;
-  document.getElementById('stopBtn').disabled = false;
+  document.getElementById('stopBtn').disabled  = false;
   document.getElementById('output').value = '';
-  document.getElementById('error-log').innerHTML = '';
-  document.getElementById('error-log').style.display = 'none';
+  document.getElementById('log').innerHTML = '';
 
-  const iframe = document.getElementById('viewer-frame');
-  const delay = parseInt(document.getElementById('delayMs').value) || 4000;
-  const baseUrl = 'index.html';
+  var iframe  = document.getElementById('viewer-frame');
+  var maxWait = parseInt(document.getElementById('delayMs').value) || 6000;
+  var pollMs  = parseInt(document.getElementById('pollMs').value)  || 400;
 
-  setStatus('Starting scan...');
+  log('Starting scan of ' + INVALID_TESTS.length + ' items  (max ' + maxWait + ' ms, poll ' + pollMs + ' ms)', 'log-info');
 
-  for (let i = 0; i < INVALID_TESTS.length; i++) {
+  for (var i = 0; i < INVALID_TESTS.length; i++) {
     if (!running) break;
 
-    const name = INVALID_TESTS[i];
-    const jsonFile = `taxonomies/conformanceTests/invalid/${name}.json`;
-    const viewerUrl = `${baseUrl}?file=${encodeURIComponent(jsonFile)}`;
+    var name = INVALID_TESTS[i];
+    setProgress(Math.round((i / INVALID_TESTS.length) * 100));
+    setStatus('[' + (i+1) + '/' + INVALID_TESTS.length + ']  ' + name);
 
-    setStatus(`[${i+1}/${INVALID_TESTS.length}] Loading: ${name}`);
-    setProgress(Math.round(((i + 1) / INVALID_TESTS.length) * 100));
+    // Navigate iframe to viewer with this test file
+    var jsonPath = 'taxonomies/conformanceTests/invalid/' + name + '.json';
+    iframe.src = 'index.html?file=' + encodeURIComponent(jsonPath);
 
-    // Load the viewer with this test file
-    iframe.src = viewerUrl;
+    var res = await waitForErrorsContainer(iframe, maxWait, pollMs);
+    results.push({ name: name, html: res.html, status: res.status });
 
-    // Wait for it to load and validate
-    const doc = await waitForViewerLoad(iframe, delay);
-
-    if (!doc) {
-      logError(`⚠ ${name}: Could not access iframe (cross-origin?)`);
-      results.push({ name, errors: null, status: 'cross-origin-error' });
-      continue;
+    // Log
+    switch (res.status) {
+      case 'has_errors':
+        log('OK  ' + name + '  →  errors captured (' + (res.html||'').length + ' chars)', 'log-ok');
+        break;
+      case 'no_errors':
+        log('--  ' + name + '  →  no .errors-container content', 'log-info');
+        break;
+      case 'timeout':
+        log('!!  ' + name + '  →  timed out', 'log-warn');
+        break;
+      case 'cross-origin':
+        log('XX  ' + name + '  →  cross-origin (deploy to same origin!)', 'log-err');
+        break;
+      default:
+        log('??  ' + name + '  →  ' + res.status, 'log-warn');
     }
 
-    // Extract errors
-    const errors = extractErrors(doc);
-    const fullText = doc.body ? doc.body.textContent : '';
-    const hasTaxonomyErrors = /taxonomy\s*errors?/i.test(fullText);
-
-    if (errors.length > 0) {
-      results.push({ name, errors: errors.join(' | '), status: 'has_errors' });
-    } else if (hasTaxonomyErrors) {
-      // The heading exists but we couldn't extract specific error text
-      results.push({ name, errors: '(Taxonomy Errors detected — details not captured)', status: 'has_errors' });
-    } else {
-      results.push({ name, errors: null, status: 'no_errors' });
-    }
-
-    // Small pause between items
-    await new Promise(r => setTimeout(r, 300));
+    // Let the browser breathe
+    await new Promise(function(r){ setTimeout(r, 150); });
   }
 
-  // Build markdown output
   buildMarkdown();
-
+  setProgress(100);
   running = false;
   document.getElementById('startBtn').disabled = false;
-  document.getElementById('stopBtn').disabled = true;
-  setStatus(`Done! Scanned ${results.length}/${INVALID_TESTS.length} items.`);
+  document.getElementById('stopBtn').disabled  = true;
+
+  var ne = results.filter(function(r){return r.status==='has_errors';}).length;
+  var nn = results.filter(function(r){return r.status==='no_errors';}).length;
+  setStatus('Done — ' + ne + ' with errors, ' + nn + ' without errors, ' + results.length + ' total.');
+  log('Scan complete.  ' + ne + ' with errors, ' + nn + ' without.', 'log-ok');
 }
 
+/* ── Build Markdown output ───────────────────────────────── */
+
 function buildMarkdown() {
-  const withErrors = results.filter(r => r.status === 'has_errors');
-  const withoutErrors = results.filter(r => r.status === 'no_errors');
-  const failed = results.filter(r => r.status === 'cross-origin-error');
+  var withErr = results.filter(function(r){ return r.status === 'has_errors'; });
+  var noErr   = results.filter(function(r){ return r.status === 'no_errors'; });
+  var other   = results.filter(function(r){ return r.status !== 'has_errors' && r.status !== 'no_errors'; });
 
-  let md = '# Invalid Conformance Tests — Taxonomy Errors\n\n';
+  var md = '# Invalid Conformance Tests \u2014 Taxonomy Errors\n\n';
 
-  if (withErrors.length > 0) {
-    md += '## Items with Taxonomy Errors\n\n';
+  if (withErr.length > 0) {
     md += '| Label | Taxonomy Errors |\n';
     md += '|---|---|\n';
-    for (const r of withErrors) {
-      const safeErrors = (r.errors || '').replace(/\|/g, '\\|').replace(/\n/g, ' ').replace(/\r/g, '');
-      md += `| ${r.name} | ${safeErrors} |\n`;
+    for (var i = 0; i < withErr.length; i++) {
+      md += '| ' + withErr[i].name + ' | ' + errorsHtmlToText(withErr[i].html || '') + ' |\n';
     }
     md += '\n';
   }
 
-  if (withoutErrors.length > 0) {
+  if (noErr.length > 0) {
     md += '## Items without Taxonomy Errors\n\n';
-    for (const r of withoutErrors) {
-      md += `- ${r.name}\n`;
+    for (var j = 0; j < noErr.length; j++) {
+      md += '- ' + noErr[j].name + '\n';
     }
     md += '\n';
   }
 
-  if (failed.length > 0) {
-    md += '## Items that could not be checked\n\n';
-    for (const r of failed) {
-      md += `- ${r.name} (cross-origin access denied)\n`;
+  if (other.length > 0) {
+    md += '## Other (timeout / cross-origin / stopped)\n\n';
+    for (var k = 0; k < other.length; k++) {
+      md += '- ' + other[k].name + ' (' + other[k].status + ')\n';
     }
     md += '\n';
   }
@@ -449,6 +454,5 @@ function buildMarkdown() {
   document.getElementById('output').value = md;
 }
 </script>
-
 </body>
 </html>
