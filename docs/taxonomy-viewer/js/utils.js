@@ -202,7 +202,15 @@ export function getNodeType(nodeName) {
         { array: 'cubes', type: 'cube' },
         { array: 'footnotes', type: 'footnote' },
         { array: 'facts', type: 'fact' },
-        { array: 'layouts', type: 'layout' }
+        { array: 'layouts', type: 'layout' },
+        { array: 'dataTypes', type: 'dataType' },
+        { array: 'relationshipTypes', type: 'relationshipType' },
+        { array: 'propertyTypes', type: 'propertyType' },
+        { array: 'cubeTypes', type: 'cubeType' },
+        { array: 'labelTypes', type: 'labelType' },
+        { array: 'referenceTypes', type: 'referenceType' },
+        { array: 'networks', type: 'network' },
+        { array: 'groups', type: 'group' }
     ];
     
     for (const { array, type } of typeArrays) {

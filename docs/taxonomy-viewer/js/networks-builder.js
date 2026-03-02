@@ -491,7 +491,7 @@ function buildNetworks(filterType, displayMode = 'name') {
             
             // Create a span container for the network name and indicators
             const nameSpan = document.createElement('span');
-            nameSpan.textContent = network.name;
+            nameSpan.textContent = getNodeLabel(network.name, displayMode);
             
             // Add recursion and root mismatch indicators
             addNetworkIndicators(nameSpan, network, hasRecursion, rootMismatchInfo, network.name);

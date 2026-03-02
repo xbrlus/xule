@@ -18,6 +18,34 @@ body {
     position: relative;
 }
 
+#taxonomy-open-row {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+#taxonomy-open-row #taxonomy-select {
+    flex: 1;
+    min-width: 0;
+}
+
+#open-file-btn {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+#open-file-btn:hover {
+    background: #388E3C;
+}
+
 #resize-handle {
     position: absolute;
     right: 0;
@@ -465,7 +493,6 @@ li {
 .factSource-item .fact-item.selected {
     background-color: #e3f2fd;
     font-weight: bold;
-}
 }
 
 /* Highlighted cell for fact */

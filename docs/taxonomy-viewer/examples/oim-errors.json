@@ -8,13 +8,15 @@
             "oim-errors": "http://example.com/oim-errors",
             "xbrl": "https://xbrl.org/2025",
             "specDoc": "https://xbrl.org/2025/oimtaxonomy/documentation",
-            "xs": "http://www.w3.org/2001/XMLSchema"
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "calc11e": "https://xbrl.org/CR/2022-10-12/error"
         },
         "documentNamespace": "oim-errors",
         "urlMapping": {
             "oime":  [".././spec-taxonomies/oime.json"],
             "oimte": [".././spec-taxonomies/oimte.json"],
-            "specDoc": [".././spec-taxonomies/documentation.json"]
+            "specDoc": [".././spec-taxonomies/documentation.json"],
+            "calc11e": [".././spec-taxonomies/calc11e.json"]
             }
     },
     "xbrlModel": {
@@ -29,6 +31,9 @@
             },
             {
                 "xbrlModelName": "specDoc:DocumentationTaxonomy"
+            },
+            {
+                "xbrlModelName": "calc11e:ErrorsTaxonomy"
             }
             ],
         "relationshipTypes": [
@@ -94,9 +99,22 @@
                     "oimte:missingRequiredModelTypeProperty",
                     "oimte:factValueDataTypeMismatch",
                     "oimte:referenceLanguageRedefined",
-                    "oimte:referenceTypeRedefined"
-
+                    "oimte:referenceTypeRedefined",
+                    "oimte:invalidRelationshipTargetObject",
+                    "oimte:invalidRelationshipSourceObject",
+                    "calc11e:inconsistentCalculationUsingRounding",
+                    "oimte:conflictingImportProperties",
+                    "calc11e:duplicateCalculationRelationships",
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
                 ]
+            }
+        ],
+        "labels": [
+            {
+                "relatedName": "oim-errors:ErrorsImplemented",
+                "value": "Implemented Errors",
+                "language": "en",
+                "labelType": "xbrl:label"
             }
         ]
     }

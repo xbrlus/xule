@@ -1,0 +1,34 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "urlMapping": {
+      "exp": ["../examples/exampleTaxonomy.json"]
+    },
+    "documentNamespace": "ext",
+    "description": "ERROR: oimte:invalidSelectionExpression - The operator 'LIKE' is not in the enumerated set of recognised operators defined in constraint §5 of the Selection Expression Grammar appendix. Valid operators are: ==, !=, in, not in, contains, not contains, >, <, >=, <=."
+  },
+  "xbrlModel": {
+    "name": "ext:SelectionUnknownOperator",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:SampleTaxonomy",
+        "selections": [
+          {
+            "objectType": "xbrl:conceptObject",
+            "where": [
+              { "property": "periodType", "operator": "LIKE", "value": "inst%" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

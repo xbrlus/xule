@@ -4,6 +4,44 @@
  */
 
 /**
+ * Resolve a QName text value in the context of the element that contains it.
+ *
+ * In XBRL 2.1 XML, QName content (e.g. the text of a <measure> element, or the
+ * value of an explicitMember attribute) must be resolved against the in-scope
+ * namespace declarations of the element that holds the text.
+ *
+ * Case 1 – already prefixed ("iso4217:USD", "xbrli:pure"):
+ *   Returned unchanged; the prefix is already present.
+ *
+ * Case 2 – unprefixed ("pure"):
+ *   The value is in the element's default namespace (xmlns="…").
+ *   We resolve the default namespace URI via DOM lookupNamespaceURI(null),
+ *   then find the canonical non-empty prefix that maps to that same URI via
+ *   lookupPrefix(uri).  This mirrors standard XML namespace-prefix resolution
+ *   (e.g. xmlns="http://www.xbrl.org/2003/instance" + xmlns:xbrli="http://www.xbrl.org/2003/instance"
+ *   → "pure" becomes "xbrli:pure").
+ *
+ * @param {string}  rawText - The raw text content of the QName node.
+ * @param {Element} element - The DOM Element whose namespace scope applies.
+ * @returns {string} The QName with an explicit prefix, or rawText unchanged.
+ */
+function resolveQNameInElement(rawText, element) {
+    const text = rawText.trim();
+    // Already prefixed – nothing to do.
+    if (text.includes(':')) return text;
+
+    // Unprefixed – look up the default namespace in scope for this element.
+    const defaultNsUri = element.lookupNamespaceURI(null);
+    if (!defaultNsUri) return text;
+
+    // Find the first non-empty prefix that maps to the same namespace URI.
+    const resolvedPrefix = element.lookupPrefix(defaultNsUri);
+    if (resolvedPrefix) return resolvedPrefix + ':' + text;
+
+    return text;
+}
+
+/**
  * Generate a position-based ID for an XML element
  * Position-based ID format: e.1.2.3... where each number represents the nth child
  * @param {Element} element - The XML element
@@ -145,13 +183,16 @@ function extractContexts(xmlDoc) {
             const foreverEl = periodEl.querySelector('forever');
             
             if (instantEl) {
-                context.period = instantEl.textContent + 'T00:00:00';
+                context.period = instantEl.textContent.trim() + 'T00:00:00';
             } else if (startDateEl && endDateEl) {
-                // For duration periods, use the end date as the period value
-                // This matches the OIM model convention
-                context.period = endDateEl.textContent + 'T00:00:00';
-                context.periodStart = startDateEl.textContent;
-                context.periodEnd = endDateEl.textContent;
+                // For duration periods, store as a start/end interval so that
+                // Q3-only (2025-07-01/2025-09-30) and YTD (2025-01-01/2025-09-30)
+                // periods are distinguishable during calculation alignment checks.
+                const startDate = startDateEl.textContent.trim();
+                const endDate   = endDateEl.textContent.trim();
+                context.period      = startDate + 'T00:00:00/' + endDate + 'T00:00:00';
+                context.periodStart = startDate;
+                context.periodEnd   = endDate;
             } else if (foreverEl) {
                 context.period = 'forever';
             }
@@ -178,17 +219,16 @@ function extractUnits(xmlDoc) {
         // Handle simple units (single measure)
         const measureEl = unitEl.querySelector('measure');
         if (measureEl) {
-            const measure = measureEl.textContent;
-            units[id] = measure;
+            units[id] = resolveQNameInElement(measureEl.textContent, measureEl);
         }
         
         // Handle complex units (divide with numerator/denominator)
         const divideEl = unitEl.querySelector('divide');
         if (divideEl) {
             const numeratorMeasures = Array.from(divideEl.querySelectorAll('unitNumerator measure'))
-                .map(el => el.textContent);
+                .map(el => resolveQNameInElement(el.textContent, el));
             const denominatorMeasures = Array.from(divideEl.querySelectorAll('unitDenominator measure'))
-                .map(el => el.textContent);
+                .map(el => resolveQNameInElement(el.textContent, el));
             
             // Format as numerator/denominator
             units[id] = {
@@ -231,6 +271,10 @@ function extractFacts(xmlDoc, contexts, units, prefix = '') {
         const contextRef = el.getAttribute('contextRef');
         const unitRef = el.getAttribute('unitRef');
         const decimals = el.getAttribute('decimals');
+        // Detect xsi:nil="true" — try both the namespaced and prefixed forms for compatibility
+        const nilAttr = el.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance', 'nil')
+                     || el.getAttribute('xsi:nil');
+        const isNil = nilAttr === 'true';
         const value = el.textContent;
         
         // Get the concept name (tag name with namespace)
@@ -277,16 +321,22 @@ function extractFacts(xmlDoc, contexts, units, prefix = '') {
         const factValueName = prefix + baseFactValueName;
         const factName = prefix + 'fp-' + baseFactValueName;
         
+        // Build the factValue object. Nil facts have no value property.
+        const factValueObj = { name: factValueName };
+        if (!isNil) {
+            factValueObj.value = value;
+        }
+        
         const fact = {
             name: factName,
-            factValues: [
-                {
-                    name: factValueName,
-                    value: value
-                }
-            ],
+            factValues: [factValueObj],
             factDimensions: factDimensions
         };
+        
+        // Nil facts carry a xbrl:nil property with value 'unknown'
+        if (isNil) {
+            fact.properties = [{ property: 'xbrl:nil', value: 'unknown' }];
+        }
         
         // Add decimals if present
         if (decimals !== null) {

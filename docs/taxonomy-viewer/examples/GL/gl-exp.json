@@ -299,7 +299,7 @@
                 ]
             },
             {
-                "name":"exp:JournalsTemplate",   
+                "name":"gl-exp:JournalsTemplate",   
                 "columns": [         
                         {"columnName":"JournalGUID"},
                         {"columnName":"effectiveDate",
@@ -368,7 +368,7 @@
             {
                 "name":"gl-exp:JournalsMap",
                 "cubeName": "gl-exp:GLTransactionEventCube",
-                "templateName":"exp:JournalsTemplate"
+                "templateName":"gl-exp:JournalsTemplate"
             }
     ]
   }

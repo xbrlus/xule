@@ -152,7 +152,7 @@
         "factDimensions": {
           "exp:TimeSeriesHourlyDemand": "$datetime",
           "exp:GridOperator": "$entity-id",
-          "xbrl:unit": "$unit"
+          "xbrl:unit": "utr:MW"
         }
       }
     ],

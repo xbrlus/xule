@@ -5,6 +5,45 @@
  * Accumulates validation errors and basic statistics while processing.
  */
 
+/**
+ * Calendar-aware date/dateTime validator.
+ * Uses regex + days-in-month arithmetic rather than new Date() so that
+ * out-of-range day values such as 2020-06-31 (June has 30 days) are
+ * correctly rejected instead of being silently rolled over.
+ *
+ * @param {*} value - Value to check
+ * @param {string} dataType - xs:date or xs:dateTime (or any string containing 'dateTime' or 'date')
+ * @returns {boolean} true if the value is a valid calendar date for the given type
+ */
+function isValidXSDateValue(value, dataType) {
+    const str = String(value);
+    const isDateTime = dataType === 'xs:dateTime' || dataType.includes('dateTime');
+
+    if (isDateTime) {
+        // xs:dateTime must match YYYY-MM-DDThh:mm:ss with optional fractional seconds and timezone
+        if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})?$/.test(str)) return false;
+        const m = str.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
+        if (!m) return false;
+        const year = parseInt(m[1], 10), month = parseInt(m[2], 10), day = parseInt(m[3], 10);
+        const hour = parseInt(m[4], 10), minute = parseInt(m[5], 10), second = parseInt(m[6], 10);
+        if (month < 1 || month > 12) return false;
+        if (hour > 23 || minute > 59 || second > 59) return false;
+        if (day < 1) return false;
+        const leap = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        return day <= [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+    }
+
+    // xs:date must match YYYY-MM-DD with optional timezone
+    if (!/^\d{4}-\d{2}-\d{2}(Z|[+-]\d{2}:\d{2})?$/.test(str)) return false;
+    const m = str.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return false;
+    const year = parseInt(m[1], 10), month = parseInt(m[2], 10), day = parseInt(m[3], 10);
+    if (month < 1 || month > 12) return false;
+    if (day < 1) return false;
+    const leap = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    return day <= [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+}
+
 class StreamingFactValidator {
     /**
      * Creates a new streaming validator
@@ -207,9 +246,8 @@ class StreamingFactValidator {
         }
         
         if (dataType.includes('date')) {
-            const date = new Date(value);
-            if (isNaN(date.getTime())) {
-                this.addError('invalidDataType', `Value ${value} is not a valid date for concept ${conceptName}`, factIndex, fact);
+            if (!isValidXSDateValue(value, dataType)) {
+                this.addError('invalidDataType', `Value '${value}' is not a valid date for concept '${conceptName}' with type '${dataType}'`, factIndex, fact);
                 return false;
             }
         }

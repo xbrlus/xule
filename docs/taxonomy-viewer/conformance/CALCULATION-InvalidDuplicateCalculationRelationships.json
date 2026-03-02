@@ -1,0 +1,55 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp":    "http://example.com/taxonomy",
+      "xbrl":   "https://xbrl.org/2025",
+      "xbrli":  "https://xbrl.org/2025/instance",
+      "xs":     "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: calc11e:duplicateCalculationRelationships — There must not be more than one summation-item relationship with the same source (total) concept and the same target (contributing) concept within a single summation-item network. In this example, the relationship exp:TotalRevenue → exp:Revenue appears twice with the same weight in the exp:RevenueCalculation network, which is invalid and MUST raise calc11e:duplicateCalculationRelationships."
+  },
+  "xbrlModel": {
+    "name": "exp:DuplicateCalculationRelationshipsTaxonomy",
+    "version": "2025",
+
+    "concepts": [
+      { "name": "exp:TotalRevenue", "dataType": "xbrli:monetary", "periodType": "duration" },
+      { "name": "exp:Revenue",      "dataType": "xbrli:monetary", "periodType": "duration" }
+    ],
+
+    "domains": [
+      {
+        "name": "exp:RevenueDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          { "source": "xbrl:conceptDomain", "target": "exp:TotalRevenue" },
+          { "source": "xbrl:conceptDomain", "target": "exp:Revenue" }
+        ]
+      }
+    ],
+
+    "networks": [
+      {
+        "name": "exp:RevenueCalculation",
+        "relationshipTypeName": "xbrl:summation-item",
+        "roots": ["exp:TotalRevenue"],
+        "relationships": [
+          {
+            "source": "exp:TotalRevenue",
+            "target": "exp:Revenue",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }]
+          },
+          {
+            "source": "exp:TotalRevenue",
+            "target": "exp:Revenue",
+            "properties": [{ "property": "xbrl:weight", "value": "1" }],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  }
+}

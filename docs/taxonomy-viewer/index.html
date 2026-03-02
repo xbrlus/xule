@@ -61,6 +61,10 @@
             </optgroup>
             <optgroup label="Conformance Tests">
                 <option value="./conformance/CALCULATION-ValidSummationMultiEntityValue.json">CALCULATION-ValidSummationMultiEntityValue.json</option>
+                <option value="./conformance/CALCULATION-ValidWeight1SameBalance.json">CALCULATION-ValidWeight1SameBalance.json</option>
+                <option value="./conformance/CALCULATION-ValidWeightMinus1DifferentBalance.json">CALCULATION-ValidWeightMinus1DifferentBalance.json</option>
+                <option value="./conformance/CALCULATION-ValidWeight1DifferentBalanceReconciliation.json">CALCULATION-ValidWeight1DifferentBalanceReconciliation.json</option>
+                <option value="./conformance/CALCULATION-ValidWeightMinus1SameBalanceReconciliation.json">CALCULATION-ValidWeightMinus1SameBalanceReconciliation.json</option>
                 <option value="./conformance/CONCEPT-ValidBasic.json">CONCEPT-ValidBasic.json</option>
                 <option value="./conformance/CONCEPT-ValidCustomDataType.json">CONCEPT-ValidCustomDataType.json</option>
                 <option value="./conformance/CONCEPT-ValidEnumerationDomain.json">CONCEPT-ValidEnumerationDomain.json</option>
@@ -76,17 +80,29 @@
                 <option value="./conformance/FACTSET-ValidFactMapExternalFile.json">FACTSET-ValidFactMapExternalFile.json</option>
                 <option value="./conformance/FINAL-ExtendsFinalTaxonomyNewNetwork.json">FINAL-ExtendsFinalTaxonomyNewNetwork.json</option>
                 <option value="./conformance/FINAL-ExtendsFinalTaxonomyObjectWithMember.json">FINAL-ExtendsFinalTaxonomyObjectWithMember.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-ValidConceptObject.json">IMPORTTAXONOMY-ValidConceptObject.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-ValidObjectTableTemplateObjectType.json">IMPORTTAXONOMY-ValidObjectTableTemplateObjectType.json</option>
                 <option value="./conformance/MEMBER-ValidBasic.json">MEMBER-ValidBasic.json</option>
                 <option value="./conformance/MEMBER-ValidWithProperties.json">MEMBER-ValidWithProperties.json</option>
                 <option value="./conformance/NETWORK-ValidBasic.json">NETWORK-ValidBasic.json</option>
                 <option value="./conformance/NETWORK-ValidEmptyProperties.json">NETWORK-ValidEmptyProperties.json</option>
                 <option value="./conformance/NETWORK-ValidMixedPropertyTypes.json">NETWORK-ValidMixedPropertyTypes.json</option>
                 <option value="./conformance/NETWORK-ValidPropertiesWithRoots.json">NETWORK-ValidPropertiesWithRoots.json</option>
+                <option value="./conformance/SELECTION-ValidConceptsByBalance.json">SELECTION-ValidConceptsByBalance.json</option>
             </optgroup>
             <optgroup label="Invalid Conformance Tests">
+                <option value="./conformance/CALCULATION-InvalidConceptsWithDifferentPeriodTypes.json">CALCULATION-InvalidConceptsWithDifferentPeriodTypes.json</option>
+                <option value="./conformance/CALCULATION-InvalidDuplicateCalculationRelationships.json">CALCULATION-InvalidDuplicateCalculationRelationships.json</option>
+                <option value="./conformance/CALCULATION-InvalidDuplicateCalcDiffWeightRelationships.json">CALCULATION-InvalidDuplicateCalcDiffWeightRelationships.json</option>
+                <option value="./conformance/CALCULATION-InvalidWeight1DifferentBalance.json">CALCULATION-InvalidWeight1DifferentBalance.json</option>
+                <option value="./conformance/CALCULATION-InvalidWeightMinus1SameBalance.json">CALCULATION-InvalidWeightMinus1SameBalance.json</option>
+                <option value="./conformance/CALCULATION-InvalidWeight1SameBalanceReconciliation.json">CALCULATION-InvalidWeight1SameBalanceReconciliation.json</option>
+                <option value="./conformance/CALCULATION-InvalidWeightMinus1DifferentBalanceReconciliation.json">CALCULATION-InvalidWeightMinus1DifferentBalanceReconciliation.json</option>
+                <option value="./conformance/CALCULATION-InvalidDuplicateCalculationRelationships.json">CALCULATION-InvalidDuplicateCalculationRelationships.json</option>
                 <option value="./conformance/CALCULATION-InvalidSummationItemValue.json">CALCULATION-InvalidSummationItemValue.json</option>
                 <option value="./conformance/CALCULATION-InvalidSummationItemWeight.json">CALCULATION-InvalidSummationItemWeight.json</option>
                 <option value="./conformance/CALCULATION-InvalidSummationMultiEntityValue.json">CALCULATION-InvalidSummationMultiEntityValue.json</option>
+                <option value="./conformance/CALCULATION-InvalidDuplicateCalculationRelationships.json">CALCULATION-InvalidDuplicateCalculationRelationships.json</option>
                 <option value="./conformance/MODELTYPE-InvalidInstance.json">MODELTYPE-InvalidInstance.json</option>
                 <option value="./conformance/MODELTYPE-RequiredProperty.json">MODELTYPE-RequiredProperty.json</option>
                 <option value="./conformance/CONCEPT-ConceptWithDuplicateProperties.json">CONCEPT-ConceptWithDuplicateProperties.json</option>
@@ -151,6 +167,14 @@
                 <option value="./conformance/CUBETYPE-missingRequiredRelationship.json">CUBETYPE-missingRequiredRelationship.json</option>
                 <option value="./conformance/DATATYPE-InvalidBaseCollectionType.json">DATATYPE-InvalidBaseCollectionType.json</option>
                 <option value="./conformance/DATATYPE-unallowedDatatypeObject.json">DATATYPE-unallowedDatatypeObject.json</option>
+                <option value="./conformance/DATATYPE-EnumerationInvalidValue.json">DATATYPE-EnumerationInvalidValue.json</option>
+                <option value="./conformance/DATATYPE-StringLengthInvalidValue.json">DATATYPE-StringLengthInvalidValue.json</option>
+                <option value="./conformance/DATATYPE-StringMinLengthInvalidValue.json">DATATYPE-StringMinLengthInvalidValue.json</option>
+                <option value="./conformance/DATATYPE-StringMaxLengthInvalidValue.json">DATATYPE-StringMaxLengthInvalidValue.json</option>
+                <option value="./conformance/DATATYPE-DecimalMinInclusiveInvalidValue.json">DATATYPE-DecimalMinInclusiveInvalidValue.json</option>
+                <option value="./conformance/DATATYPE-DecimalMaxInclusiveInvalidValue.json">DATATYPE-DecimalMaxInclusiveInvalidValue.json</option>
+                <option value="./conformance/DATATYPE-DecimalMaxExclusiveInvalidValue.json">DATATYPE-DecimalMaxExclusiveInvalidValue.json</option>
+                <option value="./conformance/DATATYPE-DecimalMinExclusiveInvalidValue.json">DATATYPE-DecimalMinExclusiveInvalidValue.json</option>
                 <option value="./conformance/DIMENSION-InvalidCubeTypeReference.json">DIMENSION-InvalidCubeTypeReference.json</option>
                 <option value="./conformance/DIMENSION-InvalidDomainDataTypeReference.json">DIMENSION-InvalidDomainDataTypeReference.json</option>
                 <option value="./conformance/DOMAIN-AbstractInTaxonomyDefinedDimensionDomain.json">DOMAIN-AbstractInTaxonomyDefinedDimensionDomain.json</option>
@@ -178,6 +202,7 @@
                 <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json</option>
                 <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json</option>
                 <option value="./conformance/FACT-RequiredDisclosure.json">FACT-RequiredDisclosure.json</option>
+                <option value="./conformance/FACT-UndefinedDimensionForEntity.json">FACT-UndefinedDimensionForEntity.json</option>
                 <option value="./conformance/FACT-ValueDataTypeMismatch.json">FACT-ValueDataTypeMismatch.json</option>
                 <option value="./conformance/FINAL-DefinesFinalTaxonomyFlag.json">FINAL-DefinesFinalTaxonomyFlag.json</option>
                 <option value="./conformance/FINAL-ExtendsFinalTaxonomy.json">FINAL-ExtendsFinalTaxonomy.json</option>
@@ -186,8 +211,9 @@
                 <option value="./conformance/FINAL-ExtendsFinalTaxonomyObjectWithConcept.json">FINAL-ExtendsFinalTaxonomyObjectWithConcept.json</option>
                 <option value="./conformance/IMPORTTAXONOMY-InvalidObjectType.json">IMPORTTAXONOMY-InvalidObjectType.json</option>
                 <option value="./conformance/IMPORTTAXONOMY-InvalidSelectionObjectType.json">IMPORTTAXONOMY-InvalidSelectionObjectType.json</option>
-                <option value="./conformance/IMPORTTAXONOMY-InvalidTextSelectionObjectType.json">IMPORTTAXONOMY-InvalidTextSelectionObjectType.json</option>
                 <option value="./conformance/IMPORTTAXONOMY-InvalidObjectSelectionObjectType.json">IMPORTTAXONOMY-InvalidObjectSelectionObjectType.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-InvalidLabelSelectionObjectType.json">IMPORTTAXONOMY-InvalidLabelSelectionObjectType.json</option>
+                <option value="./conformance/IMPORTTAXONOMY-InvalidSelectorExpression.json">IMPORTTAXONOMY-InvalidSelectorExpression.json</option>
                 <option value="./conformance/IMPORTTAXONOMY-NotInNamespace.json">IMPORTTAXONOMY-NotInNamespace.json</option>
                 <option value="./conformance/IMPORTTAXONOMY-PassThroughPrefixError.json">IMPORTTAXONOMY-PassThroughPrefixError.json</option>
                 <option value="./conformance/IMPORTTAXONOMY-TaxonomyNotFound.json">IMPORTTAXONOMY-TaxonomyNotFound.json</option>
@@ -205,13 +231,20 @@
                 <option value="./conformance/Layout-ComplexGridReverse.json">Layout-ComplexGridReverse.json</option>
                 <option value="./conformance/MEMBER-MemberInConceptDomain.json">MEMBER-MemberInConceptDomain.json</option>
                 <option value="./conformance/NAMESPACE-DocumentNamespaceDoesNotMatch.json">NAMESPACE-DocumentNamespaceDoesNotMatch.json</option>
+                <option value="./conformance/NAMESPACE-DocumentNamespaceNotDefinedDiffPrefix.json">NAMESPACE-DocumentNamespaceNotDefinedDiffPrefix.json</option>
                 <option value="./conformance/NAMESPACE-PrefixNotDefined.json">NAMESPACE-PrefixNotDefined.json</option>
                 <option value="./conformance/NAMESPACE-RestrictedPrefix.json">NAMESPACE-RestrictedPrefix.json</option>
+                <option value="./conformance/NAMESPACE-DocumentNamespaceNotInNamespaceMap.json">NAMESPACE-DocumentNamespaceNotInNamespaceMap.json</option>
                 <option value="./conformance/NETWORK-DuplicateNetworkNames.json">NETWORK-DuplicateNetworkNames.json</option>
                 <option value="./conformance/NETWORK-InvalidRelationshipTypeNameReference.json">NETWORK-InvalidRelationshipTypeNameReference.json</option>
+                <option value="./conformance/NETWORK-InvalidExtendNetworkProperties.json">NETWORK-InvalidExtendNetworkProperties.json</option>
                 <option value="./conformance/NETWORK-NetworkObjectWithDuplicateRelationships.json">NETWORK-NetworkObjectWithDuplicateRelationships.json</option>
                 <option value="./conformance/NETWORK-RelationshipsReferenceNonexistentSource.json">NETWORK-RelationshipsReferenceNonexistentSource.json</option>
+                <option value="./conformance/NETWORK-RootOfNetworkDoesNotMatchActualRoot.json">NETWORK-RootOfNetworkDoesNotMatchActualRoot.json</option>
+                <option value="./conformance/NETWORK-ValidExtendNetworkDuplicateProperties.json">NETWORK-ValidExtendNetworkDuplicateProperties.json</option>
+                <option value="./conformance/NETWORK-ValidExtendNetworkProperties.json">NETWORK-ValidExtendNetworkProperties.json</option>
                 <option value="./conformance/PROPERTY-InvalidAllowedObject.json">PROPERTY-InvalidAllowedObject.json</option>
+                <option value="./conformance/PROPERTY-InvalidPropertyValue.json">PROPERTY-InvalidPropertyValue.json</option>
                 <option value="./conformance/PROPERTY-UnknownPropertyType.json">PROPERTY-UnknownPropertyType.json</option>
                 <option value="./conformance/PROPERTYTYPE-DuplicatePropertyTypeNames.json">PROPERTYTYPE-DuplicatePropertyTypeNames.json</option>
                 <option value="./conformance/PROPERTYTYPE-InvalidDataTypeReference.json">PROPERTYTYPE-InvalidDataTypeReference.json</option>
@@ -225,11 +258,26 @@
                 <option value="./conformance/REFERENCETYPE-InvalidRequiredProperty.json">REFERENCETYPE-InvalidRequiredProperty.json</option>
                 <option value="./conformance/RELATIONSHIP-RelationshipDisallowedProperty.json">RELATIONSHIP-RelationshipDisallowedProperty.json</option>
                 <option value="./conformance/RELATIONSHIP-RelationshipMissingRequiredProperty.json">RELATIONSHIP-RelationshipMissingRequiredProperty.json</option>
+                <option value="./conformance/RELATIONSHIP-RelationshipInvalidTargetObject.json">RELATIONSHIP-RelationshipInvalidTargetObject.json</option>
+                <option value="./conformance/RELATIONSHIP-RelationshipInvalidSourceObject.json">RELATIONSHIP-RelationshipInvalidSourceObject.json</option>
+                <option value="./conformance/SELECTION-IncompatibleOperatorContainsOnBoolean.json">SELECTION-IncompatibleOperatorContainsOnBoolean.json</option>
+                <option value="./conformance/SELECTION-IncompatibleOperatorGreaterThanOnBoolean.json">SELECTION-IncompatibleOperatorGreaterThanOnBoolean.json</option>
+                <option value="./conformance/SELECTION-IncompatibleOperatorInOnBoolean.json">SELECTION-IncompatibleOperatorInOnBoolean.json</option>
+                <option value="./conformance/SELECTION-IncompatibleOperatorOnDate.json">SELECTION-IncompatibleOperatorOnDate.json</option>
+                <option value="./conformance/SELECTION-InOperatorEmptyArray.json">SELECTION-InOperatorEmptyArray.json</option>
+                <option value="./conformance/SELECTION-InOperatorNonArrayValue.json">SELECTION-InOperatorNonArrayValue.json</option>
+                <option value="./conformance/SELECTION-MissingObjectType.json">SELECTION-MissingObjectType.json</option>
+                <option value="./conformance/SELECTION-NotInOperatorEmptyArray.json">SELECTION-NotInOperatorEmptyArray.json</option>
+                <option value="./conformance/SELECTION-UnknownOperator.json">SELECTION-UnknownOperator.json</option>
+                <option value="./conformance/SELECTION-UnrecognisedObjectType.json">SELECTION-UnrecognisedObjectType.json</option>
                 <option value="./conformance/UNIT-DuplicateUnitNames.json">UNIT-DuplicateUnitNames.json</option>
                 <option value="./conformance/UNIT-InvalidDataType.json">UNIT-InvalidDataType.json</option>
                 <option value="./conformance/UNIT-UnitWithDuplicateStringRepresentations.json">UNIT-UnitWithDuplicateStringRepresentations.json</option>
                 <option value="./conformance/UNIT-UnitWithDataTypeNotMatchingConceptDataType.json">UNIT-UnitWithDataTypeNotMatchingConceptDataType.json</option>
         </select>
+            <button id="open-file-btn" title="Open a taxonomy JSON file from your computer">Open File…</button>
+            <input type="file" id="taxonomy-file-input" accept=".json" style="display:none">
+        </div>
         <div class="tabs">
             <button class="tab-button active" data-tab="taxonomy">Model</button>
             <button class="tab-button" data-tab="groups">Groups</button>

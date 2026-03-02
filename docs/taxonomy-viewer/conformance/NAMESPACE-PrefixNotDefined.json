@@ -6,7 +6,6 @@
       "xbrl": "https://xbrl.org/2025",
       "xs": "http://www.w3.org/2001/XMLSchema"
     },
-    "documentNamespace": "exp",
     "description": "Prefix used but not defined in the namespace declaration."
   },
   "xbrlModel": {

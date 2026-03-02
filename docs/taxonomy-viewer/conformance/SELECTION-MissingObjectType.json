@@ -1,0 +1,33 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "urlMapping": {
+      "exp": ["../examples/exampleTaxonomy.json"]
+    },
+    "documentNamespace": "ext",
+    "description": "ERROR: oimte:invalidSelectionExpression - A selection entry in the 'selections' array is an object but does not include the required 'objectType' property. Constraint §1 of the Selection Expression Grammar appendix requires every structured select statement to have an 'objectType' property."
+  },
+  "xbrlModel": {
+    "name": "ext:SelectionMissingObjectType",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:SampleTaxonomy",
+        "selections": [
+          {
+            "where": [
+              { "property": "periodType", "operator": "==", "value": "instant" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

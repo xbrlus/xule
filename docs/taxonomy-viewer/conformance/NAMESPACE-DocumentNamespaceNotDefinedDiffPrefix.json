@@ -1,0 +1,34 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy",
+      "exp1": "http://example.com/taxonomy1"
+    },
+    "description": "Prefix used but not defined in the namespace declaration."
+  },
+  "xbrlModel": {
+    "name": "exp:DiffNamespacePrefixDefined",
+    "version": "2025",
+    "members": [
+      {
+        "name": "exp:RegionEurope",
+        "properties": [
+          { "property": "exp:RegionType", "value": "continent" }
+        ]
+      },
+      {
+        "name": "exp1:RegionEurope2",
+        "properties": [
+          { "property": "exp:RegionType", "value": "continent" }
+        ]
+      }
+    ],
+    "propertyTypes": [
+      { "name": "exp:RegionType", "dataType": "xs:string" }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 // Initialization Module
 // Handles page load initialization and default taxonomy loading
 
-import { loadTaxonomy } from './taxonomy-loader.js';
+import { loadTaxonomy, loadTaxonomyFromContent } from './taxonomy-loader.js';
 import { initGroupsDisplayModeDropdown } from './groups-builder.js';
 import { initAllTabs } from './tab-manager.js';
 import { initAllUIHandlers } from './ui-handlers.js';
@@ -61,6 +61,44 @@ export function initTaxonomySelector() {
 }
 
 /**
+ * Initialize the "Open File" button to load a taxonomy from the local file system.
+ */
+export function initFileOpenButton() {
+    const btn = document.getElementById('open-file-btn');
+    const fileInput = document.getElementById('taxonomy-file-input');
+
+    if (!btn || !fileInput) {
+        console.warn('File open button or file input not found');
+        return;
+    }
+
+    btn.addEventListener('click', () => {
+        fileInput.value = ''; // Reset so re-selecting the same file triggers change
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const taxonomyData = JSON.parse(event.target.result);
+                console.log('Loaded taxonomy from local file:', file.name);
+                loadTaxonomyFromContent(taxonomyData, file.name);
+            } catch (err) {
+                console.error('Failed to parse taxonomy file:', err);
+                alert(`Failed to parse "${file.name}" as JSON: ${err.message}`);
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    console.log('File open button initialized');
+}
+
+/**
  * Handle modules loaded event
  * Protected against duplicate initialization
  */
@@ -93,6 +131,9 @@ export function onModulesLoaded() {
     
     // Initialize taxonomy selector
     initTaxonomySelector();
+
+    // Initialize local file open button
+    initFileOpenButton();
     
     // Dispatch custom event to signal initialization is complete
     window.dispatchEvent(new Event('taxonomyViewerReady'));

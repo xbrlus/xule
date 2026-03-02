@@ -34,6 +34,16 @@
                 "relationships": [
                     {
                         "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:invalidRelationshipSourceObject",
+                        "order": 1
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:invalidRelationshipTargetObject",
+                        "order": 1
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:disallowedObjectProperty",
                         "order": 1
                     },
@@ -289,7 +299,7 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:invalidPropertyValue",
+                        "target": "oimte:propertyValueDataTypeMismatch",
                         "order": 37
                     },
                     {
@@ -419,8 +429,13 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:documentNamespaceHasNoPrefix",
+                        "target": "oimte:documentNamespacePrefixNotDefined",
                         "order": 58
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:documentNamespaceNotDefined",
+                        "order": 58.5
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
@@ -547,6 +562,30 @@
         ],
         "members": [
             {
+                "name": "oimte:invalidRelationshipSourceObject",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+                        {
+                "name": "oimte:invalidRelationshipTargetObject",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:domainUsedOnPeriodDimension",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -607,7 +646,7 @@
                 ]
             },
             {
-                "name": "oimte:invalidPropertyValue",
+                "name": "oimte:propertyValueDataTypeMismatch",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -1483,6 +1522,30 @@
                 ]
             },
             {
+                "name": "oimte:conflictingImportProperties",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpression",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:taxonomyNotFound",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -1591,7 +1654,19 @@
                 ]
             },
             {
-                "name": "oimte:documentNamespaceHasNoPrefix",
+                "name": "oimte:documentNamespacePrefixNotDefined",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:documentNamespaceNotDefined",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -2359,6 +2434,18 @@
                 ]
             },
             {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:invalidUnitDataType",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -2679,6 +2766,9 @@
                 "name": "oimte:ReferenceErrors"
             },
             {
+                "name": "oimte:RelationshipErrors"
+            },
+            {
                 "name": "oimte:DataTypeErrors"
             },
             {
@@ -2725,6 +2815,7 @@
                     "oimte:NetworkErrors",
                     "oimte:LabelErrors",
                     "oimte:ReferenceErrors",
+                    "oimte:RelationshipErrors",
                     "oimte:DataTypeErrors",
                     "oimte:ConceptErrors",
                     "oimte:FactErrors",
@@ -2838,7 +2929,7 @@
                     },
                     {
                         "source": "oimte:XBRLModelErrors",
-                        "target": "oimte:invalidPropertyValue",
+                        "target": "oimte:propertyValueDataTypeMismatch",
                         "order": 3
                     },
                     {
@@ -3138,8 +3229,13 @@
                     },
                     {
                         "source": "oimte:DocumentInfoErrors",
-                        "target": "oimte:documentNamespaceHasNoPrefix",
+                        "target": "oimte:documentNamespacePrefixNotDefined",
                         "order": 8
+                    },
+                    {
+                        "source": "oimte:DocumentInfoErrors",
+                        "target": "oimte:documentNamespaceNotDefined",
+                        "order": 9
                     },
                     {
                         "source": "oimte:FinalTaxonomyErrors",
@@ -3265,6 +3361,21 @@
                         "source": "oimte:CubeTypeErrors",
                         "target": "oimte:missingRequiredDimensionProperty",
                         "order": 23
+                    },
+                    {
+                        "source": "oimte:RelationshipErrors",
+                        "target": "oimte:invalidRelationshipSourceObject",
+                        "order": 24
+                    },
+                    {
+                        "source": "oimte:RelationshipErrors",
+                        "target": "oimte:invalidRelationshipTargetObject",
+                        "order": 25
+                    },
+                    {
+                        "source": "oimte:RelationshipErrors",
+                        "target": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship",
+                        "order": 26
                     }
                 ]
             },
@@ -3295,7 +3406,8 @@
                     "oimte:JSONErrors",
                     "xbrl:referenceTypeObject",
                     "xbrl:factSourceObject",
-                    "xbrl:layoutObject"
+                    "xbrl:layoutObject",
+                    "xbrl:relationshipObject"
                 ],
                 "relationships": [
                     {
@@ -3400,7 +3512,7 @@
                     },
                     {
                         "source": "xbrl:xbrlModelObject",
-                        "target": "oimte:invalidPropertyValue",
+                        "target": "oimte:propertyValueDataTypeMismatch",
                         "order": 3
                     },
                     {
@@ -3675,8 +3787,18 @@
                     },
                     {
                         "source": "xbrl:importTaxonomyObject",
-                        "target": "oimte:taxonomyNotFound",
+                        "target": "oimte:conflictingImportProperties",
+                        "order": 5
+                    },
+                    {
+                        "source": "xbrl:importTaxonomyObject",
+                        "target": "oimte:invalidSelectionExpression",
                         "order": 6
+                    },
+                    {
+                        "source": "xbrl:importTaxonomyObject",
+                        "target": "oimte:taxonomyNotFound",
+                        "order": 7
                     },
                     {
                         "source": "xbrl:groupTreeObject",
@@ -3710,7 +3832,7 @@
                     },
                     {
                         "source": "oimte:JSONErrors",
-                        "target": "oimte:documentNamespaceHasNoPrefix",
+                        "target": "oimte:documentNamespacePrefixNotDefined",
                         "order": 7
                     },
                     {
@@ -3855,7 +3977,7 @@
                     },
                     {
                         "source": "oimte:DocumentInfoErrors",
-                        "target": "oimte:documentNamespaceHasNoPrefix",
+                        "target": "oimte:documentNamespacePrefixNotDefined",
                         "order": 8
                     },
                     {
@@ -4109,6 +4231,18 @@
                     {
                         "source": "xbrl:layoutObject",
                         "target": "oimte:invalidDimensionInTablePoint"
+                    },
+                    {
+                        "source": "xbrl:relationshipObject",
+                        "target": "oimte:invalidRelationshipSourceObject"
+                    },
+                    {
+                        "source": "xbrl:relationshipObject",
+                        "target": "oimte:invalidRelationshipTargetObject"
+                    },
+                    {
+                        "source": "xbrl:relationshipObject",
+                        "target": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
                     }
                 ]
             }
@@ -4125,6 +4259,42 @@
                 "language": "en",
                 "value": "Domain Used on Period Dimension",
                 "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:invalidRelationshipSourceObject",
+                "language": "en",
+                "value": "Invalid Relationship Source Object",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:invalidRelationshipSourceObject",
+                "language": "en",
+                "value": "This error occurs when a relationship has a source object that is not valid for the relationship type. The relationship type defines the allowed source object types, and the error indicates that the actual source object does not conform to these requirements.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "oimte:invalidRelationshipTargetObject",
+                "language": "en",
+                "value": "Invalid Relationship Target Object",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:invalidRelationshipTargetObject",
+                "language": "en",
+                "value": "This error occurs when a relationship has a target object that is not valid for the relationship type. The relationship type defines the allowed target object types, and the error indicates that the actual target object does not conform to these requirements.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "oimte:invalidRelationshipSourceObject",
+                "language": "en",
+                "value": "The relationship '{sourceObject}' is not valid for relationship type '{relationshipType}'.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:invalidRelationshipTargetObject",
+                "language": "en",
+                "value": "The relationship '{targetObject}' is not valid for relationship type '{relationshipType}'.",
+                "labelType": "xbrl:errorMessage"
             },
             {
                 "relatedName": "oimte:domainUsedOnPeriodDimension",
@@ -4181,13 +4351,13 @@
                 "labelType": "xbrl:errorMessage"
             },
             {
-                "relatedName": "oimte:invalidPropertyValue",
+                "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "Invalid Property Value",
                 "labelType": "xbrl:label"
             },
             {
-                "relatedName": "oimte:invalidPropertyValue",
+                "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "The property '{propertyName}' has an invalid value '{value}' for object '{objectName}'.",
                 "labelType": "xbrl:errorMessage"
@@ -4961,15 +5131,33 @@
                 "labelType": "xbrl:errorMessage"
             },
             {
-                "relatedName": "oimte:documentNamespaceHasNoPrefix",
+                "relatedName": "oimte:documentNamespacePrefixNotDefined",
                 "language": "en",
                 "value": "Document Namespace Has No Prefix",
                 "labelType": "xbrl:label"
             },
             {
-                "relatedName": "oimte:documentNamespaceHasNoPrefix",
+                "relatedName": "oimte:documentNamespacePrefixNotDefined",
                 "language": "en",
                 "value": "The documentNamespace '{documentNamespace}' does not match any defined namespace prefix in the namespaces declaration.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:documentNamespaceNotDefined",
+                "language": "en",
+                "value": "Document Namespace Not Defined",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:documentNamespaceNotDefined",
+                "language": "en",
+                "value": "This error occurs when an XBRL Model with a modelForm of 'module' (or where modelForm is not defined, which defaults to module) does not define the documentNamespace property in its documentInfo object. The documentNamespace property is required for modules and must be a prefix string defined as a key in the namespaces map.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "oimte:documentNamespaceNotDefined",
+                "language": "en",
+                "value": "The documentNamespace property is required for modules but is not defined in the documentInfo object.",
                 "labelType": "xbrl:errorMessage"
             },
             {
@@ -5545,7 +5733,7 @@
             {
                 "relatedName": "oimte:conflictingPropertyValues",
                 "language": "en",
-                "value": "This error occurs when the same property is included on an object with conflicting values. A property must only have consistent values when assigned to an object.",
+                "value": "This error occurs when the same property is included on an object with conflicting values. A property must only have consistent values when assigned to an object. The same property can be assigned to an object ONLY if the values are the same.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -5555,7 +5743,7 @@
                 "labelType": "xbrl:documentation"
             },
             {
-                "relatedName": "oimte:invalidPropertyValue",
+                "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "This error occurs when a property value does not conform to its expected datatype or constraints. For example, a boolean property receiving a non-boolean value, a numeric property receiving non-numeric text, or an enumerated property receiving a value outside the allowed set.",
                 "labelType": "xbrl:documentation"
@@ -5957,7 +6145,7 @@
                 "labelType": "xbrl:documentation"
             },
             {
-                "relatedName": "oimte:documentNamespaceHasNoPrefix",
+                "relatedName": "oimte:documentNamespacePrefixNotDefined",
                 "language": "en",
                 "value": "This error occurs when the documentNamespace property specifies a prefix that is not defined in the namespaces declaration. The documentNamespace must reference a valid prefix that exists in the namespaces map.",
                 "labelType": "xbrl:documentation"
@@ -5978,6 +6166,42 @@
                 "relatedName": "oimte:invalidReferenceToImportTaxonomyObject",
                 "language": "en",
                 "value": "The objectType property in the selection object must not include the xbrl:importTaxonomyObject object type. If it does, processors must raise an error.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "oimte:conflictingImportProperties",
+                "language": "en",
+                "value": "Conflicting Import Properties",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:conflictingImportProperties",
+                "language": "en",
+                "value": "The import taxonomy object has excludeLabels set to true and the selections array includes a selection object with objectType xbrl:labelObject.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:conflictingImportProperties",
+                "language": "en",
+                "value": "This error occurs when an import taxonomy object in the importedTaxonomies array has the excludeLabels property set to true and the selections array includes a selection object whose objectType is xbrl:labelObject. These two properties are contradictory: excludeLabels suppresses all label imports while the selection explicitly requests them. Processors must raise this error when both conditions are present on the same import taxonomy object.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "oimte:invalidSelectionExpression",
+                "language": "en",
+                "value": "Invalid Selection Expression",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:invalidSelectionExpression",
+                "language": "en",
+                "value": "A selections entry is structurally invalid, references an unrecognized objectType, contains an unknown operator, or uses an operator incompatible with the property's value type.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:invalidSelectionExpression",
+                "language": "en",
+                "value": "This error is raised when a structured select statement in the selections array of an importTaxonomy object or finalTaxonomy object is invalid. The following conditions each independently produce this error: (1) the objectType property is absent or is not a syntactically valid QName; (2) the objectType QName does not identify a recognized model component object type; (3) a where filter entry is missing the required property, operator, or value fields; (4) the operator value is not one of the ten enumerated operators (==, !=, in, not in, contains, not contains, >, <, >=, <=); (5) the operator is incompatible with the effective type of the referenced property (e.g. contains applied to a boolean property); or (6) the value for an in or not in operator is not a JSON array. See the Selection Expression Grammar appendix for the normative formal specification.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -6086,6 +6310,12 @@
                 "relatedName": "oimte:ReferenceErrors",
                 "language": "en",
                 "value": "Reference Errors",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:RelationshipErrors",
+                "language": "en",
+                "value": "Relationship Errors",
                 "labelType": "xbrl:label"
             },
             {
@@ -6836,7 +7066,25 @@
                 "relatedName": "oimte:conceptPropertiesInconsistentWithRelationship",
                 "language": "en",
                 "labelType": "xbrl:documentation",
-                "value": "Raised when a concept has properties that are inconsistent with the constraints defined by the relationship type that uses the concept. For example, a calculation relationship source concept must have a periodType of \"instant\"."
+                "value": "Raised when a concept has properties that are inconsistent with the constraints defined by the relationship type that uses the concept. For example, an instant-inflow relationship must have a source with a instant periodType and a target with a duration periodType."
+            },
+            {
+                "relatedName": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship",
+                "language": "en",
+                "labelType": "xbrl:label",
+                "value": "Concept Properties Inconsistent With Summation Item Relationship"
+            },
+            {
+                "relatedName": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship",
+                "language": "en",
+                "labelType": "xbrl:errorMessage",
+                "value": "The concept '{conceptName}' has properties that are inconsistent with the constraints of the summation-item relationship type '{relationshipTypeName}'."
+            },
+            {
+                "relatedName": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship",
+                "language": "en",
+                "labelType": "xbrl:documentation",
+                "value": "Raised when a concept has properties that are inconsistent with the constraints defined by the summation-item relationship type that uses the concept. For example, a calculation relationship source concept must have a periodType that matches the periodType of the target concept, a weight of 1 must use consistent xbrla:balance properties and a weight of -1 must use different xbrla:balance properties."
             },
             {
                 "relatedName": "oimte:invalidUnitDataType",
@@ -7359,6 +7607,42 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conflictingPropertyValues2Reference",
+                "relatedNames": [
+                    "oimte:conflictingPropertyValues"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-InvalidExtendNetworkProperties.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conflictingPropertyValues3Reference",
+                "relatedNames": [
+                    "oimte:conflictingPropertyValues"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-ValidExtendNetworkDuplicateProperties.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
                     }
                 ]
             },
@@ -7963,9 +8247,9 @@
                 ]
             },
             {
-                "name": "oimte:documentNamespaceHasNoPrefixReference",
+                "name": "oimte:documentNamespacePrefixNotDefinedReference",
                 "relatedNames": [
-                    "oimte:documentNamespaceHasNoPrefix"
+                    "oimte:documentNamespacePrefixNotDefined"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -7984,6 +8268,60 @@
                 "name": "oimte:objectNamespacePrefixNotDefinedReference",
                 "relatedNames": [
                     "oimte:objectNamespacePrefixNotDefined"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NAMESPACE-PrefixNotDefined.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:documentNamespacePrefixNotDefined2Reference",
+                "relatedNames": [
+                    "oimte:documentNamespacePrefixNotDefined"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NAMESPACE-DocumentNamespaceNotInNamespaceMap.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:documentNamespaceNotDefinedReference",
+                "relatedNames": [
+                    "oimte:documentNamespaceNotDefined"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NAMESPACE-DocumentNamespaceNotDefinedDiffPrefix.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:documentNamespaceNotDefined2Reference",
+                "relatedNames": [
+                    "oimte:documentNamespaceNotDefined"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -8327,16 +8665,16 @@
                 ]
             },
             {
-                "name": "oimte:invalidReferenceToImportTaxonomyTextObjectReference",
+                "name": "oimte:conflictingImportPropertiesReference",
                 "relatedNames": [
-                    "oimte:invalidReferenceToImportTaxonomyObject"
+                    "oimte:conflictingImportProperties"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
                 "properties": [
                     {
                         "property": "xbrl:conformanceTestFileName",
-                        "value": "IMPORTTAXONOMY-InvalidTextSelectionObjectType.json"
+                        "value": "IMPORTTAXONOMY-InvalidLabelSelectionObjectType.json"
                     },
                     {
                         "property": "xbrl:conformanceStatus",
@@ -8344,6 +8682,223 @@
                     }
                 ]
             },
+            {
+                "name": "oimte:invalidSelectionExpressionReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "IMPORTTAXONOMY-InvalidSelectionExpression.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionMissingObjectTypeReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-MissingObjectType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionUnrecognisedObjectTypeReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-UnrecognisedObjectType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionUnknownOperatorReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-UnknownOperator.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionContainsOnBooleanReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-IncompatibleOperatorContainsOnBoolean.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionGreaterThanOnBooleanReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-IncompatibleOperatorGreaterThanOnBoolean.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionInOnBooleanReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-IncompatibleOperatorInOnBoolean.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionInEmptyArrayReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-InOperatorEmptyArray.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionNotInEmptyArrayReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-NotInOperatorEmptyArray.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionInNonArrayValueReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-InOperatorNonArrayValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionContainsOnDateReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-IncompatibleOperatorOnDate.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:validSelectionConceptsByBalanceReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "SELECTION-ValidConceptsByBalance.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
+                    }
+                ]
+            },
+            
             {
                 "name": "oimte:taxonomyNotFoundReference",
                 "relatedNames": [
@@ -9213,6 +9768,186 @@
                 ]
             },
             {
+                "name": "oimte:factValueDataTypeMismatch2ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-EnumerationInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:factValueDataTypeMismatch3ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-StringLengthInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:factValueDataTypeMismatch4ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-StringMaxLengthInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:factValueDataTypeMismatch5ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-StringMinLengthInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+             {
+                "name": "oimte:factValueDataTypeMismatch6ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-DecimalMinExclusiveInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:factValueDataTypeMismatch7ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-DecimalMaxExclusiveInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:factValueDataTypeMismatch8ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-DecimalMaxInclusiveInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:factValueDataTypeMismatch9ConformanceReference",
+                "relatedNames": [
+                    "oimte:factValueDataTypeMismatch"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DATATYPE-DecimalMinInclusiveInvalidValue.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidRelationshipSourceObjectConformanceReference",
+                "relatedNames": [
+                    "oimte:invalidRelationshipSourceObject"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "RELATIONSHIP-RelationshipInvalidSourceObject.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidRelationshipTargetObjectConformanceReference",
+                "relatedNames": [
+                    "oimte:invalidRelationshipTargetObject"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "RELATIONSHIP-RelationshipInvalidTargetObject.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:disallowedObjectPropertySpecReference",
                 "relatedNames": [
                     "oimte:disallowedObjectProperty"
@@ -9577,16 +10312,30 @@
                 ]
             },
             {
-                "name": "oimte:documentNamespaceHasNoPrefixSpecReference",
+                "name": "oimte:documentNamespacePrefixNotDefinedSpecReference",
                 "relatedNames": [
-                    "oimte:documentNamespaceHasNoPrefix"
+                    "oimte:documentNamespacePrefixNotDefined"
                 ],
                 "referenceType": "xbrl:specificationErrorReference",
                 "language": "en",
                 "properties": [
                     {
                         "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-documentnamespacehasnoprefix"
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-documentnamespaceprefixnotdefined"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:documentNamespaceNotDefinedSpecReference",
+                "relatedNames": [
+                    "oimte:documentNamespaceNotDefined"
+                ],
+                "referenceType": "xbrl:specificationErrorReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-documentnamespacenotdefined"
                     }
                 ]
             },
@@ -9713,6 +10462,34 @@
                     {
                         "property": "xbrl:specificationErrorURI",
                         "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidreferencetoimporttaxonomyobject"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conflictingImportPropertiesSpecReference",
+                "relatedNames": [
+                    "oimte:conflictingImportProperties"
+                ],
+                "referenceType": "xbrl:specificationErrorReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-conflictingimportproperties"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidSelectionExpressionSpecReference",
+                "relatedNames": [
+                    "oimte:invalidSelectionExpression"
+                ],
+                "referenceType": "xbrl:specificationErrorReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidselectionexpression"
                     }
                 ]
             },
@@ -10273,6 +11050,182 @@
                     {
                         "property": "xbrl:specificationErrorURI",
                         "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-factvaluedatatypemismatch"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationshipReference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-InvalidConceptsWithDifferentPeriodTypes.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship2Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-ValidWeight1SameBalance.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship3Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-InvalidWeight1DifferentBalance.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship4Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-ValidWeightMinus1DifferentBalance.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship5Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-InvalidWeightMinus1SameBalance.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship6Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-ValidWeight1DifferentBalanceReconciliation.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship7Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-InvalidWeight1SameBalanceReconciliation.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship8Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-ValidWeightMinus1SameBalanceReconciliation.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship9Reference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CALCULATION-InvalidWeightMinus1DifferentBalanceReconciliation.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:conceptPropertiesInconsistentWithSummationItemRelationshipSpecReference",
+                "relatedNames": [
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                ],
+                "referenceType": "xbrl:specificationErrorReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-conceptpropertiesinconsistentwithsummationitemrelationship"
                     }
                 ]
             }

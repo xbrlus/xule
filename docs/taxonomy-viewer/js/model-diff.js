@@ -13,9 +13,9 @@ import { createCanonicalForm, generateModelHash } from './canonical-model.js';
 const OBJECT_ARRAYS = [
     'abstracts', 'concepts', 'cubes', 'cubeTypes', 'dataTypes', 'dimensions',
     'domains', 'domainClasses', 'entities', 'facts', 'footnotes', 'factMaps',
-    'groups', 'groupContents', 'labels', 'members', 'modelTypes', 'networks',
-    'propertyTypes', 'references', 'referenceTypes', 'relationshipTypes',
-    'units', 'transforms', 'layouts'
+    'factSources', 'tableTemplates', 'groups', 'groupContents', 'labels',
+    'members', 'modelTypes', 'networks', 'propertyTypes', 'references',
+    'referenceTypes', 'relationshipTypes', 'units', 'transforms', 'layouts'
 ];
 
 /**

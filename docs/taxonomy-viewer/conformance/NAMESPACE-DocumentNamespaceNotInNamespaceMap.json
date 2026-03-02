@@ -1,0 +1,29 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "urlMapping": {
+            "exp":  ["../examples/exampleTaxonomy.json"]
+            },
+    "documentNamespace": "ext1",
+    "description": "ERROR: oimte:documentNamespacePrefixNotDefined + oimte:objectNamespacePrefixNotDefined. The documentNamespace 'ext1' is not defined as a prefix key in the namespaces map, and the xbrlModel name also uses the undefined prefix 'ext1'."
+  },
+  "xbrlModel": {
+    "name": "ext1:ImportTaxonomyWithUndefinedNamespace",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:SampleTaxonomy",
+        "importObjectTypes": [
+          "xbrl:conceptObject"
+        ]
+      }
+    ]
+  }
+}

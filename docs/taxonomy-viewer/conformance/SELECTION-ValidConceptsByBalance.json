@@ -1,0 +1,36 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrla": "http://xbrl.org/accounting",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "urlMapping": {
+      "exp": ["../examples/exampleTaxonomy.json"],
+      "xbrla": ["../spec-taxonomies/xbrla.json"]
+    },
+    "documentNamespace": "ext",
+    "description": "Valid: selects only concept objects from exp:SampleTaxonomy where the xbrla:balance property equals 'credit'. This exercises the structured select statement with a QName-prefixed property name and a string equality operator. The imported concepts (exp:Revenue, exp:GrossProfit, exp:NetIncome) and their transitive dependencies (xbrla:balance propertyType) are included in the model."
+  },
+  "xbrlModel": {
+    "name": "ext:SelectionValidConceptsByBalance",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:SampleTaxonomy",
+        "selections": [
+          {
+            "objectType": "xbrl:conceptObject",
+            "where": [
+              { "property": "xbrla:balance", "operator": "==", "value": "credit" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -5,7 +5,7 @@
  */
 
 import { getTaxonomyData } from './main.js';
-import { validateQNameReferences, validateObjectNamespacePrefixes, validateDocumentNamespace } from './qname-validator.js';
+import { validateQNameReferences, validateObjectNamespacePrefixes } from './qname-validator.js';
 import { setRawTaxonomyData, getRawTaxonomyData } from './json-view.js';
 import { resetTaxonomyDetailsCache } from './tab-manager.js';
 import { 
@@ -93,6 +93,137 @@ export function getXbrlModelName(importSpec) {
  * @param {string} path - Path to the taxonomy JSON file
  * @returns {Promise<Object>} The loaded and merged taxonomy data
  */
+/**
+ * Internal helper: process already-fetched taxonomy data through the full pipeline.
+ * @param {Object} taxonomyData - Parsed taxonomy JSON
+ * @param {string} path - The original path (or '' for content loaded from the local file system)
+ */
+async function _processTaxonomyData(taxonomyData, path) {
+    // Store the base path for resolving relative URLs (like CSV files in factSources)
+    const basePath = path ? path.substring(0, path.lastIndexOf('/') + 1) : '';
+    if (!taxonomyData.documentInfo) {
+        taxonomyData.documentInfo = {};
+    }
+    taxonomyData.documentInfo.basePath = basePath;
+    console.log('[Taxonomy Loader] Base path set to:', basePath);
+
+    // Store raw taxonomy data for Module View (before any merging) - deep copy to prevent mutations
+    setRawTaxonomyData(JSON.parse(JSON.stringify(taxonomyData)));
+    console.log('[Taxonomy Loader] Raw taxonomy data stored for Module View');
+
+    // Reset pre-validation errors for this load cycle to avoid stale data from previous loads
+    window._preQNameValidationErrors = [];
+
+    // Note: documentNamespace and objectNamespacePrefix validation are both performed
+    // inside validateQNameReferences using the rawTaxonomyData (pre-merge) documentInfo.
+    // No separate pre-merge validation is needed here.
+
+    // Sync with state module
+    if (window.setTaxonomyData) {
+        window.setTaxonomyData(taxonomyData);
+    }
+
+    // Merge imported taxonomies first
+    console.time('[Taxonomy Loader] Merge Imports');
+    await mergeImportedTaxonomies(path);
+    console.timeEnd('[Taxonomy Loader] Merge Imports');
+
+    // Merge spec-taxonomies files into the loaded taxonomy
+    console.time('[Taxonomy Loader] Merge Spec Taxonomies');
+    await mergeSpecTaxonomies();
+    console.timeEnd('[Taxonomy Loader] Merge Spec Taxonomies');
+
+    // Validate QName references BEFORE building the tree so errors can be displayed
+    const updatedTaxonomyData = getTaxonomyData();
+    const updatedXbrlModel = getXbrlModel(updatedTaxonomyData);
+    if (updatedXbrlModel) {
+        console.time('[Taxonomy Loader] Validate QNames');
+        window.qnameValidationErrors = validateQNameReferences(
+            updatedXbrlModel,
+            updatedTaxonomyData.documentInfo || null,
+            getRawTaxonomyData() // Pass raw taxonomy data for final taxonomy validation
+        );
+        console.timeEnd('[Taxonomy Loader] Validate QNames');
+
+        // Merge namespace prefix errors from imported taxonomies
+        // These are structural errors that exist in the imported taxonomies
+        if (window._importedTaxonomyErrors && window._importedTaxonomyErrors.size > 0) {
+            console.log(`[Taxonomy Loader] Checking ${window._importedTaxonomyErrors.size} imported taxonomies for namespace prefix errors`);
+
+            for (const [taxonomyName, errors] of window._importedTaxonomyErrors.entries()) {
+                if (errors && errors.length > 0) {
+                    console.log(`[Taxonomy Loader]   - Processing ${errors.length} namespace prefix errors from ${taxonomyName}`);
+
+                    // Filter errors for objects that were actually imported
+                    const relevantErrors = errors.filter(error => {
+                        // Namespace prefix errors have qname directly on the error object, not in context
+                        const objectName = error.qname || error.context?.objectName || error.context?.qname;
+                        if (objectName) {
+                            // Check if this object exists in the merged xbrlModel
+                            const exists = objectExistsInTaxonomy(updatedXbrlModel, objectName);
+                            if (exists) {
+                                console.log(`[Taxonomy Loader]     - Error for '${objectName}' is relevant (object imported)`);
+                            } else {
+                                console.log(`[Taxonomy Loader]     - Error for '${objectName}' is not relevant (object not imported)`);
+                            }
+                            return exists;
+                        }
+                        console.log(`[Taxonomy Loader]     - Error has no object name to check:`, error);
+                        return false;
+                    });
+
+                    if (relevantErrors.length > 0) {
+                        console.log(`[Taxonomy Loader]   - Propagating ${relevantErrors.length} relevant errors from ${taxonomyName}`);
+                        window.qnameValidationErrors = window.qnameValidationErrors.concat(relevantErrors);
+                    } else {
+                        console.log(`[Taxonomy Loader]   - No relevant errors to propagate from ${taxonomyName}`);
+                    }
+                }
+            }
+
+            // Clear the imported errors after processing
+            window._importedTaxonomyErrors.clear();
+        }
+
+        // Merge any pre-collected extension-time validation errors so they are visible to the UI
+        if (window._preQNameValidationErrors && Array.isArray(window._preQNameValidationErrors) && window._preQNameValidationErrors.length > 0) {
+            console.log(`[Taxonomy Loader] Merging ${window._preQNameValidationErrors.length} extension-time validation error(s)`);
+            window.qnameValidationErrors = window.qnameValidationErrors.concat(window._preQNameValidationErrors);
+            // Clear the pre-errors after merging
+            window._preQNameValidationErrors = [];
+        }
+    }
+
+    // Build the tree UI (this will display the validation errors)
+    try {
+        console.time('[Taxonomy Loader] Build Tree');
+        if (window.buildTree) {
+            window.buildTree();
+        } else {
+            console.warn('[Taxonomy Loader] buildTree function not available');
+        }
+        console.timeEnd('[Taxonomy Loader] Build Tree');
+    } catch (error) {
+        console.error('[Taxonomy Loader] Error building tree:', error);
+    }
+
+    // Show taxonomy details in right panel
+    if (updatedXbrlModel && window.showDetails) {
+        console.log('[Taxonomy Loader] Showing taxonomy details in right panel');
+        // Reset the taxonomy details cache since we're loading a new taxonomy
+        resetTaxonomyDetailsCache();
+        window.showDetails(updatedXbrlModel, 'taxonomy');
+    }
+
+    // Switch to Model tab
+    const taxonomyTab = document.querySelector('[data-tab="taxonomy"]');
+    if (taxonomyTab) {
+        taxonomyTab.click();
+    }
+
+    return taxonomyData;
+}
+
 export async function loadTaxonomy(path) {
     console.log('[Taxonomy Loader] Loading taxonomy from:', path);
     console.time('[Taxonomy Loader] Total Load Time');
@@ -124,149 +255,53 @@ export async function loadTaxonomy(path) {
         let taxonomyData = await response.json();
         console.timeEnd('[Taxonomy Loader] Initial Fetch');
         console.log('[Taxonomy Loader] Taxonomy data loaded:', taxonomyData);
-        
-        // Store the base path for resolving relative URLs (like CSV files in factSources)
-        const basePath = path.substring(0, path.lastIndexOf('/') + 1);
-        if (!taxonomyData.documentInfo) {
-            taxonomyData.documentInfo = {};
-        }
-        taxonomyData.documentInfo.basePath = basePath;
-        console.log('[Taxonomy Loader] Base path set to:', basePath);
-        
-        // Store raw taxonomy data for Module View (before any merging) - deep copy to prevent mutations
-        setRawTaxonomyData(JSON.parse(JSON.stringify(taxonomyData)));
-        console.log('[Taxonomy Loader] Raw taxonomy data stored for Module View');
-        
-        // Validate documentNamespace is properly defined
-        if (taxonomyData.documentInfo) {
-            console.log('[Taxonomy Loader] Validating documentNamespace...');
-            const docNamespaceErrors = validateDocumentNamespace(taxonomyData.documentInfo);
-            if (docNamespaceErrors && docNamespaceErrors.length > 0) {
-                if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
-                window._preQNameValidationErrors.push(...docNamespaceErrors);
-                console.log(`[Taxonomy Loader] Found ${docNamespaceErrors.length} documentNamespace error(s)`);
-            }
-        }
-        
-        // Validate namespace prefixes BEFORE merging (only validates current taxonomy module)
-        const xbrlModel = getXbrlModel(taxonomyData);
-        if (xbrlModel && taxonomyData.documentInfo) {
-            console.log('[Taxonomy Loader] Validating namespace prefixes for current module...');
-            const namespaceErrors = validateObjectNamespacePrefixes(xbrlModel, taxonomyData.documentInfo);
-            if (namespaceErrors && namespaceErrors.length > 0) {
-                if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
-                window._preQNameValidationErrors.push(...namespaceErrors);
-                console.log(`[Taxonomy Loader] Found ${namespaceErrors.length} namespace prefix error(s) in current module`);
-            }
-        }
-        
-        // Sync with state module
-        if (window.setTaxonomyData) {
-            window.setTaxonomyData(taxonomyData);
-        }
-        
-        // Merge imported taxonomies first
-        console.time('[Taxonomy Loader] Merge Imports');
-        await mergeImportedTaxonomies(path);
-        console.timeEnd('[Taxonomy Loader] Merge Imports');
-        
-        // Merge spec-taxonomies files into the loaded taxonomy
-        console.time('[Taxonomy Loader] Merge Spec Taxonomies');
-        await mergeSpecTaxonomies();
-        console.timeEnd('[Taxonomy Loader] Merge Spec Taxonomies');
-        
-        // Validate QName references BEFORE building the tree so errors can be displayed
-        const updatedTaxonomyData = getTaxonomyData();
-        const updatedXbrlModel = getXbrlModel(updatedTaxonomyData);
-        if (updatedXbrlModel) {
-            console.time('[Taxonomy Loader] Validate QNames');
-            window.qnameValidationErrors = validateQNameReferences(
-                updatedXbrlModel,
-                updatedTaxonomyData.documentInfo || null,
-                getRawTaxonomyData() // Pass raw taxonomy data for final taxonomy validation
-            );
-            console.timeEnd('[Taxonomy Loader] Validate QNames');
-            
-            // Merge namespace prefix errors from imported taxonomies
-            // These are structural errors that exist in the imported taxonomies
-            if (window._importedTaxonomyErrors && window._importedTaxonomyErrors.size > 0) {
-                console.log(`[Taxonomy Loader] Checking ${window._importedTaxonomyErrors.size} imported taxonomies for namespace prefix errors`);
-                
-                for (const [taxonomyName, errors] of window._importedTaxonomyErrors.entries()) {
-                    if (errors && errors.length > 0) {
-                        console.log(`[Taxonomy Loader]   - Processing ${errors.length} namespace prefix errors from ${taxonomyName}`);
-                        
-                        // Filter errors for objects that were actually imported
-                        const relevantErrors = errors.filter(error => {
-                            // Namespace prefix errors have qname directly on the error object, not in context
-                            const objectName = error.qname || error.context?.objectName || error.context?.qname;
-                            if (objectName) {
-                                // Check if this object exists in the merged xbrlModel
-                                const exists = objectExistsInTaxonomy(updatedXbrlModel, objectName);
-                                if (exists) {
-                                    console.log(`[Taxonomy Loader]     - Error for '${objectName}' is relevant (object imported)`);
-                                } else {
-                                    console.log(`[Taxonomy Loader]     - Error for '${objectName}' is not relevant (object not imported)`);
-                                }
-                                return exists;
-                            }
-                            console.log(`[Taxonomy Loader]     - Error has no object name to check:`, error);
-                            return false;
-                        });
-                        
-                        if (relevantErrors.length > 0) {
-                            console.log(`[Taxonomy Loader]   - Propagating ${relevantErrors.length} relevant errors from ${taxonomyName}`);
-                            window.qnameValidationErrors = window.qnameValidationErrors.concat(relevantErrors);
-                        } else {
-                            console.log(`[Taxonomy Loader]   - No relevant errors to propagate from ${taxonomyName}`);
-                        }
-                    }
-                }
-                
-                // Clear the imported errors after processing
-                window._importedTaxonomyErrors.clear();
-            }
-            
-            // Merge any pre-collected extension-time validation errors so they are visible to the UI
-            if (window._preQNameValidationErrors && Array.isArray(window._preQNameValidationErrors) && window._preQNameValidationErrors.length > 0) {
-                console.log(`[Taxonomy Loader] Merging ${window._preQNameValidationErrors.length} extension-time validation error(s)`);
-                window.qnameValidationErrors = window.qnameValidationErrors.concat(window._preQNameValidationErrors);
-                // Clear the pre-errors after merging
-                window._preQNameValidationErrors = [];
-            }
-        }
-        
-        // Build the tree UI (this will display the validation errors)
-        try {
-            console.time('[Taxonomy Loader] Build Tree');
-            if (window.buildTree) {
-                window.buildTree();
-            } else {
-                console.warn('[Taxonomy Loader] buildTree function not available');
-            }
-            console.timeEnd('[Taxonomy Loader] Build Tree');
-        } catch (error) {
-            console.error('[Taxonomy Loader] Error building tree:', error);
-        }
-        
-        // Show taxonomy details in right panel
-        if (updatedXbrlModel && window.showDetails) {
-            console.log('[Taxonomy Loader] Showing taxonomy details in right panel');
-            // Reset the taxonomy details cache since we're loading a new taxonomy
-            resetTaxonomyDetailsCache();
-            window.showDetails(updatedXbrlModel, 'taxonomy');
-        }
-        
-        // Switch to Model tab
-        const taxonomyTab = document.querySelector('[data-tab="taxonomy"]');
-        if (taxonomyTab) {
-            taxonomyTab.click();
-        }
-        
+
+        const result = await _processTaxonomyData(taxonomyData, path);
         console.timeEnd('[Taxonomy Loader] Total Load Time');
-        return taxonomyData;
+        return result;
     } catch (error) {
         console.error('[Taxonomy Loader] Error loading taxonomy:', error);
+        console.timeEnd('[Taxonomy Loader] Total Load Time');
+        throw error;
+    } finally {
+        if (loading) {
+            loading.style.display = 'none';
+        }
+    }
+}
+
+/**
+ * Load a taxonomy from already-parsed JSON content (e.g. opened from the local file system).
+ * Relative imports in the taxonomy will not be resolvable.
+ * @param {Object} taxonomyData - Parsed taxonomy JSON object
+ * @param {string} [fileName] - Display name for the file (used in logging only)
+ */
+export async function loadTaxonomyFromContent(taxonomyData, fileName) {
+    console.log('[Taxonomy Loader] Loading taxonomy from content:', fileName || '(unnamed)');
+    console.time('[Taxonomy Loader] Total Load Time');
+
+    // Clear the taxonomy cache when loading a new top-level taxonomy
+    taxonomyCache.clear();
+    console.log('[Taxonomy Loader] Cleared taxonomy cache');
+
+    // Clear previous QName validation errors
+    window.qnameValidationErrors = [];
+
+    // Clear previous factSource validation errors (not stored in model, reported separately)
+    window.factSourceValidationErrors = [];
+
+    const loading = document.getElementById('loading');
+    if (loading) {
+        loading.style.display = 'block';
+    }
+
+    try {
+        // Pass an empty path so imports are attempted (they may fail gracefully if relative)
+        const result = await _processTaxonomyData(taxonomyData, '');
+        console.timeEnd('[Taxonomy Loader] Total Load Time');
+        return result;
+    } catch (error) {
+        console.error('[Taxonomy Loader] Error loading taxonomy from content:', error);
         console.timeEnd('[Taxonomy Loader] Total Load Time');
         throw error;
     } finally {
@@ -906,6 +941,15 @@ function processDomainExtensions(taxonomyData) {
                             targetDomain.relationships.push(...domain.relationships);
                             console.log(`[Taxonomy Loader]   - Added ${domain.relationships.length} relationships to domain ${targetName}`);
                         }
+
+                        // Merge properties from extension into target domain
+                        if (domain.properties && Array.isArray(domain.properties)) {
+                            if (!targetDomain.properties) {
+                                targetDomain.properties = [];
+                            }
+                            targetDomain.properties.push(...domain.properties);
+                            console.log(`[Taxonomy Loader]   - Added ${domain.properties.length} properties to domain ${targetName}`);
+                        }
                     }
                 
                 // Mark this extension for removal
@@ -973,6 +1017,15 @@ function processNetworkExtensions(taxonomyData) {
                     }
                     targetNetwork.roots.push(...network.roots);
                     console.log(`[Taxonomy Loader]   - Added ${network.roots.length} roots to network ${targetName}`);
+                }
+                
+                // Merge properties from extension into target network
+                if (network.properties && Array.isArray(network.properties)) {
+                    if (!targetNetwork.properties) {
+                        targetNetwork.properties = [];
+                    }
+                    targetNetwork.properties.push(...network.properties);
+                    console.log(`[Taxonomy Loader]   - Added ${network.properties.length} properties to network ${targetName}`);
                 }
                 
                 // Mark this extension for removal
@@ -1442,6 +1495,19 @@ function mergeSelectedObjects(targetTaxonomy, sourceTaxonomy, importObjects, exc
         if (obj.propertyType) deps.add(obj.propertyType);
         if (obj.relationshipType) deps.add(obj.relationshipType);
         if (obj.referenceType) deps.add(obj.referenceType);
+
+        // enumerationDomain: concepts and propertyTypes may reference a domain object via
+        // enumerationDomain. That domain (and its transitive dependencies) must be included.
+        if (obj.enumerationDomain) deps.add(obj.enumerationDomain);
+
+        // properties[].property: each entry in a concept's (or other object's) properties
+        // array references a propertyType by QName. Those propertyTypes are dependencies and
+        // must be imported so that the property values can be validated and resolved.
+        if (Array.isArray(obj.properties)) {
+            obj.properties.forEach(p => {
+                if (p.property && typeof p.property === 'string') deps.add(p.property);
+            });
+        }
         
         // Check allowedDomainItems array for QName references
         if (Array.isArray(obj.allowedDomainItems)) {
@@ -1698,7 +1764,18 @@ function matchesWhereClause(obj, whereClause) {
         return false;
     }
     
-    const propertyValue = obj[whereClause.property];
+    // For QName-style property names (containing a colon), look up the value inside
+    // the object's `properties` array (e.g. [{ "property": "xbrla:balance", "value": "credit" }])
+    // rather than directly on the object.
+    let propertyValue = obj[whereClause.property];
+    if (propertyValue === undefined && typeof whereClause.property === 'string' && whereClause.property.includes(':')) {
+        if (Array.isArray(obj.properties)) {
+            const entry = obj.properties.find(p => p.property === whereClause.property);
+            if (entry !== undefined) {
+                propertyValue = entry.value;
+            }
+        }
+    }
     const expectedValue = whereClause.value;
     
     // Handle different data types
@@ -1798,6 +1875,7 @@ function mergeObjectsBySelection(targetTaxonomy, sourceTaxonomy, selections, exc
     
     // Collect all matching objects
     const matchingObjectNames = [];
+    const directLabels = []; // Labels selected directly via xbrl:labelObject selections
     
     parsedSelections.forEach(selection => {
         const arrayName = getArrayNameForType(selection.objectType);
@@ -1820,8 +1898,8 @@ function mergeObjectsBySelection(targetTaxonomy, sourceTaxonomy, selections, exc
                     matchingObjectNames.push(obj.name);
                     matchCount++;
                 } else if (arrayName === 'labels' && obj.relatedName) {
-                    // For labels, we track them differently since they don't have a 'name' property
-                    // We'll handle labels separately in the mergeSelectedObjects function
+                    // Labels don't have a 'name' property - collect them for direct import
+                    directLabels.push(obj);
                     matchCount++;
                 }
             }
@@ -1830,13 +1908,37 @@ function mergeObjectsBySelection(targetTaxonomy, sourceTaxonomy, selections, exc
         console.log(`[Taxonomy Loader]   - Found ${matchCount} matching ${arrayName}`);
     });
     
-    if (matchingObjectNames.length === 0) {
+    if (matchingObjectNames.length === 0 && directLabels.length === 0) {
         console.log(`[Taxonomy Loader] No objects matched selection criteria from ${sourceName}`);
         return;
     }
     
-    console.log(`[Taxonomy Loader] Total matching objects: ${matchingObjectNames.length}`);
+    console.log(`[Taxonomy Loader] Total matching objects: ${matchingObjectNames.length + directLabels.length}`);
     
     // Use existing mergeSelectedObjects function to import matching objects and their dependencies
-    mergeSelectedObjects(targetTaxonomy, sourceTaxonomy, matchingObjectNames, excludeLabels, sourceName);
+    if (matchingObjectNames.length > 0) {
+        mergeSelectedObjects(targetTaxonomy, sourceTaxonomy, matchingObjectNames, excludeLabels, sourceName);
+    }
+    
+    // Directly import labels matched by xbrl:labelObject selections
+    if (directLabels.length > 0 && !excludeLabels) {
+        if (!targetTaxonomy.labels) {
+            targetTaxonomy.labels = [];
+        }
+        let importedCount = 0;
+        directLabels.forEach(label => {
+            const exists = targetTaxonomy.labels.some(existing =>
+                existing.relatedName === label.relatedName &&
+                existing.language === label.language &&
+                existing.labelType === label.labelType
+            );
+            if (!exists) {
+                targetTaxonomy.labels.push(label);
+                importedCount++;
+            }
+        });
+        if (importedCount > 0) {
+            console.log(`[Taxonomy Loader] Directly imported ${importedCount} labels from ${sourceName}`);
+        }
+    }
 }

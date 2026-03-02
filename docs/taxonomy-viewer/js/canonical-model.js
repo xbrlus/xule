@@ -163,7 +163,13 @@ function processFactSources(factSources) {
         
         // Build processed factSource
         for (const key of sortedKeys) {
-            processed[key] = normalizeValue(fs[key], key);
+            let value = fs[key];
+            // factNames is a set (unordered) in the spec — sort it so insertion order
+            // does not affect the model hash
+            if (key === 'factNames' && Array.isArray(value)) {
+                value = [...value].sort((a, b) => a.localeCompare(b));
+            }
+            processed[key] = normalizeValue(value, key);
         }
         
         return processed;
@@ -319,9 +325,15 @@ function normalizeValue(value, key) {
     
     if (Array.isArray(value)) {
         // Filter out empty values and process each item
-        return value
+        const items = value
             .filter(item => !isEmptyValue(item))
             .map(item => normalizeValue(item, key));
+        // Per canonical spec: sort primitive (string/number) arrays lexicographically
+        // so that insertion order does not affect the model hash
+        if (items.length > 0 && typeof items[0] !== 'object') {
+            items.sort((a, b) => String(a).localeCompare(String(b)));
+        }
+        return items;
     }
     
     if (typeof value === 'object') {

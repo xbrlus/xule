@@ -6,14 +6,24 @@
         "exp": "http://example.com/taxonomy", 
         "xbrl": "https://xbrl.org/2025", 
         "xbrli": "https://xbrl.org/2025/instance", 
+         "xbrla": "http://xbrl.org/accounting",
         "xs": "http://www.w3.org/2001/XMLSchema" 
         },
-    "documentNamespace": "exp"
+    "documentNamespace": "exp",
+    "urlMapping": {
+      "xbrla": [
+                  "../spec-taxonomies/xbrla.json"
+                ]
+      }
   },
   "xbrlModel": {
     "name": "exp:TimeSeriesCompleteTaxonomy",
     "version": "2025",
-    "dataTypes": [],
+    "importedTaxonomies": [
+                {
+                  "xbrlModelName": "xbrla:AccountingModel"
+                }
+                ],
     "propertyTypes": [],
     "dimensions": [
       {

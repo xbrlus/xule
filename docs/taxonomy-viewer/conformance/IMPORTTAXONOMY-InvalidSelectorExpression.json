@@ -15,13 +15,18 @@
     "description": "ERROR: selections uses an invalid selection statement. Should be periodType and not period."
   },
   "xbrlModel": {
-    "name": "exp:ImportTaxonomyInvalidSelection",
+    "name": "ext:ImportTaxonomyInvalidSelection",
     "version": "2025",
     "importedTaxonomies": [
       {
         "xbrlModelName": "exp:SampleTaxonomy",
         "selections": [
-          "xbrl:conceptObject where period == instant" 
+          {
+            "objectType": "xbrl:conceptObject",
+            "where": [
+              { "property": "period", "operator": "==", "value": "instant" }
+            ]
+          }
         ]
       }
     ]

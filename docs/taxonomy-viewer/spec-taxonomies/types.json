@@ -26,6 +26,12 @@
                 "enumeration": ["debit", "credit"],
                 "allowedObjects": ["xbrl:propertyObject"]
             },
+            {
+                "name": "xbrli:nilReasonType",
+                "baseType": "xs:string",
+                "enumeration": ["unknown", "unavailable", "immaterial", "withheld", "confidential", "redacted", "notApplicable", "pending", "notRequired", "other"],
+                "openEnumeration": true
+            },
             {   "name": "xbrli:periodType",
                 "baseType": "xs:string",
                 "enumeration": ["instant", "duration", "none"]
@@ -380,6 +386,12 @@
                 "name" : "xbrli:dateTime",
                 "baseType" : "xs:dateTime",
                 "patterns" : [".*T.*"]
+            },
+            {
+                "name" : "xbrli:partialDate",
+                "baseType" : "xs:string",
+                "allowedObjects": ["xbrl:conceptObject"],
+                "patterns" : ["-?[0-9]{4,}(-[0-9]{2}(-[0-9]{2}(T[0-9]{2}(:[0-9]{2}(:[0-9]{2})?)?)?)?)?"]
             },
             {
                 "name" : "xbrli:ghgEmissions",
@@ -883,6 +895,18 @@
                 "value" : "A subtype of xs:dateTime that requires a time component (as xs:dateTime does)."
             },
             {
+                "relatedName" : "xbrli:partialDate",
+                "language" : "en",
+                "labelType" : "xbrl:label",
+                "value" : "Partial Date"
+            },
+            {
+                "relatedName" : "xbrli:partialDate",
+                "language" : "en",
+                "labelType" : "xbrl:documentation",
+                "value" : "An ISO 8601 truncated date/time value that may represent a year (YYYY), year-month (YYYY-MM), full date (YYYY-MM-DD), or date with hours, minutes or seconds. Used where the precision of a date or time value is not known in advance."
+            },
+            {
                 "relatedName" : "xbrli:ghgEmissions",
                 "language" : "en",
                 "labelType" : "xbrl:documentation",
@@ -1175,6 +1199,14 @@
                 
             },
             {
+                "name": "xbrli:PartialDateRequirementReference",
+                "relatedNames": [
+                    "xbrli:partialDate"
+                ],
+                "referenceType": "xbrl:dataTypeRequirement",
+                "properties": [{"property":"ref:Requirement", "value":"This data type is required to represent dates at varying levels of temporal precision, from year only through to full date-time. This is needed for financial reporting scenarios where the exact date of a transaction or contract event is not known with full precision — for example, an investment schedule where the maturity year and month of a bond are known but not the exact day. Fabricating a full date in such cases would misrepresent the precision of the data. The type accepts values conforming to ISO 8601 truncated date representations: YYYY, YYYY-MM, YYYY-MM-DD, YYYY-MM-DDTHH, YYYY-MM-DDTHH:MM, or YYYY-MM-DDTHH:MM:SS."}]
+            },
+            {
                 "name": "xbrli:PrefixedContentRequirementReference",
                 "relatedNames": [
                     "xbrli:prefixedContent"
@@ -1244,6 +1276,7 @@
                     "xbrli:monetaryPerEnergy",
                     "xbrli:monetaryPerMass",
                     "xbrli:dateTime",
+                    "xbrli:partialDate",
                     "xbrli:ghgEmissions",
                     "xbrli:energyPerMonetary",
                     "xbrli:ghgEmissionsPerMonetary",

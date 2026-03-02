@@ -114,7 +114,7 @@
                     {"source": "oimte:OIMErrorRootDomain", "target": "oimte:invalidObjectType", "order": 34},
                     {"source": "oimte:OIMErrorRootDomain", "target": "oimte:invalidPeriodType", "order": 35},
                     {"source": "oimte:OIMErrorRootDomain", "target": "oimte:invalidProfileFramework", "order": 36},
-                    {"source": "oimte:OIMErrorRootDomain", "target": "oimte:invalidPropertyValue", "order": 37},
+                    {"source": "oimte:OIMErrorRootDomain", "target": "oimte:propertyValueDataTypeMismatch", "order": 37},
                     {"source": "oimte:OIMErrorRootDomain", "target": "oimte:invalidTaxonomyDefinedDimension", "order": 38},
                     {"source": "oimte:OIMErrorRootDomain", "target": "oimte:missingDomainClassSource", "order": 39},
                     {"source": "oimte:OIMErrorRootDomain", "target": "oimte:invalidConceptDomainClass", "order": 40},
@@ -173,7 +173,7 @@
                 ]
             },
             {
-                "name": "oimte:invalidPropertyValue",
+                "name": "oimte:propertyValueDataTypeMismatch",
                 "properties": [
                     {"property": "oimte:severity", "value": "error"}
                 ]
@@ -635,7 +635,7 @@
                     {"source": "oimte:CubeDimensionErrors", "target": "oimte:domainUsedOnPeriodDimension", "order": 4},
                     {"source": "oimte:TaxonomyErrors", "target": "oimte:duplicateObjects", "order": 1},
                     {"source": "oimte:TaxonomyErrors", "target": "oimte:undefinedQNameReference", "order": 2},
-                    {"source": "oimte:TaxonomyErrors", "target": "oimte:invalidPropertyValue", "order": 3},
+                    {"source": "oimte:TaxonomyErrors", "target": "oimte:propertyValueDataTypeMismatch", "order": 3},
                     {"source": "oimte:TaxonomyErrors", "target": "oimte:invalidObjectType", "order": 5},
                     {"source": "oimte:TaxonomyErrors", "target": "oimte:invalidEmptySet", "order": 6},
                     {"source": "oimte:PropertyErrors", "target": "oimte:conflictingPropertyValues", "order": 1},
@@ -726,7 +726,7 @@
                     {"source": "xbrl:cubeDimensionObject", "target": "oimte:domainUsedOnPeriodDimension", "order": 4},
                     {"source": "xbrl:taxonomyObject", "target": "oimte:duplicateObjects", "order": 1},
                     {"source": "xbrl:taxonomyObject", "target": "oimte:undefinedQNameReference", "order": 2},
-                    {"source": "xbrl:taxonomyObject", "target": "oimte:invalidPropertyValue", "order": 3},
+                    {"source": "xbrl:taxonomyObject", "target": "oimte:propertyValueDataTypeMismatch", "order": 3},
                     {"source": "xbrl:taxonomyObject", "target": "oimte:invalidObjectType", "order": 5},
                     {"source": "xbrl:taxonomyObject", "target": "oimte:invalidEmptySet", "order": 6},
                     {"source": "xbrl:taxonomyObject", "target": "oimte:invalidLanguage", "order": 3},
@@ -852,13 +852,13 @@
                 "labelType": "oimte:errorMessage"
             },
             {
-                "relatedName": "oimte:invalidPropertyValue",
+                "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "Invalid Property Value",
                 "labelType": "xbrl:label"
             },
             {
-                "relatedName": "oimte:invalidPropertyValue",
+                "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "The property '{propertyName}' has an invalid value '{value}' for object '{objectName}'.",
                 "labelType": "oimte:errorMessage"
@@ -1560,13 +1560,13 @@
                 "labelType": "xbrl:documentation"
             },
             {
-                "relatedName": "oimte:invalidPropertyValue",
+                "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "🚫",
                 "labelType": "xbrl:iconLabel"
             },
             {
-                "relatedName": "oimte:invalidPropertyValue",
+                "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "This error occurs when a property value does not conform to its expected datatype or constraints. For example, a boolean property receiving a non-boolean value, a numeric property receiving non-numeric text, or an enumerated property receiving a value outside the allowed set.",
                 "labelType": "xbrl:documentation"

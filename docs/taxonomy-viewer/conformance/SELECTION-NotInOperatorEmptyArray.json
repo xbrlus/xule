@@ -9,19 +9,24 @@
       "exp": "http://example.com/taxonomy"
     },
     "urlMapping": {
-            "exp":  ["../examples/exampleTaxonomy.json"]
-            },
+      "exp": ["../examples/exampleTaxonomy.json"]
+    },
     "documentNamespace": "ext",
-    "description": "ERROR: oimte:invalidImportObjectType - Selections includes xbrl:importTaxonomyObject as object type, which is not allowed."
+    "description": "ERROR: oimte:invalidSelectionExpression - The 'not in' operator requires a non-empty JSON array as its value. An empty array is provided, which violates constraint 7 of the Selection Expression Grammar appendix."
   },
   "xbrlModel": {
-    "name": "ext:ImportTaxonomyInvalidSelectionObjectType",
+    "name": "ext:SelectionNotInOperatorEmptyArray",
     "version": "2025",
     "importedTaxonomies": [
       {
         "xbrlModelName": "exp:SampleTaxonomy",
         "selections": [
-          "xbrl:importTaxonomyObject where taxonomyName == mini2:MiniTaxonomy2"
+          {
+            "objectType": "xbrl:conceptObject",
+            "where": [
+              { "property": "periodType", "operator": "not in", "value": [] }
+            ]
+          }
         ]
       }
     ]

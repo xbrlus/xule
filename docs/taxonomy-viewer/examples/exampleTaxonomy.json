@@ -40,8 +40,19 @@
                             "where": [
                                 { "property": "periodType", "operator": "==", "value": "instant"}
                             ]
-                        },
-                        "xbrl:labelObject where relatedName == 'mini2:Inventory'"
+                        }
+                ],
+                "excludeLabels":true
+            },
+            {
+                "xbrlModelName": "mini2:MiniTaxonomy2",
+                "selections": [
+                        {
+                            "objectType": "xbrl:labelObject",
+                            "where": [
+                                { "property": "relatedName", "operator": "==", "value": "mini2:Inventory"}
+                            ]
+                        }
                 ]
             },
             {

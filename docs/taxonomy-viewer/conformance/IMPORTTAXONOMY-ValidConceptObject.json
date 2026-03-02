@@ -1,0 +1,39 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "ext": "http://extension.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrla": "http://xbrl.org/accounting",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "exp": "http://example.com/taxonomy"
+    },
+    "urlMapping": {
+      "exp": ["../examples/exampleTaxonomy.json"],
+      "xbrla": ["../spec-taxonomies/xbrla.json"]
+    },
+    "documentNamespace": "ext",
+    "description": "Valid: imports concept objects from the example taxonomy, together with the domain objects referenced via enumerationDomain on those concepts (exp:DomainOfCountries, exp:AccountingClassDomain) and the property type objects referenced in concept properties (exp:AccountingClassType from exp:SampleTaxonomy and xbrla:balance from xbrla:AccountingModel)."
+  },
+  "xbrlModel": {
+    "name": "ext:ImportConceptObject",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:SampleTaxonomy",
+        "importObjectTypes": [
+          "xbrl:conceptObject",
+          "xbrl:domainObject",
+          "xbrl:propertyTypeObject"
+        ]
+      },
+      {
+        "xbrlModelName": "xbrla:AccountingModel",
+        "importObjectTypes": [
+          "xbrl:propertyTypeObject"
+        ]
+      }
+    ]
+  }
+}

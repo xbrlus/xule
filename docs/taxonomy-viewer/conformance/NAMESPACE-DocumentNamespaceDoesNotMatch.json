@@ -8,7 +8,7 @@
       "exp": "http://example.com/taxonomy"
     },
     "documentNamespace": "exp1",
-    "description": "Error: oimte:documentNamespaceHasNoPrefix. The documentNamespace does not match any defined namespace prefix."
+    "description": "Error: oimte:documentNamespacePrefixNotDefined. The documentNamespace does not match any defined namespace prefix."
   },
   "xbrlModel": {
     "name": "exp:documentNamespaceIsInvalid",

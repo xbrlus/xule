@@ -1428,6 +1428,10 @@
                             "description": "Ordered set of enumerated values of the datatype if applicable.",
                             "items": { "type": ["string", "number", "boolean"] }
                           },
+                          "openEnumeration": {
+                            "type": "boolean",
+                            "description": "Indicates if the enumeration is open. If true, values other than those defined in the enumeration property are allowed. If false, only values defined in the enumeration property are allowed. Defaults to false if not provided."
+                          },
                           "minInclusive": {
                             "type": "number",
                             "description": "Decimal value for minimum inclusive cardinal value (applies to float, double, decimal)."

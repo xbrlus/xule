@@ -168,8 +168,8 @@
  */
 
 import { getTaxonomyData } from './main.js';
-import { BUILTIN_OBJECT_TYPES_SET as BUILTIN_OBJECT_TYPES } from './object-types.js';
-import { validateCalculations } from './calculation-validator.js';
+import { BUILTIN_OBJECT_TYPES_SET as BUILTIN_OBJECT_TYPES, NON_IMPORTABLE_OBJECT_TYPES_SET } from './object-types.js';
+import { validateCalculations, validateSummationItemRelationshipProperties, validateDuplicateCalculationRelationships } from './calculation-validator.js';
 
 // Store validation errors
 let validationErrors = [];
@@ -224,20 +224,18 @@ function getDocumentNamespacePrefix(documentInfo) {
     
     const documentNamespace = documentInfo.documentNamespace;
     
-    // documentNamespace can be either a prefix (string) or a URI
-    // If it's in the namespaces map, find the prefix
+    // documentNamespace must be a prefix string (a key in the namespaces map).
+    // If found, return it directly.
     if (documentInfo.namespaces && documentInfo.namespaces[documentNamespace]) {
-        // documentNamespace is a prefix
         return documentNamespace;
     }
     
-    // Otherwise, try to find the prefix by matching the namespace URI
-    if (documentInfo.namespaces) {
-        for (const [prefix, uri] of Object.entries(documentInfo.namespaces)) {
-            if (uri === documentNamespace) {
-                return prefix;
-            }
-        }
+    // If documentNamespace is not in the namespaces map but looks like a plain
+    // prefix (no URI scheme or path separator), return it as-is so that
+    // objectNamespaceMismatch can still fire for objects using a different prefix.
+    // validateDocumentNamespace will separately report the missing declaration.
+    if (!documentNamespace.includes('://') && !documentNamespace.includes('/')) {
+        return documentNamespace;
     }
     
     return null;
@@ -375,7 +373,11 @@ export function validateObjectNamespacePrefixes(taxonomy, documentInfo) {
         'facts',
         'references',
         'transforms',
-        'footnotes'
+        'footnotes',
+        'factSources',
+        'factMaps',
+        'tableTemplates',
+        'layouts'
     ];
     
     arrayProperties.forEach(prop => {
@@ -410,48 +412,62 @@ export function validateObjectNamespacePrefixes(taxonomy, documentInfo) {
     if (taxonomy.name) {
         checkQNamePrefix(taxonomy.name, 'taxonomy.name');
     }
+
+    // Check finalTaxonomy.name if it exists
+    if (taxonomy.finalTaxonomy && taxonomy.finalTaxonomy.name) {
+        checkQNamePrefix(taxonomy.finalTaxonomy.name, 'finalTaxonomy.name');
+    }
     
     return errors;
 }
 
 /**
- * Validate that the documentNamespace is properly defined in the namespaces
+ * Validate that the documentNamespace is properly defined in the namespaces.
+ * Also checks that documentNamespace is present when modelForm is 'module' or not defined.
  * @param {Object} documentInfo - The documentInfo object
+ * @param {Object|null} xbrlModel - The raw (pre-merge) xbrlModel object, used to read modelForm
  * @returns {Array<Object>} Array of validation errors
  */
-export function validateDocumentNamespace(documentInfo) {
+export function validateDocumentNamespace(documentInfo, xbrlModel = null) {
     const errors = [];
     
-    // Only validate if documentNamespace is defined
-    if (!documentInfo || !documentInfo.documentNamespace) {
+    if (!documentInfo) {
+        return errors;
+    }
+    
+    // Determine whether the module constraint applies:
+    // modelForm of 'module' (or absent, which defaults to module) requires documentNamespace.
+    const modelForm = xbrlModel ? xbrlModel.modelForm : undefined;
+    const isModuleForm = !modelForm || modelForm === 'module';
+    
+    // If documentNamespace is absent and module form applies, report the missing property.
+    if (!documentInfo.documentNamespace) {
+        if (isModuleForm) {
+            errors.push({
+                message: `The documentNamespace property is required when modelForm is 'module' or not defined (oimte:documentNamespaceNotDefined)`,
+                errorCode: 'oimte:documentNamespaceNotDefined',
+                location: 'documentInfo.documentNamespace',
+                note: 'Modules must declare a documentNamespace prefix'
+            });
+        }
         return errors;
     }
     
     const documentNamespace = documentInfo.documentNamespace;
     
-    // Check if documentNamespace is a prefix that exists in namespaces
+    // documentNamespace must be a prefix string that is defined as a key in the namespaces map
     if (documentInfo.namespaces && documentInfo.namespaces[documentNamespace]) {
         // Valid: documentNamespace is a prefix defined in namespaces
         return errors;
     }
     
-    // Check if documentNamespace is a URI that matches a value in namespaces
-    if (documentInfo.namespaces) {
-        for (const [prefix, uri] of Object.entries(documentInfo.namespaces)) {
-            if (uri === documentNamespace) {
-                // Valid: documentNamespace is a URI that matches a namespace value
-                return errors;
-            }
-        }
-    }
-    
-    // If we reach here, documentNamespace is not properly defined
+    // If we reach here, documentNamespace is not a valid prefix in the namespaces map
     errors.push({
-        message: `The documentNamespace '${documentNamespace}' does not match any defined namespace prefix in the namespaces declaration (oimte:documentNamespaceHasNoPrefix)`,
-        errorCode: 'oimte:documentNamespaceHasNoPrefix',
+        message: `The documentNamespace '${documentNamespace}' is not defined as a prefix key in the namespaces declaration (oimte:documentNamespacePrefixNotDefined)`,
+        errorCode: 'oimte:documentNamespacePrefixNotDefined',
         documentNamespace: documentNamespace,
         location: 'documentInfo.documentNamespace',
-        note: 'The documentNamespace must be either a prefix defined in namespaces or a URI that matches a namespace value'
+        note: 'The documentNamespace must be a prefix string defined as a key in the namespaces map'
     });
     
     return errors;
@@ -676,7 +692,14 @@ export function getObjectTypeForQName(taxonomy, qname) {
         { array: 'factSources', type: 'xbrl:factSourceObject' },
         { array: 'tableTemplates', type: 'xbrl:tableTemplateObject' },
         { array: 'jsonTemplates', type: 'xbrl:jsonTemplateObject' },
-        { array: 'xmlTemplates', type: 'xbrl:xmlTemplateObject' }
+        { array: 'xmlTemplates', type: 'xbrl:xmlTemplateObject' },
+        { array: 'dataTypes', type: 'xbrl:dataTypeObject' },
+        { array: 'relationshipTypes', type: 'xbrl:relationshipTypeObject' },
+        { array: 'propertyTypes', type: 'xbrl:propertyTypeObject' },
+        { array: 'modelTypes', type: 'xbrl:modelTypeObject' },
+        { array: 'labelTypes', type: 'xbrl:labelTypeObject' },
+        { array: 'referenceTypes', type: 'xbrl:referenceTypeObject' },
+        { array: 'cubeTypes', type: 'xbrl:cubeTypeObject' }
     ];
 
     for (const m of mapping) {
@@ -811,60 +834,199 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
             }
             if (Array.isArray(imp.importObjectTypes)) {
                 imp.importObjectTypes.forEach(qname => {
-                    // importObjectTypes must only contain built-in object types
+                    // importObjectTypes must only contain known built-in object types
                     if (!isBuiltinObjectType(qname)) {
                         addValidationError(
                             `Invalid object type '${qname}' in importObjectTypes - must be a built-in object type`,
                             { property: 'importedTaxonomies.importObjectTypes', invalidQName: qname }
                         );
                     }
-                    // xbrl:labelObject cannot be imported via importObjectTypes
-                    else if (qname === 'xbrl:labelObject') {
-                        addValidationError(
-                            `Invalid object type 'xbrl:labelObject' in importObjectTypes - labels cannot be imported by type`,
-                            { property: 'importedTaxonomies.importObjectTypes', invalidQName: qname, errorCode: 'oimte:invalidImportObjectType' }
-                        );
-                    }
-                    // xbrl:importTaxonomyObject cannot be imported via importObjectTypes
+                    // xbrl:importTaxonomyObject has its own specific error
                     else if (qname === 'xbrl:importTaxonomyObject') {
                         addValidationError(
                             `Invalid object type 'xbrl:importTaxonomyObject' in importObjectTypes - importTaxonomy objects cannot be imported`,
                             { property: 'importedTaxonomies.importObjectTypes', invalidQName: qname, errorCode: 'oimte:invalidReferenceToImportTaxonomyObject' }
                         );
                     }
+                    // Non-importable types: nested sub-objects, singletons, and xbrl:labelObject
+                    // (xbrl:cubeDimensionObject, xbrl:propertyObject, xbrl:finalTaxonomyObject,
+                    //  xbrl:groupTreeObject, xbrl:xbrlModelObject, xbrl:labelObject)
+                    else if (NON_IMPORTABLE_OBJECT_TYPES_SET.has(qname)) {
+                        addValidationError(
+                            `Invalid object type '${qname}' in importObjectTypes - this object type is a nested, singleton, or non-importable type`,
+                            { property: 'importedTaxonomies.importObjectTypes', invalidQName: qname, errorCode: 'oimte:invalidImportObjectType' }
+                        );
+                    }
                 });
             }
             
             // Validate selections array (if present)
+            // Implements all constraints from the Selection Expression Grammar appendix
             if (Array.isArray(imp.selections)) {
+                // ── Selection Expression Grammar – operator/type constants ──────────────
+                // §5: the full enumerated set of recognised operators
+                const VALID_SEL_OPERATORS = new Set([
+                    '==', '!=', 'in', 'not in', 'contains', 'not contains',
+                    '>', '<', '>=', '<='
+                ]);
+                // §7: operators whose value MUST be a non-empty array
+                const ARRAY_VALUE_OPERATORS = new Set(['in', 'not in']);
+                // §6: operators that are only valid on string properties
+                const STRING_ONLY_OPERATORS = new Set(['contains', 'not contains']);
+                // §6: ordering operators – not permitted on boolean properties
+                const ORDERING_OPERATORS = new Set(['>', '<', '>=', '<=']);
+
+                // §6: known built-in properties that have an effective type of xs:boolean.
+                // Boolean properties only support == and != (all other operators are incompatible).
+                const BOOLEAN_PROPERTIES = new Set([
+                    'nillable', 'definitional', 'allowedAsLinkProperty', 'completeDomain',
+                    'excludeLabels', 'finalTaxonomyFlag', 'allowedAsLinkProperty'
+                ]);
+
+                const selModelName = imp.xbrlModelName || imp.taxonomyName || 'unknown';
+
                 imp.selections.forEach((selection, selIndex) => {
-                    let objectType = null;
-                    
-                    // Handle string format: "xbrl:conceptObject where name == 'foo:Bar'"
-                    if (typeof selection === 'string') {
-                        // Extract objectType from string format
-                        const match = selection.match(/^([^\s]+)\s+where\s+/i);
-                        if (match) {
-                            objectType = match[1];
-                        }
+                    const selPath = `importedTaxonomies[xbrlModelName='${selModelName}'].selections[${selIndex}]`;
+
+                    // ── §1: objectType is required for object-format selections ────────
+                    if (typeof selection === 'object' && selection !== null && !selection.objectType) {
+                        addValidationError(
+                            `Invalid selection expression at ${selPath}: the required 'objectType' property is missing (constraint §1)`,
+                            {
+                                property: 'importedTaxonomies.selections',
+                                selectionIndex: selIndex,
+                                errorCode: 'oimte:invalidSelectionExpression',
+                                constraint: '§1'
+                            }
+                        );
+                        return; // Cannot validate further without objectType
                     }
-                    // Handle object format: { objectType: "xbrl:conceptObject", where: [...] }
-                    else if (typeof selection === 'object' && selection.objectType) {
+
+                    // Extract objectType from either string or object format
+                    let objectType = null;
+                    if (typeof selection === 'string') {
+                        const match = selection.match(/^([^\s]+)\s+where\s+/i);
+                        if (match) objectType = match[1];
+                    } else if (typeof selection === 'object' && selection.objectType) {
                         objectType = selection.objectType;
                     }
-                    
-                    // Check if objectType is xbrl:importTaxonomyObject
-                    if (objectType === 'xbrl:importTaxonomyObject') {
+
+                    // ── §2: objectType must be a recognised model component object type ─
+                    if (objectType && !isBuiltinObjectType(objectType)) {
                         addValidationError(
-                            `Invalid object type 'xbrl:importTaxonomyObject' in selections - importTaxonomy objects cannot be imported`,
-                            { 
-                                property: 'importedTaxonomies.selections', 
+                            `Invalid selection expression at ${selPath}: objectType '${objectType}' is not a recognised model component object type (constraint §2). See sec-taxonomy-object for the list of valid object types.`,
+                            {
+                                property: 'importedTaxonomies.selections',
                                 selectionIndex: selIndex,
                                 objectType: objectType,
-                                errorCode: 'oimte:invalidReferenceToImportTaxonomyObject' 
+                                errorCode: 'oimte:invalidSelectionExpression',
+                                constraint: '§2'
                             }
                         );
                     }
+
+                    // ── Existing specific-type constraints ────────────────────────────
+                    // xbrl:importTaxonomyObject is never importable via selections
+                    if (objectType === 'xbrl:importTaxonomyObject') {
+                        addValidationError(
+                            `Invalid object type 'xbrl:importTaxonomyObject' in selections - importTaxonomy objects cannot be imported`,
+                            {
+                                property: 'importedTaxonomies.selections',
+                                selectionIndex: selIndex,
+                                objectType: objectType,
+                                errorCode: 'oimte:invalidReferenceToImportTaxonomyObject'
+                            }
+                        );
+                    }
+
+                    // excludeLabels=true + xbrl:labelObject in selections is a conflict
+                    if (objectType === 'xbrl:labelObject' && imp.excludeLabels === true) {
+                        addValidationError(
+                            `Conflicting import properties: 'excludeLabels' is true but selections[${selIndex}] specifies objectType 'xbrl:labelObject'`,
+                            {
+                                property: 'importedTaxonomies.selections',
+                                selectionIndex: selIndex,
+                                objectType: objectType,
+                                errorCode: 'oimte:conflictingImportProperties'
+                            }
+                        );
+                    }
+
+                    // ── Validate each where clause ─────────────────────────────────────
+                    const whereClauses = (typeof selection === 'object' && Array.isArray(selection.where))
+                        ? selection.where
+                        : [];
+
+                    whereClauses.forEach((clause, clauseIdx) => {
+                        if (!clause || typeof clause !== 'object') return;
+
+                        const { property: propName, operator, value } = clause;
+                        const clausePath = `${selPath}.where[${clauseIdx}]`;
+
+                        // ── §5: operator must be in the enumerated set ───────────────
+                        if (operator !== undefined && !VALID_SEL_OPERATORS.has(operator)) {
+                            addValidationError(
+                                `Invalid selection expression at ${clausePath}: operator '${operator}' is not a recognised operator (constraint §5). Valid operators are: ==, !=, in, not in, contains, not contains, >, <, >=, <=`,
+                                {
+                                    property: 'importedTaxonomies.selections.where.operator',
+                                    selectionIndex: selIndex,
+                                    clauseIndex: clauseIdx,
+                                    invalidOperator: operator,
+                                    errorCode: 'oimte:invalidSelectionExpression',
+                                    constraint: '§5'
+                                }
+                            );
+                        }
+
+                        // ── §6: operator must be compatible with the property's effective type ──
+                        if (operator && propName && BOOLEAN_PROPERTIES.has(propName)) {
+                            // Boolean properties only support == and !=
+                            if (ORDERING_OPERATORS.has(operator) || ARRAY_VALUE_OPERATORS.has(operator) || STRING_ONLY_OPERATORS.has(operator)) {
+                                addValidationError(
+                                    `Invalid selection expression at ${clausePath}: operator '${operator}' is not compatible with boolean property '${propName}' (constraint §6). Boolean properties only support '==' and '!='`,
+                                    {
+                                        property: 'importedTaxonomies.selections.where',
+                                        selectionIndex: selIndex,
+                                        clauseIndex: clauseIdx,
+                                        invalidOperator: operator,
+                                        propertyName: propName,
+                                        effectiveType: 'boolean',
+                                        errorCode: 'oimte:invalidSelectionExpression',
+                                        constraint: '§6'
+                                    }
+                                );
+                            }
+                        }
+
+                        // ── §7: 'in' / 'not in' value must be a non-empty array ──────
+                        if (operator && ARRAY_VALUE_OPERATORS.has(operator)) {
+                            if (!Array.isArray(value)) {
+                                addValidationError(
+                                    `Invalid selection expression at ${clausePath}: operator '${operator}' requires a JSON array as its value but received ${typeof value === 'string' ? `string '${value}'` : `a ${typeof value}`} (constraint §7)`,
+                                    {
+                                        property: 'importedTaxonomies.selections.where.value',
+                                        selectionIndex: selIndex,
+                                        clauseIndex: clauseIdx,
+                                        invalidOperator: operator,
+                                        errorCode: 'oimte:invalidSelectionExpression',
+                                        constraint: '§7'
+                                    }
+                                );
+                            } else if (value.length === 0) {
+                                addValidationError(
+                                    `Invalid selection expression at ${clausePath}: operator '${operator}' requires a non-empty array but an empty array [] was provided (constraint §7)`,
+                                    {
+                                        property: 'importedTaxonomies.selections.where.value',
+                                        selectionIndex: selIndex,
+                                        clauseIndex: clauseIdx,
+                                        invalidOperator: operator,
+                                        errorCode: 'oimte:invalidSelectionExpression',
+                                        constraint: '§7'
+                                    }
+                                );
+                            }
+                        }
+                    });
                 });
             }
         });
@@ -1515,7 +1677,7 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
         groups: ['name', 'groupURI', 'properties'],
         groupContents: ['groupName', 'relatedNames'],
         groupTree: ['name', 'relationships'],
-        dataTypes: ['name', 'baseType', 'enumeration', 'minInclusive', 'maxInclusive', 'minExclusive', 'maxExclusive', 'totalDigits', 'fractionDigits', 'length', 'minLength', 'maxLength', 'whiteSpace', 'patterns', 'unitType', 'collectionType', 'mapType', 'allowedObjects'],
+        dataTypes: ['name', 'baseType', 'enumeration', 'openEnumeration', 'minInclusive', 'maxInclusive', 'minExclusive', 'maxExclusive', 'totalDigits', 'fractionDigits', 'length', 'minLength', 'maxLength', 'whiteSpace', 'patterns', 'unitType', 'collectionType', 'mapType', 'allowedObjects'],
         propertyTypes: ['name', 'dataType', 'enumerationDomain', 'definitional', 'allowedObjects', 'allowedAsLinkProperty'],
         labelTypes: ['name', 'uri', 'dataType', 'allowedObjects'],
         referenceTypes: ['name', 'uri', 'allowedObjects', 'orderedProperties', 'requiredProperties'],
@@ -2081,6 +2243,23 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
     }
     
     // ========== NETWORKS ==========
+    // Build a map of relationship type name -> { sourceObjects: Set, targetObjects: Set }
+    // covering both built-in types (merged from xbrlSpec.json) and user-defined types.
+    const relationshipTypeConstraints = new Map();
+    if (Array.isArray(taxonomy.relationshipTypes)) {
+        taxonomy.relationshipTypes.forEach(rt => {
+            if (rt.name) {
+                const src = Array.isArray(rt.sourceObjects) && rt.sourceObjects.length > 0
+                    ? new Set(rt.sourceObjects) : null;
+                const tgt = Array.isArray(rt.targetObjects) && rt.targetObjects.length > 0
+                    ? new Set(rt.targetObjects) : null;
+                if (src || tgt) {
+                    relationshipTypeConstraints.set(rt.name, { sourceObjects: src, targetObjects: tgt });
+                }
+            }
+        });
+    }
+
     if (Array.isArray(taxonomy.networks)) {
         taxonomy.networks.forEach(network => {
             if (network.relationshipTypeName && !isValidQName(network.relationshipTypeName, definedNames)) {
@@ -2106,6 +2285,9 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                 });
             }
             if (Array.isArray(network.relationships)) {
+                const relTypeConstraint = network.relationshipTypeName
+                    ? relationshipTypeConstraints.get(network.relationshipTypeName) : null;
+
                 network.relationships.forEach((rel, idx) => {
                     if (rel.source && !isValidQName(rel.source, definedNames)) {
                         addValidationError(
@@ -2118,6 +2300,42 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                             `Invalid target '${rel.target}' in network relationship`,
                             { network: network.name, property: `relationships[${idx}].target`, invalidQName: rel.target }
                         );
+                    }
+
+                    // Check source/target object type constraints for the relationship type
+                    if (relTypeConstraint) {
+                        if (rel.source && relTypeConstraint.sourceObjects) {
+                            const sourceObjType = getObjectTypeForQName(taxonomy, rel.source);
+                            if (sourceObjType && !relTypeConstraint.sourceObjects.has(sourceObjType)) {
+                                addValidationError(
+                                    `Source '${rel.source}' has object type '${sourceObjType}' which is not an allowed source object type for relationship type '${network.relationshipTypeName}'`,
+                                    {
+                                        network: network.name,
+                                        property: `relationships[${idx}].source`,
+                                        invalidQName: rel.source,
+                                        errorCode: 'oimte:invalidRelationshipSourceObject',
+                                        relationshipTypeName: network.relationshipTypeName,
+                                        allowedObjectTypes: [...relTypeConstraint.sourceObjects]
+                                    }
+                                );
+                            }
+                        }
+                        if (rel.target && relTypeConstraint.targetObjects) {
+                            const targetObjType = getObjectTypeForQName(taxonomy, rel.target);
+                            if (targetObjType && !relTypeConstraint.targetObjects.has(targetObjType)) {
+                                addValidationError(
+                                    `Target '${rel.target}' has object type '${targetObjType}' which is not an allowed target object type for relationship type '${network.relationshipTypeName}'`,
+                                    {
+                                        network: network.name,
+                                        property: `relationships[${idx}].target`,
+                                        invalidQName: rel.target,
+                                        errorCode: 'oimte:invalidRelationshipTargetObject',
+                                        relationshipTypeName: network.relationshipTypeName,
+                                        allowedObjectTypes: [...relTypeConstraint.targetObjects]
+                                    }
+                                );
+                            }
+                        }
                     }
                 });
             }
@@ -2277,31 +2495,54 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
     // This distinguishes QNames from typed values like dateTime ("2025-01-01T00:00:00"),
     // template variables ("$column"), LEI identifiers ("lei:00EH..."), etc.
     const qnameValuePattern = /^[A-Za-z_][A-Za-z0-9._-]*:[A-Za-z_][A-Za-z0-9._-]*$/;
-    // Dimension keys whose values are never QName member references
-    const nonMemberDimensions = new Set(['xbrl:concept', 'xbrl:unit', 'xbrl:period', 'xbrl:entity']);
+    // The set of valid built-in (core) dimension keys that may appear in factDimensions.
+    // Any other key must be a QName that resolves to a taxonomy-defined dimension.
+    const coreDimensionKeys = new Set(['xbrl:concept', 'xbrl:unit', 'xbrl:period', 'xbrl:entity', 'xbrl:language']);
 
     if (Array.isArray(taxonomy.facts)) {
         taxonomy.facts.forEach((fs, idx) => {
             if (fs.factDimensions) {
+                // Validate that every dimension KEY is either a known core dimension or a
+                // taxonomy-defined name. Keys like 'xbrl:unit1' or 'xbrl:entity1' are not valid.
+                for (const dimKey of Object.keys(fs.factDimensions)) {
+                    if (coreDimensionKeys.has(dimKey)) continue;  // valid core dimension key
+                    if (isValidQName(dimKey, definedNames)) continue;  // valid taxonomy dimension
+                    addValidationError(
+                        `Invalid dimension key '${dimKey}' in fact '${fs.name || idx}': not a core dimension (xbrl:concept, xbrl:period, xbrl:entity, xbrl:unit, xbrl:language) or a defined taxonomy dimension`,
+                        { property: `facts[${idx}].factDimensions`, invalidQName: dimKey, errorCode: 'oimte:invalidQNameReference' }
+                    );
+                }
                 if (fs.factDimensions['xbrl:concept'] && !isValidQName(fs.factDimensions['xbrl:concept'], definedNames)) {
                     addValidationError(
                         `Invalid xbrl:concept '${fs.factDimensions['xbrl:concept']}' in fact`,
                         { property: `facts[${idx}].factDimensions['xbrl:concept']`, invalidQName: fs.factDimensions['xbrl:concept'], errorCode: 'oimte:invalidQNameReference' }
                     );
                 }
-                // Note: xbrl:unit can be a QName or a string pattern, check only if it looks like a QName
-                if (fs.factDimensions['xbrl:unit'] && typeof fs.factDimensions['xbrl:unit'] === 'string' && fs.factDimensions['xbrl:unit'].includes(':') && !fs.factDimensions['xbrl:unit'].includes('*') && !fs.factDimensions['xbrl:unit'].includes('/')) {
-                    if (!isValidQName(fs.factDimensions['xbrl:unit'], definedNames)) {
-                        addValidationError(
-                            `Invalid xbrl:unit '${fs.factDimensions['xbrl:unit']}' in fact`,
-                            { property: `facts[${idx}].factDimensions['xbrl:unit']`, invalidQName: fs.factDimensions['xbrl:unit'], errorCode: 'oimte:invalidQNameReference' }
-                        );
+                // xbrl:unit must be a QName (prefix:localName) or a compound unit expression
+                // containing '*' or '/'. A bare string with no colon and no operator is never valid.
+                if (fs.factDimensions['xbrl:unit'] && typeof fs.factDimensions['xbrl:unit'] === 'string') {
+                    const unitVal = fs.factDimensions['xbrl:unit'];
+                    const isCompoundExpr = unitVal.includes('*') || unitVal.includes('/');
+                    if (!isCompoundExpr) {
+                        if (!unitVal.includes(':')) {
+                            // Bare string without namespace prefix — never a valid unit QName
+                            addValidationError(
+                                `Invalid xbrl:unit '${unitVal}' in fact '${fs.name || idx}': unit must be a QName (e.g. utr:${unitVal}) or a compound expression`,
+                                { property: `facts[${idx}].factDimensions['xbrl:unit']`, invalidQName: unitVal, errorCode: 'oimte:invalidQNameReference' }
+                            );
+                        } else if (!isValidQName(unitVal, definedNames)) {
+                            // Looks like a QName but the referenced name is not defined
+                            addValidationError(
+                                `Invalid xbrl:unit '${unitVal}' in fact '${fs.name || idx}'`,
+                                { property: `facts[${idx}].factDimensions['xbrl:unit']`, invalidQName: unitVal, errorCode: 'oimte:invalidQNameReference' }
+                            );
+                        }
                     }
                 }
                 // Validate custom dimension member values — any dimension whose value looks like a
-                // QName (prefix:localName) and is not one of the non-member built-in dimensions
+                // QName (prefix:localName) and is not one of the core dimension keys
                 for (const [dimKey, dimValue] of Object.entries(fs.factDimensions)) {
-                    if (nonMemberDimensions.has(dimKey)) continue;
+                    if (coreDimensionKeys.has(dimKey)) continue;
                     if (typeof dimValue !== 'string') continue;
                     if (!qnameValuePattern.test(dimValue)) continue; // not a QName-shaped value
                     if (!isValidQName(dimValue, definedNames)) {
@@ -2733,6 +2974,16 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
             }
         });
     }
+
+    // Build a map of custom dataType definitions (for use in property value validation)
+    const propertyDataTypeMap = new Map();
+    if (Array.isArray(taxonomy.dataTypes)) {
+        taxonomy.dataTypes.forEach(dt => {
+            if (dt.name) {
+                propertyDataTypeMap.set(dt.name, dt);
+            }
+        });
+    }
     
     // Validate property.property references in any object with a properties array
     // Also validate that if a propertyType has dataType xs:QName, the value is a valid QName
@@ -2779,8 +3030,8 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                     );
                 }
                 
-                // If the propertyType has dataType xs:QName, validate that the value is a valid QName
-                if (prop.property && prop.value) {
+                // If the propertyType has a dataType, validate the value against it
+                if (prop.property && prop.value !== undefined && prop.value !== null) {
                     const dataType = propertyTypeDataTypes.get(prop.property);
                     if (dataType === 'xs:QName') {
                         // The value should be a QName, so validate it
@@ -2792,6 +3043,21 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                                     invalidQName: prop.value,
                                     propertyType: prop.property,
                                     expectedDataType: 'xs:QName'
+                                }
+                            );
+                        }
+                    } else if (dataType) {
+                        // General data type validation for all other declared types
+                        const isValid = isValueValidForDataType(prop.value, dataType, propertyDataTypeMap);
+                        if (!isValid) {
+                            addValidationError(
+                                `Property '${prop.property}' in ${context} has value '${prop.value}' which does not match its declared data type '${dataType}'`,
+                                {
+                                    property: `${context}.properties[${idx}].value`,
+                                    propertyType: prop.property,
+                                    declaredDataType: dataType,
+                                    value: prop.value,
+                                    errorCode: 'oimte:propertyValueDataTypeMismatch'
                                 }
                             );
                         }
@@ -3121,13 +3387,13 @@ function isValueValidForDataType(value, dataType, dataTypeMap) {
     if (dataTypeMap.has(dataType)) {
         dtDefinition = dataTypeMap.get(dataType);
         
-        // Check enumeration constraint if present
-        if (dtDefinition.enumeration && Array.isArray(dtDefinition.enumeration)) {
+        // Check enumeration constraint if present and not open
+        if (dtDefinition.enumeration && Array.isArray(dtDefinition.enumeration) && !dtDefinition.openEnumeration) {
             // Value must be one of the enumerated values
             const valueStr = String(value);
             const isEnumerated = dtDefinition.enumeration.some(enumVal => String(enumVal) === valueStr);
             if (!isEnumerated) {
-                return false; // Value not in enumeration
+                return false; // Value not in closed enumeration
             }
             // If enumeration check passes, continue with other validations
         }
@@ -3277,17 +3543,75 @@ function isValueValidForDataType(value, dataType, dataTypeMap) {
     };
     
     // Check against the original dataType first (e.g., xs:date)
+    // Then fall through to apply dataType constraints — do NOT return early here.
     if (typeChecks[dataType]) {
-        return typeChecks[dataType](value);
+        if (!typeChecks[dataType](value)) return false;
+    } else if (typeChecks[baseType]) {
+        // If original dataType doesn't have a validator, check the baseType
+        if (!typeChecks[baseType](value)) return false;
     }
-    
-    // If original dataType doesn't have a validator, check the baseType
-    if (typeChecks[baseType]) {
-        return typeChecks[baseType](value);
+    // If we don't have a specific validator for this type, allow the base format
+    // and fall through to apply any dataType constraints below.
+
+    // ---- Apply structural constraints from the dataType definition ----
+    if (dtDefinition) {
+        const valueStr = String(value);
+
+        // --- String length constraints ---
+        // xs:length: value length must equal exactly this number
+        if (dtDefinition.length !== undefined && valueStr.length !== dtDefinition.length) {
+            return false;
+        }
+        // xs:minLength: value length must be >= this number
+        if (dtDefinition.minLength !== undefined && valueStr.length < dtDefinition.minLength) {
+            return false;
+        }
+        // xs:maxLength: value length must be <= this number
+        if (dtDefinition.maxLength !== undefined && valueStr.length > dtDefinition.maxLength) {
+            return false;
+        }
+
+        // --- Pattern constraints (XML regex, at least one must match) ---
+        if (dtDefinition.patterns && Array.isArray(dtDefinition.patterns) && dtDefinition.patterns.length > 0) {
+            const matchesAny = dtDefinition.patterns.some(p => {
+                try { return new RegExp(p).test(valueStr); } catch (e) { return true; }
+            });
+            if (!matchesAny) return false;
+        }
+
+        // --- Numeric range/precision constraints ---
+        const numValue = parseFloat(value);
+        if (!isNaN(numValue)) {
+            // xs:minInclusive: value must be >= this
+            if (dtDefinition.minInclusive !== undefined && numValue < dtDefinition.minInclusive) {
+                return false;
+            }
+            // xs:maxInclusive: value must be <= this
+            if (dtDefinition.maxInclusive !== undefined && numValue > dtDefinition.maxInclusive) {
+                return false;
+            }
+            // xs:minExclusive: value must be > this
+            if (dtDefinition.minExclusive !== undefined && numValue <= dtDefinition.minExclusive) {
+                return false;
+            }
+            // xs:maxExclusive: value must be < this
+            if (dtDefinition.maxExclusive !== undefined && numValue >= dtDefinition.maxExclusive) {
+                return false;
+            }
+            // xs:fractionDigits: digits after decimal point must be <= this
+            if (dtDefinition.fractionDigits !== undefined) {
+                const dotIndex = valueStr.indexOf('.');
+                const fractionLen = dotIndex >= 0 ? valueStr.length - dotIndex - 1 : 0;
+                if (fractionLen > dtDefinition.fractionDigits) return false;
+            }
+            // xs:totalDigits: total significant digits must be <= this
+            if (dtDefinition.totalDigits !== undefined) {
+                const digits = valueStr.replace(/[^0-9]/g, '');
+                if (digits.length > dtDefinition.totalDigits) return false;
+            }
+        }
     }
-    
-    // If we don't have a specific validator for this type, allow it
-    // (it may be a custom type with complex validation we don't implement)
+
     return true;
 }
 
@@ -3693,20 +4017,38 @@ export function validateQNameReferences(taxonomy, documentInfo = null, rawTaxono
         return [];
     }
     
-    // Validate namespace prefixes against the raw (unmerged) module only.
-    // Objects from imported taxonomies were validated against their own documentInfo
-    // when those files were loaded, so checking the compiled merged model would
-    // flag legitimately-imported objects as mismatches.
-    if (documentInfo) {
+    // All namespace validation runs against the raw (pre-merge) module using its own documentInfo.
+    // The merged model's documentInfo is not used here because documentNamespace and namespaces
+    // are module-level properties that disappear at the compiled-model level.
+    const rawDocumentInfo = rawTaxonomyData
+        ? rawTaxonomyData.documentInfo
+        : documentInfo;
+    const rawModel = rawTaxonomyData
+        ? (rawTaxonomyData.xbrlModel || rawTaxonomyData.taxonomy)
+        : taxonomy;
+
+    if (rawDocumentInfo) {
+        // Validate that documentNamespace is present (for modules) and is a defined prefix key.
+        // This must run against raw documentInfo and raw model — after merging, documentNamespace
+        // and modelForm may be absent from the compiled documentInfo.
+        console.log('[QName Validator] Validating documentNamespace...');
+        const docNsErrors = validateDocumentNamespace(rawDocumentInfo, rawModel);
+        if (docNsErrors) {
+            docNsErrors.forEach(e => addValidationError(e.message, e));
+        }
+    }
+
+    if (rawModel && rawDocumentInfo) {
+        // Validate that all objects in the raw module use a namespace prefix that:
+        //  (a) is defined in the namespaces map, and
+        //  (b) matches the documentNamespace prefix (when module-form).
+        // Objects from imported taxonomies were validated against their own documentInfo
+        // when those files were loaded, so checking the compiled merged model would
+        // flag legitimately-imported objects as mismatches.
         console.log('[QName Validator] Validating object namespace prefixes...');
-        const rawModel = rawTaxonomyData
-            ? (rawTaxonomyData.xbrlModel || rawTaxonomyData.taxonomy)
-            : taxonomy;
-        if (rawModel) {
-            const prefixErrors = validateObjectNamespacePrefixes(rawModel, documentInfo);
-            if (prefixErrors) {
-                prefixErrors.forEach(e => addValidationError(e.message, e));
-            }
+        const prefixErrors = validateObjectNamespacePrefixes(rawModel, rawDocumentInfo);
+        if (prefixErrors) {
+            prefixErrors.forEach(e => addValidationError(e.message, e));
         }
     }
     
@@ -3752,7 +4094,15 @@ export function validateQNameReferences(taxonomy, documentInfo = null, rawTaxono
     // Validate calculation consistency per Calculation 1.1 spec, restricted to cube-valid facts
     console.log('[QName Validator] Validating calculations (Calculation 1.1)...');
     validateCalculations(taxonomy, addValidationError);
-    
+
+    // Validate summation-item relationship concept property consistency (periodType + balance/weight/reconciliation)
+    console.log('[QName Validator] Validating summation-item relationship concept properties...');
+    validateSummationItemRelationshipProperties(taxonomy, addValidationError);
+
+    // Validate no summation-item network contains duplicate (source, target) relationships
+    console.log('[QName Validator] Validating for duplicate summation-item relationships...');
+    validateDuplicateCalculationRelationships(taxonomy, addValidationError);
+
     console.log(`[QName Validator] Validation complete. Found ${validationErrors.length} errors.`);
     
     return validationErrors;

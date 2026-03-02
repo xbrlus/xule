@@ -199,6 +199,12 @@ export const OBJECT_TYPE_DEFINITIONS = [
         aliases: []
     },
     { 
+        qname: 'xbrl:tableTemplateObject', 
+        arrayName: 'tableTemplates', 
+        importable: true,
+        aliases: ['xbrl:tableTemplate', 'tableTemplate', 'tableTemplates']
+    },
+    { 
         qname: 'xbrl:unitObject', 
         arrayName: 'units', 
         importable: true,
@@ -212,6 +218,16 @@ export const OBJECT_TYPE_DEFINITIONS = [
  */
 export const BUILTIN_OBJECT_TYPES_SET = new Set(
     OBJECT_TYPE_DEFINITIONS.map(def => def.qname)
+);
+
+/**
+ * Set of built-in object type QNames that CANNOT be used in importObjectTypes.
+ * These are nested sub-objects (live inside a parent object, not at the top-level
+ * model array), singleton objects (only one instance per model), and structural
+ * meta-objects that define the import mechanism itself.
+ */
+export const NON_IMPORTABLE_OBJECT_TYPES_SET = new Set(
+    OBJECT_TYPE_DEFINITIONS.filter(def => !def.importable).map(def => def.qname)
 );
 
 /**

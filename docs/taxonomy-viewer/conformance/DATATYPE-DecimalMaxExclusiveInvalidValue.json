@@ -1,0 +1,52 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp":  "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:factValueDataTypeMismatch : Fact has a value of 4.0 which is not less than the maxExclusive constraint of 4 defined on the dataType used by the concept."
+    },
+    "xbrlModel": {
+        "name": "exp:DecimalMaxExclusiveInvalidValue",
+        "version": "2025",
+        "dataTypes": [
+            {
+                "name": "exp:MaxExclusiveFourDecimalType",
+                "baseType": "xs:decimal",
+                "maxExclusive": 4
+            }
+        ],
+        "concepts": [
+            {
+                "name": "exp:Score",
+                "dataType": "exp:MaxExclusiveFourDecimalType",
+                "periodType": "instant"
+            }
+        ],
+        "entities": [
+            {
+                "name": "exp:Company1"
+            }
+        ],
+        "facts": [
+            {
+                "name": "exp:ScoreFact",
+                "factDimensions": {
+                    "xbrl:concept": "exp:Score",
+                    "xbrl:period": "2025-12-31",
+                    "xbrl:entity": "exp:Company1"
+                },
+                "factValues": [
+                    {
+                        "name": "exp:fv1",
+                        "value": "4.0"
+                    }
+                ]
+            }
+        ]
+    }
+}

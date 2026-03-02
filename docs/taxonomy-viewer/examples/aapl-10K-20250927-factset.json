@@ -30,7 +30,8 @@
    "us-gaap": "http://fasb.org/us-gaap/2025",
    "xbrl": "https://xbrl.org/2025",
    "xbrli": "http://www.xbrl.org/2003/instance"
-  }
+  },
+  "documentNamespace": "aapl"
  },
  "xbrlModel": {
   "name": "aapl:aapl-20250927",
@@ -44,11 +45,6 @@
    {
     "xbrlModelName": "xbrltt:TransformsTaxonomyModule"
    }
-  ],
-  "entities": [
-    {
-        "name": "cik:0000320193"
-    }
   ],
   "units": [
     {

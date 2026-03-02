@@ -22,7 +22,7 @@
         "value": "Test",
         "properties": [
           {
-            "property": "exp:ConceptProperty",
+            "property": "exp:MyPropertyType",
             "value": "credit"
           }
         ]
@@ -38,6 +38,16 @@
         "name": "exp:ConceptProperty",
         "dataType": "xs:string",
         "periodType": "instant"
+      }
+    ],
+     "propertyTypes": [
+      {
+        "name": "exp:MyPropertyType",
+        "dataType": "xs:string"
+      },
+      {
+        "name": "exp:MyPropertyType",
+        "dataType": "xs:decimal"
       }
     ]
   }
