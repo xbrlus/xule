@@ -1,0 +1,29 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "entry":  "http://example.com/entry",
+            "exp":    "http://example.com/financials",
+            "ana":    "http://example.com/analytics",
+            "cmn":    "http://example.com/common",
+            "common": "http://example.com/common",
+            "xbrl":   "https://xbrl.org/2025",
+            "xs":     "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "entry",
+        "urlMapping": {
+            "ana": ["NAMESPACE-analytics-module.json"]
+        },
+        "description": "Valid: the analytics module uses secondary prefix 'exp' for http://example.com/common, colliding with the importing model's 'exp' for http://example.com/financials. The importing model declares http://example.com/common under two aliases — 'cmn' and 'common' — which would make implicit resolution ambiguous. Declaring prefixRemap { 'cmn': 'exp' } explicitly selects 'cmn' as the target alias, making re-prefixing deterministic. All exp:* objects from the analytics module are re-prefixed to cmn:* in the compiled result."
+    },
+    "xbrlModel": {
+        "name": "entry:EntryModel",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "ana:AnalyticsModel",
+                "prefixRemap": { "cmn": "exp" }
+            }
+        ]
+    }
+}

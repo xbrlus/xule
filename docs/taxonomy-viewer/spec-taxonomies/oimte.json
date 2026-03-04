@@ -209,6 +209,11 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:invalidDomainClassReference",
+                        "order": 21.7
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:invalidDomainSource",
                         "order": 22
                     },
@@ -556,6 +561,41 @@
                         "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:missingRequiredDimensionProperty",
                         "order": 62.3
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:missingRequiredModelTypeProperty",
+                        "order": 62.4
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:canonicalFormRequiresCompiledModel",
+                        "order": 62.5
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:completeTimeSeriesOnNonTimeSeriesDimension",
+                        "order": 62.6
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:conceptPropertiesInconsistentWithRelationship",
+                        "order": 62.7
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:conceptPropertiesInconsistentWithSummationItemRelationship",
+                        "order": 62.8
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:conflictingImportProperties",
+                        "order": 62.9
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:conflictingTypeDefinitions",
+                        "order": 63
                     }
                 ]
             }
@@ -995,6 +1035,18 @@
             },
             {
                 "name": "oimte:invalidDomainClassTarget",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidDomainClassReference",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -1487,6 +1539,18 @@
             },
             {
                 "name": "oimte:objectNamespacePrefixNotDefined",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:duplicateNamespaceURI",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -3219,6 +3283,11 @@
                     },
                     {
                         "source": "oimte:DocumentInfoErrors",
+                        "target": "oimte:duplicateNamespaceURI",
+                        "order": 5.5
+                    },
+                    {
+                        "source": "oimte:DocumentInfoErrors",
                         "target": "oimte:invalidObjectNamespacePrefix",
                         "order": 6
                     },
@@ -3964,6 +4033,11 @@
                         "source": "oimte:DocumentInfoErrors",
                         "target": "oimte:objectNamespacePrefixNotDefined",
                         "order": 5
+                    },
+                    {
+                        "source": "oimte:DocumentInfoErrors",
+                        "target": "oimte:duplicateNamespaceURI",
+                        "order": 5.5
                     },
                     {
                         "source": "oimte:DocumentInfoErrors",
@@ -4723,6 +4797,24 @@
                 "labelType": "xbrl:errorMessage"
             },
             {
+                "relatedName": "oimte:invalidDomainClassReference",
+                "language": "en",
+                "value": "Invalid Domain Class Reference on Member",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:invalidDomainClassReference",
+                "language": "en",
+                "value": "Member '{memberName}' is used in domain '{domainName}' whose root is '{domainRoot}', but '{domainRoot}' is not listed in the member's domainClasses property.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:invalidDomainClassReference",
+                "language": "en",
+                "value": "This error occurs when a member object declares a domainClasses property, and that member is used as a target in a domain whose root (domain class) is not listed in the member's domainClasses array. The domainClasses property constrains which domain class hierarchies a member may participate in. If a member is placed in a domain whose root domain class is absent from its domainClasses list, it indicates a structural inconsistency — the member is being used in a context its domain class declarations do not permit.",
+                "labelType": "xbrl:documentation"
+            },
+            {
                 "relatedName": "oimte:invalidDomainTarget",
                 "language": "en",
                 "value": "Invalid Domain Target",
@@ -5171,6 +5263,24 @@
                 "language": "en",
                 "value": "The object namespace prefix '{prefix}' is not defined for object '{objectName}' in the namespace declaration.",
                 "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:duplicateNamespaceURI",
+                "language": "en",
+                "value": "Duplicate Namespace URI",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:duplicateNamespaceURI",
+                "language": "en",
+                "value": "Prefixes '{prefix1}' and '{prefix2}' both map to the same namespace URI '{uri}' in the namespaces declaration. Each namespace URI must be unique.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:duplicateNamespaceURI",
+                "language": "en",
+                "value": "This error occurs when two or more prefix keys in the namespaces object map to the same namespace URI. Since namespace URIs are the authoritative identity for all objects, allowing two prefixes to map to the same URI would create ambiguity about which prefix is authoritative and could cause inconsistent object identity resolution. Each namespace URI in the namespaces object must be unique.",
+                "labelType": "xbrl:documentation"
             },
             {
                 "relatedName": "oimte:objectNamespaceMismatch",
@@ -8100,6 +8210,42 @@
                 ]
             },
             {
+                "name": "oimte:invalidDomainClassReferenceConformanceTest",
+                "relatedNames": [
+                    "oimte:invalidDomainClassReference"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DOMAINCLASS-InvalidMemberinDomain.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:validDomainClassReferenceConformanceTest",
+                "relatedNames": [
+                    "oimte:invalidDomainClassReference"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DOMAINCLASS-ValidMemberinDomain.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:duplicateDimensionsInCubeReference",
                 "relatedNames": [
                     "oimte:duplicateDimensionsInCube"
@@ -10126,6 +10272,20 @@
                     {
                         "property": "xbrl:specificationErrorURI",
                         "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invaliddomainclasstarget"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidDomainClassReferenceSpecReference",
+                "relatedNames": [
+                    "oimte:invalidDomainClassReference"
+                ],
+                "referenceType": "xbrl:specificationErrorReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invaliddomainclassreference"
                     }
                 ]
             },

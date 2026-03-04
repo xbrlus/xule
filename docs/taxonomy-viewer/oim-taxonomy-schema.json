@@ -87,6 +87,13 @@
                       },
                       "excludeLabels": {
                         "type": "boolean"
+                      },
+                      "prefixRemap": {
+                        "type": "object",
+                        "description": "Maps new prefix names (keys, used in the importing model) to old prefix names (values, as they appear in the imported model). Used to resolve namespace prefix collisions during compilation.",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
                       }
                     },
                     "required": ["xbrlModelName"],

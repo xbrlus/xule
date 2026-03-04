@@ -1689,8 +1689,8 @@
                 "uri": "http://www.xbrl.org/2003/arcrole/class-subclass",
                 "cycles" : "none",
                 "allowedLinkProperties" : ["xbrl:order"],
-                "sourceObjects" : ["xbrl:conceptObject"],
-                "targetObjects" : ["xbrl:conceptObject"]
+                "sourceObjects" : ["xbrl:conceptObject", "xbrl:domainClassObject"],
+                "targetObjects" : ["xbrl:conceptObject", "xbrl:domainClassObject"]
             },
             {
                 "name": "xbrl:general-special",

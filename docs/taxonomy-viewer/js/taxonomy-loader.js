@@ -189,6 +189,10 @@ async function _processTaxonomyData(taxonomyData, path) {
         if (window._preQNameValidationErrors && Array.isArray(window._preQNameValidationErrors) && window._preQNameValidationErrors.length > 0) {
             console.log(`[Taxonomy Loader] Merging ${window._preQNameValidationErrors.length} extension-time validation error(s)`);
             window.qnameValidationErrors = window.qnameValidationErrors.concat(window._preQNameValidationErrors);
+            // Persist these import-time errors so they survive fact-source re-validation in buildTree
+            if (!window._persistentValidationErrors) window._persistentValidationErrors = [];
+            window._persistentValidationErrors = window._persistentValidationErrors.concat(window._preQNameValidationErrors);
+            console.log(`[Taxonomy Loader] Persisted ${window._preQNameValidationErrors.length} import-time error(s) to _persistentValidationErrors (total: ${window._persistentValidationErrors.length})`);
             // Clear the pre-errors after merging
             window._preQNameValidationErrors = [];
         }
@@ -235,6 +239,9 @@ export async function loadTaxonomy(path) {
     // Clear previous QName validation errors
     window.qnameValidationErrors = [];
     
+    // Clear persistent validation errors (import-time errors that survive fact-source re-validation)
+    window._persistentValidationErrors = [];
+
     // Clear previous factSource validation errors (not stored in model, reported separately)
     window.factSourceValidationErrors = [];
     
@@ -286,6 +293,9 @@ export async function loadTaxonomyFromContent(taxonomyData, fileName) {
 
     // Clear previous QName validation errors
     window.qnameValidationErrors = [];
+
+    // Clear persistent validation errors (import-time errors that survive fact-source re-validation)
+    window._persistentValidationErrors = [];
 
     // Clear previous factSource validation errors (not stored in model, reported separately)
     window.factSourceValidationErrors = [];
@@ -402,6 +412,22 @@ async function mergeImportedTaxonomies(currentTaxonomyPath) {
                 continue;
             }
             
+            // Check for namespace prefix conflicts and apply any prefixRemap declared on
+            // this importTaxonomy object. Raises oimte:duplicateNamespaceURI for any
+            // unresolved collision (no prefixRemap entry covering the conflicting prefix).
+            // Returns a prefixTranslationMap used to re-prefix QNames in the imported model.
+            if (!taxonomyData.documentInfo.namespaces) taxonomyData.documentInfo.namespaces = {};
+            const prefixTranslationMap = applyPrefixRemapAndMergeNamespaces(fullyLoadedXbrlModel, taxonomyData.documentInfo.namespaces, importSpec.prefixRemap || null, xbrlModelName);
+
+            // Re-prefix all QName strings in the imported model so that objects that internally
+            // used a different prefix alias are normalised to the importing model's prefix
+            // (e.g. geography module uses 'exp:England' internally; importing model knows that
+            // URI as 'geo', so all such QNames become 'geo:England' in the merged result).
+            if (prefixTranslationMap.size > 0) {
+                console.log(`[Taxonomy Loader] Re-prefixing objects from '${xbrlModelName}' using translation map:`, Object.fromEntries(prefixTranslationMap));
+                reprefixModelNode(fullyLoadedXbrlModel, prefixTranslationMap);
+            }
+
             // Now merge the fully loaded xbrlModel into the main xbrlModel
             // If selections is specified, only import objects matching the selection criteria
             if (importSpec.selections && Array.isArray(importSpec.selections) && importSpec.selections.length > 0) {
@@ -572,29 +598,66 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
         return null;
     }
     
-    // Check if the xbrlModel name matches what we're looking for
+    // Check if the xbrlModel name matches what we're looking for.
+    // A raw prefix comparison is insufficient when the importing model uses a different prefix
+    // alias than the one used internally by the imported file (e.g. importing model uses
+    // "geo:GeographyModel" while the file declares its model as "exp:GeographyModel").
+    // We therefore resolve both prefixes to their namespace URIs and compare
+    // {resolvedURI}:{localName} instead of the raw QName strings.
     if (xbrlModel.name !== taxonomyName) {
-        console.warn(`[Taxonomy Loader] XbrlModel name mismatch: expected ${taxonomyName}, found ${xbrlModel.name} in ${filePath}`);
-        
-        // ERROR SCENARIO 3: Name of xbrlModel in imported file does not match xbrlModelName in import statement
-        // Add oimte:taxonomyNotFound error
-        if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
-        window._preQNameValidationErrors.push({
-            message: `Taxonomy '${taxonomyName}' not found: expected xbrlModel name '${taxonomyName}' but found '${xbrlModel.name}' in file '${filePath}' (oimte:taxonomyNotFound)`,
-            errorCode: 'oimte:taxonomyNotFound',
-            location: `importedTaxonomies[xbrlModelName='${taxonomyName}']`,
-            context: {
-                xbrlModelName: taxonomyName,
-                actualXbrlModelName: xbrlModel.name,
-                filePath: filePath,
-                reason: 'XbrlModel name mismatch'
-            }
-        });
-        
-        return null;
+        // Helper: split "prefix:local" and resolve prefix to URI from a namespace map
+        function resolveQName(qname, namespaces) {
+            const ci = qname.indexOf(':');
+            if (ci === -1) return null;
+            const pfx = qname.substring(0, ci);
+            const local = qname.substring(ci + 1);
+            const uri = namespaces && namespaces[pfx];
+            return uri ? `${uri}:${local}` : null;
+        }
+
+        const parentNamespaces = documentInfo && documentInfo.namespaces ? documentInfo.namespaces : {};
+        const importedNamespaces = taxonomyData.documentInfo && taxonomyData.documentInfo.namespaces
+            ? taxonomyData.documentInfo.namespaces : {};
+
+        const resolvedRequested = resolveQName(taxonomyName, parentNamespaces);
+        const resolvedFound     = resolveQName(xbrlModel.name, importedNamespaces);
+
+        const uriMatch = resolvedRequested && resolvedFound && resolvedRequested === resolvedFound;
+
+        if (!uriMatch) {
+            console.warn(`[Taxonomy Loader] XbrlModel name mismatch: expected ${taxonomyName} (resolved: ${resolvedRequested}), found ${xbrlModel.name} (resolved: ${resolvedFound}) in ${filePath}`);
+
+            // ERROR SCENARIO 3: Name of xbrlModel in imported file does not match xbrlModelName in import statement
+            if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
+            window._preQNameValidationErrors.push({
+                message: `Taxonomy '${taxonomyName}' not found: expected xbrlModel name '${taxonomyName}' but found '${xbrlModel.name}' in file '${filePath}' (oimte:taxonomyNotFound)`,
+                errorCode: 'oimte:taxonomyNotFound',
+                location: `importedTaxonomies[xbrlModelName='${taxonomyName}']`,
+                context: {
+                    xbrlModelName: taxonomyName,
+                    actualXbrlModelName: xbrlModel.name,
+                    filePath: filePath,
+                    reason: 'XbrlModel name mismatch'
+                }
+            });
+
+            return null;
+        }
+
+        // Prefix aliases differ but URIs match — the file uses a different prefix internally.
+        // Log and continue; the model is considered found.
+        console.log(`[Taxonomy Loader] Prefix alias differs: requested '${taxonomyName}', found '${xbrlModel.name}', but both resolve to '${resolvedFound}' — treating as match`);
     }
     
     console.log(`[Taxonomy Loader] Loaded ${xbrlModel.name}`);
+
+    // Capture the namespace map from this taxonomy's documentInfo.
+    // This is attached to the xbrlModel object so that applyPrefixRemapAndMergeNamespaces
+    // can use it when this model is merged into its parent.
+    if (taxonomyData.documentInfo && taxonomyData.documentInfo.namespaces) {
+        xbrlModel._namespaces = { ...taxonomyData.documentInfo.namespaces };
+        console.log(`[Taxonomy Loader] Captured ${Object.keys(xbrlModel._namespaces).length} namespace entries from ${taxonomyName}`);
+    }
 
     // Capture sourceMapping from this taxonomy's documentInfo, resolving relative URLs to
     // absolute paths so they remain valid when used from any importing taxonomy's context.
@@ -615,11 +678,22 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
         mergedTaxonomies.set(xbrlModel.name, 'partial');
         console.log(`[Taxonomy Loader] Marked ${xbrlModel.name} as 'partial' (being processed)`);
     }
+    // Also register under the requested alias (taxonomyName) when it differs, so future
+    // lookups using the importing model's prefix alias can find the cached entry.
+    if (taxonomyName !== xbrlModel.name && !mergedTaxonomies.has(taxonomyName)) {
+        mergedTaxonomies.set(taxonomyName, 'partial');
+        console.log(`[Taxonomy Loader] Marked alias ${taxonomyName} as 'partial' (being processed)`);
+    }
     
     // Cache this xbrlModel immediately after loading (before processing nested imports)
     // This allows nested imports to find it if they reference the same taxonomy
     taxonomyCache.set(xbrlModel.name, JSON.parse(JSON.stringify(xbrlModel)));
     console.log(`[Taxonomy Loader] Cached ${xbrlModel.name}`);
+    // Also cache under the alias so lookups by the requesting prefix find it.
+    if (taxonomyName !== xbrlModel.name) {
+        taxonomyCache.set(taxonomyName, JSON.parse(JSON.stringify(xbrlModel)));
+        console.log(`[Taxonomy Loader] Cached alias ${taxonomyName} -> ${xbrlModel.name}`);
+    }
     
     // Validate namespace prefixes for this imported xbrlModel
     // This catches structural errors (like using reserved 'xbrl' prefix) that need to be reported
@@ -707,6 +781,18 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
                 continue;
             }
             
+            // Check for namespace prefix conflicts and apply any prefixRemap declared on
+            // this nested importTaxonomy object. Raises oimte:duplicateNamespaceURI for any
+            // unresolved collision.
+            if (!xbrlModel._namespaces) xbrlModel._namespaces = {};
+            const nestedPrefixTranslationMap = applyPrefixRemapAndMergeNamespaces(nestedXbrlModel, xbrlModel._namespaces, nestedImportSpec.prefixRemap || null, nestedXbrlModelName);
+
+            // Re-prefix QNames in the nested model before merging.
+            if (nestedPrefixTranslationMap.size > 0) {
+                console.log(`[Taxonomy Loader]     - Re-prefixing objects from '${nestedXbrlModelName}' using translation map:`, Object.fromEntries(nestedPrefixTranslationMap));
+                reprefixModelNode(nestedXbrlModel, nestedPrefixTranslationMap);
+            }
+
             // Merge the nested xbrlModel into the current xbrlModel
             // Apply selections if specified
             if (nestedImportSpec.selections && Array.isArray(nestedImportSpec.selections) && nestedImportSpec.selections.length > 0) {
@@ -748,6 +834,178 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
     // Return the fully merged xbrlModel
     return xbrlModel;
 }
+
+/**
+ * Validate a prefixRemap declaration and check the source model's namespaces for
+ * collisions against the target namespace map. Raises oimte:duplicateNamespaceURI
+ * for any collision not covered by an explicit prefixRemap entry.
+ *
+ * semantics of prefixRemap (per spec §Import taxonomy properties):
+ *   { "<alias in importing model>": "<original prefix in imported model>", ... }
+ *   e.g. { "exp_1": "exp" } means: when the importing model uses prefix "exp_1",
+ *   the processor resolves it by looking up "exp" in the imported model.
+ *   The imported model is NOT modified.
+ *
+ * Conflict handling:
+ *   - Same prefix + same URI  → compatible, no action.
+ *   - Same prefix + diff URI  → must be covered by a prefixRemap entry, otherwise
+ *                               raises oimte:duplicateNamespaceURI.
+ *   - Diff prefix + same URI  → compatible (different alias, same namespace).
+ *
+ * After validation, merges uncolliding source namespace entries into the target map
+ * and registers any prefixRemap aliases (newPrefix → URI) into the target map.
+ *
+ * @param {Object} sourceModel      - The imported xbrlModel.
+ * @param {Object} targetNamespaces - The target documentInfo.namespaces object (modified in place).
+ * @param {Object|null} prefixRemap - The prefixRemap from the importTaxonomy object, or null.
+ * @param {string} sourceName       - Source model name used for logging and error reporting.
+ */
+/**
+ * Apply prefix remapping and merge the source model's namespace map into the target.
+ *
+ * Collision resolution priority:
+ *  1. Explicit prefixRemap declared on the importTaxonomy object.
+ *  2. Implicit resolution: if the imported prefix maps to a URI that already exists in
+ *     the target namespace map under a different prefix, the parent's own namespace map
+ *     is acting as the remap — resolve silently and record the translation.
+ *  3. Truly unresolved collision (URI unknown to the importing model) → oimte:duplicateNamespaceURI.
+ *
+ * @returns {Map<string,string>} prefixTranslationMap — maps each source prefix that needs
+ *   renaming to its target prefix. Pass this to reprefixModelNode before merging objects.
+ */
+function applyPrefixRemapAndMergeNamespaces(sourceModel, targetNamespaces, prefixRemap, sourceName) {
+    const sourceNamespaces = sourceModel._namespaces;
+    if (!sourceNamespaces || Object.keys(sourceNamespaces).length === 0) return new Map();
+
+    // prefix translation map: sourcePrefix → targetPrefix
+    const prefixTranslationMap = new Map();
+
+    // Reverse lookup of the target namespace map: URI → [all target prefixes for that URI].
+    // Tracking all aliases (not just the last) is needed to detect ambiguous cases where
+    // the same URI appears under more than one prefix in the importing model.
+    const uriToTargetPrefixes = new Map();
+    for (const [pk, uri] of Object.entries(targetNamespaces)) {
+        if (!uriToTargetPrefixes.has(uri)) uriToTargetPrefixes.set(uri, []);
+        uriToTargetPrefixes.get(uri).push(pk);
+    }
+
+    // Build a set of old prefixes that are explicitly covered by a prefixRemap entry.
+    // prefixRemap format: { newAlias: oldPrefixInImportedModel, ... }
+    const remappedOldPrefixes = new Set();
+    if (prefixRemap && typeof prefixRemap === 'object') {
+        for (const [newAlias, oldPrefix] of Object.entries(prefixRemap)) {
+            remappedOldPrefixes.add(oldPrefix);
+            prefixTranslationMap.set(oldPrefix, newAlias);
+            // Register the alias → URI mapping in the target namespace map.
+            const uri = sourceNamespaces[oldPrefix];
+            if (uri !== undefined) {
+                targetNamespaces[newAlias] = uri;
+                console.log(`[Namespace Resolution] prefixRemap in '${sourceName}': alias '${newAlias}' → '${oldPrefix}' (${uri}) registered in target namespaces.`);
+            } else {
+                console.warn(`[Namespace Resolution] prefixRemap in '${sourceName}': old prefix '${oldPrefix}' not found in imported model namespaces.`);
+            }
+        }
+    }
+
+    // Scan source namespaces; merge compatible entries; resolve conflicts.
+    for (const [prefix, uri] of Object.entries(sourceNamespaces)) {
+        // Skip entries explicitly handled by prefixRemap.
+        if (remappedOldPrefixes.has(prefix)) continue;
+
+        if (prefix in targetNamespaces) {
+            if (targetNamespaces[prefix] === uri) {
+                // Compatible — same prefix, same URI. No action needed.
+                continue;
+            }
+            // Prefix collision: same prefix key but different URIs.
+            // Check whether the imported URI is already covered by a different prefix in
+            // the target namespace map. If so, the parent's namespace map acts as the
+            // remap — resolve implicitly and record the translation for re-prefixing.
+            // If multiple target prefixes cover the same URI the lookup is ambiguous;
+            // require an explicit prefixRemap to name the intended alias.
+            const implicitAliases = uriToTargetPrefixes.get(uri);
+            if (implicitAliases && implicitAliases.length === 1) {
+                prefixTranslationMap.set(prefix, implicitAliases[0]);
+                console.log(`[Namespace Resolution] Implicit remap in '${sourceName}': source prefix '${prefix}' (${uri}) already mapped in importing model as '${implicitAliases[0]}' — objects will be re-prefixed automatically.`);
+            } else if (implicitAliases && implicitAliases.length > 1) {
+                // Ambiguous: multiple target prefixes map to the same URI — cannot pick deterministically.
+                console.warn(`[Namespace Resolution] Ambiguous prefix collision in '${sourceName}': '${prefix}' maps to '${uri}' which has multiple aliases in the importing model (${implicitAliases.join(', ')}). Add an explicit prefixRemap entry to resolve.`);
+                if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
+                window._preQNameValidationErrors.push({
+                    message: `Namespace prefix collision: '${prefix}' in '${sourceName}' maps to '${uri}' which is declared under multiple aliases (${implicitAliases.join(', ')}) in the importing model — resolution is ambiguous. Add an explicit prefixRemap entry to the importTaxonomy object (oimte:duplicateNamespaceURI).`,
+                    errorCode: 'oimte:duplicateNamespaceURI',
+                    location: `importedTaxonomies[xbrlModelName='${sourceName}']`,
+                    context: { sourceName, prefix, sourceUri: uri, ambiguousAliases: implicitAliases }
+                });
+            } else {
+                // Truly unresolved — the URI is unknown to the importing model.
+                console.warn(`[Namespace Resolution] Prefix collision in '${sourceName}': '${prefix}' maps to '${uri}' (imported) vs '${targetNamespaces[prefix]}' (importing). Add prefixRemap to resolve.`);
+                if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
+                window._preQNameValidationErrors.push({
+                    message: `Namespace prefix collision: '${prefix}' in '${sourceName}' maps to '${uri}' but the importing model maps it to '${targetNamespaces[prefix]}'. Add a prefixRemap entry to the importTaxonomy object to resolve this conflict (oimte:duplicateNamespaceURI).`,
+                    errorCode: 'oimte:duplicateNamespaceURI',
+                    location: `importedTaxonomies[xbrlModelName='${sourceName}']`,
+                    context: { sourceName, prefix, sourceUri: uri, targetUri: targetNamespaces[prefix] }
+                });
+            }
+        } else {
+            // No collision — merge directly.
+            targetNamespaces[prefix] = uri;
+        }
+    }
+
+    return prefixTranslationMap;
+}
+
+/**
+ * Deep-walk a model node (object/array/string) and re-prefix every QName string
+ * whose prefix appears in prefixTranslationMap.
+ *
+ * A QName is identified as a string that:
+ *  - contains exactly one colon
+ *  - does NOT contain '://' (ruling out URIs)
+ *  - has a non-empty prefix that exists in prefixTranslationMap
+ *
+ * Object keys are never modified — only string values.
+ *
+ * @param {*} node - any JSON-compatible value
+ * @param {Map<string,string>} prefixTranslationMap
+ */
+function reprefixModelNode(node, prefixTranslationMap) {
+    if (!prefixTranslationMap || prefixTranslationMap.size === 0) return node;
+
+    if (typeof node === 'string') {
+        const ci = node.indexOf(':');
+        if (ci > 0 && node.indexOf('://') === -1) {
+            const prefix = node.substring(0, ci);
+            const newPrefix = prefixTranslationMap.get(prefix);
+            if (newPrefix) return newPrefix + node.substring(ci);
+        }
+        return node;
+    }
+
+    if (Array.isArray(node)) {
+        for (let i = 0; i < node.length; i++) {
+            const result = reprefixModelNode(node[i], prefixTranslationMap);
+            if (result !== node[i]) node[i] = result;
+        }
+        return node;
+    }
+
+    if (node !== null && typeof node === 'object') {
+        for (const key of Object.keys(node)) {
+            // Do not recurse into private metadata fields whose string values aren't QNames.
+            if (key === '_namespaces' || key === '_sourceMapping') continue;
+            const result = reprefixModelNode(node[key], prefixTranslationMap);
+            if (result !== node[key]) node[key] = result;
+        }
+        return node;
+    }
+
+    return node;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
  * Merge array properties from source into target taxonomy

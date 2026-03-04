@@ -105,7 +105,8 @@
                     "calc11e:inconsistentCalculationUsingRounding",
                     "oimte:conflictingImportProperties",
                     "calc11e:duplicateCalculationRelationships",
-                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship"
+                    "oimte:conceptPropertiesInconsistentWithSummationItemRelationship",
+                    "oimte:invalidDomainClassReference"
                 ]
             }
         ],

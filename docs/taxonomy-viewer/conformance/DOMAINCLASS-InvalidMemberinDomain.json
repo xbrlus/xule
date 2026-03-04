@@ -1,0 +1,50 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Member exp:England is defined with domainClasses referencing exp:CountryDomainClass, but is included as a target in exp:RegionDomain whose root is exp:RegionDomainClass. The domain class of the domain root (exp:RegionDomainClass) is not listed in the member's domainClasses property."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidMemberInDomain",
+    "version": "2025",
+    "domainClasses": [
+      {
+        "name": "exp:CountryDomainClass"
+      },
+      {
+        "name": "exp:RegionDomainClass"
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:RegionDomain",
+        "root": "exp:RegionDomainClass",
+        "relationships": [
+          {
+            "source": "exp:RegionDomainClass",
+            "target": "exp:England"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      {
+        "name": "exp:regionAxis",
+        "domainClass": "exp:RegionDomainClass"
+      }
+    ],
+    "members": [
+      {
+        "name": "exp:England",
+        "domainClasses": ["exp:CountryDomainClass"]
+      }
+    ]
+  }
+}

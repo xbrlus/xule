@@ -1,0 +1,28 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "entry":  "http://example.com/entry",
+            "exp":    "http://example.com/financials",
+            "ana":    "http://example.com/analytics",
+            "cmn":    "http://example.com/common",
+            "common": "http://example.com/common",
+            "xbrl":   "https://xbrl.org/2025",
+            "xs":     "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "entry",
+        "urlMapping": {
+            "ana": ["NAMESPACE-analytics-module.json"]
+        },
+        "description": "Error: oimte:duplicateNamespaceURI. The analytics module uses secondary prefix 'exp' for http://example.com/common, colliding with the importing model's 'exp' for http://example.com/financials. The importing model declares http://example.com/common under two aliases — 'cmn' and 'common' — making implicit resolution ambiguous. No prefixRemap is provided, so the processor MUST raise oimte:duplicateNamespaceURI. See NAMESPACE-PrefixRemapAmbiguousExplicit-Valid.json for the resolved form."
+    },
+    "xbrlModel": {
+        "name": "entry:EntryModel",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "ana:AnalyticsModel"
+            }
+        ]
+    }
+}

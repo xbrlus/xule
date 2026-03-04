@@ -166,7 +166,13 @@ export function buildTree() {
                     taxonomyData.documentInfo || null,
                     getRawTaxonomyData()
                 );
-                window.qnameValidationErrors = validationErrors;
+                // Preserve import-time errors (e.g. oimte:duplicateNamespaceURI) that were collected
+                // before buildTree ran — the re-validation above would otherwise discard them.
+                const persistentErrors = window._persistentValidationErrors || [];
+                window.qnameValidationErrors = validationErrors.concat(persistentErrors);
+                if (persistentErrors.length > 0) {
+                    console.log(`[Taxonomy Builder] Re-injected ${persistentErrors.length} persistent import-time error(s) after fact-source re-validation`);
+                }
                 
                 // Refresh taxonomy info to display any new validation errors
                 buildTaxonomyInfo();
@@ -689,6 +695,7 @@ function buildErrorPanel(taxonomy) {
         errors.invalidRelationshipConstraintRelaxation.length === 0 &&
         errors.invalidRelationshipExpansion.length === 0 &&
         errors.invalidDataTypeForDomainClass.length === 0 &&
+        errors.invalidDomainClassReference.length === 0 &&
         errors.invalidQNameReferences.length === 0 &&
         errors.referenceTypeRedefined.length === 0 &&
         errors.referenceLanguageRedefined.length === 0 &&
@@ -1317,6 +1324,28 @@ function buildErrorPanel(taxonomy) {
         errorsDiv.appendChild(section);
     }
 
+    // Invalid Domain Class Reference on Member Section
+    if (errors.invalidDomainClassReference.length > 0) {
+        const section = createErrorSection();
+        const errorLabel = getErrorLabel('oimte:invalidDomainClassReference');
+        const title = createErrorTitle(errorLabel, errors.invalidDomainClassReference.length);
+        section.appendChild(title);
+
+        const list = createErrorList();
+        errors.invalidDomainClassReference.forEach(err => {
+            const li = createErrorListItem();
+            let contextHtml = `<strong class="error-code">[${err.code}]</strong> `;
+            contextHtml += `<strong>Member:</strong> <code class="error-highlight-code">${err.memberName}</code><br>`;
+            contextHtml += `<span class="error-detail-indent">Used in: <strong>Domain</strong> <em>${err.domainName}</em> (root: <code class="error-highlight-code">${err.domainRoot}</code>)</span><br>`;
+            contextHtml += `<span class="error-detail-indent error-message-text">${err.message}</span>`;
+            li.innerHTML = contextHtml;
+            list.appendChild(li);
+        });
+
+        section.appendChild(list);
+        errorsDiv.appendChild(section);
+    }
+
     // Invalid allowDomainFacts on Concept Dimension Section
     if (errors.invalidAllowDomainFactsPropertyOnConceptDimension.length > 0) {
         const section = createErrorSection();
@@ -1653,7 +1682,8 @@ function validateTaxonomy(taxonomy) {
         invalidPropertyExpansion: [],
         coreDimensionsExpansion: [],
         invalidRelationshipConstraintRelaxation: [],
-        invalidRelationshipExpansion: []
+        invalidRelationshipExpansion: [],
+        invalidDomainClassReference: []
     };
 
     // Build a set of all defined QNames in the taxonomy (still needed for reference validation)
@@ -1763,6 +1793,9 @@ function validateTaxonomy(taxonomy) {
 
     // Validate that domainClass references point to legitimate domainClass objects
     validateDomainClassReferences(taxonomy, errors, definedNames);
+
+    // Validate that members used in a domain have the domain's root in their domainClasses property
+    validateMemberDomainClassReference(taxonomy, errors);
 
     // Validate that allowDomainFacts is not true on concept dimension
     validateAllowDomainFactsOnConceptDimension(taxonomy, errors);
@@ -2819,6 +2852,61 @@ function validateMultipleDomainClasses(taxonomy, errors) {
  * @param {Object} errors - The errors object to add errors to
  * @param {Set} definedNames - Set of all defined QNames in the taxonomy
  */
+/**
+ * Validate that members included as targets in a domain have the domain's root
+ * listed in their domainClasses property (oimte:invalidDomainClassReference).
+ * Spec: "If the member is defined in a domain relationship with a domain class root
+ * that is not included in the domainClasses property of the member, an error MUST
+ * be raised (!!oimte:invalidDomainClassReference)."
+ */
+function validateMemberDomainClassReference(taxonomy, errors) {
+    if (!taxonomy.domains || !Array.isArray(taxonomy.domains)) {
+        return;
+    }
+
+    // Build a lookup map: memberName → Set of domainClasses
+    const memberDomainClassesMap = new Map();
+    if (taxonomy.members && Array.isArray(taxonomy.members)) {
+        taxonomy.members.forEach(member => {
+            if (member.name && Array.isArray(member.domainClasses) && member.domainClasses.length > 0) {
+                memberDomainClassesMap.set(member.name, new Set(member.domainClasses));
+            }
+        });
+    }
+
+    taxonomy.domains.forEach(domain => {
+        const domainRoot = domain.root;
+        const domainName = domain.name || domain.extendTargetName;
+
+        // Only check domains that have a root and relationships
+        if (!domainRoot || !Array.isArray(domain.relationships)) {
+            return;
+        }
+
+        domain.relationships.forEach(rel => {
+            const target = rel.target;
+            if (!target) return;
+
+            // Only check members that explicitly declare domainClasses
+            const memberClasses = memberDomainClassesMap.get(target);
+            if (!memberClasses) {
+                // Member has no domainClasses property — no constraint violation
+                return;
+            }
+
+            if (!memberClasses.has(domainRoot)) {
+                errors.invalidDomainClassReference.push({
+                    code: 'oimte:invalidDomainClassReference',
+                    domainName: domainName,
+                    domainRoot: domainRoot,
+                    memberName: target,
+                    message: `Member "${target}" is used in domain "${domainName}" whose root is "${domainRoot}", but "${domainRoot}" is not listed in the member's domainClasses property.`
+                });
+            }
+        });
+    });
+}
+
 function validateDomainClassReferences(taxonomy, errors, definedNames) {
     // Build a set of all domainClass object names
     const domainClassNames = new Set();

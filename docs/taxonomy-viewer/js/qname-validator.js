@@ -422,6 +422,36 @@ export function validateObjectNamespacePrefixes(taxonomy, documentInfo) {
 }
 
 /**
+ * Validate that all URIs in the namespaces object are unique.
+ * No two prefix keys may map to the same namespace URI.
+ * @param {Object} documentInfo - The documentInfo object
+ * @returns {Array<Object>} Array of validation errors
+ */
+function validateNamespaceURIUniqueness(documentInfo) {
+    const errors = [];
+    if (!documentInfo || !documentInfo.namespaces) {
+        return errors;
+    }
+    const uriToPrefix = new Map();
+    for (const [prefix, uri] of Object.entries(documentInfo.namespaces)) {
+        if (uriToPrefix.has(uri)) {
+            const firstPrefix = uriToPrefix.get(uri);
+            errors.push({
+                message: `Prefixes '${firstPrefix}' and '${prefix}' both map to the same namespace URI '${uri}' (oimte:duplicateNamespaceURI)`,
+                errorCode: 'oimte:duplicateNamespaceURI',
+                prefix1: firstPrefix,
+                prefix2: prefix,
+                uri: uri,
+                location: 'documentInfo.namespaces'
+            });
+        } else {
+            uriToPrefix.set(uri, prefix);
+        }
+    }
+    return errors;
+}
+
+/**
  * Validate that the documentNamespace is properly defined in the namespaces.
  * Also checks that documentNamespace is present when modelForm is 'module' or not defined.
  * @param {Object} documentInfo - The documentInfo object
@@ -4035,6 +4065,13 @@ export function validateQNameReferences(taxonomy, documentInfo = null, rawTaxono
         const docNsErrors = validateDocumentNamespace(rawDocumentInfo, rawModel);
         if (docNsErrors) {
             docNsErrors.forEach(e => addValidationError(e.message, e));
+        }
+
+        // Validate that no two prefixes in the namespaces map share the same URI.
+        console.log('[QName Validator] Validating namespace URI uniqueness...');
+        const nsUriErrors = validateNamespaceURIUniqueness(rawDocumentInfo);
+        if (nsUriErrors) {
+            nsUriErrors.forEach(e => addValidationError(e.message, e));
         }
     }
 

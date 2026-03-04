@@ -2,7 +2,8 @@
 <?xml-stylesheet type="text/xsl" href="../../infrastructure/test.xsl"?>
 <testcase
     xmlns="http://xbrl.org/2008/conformance"
-    xmlns:oimte="https://xbrl.org/2025/oimtaxonomy/error">
+    xmlns:oimte="https://xbrl.org/2025/oimtaxonomy/error"
+    xmlns:calc11e="https://xbrl.org/2023/calculation-1.1/error">
   <creator>
     <name>Author</name>
     <email>abc@def.com</email>
@@ -889,7 +890,27 @@
       <instance readMeFirst="true">NAMESPACE-DocumentNamespaceDoesNotMatch.json</instance>
     </data>
     <result>
-      <error>oimte:documentNamespaceHasNoPrefix</error>
+      <error>oimte:documentNamespacePrefixNotDefined</error>
+      <error>oimte:objectNamespaceMismatch</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-DocumentNamespaceNotInNamespaceMap">
+    <description>File NAMESPACE-DocumentNamespaceNotInNamespaceMap.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-DocumentNamespaceNotInNamespaceMap.json</instance>
+    </data>
+    <result>
+      <error>oimte:documentNamespacePrefixNotDefined</error>
+      <error>oimte:objectNamespacePrefixNotDefined</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-DocumentNamespaceNotDefinedDiffPrefix">
+    <description>File NAMESPACE-DocumentNamespaceNotDefinedDiffPrefix.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-DocumentNamespaceNotDefinedDiffPrefix.json</instance>
+    </data>
+    <result>
+      <error>oimte:documentNamespaceNotDefined</error>
     </result>
   </variation>
   <variation id="NAMESPACE-PrefixNotDefined">
@@ -898,6 +919,7 @@
       <instance readMeFirst="true">NAMESPACE-PrefixNotDefined.json</instance>
     </data>
     <result>
+      <error>oimte:documentNamespaceNotDefined</error>
       <error>oimte:objectNamespacePrefixNotDefined</error>
     </result>
   </variation>
@@ -908,6 +930,56 @@
     </data>
     <result>
       <error>oimte:invalidObjectNamespacePrefix</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-DuplicatePrefixCollision">
+    <description>File NAMESPACE-DuplicatePrefixCollision.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-DuplicatePrefixCollision.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-ValidPrefixRemapResolvesCollision">
+    <description>File NAMESPACE-ValidPrefixRemapResolvesCollision.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-ValidPrefixRemapResolvesCollision.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-PrefixRemapRequired-Error">
+    <description>File NAMESPACE-PrefixRemapRequired-Error.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-PrefixRemapRequired-Error.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateNamespaceURI</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-PrefixRemapRequired-Valid">
+    <description>File NAMESPACE-PrefixRemapRequired-Valid.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-PrefixRemapRequired-Valid.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-PrefixRemapAmbiguous-Invalid">
+    <description>File NAMESPACE-PrefixRemapAmbiguous-Invalid.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-PrefixRemapAmbiguous-Invalid.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateNamespaceURI</error>
+    </result>
+  </variation>
+  <variation id="NAMESPACE-PrefixRemapAmbiguousExplicit-Valid">
+    <description>File NAMESPACE-PrefixRemapAmbiguousExplicit-Valid.json</description>
+    <data>
+      <instance readMeFirst="true">NAMESPACE-PrefixRemapAmbiguousExplicit-Valid.json</instance>
+    </data>
+    <result>
     </result>
   </variation>
   <variation id="NETWORK-DuplicateNetworkNames">
@@ -2013,7 +2085,34 @@
       <instance readMeFirst="true">CALCULATION-InvalidSummationItemWeight.json</instance>
     </data>
     <result>
-      <error>oimte:invalidCalculationRelationship</error>
+      <error>calc11e:inconsistentCalculationUsingRounding</error>
+    </result>
+  </variation>
+  <variation id="CALCULATION-InvalidSummationItemValue">
+    <description>File CALCULATION-InvalidSummationItemValue.json</description>
+    <data>
+      <instance readMeFirst="true">CALCULATION-InvalidSummationItemValue.json</instance>
+    </data>
+    <result>
+      <error>calc11e:inconsistentCalculationUsingRounding</error>
+    </result>
+  </variation>
+  <variation id="CALCULATION-InvalidSummationMultiEntityValue">
+    <description>File CALCULATION-InvalidSummationMultiEntityValue.json</description>
+    <data>
+      <instance readMeFirst="true">CALCULATION-InvalidSummationMultiEntityValue.json</instance>
+    </data>
+    <result>
+      <error>calc11e:inconsistentCalculationUsingRounding</error>
+    </result>
+  </variation>
+  <variation id="CALCULATION-ValidSummationMultiEntityValue">
+    <description>File CALCULATION-ValidSummationMultiEntityValue.json - entity domain restricts balance sheet cube to ExampleCompany only, so ExampleCompany2 facts are excluded and its incorrect TotalLiabilities does not trigger a calculation error</description>
+    <data>
+      <instance readMeFirst="true">CALCULATION-ValidSummationMultiEntityValue.json</instance>
+    </data>
+    <result>
+      <pass/>
     </result>
   </variation>
 </testcase>

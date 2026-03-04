@@ -15,7 +15,8 @@
     <div id="tree-container">
         <div id="resize-handle"></div>
         <h2><div id="loading" style="display: none;">Loading model...</div>Model Viewer</h2>
-        <select id="taxonomy-select">
+        <div id="taxonomy-open-row">
+            <select id="taxonomy-select">
             <optgroup label="Examples">
                 <option value="./examples/exampleTaxonomy.json">exampleTaxonomy.json</option>
                 <option value="./examples/copilot-mini.json">copilot-mini.json</option>
@@ -73,6 +74,7 @@
                 <option value="./conformance/CUBE-ValidExcludedIntervals.json">CUBE-ValidExcludedIntervals.json</option>
                 <option value="./conformance/CUBE-ValidTimeSeriesComplete.json">CUBE-ValidTimeSeriesComplete.json</option>
                 <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json</option>
+                <option value="./conformance/DOMAINCLASS-ValidMemberinDomain.json">DOMAINCLASS-ValidMemberinDomain.json</option>
                 <option value="./conformance/FACT-RequiredDisclosure.json">FACT-RequiredDisclosure.json</option>
                 <option value="./conformance/FACTSET-ValidFactMap.json">FACTSET-ValidFactMap.json</option>
                 <option value="./conformance/FACTSET-ValidFactMapWithFootnote.json">FACTSET-ValidFactMapWithFootnote.json</option>
@@ -84,6 +86,13 @@
                 <option value="./conformance/IMPORTTAXONOMY-ValidObjectTableTemplateObjectType.json">IMPORTTAXONOMY-ValidObjectTableTemplateObjectType.json</option>
                 <option value="./conformance/MEMBER-ValidBasic.json">MEMBER-ValidBasic.json</option>
                 <option value="./conformance/MEMBER-ValidWithProperties.json">MEMBER-ValidWithProperties.json</option>
+                <option value="./conformance/NAMESPACE-analytics-module.json">NAMESPACE-analytics-module.json</option>
+                <option value="./conformance/NAMESPACE-DuplicatePrefixCollision.json">NAMESPACE-DuplicatePrefixCollision.json</option>
+                <option value="./conformance/NAMESPACE-financials-module.json">NAMESPACE-financials-module.json</option>
+                <option value="./conformance/NAMESPACE-geography-module.json">NAMESPACE-geography-module.json</option>
+                <option value="./conformance/NAMESPACE-ValidPrefixRemapResolvesCollision.json">NAMESPACE-ValidPrefixRemapResolvesCollision.json</option>
+                <option value="./conformance/NAMESPACE-PrefixRemapRequired-Valid.json">NAMESPACE-PrefixRemapRequired-Valid.json</option>
+                <option value="./conformance/NAMESPACE-PrefixRemapAmbiguousExplicit-Valid.json">NAMESPACE-PrefixRemapAmbiguousExplicit-Valid.json</option>
                 <option value="./conformance/NETWORK-ValidBasic.json">NETWORK-ValidBasic.json</option>
                 <option value="./conformance/NETWORK-ValidEmptyProperties.json">NETWORK-ValidEmptyProperties.json</option>
                 <option value="./conformance/NETWORK-ValidMixedPropertyTypes.json">NETWORK-ValidMixedPropertyTypes.json</option>
@@ -198,6 +207,7 @@
                 <option value="./conformance/DOMAINCLASS-DimensionDoesNotMatchDomainClass.json">DOMAINCLASS-DimensionDoesNotMatchDomainClass.json</option>
                 <option value="./conformance/DOMAINCLASS-EntityDomainWithNonEntityMember.json">DOMAINCLASS-EntityDomainWithNonEntityMember.json</option>
                 <option value="./conformance/DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship.json">DOMAINCLASS-DomainClassUsedAsTargetDomainRelationship.json</option>
+                <option value="./conformance/DOMAINCLASS-InvalidMemberinDomain.json">DOMAINCLASS-InvalidMemberinDomain.json</option>
                 <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseConceptRoot.json</option>
                 <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseLanguageRoot.json</option>
                 <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseUnitRoot.json</option>
@@ -235,6 +245,8 @@
                 <option value="./conformance/NAMESPACE-PrefixNotDefined.json">NAMESPACE-PrefixNotDefined.json</option>
                 <option value="./conformance/NAMESPACE-RestrictedPrefix.json">NAMESPACE-RestrictedPrefix.json</option>
                 <option value="./conformance/NAMESPACE-DocumentNamespaceNotInNamespaceMap.json">NAMESPACE-DocumentNamespaceNotInNamespaceMap.json</option>
+                <option value="./conformance/NAMESPACE-PrefixRemapRequired-Error.json">NAMESPACE-PrefixRemapRequired-Error.json</option>
+                <option value="./conformance/NAMESPACE-PrefixRemapAmbiguous-Invalid.json">NAMESPACE-PrefixRemapAmbiguous-Invalid.json</option>
                 <option value="./conformance/NETWORK-DuplicateNetworkNames.json">NETWORK-DuplicateNetworkNames.json</option>
                 <option value="./conformance/NETWORK-InvalidRelationshipTypeNameReference.json">NETWORK-InvalidRelationshipTypeNameReference.json</option>
                 <option value="./conformance/NETWORK-InvalidExtendNetworkProperties.json">NETWORK-InvalidExtendNetworkProperties.json</option>

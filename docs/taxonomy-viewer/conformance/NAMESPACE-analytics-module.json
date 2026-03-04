@@ -1,0 +1,21 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "ana": "http://example.com/analytics",
+            "exp": "http://example.com/common",
+            "xbrl": "https://xbrl.org/2025",
+            "xs":   "http://www.w3.org/2001/XMLSchema"
+        }
+    },
+    "xbrlModel": {
+        "name": "ana:AnalyticsModel",
+        "modelForm": "compiled",
+        "members": [
+            { "name": "ana:CustomerRetention" },
+            { "name": "ana:CustomerChurn" },
+            { "name": "exp:CommonMetric" }
+        ]
+    }
+}
