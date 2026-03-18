@@ -11,7 +11,7 @@
 const EXCLUDED_PROPERTIES = new Set([
     'basePath',
     'sourceMapping',
-    'urlMapping',
+    'importMapping',
     'documentNamespace',
     'importedTaxonomies',
     'extendTargetName'

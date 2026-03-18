@@ -4,25 +4,25 @@
         "documentType": "https://xbrl.org/2026/model",
         "documentNamespace": "exp_ext",
         "namespaces": {
-            "exp":  "http://example.com/taxonomy",
+            "exp": "http://example.com/taxonomy",
             "mini": "http://example.com/mini",
             "exp_ext": "http://example.com/ext-taxonomy",
             "xbrl": "https://xbrl.org/2025",
             "iso4217": "http://www.xbrl.org/2003/iso4217",
             "utr": "https://xbrl.org/2025/utr",
-            "xbrli":"https://xbrl.org/2025/instance",
+            "xbrli": "https://xbrl.org/2025/instance",
             "xs": "http://www.w3.org/2001/XMLSchema",
             "ferc-form-60": "http://ferc.gov/form/2025-04-01/ferc-form-60",
             "ferc": "http://ferc.gov/form/2025-04-01/ferc",
             "mini3": "http://example.com/mini3"
-            },
-        "urlMapping": {
-            "exp":  ["exampleTaxonomy.json"],
-            "mini": ["copilot-mini.json"],
-            "ferc": ["../converted-taxonomies/form-60_2025-04-01.json"],
-            "ferc-form-60": ["../converted-taxonomies/form-60_2025-04-01.json"],
-            "mini3": ["copilot-mini3.json"] 
-            }
+        },
+        "importMapping": {
+            "exp:SampleTaxonomy": "exampleTaxonomy.json",
+            "mini:MiniTaxonomy": "copilot-mini.json",
+            "ferc:FERCForm60-2025-04-01": "../converted-taxonomies/form-60_2025-04-01.json",
+            "ferc-form-60:_unmapped": "../converted-taxonomies/form-60_2025-04-01.json",
+            "mini3:MiniTaxonomy3": "copilot-mini3.json"
+        }
     },
     "xbrlModel": {
         "name": "exp_ext:ExtensionTaxonomy",
@@ -32,19 +32,28 @@
             },
             {
                 "xbrlModelName": "mini:MiniTaxonomy",
-                "importObjects": ["mini:Assets", "mini:GeographyDomain"]
+                "importObjects": [
+                    "mini:Assets",
+                    "mini:GeographyDomain"
+                ]
             },
             {
                 "xbrlModelName": "ferc:FERCForm60-2025-04-01",
-                "importObjects": ["ferc-form-60:NotesToFinancialStatements_parent-child_Network"]
+                "importObjects": [
+                    "ferc-form-60:NotesToFinancialStatements_parent-child_Network"
+                ]
             },
             {
                 "xbrlModelName": "mini3:MiniTaxonomy3",
-                "importObjectTypes": ["xbrl:memberObject"]
+                "importObjectTypes": [
+                    "xbrl:memberObject"
+                ]
             },
             {
                 "xbrlModelName": "mini3:MiniTaxonomy3",
-                "importObjectTypes": ["xbrl:abstractObject"]
+                "importObjectTypes": [
+                    "xbrl:abstractObject"
+                ]
             }
         ],
         "concepts": [
@@ -105,7 +114,7 @@
         "facts": [
             {
                 "extendTargetName": "exp:f12351",
-                "properties":[
+                "properties": [
                     {
                         "property": "xbrl:requiresFactValue",
                         "value": true

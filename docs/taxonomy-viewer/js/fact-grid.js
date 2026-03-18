@@ -71,6 +71,116 @@ function parseDuration(durationStr) {
 }
 
 /**
+ * Match a Date (UTC) against a single date/time pattern token string.
+ * Pattern tokens: YYYY, MM, DD, hh, mm, ss, eom  (all others are treated as literal values).
+ * Returns an object of wildcard captures { YYYY, MM, ... } on success, or null on mismatch.
+ * @param {Date} date - UTC date to test
+ * @param {string} pattern - e.g. "YYYY-12-31" or "YYYY-MM-eoMT00:00:00"
+ * @returns {Object|null}
+ */
+function matchDatePattern(date, pattern) {
+    const tIdx = pattern.indexOf('T');
+    const datePart = tIdx >= 0 ? pattern.substring(0, tIdx) : pattern;
+    const timePart = tIdx >= 0 ? pattern.substring(tIdx + 1) : null;
+
+    const dateTokens = datePart.split('-');
+    const year  = date.getUTCFullYear();
+    const month = date.getUTCMonth() + 1; // 1-indexed
+    const day   = date.getUTCDate();
+    const hours   = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const seconds = date.getUTCSeconds();
+
+    const wildcards = {};
+
+    // --- year ---
+    if (dateTokens[0] === 'YYYY') {
+        wildcards.YYYY = year;
+    } else if (parseInt(dateTokens[0]) !== year) {
+        return null;
+    }
+
+    // --- month ---
+    if (dateTokens.length > 1) {
+        if (dateTokens[1] === 'MM') {
+            wildcards.MM = month;
+        } else if (parseInt(dateTokens[1]) !== month) {
+            return null;
+        }
+    }
+
+    // --- day (supports literal, DD wildcard, and eom) ---
+    if (dateTokens.length > 2) {
+        const dayToken = dateTokens[2];
+        if (dayToken === 'DD') {
+            wildcards.DD = day;
+        } else if (dayToken.toLowerCase() === 'eom') {
+            // Last day of the actual year/month
+            const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
+            if (day !== lastDay) return null;
+            wildcards.eom = day;
+        } else if (parseInt(dayToken) !== day) {
+            return null;
+        }
+    }
+
+    // --- time components ---
+    if (timePart !== null) {
+        const timeTokens = timePart.split(':');
+        if (timeTokens[0] === 'hh') {
+            wildcards.hh = hours;
+        } else if (parseInt(timeTokens[0]) !== hours) {
+            return null;
+        }
+        if (timeTokens.length > 1) {
+            if (timeTokens[1] === 'mm') {
+                wildcards.mm = minutes;
+            } else if (parseInt(timeTokens[1]) !== minutes) {
+                return null;
+            }
+        }
+        if (timeTokens.length > 2) {
+            if (timeTokens[2] === 'ss') {
+                wildcards.ss = seconds;
+            } else if (parseInt(timeTokens[2]) !== seconds) {
+                return null;
+            }
+        }
+    }
+
+    return wildcards;
+}
+
+/**
+ * Match a parsed fact period against a period pattern string.
+ * Instant patterns (no '/') are tested against factPeriodInfo.endDate.
+ * Duration patterns (with '/') test startDate against the left half and endDate against the right half.
+ * Shared wildcards (YYYY, MM) in start/end patterns must resolve to the same value.
+ * @param {Object} factPeriodInfo - from parsePeriodString()
+ * @param {string} pattern - e.g. "YYYY-12-31" or "YYYY-MM-01/YYYY-MM-eom"
+ * @returns {boolean}
+ */
+function matchesPeriodPattern(factPeriodInfo, pattern) {
+    const isDuration = pattern.includes('/');
+    if (isDuration) {
+        if (factPeriodInfo.periodType !== 'duration') return false;
+        const [startPat, endPat] = pattern.split('/');
+        const startWilds = matchDatePattern(factPeriodInfo.startDate, startPat);
+        if (startWilds === null) return false;
+        const endWilds = matchDatePattern(factPeriodInfo.endDate, endPat);
+        if (endWilds === null) return false;
+        // Shared wildcards (year, month, day) must agree between start and end
+        for (const key of ['YYYY', 'MM', 'DD']) {
+            if (key in startWilds && key in endWilds && startWilds[key] !== endWilds[key]) return false;
+        }
+        return true;
+    } else {
+        if (factPeriodInfo.periodType !== 'instant') return false;
+        return matchDatePattern(factPeriodInfo.endDate, pattern) !== null;
+    }
+}
+
+/**
  * Check if a fact's period matches ANY of the period constraints (OR logic between constraints)
  * Within each constraint, ALL properties must match (AND logic within constraint)
  * @param {string} factPeriod - The period string from the fact
@@ -189,11 +299,9 @@ function matchesSinglePeriodConstraint(factPeriodInfo, constraint, taxonomy) {
     
     // Check periodPattern (pattern matching for dates/durations)
     if (constraint.periodPattern) {
-        // For now, treat periodPattern as not implemented - skip this constraint
-        // Full implementation would parse patterns like "YYYY-MM-DD" or "YYYY-12-31/YYYY-12-31" and compare
-        // Return null to indicate this constraint should be skipped (not counted as match or fail)
-        console.warn('[Period Constraints] periodPattern matching not fully implemented - skipping constraint:', constraint.periodPattern);
-        return false; // Constraint cannot be evaluated, so it doesn't match
+        if (!matchesPeriodPattern(factPeriodInfo, constraint.periodPattern)) {
+            return false;
+        }
     }
     
     // Check onOrAfter constraint
@@ -374,8 +482,8 @@ function findCubesForFact(fact, taxonomy) {
     taxonomy.cubes.forEach(cube => {
         if (!cube.cubeDimensions) return;
         
-        // Check if this is a default cube (concept dimension implicitly includes all concepts)
-        const isDefaultCube = cube.cubeType === 'xbrl:defaultCube';
+        // Check if this is a open cube (concept dimension implicitly includes all concepts)
+        const isDefaultCube = cube.cubeType === 'xbrl:openCube';
         
         // Check if cube has all the dimensions from the fact
         const cubeDimensionNames = cube.cubeDimensions.map(d => d.dimensionName);
@@ -718,7 +826,7 @@ function buildCubeGridWithHighlight(cube, fact, container, taxonomyData) {
     }
     
     // Check if this is a default cube
-    const isDefaultCube = cube.cubeType === 'xbrl:defaultCube';
+    const isDefaultCube = cube.cubeType === 'xbrl:openCube';
     
     // Find the concept dimension
     const conceptDim = cube.cubeDimensions.find(d => d.dimensionName === 'xbrl:concept');

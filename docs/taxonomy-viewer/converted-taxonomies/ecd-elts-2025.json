@@ -10,8 +10,8 @@
 		},
 		"documentType": "https://xbrl.org/2026/model",
 		"documentNamespace": "ecd",
-		"urlMapping":{
-            "us-gaap": ["us-gaap-elts-2025.json"]
+		"importMapping":{
+            "us-gaap:GAAP-elts-Taxonomy": "us-gaap-elts-2025.json"
         }
 	},
 	"xbrlModel": {

@@ -1,0 +1,83 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy/period/patterninstant",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "Valid: periodConstraint with periodPattern 'YYYY-12-31' restricts cube to year-end instant facts. Includes a matching year-end instant (included) and a non-matching mid-year instant (excluded)."
+    },
+    "xbrlModel": {
+        "name": "exp:PeriodConstraintPatternInstantValid",
+        "version": "2025",
+        "concepts": [
+            { "name": "exp:Assets", "dataType": "xbrli:monetary", "periodType": "instant", "nillable": true }
+        ],
+        "cubes": [
+            {
+                "name": "exp:YearEndInstantCube",
+                "cubeType": "xbrl:reportCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:ConceptDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "periodConstraints": [
+                            {
+                                "periodType": "instant",
+                                "periodPattern": "YYYY-12-31"
+                            }
+                        ]
+                    },
+                    {
+                        "dimensionName": "xbrl:unit",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    }
+                ]
+            }
+        ],
+        "domains": [
+            {
+                "name": "exp:ConceptDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    { "source": "xbrl:conceptDomain", "target": "exp:Assets" }
+                ]
+            }
+        ],
+        "entities": [
+            { "name": "exp:Company1" }
+        ],
+        "facts": [
+            {
+                "name": "exp:f1",
+                "factValues": [{ "name": "exp:fv1", "value": "500000", "decimals": 0 }],
+                "factDimensions": {
+                    "xbrl:concept": "exp:Assets",
+                    "xbrl:period": "2025-12-31",
+                    "xbrl:entity": "exp:Company1",
+                    "xbrl:unit": "iso4217:USD"
+                }
+            },
+            {
+                "name": "exp:f2",
+                "factValues": [{ "name": "exp:fv2", "value": "480000", "decimals": 0 }],
+                "factDimensions": {
+                    "xbrl:concept": "exp:Assets",
+                    "xbrl:period": "2025-06-30",
+                    "xbrl:entity": "exp:Company1",
+                     "xbrl:unit": "iso4217:USD"
+                }
+            }
+        ]
+    }
+}

@@ -1,449 +1,453 @@
 {
-  "$schema": "../../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "gl": "https://xbrl.org/gl-base/2025",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrli": "https://xbrl.org/2025/instance",
-      "xbrla": "http://xbrl.org/accounting",
-      "xs": "http://www.w3.org/2001/XMLSchema"
+    "$schema": "../../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "gl": "https://xbrl.org/gl-base/2025",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xbrla": "http://xbrl.org/accounting",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "gl",
+        "importMapping": {
+            "xbrla:AccountingModel": "../../spec-taxonomies/xbrla.json"
+        }
     },
-    "documentNamespace": "gl",
-    "urlMapping": {
-            "xbrla": ["../../spec-taxonomies/xbrla.json"]
-            }
-  },
-  "xbrlModel": {
-    "name": "gl:GLBaseTaxonomy",
-    "frameworkName": "AuditDataAPI",
-    "version": "2025",
-    "importedTaxonomies": [
+    "xbrlModel": {
+        "name": "gl:GLBaseTaxonomy",
+        "frameworkName": "AuditDataAPI",
+        "version": "2025",
+        "importedTaxonomies": [
             {
                 "xbrlModelName": "xbrla:AccountingModel"
             }
         ],
-    "concepts": [
-      {
-        "name": "gl:JournalID",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:EffectiveDate",
-        "dataType": "xs:date",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:GLAccountNumber",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:GLAccountConcept",
-        "dataType": "xs:QName",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:FunctionalAmount",
-        "dataType": "xs:decimal",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:FunctionalCurrency",
-        "dataType": "xs:QName",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:ReportingAmount",
-        "dataType": "xs:decimal",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:ReportingCurrency",
-        "dataType": "xs:QName",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:LocalAmount",
-        "dataType": "xs:decimal",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:LocalCurrency",
-        "dataType": "xs:QName",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:JEHeaderDescription",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:Source",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:FiscalYear",
-        "dataType": "xs:string",
-        "periodType": "duration",
-        "nillable": false
-      },
-      {
-        "name": "gl:Period",
-        "dataType": "xs:string",
-        "periodType": "duration",
-        "nillable": false
-      },
-      {
-        "name": "gl:BusinessUnitCode",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:ReversalIndicator",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:ReversalJournalId",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:CancellationSign",
-        "dataType": "xs:boolean",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:EnteredBy",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:EnteredDate",
-        "dataType": "xs:dateTime",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:LastModifiedBy",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:LastModifiedDate",
-        "dataType": "xs:dateTime",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:ApprovedBy",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:ApprovedDate",
-        "dataType": "xs:dateTime",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:EntityIdentifier",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:JournalIDLineNumber",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:JELineDescription",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:TransactionAmount",
-        "dataType": "xs:decimal",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:TransactionCurrency",
-        "dataType": "xs:QName",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:SourceSystem",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": true
-      },
-      {
-        "name": "gl:AccountType",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": false
-      },
-      {
-        "name": "gl:GLAccountName",
-        "dataType": "xs:string",
-        "periodType": "none",
-        "nillable": false
-      }
-    ],
-    "labels": [
-       {
-        "relatedName": "gl:AccountType",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Account Type"
-      },
-      {
-        "relatedName": "gl:GLAccountName",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "GL Account Name"
-      },
-      {
-        "relatedName": "gl:JournalID",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Journal Entry Identifier"
-      },
-      {
-        "relatedName": "gl:EffectiveDate",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Effective Date"
-      },
-      {
-        "relatedName": "gl:GLAccountNumber",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "GL Account Number"
-      },
-      {
-        "relatedName": "gl:FunctionalAmount",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Functional Amount"
-      },
-      {
-        "relatedName": "gl:FunctionalCurrency",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Functional Currency"
-      },
-      {
-        "relatedName": "gl:ReportingAmount",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Reporting Amount"
-      },
-      {
-        "relatedName": "gl:ReportingCurrency",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Reporting Currency"
-      },
-      {
-        "relatedName": "gl:LocalAmount",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Local Amount"
-      },
-      {
-        "relatedName": "gl:LocalCurrency",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Local Currency"
-      },
-      {
-        "relatedName": "gl:JEHeaderDescription",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Journal Entry Header Description"
-      },
-      {
-        "relatedName": "gl:Source",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Source Module"
-      },
-      {
-        "relatedName": "gl:SourceSystem",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Source System"
-      },
-      {
-        "relatedName": "gl:FiscalYear",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Fiscal Year"
-      },
-      {
-        "relatedName": "gl:Period",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Fiscal Period"
-      },
-      {
-        "relatedName": "gl:BusinessUnitCode",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Business Unit Code"
-      },
-      {
-        "relatedName": "gl:ReversalIndicator",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Reversal Indicator"
-      },
-      {
-        "relatedName": "gl:ReversalJournalId",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Reversal Journal ID"
-      },
-      {
-        "relatedName": "gl:CancellationSign",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Cancellation Sign"
-      },
-      {
-        "relatedName": "gl:EnteredBy",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Entered By"
-      },
-      {
-        "relatedName": "gl:EnteredDate",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Entered Date"
-      },
-      {
-        "relatedName": "gl:LastModifiedBy",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Last Modified By"
-      },
-      {
-        "relatedName": "gl:LastModifiedDate",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Last Modified Date"
-      },
-      {
-        "relatedName": "gl:ApprovedBy",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Approved By"
-      },
-      {
-        "relatedName": "gl:ApprovedDate",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Approved Date"
-      },
-      {
-        "relatedName": "gl:EntityIdentifier",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Entity Identifier"
-      },
-      {
-        "relatedName": "gl:JournalIDLineNumber",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Journal Entry Line Number"
-      },
-      {
-        "relatedName": "gl:JELineDescription",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Journal Entry Line Description"
-      },
-      {
-        "relatedName": "gl:TransactionAmount",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Transaction Amount"
-      },
-      {
-        "relatedName": "gl:TransactionCurrency",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Transaction Currency"
-      }
-    ],
-    "dimensions": [
-      {
-        "name": "gl:GLTransactionEventAxis",
-        "domainClass": "gl:GLTransactionEventDomainClass",
-        "cubeTypes": [
+        "concepts": [
+            {
+                "name": "gl:JournalID",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:EffectiveDate",
+                "dataType": "xs:date",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:GLAccountNumber",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:GLAccountConcept",
+                "dataType": "xs:QName",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:FunctionalAmount",
+                "dataType": "xs:decimal",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:FunctionalCurrency",
+                "dataType": "xs:QName",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:ReportingAmount",
+                "dataType": "xs:decimal",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:ReportingCurrency",
+                "dataType": "xs:QName",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:LocalAmount",
+                "dataType": "xs:decimal",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:LocalCurrency",
+                "dataType": "xs:QName",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:JEHeaderDescription",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:Source",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:FiscalYear",
+                "dataType": "xs:string",
+                "periodType": "duration",
+                "nillable": false
+            },
+            {
+                "name": "gl:Period",
+                "dataType": "xs:string",
+                "periodType": "duration",
+                "nillable": false
+            },
+            {
+                "name": "gl:BusinessUnitCode",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:ReversalIndicator",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:ReversalJournalId",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:CancellationSign",
+                "dataType": "xs:boolean",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:EnteredBy",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:EnteredDate",
+                "dataType": "xs:dateTime",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:LastModifiedBy",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:LastModifiedDate",
+                "dataType": "xs:dateTime",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:ApprovedBy",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:ApprovedDate",
+                "dataType": "xs:dateTime",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:EntityIdentifier",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:JournalIDLineNumber",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:JELineDescription",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:TransactionAmount",
+                "dataType": "xs:decimal",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:TransactionCurrency",
+                "dataType": "xs:QName",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:SourceSystem",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": true
+            },
+            {
+                "name": "gl:AccountType",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": false
+            },
+            {
+                "name": "gl:GLAccountName",
+                "dataType": "xs:string",
+                "periodType": "none",
+                "nillable": false
+            }
+        ],
+        "labels": [
+            {
+                "relatedName": "gl:AccountType",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Account Type"
+            },
+            {
+                "relatedName": "gl:GLAccountName",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "GL Account Name"
+            },
+            {
+                "relatedName": "gl:JournalID",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Journal Entry Identifier"
+            },
+            {
+                "relatedName": "gl:EffectiveDate",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Effective Date"
+            },
+            {
+                "relatedName": "gl:GLAccountNumber",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "GL Account Number"
+            },
+            {
+                "relatedName": "gl:FunctionalAmount",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Functional Amount"
+            },
+            {
+                "relatedName": "gl:FunctionalCurrency",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Functional Currency"
+            },
+            {
+                "relatedName": "gl:ReportingAmount",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Reporting Amount"
+            },
+            {
+                "relatedName": "gl:ReportingCurrency",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Reporting Currency"
+            },
+            {
+                "relatedName": "gl:LocalAmount",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Local Amount"
+            },
+            {
+                "relatedName": "gl:LocalCurrency",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Local Currency"
+            },
+            {
+                "relatedName": "gl:JEHeaderDescription",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Journal Entry Header Description"
+            },
+            {
+                "relatedName": "gl:Source",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Source Module"
+            },
+            {
+                "relatedName": "gl:SourceSystem",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Source System"
+            },
+            {
+                "relatedName": "gl:FiscalYear",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Fiscal Year"
+            },
+            {
+                "relatedName": "gl:Period",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Fiscal Period"
+            },
+            {
+                "relatedName": "gl:BusinessUnitCode",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Business Unit Code"
+            },
+            {
+                "relatedName": "gl:ReversalIndicator",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Reversal Indicator"
+            },
+            {
+                "relatedName": "gl:ReversalJournalId",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Reversal Journal ID"
+            },
+            {
+                "relatedName": "gl:CancellationSign",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Cancellation Sign"
+            },
+            {
+                "relatedName": "gl:EnteredBy",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Entered By"
+            },
+            {
+                "relatedName": "gl:EnteredDate",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Entered Date"
+            },
+            {
+                "relatedName": "gl:LastModifiedBy",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Last Modified By"
+            },
+            {
+                "relatedName": "gl:LastModifiedDate",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Last Modified Date"
+            },
+            {
+                "relatedName": "gl:ApprovedBy",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Approved By"
+            },
+            {
+                "relatedName": "gl:ApprovedDate",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Approved Date"
+            },
+            {
+                "relatedName": "gl:EntityIdentifier",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Entity Identifier"
+            },
+            {
+                "relatedName": "gl:JournalIDLineNumber",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Journal Entry Line Number"
+            },
+            {
+                "relatedName": "gl:JELineDescription",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Journal Entry Line Description"
+            },
+            {
+                "relatedName": "gl:TransactionAmount",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Transaction Amount"
+            },
+            {
+                "relatedName": "gl:TransactionCurrency",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Transaction Currency"
+            }
+        ],
+        "dimensions": [
+            {
+                "name": "gl:GLTransactionEventAxis",
+                "domainClass": "gl:GLTransactionEventDomainClass",
+                "cubeTypes": [
                     "xbrla:eventCube"
                 ]
-      },
-      {
-        "name": "gl:GLJournalLineItemAxis",
-        "domainClass": "gl:GLJournalLineItemDomainClass",
-        "cubeTypes": [
+            },
+            {
+                "name": "gl:GLJournalLineItemAxis",
+                "domainClass": "gl:GLJournalLineItemDomainClass",
+                "cubeTypes": [
                     "xbrla:journalCube"
                 ]
-      },
-      {
-        "name": "gl:GLAccountDetailsAxis",
-        "domainClass": "gl:GLAccountDetailsDomainClass",
-        "cubeTypes": [
+            },
+            {
+                "name": "gl:GLAccountDetailsAxis",
+                "domainClass": "gl:GLAccountDetailsDomainClass",
+                "cubeTypes": [
                     "xbrla:referenceCube"
                 ]
-      }
-    ],
-    "domains":[
-      
-    ],
-    "domainClasses": [
-      {
-        "name": "gl:GLTransactionEventDomainClass",
-        "allowedDomainItems": ["xs:token"]
-      },
-      {
-        "name": "gl:GLAccountDetailsDomainClass",
-        "allowedDomainItems": ["xs:token"]
-      },
-      {
-        "name": "gl:GLJournalLineItemDomainClass",
-        "allowedDomainItems": ["xs:token"]
-      }
-    ]
-  }
+            }
+        ],
+        "domains": [],
+        "domainClasses": [
+            {
+                "name": "gl:GLTransactionEventDomainClass",
+                "allowedDomainItems": [
+                    "xs:token"
+                ]
+            },
+            {
+                "name": "gl:GLAccountDetailsDomainClass",
+                "allowedDomainItems": [
+                    "xs:token"
+                ]
+            },
+            {
+                "name": "gl:GLJournalLineItemDomainClass",
+                "allowedDomainItems": [
+                    "xs:token"
+                ]
+            }
+        ]
+    }
 }

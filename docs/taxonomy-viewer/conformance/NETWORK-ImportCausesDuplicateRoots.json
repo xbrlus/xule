@@ -1,0 +1,33 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/base",
+      "exp2": "http://example.com/taxonomy/ext",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp2",
+    "description": "ERROR: oimte:duplicateRoots. An importing taxonomy uses extendTargetName to append a root to exp:PresentationNetwork that is already declared in the base network's roots array (imported via importedTaxonomies).",
+    "importMapping": {
+      "exp:PresentationBase": "./NETWORK-ImportCausesDuplicateRoots-base.json"
+    }
+  },
+  "xbrlModel": {
+    "name": "exp2:PresentationExtension",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:PresentationBase"
+      }
+    ],
+    "networks": [
+      {
+        "extendTargetName": "exp:PresentationNetwork",
+        "roots": ["exp:StatementOfIncome"]
+      }
+    ]
+  }
+}

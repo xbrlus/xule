@@ -1,27 +1,29 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "ext": "http://extension.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xs": "http://www.w3.org/2001/XMLSchema",
-      "exp": "http://example.com/taxonomy"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "ext": "http://extension.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "exp": "http://example.com/taxonomy"
+        },
+        "documentNamespace": "ext",
+        "description": "No ERROR:  - Selections includes xbrl:tableTemplateObject as object type, which is allowed.",
+        "importMapping": {
+            "exp:SampleTaxonomy": "../examples/exampleTaxonomy.json"
+        }
     },
-    "urlMapping": {
-            "exp":  ["../examples/exampleTaxonomy.json"]
-            },
-    "documentNamespace": "ext",
-    "description": "No ERROR:  - Selections includes xbrl:tableTemplateObject as object type, which is allowed."
-  },
-  "xbrlModel": {
-    "name": "ext:ImportTaxonomyInvalidSelectionObjectType",
-    "version": "2025",
-    "importedTaxonomies": [
-      {
-        "xbrlModelName": "exp:SampleTaxonomy",
-        "importObjectTypes": ["xbrl:tableTemplateObject"]
-      }
-    ]
-  }
+    "xbrlModel": {
+        "name": "ext:ImportTaxonomyInvalidSelectionObjectType",
+        "version": "2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "exp:SampleTaxonomy",
+                "importObjectTypes": [
+                    "xbrl:tableTemplateObject"
+                ]
+            }
+        ]
+    }
 }

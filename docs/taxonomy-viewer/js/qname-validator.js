@@ -14,8 +14,8 @@
  * 
  * PROPERTY TYPES:
  * - propertyTypes[].name
- * - propertyTypes[].dataType
- * - propertyTypes[].enumerationDomain
+ * - propertyTypes[].dataType (accepts dataType or collection QNames)
+ * - propertyTypes[].enumerationDomain (must reference a domain object)
  * - propertyTypes[].allowedObjects[]
  * 
  * ABSTRACTS & MEMBERS:
@@ -24,8 +24,8 @@
  * 
  * CONCEPTS:
  * - concepts[].name
- * - concepts[].dataType
- * - concepts[].enumerationDomain
+ * - concepts[].dataType (accepts dataType or collection QNames)
+ * - concepts[].enumerationDomain (must reference a domain object)
  * 
  * CUBES:
  * - cubes[].name
@@ -195,11 +195,23 @@ export function clearValidationErrors() {
  * @param {Object} context - Context information (object name, property, etc.)
  */
 function addValidationError(message, context) {
-    validationErrors.push({
+    const entry = {
         message,
         errorCode: 'oimte:invalidQNameReference',
         ...context
-    });
+    };
+    validationErrors.push(entry);
+    // Errors flagged as persistent must survive the processFactSources re-validation
+    // overwrite in taxonomy-builder.js (which calls validateQNameReferences again on
+    // the already-processed model where extendTargetName entries have been removed).
+    // Write directly to _persistentValidationErrors (not _preQNameValidationErrors) to
+    // avoid the duplicate that would occur if we went through the _preQName merge block.
+    if (context && context.persistent) {
+        if (!window._persistentValidationErrors) window._persistentValidationErrors = [];
+        const persistEntry = { ...entry };
+        delete persistEntry.persistent; // remove internal flag before storing
+        window._persistentValidationErrors.push(persistEntry);
+    }
     console.error(`[QName Validator] ${message}`, context);
 }
 
@@ -277,8 +289,8 @@ export function validateObjectNamespacePrefixes(taxonomy, documentInfo) {
         if (colonIndex === -1) {
             // No prefix - this is an error
             errors.push({
-                message: `Object name '${qname}' does not have a namespace prefix (oimte:invalidObjectNamespacePrefix)`,
-                errorCode: 'oimte:invalidObjectNamespacePrefix',
+                message: `Object name '${qname}' does not have a namespace prefix (oimce:invalidURIForReservedAlias)`,
+                errorCode: 'oimce:invalidURIForReservedAlias',
                 qname: qname,
                 location: location,
                 expectedPrefix: expectedPrefix || 'any'
@@ -310,13 +322,13 @@ export function validateObjectNamespacePrefixes(taxonomy, documentInfo) {
         }
         
         // THIRD: Check if using a reserved prefix that is NOT the document's namespace
-        // This is oimte:invalidObjectNamespacePrefix
+        // This is oimce:invalidURIForReservedAlias
         // Compiled models are permitted to reference any prefix defined in namespaces
         // (reserved prefixes are legitimate references in a compiled/merged model)
         if (reservedPrefixes.has(prefix) && taxonomy.modelForm !== 'compiled') {
             errors.push({
-                message: `Object name '${qname}' uses reserved namespace prefix '${prefix}' (oimte:invalidObjectNamespacePrefix)`,
-                errorCode: 'oimte:invalidObjectNamespacePrefix',
+                message: `Object name '${qname}' uses reserved namespace prefix '${prefix}' (oimce:invalidURIForReservedAlias)`,
+                errorCode: 'oimce:invalidURIForReservedAlias',
                 qname: qname,
                 location: location,
                 actualPrefix: prefix,
@@ -437,8 +449,8 @@ function validateNamespaceURIUniqueness(documentInfo) {
         if (uriToPrefix.has(uri)) {
             const firstPrefix = uriToPrefix.get(uri);
             errors.push({
-                message: `Prefixes '${firstPrefix}' and '${prefix}' both map to the same namespace URI '${uri}' (oimte:duplicateNamespaceURI)`,
-                errorCode: 'oimte:duplicateNamespaceURI',
+                message: `Prefixes '${firstPrefix}' and '${prefix}' both map to the same namespace URI '${uri}' (oimce:multipleAliasesForURI)`,
+                errorCode: 'oimce:multipleAliasesForURI',
                 prefix1: firstPrefix,
                 prefix2: prefix,
                 uri: uri,
@@ -572,7 +584,8 @@ function buildDefinedNamesIndex(taxonomy) {
         'tableTemplates',  // Table templates have name property
         'jsonTemplates',   // JSON templates have name property
         'xmlTemplates',    // XML templates have name property
-        'layouts'      // Layouts have name property
+        'layouts',     // Layouts have name property
+        'collections'  // Collections have name property
     ];
     
     arrayProperties.forEach(prop => {
@@ -724,6 +737,7 @@ export function getObjectTypeForQName(taxonomy, qname) {
         { array: 'jsonTemplates', type: 'xbrl:jsonTemplateObject' },
         { array: 'xmlTemplates', type: 'xbrl:xmlTemplateObject' },
         { array: 'dataTypes', type: 'xbrl:dataTypeObject' },
+        { array: 'collections', type: 'xbrl:collectionObject' },
         { array: 'relationshipTypes', type: 'xbrl:relationshipTypeObject' },
         { array: 'propertyTypes', type: 'xbrl:propertyTypeObject' },
         { array: 'modelTypes', type: 'xbrl:modelTypeObject' },
@@ -748,6 +762,33 @@ export function getObjectTypeForQName(taxonomy, qname) {
 }
 
 /**
+ * Check if a QName is a valid reference for a dataType property on concept, propertyType, or labelType objects.
+ * Valid references are: built-in XSD types (xs: prefix), xbrli:/xbrl: built-in types,
+ * dataType objects, and collection objects.
+ * @param {string} qname - The QName to check
+ * @param {Object} taxonomy - The taxonomy object
+ * @param {Set<string>} definedNames - Set of defined QNames
+ * @returns {boolean} True if the QName is a valid dataType reference
+ */
+function isValidDataTypeRef(qname, taxonomy, definedNames) {
+    if (!qname) return false;
+
+    // Built-in XSD types (xs: prefix) are always valid data type references
+    const prefix = qname.split(':')[0];
+    if (prefix === 'xs') return true;
+
+    // xbrli:/xbrl: built-in types are valid if recognised
+    if (prefix === 'xbrli' || prefix === 'xbrl') {
+        return isValidQName(qname, definedNames);
+    }
+
+    // For taxonomy-defined names, resolve to the object type
+    const objType = getObjectTypeForQName(taxonomy, qname);
+    return objType === 'xbrl:dataTypeObject' ||
+           objType === 'xbrl:collectionObject';
+}
+
+/**
  * Validate allowedDomainItems in domainClass objects
  * @param {Object} taxonomy - The taxonomy object
  * @param {Set<string>} definedNames - Set of defined QNames
@@ -769,6 +810,26 @@ function validateAllowedDomainItems(taxonomy, definedNames) {
                             invalidQName: qname
                         }
                     );
+                } else {
+                    // Each entry must be a built-in object type, an XS/xbrli type,
+                    // a dataType object, a collection object, or a domain object
+                    const objType = getObjectTypeForQName(taxonomy, qname);
+                    const isAllowed = isBuiltinObjectType(qname) ||
+                        isValidDataTypeRef(qname, taxonomy, definedNames) ||
+                        objType === 'xbrl:dataTypeObject' ||
+                        objType === 'xbrl:collectionObject' ||
+                        objType === 'xbrl:domainObject';
+                    if (!isAllowed) {
+                        addValidationError(
+                            `allowedDomainItems entry '${qname}' in domainClass '${domainClass.name}' must be a built-in object type, a dataType, a collection, a domain, or a built-in XML Schema type`,
+                            {
+                                domainClass: domainClass.name,
+                                property: 'allowedDomainItems',
+                                invalidQName: qname,
+                                errorCode: 'oimte:invalidQNameType'
+                            }
+                        );
+                    }
                 }
             });
         }
@@ -1065,17 +1126,34 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
     // ========== PROPERTY TYPES ==========
     if (Array.isArray(taxonomy.propertyTypes)) {
         taxonomy.propertyTypes.forEach(propType => {
-            if (propType.dataType && !isValidQName(propType.dataType, definedNames)) {
-                addValidationError(
-                    `Invalid dataType '${propType.dataType}' in propertyType`,
-                    { propertyType: propType.name, property: 'dataType', invalidQName: propType.dataType }
-                );
+            if (propType.dataType) {
+                if (!isValidQName(propType.dataType, definedNames)) {
+                    addValidationError(
+                        `Invalid dataType '${propType.dataType}' in propertyType`,
+                        { propertyType: propType.name, property: 'dataType', invalidQName: propType.dataType }
+                    );
+                } else if (!isValidDataTypeRef(propType.dataType, taxonomy, definedNames)) {
+                    addValidationError(
+                        `dataType '${propType.dataType}' in propertyType must reference a dataType object, collection object, or built-in XML Schema type`,
+                        { propertyType: propType.name, property: 'dataType', invalidQName: propType.dataType, errorCode: 'oimte:invalidQNameType' }
+                    );
+                }
             }
-            if (propType.enumerationDomain && !isValidQName(propType.enumerationDomain, definedNames)) {
-                addValidationError(
-                    `Invalid enumerationDomain '${propType.enumerationDomain}' in propertyType`,
-                    { propertyType: propType.name, property: 'enumerationDomain', invalidQName: propType.enumerationDomain }
-                );
+            if (propType.enumerationDomain) {
+                if (!isValidQName(propType.enumerationDomain, definedNames)) {
+                    addValidationError(
+                        `Invalid enumerationDomain '${propType.enumerationDomain}' in propertyType`,
+                        { propertyType: propType.name, property: 'enumerationDomain', invalidQName: propType.enumerationDomain }
+                    );
+                } else {
+                    const objType = getObjectTypeForQName(taxonomy, propType.enumerationDomain);
+                    if (objType !== 'xbrl:domainObject') {
+                        addValidationError(
+                            `enumerationDomain '${propType.enumerationDomain}' in propertyType must reference a domain object`,
+                            { propertyType: propType.name, property: 'enumerationDomain', invalidQName: propType.enumerationDomain, errorCode: 'oimte:invalidQNameType' }
+                        );
+                    }
+                }
             }
             if (Array.isArray(propType.allowedObjects)) {
                 propType.allowedObjects.forEach(qname => {
@@ -1093,17 +1171,34 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
     // ========== CONCEPTS ==========
     if (Array.isArray(taxonomy.concepts)) {
         taxonomy.concepts.forEach(concept => {
-            if (concept.dataType && !isValidQName(concept.dataType, definedNames)) {
-                addValidationError(
-                    `Invalid dataType '${concept.dataType}' in concept`,
-                    { concept: concept.name, property: 'dataType', invalidQName: concept.dataType }
-                );
+            if (concept.dataType) {
+                if (!isValidQName(concept.dataType, definedNames)) {
+                    addValidationError(
+                        `Invalid dataType '${concept.dataType}' in concept`,
+                        { concept: concept.name, property: 'dataType', invalidQName: concept.dataType }
+                    );
+                } else if (!isValidDataTypeRef(concept.dataType, taxonomy, definedNames)) {
+                    addValidationError(
+                        `dataType '${concept.dataType}' in concept must reference a dataType object, collection object, or built-in XML Schema type`,
+                        { concept: concept.name, property: 'dataType', invalidQName: concept.dataType, errorCode: 'oimte:invalidQNameType' }
+                    );
+                }
             }
-            if (concept.enumerationDomain && !isValidQName(concept.enumerationDomain, definedNames)) {
-                addValidationError(
-                    `Invalid enumerationDomain '${concept.enumerationDomain}' in concept`,
-                    { concept: concept.name, property: 'enumerationDomain', invalidQName: concept.enumerationDomain }
-                );
+            if (concept.enumerationDomain) {
+                if (!isValidQName(concept.enumerationDomain, definedNames)) {
+                    addValidationError(
+                        `Invalid enumerationDomain '${concept.enumerationDomain}' in concept`,
+                        { concept: concept.name, property: 'enumerationDomain', invalidQName: concept.enumerationDomain }
+                    );
+                } else {
+                    const objType = getObjectTypeForQName(taxonomy, concept.enumerationDomain);
+                    if (objType !== 'xbrl:domainObject') {
+                        addValidationError(
+                            `enumerationDomain '${concept.enumerationDomain}' in concept must reference a domain object`,
+                            { concept: concept.name, property: 'enumerationDomain', invalidQName: concept.enumerationDomain, errorCode: 'oimte:invalidQNameType' }
+                        );
+                    }
+                }
             }
         });
     }
@@ -1126,12 +1221,44 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
     
     // ========== CUBES ==========
     if (Array.isArray(taxonomy.cubes)) {
+        // Build a name→cube lookup for cross-cube validation
+        const cubeMap = Object.create(null);
+        taxonomy.cubes.forEach(c => { if (c.name) cubeMap[c.name] = c; });
+
         taxonomy.cubes.forEach(cube => {
+            if (cube.extendTargetName && !isValidQName(cube.extendTargetName, definedNames)) {
+                addValidationError(
+                    `Invalid extendTargetName '${cube.extendTargetName}' in cube`,
+                    { cube: cube.extendTargetName, property: 'extendTargetName', invalidQName: cube.extendTargetName, persistent: true }
+                );
+            } else if (cube.extendTargetName && isValidQName(cube.extendTargetName, definedNames)) {
+                const extendType = getObjectTypeForQName(taxonomy, cube.extendTargetName);
+                if (extendType !== 'xbrl:cubeObject') {
+                    addValidationError(
+                        `extendTargetName '${cube.extendTargetName}' in cube must reference a cube object, but references a '${extendType || 'unknown'}' object`,
+                        {
+                            cube: cube.extendTargetName,
+                            property: 'extendTargetName',
+                            invalidQName: cube.extendTargetName,
+                            errorCode: 'oimte:invalidQNameType',
+                            persistent: true
+                        }
+                    );
+                }
+            }
             if (cube.cubeType && !isValidQName(cube.cubeType, definedNames)) {
                 addValidationError(
                     `Invalid cubeType '${cube.cubeType}' in cube`,
                     { cube: cube.name, property: 'cubeType', invalidQName: cube.cubeType }
                 );
+            } else if (cube.cubeType) {
+                const cubeTypeObjType = getObjectTypeForQName(taxonomy, cube.cubeType);
+                if (cubeTypeObjType !== 'xbrl:cubeTypeObject') {
+                    addValidationError(
+                        `cubeType '${cube.cubeType}' in cube must reference a cubeType object, but references a '${cubeTypeObjType || 'unknown'}' object`,
+                        { cube: cube.name, property: 'cubeType', invalidQName: cube.cubeType, errorCode: 'oimte:invalidQNameType' }
+                    );
+                }
             }
             if (Array.isArray(cube.cubeDimensions)) {
                 cube.cubeDimensions.forEach(cd => {
@@ -1140,6 +1267,51 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                             `Invalid domainDataType '${cd.domainDataType}' in cubeDimensions`,
                             { cube: cube.name, property: 'cubeDimensions.domainDataType', invalidQName: cd.domainDataType }
                         );
+                    }
+                    // Validate periodConstraints conceptName and context references
+                    if (Array.isArray(cd.periodConstraints)) {
+                        cd.periodConstraints.forEach((pc, pcIdx) => {
+                            ['startDate', 'endDate'].forEach(dateField => {
+                                if (pc[dateField]) {
+                                    const dateConstraint = pc[dateField];
+                                    if (dateConstraint.conceptName) {
+                                        if (!isValidQName(dateConstraint.conceptName, definedNames)) {
+                                            addValidationError(
+                                                `Invalid conceptName '${dateConstraint.conceptName}' in periodConstraints[${pcIdx}].${dateField}`,
+                                                { cube: cube.name, property: `cubeDimensions.periodConstraints[${pcIdx}].${dateField}.conceptName`, invalidQName: dateConstraint.conceptName }
+                                            );
+                                        } else {
+                                            const conceptObjType = getObjectTypeForQName(taxonomy, dateConstraint.conceptName);
+                                            if (conceptObjType !== 'xbrl:conceptObject') {
+                                                addValidationError(
+                                                    `conceptName '${dateConstraint.conceptName}' in periodConstraints[${pcIdx}].${dateField} must reference a concept object, but references a '${conceptObjType || 'unknown'}' object`,
+                                                    { cube: cube.name, property: `cubeDimensions.periodConstraints[${pcIdx}].${dateField}.conceptName`, invalidQName: dateConstraint.conceptName, errorCode: 'oimte:invalidQNameType' }
+                                                );
+                                            }
+                                        }
+                                    }
+                                    if (dateConstraint.context) {
+                                        // context value is 'prefix:localName@suffix' — extract the QName before '@'
+                                        const atIdx = dateConstraint.context.indexOf('@');
+                                        const contextQName = atIdx >= 0 ? dateConstraint.context.slice(0, atIdx) : dateConstraint.context;
+                                        if (!isValidQName(contextQName, definedNames)) {
+                                            addValidationError(
+                                                `Invalid context QName '${contextQName}' in periodConstraints[${pcIdx}].${dateField}`,
+                                                { cube: cube.name, property: `cubeDimensions.periodConstraints[${pcIdx}].${dateField}.context`, invalidQName: contextQName }
+                                            );
+                                        } else {
+                                            const ctxObjType = getObjectTypeForQName(taxonomy, contextQName);
+                                            if (ctxObjType !== 'xbrl:conceptObject') {
+                                                addValidationError(
+                                                    `context '${contextQName}' in periodConstraints[${pcIdx}].${dateField} must reference a concept object, but references a '${ctxObjType || 'unknown'}' object`,
+                                                    { cube: cube.name, property: `cubeDimensions.periodConstraints[${pcIdx}].${dateField}.context`, invalidQName: contextQName, errorCode: 'oimte:invalidQNameType' }
+                                                );
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        });
                     }
                 });
             }
@@ -1150,6 +1322,14 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                             `Invalid QName '${qname}' in cube cubeNetworks`,
                             { cube: cube.name, property: 'cubeNetworks', invalidQName: qname }
                         );
+                    } else {
+                        const networkObjType = getObjectTypeForQName(taxonomy, qname);
+                        if (networkObjType !== 'xbrl:networkObject') {
+                            addValidationError(
+                                `QName '${qname}' in cube cubeNetworks must reference a network object, but references a '${networkObjType || 'unknown'}' object`,
+                                { cube: cube.name, property: 'cubeNetworks', invalidQName: qname, errorCode: 'oimte:invalidQNameType' }
+                            );
+                        }
                     }
                 });
             }
@@ -1172,6 +1352,43 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                         );
                     }
                 });
+            }
+            // Check if any excludeCube and requiredCube share the same dimensional space
+            if (Array.isArray(cube.excludeCubes) && cube.excludeCubes.length > 0 &&
+                Array.isArray(cube.requiredCubes) && cube.requiredCubes.length > 0) {
+                // Helper: get the set of dimensionNames for a cube object
+                const getDimNames = c => new Set(
+                    Array.isArray(c.cubeDimensions)
+                        ? c.cubeDimensions.map(cd => cd.dimensionName).filter(Boolean)
+                        : []
+                );
+                for (const excludedQName of cube.excludeCubes) {
+                    const excludedCube = cubeMap[excludedQName];
+                    if (!excludedCube) continue;
+                    const excludedDims = getDimNames(excludedCube);
+                    for (const requiredQName of cube.requiredCubes) {
+                        const requiredCube = cubeMap[requiredQName];
+                        if (!requiredCube) continue;
+                        const requiredDims = getDimNames(requiredCube);
+                        // Two cubes share the same dimensional space when they have
+                        // an identical set of dimension names.
+                        const sameDimSpace =
+                            excludedDims.size === requiredDims.size &&
+                            [...excludedDims].every(d => requiredDims.has(d));
+                        if (sameDimSpace) {
+                            addValidationError(
+                                `Cube '${cube.name}' has excludeCube '${excludedQName}' and requiredCube '${requiredQName}' that share the same dimensional space`,
+                                {
+                                    cube: cube.name,
+                                    property: 'excludeCubes',
+                                    excludedCube: excludedQName,
+                                    requiredCube: requiredQName,
+                                    errorCode: 'oimte:excludeCubeSharesDimensionalSpaceWithRequiredCube'
+                                }
+                            );
+                        }
+                    }
+                }
             }
         });
     }
@@ -1235,6 +1452,14 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                             `Invalid QName '${qname}' in dimension cubeTypes`,
                             { dimension: dimension.name, property: 'cubeTypes', invalidQName: qname }
                         );
+                    } else {
+                        const cubeTypeRefType = getObjectTypeForQName(taxonomy, qname);
+                        if (cubeTypeRefType !== 'xbrl:cubeTypeObject') {
+                            addValidationError(
+                                `QName '${qname}' in dimension cubeTypes must reference a cubeType object, but references a '${cubeTypeRefType || 'unknown'}' object`,
+                                { dimension: dimension.name, property: 'cubeTypes', invalidQName: qname, errorCode: 'oimte:invalidQNameType' }
+                            );
+                        }
                     }
                 });
             }
@@ -1249,6 +1474,14 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                     `Invalid baseCubeType '${cubeType.baseCubeType}' in cubeType`,
                     { cubeType: cubeType.name, property: 'baseCubeType', invalidQName: cubeType.baseCubeType }
                 );
+            } else if (cubeType.baseCubeType) {
+                const baseCubeTypeObjType = getObjectTypeForQName(taxonomy, cubeType.baseCubeType);
+                if (baseCubeTypeObjType !== 'xbrl:cubeTypeObject') {
+                    addValidationError(
+                        `baseCubeType '${cubeType.baseCubeType}' in cubeType must reference a cubeType object, but references a '${baseCubeTypeObjType || 'unknown'}' object`,
+                        { cubeType: cubeType.name, property: 'baseCubeType', invalidQName: cubeType.baseCubeType, errorCode: 'oimte:invalidQNameType' }
+                    );
+                }
             }
             
             // Validate cubeDimensionConstraints.allowed array
@@ -1259,6 +1492,15 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                             `Invalid dimensionName '${constraint.dimensionName}' in cubeType cubeDimensionConstraints`,
                             { cubeType: cubeType.name, property: `cubeDimensionConstraints.allowed[${idx}].dimensionName`, invalidQName: constraint.dimensionName }
                         );
+                    } else if (constraint.dimensionName) {
+                        // QName exists — but it must resolve specifically to a dimension object
+                        const dimRefType = getObjectTypeForQName(taxonomy, constraint.dimensionName);
+                        if (dimRefType && dimRefType !== 'xbrl:dimensionObject') {
+                            addValidationError(
+                                `dimensionName '${constraint.dimensionName}' in cubeType '${cubeType.name}' cubeDimensionConstraints must reference a dimension object, but references a '${dimRefType}' object`,
+                                { cubeType: cubeType.name, property: `cubeDimensionConstraints.allowed[${idx}].dimensionName`, invalidQName: constraint.dimensionName, errorCode: 'oimte:invalidQNameType' }
+                            );
+                        }
                     }
                     if (constraint.dataType && !isValidQName(constraint.dataType, definedNames)) {
                         addValidationError(
@@ -1437,8 +1679,22 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
             if (domain.extendTargetName && !isValidQName(domain.extendTargetName, definedNames)) {
                 addValidationError(
                     `Invalid extendTargetName '${domain.extendTargetName}' in domain`,
-                    { domain: domain.name, property: 'extendTargetName', invalidQName: domain.extendTargetName }
+                    { domain: domain.name, property: 'extendTargetName', invalidQName: domain.extendTargetName, persistent: true }
                 );
+            } else if (domain.extendTargetName && isValidQName(domain.extendTargetName, definedNames)) {
+                const extendType = getObjectTypeForQName(taxonomy, domain.extendTargetName);
+                if (extendType !== 'xbrl:domainObject') {
+                    addValidationError(
+                        `extendTargetName '${domain.extendTargetName}' in domain must reference a domain object, but references a '${extendType || 'unknown'}' object`,
+                        {
+                            domain: domain.extendTargetName,
+                            property: 'extendTargetName',
+                            invalidQName: domain.extendTargetName,
+                            errorCode: 'oimte:invalidQNameType',
+                            persistent: true
+                        }
+                    );
+                }
             }
             if (Array.isArray(domain.relationships)) {
                 domain.relationships.forEach((rel, idx) => {
@@ -1504,6 +1760,7 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
         groupContents: ['groupName', 'relatedNames'],
         groupTree: ['name'],
         dataTypes: ['name', 'baseType'],
+        collections: ['name', 'dataTypesAllowed'],
         propertyTypes: ['name', 'dataType'],
         labelTypes: ['name'],
         referenceTypes: ['name'],
@@ -1577,12 +1834,20 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
             taxonomy[arrayName].forEach((obj, idx) => {
                 requiredProperties[arrayName].forEach(prop => {
                     // Special handling for objects that can use either 'name' or 'extendTargetName'
-                    // References, domains, and networks can have extendTargetName instead of name
-                    if (prop === 'name' && (arrayName === 'references' || arrayName === 'domains' || arrayName === 'networks')) {
-                        // Skip 'name' validation if 'extendTargetName' is present
-                        if (obj.hasOwnProperty('extendTargetName')) {
-                            return;
-                        }
+                    // When extendTargetName is present, several properties become non-required.
+                    // This mirrors the oneOf pattern in the JSON schema for each object type.
+                    const extendTargetNameExemptions = {
+                        domains:        ['name', 'root'],
+                        networks:       ['name', 'relationshipTypeName'],
+                        facts:          ['name', 'factDimensions'],
+                        references:     ['name'],
+                        cubes:          ['name'],
+                        tableTemplates: ['name'],
+                    };
+                    if (obj.hasOwnProperty('extendTargetName') &&
+                        extendTargetNameExemptions[arrayName] &&
+                        extendTargetNameExemptions[arrayName].includes(prop)) {
+                        return;
                     }
                     
                     if (!obj.hasOwnProperty(prop)) {
@@ -1690,14 +1955,14 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
     // ========== INVALID PROPERTY VALIDATION ==========
     // Check for properties that are not defined in the OIM Taxonomy schema
     const allowedProperties = {
-        documentInfo: ['documentType', 'namespaces', 'documentNamespace', 'urlMapping', 'description', 'sourceMapping'],
-        taxonomy: ['name', 'frameworkName', 'version', 'modelForm', 'modelType', 'importedTaxonomies', 'finalTaxonomy', 'propertyTypes', 'modelTypes', 'abstracts', 'members', 'concepts', 'cubes', 'dimensions', 'domains', 'domainClasses', 'networks', 'entities', 'units', 'groups', 'groupContents', 'groupTree', 'relationshipTypes', 'labels', 'references', 'facts', 'footnotes', 'dataTypes', 'cubeTypes', 'labelTypes', 'referenceTypes', 'transforms', 'properties', 'layouts', 'factMaps', 'factSources', 'tableTemplates', 'jsonTemplates', 'xmlTemplates'],
-        concepts: ['name', 'dataType', 'periodType', 'enumerationDomain', 'nillable', 'properties'],
+        documentInfo: ['documentType', 'namespaces', 'documentNamespace', 'importMapping', 'description', 'sourceMapping'],
+        taxonomy: ['name', 'frameworkName', 'version', 'modelForm', 'modelType', 'importedTaxonomies', 'finalTaxonomy', 'propertyTypes', 'modelTypes', 'abstracts', 'members', 'concepts', 'cubes', 'dimensions', 'domains', 'domainClasses', 'networks', 'entities', 'units', 'groups', 'groupContents', 'groupTree', 'relationshipTypes', 'labels', 'references', 'facts', 'footnotes', 'dataTypes', 'collections', 'cubeTypes', 'labelTypes', 'referenceTypes', 'transforms', 'properties', 'layouts', 'factMaps', 'factSources', 'tableTemplates', 'jsonTemplates', 'xmlTemplates'],
+        concepts: ['name', 'dataType', 'periodType', 'nillable', 'enumerationDomain', 'properties'],
         dimensions: ['name', 'domainClass', 'cubeTypes', 'properties'],
         members: ['name', 'domainClasses', 'properties'],
         abstracts: ['name', 'properties'],
         domainClasses: ['name', 'allowedDomainItems', 'properties'],
-        units: ['name', 'dataType', 'stringRepresentations', 'properties'],
+        units: ['name', 'dataType', 'compositeUnitRepresentation', 'properties'],
         entities: ['name', 'properties'],
         cubes: ['name', 'cubeDimensions', 'cubeType', 'cubeNetworks', 'excludeCubes', 'requiredCubes', 'properties', 'extendTargetName'],
         cubeDimensions: ['dimensionName', 'domainName', 'domainDataType', 'typedSort', 'allowDomainFacts', 'periodConstraints'],
@@ -1707,7 +1972,8 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
         groups: ['name', 'groupURI', 'properties'],
         groupContents: ['groupName', 'relatedNames'],
         groupTree: ['name', 'relationships'],
-        dataTypes: ['name', 'baseType', 'enumeration', 'openEnumeration', 'minInclusive', 'maxInclusive', 'minExclusive', 'maxExclusive', 'totalDigits', 'fractionDigits', 'length', 'minLength', 'maxLength', 'whiteSpace', 'patterns', 'unitType', 'collectionType', 'mapType', 'allowedObjects'],
+        dataTypes: ['name', 'baseType', 'enumeration', 'openEnumeration', 'minInclusive', 'maxInclusive', 'minExclusive', 'maxExclusive', 'totalDigits', 'fractionDigits', 'length', 'minLength', 'maxLength', 'whiteSpace', 'patterns', 'unitType', 'mapType', 'allowedObjects'],
+        collections: ['name', 'dataTypesAllowed', 'uniqueValues', 'orderedValues', 'maxItems', 'minItems', 'properties'],
         propertyTypes: ['name', 'dataType', 'enumerationDomain', 'definitional', 'allowedObjects', 'allowedAsLinkProperty'],
         labelTypes: ['name', 'uri', 'dataType', 'allowedObjects'],
         referenceTypes: ['name', 'uri', 'allowedObjects', 'orderedProperties', 'requiredProperties'],
@@ -1907,6 +2173,26 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                         }
                     });
                 });
+            }
+            // Validate extendTargetName reference
+            if (template.extendTargetName && !isValidQName(template.extendTargetName, definedNames)) {
+                addValidationError(
+                    `Invalid extendTargetName '${template.extendTargetName}' in tableTemplate`,
+                    { property: `tableTemplates[${templateIdx}].extendTargetName`, invalidQName: template.extendTargetName, persistent: true }
+                );
+            } else if (template.extendTargetName && isValidQName(template.extendTargetName, definedNames)) {
+                const extendType = getObjectTypeForQName(taxonomy, template.extendTargetName);
+                if (extendType !== 'xbrl:tableTemplateObject') {
+                    addValidationError(
+                        `extendTargetName '${template.extendTargetName}' in tableTemplate must reference a tableTemplate object, but references a '${extendType || 'unknown'}' object`,
+                        {
+                            property: `tableTemplates[${templateIdx}].extendTargetName`,
+                            invalidQName: template.extendTargetName,
+                            errorCode: 'oimte:invalidQNameType',
+                            persistent: true
+                        }
+                    );
+                }
             }
         });
     }
@@ -2301,8 +2587,22 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
             if (network.extendTargetName && !isValidQName(network.extendTargetName, definedNames)) {
                 addValidationError(
                     `Invalid extendTargetName '${network.extendTargetName}' in network`,
-                    { network: network.name, property: 'extendTargetName', invalidQName: network.extendTargetName }
+                    { network: network.name, property: 'extendTargetName', invalidQName: network.extendTargetName, persistent: true }
                 );
+            } else if (network.extendTargetName && isValidQName(network.extendTargetName, definedNames)) {
+                const extendType = getObjectTypeForQName(taxonomy, network.extendTargetName);
+                if (extendType !== 'xbrl:networkObject') {
+                    addValidationError(
+                        `extendTargetName '${network.extendTargetName}' in network must reference a network object, but references a '${extendType || 'unknown'}' object`,
+                        {
+                            network: network.extendTargetName,
+                            property: 'extendTargetName',
+                            invalidQName: network.extendTargetName,
+                            errorCode: 'oimte:invalidQNameType',
+                            persistent: true
+                        }
+                    );
+                }
             }
             if (Array.isArray(network.roots)) {
                 network.roots.forEach(qname => {
@@ -2311,6 +2611,25 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                             `Invalid QName '${qname}' in network roots`,
                             { network: network.name, property: 'roots', invalidQName: qname }
                         );
+                    }
+                });
+
+                // ---- Duplicate root check (oimte:duplicateRoots) ----
+                const seenRoots = new Set();
+                network.roots.forEach((qname) => {
+                    if (seenRoots.has(qname)) {
+                        const networkName = network.name || network.extendTargetName || `networks[?]`;
+                        addValidationError(
+                            `Duplicate root '${qname}' in network '${networkName}' (oimte:duplicateRoots)`,
+                            {
+                                errorCode: 'oimte:duplicateRoots',
+                                network: networkName,
+                                property: 'roots',
+                                root: qname
+                            }
+                        );
+                    } else {
+                        seenRoots.add(qname);
                     }
                 });
             }
@@ -2368,18 +2687,127 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                         }
                     }
                 });
+
+                // ---- Duplicate relationship check (oimte:duplicateRelationships) ----
+                // Two relationships are duplicates when source, target, order, and every
+                // additional property all have identical values.
+                // The order default is 0 when the property is absent (spec §network-object).
+                const seenRelKeys = new Set();
+                network.relationships.forEach((rel, idx) => {
+                    // Normalise properties array: sort by property QName so order doesn't matter
+                    const normProps = Array.isArray(rel.properties)
+                        ? [...rel.properties]
+                              .map(p => ({ property: p.property ?? null, value: p.value ?? null }))
+                              .sort((a, b) => String(a.property).localeCompare(String(b.property)))
+                        : [];
+                    const key = JSON.stringify({
+                        source: rel.source ?? null,
+                        target: rel.target ?? null,
+                        order:  rel.order  ?? 0,
+                        properties: normProps
+                    });
+                    if (seenRelKeys.has(key)) {
+                        const networkName = network.name || network.extendTargetName || `networks[?]`;
+                        addValidationError(
+                            `Duplicate relationship in network '${networkName}': source='${rel.source}', target='${rel.target}', order=${rel.order ?? 0} (oimte:duplicateRelationships)`,
+                            {
+                                errorCode: 'oimte:duplicateRelationships',
+                                network: networkName,
+                                property: `relationships[${idx}]`,
+                                source: rel.source,
+                                target: rel.target,
+                                order:  rel.order ?? 0
+                            }
+                        );
+                    } else {
+                        seenRelKeys.add(key);
+                    }
+                });
             }
         });
     }
     
     // ========== UNITS ==========
     if (Array.isArray(taxonomy.units)) {
+        // Build a set of all unit object names for compositeUnitRepresentation checks
+        const unitObjectNames = new Set(taxonomy.units.map(u => u.name).filter(Boolean));
+
+        // Unit string representation syntax pattern (OIM Common §3.4).
+        // Valid forms:
+        //   Alt 1 (numerators only):   Q(*Q)*
+        //   Alt 2 (numerator/denom):   (Q|\(Q(\*Q)+\)) / (Q|\(Q(\*Q)+\))
+        // where Q = prefix:localname (NCName : NCName-like), no whitespace anywhere.
+        const UNIT_STR_PATTERN = /^([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)(\*[A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)*$|^([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*|\([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*(\*[A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)+\))\/([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*|\([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*(\*[A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)+\))$/;
+
+        // Extract all QNames from a syntactically valid unit string representation.
+        // Splits on *, /, (, ) and discards empty tokens.
+        function extractUnitQNames(str) {
+            return str.split(/[*()/]/).filter(s => s.length > 0);
+        }
+
         taxonomy.units.forEach(unit => {
             if (unit.dataType && !isValidQName(unit.dataType, definedNames)) {
                 addValidationError(
                     `Invalid dataType '${unit.dataType}' in unit`,
                     { unit: unit.name, property: 'dataType', invalidQName: unit.dataType }
                 );
+            }
+
+            // Validate compositeUnitRepresentation entries (oimce:invalidUnitStringRepresentation)
+            if (Array.isArray(unit.compositeUnitRepresentation)) {
+                unit.compositeUnitRepresentation.forEach(str => {
+                    // 1. Syntax check — only QNames, *, /, () and no whitespace
+                    if (!UNIT_STR_PATTERN.test(str)) {
+                        addValidationError(
+                            `Unit '${unit.name}' has invalid compositeUnitRepresentation '${str}': does not conform to the unit string representation syntax defined in OIM Common §3.4 (only QNames, '*', '/', and '()' are permitted; no whitespace allowed)`,
+                            {
+                                objectName: unit.name,
+                                objectType: 'xbrl:unitObject',
+                                property: 'compositeUnitRepresentation',
+                                invalidValue: str,
+                                errorCode: 'oimce:invalidUnitStringRepresentation',
+                                reason: 'string contains invalid characters or does not conform to unit string representation syntax'
+                            }
+                        );
+                        return; // skip QName resolution check when syntax is already invalid
+                    }
+
+                    // 2. Per-QName checks: self-reference and resolution
+                    extractUnitQNames(str).forEach(qname => {
+                        // 2a. Self-reference check — a unit MUST NOT appear in its own compositeUnitRepresentation
+                        //     (oimte:unitDataTypeUsedInDefinition)
+                        if (qname === unit.name) {
+                            addValidationError(
+                                `Unit '${unit.name}' has compositeUnitRepresentation '${str}' that references the unit itself — a unit MUST NOT appear in its own unit string representation`,
+                                {
+                                    objectName: unit.name,
+                                    objectType: 'xbrl:unitObject',
+                                    property: 'compositeUnitRepresentation',
+                                    invalidValue: str,
+                                    invalidQName: qname,
+                                    errorCode: 'oimte:unitDataTypeUsedInDefinition'
+                                }
+                            );
+                            return; // self-reference is the primary error; skip the resolution check for this QName
+                        }
+
+                        // 2b. QName resolution check — each QName must reference a unit object in the model
+                        if (!unitObjectNames.has(qname)) {
+                            addValidationError(
+                                `Unit '${unit.name}' has compositeUnitRepresentation '${str}' referencing '${qname}' which is not a unit object defined in the model`,
+                                {
+                                    objectName: unit.name,
+                                    objectType: 'xbrl:unitObject',
+                                    property: 'compositeUnitRepresentation',
+                                    invalidValue: str,
+                                    invalidQName: qname,
+                                    errorCode: 'oimce:invalidUnitStringRepresentation',
+                                    reason: `'${qname}' does not resolve to a unit object`
+                                }
+                            );
+                        }
+                    });
+                });
             }
         });
     }
@@ -2486,8 +2914,21 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
             if (ref.extendTargetName && !isValidQName(ref.extendTargetName, definedNames)) {
                 addValidationError(
                     `Invalid extendTargetName '${ref.extendTargetName}' in reference`,
-                    { property: `references[${idx}].extendTargetName`, invalidQName: ref.extendTargetName }
+                    { property: `references[${idx}].extendTargetName`, invalidQName: ref.extendTargetName, persistent: true }
                 );
+            } else if (ref.extendTargetName && isValidQName(ref.extendTargetName, definedNames)) {
+                const extendType = getObjectTypeForQName(taxonomy, ref.extendTargetName);
+                if (extendType !== 'xbrl:referenceObject') {
+                    addValidationError(
+                        `extendTargetName '${ref.extendTargetName}' in reference must reference a reference object, but references a '${extendType || 'unknown'}' object`,
+                        {
+                            property: `references[${idx}].extendTargetName`,
+                            invalidQName: ref.extendTargetName,
+                            errorCode: 'oimte:invalidQNameType',
+                            persistent: true
+                        }
+                    );
+                }
             }
             if (ref.referenceType && !isValidQName(ref.referenceType, definedNames)) {
                 addValidationError(
@@ -2623,11 +3064,18 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
     // ========== LABEL TYPES ==========
     if (Array.isArray(taxonomy.labelTypes)) {
         taxonomy.labelTypes.forEach(lt => {
-            if (lt.dataType && !isValidQName(lt.dataType, definedNames)) {
-                addValidationError(
-                    `Invalid dataType '${lt.dataType}' in labelType`,
-                    { labelType: lt.name, property: 'dataType', invalidQName: lt.dataType }
-                );
+            if (lt.dataType) {
+                if (!isValidQName(lt.dataType, definedNames)) {
+                    addValidationError(
+                        `Invalid dataType '${lt.dataType}' in labelType`,
+                        { labelType: lt.name, property: 'dataType', invalidQName: lt.dataType }
+                    );
+                } else if (!isValidDataTypeRef(lt.dataType, taxonomy, definedNames)) {
+                    addValidationError(
+                        `dataType '${lt.dataType}' in labelType must reference a dataType object, collection object, or built-in XML Schema type`,
+                        { labelType: lt.name, property: 'dataType', invalidQName: lt.dataType, errorCode: 'oimte:invalidQNameType' }
+                    );
+                }
             }
             if (Array.isArray(lt.allowedObjects)) {
                 lt.allowedObjects.forEach(qname => {
@@ -2932,14 +3380,13 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                 }
             }
             
-            // Validate that collectionType is only used with baseType xbrli:collection
-            if (dt.collectionType && dt.baseType !== 'xbrli:collection') {
+            // collectionType MUST NOT appear inside a dataType — collections are now top-level objects
+            if (dt.collectionType) {
                 addValidationError(
-                    `DataType '${dt.name}' defines collectionType but baseType is '${dt.baseType}' instead of 'xbrli:collection'`,
+                    `DataType '${dt.name}' defines a collectionType property. Collections must be defined in the top-level collections array, not inside a dataType object.`,
                     {
                         dataType: dt.name,
                         property: 'collectionType',
-                        baseType: dt.baseType,
                         errorCode: 'oimte:collectionTypeWithoutCollectionBaseType'
                     }
                 );
@@ -2976,6 +3423,22 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
         });
     }
     
+    // ========== COLLECTIONS ==========
+    if (Array.isArray(taxonomy.collections)) {
+        taxonomy.collections.forEach(col => {
+            if (Array.isArray(col.dataTypesAllowed)) {
+                col.dataTypesAllowed.forEach((qname, idx) => {
+                    if (!isValidQName(qname, definedNames)) {
+                        addValidationError(
+                            `Invalid dataTypesAllowed QName '${qname}' in collection '${col.name}'`,
+                            { collection: col.name, property: `dataTypesAllowed[${idx}]`, invalidQName: qname }
+                        );
+                    }
+                });
+            }
+        });
+    }
+
     // ========== TRANSFORMS ==========
     if (Array.isArray(taxonomy.transforms)) {
         taxonomy.transforms.forEach(transform => {
@@ -3075,6 +3538,21 @@ function validateOtherQNameReferences(taxonomy, definedNames) {
                                     expectedDataType: 'xs:QName'
                                 }
                             );
+                        } else {
+                            // Additional semantic type checks for specific xs:QName properties
+                            if (prop.property === 'xbrl:preferredLabel') {
+                                const labelRefType = getObjectTypeForQName(taxonomy, prop.value);
+                                if (labelRefType && labelRefType !== 'xbrl:labelTypeObject') {
+                                    addValidationError(
+                                        `preferredLabel value '${prop.value}' in ${context} must reference a labelType object, but references a '${labelRefType}' object`,
+                                        {
+                                            property: `${context}.properties[${idx}].value`,
+                                            invalidQName: prop.value,
+                                            errorCode: 'oimte:invalidQNameType'
+                                        }
+                                    );
+                                }
+                            }
                         }
                     } else if (dataType) {
                         // General data type validation for all other declared types
@@ -3946,6 +4424,7 @@ function validateModelType(taxonomy, definedNames, documentInfo) {
             { array: 'units', objectType: 'xbrl:unitObject' },
             { array: 'propertyTypes', objectType: 'xbrl:propertyTypeObject' },
             { array: 'dataTypes', objectType: 'xbrl:dataTypeObject' },
+            { array: 'collections', objectType: 'xbrl:collectionObject' },
             { array: 'cubeTypes', objectType: 'xbrl:cubeTypeObject' },
             { array: 'labelTypes', objectType: 'xbrl:labelTypeObject' },
             { array: 'referenceTypes', objectType: 'xbrl:referenceTypeObject' },

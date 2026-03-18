@@ -1,0 +1,25 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Unit compositeUnitRepresentation references QNames ('exp:Metre') that are syntactically valid but do not resolve to any unit object defined in the taxonomy model. Raises oimce:invalidUnitStringRepresentation."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidUnitStringRepresentationUnknownUnit",
+    "version": "2025",
+    "units": [
+      {
+        "name": "exp:SquareMetres",
+        "dataType": "xs:decimal",
+        "compositeUnitRepresentation": ["exp:Metre*exp:Metre"]
+      }
+    ]
+  }
+}

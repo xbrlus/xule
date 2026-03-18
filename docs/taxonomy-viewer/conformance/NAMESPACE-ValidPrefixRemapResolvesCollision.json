@@ -4,17 +4,17 @@
         "documentType": "https://xbrl.org/2026/model",
         "namespaces": {
             "entry": "http://example.com/entry",
-            "exp":   "http://example.com/financials",
-            "geo":   "http://example.com/geography",
-            "xbrl":  "https://xbrl.org/2025",
-            "xs":    "http://www.w3.org/2001/XMLSchema"
+            "exp": "http://example.com/financials",
+            "geo": "http://example.com/geography",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
         },
         "documentNamespace": "entry",
-        "urlMapping": {
-            "exp": ["NAMESPACE-financials-module.json"],
-            "geo": ["NAMESPACE-geography-module.json"]
-        },
-        "description": "Valid: the importing model imports two modules that both declare the prefix 'exp' for different namespace URIs. The collision on the geography import is resolved by declaring prefixRemap { 'geo': 'exp' }, which tells the processor that the 'exp' prefix in geography-module.json corresponds to the 'geo' alias in this importing model. No oimte:duplicateNamespaceURI error is raised."
+        "description": "Valid: the importing model imports two modules that both declare the prefix 'exp' for different namespace URIs. The collision on the geography import is resolved by declaring prefixRemap { 'geo': 'exp' }, which tells the processor that the 'exp' prefix in geography-module.json corresponds to the 'geo' alias in this importing model. No oimce:multipleAliasesForURI error is raised.",
+        "importMapping": {
+            "exp:FinancialsModel": "NAMESPACE-financials-module.json",
+            "geo:GeographyModel": "NAMESPACE-geography-module.json"
+        }
     },
     "xbrlModel": {
         "name": "entry:EntryModel",
@@ -24,7 +24,9 @@
             },
             {
                 "xbrlModelName": "geo:GeographyModel",
-                "prefixRemap": { "geo": "exp" }
+                "prefixRemap": {
+                    "geo": "exp"
+                }
             }
         ]
     }

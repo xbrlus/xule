@@ -4,21 +4,20 @@
         "documentType": "https://xbrl.org/2026/model",
         "documentNamespace": "ext3",
         "namespaces": {
-            "exp":  "http://example.com/taxonomy",
+            "exp": "http://example.com/taxonomy",
             "xbrl": "https://xbrl.org/2025",
             "iso4217": "http://www.xbrl.org/2003/iso4217",
             "utr": "https://xbrl.org/2025/utr",
-            "xbrli":"https://xbrl.org/2025/instance",
+            "xbrli": "https://xbrl.org/2025/instance",
             "xs": "http://www.w3.org/2001/XMLSchema",
             "mini3": "http://example.com/mini3",
             "exp_extF2": "http://example.com/ext-final-taxonomy2",
             "ext3": "http://example.com/ext3"
-            
-            },
-        "urlMapping": {
-            "exp_extF2":  ["FINAL-DefinesFinalTaxonomyObject.json"]
-            },
-        "description": "VALID: This taxonomy extends a final taxonomy with a new network that is allowed."
+        },
+        "description": "VALID: This taxonomy extends a final taxonomy with a new network that is allowed.",
+        "importMapping": {
+            "exp_extF2:ExtensionTaxonomyFinalObjectType": "FINAL-DefinesFinalTaxonomyObject.json"
+        }
     },
     "xbrlModel": {
         "modelForm": "module",
@@ -32,13 +31,15 @@
             {
                 "name": "ext3:PresentationNetwork2",
                 "relationshipTypeName": "xbrl:parent-child",
-                "roots": ["mini3:StatementOfFinancialPosition"],
+                "roots": [
+                    "mini3:StatementOfFinancialPosition"
+                ],
                 "relationships": [
                     {
                         "source": "mini3:StatementOfFinancialPosition",
                         "target": "mini3:Depreciation",
                         "order": 3
-                }
+                    }
                 ]
             }
         ]

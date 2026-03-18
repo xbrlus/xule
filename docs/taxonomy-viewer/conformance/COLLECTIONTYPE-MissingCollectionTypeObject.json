@@ -1,0 +1,23 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:missingCollectionTypeObject: A collection object is defined in the collections array but is missing the required dataTypesAllowed property."
+    },
+    "xbrlModel": {
+        "name": "exp:MissingCollectionTypeObjectModel",
+        "version": "2025",
+        "collections": [
+            {
+                "name": "exp:CollectionWithoutDataTypesAllowed"
+            }
+        ]
+    }
+}

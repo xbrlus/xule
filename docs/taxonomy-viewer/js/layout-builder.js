@@ -2960,7 +2960,7 @@ function isValidDimensionalSpace(cellDimensions, cube, xbrlModel, dataTable = nu
         }
         
         // For defaultCube, the concept dimension implicitly includes all concepts
-        const isDefaultCube = cube.cubeType === 'xbrl:defaultCube';
+        const isDefaultCube = cube.cubeType === 'xbrl:openCube';
         if (isDefaultCube && dimName === 'xbrl:concept') {
             const isConcept = xbrlModel.concepts?.some(c => c.name === cellValue) ||
                               xbrlModel.abstracts?.some(a => a.name === cellValue);

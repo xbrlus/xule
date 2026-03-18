@@ -1,0 +1,26 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema",
+      "iso4217": "http://www.xbrl.org/2003/iso4217"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Unit compositeUnitRepresentation contains invalid QName 'iso4217:EUR2'. Raises oimce:invalidUnitStringRepresentation."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidUnitStringRepresentationBadChars",
+    "version": "2025",
+    "units": [
+      {
+        "name": "exp:USD",
+        "dataType": "xbrli:monetary",
+        "compositeUnitRepresentation": ["iso4217:EUR2/iso4217:USD"]
+      }
+    ]
+  }
+}

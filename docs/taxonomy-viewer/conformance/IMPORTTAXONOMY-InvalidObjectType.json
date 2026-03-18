@@ -1,30 +1,30 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "ext": "http://extension.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xs": "http://www.w3.org/2001/XMLSchema",
-      "exp": "http://example.com/taxonomy",
-      "mini2": "http://example.com/mini2"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "ext": "http://extension.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "exp": "http://example.com/taxonomy",
+            "mini2": "http://example.com/mini2"
+        },
+        "documentNamespace": "ext",
+        "description": "ERROR: importObjectTypes includes xbrl:labelObject, which is not allowed.",
+        "importMapping": {
+            "exp:SampleTaxonomy": "../examples/exampleTaxonomy.json"
+        }
     },
-    "urlMapping": {
-            "exp":  ["../examples/exampleTaxonomy.json"]
-            },
-    "documentNamespace": "ext",
-    "description": "ERROR: importObjectTypes includes xbrl:labelObject, which is not allowed."
-  },
-  "xbrlModel": {
-    "name": "ext:ImportTaxonomyInvalidObjectType",
-    "version": "2025",
-    "importedTaxonomies": [
-      {
-        "xbrlModelName": "exp:SampleTaxonomy",
-        "importObjectTypes": [
-          "xbrl:labelObject"
+    "xbrlModel": {
+        "name": "ext:ImportTaxonomyInvalidObjectType",
+        "version": "2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "exp:SampleTaxonomy",
+                "importObjectTypes": [
+                    "xbrl:labelObject"
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 }

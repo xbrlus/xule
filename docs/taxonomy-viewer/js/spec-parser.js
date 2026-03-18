@@ -10,7 +10,7 @@ export const propertyDescriptions = {
     "documentType": "The fixed value https://xbrl.org/2026/model",
     "namespaces": "A namespace object defining the prefix and associated URI.",
     "documentNamespace": "A string that identifies the namespace of the document.",
-    "urlMapping": "A ulMapping object defining the namespace prefix and associated URL locations.",
+    "importMapping": "An importMapping object providing a mapping from XBRL model QNames to the URL locations of those models, for use during import resolution.",
     "description": "A string that provides a description of the taxonomy module.",
     
     // XBRL Model object properties (previously 'taxonomy')

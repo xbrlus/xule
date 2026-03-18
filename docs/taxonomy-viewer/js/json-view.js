@@ -106,9 +106,11 @@ function copyJSONToClipboard(documentInfo, taxonomy, viewType, button) {
             if (viewType === 'model') {
                 // Filter out non-semantic properties from documentInfo in Model View
                 // (matches the display filter in buildObjectDisplay)
-                delete docInfoClone.sourceMapping;
+                // NOTE: sourceMapping is retained — it is required for fact value source resolution
+                // in compiled models (see spec sec-canonical-model for the distinction between
+                // "excluded from canonical hash" and "absent from compiled file").
                 delete docInfoClone.basePath;
-                delete docInfoClone.urlMapping;
+                delete docInfoClone.importMapping;
                 delete docInfoClone.documentNamespace;
             } else {
                 // Filter out basePath in Module View
@@ -572,9 +574,11 @@ function buildObjectDisplay(obj, indent, viewType, parentKey = '', objectType = 
     // Filter properties based on context
     let keys = Object.keys(obj);
     if (viewType === 'model' && objectType === 'documentInfo') {
-        // Filter out sourceMapping, basePath, urlMapping, and documentNamespace from documentInfo in Model View
-        // These should be resolved during model composition
-        keys = keys.filter(key => key !== 'sourceMapping' && key !== 'basePath' && key !== 'urlMapping' && key !== 'documentNamespace');
+        // Filter out basePath, importMapping, and documentNamespace from documentInfo in Model View
+        // (these are resolved during model composition and are non-semantic)
+        // NOTE: sourceMapping is intentionally retained — it is required for fact value source
+        // resolution in compiled models (see spec sec-canonical-model).
+        keys = keys.filter(key => key !== 'basePath' && key !== 'importMapping' && key !== 'documentNamespace');
     } else if (viewType === 'module' && objectType === 'documentInfo') {
         // Filter out basePath from documentInfo in Module View
         keys = keys.filter(key => key !== 'basePath');

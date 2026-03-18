@@ -2,6 +2,35 @@
 import { getTaxonomyData, registerCacheClearFunction } from './state.js';
 import { BUILTIN_OBJECT_TYPES_MAP as BUILTIN_OBJECT_TYPES } from './object-types.js';
 
+// ---------------------------------------------------------------------------
+// Module-level constant: maps taxonomy array names to the UI type string used
+// by getIconForType / getNodeType. Defined once here so getNodeType doesn't
+// re-allocate the array on every call.
+// ---------------------------------------------------------------------------
+const _NODE_TYPE_ARRAYS = [
+    { array: 'concepts',         type: 'concept' },
+    { array: 'abstracts',        type: 'abstract' },
+    { array: 'members',          type: 'member' },
+    { array: 'dimensions',       type: 'dimension' },
+    { array: 'domainClasses',    type: 'domainClass' },
+    { array: 'domains',          type: 'domain' },
+    { array: 'units',            type: 'unit' },
+    { array: 'entities',         type: 'entity' },
+    { array: 'transforms',       type: 'transform' },
+    { array: 'cubes',            type: 'cube' },
+    { array: 'footnotes',        type: 'footnote' },
+    { array: 'facts',            type: 'fact' },
+    { array: 'layouts',          type: 'layout' },
+    { array: 'dataTypes',        type: 'dataType' },
+    { array: 'relationshipTypes',type: 'relationshipType' },
+    { array: 'propertyTypes',    type: 'propertyType' },
+    { array: 'cubeTypes',        type: 'cubeType' },
+    { array: 'labelTypes',       type: 'labelType' },
+    { array: 'referenceTypes',   type: 'referenceType' },
+    { array: 'networks',         type: 'network' },
+    { array: 'groups',           type: 'group' }
+];
+
 /**
  * Get the xbrlModel from taxonomyData, supporting both new 'xbrlModel' and legacy 'taxonomy' property names
  * @param {Object} taxonomyData - The taxonomy data object
@@ -61,8 +90,80 @@ export function clearIconLabelCache() {
     iconLabelCacheTaxonomyId = null;
 }
 
-// Register cache clearing function with state module
+// ---------------------------------------------------------------------------
+// Node-type cache: Map<objectName, uiTypeString> built once per taxonomy load
+// so getNodeType() is O(1) instead of O(n * numArrays) on every call.
+// ---------------------------------------------------------------------------
+let nodeTypeCache = null;
+let nodeTypeCacheTaxonomyId = null;
+
+function buildNodeTypeCache(xbrlModel) {
+    nodeTypeCache = new Map();
+    nodeTypeCacheTaxonomyId = xbrlModel?.name || null;
+    if (!xbrlModel) return;
+    for (const { array, type } of _NODE_TYPE_ARRAYS) {
+        if (Array.isArray(xbrlModel[array])) {
+            for (const item of xbrlModel[array]) {
+                if (item.name && !nodeTypeCache.has(item.name)) {
+                    nodeTypeCache.set(item.name, type);
+                }
+            }
+        }
+    }
+    console.log(`[Utils] Node type cache built: ${nodeTypeCache.size} entries`);
+}
+
+function clearNodeTypeCache() {
+    nodeTypeCache = null;
+    nodeTypeCacheTaxonomyId = null;
+}
+
+// ---------------------------------------------------------------------------
+// Label cache: Map<relatedName, labelValue> for English xbrl:label lookups.
+// Shared by getNodeLabel() and formatQNameWithLabel() so neither runs
+// labels.find() (O(n)) more than once per unique name per taxonomy load.
+// ---------------------------------------------------------------------------
+let labelCache = null;
+let labelCacheTaxonomyId = null;
+
+function buildLabelCache(xbrlModel) {
+    labelCache = new Map();
+    labelCacheTaxonomyId = xbrlModel?.name || null;
+    if (!xbrlModel?.labels) return;
+    // Iterate once, storing the first English xbrl:label (or unlabelled label)
+    // found for each relatedName — matching the predicate used by the old find() calls.
+    for (const l of xbrlModel.labels) {
+        if (
+            !labelCache.has(l.relatedName) &&
+            (l.labelType === 'xbrl:label' || !l.labelType) &&
+            l.language?.startsWith('en')
+        ) {
+            labelCache.set(l.relatedName, l.value);
+        }
+    }
+    console.log(`[Utils] Label cache built: ${labelCache.size} entries`);
+}
+
+function clearLabelCache() {
+    labelCache = null;
+    labelCacheTaxonomyId = null;
+}
+
+/**
+ * Return the cached English label for a relatedName, or null if not found.
+ * Builds the cache on first call for the current taxonomy.
+ */
+function getCachedLabel(xbrlModel, relatedName) {
+    if (labelCache === null || labelCacheTaxonomyId !== (xbrlModel?.name || null)) {
+        buildLabelCache(xbrlModel);
+    }
+    return labelCache.get(relatedName) ?? null;
+}
+
+// Register all cache clearing functions with state module
 registerCacheClearFunction(clearIconLabelCache);
+registerCacheClearFunction(clearNodeTypeCache);
+registerCacheClearFunction(clearLabelCache);
 
 /**
  * Helper function to get icon label for a specific object name
@@ -183,47 +284,23 @@ export function getIconForType(type, objectName = null) {
     return icons[type] || icons['default'];
 }
 
-// Determine the type of a node by looking it up in taxonomy data
+// Determine the type of a node by looking it up in taxonomy data.
+// OPTIMIZED: result is cached in nodeTypeCache (Map) built once per taxonomy load.
 export function getNodeType(nodeName) {
     const taxonomyData = getTaxonomyData();
     const xbrlModel = getXbrlModel(taxonomyData);
     if (!xbrlModel) return 'default';
-    
-    const typeArrays = [
-        { array: 'concepts', type: 'concept' },
-        { array: 'abstracts', type: 'abstract' },
-        { array: 'members', type: 'member' },
-        { array: 'dimensions', type: 'dimension' },
-        { array: 'domainClasses', type: 'domainClass' },
-        { array: 'domains', type: 'domain' },
-        { array: 'units', type: 'unit' },
-        { array: 'entities', type: 'entity' },
-        { array: 'transforms', type: 'transform' },
-        { array: 'cubes', type: 'cube' },
-        { array: 'footnotes', type: 'footnote' },
-        { array: 'facts', type: 'fact' },
-        { array: 'layouts', type: 'layout' },
-        { array: 'dataTypes', type: 'dataType' },
-        { array: 'relationshipTypes', type: 'relationshipType' },
-        { array: 'propertyTypes', type: 'propertyType' },
-        { array: 'cubeTypes', type: 'cubeType' },
-        { array: 'labelTypes', type: 'labelType' },
-        { array: 'referenceTypes', type: 'referenceType' },
-        { array: 'networks', type: 'network' },
-        { array: 'groups', type: 'group' }
-    ];
-    
-    for (const { array, type } of typeArrays) {
-        if (xbrlModel[array]) {
-            const found = xbrlModel[array].find(item => item.name === nodeName);
-            if (found) return type;
-        }
+
+    // Rebuild cache if taxonomy has changed or cache hasn't been built yet
+    if (nodeTypeCache === null || nodeTypeCacheTaxonomyId !== (xbrlModel.name || null)) {
+        buildNodeTypeCache(xbrlModel);
     }
-    
-    return 'default';
+
+    return nodeTypeCache.get(nodeName) ?? 'default';
 }
 
-// Helper function to get the label for a node (element name)
+// Helper function to get the label for a node (element name).
+// OPTIMIZED: uses labelCache (built once per taxonomy load) for O(1) lookup.
 export function getNodeLabel(nodeName, displayMode) {
     const taxonomyData = getTaxonomyData();
     const xbrlModel = getXbrlModel(taxonomyData);
@@ -231,13 +308,7 @@ export function getNodeLabel(nodeName, displayMode) {
         return nodeName;
     }
 
-    const label = xbrlModel.labels.find(l => 
-        l.relatedName === nodeName && 
-        (l.labelType === 'xbrl:label' || !l.labelType) &&
-        l.language && l.language.startsWith('en')
-    );
-
-    return label ? label.value : nodeName;
+    return getCachedLabel(xbrlModel, nodeName) ?? nodeName;
 }
 
 /**
@@ -257,15 +328,11 @@ export function formatQNameWithLabel(qname, showLabel = true) {
         return qname;
     }
     
-    // Try to find a label for this QName
-    const label = xbrlModel.labels.find(l => 
-        l.relatedName === qname && 
-        (l.labelType === 'xbrl:label' || !l.labelType) &&
-        l.language && l.language.startsWith('en')
-    );
-    
+    // Try to find a label for this QName (O(1) via shared label cache)
+    const labelValue = getCachedLabel(xbrlModel, qname);
+
     // If we have a label, show "Label (qname)", otherwise just the qname
-    return label ? `${label.value} (${qname})` : qname;
+    return labelValue ? `${labelValue} (${qname})` : qname;
 }
 
 /**

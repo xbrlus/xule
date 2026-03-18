@@ -1,0 +1,33 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/base",
+      "exp2": "http://example.com/taxonomy/ext1",
+      "exp3": "http://example.com/taxonomy/ext2",
+      "exp4": "http://example.com/taxonomy/combined",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp4",
+    "description": "VALID: Combined taxonomy D importing both taxonomy B (ext1) and taxonomy C (ext2), each of which independently import and extend base taxonomy A. The DAG duplicate-import rule ensures A is processed only once (encountered via B→A and C→A). D's resolved exp:ProductDomain contains all three members in import order: exp:ProductA (from A), exp2:ProductB (from B's extension), exp3:ProductC (from C's extension). This demonstrates the diamond extendTargetName pattern — multiple independent taxonomies extending the same base domain QName, merged in the combining taxonomy.",
+    "importMapping": {
+      "exp2:DiamondExt1": "./DOMAIN-ValidDiamondExtendTargetName-ext1.json",
+      "exp3:DiamondExt2": "./DOMAIN-ValidDiamondExtendTargetName-ext2.json"
+    }
+  },
+  "xbrlModel": {
+    "name": "exp4:DiamondCombined",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp2:DiamondExt1"
+      },
+      {
+        "xbrlModelName": "exp3:DiamondExt2"
+      }
+    ]
+  }
+}

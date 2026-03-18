@@ -1,0 +1,31 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:invalidTaxonomyGroupSource: The groupTree relationship source 'exp:BalanceSheet' is not a valid group object or XBRL model object QName."
+    },
+    "xbrlModel": {
+        "name": "exp:InvalidGroupSourceModel",
+        "version": "2025",
+        "groups": [
+            { "name": "exp:IncomeStatementGroup" },
+            { "name": "exp:BalanceSheetGroup" }
+        ],
+        "groupTree": {
+            "name": "exp:InvalidGroupSourceModel_GroupTree",
+            "relationships": [
+                {
+                    "source": "exp:BalanceSheet",
+                    "target": "exp:IncomeStatementGroup"
+                }
+            ]
+        }
+    }
+}

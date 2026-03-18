@@ -1,0 +1,47 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:metadataWithoutHash: A factSource defines a metadata object but has no hash property."
+    },
+    "xbrlModel": {
+        "name": "exp:MetadataWithoutHashModel",
+        "version": "2025",
+        "factMaps": [
+            { "name": "exp:SalesFactMap" }
+        ],
+        "factSources": [
+            {
+                "name": "exp:SalesFactSource",
+                "factMapName": "exp:SalesFactMap",
+                "metadata": {
+                    "factCount": 50,
+                    "validationTimestamp": "2026-03-11T10:00:00",
+                    "concepts": ["exp:Revenue"],
+                    "dimensions": [
+                        {
+                            "dimensionName": "xbrl:concept",
+                            "memberCount": 1,
+                            "isTyped": false,
+                            "sampleMembers": ["exp:Revenue"]
+                        }
+                    ]
+                }
+            }
+        ],
+        "concepts": [
+            {
+                "name": "exp:Revenue",
+                "dataType": "xbrli:monetary",
+                "periodType": "duration"
+            }
+        ]
+    }
+}

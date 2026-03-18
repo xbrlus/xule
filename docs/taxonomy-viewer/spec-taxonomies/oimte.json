@@ -89,18 +89,8 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:dimensionNameNotDimensionObject",
-                        "order": 5.5
-                    },
-                    {
-                        "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:cubeDimensionsInconsistentWithBaseCube",
                         "order": 6
-                    },
-                    {
-                        "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:invalidUnitDomainTarget",
-                        "order": 7
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
@@ -164,6 +154,11 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:excludeCubesOnNegativeCube",
+                        "order": 15.6
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:invalidDataTypeObject",
                         "order": 16
                     },
@@ -224,21 +219,6 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:invalidEntityDomainSource",
-                        "order": 22.5
-                    },
-                    {
-                        "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:invalidEntityDomainTarget",
-                        "order": 22.6
-                    },
-                    {
-                        "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:invalidUnitDomainSource",
-                        "order": 22.7
-                    },
-                    {
-                        "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:invalidDomainTarget",
                         "order": 23
                     },
@@ -294,6 +274,16 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:duplicateRelationships",
+                        "order": 33
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
+                        "target": "oimte:duplicateRoots",
+                        "order": 33.5
+                    },
+                    {
+                        "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:invalidObjectType",
                         "order": 34
                     },
@@ -314,7 +304,7 @@
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:invalidCubeType",
+                        "target": "oimte:invalidQNameType",
                         "order": 38.5
                     },
                     {
@@ -461,11 +451,6 @@
                         "source": "oimte:OIMErrorClassDomain",
                         "target": "oimte:duplicateCoreDimension",
                         "order": 60.2
-                    },
-                    {
-                        "source": "oimte:OIMErrorClassDomain",
-                        "target": "oimte:invalidDimensionReference",
-                        "order": 60.3
                     },
                     {
                         "source": "oimte:OIMErrorClassDomain",
@@ -686,6 +671,18 @@
                 ]
             },
             {
+                "name": "oimte:invalidQNameType",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:propertyValueDataTypeMismatch",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -746,6 +743,10 @@
                     {
                         "property": "xbrl:severity",
                         "value": "error"
+                    },
+                    {
+                        "property": "oimte:removedError",
+                        "value": true
                     }
                 ]
             },
@@ -810,6 +811,18 @@
                 ]
             },
             {
+                "name": "oimte:excludeCubesOnNegativeCube",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:cubeMissingDimension",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -827,18 +840,6 @@
             },
             {
                 "name": "oimte:cubeMissingConceptDimension",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:dimensionNameNotDimensionObject",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -938,6 +939,30 @@
                     {
                         "property": "oimte:removedError",
                         "value": true
+                    }
+                ]
+            },
+            {
+                "name": "oimte:duplicateRelationships",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:duplicateRoots",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
                     }
                 ]
             },
@@ -1150,18 +1175,6 @@
                 ]
             },
             {
-                "name": "oimte:invalidUnitDomainTarget",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
                 "name": "oimte:inconsistentTaxonomyDefinedDimensionProperty",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -1346,42 +1359,6 @@
                 ]
             },
             {
-                "name": "oimte:invalidEntityDomainSource",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidEntityDomainTarget",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidUnitDomainSource",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
                 "name": "oimte:invalidIntervalOfMeasurement",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -1502,18 +1479,6 @@
                 ]
             },
             {
-                "name": "oimte:invalidObjectNamespacePrefix",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
                 "name": "oimte:disallowedObjectModelType",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -1539,18 +1504,6 @@
             },
             {
                 "name": "oimte:objectNamespacePrefixNotDefined",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:duplicateNamespaceURI",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -1779,18 +1732,6 @@
             },
             {
                 "name": "oimte:duplicateCoreDimension",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidDimensionReference",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -2090,19 +2031,7 @@
                 ]
             },
             {
-                "name": "oimte:extendedTargetNameDefinedForModelTaxonomy",
-                "domainClasses": [
-                    "oimte:OIMErrorClassDomain"
-                ],
-                "properties": [
-                    {
-                        "property": "xbrl:severity",
-                        "value": "error"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidConceptDomainSource",
+                "name": "oimte:extendedTargetNameDefinedForCompiledTaxonomy",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
                 ],
@@ -2534,6 +2463,18 @@
                 ]
             },
             {
+                "name": "oimte:unitDataTypeUsedInDefinition",
+                "domainClasses": [
+                    "oimte:OIMErrorClassDomain"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:severity",
+                        "value": "error"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:missingSQNameProperty",
                 "domainClasses": [
                     "oimte:OIMErrorClassDomain"
@@ -2953,11 +2894,6 @@
                     },
                     {
                         "source": "oimte:CubeDimensionErrors",
-                        "target": "oimte:dimensionNameNotDimensionObject",
-                        "order": 2
-                    },
-                    {
-                        "source": "oimte:CubeDimensionErrors",
                         "target": "oimte:invalidAllowDomainFactsPropertyOnConceptDimension",
                         "order": 3
                     },
@@ -3033,7 +2969,7 @@
                     },
                     {
                         "source": "oimte:DimensionErrors",
-                        "target": "oimte:invalidCubeType",
+                        "target": "oimte:invalidQNameType",
                         "order": 2
                     },
                     {
@@ -3078,11 +3014,6 @@
                     },
                     {
                         "source": "oimte:DomainErrors",
-                        "target": "oimte:invalidUnitDomainTarget",
-                        "order": 6
-                    },
-                    {
-                        "source": "oimte:DomainErrors",
                         "target": "oimte:invalidDimensionMember",
                         "order": 8
                     },
@@ -3103,21 +3034,6 @@
                     },
                     {
                         "source": "oimte:DomainErrors",
-                        "target": "oimte:invalidEntityDomainSource",
-                        "order": 10.5
-                    },
-                    {
-                        "source": "oimte:DomainErrors",
-                        "target": "oimte:invalidEntityDomainTarget",
-                        "order": 10.6
-                    },
-                    {
-                        "source": "oimte:DomainErrors",
-                        "target": "oimte:invalidUnitDomainSource",
-                        "order": 10.7
-                    },
-                    {
-                        "source": "oimte:DomainErrors",
                         "target": "oimte:cannotExtendCompleteDomain",
                         "order": 11
                     },
@@ -3125,6 +3041,16 @@
                         "source": "oimte:NetworkErrors",
                         "target": "oimte:invalidNetworkRoot",
                         "order": 1
+                    },
+                    {
+                        "source": "oimte:NetworkErrors",
+                        "target": "oimte:duplicateRelationships",
+                        "order": 2
+                    },
+                    {
+                        "source": "oimte:NetworkErrors",
+                        "target": "oimte:duplicateRoots",
+                        "order": 3
                     },
                     {
                         "source": "oimte:LabelErrors",
@@ -3283,16 +3209,6 @@
                     },
                     {
                         "source": "oimte:DocumentInfoErrors",
-                        "target": "oimte:duplicateNamespaceURI",
-                        "order": 5.5
-                    },
-                    {
-                        "source": "oimte:DocumentInfoErrors",
-                        "target": "oimte:invalidObjectNamespacePrefix",
-                        "order": 6
-                    },
-                    {
-                        "source": "oimte:DocumentInfoErrors",
                         "target": "oimte:objectNamespaceMismatch",
                         "order": 7
                     },
@@ -3330,11 +3246,6 @@
                         "source": "oimte:CubeTypeErrors",
                         "target": "oimte:duplicateCoreDimension",
                         "order": 2
-                    },
-                    {
-                        "source": "oimte:CubeTypeErrors",
-                        "target": "oimte:invalidDimensionReference",
-                        "order": 3
                     },
                     {
                         "source": "oimte:CubeTypeErrors",
@@ -3541,11 +3452,6 @@
                     },
                     {
                         "source": "xbrl:cubeDimensionObject",
-                        "target": "oimte:dimensionNameNotDimensionObject",
-                        "order": 2
-                    },
-                    {
-                        "source": "xbrl:cubeDimensionObject",
                         "target": "oimte:invalidAllowDomainFactsPropertyOnConceptDimension",
                         "order": 3
                     },
@@ -3626,7 +3532,7 @@
                     },
                     {
                         "source": "xbrl:dimensionObject",
-                        "target": "oimte:invalidCubeType",
+                        "target": "oimte:invalidQNameType",
                         "order": 2
                     },
                     {
@@ -3671,11 +3577,6 @@
                     },
                     {
                         "source": "xbrl:domainObject",
-                        "target": "oimte:invalidUnitDomainTarget",
-                        "order": 6
-                    },
-                    {
-                        "source": "xbrl:domainObject",
                         "target": "oimte:invalidDimensionMember",
                         "order": 8
                     },
@@ -3696,21 +3597,6 @@
                     },
                     {
                         "source": "xbrl:domainObject",
-                        "target": "oimte:invalidEntityDomainSource",
-                        "order": 10.5
-                    },
-                    {
-                        "source": "xbrl:domainObject",
-                        "target": "oimte:invalidEntityDomainTarget",
-                        "order": 10.6
-                    },
-                    {
-                        "source": "xbrl:domainObject",
-                        "target": "oimte:invalidUnitDomainSource",
-                        "order": 10.7
-                    },
-                    {
-                        "source": "xbrl:domainObject",
                         "target": "oimte:cannotExtendCompleteDomain",
                         "order": 11
                     },
@@ -3718,6 +3604,16 @@
                         "source": "xbrl:networkObject",
                         "target": "oimte:invalidNetworkRoot",
                         "order": 1
+                    },
+                    {
+                        "source": "xbrl:networkObject",
+                        "target": "oimte:duplicateRelationships",
+                        "order": 2
+                    },
+                    {
+                        "source": "xbrl:networkObject",
+                        "target": "oimte:duplicateRoots",
+                        "order": 3
                     },
                     {
                         "source": "xbrl:labelObject",
@@ -3891,11 +3787,6 @@
                     },
                     {
                         "source": "oimte:JSONErrors",
-                        "target": "oimte:invalidObjectNamespacePrefix",
-                        "order": 5
-                    },
-                    {
-                        "source": "oimte:JSONErrors",
                         "target": "oimte:objectNamespaceMismatch",
                         "order": 6
                     },
@@ -3928,11 +3819,6 @@
                         "source": "xbrl:cubeTypeObject",
                         "target": "oimte:duplicateCoreDimension",
                         "order": 2
-                    },
-                    {
-                        "source": "xbrl:cubeTypeObject",
-                        "target": "oimte:invalidDimensionReference",
-                        "order": 3
                     },
                     {
                         "source": "xbrl:cubeTypeObject",
@@ -4036,16 +3922,6 @@
                     },
                     {
                         "source": "oimte:DocumentInfoErrors",
-                        "target": "oimte:duplicateNamespaceURI",
-                        "order": 5.5
-                    },
-                    {
-                        "source": "oimte:DocumentInfoErrors",
-                        "target": "oimte:invalidObjectNamespacePrefix",
-                        "order": 6
-                    },
-                    {
-                        "source": "oimte:DocumentInfoErrors",
                         "target": "oimte:objectNamespaceMismatch",
                         "order": 7
                     },
@@ -4076,11 +3952,7 @@
                     },
                     {
                         "source": "xbrl:domainObject",
-                        "target": "oimte:extendedTargetNameDefinedForModelTaxonomy"
-                    },
-                    {
-                        "source": "xbrl:domainObject",
-                        "target": "oimte:invalidConceptDomainSource"
+                        "target": "oimte:extendedTargetNameDefinedForCompiledTaxonomy"
                     },
                     {
                         "source": "xbrl:cubeObject",
@@ -4217,6 +4089,10 @@
                     {
                         "source": "xbrl:conceptObject",
                         "target": "oimte:invalidUnitObject"
+                    },
+                    {
+                        "source": "xbrl:conceptObject",
+                        "target": "oimte:unitDataTypeUsedInDefinition"
                     },
                     {
                         "source": "xbrl:conceptObject",
@@ -4425,6 +4301,18 @@
                 "labelType": "xbrl:errorMessage"
             },
             {
+                "relatedName": "oimte:invalidQNameType",
+                "language": "en",
+                "value": "Invalid QName Object Type",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:invalidQNameType",
+                "language": "en",
+                "value": "The referenced QName '{qname}' resolves to an object of an incorrect type. Expected a '{expectedType}' object but found a '{actualType}' object.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
                 "relatedName": "oimte:propertyValueDataTypeMismatch",
                 "language": "en",
                 "value": "Invalid Property Value",
@@ -4475,13 +4363,13 @@
             {
                 "relatedName": "oimte:invalidCubeType",
                 "language": "en",
-                "value": "Invalid Cube Type",
+                "value": "Invalid Cube Type (Removed — use oimte:invalidQNameType)",
                 "labelType": "xbrl:label"
             },
             {
                 "relatedName": "oimte:invalidCubeType",
                 "language": "en",
-                "value": "The dimension '{dimensionName}' references '{cubeTypeName}' in cubeTypes, but it is not a cubeType object.",
+                "value": "This error code has been replaced by oimte:invalidQNameType.",
                 "labelType": "xbrl:errorMessage"
             },
             {
@@ -4568,18 +4456,7 @@
                 "value": "The cube '{cubeName}' is missing the required concept dimension.",
                 "labelType": "xbrl:errorMessage"
             },
-            {
-                "relatedName": "oimte:dimensionNameNotDimensionObject",
-                "language": "en",
-                "value": "Dimension Name Not Dimension Object",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:dimensionNameNotDimensionObject",
-                "language": "en",
-                "value": "The dimension name '{dimensionName}' is not a valid dimension object.",
-                "labelType": "xbrl:errorMessage"
-            },
+
             {
                 "relatedName": "oimte:cubeDimensionInconsistentWithCubeType",
                 "language": "en",
@@ -4663,6 +4540,36 @@
                 "language": "en",
                 "value": "The declared root '${network.root}' of network '${network.name}' does not match the actual root nodes.",
                 "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:duplicateRelationships",
+                "language": "en",
+                "value": "Duplicate Relationships",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:duplicateRelationships",
+                "language": "en",
+                "value": "A relationship in network '${network.name}' with source '${relationship.source}', target '${relationship.target}', and order '${relationship.order}' is a duplicate of an existing relationship in the network.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:duplicateRoots",
+                "language": "en",
+                "value": "Duplicate Roots",
+                "labelType": "xbrl:label"
+            },
+            {
+                "relatedName": "oimte:duplicateRoots",
+                "language": "en",
+                "value": "The root '${network.root}' in network '${network.name}' is a duplicate of an existing root already declared in the network.",
+                "labelType": "xbrl:errorMessage"
+            },
+            {
+                "relatedName": "oimte:duplicateRoots",
+                "language": "en",
+                "value": "This error occurs when a network object's roots array contains the same QName more than once. Each value in the roots array must be unique. The constraint applies both to roots declared directly in a named network object and to roots appended via extendTargetName — if an extending network attempts to add a root QName that is already present in the target network's roots array, this error is raised on each such duplicate entry.",
+                "labelType": "xbrl:documentation"
             },
             {
                 "relatedName": "oimte:duplicateLabelObject",
@@ -4887,18 +4794,6 @@
                 "labelType": "xbrl:errorMessage"
             },
             {
-                "relatedName": "oimte:invalidUnitDomainTarget",
-                "language": "en",
-                "value": "Domain Includes Non-Unit Target",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:invalidUnitDomainTarget",
-                "language": "en",
-                "value": "The domain '{domainName}' with unit domain class includes non-unit target '{targetName}'.",
-                "labelType": "xbrl:errorMessage"
-            },
-            {
                 "relatedName": "oimte:inconsistentTaxonomyDefinedDimensionProperty",
                 "language": "en",
                 "value": "Inconsistent Taxonomy Defined Dimension Property",
@@ -5091,42 +4986,6 @@
                 "labelType": "xbrl:errorMessage"
             },
             {
-                "relatedName": "oimte:invalidEntityDomainSource",
-                "language": "en",
-                "value": "Invalid Entity Domain Source",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:invalidEntityDomainSource",
-                "language": "en",
-                "value": "The source '{sourceName}' is not valid for entity domain '{domainName}'. Source must be an entity object or the entity domain class 'xbrl:entityDomain'.",
-                "labelType": "xbrl:errorMessage"
-            },
-            {
-                "relatedName": "oimte:invalidEntityDomainTarget",
-                "language": "en",
-                "value": "Invalid Entity Domain Target",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:invalidEntityDomainTarget",
-                "language": "en",
-                "value": "The target '{targetName}' is not valid for entity domain '{domainName}'. Target must be an entity object (xbrl:entityObject).",
-                "labelType": "xbrl:errorMessage"
-            },
-            {
-                "relatedName": "oimte:invalidUnitDomainSource",
-                "language": "en",
-                "value": "Invalid Unit Domain Source",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:invalidUnitDomainSource",
-                "language": "en",
-                "value": "The source '{sourceName}' is not valid for unit domain '{domainName}'. Source must be a unit object or the unit domain class 'xbrl:unitDomain'.",
-                "labelType": "xbrl:errorMessage"
-            },
-            {
                 "relatedName": "oimte:invalidJSONStructureMissingRequiredProperty",
                 "language": "en",
                 "value": "Invalid JSON Structure - Missing Required Property",
@@ -5211,18 +5070,6 @@
                 "labelType": "xbrl:errorMessage"
             },
             {
-                "relatedName": "oimte:invalidObjectNamespacePrefix",
-                "language": "en",
-                "value": "Invalid Object Namespace Prefix",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:invalidObjectNamespacePrefix",
-                "language": "en",
-                "value": "The object namespace prefix '{prefix}' is a reserved prefix and is not valid for object '{objectName}'.",
-                "labelType": "xbrl:errorMessage"
-            },
-            {
                 "relatedName": "oimte:documentNamespacePrefixNotDefined",
                 "language": "en",
                 "value": "Document Namespace Has No Prefix",
@@ -5263,24 +5110,6 @@
                 "language": "en",
                 "value": "The object namespace prefix '{prefix}' is not defined for object '{objectName}' in the namespace declaration.",
                 "labelType": "xbrl:errorMessage"
-            },
-            {
-                "relatedName": "oimte:duplicateNamespaceURI",
-                "language": "en",
-                "value": "Duplicate Namespace URI",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:duplicateNamespaceURI",
-                "language": "en",
-                "value": "Prefixes '{prefix1}' and '{prefix2}' both map to the same namespace URI '{uri}' in the namespaces declaration. Each namespace URI must be unique.",
-                "labelType": "xbrl:errorMessage"
-            },
-            {
-                "relatedName": "oimte:duplicateNamespaceURI",
-                "language": "en",
-                "value": "This error occurs when two or more prefix keys in the namespaces object map to the same namespace URI. Since namespace URIs are the authoritative identity for all objects, allowing two prefixes to map to the same URI would create ambiguity about which prefix is authoritative and could cause inconsistent object identity resolution. Each namespace URI in the namespaces object must be unique.",
-                "labelType": "xbrl:documentation"
             },
             {
                 "relatedName": "oimte:objectNamespaceMismatch",
@@ -5448,24 +5277,6 @@
                 "relatedName": "oimte:duplicateCoreDimension",
                 "language": "en",
                 "value": "This error occurs when a cubeType's coreDimensions array contains the same dimension QName more than once. Each core dimension must appear at most once in the array to ensure unambiguous cube structure.",
-                "labelType": "xbrl:documentation"
-            },
-            {
-                "relatedName": "oimte:invalidDimensionReference",
-                "language": "en",
-                "value": "Invalid Dimension Reference",
-                "labelType": "xbrl:label"
-            },
-            {
-                "relatedName": "oimte:invalidDimensionReference",
-                "language": "en",
-                "value": "The dimension constraint object in cubeType '{cubeTypeName}' references dimensionName '{dimensionName}' which does not resolve to a valid dimension object.",
-                "labelType": "xbrl:errorMessage"
-            },
-            {
-                "relatedName": "oimte:invalidDimensionReference",
-                "language": "en",
-                "value": "This error occurs when a dimension constraint's dimensionName property references a QName that does not resolve to a valid dimension object in the model. All dimension references must point to existing dimension definitions.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -5849,7 +5660,13 @@
             {
                 "relatedName": "oimte:invalidQNameReference",
                 "language": "en",
-                "value": "This error is generated when a QName reference in the XBRL Model cannot be resolved to a XBRL Model object that matches the expected type. This occurs when properties, relationships, or other XBRL Model elements reference an object name that is not the correct object type or has not been defined in the XBRL Model or its imports.",
+                "value": "This error is generated when a QName reference in the XBRL Model cannot be resolved to any defined XBRL Model object. This occurs when properties, relationships, or other XBRL Model elements reference an object name that has not been defined in the XBRL Model or its imports.",
+                "labelType": "xbrl:documentation"
+            },
+            {
+                "relatedName": "oimte:invalidQNameType",
+                "language": "en",
+                "value": "This error is generated when a QName reference in the XBRL Model resolves to a defined object, but that object is not of the expected type. For example, a cubeType property referencing a concept object instead of a cubeType object, or an extendTargetName referencing a domain instead of the expected object type.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -5879,7 +5696,7 @@
             {
                 "relatedName": "oimte:invalidCubeType",
                 "language": "en",
-                "value": "This error occurs when a dimension object specifies a cubeTypes array that contains a QName reference to an object that is not a cubeType. The cubeTypes property restricts which cube types can use the dimension, and all referenced objects must be valid cubeType objects defined in the XBRL Model.",
+                "value": "This error code has been replaced by oimte:invalidQNameType, which covers all cases where a QName reference resolves to an object of an incorrect type.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -5924,12 +5741,7 @@
                 "value": "This error occurs when a cube is missing the concept dimension. In the XBRL model all cubes must include a concept dimension so that the concepts associated with the cube can be defined. A default cube must still define the dimension but does not need to include a domain name for the concept dimension.",
                 "labelType": "xbrl:documentation"
             },
-            {
-                "relatedName": "oimte:dimensionNameNotDimensionObject",
-                "language": "en",
-                "value": "This error occurs when a dimension name specified in a cubeDimension object does not correspond to a valid dimension object in the XBRL Model. Each dimension name used in a cube must reference an existing dimension object that is properly defined according to the XBRL Model specification.",
-                "labelType": "xbrl:documentation"
-            },
+
             {
                 "relatedName": "oimte:cubeDimensionInconsistentWithCubeType",
                 "language": "en",
@@ -5973,6 +5785,12 @@
                 "labelType": "xbrl:documentation"
             },
             {
+                "relatedName": "oimte:duplicateRelationships",
+                "language": "en",
+                "value": "This error occurs when a network contains two or more relationship objects whose `source`, `target`, `order`, and any additional properties are all identical. A duplicate can arise directly within a single network definition or when an extension taxonomy uses `extendTargetName` to append a relationship that already exists in the base network.",
+                "labelType": "xbrl:documentation"
+            },
+            {
                 "relatedName": "oimte:duplicateLabelObject",
                 "language": "en",
                 "value": "This error is generated when multiple labels with the same relatedName, language, and labelType are defined in the XBRL Model. Each label must be uniquely identified by the combination of these three properties. Having duplicate labels creates ambiguity in which label should be used.",
@@ -5993,7 +5811,7 @@
             {
                 "relatedName": "oimte:invalidAllowedObject",
                 "language": "en",
-                "value": "This error occurs when a property type's allowedObjects list contains an invalid or unrecognized object type. The allowedObjects property constrains which types of XBRL Model objects can use a property. Valid object types are xbrl:memberObject, xbrl:conceptObject, xbrl:unitObject, xbrl:entityObject, xbrl:groupObject, xbrl:labelObject, xbrl:domainObject, xbrl:domainClassObject, xbrl:dimensionObject, xbrl:abstractObject, xbrl:relationshipObject, xbrl:xbrlModelObject, xbrl:networkObject, xbrl:cubeObject and xbrl:referenceObject.",
+                "value": "This error occurs when a property type's allowedObjects list contains an invalid or unrecognized object type. The allowedObjects property constrains which types of XBRL Model objects can use a property. Valid object types are any referenceable model object. These are objects that have  QName such as xbrl:memberObject, xbrl:conceptObject, xbrl:unitObject, xbrl:entityObject, xbrl:groupObject etc.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -6075,12 +5893,6 @@
                 "labelType": "xbrl:documentation"
             },
             {
-                "relatedName": "oimte:invalidUnitDomainTarget",
-                "language": "en",
-                "value": "This error occurs when a domain with a unit domain class includes non-unit objects as relationship targets. Unit domains must exclusively contain unit objects. Including concepts, members, or other object types in a unit domain violates the domain's designated purpose.",
-                "labelType": "xbrl:documentation"
-            },
-            {
                 "relatedName": "oimte:inconsistentTaxonomyDefinedDimensionProperty",
                 "language": "en",
                 "value": "This error is generated when a dimension is defined with inconsistent properties across different parts of the XBRL Model. When a dimension appears in multiple cubes or contexts, its fundamental properties (such as type, domain, etc.) must remain consistent throughout the XBRL Model.",
@@ -6138,24 +5950,6 @@
                 "relatedName": "oimte:invalidDomainSource",
                 "language": "en",
                 "value": "This error is generated when a relationship within a domain uses a source object that is not valid. The source in domain relationships must be a member of the domain and must be of an appropriate object type. Domain classes and extension targets must be properly connected through valid source objects.",
-                "labelType": "xbrl:documentation"
-            },
-            {
-                "relatedName": "oimte:invalidEntityDomainSource",
-                "language": "en",
-                "value": "This error occurs when a domain object with root property 'xbrl:entityDomain' has a relationship object source property that is not either an entity object or the entity domain class object 'xbrl:entityDomain'. Entity domains must only contain entities and be rooted at the entity domain class.",
-                "labelType": "xbrl:documentation"
-            },
-            {
-                "relatedName": "oimte:invalidEntityDomainTarget",
-                "language": "en",
-                "value": "This error occurs when a domain object with root property 'xbrl:entityDomain' has a relationship object target property that is not an entity object (xbrl:entityObject). Entity domains must only contain entity objects as relationship targets. Any target in an entity domain must be of type xbrl:entityObject.",
-                "labelType": "xbrl:documentation"
-            },
-            {
-                "relatedName": "oimte:invalidUnitDomainSource",
-                "language": "en",
-                "value": "This error occurs when a domain object with root property 'xbrl:unitDomain' has a relationship object source property that is not either a unit object or the unit domain class object 'xbrl:unitDomain'. Unit domains must only contain units and be rooted at the unit domain class.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -6249,12 +6043,6 @@
                 "labelType": "xbrl:documentation"
             },
             {
-                "relatedName": "oimte:invalidObjectNamespacePrefix",
-                "language": "en",
-                "value": "This error occurs when an object's QName uses a namespace prefix that is reserved by the OIM Taxonomy specification but is incorrectly applied. Certain prefixes are reserved for core taxonomy elements and cannot be used for custom objects. Using a reserved prefix inappropriately violates the namespace conventions defined by the specification.",
-                "labelType": "xbrl:documentation"
-            },
-            {
                 "relatedName": "oimte:documentNamespacePrefixNotDefined",
                 "language": "en",
                 "value": "This error occurs when the documentNamespace property specifies a prefix that is not defined in the namespaces declaration. The documentNamespace must reference a valid prefix that exists in the namespaces map.",
@@ -6335,7 +6123,7 @@
             {
                 "relatedName": "oimte:invalidDomainObject",
                 "language": "en",
-                "value": "This error occurs when a domain object is used when its type is prohibited by the values defined in the allowedDomainItems property of the domain class object.",
+                "value": "This error occurs when a domain object is used when its type is prohibited by the values defined in the allowedDomainItems property of the domain class object. This covers: (1) any object used as a source or target in a domain relationship that is not permitted by the domain class's allowedDomainItems; (2) objects used as sources in a concept domain that are not a concept object, abstract object, or xbrl:conceptDomain; (3) objects used in an entity domain relationship that are not entity objects or xbrl:entityDomain; and (4) objects used in a unit domain relationship that are not unit objects or xbrl:unitDomain.",
                 "labelType": "xbrl:documentation"
             },
             {
@@ -6567,40 +6355,22 @@
                 "value": "Raised when an importTaxonomy object is found in a model with modelForm set to \"compiled\". Compiled models are fully self-contained and cannot import from external taxonomy modules."
             },
             {
-                "relatedName": "oimte:extendedTargetNameDefinedForModelTaxonomy",
+                "relatedName": "oimte:extendedTargetNameDefinedForCompiledTaxonomy",
                 "language": "en",
                 "labelType": "xbrl:label",
                 "value": "Extended Target Name Defined For Model Taxonomy"
             },
             {
-                "relatedName": "oimte:extendedTargetNameDefinedForModelTaxonomy",
+                "relatedName": "oimte:extendedTargetNameDefinedForCompiledTaxonomy",
                 "language": "en",
                 "labelType": "xbrl:errorMessage",
                 "value": "The domain '{domainName}' has an extendTargetName property defined but the model modelForm is 'module', which does not allow extension."
             },
             {
-                "relatedName": "oimte:extendedTargetNameDefinedForModelTaxonomy",
+                "relatedName": "oimte:extendedTargetNameDefinedForCompiledTaxonomy",
                 "language": "en",
                 "labelType": "xbrl:documentation",
                 "value": "Raised when a domain object in a module-type taxonomy uses the extendTargetName property. Extension of existing objects is only permitted in importing taxonomies, not in the base module itself."
-            },
-            {
-                "relatedName": "oimte:invalidConceptDomainSource",
-                "language": "en",
-                "labelType": "xbrl:label",
-                "value": "Invalid Concept Domain Source"
-            },
-            {
-                "relatedName": "oimte:invalidConceptDomainSource",
-                "language": "en",
-                "labelType": "xbrl:errorMessage",
-                "value": "Object '{sourceName}' used as a source in the concept domain must be a concept object, abstract object, or xbrl:conceptDomain."
-            },
-            {
-                "relatedName": "oimte:invalidConceptDomainSource",
-                "language": "en",
-                "labelType": "xbrl:documentation",
-                "value": "Raised when an object used as a source in a concept domain relationship is not one of the allowed types. Sources in a concept domain must be a concept object, an abstract object, or the built-in xbrl:conceptDomain domain class."
             },
             {
                 "relatedName": "oimte:invalidNegativeCubeReference",
@@ -6637,6 +6407,24 @@
                 "language": "en",
                 "labelType": "xbrl:documentation",
                 "value": "Raised when a constraint cube reference is invalid or cannot be resolved in the current context."
+            },
+            {
+                "relatedName": "oimte:excludeCubesOnNegativeCube",
+                "language": "en",
+                "labelType": "xbrl:label",
+                "value": "Exclude Cubes On Negative Cube"
+            },
+            {
+                "relatedName": "oimte:excludeCubesOnNegativeCube",
+                "language": "en",
+                "labelType": "xbrl:errorMessage",
+                "value": "The cube '{cubeName}' has cubeType xbrl:negativeCube but also specifies an excludeCubes property, which is not allowed."
+            },
+            {
+                "relatedName": "oimte:excludeCubesOnNegativeCube",
+                "language": "en",
+                "labelType": "xbrl:documentation",
+                "value": "Raised when a cube with cubeType xbrl:negativeCube specifies the excludeCubes property. A negative cube is itself a subtraction from another cube; defining excludeCubes on a negative cube would create double-negation semantics and is prohibited."
             },
             {
                 "relatedName": "oimte:instantWithDurationProperties",
@@ -7224,13 +7012,31 @@
                 "relatedName": "oimte:invalidUnitObject",
                 "language": "en",
                 "labelType": "xbrl:errorMessage",
-                "value": "The unit '{unitName}' referenced in stringRepresentations is not a valid unit object."
+                "value": "The unit '{unitName}' referenced in compositeUnitRepresentation is not a valid unit object."
             },
             {
                 "relatedName": "oimte:invalidUnitObject",
                 "language": "en",
                 "labelType": "xbrl:documentation",
-                "value": "Raised when a reference to a unit object in the stringRepresentations property cannot be resolved to a valid unit object in the taxonomy model."
+                "value": "Raised when a reference to a unit object in the compositeUnitRepresentation property cannot be resolved to a valid unit object in the taxonomy model."
+            },
+            {
+                "relatedName": "oimte:unitDataTypeUsedInDefinition",
+                "language": "en",
+                "labelType": "xbrl:label",
+                "value": "Unit Self-Reference in Definition"
+            },
+            {
+                "relatedName": "oimte:unitDataTypeUsedInDefinition",
+                "language": "en",
+                "labelType": "xbrl:errorMessage",
+                "value": "Unit '{unitName}' references itself in compositeUnitRepresentation '{value}'. A unit MUST NOT appear in its own unit string representation."
+            },
+            {
+                "relatedName": "oimte:unitDataTypeUsedInDefinition",
+                "language": "en",
+                "labelType": "xbrl:documentation",
+                "value": "Raised when a unit object's compositeUnitRepresentation contains a unit string representation that includes the unit's own QName (its name property). A unit MUST NOT reference itself — directly or as a component of a composite expression — in its own compositeUnitRepresentation, as this would create a circular unit definition."
             },
             {
                 "relatedName": "oimte:missingSQNameProperty",
@@ -7807,6 +7613,10 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-AllowDomainFactOnConceptDim"
                     }
                 ]
             },
@@ -7825,6 +7635,10 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-AllowDomainFactsOnConceptDimension"
                     }
                 ]
             },
@@ -7879,6 +7693,10 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-InappropriateDimensionReference"
                     }
                 ]
             },
@@ -7922,7 +7740,7 @@
             {
                 "name": "oimte:dimensionNameNotDimensionObjectReference",
                 "relatedNames": [
-                    "oimte:dimensionNameNotDimensionObject"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -7934,13 +7752,17 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-DimensionNotDimensionObject"
                     }
                 ]
             },
             {
                 "name": "oimte:dimensionNameNotDimensionObject2Reference",
                 "relatedNames": [
-                    "oimte:dimensionNameNotDimensionObject"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -7958,7 +7780,7 @@
             {
                 "name": "oimte:invalidCubeTypeReference",
                 "relatedNames": [
-                    "oimte:invalidCubeType"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -7970,13 +7792,17 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#DIMENSION-InvalidCubeTypeReference"
                     }
                 ]
             },
             {
                 "name": "oimte:invalidCubeTypeNoMatchReference",
                 "relatedNames": [
-                    "oimte:invalidCubeType"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -7988,6 +7814,10 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-DimensionCubeTypeDoesNotMatchCubeType"
                     }
                 ]
             },
@@ -8083,6 +7913,94 @@
                 ]
             },
             {
+                "name": "oimte:duplicateRelationshipsReference",
+                "relatedNames": [
+                    "oimte:duplicateRelationships"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-NetworkObjectWithDuplicateRelationships.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#NETWORK-NetworkObjectWithDuplicateRelationships"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:duplicateRelationshipsExtendReference",
+                "relatedNames": [
+                    "oimte:duplicateRelationships"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-ExtendCausesDuplicateRelationship.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#NETWORK-ExtendCausesDuplicateRelationship"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:duplicateRootsReference",
+                "relatedNames": [
+                    "oimte:duplicateRoots"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-ExtendCausesDuplicateRoots.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#NETWORK-ExtendCausesDuplicateRoots"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:duplicateRootsImportReference",
+                "relatedNames": [
+                    "oimte:duplicateRoots"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-ImportCausesDuplicateRoots.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#NETWORK-ImportCausesDuplicateRoots"
+                    }
+                ]
+            },
+            {
                 "name": "oimte:DuplicatePropertyTypeReferenceNames",
                 "relatedNames": [
                     "oimte:duplicateObjects"
@@ -8115,6 +8033,50 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:unitDataTypeUsedInDefinitionSameUnitTypeReference",
+                "relatedNames": [
+                    "oimte:unitDataTypeUsedInDefinition"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "UNIT-UnitWithStringRepresentationSameUnitType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#UNIT-UnitWithStringRepresentationSameUnitType"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:unitDataTypeUsedInDefinitionDuplicateStringRepresentationsReference",
+                "relatedNames": [
+                    "oimte:unitDataTypeUsedInDefinition"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "UNIT-UnitWithDuplicateStringRepresentations.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                       "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#UNIT-UnitWithDuplicateStringRepresentations"
                     }
                 ]
             },
@@ -8320,7 +8282,6 @@
             {
                 "name": "oimte:invalidEntityDomainTargetReference",
                 "relatedNames": [
-                    "oimte:invalidEntityDomainTarget",
                     "oimte:invalidDomainObject"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
@@ -8339,7 +8300,6 @@
             {
                 "name": "oimte:invalidUnitDomainTargetReference",
                 "relatedNames": [
-                    "oimte:invalidUnitDomainTarget",
                     "oimte:invalidDomainObject"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
@@ -8348,6 +8308,24 @@
                     {
                         "property": "xbrl:conformanceTestFileName",
                         "value": "DOMAIN-UnitDomainWIthNonUnit.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidConceptDomainSourceReference",
+                "relatedNames": [
+                    "oimte:invalidDomainObject"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DOMAIN-InvalidConceptDomainSource.json"
                     },
                     {
                         "property": "xbrl:conformanceStatus",
@@ -8483,45 +8461,9 @@
                 ]
             },
             {
-                "name": "oimte:invalidObjectNamespacePrefixReference",
-                "relatedNames": [
-                    "oimte:invalidObjectNamespacePrefix"
-                ],
-                "referenceType": "xbrl:conformanceTestReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:conformanceTestFileName",
-                        "value": "NAMESPACE-RestrictedPrefix.json"
-                    },
-                    {
-                        "property": "xbrl:conformanceStatus",
-                        "value": "\u274c Fail"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidObjectNamespaceImportPrefixReference",
-                "relatedNames": [
-                    "oimte:invalidObjectNamespacePrefix"
-                ],
-                "referenceType": "xbrl:conformanceTestReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:conformanceTestFileName",
-                        "value": "IMPORTTAXONOMY-PassThroughPrefixError.json"
-                    },
-                    {
-                        "property": "xbrl:conformanceStatus",
-                        "value": "\u274c Fail"
-                    }
-                ]
-            },
-            {
                 "name": "oimte:invalidQNameTypeReference",
                 "relatedNames": [
-                    "oimte:invalidQNameReference"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -8533,6 +8475,10 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-InappropriateNetworkReference"
                     }
                 ]
             },
@@ -8557,7 +8503,7 @@
             {
                 "name": "oimte:invalidQNameCubeTypeReference",
                 "relatedNames": [
-                    "oimte:invalidQNameReference"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -8569,6 +8515,10 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBETYPE-BaseCubeTypeIsDimension"
                     }
                 ]
             },
@@ -8597,7 +8547,7 @@
             {
                 "name": "oimte:invalidQNamePeriodConceptNameReference",
                 "relatedNames": [
-                    "oimte:invalidQNameReference"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -8609,13 +8559,17 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-PeriodConstraintConceptNotConcept"
                     }
                 ]
             },
             {
                 "name": "oimte:invalidQNamePeriodContextNameReference",
                 "relatedNames": [
-                    "oimte:invalidQNameReference"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -8627,6 +8581,10 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-PeriodConstraintContextNotConcept"
                     }
                 ]
             },
@@ -8687,7 +8645,7 @@
             {
                 "name": "oimte:invalidQNameCubeType2Reference",
                 "relatedNames": [
-                    "oimte:invalidQNameReference"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
@@ -8695,6 +8653,72 @@
                     {
                         "property": "xbrl:conformanceTestFileName",
                         "value": "CUBE-InappropriateCubeTypeReference.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-InappropriateCubeTypeReference"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidQNameExtendTargetReference",
+                "relatedNames": [
+                    "oimte:invalidQNameType"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DOMAIN-ExtendTargetNameWrongObjectType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#DOMAIN-ExtendTargetNameWrongObjectType"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidQNameNetworkReferencesDomainReference",
+                "relatedNames": [
+                    "oimte:invalidQNameType"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CUBE-NetworkReferencesDomain.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-NetworkReferencesDomain"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidQNameExtendTarget2Reference",
+                "relatedNames": [
+                    "oimte:invalidQNameReference"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "DOMAIN-InvalidExtendTargetNameReference.json"
                     },
                     {
                         "property": "xbrl:conformanceStatus",
@@ -8753,6 +8777,46 @@
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:excludeCubesOnNegativeCubeReference",
+                "relatedNames": [
+                    "oimte:excludeCubesOnNegativeCube"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CUBE-NegativeCubeWithExcludeCubes.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidDataTypeForDomainClass2Reference",
+                "relatedNames": [
+                    "oimte:invalidDataTypeForDomainClass"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CUBE-InvalidEntityDomainDataType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-InvalidEntityDomainDataType"
                     }
                 ]
             },
@@ -9357,7 +9421,6 @@
                 "name": "oimte:missingDomainClassSource4Reference",
                 "relatedNames": [
                     "oimte:missingDomainClassSource",
-                    "oimte:invalidUnitDomainSource",
                     "oimte:invalidDomainObject"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
@@ -9502,18 +9565,106 @@
             {
                 "name": "oimte:invalidDimensionReferenceConformanceReference",
                 "relatedNames": [
-                    "oimte:invalidDimensionReference"
+                    "oimte:invalidQNameReference"
                 ],
                 "referenceType": "xbrl:conformanceTestReference",
                 "language": "en",
                 "properties": [
                     {
                         "property": "xbrl:conformanceTestFileName",
-                        "value": "CUBETYPE-invalidDimensionReference.json"
+                        "value": "CUBETYPE-InvalidDimensionReference.json"
                     },
                     {
                         "property": "xbrl:conformanceStatus",
                         "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBETYPE-InvalidDimensionReference"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidDimensionReferenceTypeConformanceReference",
+                "relatedNames": [
+                    "oimte:invalidQNameType"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CUBETYPE-InvalidDimensionReferenceType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBETYPE-InvalidDimensionReferenceType"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidPreferredLabelQNameTypeConformanceReference",
+                "relatedNames": [
+                    "oimte:invalidQNameType"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-InvalidPreferredLabelQNameType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#NETWORK-InvalidPreferredLabelQNameType"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:invalidExtendCubeWrongTypeConformanceReference",
+                "relatedNames": [
+                    "oimte:invalidQNameType"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "CUBE-InvalidExtendCubeWrongType.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u274c Fail"
+                    },
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#CUBE-InvalidExtendCubeWrongType"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:validPreferredLabelConformanceReference",
+                "relatedNames": [
+                    "oimte:invalidQNameType"
+                ],
+                "referenceType": "xbrl:conformanceTestReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:conformanceTestFileName",
+                        "value": "NETWORK-ValidPreferredLabel.json"
+                    },
+                    {
+                        "property": "xbrl:conformanceStatus",
+                        "value": "\u2705 Pass"
                     }
                 ]
             },
@@ -10177,20 +10328,7 @@
                     }
                 ]
             },
-            {
-                "name": "oimte:dimensionNameNotDimensionObjectSpecReference",
-                "relatedNames": [
-                    "oimte:dimensionNameNotDimensionObject"
-                ],
-                "referenceType": "xbrl:specificationErrorReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-dimensionnamenotdimensionobject"
-                    }
-                ]
-            },
+
             {
                 "name": "oimte:invalidAllowDomainFactsPropertyOnConceptDimensionSpecReference",
                 "relatedNames": [
@@ -10388,62 +10526,6 @@
                 ]
             },
             {
-                "name": "oimte:invalidEntityDomainSourceSpecReference",
-                "relatedNames": [
-                    "oimte:invalidEntityDomainSource"
-                ],
-                "referenceType": "xbrl:specificationErrorReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidentitydomainsource"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidEntityDomainTargetSpecReference",
-                "relatedNames": [
-                    "oimte:invalidEntityDomainTarget"
-                ],
-                "referenceType": "xbrl:specificationErrorReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidentitydomaintarget"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidUnityDomainTargetSpecReference",
-                "relatedNames": [
-                    "oimte:invalidUnitDomainTarget"
-                ],
-                "referenceType": "xbrl:specificationErrorReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidunitdomaintarget"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidUnitDomainSourceSpecReference",
-                "relatedNames": [
-                    "oimte:invalidUnitDomainSource"
-                ],
-                "referenceType": "xbrl:specificationErrorReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidunitdomainsource"
-                    }
-                ]
-            },
-            {
                 "name": "oimte:cannotExtendCompleteDomainSpecReference",
                 "relatedNames": [
                     "oimte:cannotExtendCompleteDomain"
@@ -10514,20 +10596,6 @@
                 ]
             },
             {
-                "name": "oimte:invalidObjectNamespacePrefixSpecReference",
-                "relatedNames": [
-                    "oimte:invalidObjectNamespacePrefix"
-                ],
-                "referenceType": "xbrl:specificationErrorReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidobjectnamespaceprefix"
-                    }
-                ]
-            },
-            {
                 "name": "oimte:invalidQNameReferenceSpecReference",
                 "relatedNames": [
                     "oimte:invalidQNameReference"
@@ -10580,6 +10648,20 @@
                     {
                         "property": "xbrl:specificationErrorURI",
                         "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-excludecubesharesdimensionalspacewithrequiredcube"
+                    }
+                ]
+            },
+            {
+                "name": "oimte:excludeCubesOnNegativeCubeSpecReference",
+                "relatedNames": [
+                    "oimte:excludeCubesOnNegativeCube"
+                ],
+                "referenceType": "xbrl:specificationErrorReference",
+                "language": "en",
+                "properties": [
+                    {
+                        "property": "xbrl:specificationErrorURI",
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-excludecubesonnegativecube"
                     }
                 ]
             },
@@ -10768,14 +10850,14 @@
             {
                 "name": "oimte:invalidCubeTypeSpecReference",
                 "relatedNames": [
-                    "oimte:invalidCubeType"
+                    "oimte:invalidQNameType"
                 ],
                 "referenceType": "xbrl:specificationErrorReference",
                 "language": "en",
                 "properties": [
                     {
                         "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidcubetype"
+                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invalidqnametype"
                     }
                 ]
             },
@@ -10888,20 +10970,6 @@
                     {
                         "property": "xbrl:specificationErrorURI",
                         "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-duplicatecoredimension"
-                    }
-                ]
-            },
-            {
-                "name": "oimte:invalidDimensionReferenceSpecReference",
-                "relatedNames": [
-                    "oimte:invalidDimensionReference"
-                ],
-                "referenceType": "xbrl:specificationErrorReference",
-                "language": "en",
-                "properties": [
-                    {
-                        "property": "xbrl:specificationErrorURI",
-                        "value": "https://oim.ci.xbrl.org/oim/spec-dev-1/Specification/oim-taxonomy/WGWD-YYYY-MM-DD/oim-taxonomy-WGWD-YYYY-MM-DD.html#error-oimte-invaliddimensionreference"
                     }
                 ]
             },

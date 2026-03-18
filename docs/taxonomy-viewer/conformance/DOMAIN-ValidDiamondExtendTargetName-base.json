@@ -1,0 +1,43 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/base",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "VALID: Base taxonomy (A) defining ProductDomain with one concept member. Extended independently by taxonomy B and taxonomy C in the diamond extendTargetName conformance test."
+  },
+  "xbrlModel": {
+    "name": "exp:DiamondBase",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:ProductA",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ],
+    "domainClasses": [
+      {
+        "name": "xbrl:conceptDomain"
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:ProductDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:ProductA"
+          }
+        ],
+        "completeDomain": false
+      }
+    ]
+  }
+}

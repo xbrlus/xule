@@ -155,7 +155,7 @@ The specification defines eight standard cube types that cover common business r
 | `xbrla:timeSeriesCube` | Time series measurements | None | One required typed date/time dimension |
 | `xbrl:positionCube` | Balance positions | period, entity, unit | One required typed dimension |
 | `xbrl:reportCube` | Traditional financial reports | period, entity, unit | Optional explicit/typed dimensions |
-| `xbrl:defaultCube` | Unstructured fact collection | period, entity, unit | Optional any dimensions |
+| `xbrl:openCube` | Unstructured fact collection | period, entity, unit | Optional any dimensions |
 
 Each built-in cube type is precisely defined with specific constraints on dimensions, relationships, and properties, as detailed in the specification.
 

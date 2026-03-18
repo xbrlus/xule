@@ -1,34 +1,38 @@
 {
     "$schema": "../oim-taxonomy-schema.json",
     "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-     	"xbrla": "http://xbrl.org/accounting",
-      "xbrli":"https://xbrl.org/2025/instance",
-      "xs": "http://www.w3.org/2001/XMLSchema"
-    },
-    "documentNamespace": "exp",
-    "urlMapping": {
-              "xbrla": ["../spec-taxonomies/xbrla.json"]
-            },
-    "description": "ERROR: baseCubeType used with forbidden properties. Base type cannot be expanded with new core dimensions."
-  },
-  "xbrlModel": {
-    "name": "exp:CubeTypeBaseCubeTypeWithForbiddenProperties",
-    "version": "2025",
-     "importedTaxonomies": [
-        {
-            "xbrlModelName": "xbrla:AccountingModel"
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrla": "http://xbrl.org/accounting",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: baseCubeType used with forbidden properties. Base type cannot be expanded with new core dimensions.",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
         }
-    ],
-    "cubeTypes": [
-      {
-        "name": "exp:myCubeType",
-        "baseCubeType": "xbrla:eventDetailsCube",
-        "coreDimensions": ["xbrl:concept", "xbrl:unit", "xbrl:entity"]
-      }
-    ]
-  }
+    },
+    "xbrlModel": {
+        "name": "exp:CubeTypeBaseCubeTypeWithForbiddenProperties",
+        "version": "2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "exp:myCubeType",
+                "baseCubeType": "xbrla:eventDetailsCube",
+                "coreDimensions": [
+                    "xbrl:concept",
+                    "xbrl:unit",
+                    "xbrl:entity"
+                ]
+            }
+        ]
+    }
 }

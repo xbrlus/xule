@@ -1,0 +1,73 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy/period/patternduration/invalid",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:redundantPeriodPatternProperty — periodPattern for a duration cannot be combined with the endDate property."
+    },
+    "xbrlModel": {
+        "name": "exp:PeriodConstraintPatternDurationInvalid",
+        "version": "2025",
+        "concepts": [
+            { "name": "exp:Revenue", "dataType": "xs:decimal", "periodType": "duration", "nillable": true }
+        ],
+        "cubes": [
+            {
+                "name": "exp:CalendarYearCubeInvalid",
+                "cubeType": "xbrl:reportCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:ConceptDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "periodConstraints": [
+                            {
+                                "periodType": "duration",
+                                "periodPattern": "YYYY-01-01/YYYY-12-31",
+                                "endDate": { "value": "2025-12-31" }
+                            }
+                        ]
+                    },
+                    {
+                        "dimensionName": "xbrl:unit",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    }
+                ]
+            }
+        ],
+        "domains": [
+            {
+                "name": "exp:ConceptDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    { "source": "xbrl:conceptDomain", "target": "exp:Revenue" }
+                ]
+            }
+        ],
+        "entities": [
+            { "name": "exp:Company1" }
+        ],
+        "facts": [
+            {
+                "name": "exp:f1",
+                "factValues": [{ "name": "exp:fv1", "value": "600000", "decimals": 0 }],
+                "factDimensions": {
+                    "xbrl:concept": "exp:Revenue",
+                    "xbrl:period": "2025-01-01/2025-12-31",
+                    "xbrl:entity": "exp:Company1"
+                }
+            }
+        ]
+    }
+}

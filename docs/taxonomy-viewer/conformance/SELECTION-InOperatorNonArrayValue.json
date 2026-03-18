@@ -1,34 +1,38 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "ext": "http://extension.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xs": "http://www.w3.org/2001/XMLSchema",
-      "exp": "http://example.com/taxonomy"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "ext": "http://extension.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "exp": "http://example.com/taxonomy"
+        },
+        "documentNamespace": "ext",
+        "description": "ERROR: oimte:invalidSelectionExpression - The 'in' operator requires a JSON array as its value but a primitive string is provided. Constraint 7 of the Selection Expression Grammar appendix requires the value for 'in' and 'not in' to be a non-empty JSON array.",
+        "importMapping": {
+            "exp:SampleTaxonomy": "../examples/exampleTaxonomy.json"
+        }
     },
-    "urlMapping": {
-      "exp": ["../examples/exampleTaxonomy.json"]
-    },
-    "documentNamespace": "ext",
-    "description": "ERROR: oimte:invalidSelectionExpression - The 'in' operator requires a JSON array as its value but a primitive string is provided. Constraint 7 of the Selection Expression Grammar appendix requires the value for 'in' and 'not in' to be a non-empty JSON array."
-  },
-  "xbrlModel": {
-    "name": "ext:SelectionInOperatorNonArrayValue",
-    "version": "2025",
-    "importedTaxonomies": [
-      {
-        "xbrlModelName": "exp:SampleTaxonomy",
-        "selections": [
-          {
-            "objectType": "xbrl:conceptObject",
-            "where": [
-              { "property": "periodType", "operator": "in", "value": "instant" }
-            ]
-          }
+    "xbrlModel": {
+        "name": "ext:SelectionInOperatorNonArrayValue",
+        "version": "2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "exp:SampleTaxonomy",
+                "selections": [
+                    {
+                        "objectType": "xbrl:conceptObject",
+                        "where": [
+                            {
+                                "property": "periodType",
+                                "operator": "in",
+                                "value": "instant"
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 }

@@ -12,12 +12,13 @@
             "calc11e": "https://xbrl.org/CR/2022-10-12/error"
         },
         "documentNamespace": "oim-errors",
-        "urlMapping": {
-            "oime":  [".././spec-taxonomies/oime.json"],
-            "oimte": [".././spec-taxonomies/oimte.json"],
-            "specDoc": [".././spec-taxonomies/documentation.json"],
-            "calc11e": [".././spec-taxonomies/calc11e.json"]
-            }
+        "importMapping": {
+            "oime:ErrorsTaxonomy": ".././spec-taxonomies/oime.json",
+            "oimte:ErrorsTaxonomy": ".././spec-taxonomies/oimte.json",
+            "oimce:ErrorsTaxonomy": ".././spec-taxonomies/oimce.json",
+            "specDoc:DocumentationTaxonomy": ".././spec-taxonomies/documentation.json",
+            "calc11e:ErrorsTaxonomy": ".././spec-taxonomies/calc11e.json"
+        }
     },
     "xbrlModel": {
         "name": "oim-errors:CombinedErrorsTaxonomy",
@@ -30,20 +31,27 @@
                 "xbrlModelName": "oimte:ErrorsTaxonomy"
             },
             {
+                "xbrlModelName": "oimce:ErrorsTaxonomy"
+            },
+            {
                 "xbrlModelName": "specDoc:DocumentationTaxonomy"
             },
             {
                 "xbrlModelName": "calc11e:ErrorsTaxonomy"
             }
-            ],
+        ],
         "relationshipTypes": [
-                    {
-                        "name": "oim-errors:implemented-error",
-                        "cycles": "none",
-                        "sourceObjects": ["xbrl:memberObject"],
-                        "targetObjects": ["xbrl:memberObject"]
-                    }
+            {
+                "name": "oim-errors:implemented-error",
+                "cycles": "none",
+                "sourceObjects": [
+                    "xbrl:memberObject"
                 ],
+                "targetObjects": [
+                    "xbrl:memberObject"
+                ]
+            }
+        ],
         "networks": [
             {
                 "name": "oim-errors:ErrorsImplemented",
@@ -52,7 +60,6 @@
                     "oime:invalidJSON",
                     "oime:invalidJSONStructure",
                     "oimte:cubeMissingConceptDimension",
-                    "oimte:dimensionNameNotDimensionObject",
                     "oimte:invalidAllowDomainFactsPropertyOnConceptDimension",
                     "oimte:domainUsedOnPeriodDimension",
                     "oimte:invalidCubeDimensionDomainName",
@@ -71,7 +78,7 @@
                     "oimte:cannotExtendCompleteDomain",
                     "oimte:invalidDomainRelationshipTarget",
                     "oimte:objectNamespacePrefixNotDefined",
-                    "oimte:invalidObjectNamespacePrefix",
+                    "oimce:invalidURIForReservedAlias",
                     "oimte:invalidQNameReference",
                     "oimte:excludeCubeSelfReference",
                     "oimte:duplicateObjects",
@@ -79,10 +86,6 @@
                     "oimte:invalidFinalTaxonomyModification",
                     "oimte:invalidFinalTaxonomyObjectType",
                     "oimte:invalidFinalTaxonomyObject",
-                    "oimte:invalidEntityDomainSource",
-                    "oimte:invalidEntityDomainTarget",
-                    "oimte:invalidUnitDomainSource",
-                    "oimte:invalidUnitDomainTarget",
                     "oimte:unitInNonUnitDomain",
                     "oimte:invalidPeriodConstraintDimension",
                     "oimte:invalidCubeType",

@@ -1,1234 +1,1234 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "cms": "http://example.com/cms",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrli": "https://xbrl.org/2025/instance",
-      "xbrla": "http://xbrl.org/accounting",
-      "xs": "http://www.w3.org/2001/XMLSchema"
-    },
-    "documentNamespace": "cms",
-    "urlMapping": {
-              "xbrla": ["../spec-taxonomies/xbrla.json"]
-            }
-  },
-  "xbrlModel": {
-    "name": "cms:CustomerManagementSystem",
-    "version": "1.0.0",
-    "frameworkName": "https://example.com/cms/2025",
-    "importedTaxonomies": [
-        {
-            "xbrlModelName": "xbrla:AccountingModel"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "cms": "http://example.com/cms",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xbrla": "http://xbrl.org/accounting",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "cms",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
         }
-    ],
-    "dataTypes": [
-      {
-        "name": "cms:CustomerIdType",
-        "baseType": "xs:string"
-      },
-      {
-        "name": "cms:EmailType",
-        "baseType": "xs:string"
-      },
-      {
-        "name": "cms:PhoneType",
-        "baseType": "xs:string"
-      },
-      {
-        "name": "cms:AddressType",
-        "baseType": "xs:string"
-      },
-      {
-        "name": "cms:CurrencyType",
-        "baseType": "xs:decimal"
-      },
-      {
-        "name": "cms:StatusType",
-        "baseType": "xs:string"
-      },
-      {
-        "name": "cms:PriorityType",
-        "baseType": "xs:string"
-      }
-    ],
-    "concepts": [
-      {
-        "name": "cms:CustomerId",
-        "dataType": "cms:CustomerIdType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:CustomerName",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:FirstName",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:LastName",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:Email",
-        "dataType": "cms:EmailType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:PrimaryPhone",
-        "dataType": "cms:PhoneType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:MobilePhone",
-        "dataType": "cms:PhoneType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:StreetAddress",
-        "dataType": "cms:AddressType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:AddressLine2",
-        "dataType": "cms:AddressType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:City",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:State",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:PostalCode",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:Country",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:CustomerStatus",
-        "dataType": "cms:StatusType",
-        "periodType": "instant"
-      },
-      {
-        "name": "cms:CustomerSince",
-        "dataType": "xs:dateTime",
-        "periodType": "instant"
-      },
-      {
-        "name": "cms:LastContactDate",
-        "dataType": "xs:dateTime",
-        "periodType": "instant"
-      },
-      {
-        "name": "cms:CallDate",
-        "dataType": "xs:dateTime",
-        "periodType": "instant"
-      },
-      {
-        "name": "cms:CallDuration",
-        "dataType": "xbrl:integerDataType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:CallNotes",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:CallOutcome",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:FollowUpDate",
-        "dataType": "xs:dateTime",
-        "periodType": "instant"
-      },
-      {
-        "name": "cms:FollowUpPriority",
-        "dataType": "cms:PriorityType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:FollowUpAssignedTo",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:FollowUpCompleted",
-        "dataType": "xbrl:booleanDataType",
-        "periodType": "instant"
-      },
-      {
-        "name": "cms:TransactionId",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:TransactionDate",
-        "dataType": "xs:dateTime",
-        "periodType": "instant"
-      },
-      {
-        "name": "cms:TransactionAmount",
-        "dataType": "cms:CurrencyType",
-        "periodType": "duration",
-        "properties": [
-          {
-            "property": "xbrla:balance",
-            "value": "debit"
-          }
+    },
+    "xbrlModel": {
+        "name": "cms:CustomerManagementSystem",
+        "version": "1.0.0",
+        "frameworkName": "https://example.com/cms/2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+        ],
+        "dataTypes": [
+            {
+                "name": "cms:CustomerIdType",
+                "baseType": "xs:string"
+            },
+            {
+                "name": "cms:EmailType",
+                "baseType": "xs:string"
+            },
+            {
+                "name": "cms:PhoneType",
+                "baseType": "xs:string"
+            },
+            {
+                "name": "cms:AddressType",
+                "baseType": "xs:string"
+            },
+            {
+                "name": "cms:CurrencyType",
+                "baseType": "xs:decimal"
+            },
+            {
+                "name": "cms:StatusType",
+                "baseType": "xs:string"
+            },
+            {
+                "name": "cms:PriorityType",
+                "baseType": "xs:string"
+            }
+        ],
+        "concepts": [
+            {
+                "name": "cms:CustomerId",
+                "dataType": "cms:CustomerIdType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:CustomerName",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:FirstName",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:LastName",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:Email",
+                "dataType": "cms:EmailType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:PrimaryPhone",
+                "dataType": "cms:PhoneType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:MobilePhone",
+                "dataType": "cms:PhoneType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:StreetAddress",
+                "dataType": "cms:AddressType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:AddressLine2",
+                "dataType": "cms:AddressType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:City",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:State",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:PostalCode",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:Country",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:CustomerStatus",
+                "dataType": "cms:StatusType",
+                "periodType": "instant"
+            },
+            {
+                "name": "cms:CustomerSince",
+                "dataType": "xs:dateTime",
+                "periodType": "instant"
+            },
+            {
+                "name": "cms:LastContactDate",
+                "dataType": "xs:dateTime",
+                "periodType": "instant"
+            },
+            {
+                "name": "cms:CallDate",
+                "dataType": "xs:dateTime",
+                "periodType": "instant"
+            },
+            {
+                "name": "cms:CallDuration",
+                "dataType": "xbrl:integerDataType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:CallNotes",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:CallOutcome",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:FollowUpDate",
+                "dataType": "xs:dateTime",
+                "periodType": "instant"
+            },
+            {
+                "name": "cms:FollowUpPriority",
+                "dataType": "cms:PriorityType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:FollowUpAssignedTo",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:FollowUpCompleted",
+                "dataType": "xbrl:booleanDataType",
+                "periodType": "instant"
+            },
+            {
+                "name": "cms:TransactionId",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:TransactionDate",
+                "dataType": "xs:dateTime",
+                "periodType": "instant"
+            },
+            {
+                "name": "cms:TransactionAmount",
+                "dataType": "cms:CurrencyType",
+                "periodType": "duration",
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "debit"
+                    }
+                ]
+            },
+            {
+                "name": "cms:TransactionType",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:TransactionDescription",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:PaymentMethod",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:TotalRevenue",
+                "dataType": "cms:CurrencyType",
+                "periodType": "duration",
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "credit"
+                    }
+                ]
+            },
+            {
+                "name": "cms:LifetimeValue",
+                "dataType": "cms:CurrencyType",
+                "periodType": "duration",
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "credit"
+                    }
+                ]
+            },
+            {
+                "name": "cms:NumberOfTransactions",
+                "dataType": "xbrl:integerDataType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:NumberOfCalls",
+                "dataType": "xbrl:integerDataType",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:CustomerSatisfactionScore",
+                "dataType": "xs:decimal",
+                "periodType": "duration"
+            },
+            {
+                "name": "cms:Notes",
+                "dataType": "xs:string",
+                "periodType": "duration"
+            }
+        ],
+        "dimensions": [
+            {
+                "name": "cms:CustomerDimension",
+                "domainClass": "cms:AllCustomers"
+            },
+            {
+                "name": "cms:TimePeriodDimension",
+                "domainClass": "cms:Year2024"
+            },
+            {
+                "name": "cms:InteractionTypeDimension",
+                "domainClass": "cms:PhoneCall"
+            },
+            {
+                "name": "cms:TransactionTypeDimension",
+                "domainClass": "cms:Purchase"
+            },
+            {
+                "name": "cms:GeographyDimension",
+                "domainClass": "cms:NorthAmerica"
+            },
+            {
+                "name": "cms:SalesRepDimension",
+                "domainClass": "cms:AllSalesReps"
+            }
+        ],
+        "domains": [
+            {
+                "name": "cms:CustomerDomain",
+                "root": "cms:AllCustomers",
+                "relationships": []
+            },
+            {
+                "name": "cms:TimePeriodDomain",
+                "root": "cms:Year2024",
+                "relationships": [
+                    {
+                        "source": "cms:Year2024",
+                        "target": "cms:Q1"
+                    },
+                    {
+                        "source": "cms:Year2024",
+                        "target": "cms:Q2"
+                    },
+                    {
+                        "source": "cms:Year2024",
+                        "target": "cms:Q3"
+                    },
+                    {
+                        "source": "cms:Year2024",
+                        "target": "cms:Q4"
+                    },
+                    {
+                        "source": "cms:Year2024",
+                        "target": "cms:Year2025"
+                    }
+                ]
+            },
+            {
+                "name": "cms:InteractionTypeDomain",
+                "root": "cms:PhoneCall",
+                "relationships": [
+                    {
+                        "source": "cms:PhoneCall",
+                        "target": "cms:EmailInteraction"
+                    },
+                    {
+                        "source": "cms:PhoneCall",
+                        "target": "cms:InPersonMeeting"
+                    },
+                    {
+                        "source": "cms:PhoneCall",
+                        "target": "cms:ChatSupport"
+                    }
+                ]
+            },
+            {
+                "name": "cms:TransactionTypeDomain",
+                "root": "cms:Purchase",
+                "relationships": [
+                    {
+                        "source": "cms:Purchase",
+                        "target": "cms:Return"
+                    },
+                    {
+                        "source": "cms:Purchase",
+                        "target": "cms:Service"
+                    },
+                    {
+                        "source": "cms:Purchase",
+                        "target": "cms:Subscription"
+                    }
+                ]
+            },
+            {
+                "name": "cms:GeographyDomain",
+                "root": "cms:NorthAmerica",
+                "relationships": [
+                    {
+                        "source": "cms:NorthAmerica",
+                        "target": "cms:Europe"
+                    },
+                    {
+                        "source": "cms:NorthAmerica",
+                        "target": "cms:AsiaPacific"
+                    }
+                ]
+            },
+            {
+                "name": "cms:SalesRepDomain",
+                "root": "cms:AllSalesReps",
+                "relationships": []
+            }
+        ],
+        "members": [
+            {
+                "name": "cms:AllCustomers"
+            },
+            {
+                "name": "cms:Year2024"
+            },
+            {
+                "name": "cms:Year2025"
+            },
+            {
+                "name": "cms:Q1"
+            },
+            {
+                "name": "cms:Q2"
+            },
+            {
+                "name": "cms:Q3"
+            },
+            {
+                "name": "cms:Q4"
+            },
+            {
+                "name": "cms:PhoneCall"
+            },
+            {
+                "name": "cms:EmailInteraction"
+            },
+            {
+                "name": "cms:InPersonMeeting"
+            },
+            {
+                "name": "cms:ChatSupport"
+            },
+            {
+                "name": "cms:Purchase"
+            },
+            {
+                "name": "cms:Return"
+            },
+            {
+                "name": "cms:Service"
+            },
+            {
+                "name": "cms:Subscription"
+            },
+            {
+                "name": "cms:NorthAmerica"
+            },
+            {
+                "name": "cms:Europe"
+            },
+            {
+                "name": "cms:AsiaPacific"
+            },
+            {
+                "name": "cms:AllSalesReps"
+            }
+        ],
+        "domainClasses": [
+            {
+                "name": "cms:AllCustomers"
+            },
+            {
+                "name": "cms:Year2024"
+            },
+            {
+                "name": "cms:PhoneCall"
+            },
+            {
+                "name": "cms:Purchase"
+            },
+            {
+                "name": "cms:NorthAmerica"
+            },
+            {
+                "name": "cms:AllSalesReps"
+            }
+        ],
+        "cubes": [
+            {
+                "name": "cms:CustomerProfileCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "cms:CustomerDimension",
+                        "domainName": "cms:CustomerDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit"
+                    }
+                ]
+            },
+            {
+                "name": "cms:CustomerCallsCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "cms:CustomerDimension",
+                        "domainName": "cms:CustomerDomain"
+                    },
+                    {
+                        "dimensionName": "cms:TimePeriodDimension",
+                        "domainName": "cms:TimePeriodDomain"
+                    },
+                    {
+                        "dimensionName": "cms:InteractionTypeDimension",
+                        "domainName": "cms:InteractionTypeDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit"
+                    }
+                ]
+            },
+            {
+                "name": "cms:FollowUpCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "cms:CustomerDimension",
+                        "domainName": "cms:CustomerDomain"
+                    },
+                    {
+                        "dimensionName": "cms:TimePeriodDimension",
+                        "domainName": "cms:TimePeriodDomain"
+                    },
+                    {
+                        "dimensionName": "cms:SalesRepDimension",
+                        "domainName": "cms:SalesRepDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit"
+                    }
+                ]
+            },
+            {
+                "name": "cms:TransactionHistoryCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "cms:CustomerDimension",
+                        "domainName": "cms:CustomerDomain"
+                    },
+                    {
+                        "dimensionName": "cms:TimePeriodDimension",
+                        "domainName": "cms:TimePeriodDomain"
+                    },
+                    {
+                        "dimensionName": "cms:TransactionTypeDimension",
+                        "domainName": "cms:TransactionTypeDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit"
+                    }
+                ]
+            },
+            {
+                "name": "cms:CustomerAnalyticsCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "cms:CustomerDimension",
+                        "domainName": "cms:CustomerDomain"
+                    },
+                    {
+                        "dimensionName": "cms:TimePeriodDimension",
+                        "domainName": "cms:TimePeriodDomain"
+                    },
+                    {
+                        "dimensionName": "cms:GeographyDimension",
+                        "domainName": "cms:GeographyDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit"
+                    }
+                ]
+            }
+        ],
+        "groups": [
+            {
+                "name": "cms:CustomerInformationGroup"
+            },
+            {
+                "name": "cms:CustomerAddressGroup"
+            },
+            {
+                "name": "cms:CallInformationGroup"
+            },
+            {
+                "name": "cms:FollowUpGroup"
+            },
+            {
+                "name": "cms:TransactionGroup"
+            },
+            {
+                "name": "cms:CustomerMetricsGroup"
+            }
+        ],
+        "groupContents": [
+            {
+                "groupName": "cms:CustomerInformationGroup",
+                "relatedNames": [
+                    "cms:CustomerId",
+                    "cms:CustomerName",
+                    "cms:FirstName",
+                    "cms:LastName",
+                    "cms:Email",
+                    "cms:PrimaryPhone",
+                    "cms:MobilePhone",
+                    "cms:CustomerStatus",
+                    "cms:CustomerSince"
+                ]
+            },
+            {
+                "groupName": "cms:CustomerAddressGroup",
+                "relatedNames": [
+                    "cms:StreetAddress",
+                    "cms:AddressLine2",
+                    "cms:City",
+                    "cms:State",
+                    "cms:PostalCode",
+                    "cms:Country"
+                ]
+            },
+            {
+                "groupName": "cms:CallInformationGroup",
+                "relatedNames": [
+                    "cms:CallDate",
+                    "cms:CallDuration",
+                    "cms:CallNotes",
+                    "cms:CallOutcome",
+                    "cms:LastContactDate"
+                ]
+            },
+            {
+                "groupName": "cms:FollowUpGroup",
+                "relatedNames": [
+                    "cms:FollowUpDate",
+                    "cms:FollowUpPriority",
+                    "cms:FollowUpAssignedTo",
+                    "cms:FollowUpCompleted"
+                ]
+            },
+            {
+                "groupName": "cms:TransactionGroup",
+                "relatedNames": [
+                    "cms:TransactionId",
+                    "cms:TransactionDate",
+                    "cms:TransactionAmount",
+                    "cms:TransactionType",
+                    "cms:TransactionDescription",
+                    "cms:PaymentMethod"
+                ]
+            },
+            {
+                "groupName": "cms:CustomerMetricsGroup",
+                "relatedNames": [
+                    "cms:TotalRevenue",
+                    "cms:LifetimeValue",
+                    "cms:NumberOfTransactions",
+                    "cms:NumberOfCalls",
+                    "cms:CustomerSatisfactionScore"
+                ]
+            }
+        ],
+        "labels": [
+            {
+                "relatedName": "cms:CustomerManagementSystem",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Customer Management System"
+            },
+            {
+                "relatedName": "cms:CustomerId",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Customer ID"
+            },
+            {
+                "relatedName": "cms:CustomerName",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Customer Name"
+            },
+            {
+                "relatedName": "cms:CustomerProfileCube",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Customer Profile"
+            },
+            {
+                "relatedName": "cms:CustomerCallsCube",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Customer Calls"
+            },
+            {
+                "relatedName": "cms:FollowUpCube",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Follow-Up Activities"
+            },
+            {
+                "relatedName": "cms:TransactionHistoryCube",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Transaction History"
+            },
+            {
+                "relatedName": "cms:CustomerAnalyticsCube",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Customer Analytics"
+            },
+            {
+                "relatedName": "cms:CustomerInformationGroup",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Customer Information"
+            },
+            {
+                "relatedName": "cms:CallInformationGroup",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Call Information"
+            },
+            {
+                "relatedName": "cms:FollowUpGroup",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Follow-Up Tasks"
+            },
+            {
+                "relatedName": "cms:TransactionGroup",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Transaction Details"
+            },
+            {
+                "relatedName": "cms:CustomerManagementSystem",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer Management System Taxonomy - defines concepts, dimensions, and structures for customer relationship management, interactions, and transaction history"
+            },
+            {
+                "relatedName": "cms:CustomerId",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Unique customer identifier"
+            },
+            {
+                "relatedName": "cms:CustomerName",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Full name of the customer"
+            },
+            {
+                "relatedName": "cms:FirstName",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer's first name"
+            },
+            {
+                "relatedName": "cms:LastName",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer's last name"
+            },
+            {
+                "relatedName": "cms:Email",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer's email address"
+            },
+            {
+                "relatedName": "cms:PrimaryPhone",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer's primary phone number"
+            },
+            {
+                "relatedName": "cms:MobilePhone",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer's mobile phone number"
+            },
+            {
+                "relatedName": "cms:StreetAddress",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Street address line 1"
+            },
+            {
+                "relatedName": "cms:AddressLine2",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Street address line 2"
+            },
+            {
+                "relatedName": "cms:City",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "City name"
+            },
+            {
+                "relatedName": "cms:State",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "State or province"
+            },
+            {
+                "relatedName": "cms:PostalCode",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Postal or ZIP code"
+            },
+            {
+                "relatedName": "cms:Country",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Country name"
+            },
+            {
+                "relatedName": "cms:CustomerStatus",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Current status of the customer (Active, Inactive, Prospective, etc.)"
+            },
+            {
+                "relatedName": "cms:CustomerSince",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Date when customer relationship began"
+            },
+            {
+                "relatedName": "cms:LastContactDate",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Date of last contact with customer"
+            },
+            {
+                "relatedName": "cms:CallDate",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Date when call was made"
+            },
+            {
+                "relatedName": "cms:CallDuration",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Duration of call in minutes"
+            },
+            {
+                "relatedName": "cms:CallNotes",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Notes from the customer call"
+            },
+            {
+                "relatedName": "cms:CallOutcome",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Outcome of the call (Resolved, Follow-up Required, No Answer, etc.)"
+            },
+            {
+                "relatedName": "cms:FollowUpDate",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Scheduled date for follow-up"
+            },
+            {
+                "relatedName": "cms:FollowUpPriority",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Priority level for follow-up (High, Medium, Low)"
+            },
+            {
+                "relatedName": "cms:FollowUpAssignedTo",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Staff member assigned to follow-up"
+            },
+            {
+                "relatedName": "cms:FollowUpCompleted",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Whether follow-up has been completed"
+            },
+            {
+                "relatedName": "cms:TransactionId",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Unique identifier for a transaction"
+            },
+            {
+                "relatedName": "cms:TransactionDate",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Date of the transaction"
+            },
+            {
+                "relatedName": "cms:TransactionAmount",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Monetary value of the transaction"
+            },
+            {
+                "relatedName": "cms:TransactionType",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Type of transaction (Purchase, Return, Service, etc.)"
+            },
+            {
+                "relatedName": "cms:TransactionDescription",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Description of the transaction"
+            },
+            {
+                "relatedName": "cms:PaymentMethod",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Method of payment (Credit Card, Cash, Check, etc.)"
+            },
+            {
+                "relatedName": "cms:TotalRevenue",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Total revenue from customer"
+            },
+            {
+                "relatedName": "cms:LifetimeValue",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer lifetime value"
+            },
+            {
+                "relatedName": "cms:NumberOfTransactions",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Total number of transactions"
+            },
+            {
+                "relatedName": "cms:NumberOfCalls",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Total number of calls made to/from customer"
+            },
+            {
+                "relatedName": "cms:CustomerSatisfactionScore",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer satisfaction score (e.g., 1-10)"
+            },
+            {
+                "relatedName": "cms:Notes",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "General notes about the customer"
+            },
+            {
+                "relatedName": "cms:CustomerDimension",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Dimension for identifying specific customers"
+            },
+            {
+                "relatedName": "cms:TimePeriodDimension",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Dimension for time periods (year, quarter, month)"
+            },
+            {
+                "relatedName": "cms:InteractionTypeDimension",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Dimension for types of customer interactions"
+            },
+            {
+                "relatedName": "cms:TransactionTypeDimension",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Dimension for types of transactions"
+            },
+            {
+                "relatedName": "cms:GeographyDimension",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Dimension for geographic regions"
+            },
+            {
+                "relatedName": "cms:SalesRepDimension",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Dimension for sales representatives"
+            },
+            {
+                "relatedName": "cms:CustomerDomain",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Domain containing all customers"
+            },
+            {
+                "relatedName": "cms:TimePeriodDomain",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Domain containing time period members"
+            },
+            {
+                "relatedName": "cms:InteractionTypeDomain",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Domain containing interaction type members"
+            },
+            {
+                "relatedName": "cms:TransactionTypeDomain",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Domain containing transaction type members"
+            },
+            {
+                "relatedName": "cms:GeographyDomain",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Domain containing geographic regions"
+            },
+            {
+                "relatedName": "cms:SalesRepDomain",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Domain containing sales representative members"
+            },
+            {
+                "relatedName": "cms:AllCustomers",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "All customers (root member)"
+            },
+            {
+                "relatedName": "cms:Year2024",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Year 2024"
+            },
+            {
+                "relatedName": "cms:Year2025",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Year 2025"
+            },
+            {
+                "relatedName": "cms:Q1",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Quarter 1"
+            },
+            {
+                "relatedName": "cms:Q2",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Quarter 2"
+            },
+            {
+                "relatedName": "cms:Q3",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Quarter 3"
+            },
+            {
+                "relatedName": "cms:Q4",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Quarter 4"
+            },
+            {
+                "relatedName": "cms:PhoneCall",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Phone call interaction"
+            },
+            {
+                "relatedName": "cms:EmailInteraction",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Email interaction"
+            },
+            {
+                "relatedName": "cms:InPersonMeeting",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "In-person meeting"
+            },
+            {
+                "relatedName": "cms:ChatSupport",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Online chat support"
+            },
+            {
+                "relatedName": "cms:Purchase",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Purchase transaction"
+            },
+            {
+                "relatedName": "cms:Return",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Return transaction"
+            },
+            {
+                "relatedName": "cms:Service",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Service transaction"
+            },
+            {
+                "relatedName": "cms:Subscription",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Subscription transaction"
+            },
+            {
+                "relatedName": "cms:NorthAmerica",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "North America region"
+            },
+            {
+                "relatedName": "cms:Europe",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Europe region"
+            },
+            {
+                "relatedName": "cms:AsiaPacific",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Asia Pacific region"
+            },
+            {
+                "relatedName": "cms:CustomerProfileCube",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer profile and demographic information"
+            },
+            {
+                "relatedName": "cms:CustomerCallsCube",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer call interactions and outcomes"
+            },
+            {
+                "relatedName": "cms:FollowUpCube",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Follow-up activities and tasks"
+            },
+            {
+                "relatedName": "cms:TransactionHistoryCube",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Historical transaction data"
+            },
+            {
+                "relatedName": "cms:CustomerAnalyticsCube",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer analytics and metrics"
+            },
+            {
+                "relatedName": "cms:CustomerInformationGroup",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer basic information and contact details"
+            },
+            {
+                "relatedName": "cms:CustomerAddressGroup",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer address information"
+            },
+            {
+                "relatedName": "cms:CallInformationGroup",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Call details and outcomes"
+            },
+            {
+                "relatedName": "cms:FollowUpGroup",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Follow-up tasks and scheduling"
+            },
+            {
+                "relatedName": "cms:TransactionGroup",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Transaction details and history"
+            },
+            {
+                "relatedName": "cms:CustomerMetricsGroup",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "Customer metrics and analytics"
+            },
+            {
+                "relatedName": "cms:AllSalesReps",
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "value": "All sales representatives (root member)"
+            }
         ]
-      },
-      {
-        "name": "cms:TransactionType",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:TransactionDescription",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:PaymentMethod",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:TotalRevenue",
-        "dataType": "cms:CurrencyType",
-        "periodType": "duration",
-        "properties": [
-          {
-            "property": "xbrla:balance",
-            "value": "credit"
-          }
-        ]
-      },
-      {
-        "name": "cms:LifetimeValue",
-        "dataType": "cms:CurrencyType",
-        "periodType": "duration",
-        "properties": [
-          {
-            "property": "xbrla:balance",
-            "value": "credit"
-          }
-        ]
-      },
-      {
-        "name": "cms:NumberOfTransactions",
-        "dataType": "xbrl:integerDataType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:NumberOfCalls",
-        "dataType": "xbrl:integerDataType",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:CustomerSatisfactionScore",
-        "dataType": "xs:decimal",
-        "periodType": "duration"
-      },
-      {
-        "name": "cms:Notes",
-        "dataType": "xs:string",
-        "periodType": "duration"
-      }
-    ],
-    "dimensions": [
-      {
-        "name": "cms:CustomerDimension",
-        "domainClass": "cms:AllCustomers"
-      },
-      {
-        "name": "cms:TimePeriodDimension",
-        "domainClass": "cms:Year2024"
-      },
-      {
-        "name": "cms:InteractionTypeDimension",
-        "domainClass": "cms:PhoneCall"
-      },
-      {
-        "name": "cms:TransactionTypeDimension",
-        "domainClass": "cms:Purchase"
-      },
-      {
-        "name": "cms:GeographyDimension",
-        "domainClass": "cms:NorthAmerica"
-      },
-      {
-        "name": "cms:SalesRepDimension",
-        "domainClass": "cms:AllSalesReps"
-      }
-    ],
-    "domains": [
-      {
-        "name": "cms:CustomerDomain",
-        "root": "cms:AllCustomers",
-        "relationships": []
-      },
-      {
-        "name": "cms:TimePeriodDomain",
-        "root": "cms:Year2024",
-        "relationships": [
-          {
-            "source": "cms:Year2024",
-            "target": "cms:Q1"
-          },
-          {
-            "source": "cms:Year2024",
-            "target": "cms:Q2"
-          },
-          {
-            "source": "cms:Year2024",
-            "target": "cms:Q3"
-          },
-          {
-            "source": "cms:Year2024",
-            "target": "cms:Q4"
-          },
-          {
-            "source": "cms:Year2024",
-            "target": "cms:Year2025"
-          }
-        ]
-      },
-      {
-        "name": "cms:InteractionTypeDomain",
-        "root": "cms:PhoneCall",
-        "relationships": [
-          {
-            "source": "cms:PhoneCall",
-            "target": "cms:EmailInteraction"
-          },
-          {
-            "source": "cms:PhoneCall",
-            "target": "cms:InPersonMeeting"
-          },
-          {
-            "source": "cms:PhoneCall",
-            "target": "cms:ChatSupport"
-          }
-        ]
-      },
-      {
-        "name": "cms:TransactionTypeDomain",
-        "root": "cms:Purchase",
-        "relationships": [
-          {
-            "source": "cms:Purchase",
-            "target": "cms:Return"
-          },
-          {
-            "source": "cms:Purchase",
-            "target": "cms:Service"
-          },
-          {
-            "source": "cms:Purchase",
-            "target": "cms:Subscription"
-          }
-        ]
-      },
-      {
-        "name": "cms:GeographyDomain",
-        "root": "cms:NorthAmerica",
-        "relationships": [
-          {
-            "source": "cms:NorthAmerica",
-            "target": "cms:Europe"
-          },
-          {
-            "source": "cms:NorthAmerica",
-            "target": "cms:AsiaPacific"
-          }
-        ]
-      },
-      {
-        "name": "cms:SalesRepDomain",
-        "root": "cms:AllSalesReps",
-        "relationships": []
-      }
-    ],
-    "members": [
-      {
-        "name": "cms:AllCustomers"
-      },
-      {
-        "name": "cms:Year2024"
-      },
-      {
-        "name": "cms:Year2025"
-      },
-      {
-        "name": "cms:Q1"
-      },
-      {
-        "name": "cms:Q2"
-      },
-      {
-        "name": "cms:Q3"
-      },
-      {
-        "name": "cms:Q4"
-      },
-      {
-        "name": "cms:PhoneCall"
-      },
-      {
-        "name": "cms:EmailInteraction"
-      },
-      {
-        "name": "cms:InPersonMeeting"
-      },
-      {
-        "name": "cms:ChatSupport"
-      },
-      {
-        "name": "cms:Purchase"
-      },
-      {
-        "name": "cms:Return"
-      },
-      {
-        "name": "cms:Service"
-      },
-      {
-        "name": "cms:Subscription"
-      },
-      {
-        "name": "cms:NorthAmerica"
-      },
-      {
-        "name": "cms:Europe"
-      },
-      {
-        "name": "cms:AsiaPacific"
-      },
-      {
-        "name": "cms:AllSalesReps"
-      }
-    ],
-    "domainClasses": [
-      {
-        "name": "cms:AllCustomers"
-      },
-      {
-        "name": "cms:Year2024"
-      },
-      {
-        "name": "cms:PhoneCall"
-      },
-      {
-        "name": "cms:Purchase"
-      },
-      {
-        "name": "cms:NorthAmerica"
-      },
-      {
-        "name": "cms:AllSalesReps"
-      }
-    ],
-    "cubes": [
-      {
-        "name": "cms:CustomerProfileCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "xbrl:concept",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "cms:CustomerDimension",
-            "domainName": "cms:CustomerDomain"
-          },
-          {
-            "dimensionName": "xbrl:period",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "xbrl:entity"
-          },
-          {
-            "dimensionName": "xbrl:unit"
-          }
-        ]
-      },
-      {
-        "name": "cms:CustomerCallsCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "xbrl:concept",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "cms:CustomerDimension",
-            "domainName": "cms:CustomerDomain"
-          },
-          {
-            "dimensionName": "cms:TimePeriodDimension",
-            "domainName": "cms:TimePeriodDomain"
-          },
-          {
-            "dimensionName": "cms:InteractionTypeDimension",
-            "domainName": "cms:InteractionTypeDomain"
-          },
-          {
-            "dimensionName": "xbrl:period",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "xbrl:entity"
-          },
-          {
-            "dimensionName": "xbrl:unit"
-          }
-        ]
-      },
-      {
-        "name": "cms:FollowUpCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "xbrl:concept",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "cms:CustomerDimension",
-            "domainName": "cms:CustomerDomain"
-          },
-          {
-            "dimensionName": "cms:TimePeriodDimension",
-            "domainName": "cms:TimePeriodDomain"
-          },
-          {
-            "dimensionName": "cms:SalesRepDimension",
-            "domainName": "cms:SalesRepDomain"
-          },
-          {
-            "dimensionName": "xbrl:period",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "xbrl:entity"
-          },
-          {
-            "dimensionName": "xbrl:unit"
-          }
-        ]
-      },
-      {
-        "name": "cms:TransactionHistoryCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "xbrl:concept",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "cms:CustomerDimension",
-            "domainName": "cms:CustomerDomain"
-          },
-          {
-            "dimensionName": "cms:TimePeriodDimension",
-            "domainName": "cms:TimePeriodDomain"
-          },
-          {
-            "dimensionName": "cms:TransactionTypeDimension",
-            "domainName": "cms:TransactionTypeDomain"
-          },
-          {
-            "dimensionName": "xbrl:period",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "xbrl:entity"
-          },
-          {
-            "dimensionName": "xbrl:unit"
-          }
-        ]
-      },
-      {
-        "name": "cms:CustomerAnalyticsCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "xbrl:concept",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "cms:CustomerDimension",
-            "domainName": "cms:CustomerDomain"
-          },
-          {
-            "dimensionName": "cms:TimePeriodDimension",
-            "domainName": "cms:TimePeriodDomain"
-          },
-          {
-            "dimensionName": "cms:GeographyDimension",
-            "domainName": "cms:GeographyDomain"
-          },
-          {
-            "dimensionName": "xbrl:period",
-            "allowDomainFacts": true
-          },
-          {
-            "dimensionName": "xbrl:entity"
-          },
-          {
-            "dimensionName": "xbrl:unit"
-          }
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "name": "cms:CustomerInformationGroup"
-      },
-      {
-        "name": "cms:CustomerAddressGroup"
-      },
-      {
-        "name": "cms:CallInformationGroup"
-      },
-      {
-        "name": "cms:FollowUpGroup"
-      },
-      {
-        "name": "cms:TransactionGroup"
-      },
-      {
-        "name": "cms:CustomerMetricsGroup"
-      }
-    ],
-    "groupContents": [
-      {
-        "groupName": "cms:CustomerInformationGroup",
-        "relatedNames": [
-          "cms:CustomerId",
-          "cms:CustomerName",
-          "cms:FirstName",
-          "cms:LastName",
-          "cms:Email",
-          "cms:PrimaryPhone",
-          "cms:MobilePhone",
-          "cms:CustomerStatus",
-          "cms:CustomerSince"
-        ]
-      },
-      {
-        "groupName": "cms:CustomerAddressGroup",
-        "relatedNames": [
-          "cms:StreetAddress",
-          "cms:AddressLine2",
-          "cms:City",
-          "cms:State",
-          "cms:PostalCode",
-          "cms:Country"
-        ]
-      },
-      {
-        "groupName": "cms:CallInformationGroup",
-        "relatedNames": [
-          "cms:CallDate",
-          "cms:CallDuration",
-          "cms:CallNotes",
-          "cms:CallOutcome",
-          "cms:LastContactDate"
-        ]
-      },
-      {
-        "groupName": "cms:FollowUpGroup",
-        "relatedNames": [
-          "cms:FollowUpDate",
-          "cms:FollowUpPriority",
-          "cms:FollowUpAssignedTo",
-          "cms:FollowUpCompleted"
-        ]
-      },
-      {
-        "groupName": "cms:TransactionGroup",
-        "relatedNames": [
-          "cms:TransactionId",
-          "cms:TransactionDate",
-          "cms:TransactionAmount",
-          "cms:TransactionType",
-          "cms:TransactionDescription",
-          "cms:PaymentMethod"
-        ]
-      },
-      {
-        "groupName": "cms:CustomerMetricsGroup",
-        "relatedNames": [
-          "cms:TotalRevenue",
-          "cms:LifetimeValue",
-          "cms:NumberOfTransactions",
-          "cms:NumberOfCalls",
-          "cms:CustomerSatisfactionScore"
-        ]
-      }
-    ],
-    "labels": [
-      {
-        "relatedName": "cms:CustomerManagementSystem",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Customer Management System"
-      },
-      {
-        "relatedName": "cms:CustomerId",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Customer ID"
-      },
-      {
-        "relatedName": "cms:CustomerName",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Customer Name"
-      },
-      {
-        "relatedName": "cms:CustomerProfileCube",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Customer Profile"
-      },
-      {
-        "relatedName": "cms:CustomerCallsCube",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Customer Calls"
-      },
-      {
-        "relatedName": "cms:FollowUpCube",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Follow-Up Activities"
-      },
-      {
-        "relatedName": "cms:TransactionHistoryCube",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Transaction History"
-      },
-      {
-        "relatedName": "cms:CustomerAnalyticsCube",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Customer Analytics"
-      },
-      {
-        "relatedName": "cms:CustomerInformationGroup",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Customer Information"
-      },
-      {
-        "relatedName": "cms:CallInformationGroup",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Call Information"
-      },
-      {
-        "relatedName": "cms:FollowUpGroup",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Follow-Up Tasks"
-      },
-      {
-        "relatedName": "cms:TransactionGroup",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Transaction Details"
-      },
-      {
-        "relatedName": "cms:CustomerManagementSystem",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer Management System Taxonomy - defines concepts, dimensions, and structures for customer relationship management, interactions, and transaction history"
-      },
-      {
-        "relatedName": "cms:CustomerId",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Unique customer identifier"
-      },
-      {
-        "relatedName": "cms:CustomerName",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Full name of the customer"
-      },
-      {
-        "relatedName": "cms:FirstName",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer's first name"
-      },
-      {
-        "relatedName": "cms:LastName",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer's last name"
-      },
-      {
-        "relatedName": "cms:Email",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer's email address"
-      },
-      {
-        "relatedName": "cms:PrimaryPhone",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer's primary phone number"
-      },
-      {
-        "relatedName": "cms:MobilePhone",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer's mobile phone number"
-      },
-      {
-        "relatedName": "cms:StreetAddress",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Street address line 1"
-      },
-      {
-        "relatedName": "cms:AddressLine2",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Street address line 2"
-      },
-      {
-        "relatedName": "cms:City",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "City name"
-      },
-      {
-        "relatedName": "cms:State",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "State or province"
-      },
-      {
-        "relatedName": "cms:PostalCode",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Postal or ZIP code"
-      },
-      {
-        "relatedName": "cms:Country",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Country name"
-      },
-      {
-        "relatedName": "cms:CustomerStatus",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Current status of the customer (Active, Inactive, Prospective, etc.)"
-      },
-      {
-        "relatedName": "cms:CustomerSince",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Date when customer relationship began"
-      },
-      {
-        "relatedName": "cms:LastContactDate",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Date of last contact with customer"
-      },
-      {
-        "relatedName": "cms:CallDate",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Date when call was made"
-      },
-      {
-        "relatedName": "cms:CallDuration",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Duration of call in minutes"
-      },
-      {
-        "relatedName": "cms:CallNotes",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Notes from the customer call"
-      },
-      {
-        "relatedName": "cms:CallOutcome",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Outcome of the call (Resolved, Follow-up Required, No Answer, etc.)"
-      },
-      {
-        "relatedName": "cms:FollowUpDate",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Scheduled date for follow-up"
-      },
-      {
-        "relatedName": "cms:FollowUpPriority",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Priority level for follow-up (High, Medium, Low)"
-      },
-      {
-        "relatedName": "cms:FollowUpAssignedTo",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Staff member assigned to follow-up"
-      },
-      {
-        "relatedName": "cms:FollowUpCompleted",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Whether follow-up has been completed"
-      },
-      {
-        "relatedName": "cms:TransactionId",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Unique identifier for a transaction"
-      },
-      {
-        "relatedName": "cms:TransactionDate",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Date of the transaction"
-      },
-      {
-        "relatedName": "cms:TransactionAmount",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Monetary value of the transaction"
-      },
-      {
-        "relatedName": "cms:TransactionType",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Type of transaction (Purchase, Return, Service, etc.)"
-      },
-      {
-        "relatedName": "cms:TransactionDescription",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Description of the transaction"
-      },
-      {
-        "relatedName": "cms:PaymentMethod",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Method of payment (Credit Card, Cash, Check, etc.)"
-      },
-      {
-        "relatedName": "cms:TotalRevenue",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Total revenue from customer"
-      },
-      {
-        "relatedName": "cms:LifetimeValue",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer lifetime value"
-      },
-      {
-        "relatedName": "cms:NumberOfTransactions",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Total number of transactions"
-      },
-      {
-        "relatedName": "cms:NumberOfCalls",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Total number of calls made to/from customer"
-      },
-      {
-        "relatedName": "cms:CustomerSatisfactionScore",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer satisfaction score (e.g., 1-10)"
-      },
-      {
-        "relatedName": "cms:Notes",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "General notes about the customer"
-      },
-      {
-        "relatedName": "cms:CustomerDimension",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Dimension for identifying specific customers"
-      },
-      {
-        "relatedName": "cms:TimePeriodDimension",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Dimension for time periods (year, quarter, month)"
-      },
-      {
-        "relatedName": "cms:InteractionTypeDimension",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Dimension for types of customer interactions"
-      },
-      {
-        "relatedName": "cms:TransactionTypeDimension",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Dimension for types of transactions"
-      },
-      {
-        "relatedName": "cms:GeographyDimension",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Dimension for geographic regions"
-      },
-      {
-        "relatedName": "cms:SalesRepDimension",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Dimension for sales representatives"
-      },
-      {
-        "relatedName": "cms:CustomerDomain",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Domain containing all customers"
-      },
-      {
-        "relatedName": "cms:TimePeriodDomain",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Domain containing time period members"
-      },
-      {
-        "relatedName": "cms:InteractionTypeDomain",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Domain containing interaction type members"
-      },
-      {
-        "relatedName": "cms:TransactionTypeDomain",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Domain containing transaction type members"
-      },
-      {
-        "relatedName": "cms:GeographyDomain",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Domain containing geographic regions"
-      },
-      {
-        "relatedName": "cms:SalesRepDomain",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Domain containing sales representative members"
-      },
-      {
-        "relatedName": "cms:AllCustomers",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "All customers (root member)"
-      },
-      {
-        "relatedName": "cms:Year2024",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Year 2024"
-      },
-      {
-        "relatedName": "cms:Year2025",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Year 2025"
-      },
-      {
-        "relatedName": "cms:Q1",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Quarter 1"
-      },
-      {
-        "relatedName": "cms:Q2",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Quarter 2"
-      },
-      {
-        "relatedName": "cms:Q3",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Quarter 3"
-      },
-      {
-        "relatedName": "cms:Q4",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Quarter 4"
-      },
-      {
-        "relatedName": "cms:PhoneCall",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Phone call interaction"
-      },
-      {
-        "relatedName": "cms:EmailInteraction",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Email interaction"
-      },
-      {
-        "relatedName": "cms:InPersonMeeting",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "In-person meeting"
-      },
-      {
-        "relatedName": "cms:ChatSupport",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Online chat support"
-      },
-      {
-        "relatedName": "cms:Purchase",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Purchase transaction"
-      },
-      {
-        "relatedName": "cms:Return",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Return transaction"
-      },
-      {
-        "relatedName": "cms:Service",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Service transaction"
-      },
-      {
-        "relatedName": "cms:Subscription",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Subscription transaction"
-      },
-      {
-        "relatedName": "cms:NorthAmerica",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "North America region"
-      },
-      {
-        "relatedName": "cms:Europe",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Europe region"
-      },
-      {
-        "relatedName": "cms:AsiaPacific",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Asia Pacific region"
-      },
-      {
-        "relatedName": "cms:CustomerProfileCube",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer profile and demographic information"
-      },
-      {
-        "relatedName": "cms:CustomerCallsCube",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer call interactions and outcomes"
-      },
-      {
-        "relatedName": "cms:FollowUpCube",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Follow-up activities and tasks"
-      },
-      {
-        "relatedName": "cms:TransactionHistoryCube",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Historical transaction data"
-      },
-      {
-        "relatedName": "cms:CustomerAnalyticsCube",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer analytics and metrics"
-      },
-      {
-        "relatedName": "cms:CustomerInformationGroup",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer basic information and contact details"
-      },
-      {
-        "relatedName": "cms:CustomerAddressGroup",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer address information"
-      },
-      {
-        "relatedName": "cms:CallInformationGroup",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Call details and outcomes"
-      },
-      {
-        "relatedName": "cms:FollowUpGroup",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Follow-up tasks and scheduling"
-      },
-      {
-        "relatedName": "cms:TransactionGroup",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Transaction details and history"
-      },
-      {
-        "relatedName": "cms:CustomerMetricsGroup",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "Customer metrics and analytics"
-      },
-      {
-        "relatedName": "cms:AllSalesReps",
-        "labelType": "xbrl:documentation",
-        "language": "en",
-        "value": "All sales representatives (root member)"
-      }
-    ]
-  }
+    }
 }

@@ -1,0 +1,80 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy/period/duration",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "Valid: periodConstraint with periodType 'duration' restricts cube to duration facts. Includes a matching duration fact (included) and a non-matching instant fact (excluded)."
+    },
+    "xbrlModel": {
+        "name": "exp:PeriodConstraintDurationValid",
+        "version": "2025",
+        "concepts": [
+            { "name": "exp:Revenue", "dataType": "xs:decimal", "periodType": "duration", "nillable": true },
+            { "name": "exp:Assets", "dataType": "xs:decimal", "periodType": "instant", "nillable": true }
+        ],
+        "cubes": [
+            {
+                "name": "exp:DurationCube",
+                "cubeType": "xbrl:reportCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:ConceptDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "periodConstraints": [
+                            { "periodType": "duration" }
+                        ]
+                    },
+                    {
+                        "dimensionName": "xbrl:unit",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    }
+                ]
+            }
+        ],
+        "domains": [
+            {
+                "name": "exp:ConceptDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    { "source": "xbrl:conceptDomain", "target": "exp:Revenue" },
+                    { "source": "xbrl:conceptDomain", "target": "exp:Assets" }
+                ]
+            }
+        ],
+        "entities": [
+            { "name": "exp:Company1" }
+        ],
+        "facts": [
+            {
+                "name": "exp:f1",
+                "factValues": [{ "name": "exp:fv1", "value": "120000", "decimals": 0 }],
+                "factDimensions": {
+                    "xbrl:concept": "exp:Revenue",
+                    "xbrl:period": "2025-01-01/2025-12-31",
+                    "xbrl:entity": "exp:Company1"
+                }
+            },
+            {
+                "name": "exp:f2",
+                "factValues": [{ "name": "exp:fv2", "value": "400000", "decimals": 0 }],
+                "factDimensions": {
+                    "xbrl:concept": "exp:Assets",
+                    "xbrl:period": "2025-12-31",
+                    "xbrl:entity": "exp:Company1"
+                }
+            }
+        ]
+    }
+}

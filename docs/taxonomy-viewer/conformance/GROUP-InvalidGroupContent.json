@@ -1,0 +1,30 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:invalidGroupObject: The groupContent groupName 'exp:NonExistentGroup' does not reference a valid group object in the model."
+    },
+    "xbrlModel": {
+        "name": "exp:InvalidGroupContentModel",
+        "version": "2025",
+        "networks": [
+            {
+                "name": "exp:IncomeStatementPresentation",
+                "relationshipTypeName": "xbrl:parent-child"
+            }
+        ],
+        "groupContents": [
+            {
+                "groupName": "exp:NonExistentGroup",
+                "relatedNames": ["exp:IncomeStatementPresentation"]
+            }
+        ]
+    }
+}

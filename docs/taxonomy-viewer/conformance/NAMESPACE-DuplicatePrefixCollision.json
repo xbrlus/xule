@@ -4,17 +4,17 @@
         "documentType": "https://xbrl.org/2026/model",
         "namespaces": {
             "entry": "http://example.com/entry",
-            "exp":   "http://example.com/financials",
-            "geo":   "http://example.com/geography",
-            "xbrl":  "https://xbrl.org/2025",
-            "xs":    "http://www.w3.org/2001/XMLSchema"
+            "exp": "http://example.com/financials",
+            "geo": "http://example.com/geography",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
         },
         "documentNamespace": "entry",
-        "urlMapping": {
-            "exp": ["NAMESPACE-financials-module.json"],
-            "geo": ["NAMESPACE-geography-module.json"]
-        },
-        "description": "Valid: the importing model imports two modules that both declare the prefix 'exp' for different namespace URIs internally. The importing model's own namespace map already maps the geography URI under the prefix 'geo', so the processor resolves the apparent collision implicitly — objects from the geography module are re-prefixed to 'geo:*' in the merged result without any prefixRemap declaration or error."
+        "description": "Valid: the importing model imports two modules that both declare the prefix 'exp' for different namespace URIs internally. The importing model's own namespace map already maps the geography URI under the prefix 'geo', so the processor resolves the apparent collision implicitly — objects from the geography module are re-prefixed to 'geo:*' in the merged result without any prefixRemap declaration or error.",
+        "importMapping": {
+            "exp:FinancialsModel": "NAMESPACE-financials-module.json",
+            "geo:GeographyModel": "NAMESPACE-geography-module.json"
+        }
     },
     "xbrlModel": {
         "name": "entry:EntryModel",

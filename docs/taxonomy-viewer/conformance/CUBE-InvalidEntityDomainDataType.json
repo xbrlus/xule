@@ -1,0 +1,61 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: A cubeDimension with dimensionName xbrl:entity specifies a domainDataType other than xbrl:entity, which is invalid."
+  },
+  "xbrlModel": {
+    "name": "exp:InvalidEntityDomainDataTypeTaxonomy",
+    "version": "2025",
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetaryItemType",
+        "periodType": "duration",
+        "nillable": true
+      }
+    ],
+    "domains": [
+      {
+        "name": "exp:RevenueDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Revenue"
+          }
+        ]
+      }
+    ],
+    "cubes": [
+      {
+        "name": "exp:InvalidEntityDimensionCube",
+        "cubeType": "xbrl:reportCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept",
+            "domainName": "exp:RevenueDomain"
+          },
+          {
+            "dimensionName": "xbrl:period"
+          },
+          {
+            "dimensionName": "xbrl:unit",
+            "allowDomainFacts": true
+          },
+          {
+            "dimensionName": "xbrl:entity",
+            "domainDataType": "xs:string"
+          }
+        ]
+      }
+    ]
+  }
+}

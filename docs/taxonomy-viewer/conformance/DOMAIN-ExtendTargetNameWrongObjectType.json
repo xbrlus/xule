@@ -1,0 +1,46 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: extendTargetName references a QName that resolves to a cube object, not a domain object."
+  },
+  "xbrlModel": {
+    "name": "exp:ExtendTargetNameWrongObjectType",
+    "version": "2025",
+    "cubes": [
+      {
+        "name": "exp:MyCube",
+        "cubeDimensions": [
+          {
+            "dimensionName": "xbrl:concept"
+          }
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "extendTargetName": "exp:MyCube",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:SomeConcept"
+          }
+        ]
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp:SomeConcept",
+        "dataType": "xs:string",
+        "periodType": "duration"
+      }
+    ]
+  }
+}

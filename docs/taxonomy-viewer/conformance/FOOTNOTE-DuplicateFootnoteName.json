@@ -1,0 +1,30 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:duplicateObjects: Two footnote objects share the same name."
+    },
+    "xbrlModel": {
+        "name": "exp:DuplicateFootnoteNameModel",
+        "version": "2025",
+        "footnotes": [
+            {
+                "name": "exp:Footnote1",
+                "content": "First footnote with this name.",
+                "language": "en"
+            },
+            {
+                "name": "exp:Footnote1",
+                "content": "Second footnote with the same name — this is a duplicate.",
+                "language": "en"
+            }
+        ]
+    }
+}

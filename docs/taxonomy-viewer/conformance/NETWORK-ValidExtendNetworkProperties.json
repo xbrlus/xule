@@ -1,56 +1,57 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "exp2": "http://example.com/taxonomy2",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrli": "https://xbrl.org/2025/instance",
-      "xs": "http://www.w3.org/2001/XMLSchema"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "exp2": "http://example.com/taxonomy2",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp2",
+        "description": "Valid: Network object with extended properties.",
+        "importMapping": {
+            "exp:NetworkWithPropertiesAndRoots": "NETWORK-ValidPropertiesWithRoots.json"
+        }
     },
-    "documentNamespace": "exp2",
-    "description": "Valid: Network object with extended properties.",
-    "urlMapping": {
-      "exp": [
-               "NETWORK-ValidPropertiesWithRoots.json"
-            ]
-    }
-  },
-  "xbrlModel": {
-    "name": "exp2:NetworkWithPropertiesAndRoots",
-    "version": "2025",
-    "importedTaxonomies": [
-              {
-                "xbrlModelName": "exp:NetworkWithPropertiesAndRoots"
-              }
-    ],
-    "concepts": [
-    {
-      "name": "exp2:TargetConcept2",
-      "dataType": "xs:decimal",
-      "periodType": "instant"
-    }
-  ],
-    "networks": [
-      {
-        "extendTargetName": "exp:Network5",
-        "relationships": [
-          {
-            "source": "exp:RootConcept",
-            "target": "exp2:TargetConcept2"
-          }
-        ],
-        "properties": [
+    "xbrlModel": {
+        "name": "exp2:NetworkWithPropertiesAndRoots",
+        "version": "2025",
+        "importedTaxonomies": [
             {
-                "property":"exp2:networkProperty2",
-                "value": "Network Property Value2"
+                "xbrlModelName": "exp:NetworkWithPropertiesAndRoots"
+            }
+        ],
+        "concepts": [
+            {
+                "name": "exp2:TargetConcept2",
+                "dataType": "xs:decimal",
+                "periodType": "instant"
+            }
+        ],
+        "networks": [
+            {
+                "extendTargetName": "exp:Network5",
+                "relationships": [
+                    {
+                        "source": "exp:RootConcept",
+                        "target": "exp2:TargetConcept2"
+                    }
+                ],
+                "properties": [
+                    {
+                        "property": "exp2:networkProperty2",
+                        "value": "Network Property Value2"
+                    }
+                ]
+            }
+        ],
+        "propertyTypes": [
+            {
+                "name": "exp2:networkProperty2",
+                "dataType": "xs:string"
             }
         ]
-      }
-    ],
-    "propertyTypes": [
-      { "name": "exp2:networkProperty2", "dataType": "xs:string" }
-    ]
-  }
+    }
 }

@@ -1,0 +1,27 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "entry": "http://example.com/entry",
+            "exp": "http://example.com/financials",
+            "ana": "http://example.com/analytics",
+            "cmn": "http://example.com/common",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "entry",
+        "description": "Error: oimce:multipleAliasesForURI. The analytics module uses a secondary prefix 'exp' for http://example.com/common. The importing model also uses 'exp' for http://example.com/financials. The URI http://example.com/common is not declared anywhere in the importing model's namespace map so implicit resolution cannot resolve it. No prefixRemap is provided, so the processor MUST raise oimce:multipleAliasesForURI.",
+        "importMapping": {
+            "ana:AnalyticsModel": "NAMESPACE-analytics-module.json"
+        }
+    },
+    "xbrlModel": {
+        "name": "entry:EntryModel",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "ana:AnalyticsModel"
+            }
+        ]
+    }
+}

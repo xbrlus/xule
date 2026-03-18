@@ -1,0 +1,50 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/base",
+      "exp2": "http://example.com/taxonomy/derived",
+      "exp3": "http://example.com/taxonomy/extension",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp3",
+    "description": "VALID: Extension taxonomy (C) demonstrating diamond import and domain extension scope. C imports taxonomy B (which imports A) and also imports A directly. The duplicate import of A via the B→A chain and the direct import is handled by the DAG duplicate-import rule. C extends exp:ProductDomain by adding exp3:ProductC. In C's resolved model the domain contains three members: exp:ProductA, exp:ProductB, and exp3:ProductC. Taxonomy B's resolved model remains unaffected — it still sees only A's two members.",
+    "importMapping": {
+      "exp2:DomainScopeDerived": "./DOMAIN-ValidImportExtensionScope-derived.json",
+      "exp:DomainScopeBase": "./DOMAIN-ValidImportExtensionScope-base.json"
+    }
+  },
+  "xbrlModel": {
+    "name": "exp3:DomainScopeExtension",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp2:DomainScopeDerived"
+      },
+      {
+        "xbrlModelName": "exp:DomainScopeBase"
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp3:ProductC",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ],
+    "domains": [
+      {
+        "extendTargetName": "exp:ProductDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp3:ProductC"
+          }
+        ]
+      }
+    ]
+  }
+}

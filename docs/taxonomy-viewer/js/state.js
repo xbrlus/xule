@@ -3,11 +3,12 @@ export let taxonomyData = null;
 export const MAX_DEPTH = 10;
 export let contextMenu = null;
 
-// Store reference to cache clearing function (to avoid circular imports)
-let clearCacheFn = null;
+// Store references to all registered cache-clearing functions
+// Using an array so multiple modules can register without clobbering each other.
+const _cacheClearFns = [];
 
 export function registerCacheClearFunction(fn) {
-    clearCacheFn = fn;
+    _cacheClearFns.push(fn);
 }
 
 // Initialize by getting reference to global taxonomyData
@@ -30,10 +31,8 @@ export function setTaxonomyData(data) {
         window.taxonomyData = data;
     }
     
-    // OPTIMIZATION: Clear icon label cache when taxonomy changes
-    if (clearCacheFn) {
-        clearCacheFn();
-    }
+    // OPTIMIZATION: Clear all registered caches when taxonomy changes
+    _cacheClearFns.forEach(fn => fn());
 }
 
 export function setContextMenu(menu) {

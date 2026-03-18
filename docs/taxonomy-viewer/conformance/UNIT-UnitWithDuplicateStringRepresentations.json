@@ -10,16 +10,16 @@
       "iso4217": "http://www.xbrl.org/2003/iso4217"
     },
     "documentNamespace": "exp",
-    "description": "ERROR: Unit With Duplicate String Representation."
+    "description": "ERROR: Unit 'exp:USD' has compositeUnitRepresentation ['exp:USD/exp:USD'] which references the unit's own name 'exp:USD'. A unit MUST NOT appear in its own compositeUnitRepresentation. Raises oimte:unitDataTypeUsedInDefinition."
   },
   "xbrlModel": {
     "name": "exp:UnitWithDuplicateStringRepresentations",
     "version": "2025",
     "units": [
       {
-        "name": "iso4217:USD",
+        "name": "exp:USD",
         "dataType": "xbrli:monetary",
-        "stringRepresentations": ["iso4217:USD/iso4217:USD"]
+        "compositeUnitRepresentation": ["exp:USD/exp:USD"]
       }
     ]
 }

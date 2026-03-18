@@ -4,20 +4,19 @@
         "documentType": "https://xbrl.org/2026/model",
         "documentNamespace": "exp_extF",
         "namespaces": {
-            "exp":  "http://example.com/taxonomy",
+            "exp": "http://example.com/taxonomy",
             "mini": "http://example.com/mini",
             "exp_ext": "http://example.com/ext-taxonomy",
             "xbrl": "https://xbrl.org/2025",
             "iso4217": "http://www.xbrl.org/2003/iso4217",
             "utr": "https://xbrl.org/2025/utr",
-            "xbrli":"https://xbrl.org/2025/instance",
+            "xbrli": "https://xbrl.org/2025/instance",
             "xs": "http://www.w3.org/2001/XMLSchema",
             "exp_extF": "http://example.com/ext-final-taxonomy"
-            
-            },
-        "urlMapping": {
-            "exp":  ["exampleTaxonomy.json"]
-            }
+        },
+        "importMapping": {
+            "exp:SampleTaxonomy": "exampleTaxonomy.json"
+        }
     },
     "xbrlModel": {
         "name": "exp_extF:ExtensionTaxonomyFinal",
@@ -28,7 +27,11 @@
         ],
         "finalTaxonomy": {
             "name": "exp_extF:ExtensionTaxonomyFinal",
-            "finalObjectTypes": ["xbrl:concepts", "xbrl:references", "xbrl:domains"]
+            "finalObjectTypes": [
+                "xbrl:concepts",
+                "xbrl:references",
+                "xbrl:domains"
+            ]
         },
         "concepts": [
             {

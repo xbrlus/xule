@@ -140,8 +140,8 @@ export function buildCubeGrid(cube) {
         return;
     }
     
-    // Check if this is a default cube
-    const isDefaultCube = cube.cubeType === 'xbrl:defaultCube';
+    // Check if this is a open cube
+    const isDefaultCube = cube.cubeType === 'xbrl:openCube';
     
     // Find the concept dimension
     const conceptDim = cube.cubeDimensions.find(d => d.dimensionName === 'xbrl:concept');

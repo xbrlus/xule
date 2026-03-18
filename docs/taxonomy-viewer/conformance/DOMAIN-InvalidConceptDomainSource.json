@@ -1,0 +1,51 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "ERROR: Member Object Used as Source in Concept Domain"
+  },
+  "xbrlModel": {
+    "name": "exp:MemberAsConceptDomainSource",
+    "version": "2025",
+    "domains": [
+      {
+        "name": "exp:MyConceptDomain",
+        "root": "xbrl:conceptDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp:Revenue"
+          },
+          {
+            "source": "exp:SomeMember",
+            "target": "exp:OtherRevenue"
+          }
+        ]
+      }
+    ],
+    "members": [
+      {
+        "name": "exp:SomeMember"
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      },
+      {
+        "name": "exp:OtherRevenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ]
+  }
+}

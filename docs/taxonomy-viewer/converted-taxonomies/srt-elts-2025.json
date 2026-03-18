@@ -12,9 +12,9 @@
 		},
 		"documentType": "https://xbrl.org/2026/model",
 		"documentNamespace": "srt",
-		"urlMapping": {
-			"srt-types": ["srt-types-2025.json"],
-			"xbrla": ["../spec-taxonomies/xbrla.json"]
+		"importMapping": {
+			"srt-types:StandardizedReportingTaxonomyTypes": "srt-types-2025.json",
+			"xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
 		}
 	},
 	"xbrlModel": {

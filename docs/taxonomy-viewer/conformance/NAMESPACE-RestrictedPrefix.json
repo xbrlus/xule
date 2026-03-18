@@ -14,7 +14,7 @@
       "iso4217": "http://www.xbrl.org/2003/iso4217"
     },
     "documentNamespace": "exp",
-    "description": "Restricted prefixes are used in the taxonomy. Should report error for xbrl prefix."
+    "description": "Restricted prefixes are used in the taxonomy. The object names use reserved namespace prefixes such as 'xbrl', 'oimte', 'oime', 'ref', 'xbrli', 'utr', 'iso4217'. Should report oimce:invalidURIForReservedAlias error for each reserved prefix used."
   },
   "xbrlModel": {
     "name": "exp:restrictedPrefixDefinedTaxonomy",

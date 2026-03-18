@@ -1,153 +1,184 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "mini": "http://example.com/mini",
-      "xbrl": "https://xbrl.org/2025",
-     	"xbrla": "http://xbrl.org/accounting",
-      "xbrli": "https://xbrl.org/2025/instance",
-      "xs": "http://www.w3.org/2001/XMLSchema"
-    },
-    "documentNamespace": "mini",
-    "urlMapping": {
-              "xbrla": ["../spec-taxonomies/xbrla.json"]
-            }
-  },
-  "xbrlModel": {
-    "name": "mini:MiniTaxonomy",
-    "frameworkName": "mini-framework",
-    "version": "2025",
-    "importedTaxonomies": [
-        {
-            "xbrlModelName": "xbrla:AccountingModel"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "mini": "http://example.com/mini",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrla": "http://xbrl.org/accounting",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "mini",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
         }
-    ],
-    "abstracts": [
-      { "name": "mini:StatementOfFinancialPosition" }
-    ],
-    "concepts": [
-      {
-        "name": "mini:Assets",
-        "dataType": "xbrli:monetary",
-        "periodType": "instant",
-        "nillable": true,
-        "properties": [
-          { "property": "xbrla:balance", "value": "debit" }
-        ]
-      },
-      {
-        "name": "mini:Liabilities",
-        "dataType": "xbrli:monetary",
-        "periodType": "instant",
-        "nillable": true,
-        "properties": [
-          { "property": "xbrla:balance", "value": "credit" }
-        ]
-      }
-    ],
-    "members": [
-      { "name": "mini:NorthAmerica" },
-      { "name": "mini:Europe" }
-    ],
-    "dimensions": [
-      {
-        "name": "mini:Geography",
-        "domainClass": "mini:GeographyRootDomain"
-      }
-    ],
-    "domainClasses": [
-      { "name": "mini:GeographyRootDomain" }
-    ],
-    "domains": [
-      {
-        "name": "mini:GeographyDomain",
-        "root": "mini:GeographyRootDomain",
-        "relationships": [
-          { "source": "mini:GeographyRootDomain", "target": "mini:NorthAmerica" },
-          { "source": "mini:GeographyRootDomain", "target": "mini:Europe" }
-        ]
-      }
-    ],
-    "entities": [
-      { "name": "mini:Entity1" }
-    ],
-    "units": [
-      { "name": "mini:USD", "dataType": "xbrli:monetary" }
-    ],
-    "labels": [
-      {
-        "relatedName": "mini:Assets",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Assets"
-      },
-      {
-        "relatedName": "mini:Liabilities",
-        "labelType": "xbrl:label",
-        "language": "en",
-        "value": "Liabilities"
-      }
-    ],
-    "groups": [
-      {
-        "name": "xbrl:balanceSheetGroup",
-        "groupURI": "http://example.com/mini/balance-sheet"
-      }
-    ],
-    "groupContents": [
-      {
-        "groupName": "xbrl:balanceSheetGroup",
-        "relatedNames": ["xbrl:balanceSheetCube"]
-      }
-    ],
-    "cubes": [
-      {
-        "name": "xbrl:balanceSheetCube",
-        "cubeType": "xbrl:reportCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "xbrl:concept"
-          },
-          {
-            "dimensionName": "xbrl:period",
-            "periodConstraints": [
-              {
+    },
+    "xbrlModel": {
+        "name": "mini:MiniTaxonomy",
+        "frameworkName": "mini-framework",
+        "version": "2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+        ],
+        "abstracts": [
+            {
+                "name": "mini:StatementOfFinancialPosition"
+            }
+        ],
+        "concepts": [
+            {
+                "name": "mini:Assets",
+                "dataType": "xbrli:monetary",
                 "periodType": "instant",
-                "endDate": { "value": "2025-12-31" }
-              }
-            ]
-          },
-          {
-            "dimensionName": "mini:Geography"
-          },
-          {
-            "dimensionName": "xbrl:entity"
-          },
-          {
-            "dimensionName": "xbrl:unit"
-          }
+                "nillable": true,
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "debit"
+                    }
+                ]
+            },
+            {
+                "name": "mini:Liabilities",
+                "dataType": "xbrli:monetary",
+                "periodType": "instant",
+                "nillable": true,
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "credit"
+                    }
+                ]
+            }
+        ],
+        "members": [
+            {
+                "name": "mini:NorthAmerica"
+            },
+            {
+                "name": "mini:Europe"
+            }
+        ],
+        "dimensions": [
+            {
+                "name": "mini:Geography",
+                "domainClass": "mini:GeographyRootDomain"
+            }
+        ],
+        "domainClasses": [
+            {
+                "name": "mini:GeographyRootDomain"
+            }
+        ],
+        "domains": [
+            {
+                "name": "mini:GeographyDomain",
+                "root": "mini:GeographyRootDomain",
+                "relationships": [
+                    {
+                        "source": "mini:GeographyRootDomain",
+                        "target": "mini:NorthAmerica"
+                    },
+                    {
+                        "source": "mini:GeographyRootDomain",
+                        "target": "mini:Europe"
+                    }
+                ]
+            }
+        ],
+        "entities": [
+            {
+                "name": "mini:Entity1"
+            }
+        ],
+        "units": [
+            {
+                "name": "mini:USD",
+                "dataType": "xbrli:monetary"
+            }
+        ],
+        "labels": [
+            {
+                "relatedName": "mini:Assets",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Assets"
+            },
+            {
+                "relatedName": "mini:Liabilities",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Liabilities"
+            }
+        ],
+        "groups": [
+            {
+                "name": "xbrl:balanceSheetGroup",
+                "groupURI": "http://example.com/mini/balance-sheet"
+            }
+        ],
+        "groupContents": [
+            {
+                "groupName": "xbrl:balanceSheetGroup",
+                "relatedNames": [
+                    "xbrl:balanceSheetCube"
+                ]
+            }
+        ],
+        "cubes": [
+            {
+                "name": "xbrl:balanceSheetCube",
+                "cubeType": "xbrl:reportCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:concept"
+                    },
+                    {
+                        "dimensionName": "xbrl:period",
+                        "periodConstraints": [
+                            {
+                                "periodType": "instant",
+                                "endDate": {
+                                    "value": "2025-12-31"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "dimensionName": "mini:Geography"
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit"
+                    }
+                ]
+            }
+        ],
+        "networks": [
+            {
+                "name": "mini:PresentationNetwork",
+                "relationshipTypeName": "xbrl:parent-child",
+                "roots": [
+                    "mini:StatementOfFinancialPosition"
+                ],
+                "relationships": [
+                    {
+                        "source": "mini:StatementOfFinancialPosition",
+                        "target": "mini:Assets",
+                        "order": 1
+                    },
+                    {
+                        "source": "mini:StatementOfFinancialPosition",
+                        "target": "mini:Liabilities",
+                        "order": 2
+                    }
+                ]
+            }
         ]
-      }
-    ],
-    "networks": [
-      {
-        "name": "mini:PresentationNetwork",
-        "relationshipTypeName": "xbrl:parent-child",
-        "roots": ["mini:StatementOfFinancialPosition"],
-        "relationships": [
-          {
-            "source": "mini:StatementOfFinancialPosition",
-            "target": "mini:Assets",
-            "order": 1
-          },
-          {
-            "source": "mini:StatementOfFinancialPosition",
-            "target": "mini:Liabilities",
-            "order": 2
-          }
-        ]
-      }
-    ]
-  }
+    }
 }

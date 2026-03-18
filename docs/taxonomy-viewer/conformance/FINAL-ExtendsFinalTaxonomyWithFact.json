@@ -4,21 +4,20 @@
         "documentType": "https://xbrl.org/2026/model",
         "documentNamespace": "ext3",
         "namespaces": {
-            "exp":  "http://example.com/taxonomy",
+            "exp": "http://example.com/taxonomy",
             "xbrl": "https://xbrl.org/2025",
             "iso4217": "http://www.xbrl.org/2003/iso4217",
             "utr": "https://xbrl.org/2025/utr",
-            "xbrli":"https://xbrl.org/2025/instance",
+            "xbrli": "https://xbrl.org/2025/instance",
             "xs": "http://www.w3.org/2001/XMLSchema",
             "mini3": "http://example.com/mini3",
             "exp_extF2": "http://example.com/ext-final-taxonomy2",
             "ext3": "http://example.com/ext3",
             "lei": "http://standards.iso.org/iso/17442"
-            
-            },
-        "urlMapping": {
-            "exp_extF2":  ["FINAL-DefinesFinalTaxonomyFlag.json"]
-            }
+        },
+        "importMapping": {
+            "exp_extF2:ExtensionTaxonomyFinal": "FINAL-DefinesFinalTaxonomyFlag.json"
+        }
     },
     "xbrlModel": {
         "name": "ext3:InvalidExtensionTaxonomyFinal",
@@ -30,14 +29,14 @@
         "facts": [
             {
                 "name": "ext3:f12345",
-                "factValues" : [
+                "factValues": [
                     {
                         "name": "ext3:fV1",
                         "value": "100000",
-                        "decimals":2
+                        "decimals": 2
                     }
                 ],
-                "factDimensions":{
+                "factDimensions": {
                     "xbrl:concept": "mini3:Inventory",
                     "xbrl:period": "2026-01-01T00:00:00",
                     "xbrl:unit": "iso4217:USD",

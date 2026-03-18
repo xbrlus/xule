@@ -1,0 +1,41 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "test": "http://example.com/test/cubetype/invaliddimensionreference",
+            "xbrl": "https://xbrl.org/2025",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "test",
+        "description": "ERROR: oimte:invalidQNameType: Invalid Dimension Reference Type. Reference the domain class and not the dimension."
+    },
+    "xbrlModel": {
+        "name": "test:InvalidDimensionReferenceTest",
+        "version": "1.0",
+        "domainClasses": [
+            {
+                "name": "test:TestDomainClass"
+            }
+        ],
+        "dimensions" : [
+            {
+                "name": "test:TestDimension",
+                "domainClass": "test:TestDomainClass"
+            }
+        ],
+        "cubeTypes": [
+            {
+                "name": "test:TestCubeType",
+                "cubeDimensionConstraints": {
+                    "allowed": [
+                        {
+                            "dimensionName": "test:TestDomainClass",
+                            "type": "explicit"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

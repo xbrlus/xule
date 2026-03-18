@@ -1,47 +1,47 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "exp2": "http://example.com/taxonomy2",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrli": "https://xbrl.org/2025/instance",
-      "xs": "http://www.w3.org/2001/XMLSchema",
-      "iso4217": "http://abcd"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "exp2": "http://example.com/taxonomy2",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "iso4217": "http://abcd"
+        },
+        "documentNamespace": "exp2",
+        "description": "ERROR: Taxonomy attempts to extend a closed domain.",
+        "importMapping": {
+            "exp:ValidRelationshipsClosedDomain": "./DOMAIN-ValidRelationshipsClosed.json"
+        }
     },
-    "urlMapping": {
-            "exp":  ["./DOMAIN-ValidRelationshipsClosed.json"]
-            },
-    "documentNamespace": "exp2",
-    "description": "ERROR: Taxonomy attempts to extend a closed domain."
-  },
-  "xbrlModel": {
-    "name": "exp2:ValidRelationshipsClosedDomain",
-    "version": "2025",
-    "importedTaxonomies": [
-      {
-        "xbrlModelName": "exp:ValidRelationshipsClosedDomain"
-      }
-    ],
-    "concepts": [
-      {
-        "name": "exp2:Gains",
-        "dataType": "xbrli:monetary",
-        "periodType": "duration"
-      }
-    ],
-    "domains": [
-      {
-        "extendTargetName": "exp:DomainWithClosedDomain",
-        "relationships": [
-          {
-            "source": "xbrl:conceptDomain", 
-            "target": "exp2:Gains"
-          }
+    "xbrlModel": {
+        "name": "exp2:ValidRelationshipsClosedDomain",
+        "version": "2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "exp:ValidRelationshipsClosedDomain"
+            }
         ],
-        "completeDomain": true
-      }
-    ]
-}
+        "concepts": [
+            {
+                "name": "exp2:Gains",
+                "dataType": "xbrli:monetary",
+                "periodType": "duration"
+            }
+        ],
+        "domains": [
+            {
+                "extendTargetName": "exp:DomainWithClosedDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp2:Gains"
+                    }
+                ],
+                "completeDomain": true
+            }
+        ]
+    }
 }

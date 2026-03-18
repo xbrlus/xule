@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "name": "xbrl:defaultCube"
+                    "name": "xbrl:openCube"
                 },
                 {
                     "name": "xbrl:negativeCube",
@@ -67,7 +67,8 @@
                     "xbrl:footnoteObject",
                     "xbrl:entityObject",
                     "xbrl:unitObject",
-                    "xbrl:importTaxonomyObject"
+                    "xbrl:importTaxonomyObject",
+                    "xbrl:networkObject"
                     ],
                 "requiredProperties": [
                     "xbrl:reportDate"
@@ -991,7 +992,7 @@
             {
                 "labelType": "xbrl:documentation",
                 "language": "en",
-                "relatedName": "xbrl:defaultCube",
+                "relatedName": "xbrl:openCube",
                 "value": "Default generic cube type used when no other cube type is appropriate."
             },
             {
@@ -1413,6 +1414,12 @@
                 "language": "en",
                 "relatedName": "xbrl:xbrlModelObject",
                 "value": "The root model object representing an entire XBRL taxonomy or report. Contains all objects, relationships, and metadata that comprise a complete XBRL model."
+            },
+            {
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "relatedName": "xbrl:defaultLanguage",
+                "value": "A built-in property type that specifies the default BCP 47 language for text-valued objects (such as footnotes and text-typed facts) within the model. When a text-valued object does not declare an explicit language, processors MAY use the value of this property on the enclosing XBRL model object as the inherited language. This property may only be applied to the xbrl:xbrlModelObject."
             }
         ],
         "propertyTypes": [
@@ -1585,6 +1592,11 @@
                 "name": "xbrl:dimensionMemberProperty",
                 "dataType": "xbrli:dimensionMemberMap",
                 "allowedObjects": ["xbrl:factObject"]
+            },
+            {
+                "name": "xbrl:defaultLanguage",
+                "dataType": "xbrli:languageType",
+                "allowedObjects": ["xbrl:xbrlModelObject"]
             }
         ],
         "referenceTypes": [

@@ -1,127 +1,237 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrli": "https://xbrl.org/2025/instance",
-      "xbrla": "http://xbrl.org/accounting",
-      "xs": "http://www.w3.org/2001/XMLSchema",
-      "iso4217": "http://www.xbrl.org/2003/iso4217"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xbrla": "http://xbrl.org/accounting",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "iso4217": "http://www.xbrl.org/2003/iso4217"
+        },
+        "documentNamespace": "exp",
+        "description": "VALID: weight=-1, reconciliation=true — source and target concepts have the SAME xbrla:balance value (both credit). ShareholdersEquity (credit) = (-1) * TotalLiabilities (credit). When reconciliation=true, a weight=-1 relationship is valid when source and target have the same balance. This models the reconciliation equation Equity = Assets - Liabilities where the -1 leg subtracts a credit item from the credit total. This document should produce NO errors.",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
+        }
     },
-    "documentNamespace": "exp",
-    "urlMapping": {
-            "xbrla": ["../spec-taxonomies/xbrla.json"]
-            },
-    "description": "VALID: weight=-1, reconciliation=true — source and target concepts have the SAME xbrla:balance value (both credit). ShareholdersEquity (credit) = (-1) * TotalLiabilities (credit). When reconciliation=true, a weight=-1 relationship is valid when source and target have the same balance. This models the reconciliation equation Equity = Assets - Liabilities where the -1 leg subtracts a credit item from the credit total. This document should produce NO errors."
-  },
-  "xbrlModel": {
-    "name": "exp:WeightMinus1SameBalanceReconciliationValid",
-    "version": "2025",
-    "importedTaxonomies": [
+    "xbrlModel": {
+        "name": "exp:WeightMinus1SameBalanceReconciliationValid",
+        "version": "2025",
+        "importedTaxonomies": [
             {
                 "xbrlModelName": "xbrla:AccountingModel"
             }
         ],
-
-    "concepts": [
-      {
-        "name": "exp:ShareholdersEquity",
-        "dataType": "xbrli:monetary",
-        "periodType": "instant",
-        "properties": [{ "property": "xbrla:balance", "value": "credit" }]
-      },
-      {
-        "name": "exp:TotalLiabilities",
-        "dataType": "xbrli:monetary",
-        "periodType": "instant",
-        "properties": [{ "property": "xbrla:balance", "value": "credit" }]
-      }
-    ],
-
-    "domains": [
-      {
-        "name": "exp:BalanceDomain",
-        "root": "xbrl:conceptDomain",
-        "relationships": [
-          { "source": "xbrl:conceptDomain", "target": "exp:ShareholdersEquity" },
-          { "source": "xbrl:conceptDomain", "target": "exp:TotalLiabilities" }
+        "concepts": [
+            {
+                "name": "exp:ShareholdersEquity",
+                "dataType": "xbrli:monetary",
+                "periodType": "instant",
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "credit"
+                    }
+                ]
+            },
+            {
+                "name": "exp:TotalLiabilities",
+                "dataType": "xbrli:monetary",
+                "periodType": "instant",
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "credit"
+                    }
+                ]
+            },
+            {
+                "name": "exp:Assets",
+                "dataType": "xbrli:monetary",
+                "periodType": "instant",
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "debit"
+                    }
+                ]
+            }
+        ],
+        "domains": [
+            {
+                "name": "exp:BalanceDomain",
+                "root": "xbrl:conceptDomain",
+                "relationships": [
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:ShareholdersEquity"
+                    },
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:TotalLiabilities"
+                    },
+                    {
+                        "source": "xbrl:conceptDomain",
+                        "target": "exp:Assets"
+                    }
+                ]
+            }
+        ],
+        "networks": [
+            {
+                "name": "exp:BalancePresentation",
+                "relationshipTypeName": "xbrl:parent-child",
+                "roots": [
+                    "exp:ShareholdersEquity"
+                ],
+                "relationships": [
+                    {
+                        "source": "exp:ShareholdersEquity",
+                        "target": "exp:TotalLiabilities"
+                    },
+                    {
+                        "source": "exp:ShareholdersEquity",
+                        "target": "exp:Assets"
+                    }
+                ]
+            },
+            {
+                "name": "exp:BalanceCalculation",
+                "relationshipTypeName": "xbrl:summation-item",
+                "roots": [
+                    "exp:ShareholdersEquity"
+                ],
+                "relationships": [
+                    {
+                        "source": "exp:ShareholdersEquity",
+                        "target": "exp:TotalLiabilities",
+                        "properties": [
+                            {
+                                "property": "xbrl:weight",
+                                "value": "-1"
+                            },
+                            {
+                                "property": "xbrl:reconciliation",
+                                "value": "true"
+                            }
+                        ]
+                    },
+                    {
+                        "source": "exp:ShareholdersEquity",
+                        "target": "exp:Assets",
+                        "properties": [
+                            {
+                                "property": "xbrl:weight",
+                                "value": "1"
+                            },
+                            {
+                                "property": "xbrl:reconciliation",
+                                "value": "true"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "cubes": [
+            {
+                "name": "exp:BalanceCube",
+                "cubeType": "xbrl:reportCube",
+                "cubeNetworks": [
+                    "exp:BalancePresentation",
+                    "exp:BalanceCalculation"
+                ],
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "xbrl:period"
+                    },
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:BalanceDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:unit",
+                        "allowDomainFacts": true
+                    },
+                    {
+                        "dimensionName": "xbrl:entity"
+                    }
+                ]
+            }
+        ],
+        "facts": [
+            {
+                "name": "exp:ShareholdersEquityFact",
+                "factDimensions": {
+                    "xbrl:concept": "exp:ShareholdersEquity",
+                    "xbrl:period": "2026-01-01T00:00:00",
+                    "xbrl:unit": "iso4217:USD",
+                    "xbrl:entity": "exp:ExampleCompany"
+                },
+                "factValues": [
+                    {
+                        "value": "400000",
+                        "decimals": 0
+                    }
+                ]
+            },
+            {
+                "name": "exp:TotalLiabilitiesFact",
+                "factDimensions": {
+                    "xbrl:concept": "exp:TotalLiabilities",
+                    "xbrl:period": "2026-01-01T00:00:00",
+                    "xbrl:unit": "iso4217:USD",
+                    "xbrl:entity": "exp:ExampleCompany"
+                },
+                "factValues": [
+                    {
+                        "value": "250000",
+                        "decimals": 0
+                    }
+                ]
+            },
+            {
+                "name": "exp:AssetsFact",
+                "factDimensions": {
+                    "xbrl:concept": "exp:Assets",
+                    "xbrl:period": "2026-01-01T00:00:00",
+                    "xbrl:unit": "iso4217:USD",
+                    "xbrl:entity": "exp:ExampleCompany"
+                },
+                "factValues": [
+                    {
+                        "value": "650000",
+                        "decimals": 0
+                    }
+                ]
+            }
+        ],
+        "entities": [
+            {
+                "name": "exp:ExampleCompany"
+            }
+        ],
+        "labels": [
+            {
+                "relatedName": "exp:ShareholdersEquity",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Shareholders Equity"
+            },
+            {
+                "relatedName": "exp:TotalLiabilities",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Total Liabilities"
+            },
+            {
+                "relatedName": "exp:BalanceCube",
+                "labelType": "xbrl:label",
+                "language": "en",
+                "value": "Balance Sheet"
+            }
         ]
-      }
-    ],
-
-    "networks": [
-      {
-        "name": "exp:BalancePresentation",
-        "relationshipTypeName": "xbrl:parent-child",
-        "roots": ["exp:ShareholdersEquity"],
-        "relationships": [
-          { "source": "exp:ShareholdersEquity", "target": "exp:TotalLiabilities" }
-        ]
-      },
-      {
-        "name": "exp:BalanceCalculation",
-        "relationshipTypeName": "xbrl:summation-item",
-        "roots": ["exp:ShareholdersEquity"],
-        "relationships": [
-          {
-            "source": "exp:ShareholdersEquity",
-            "target": "exp:TotalLiabilities",
-            "properties": [
-              { "property": "xbrl:weight", "value": "-1" },
-              { "property": "xbrl:reconciliation", "value": "true" }
-            ]
-          }
-        ]
-      }
-    ],
-
-    "cubes": [
-      {
-        "name": "exp:BalanceCube",
-        "cubeType": "xbrl:reportCube",
-        "cubeNetworks": ["exp:BalancePresentation", "exp:BalanceCalculation"],
-        "cubeDimensions": [
-          { "dimensionName": "xbrl:period" },
-          { "dimensionName": "xbrl:concept", "domainName": "exp:BalanceDomain" },
-          { "dimensionName": "xbrl:unit", "allowDomainFacts": true },
-          { "dimensionName": "xbrl:entity" }
-        ]
-      }
-    ],
-
-    "facts": [
-      {
-        "name": "exp:ShareholdersEquityFact",
-        "factDimensions": {
-          "xbrl:concept": "exp:ShareholdersEquity",
-          "xbrl:period": "2026-01-01T00:00:00",
-          "xbrl:unit": "iso4217:USD",
-          "xbrl:entity": "exp:ExampleCompany"
-        },
-        "factValues": [{ "value": "400000", "decimals": 0 }]
-      },
-      {
-        "name": "exp:TotalLiabilitiesFact",
-        "factDimensions": {
-          "xbrl:concept": "exp:TotalLiabilities",
-          "xbrl:period": "2026-01-01T00:00:00",
-          "xbrl:unit": "iso4217:USD",
-          "xbrl:entity": "exp:ExampleCompany"
-        },
-        "factValues": [{ "value": "250000", "decimals": 0 }]
-      }
-    ],
-
-    "entities": [
-      { "name": "exp:ExampleCompany" }
-    ],
-
-    "labels": [
-      { "relatedName": "exp:ShareholdersEquity", "labelType": "xbrl:label", "language": "en", "value": "Shareholders Equity" },
-      { "relatedName": "exp:TotalLiabilities",   "labelType": "xbrl:label", "language": "en", "value": "Total Liabilities" },
-      { "relatedName": "exp:BalanceCube",        "labelType": "xbrl:label", "language": "en", "value": "Balance Sheet" }
-    ]
-  }
+    }
 }

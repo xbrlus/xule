@@ -81,24 +81,6 @@
                 "baseType": "xbrli:noLangToken"
             },
             {
-                "name": "xbrli:QNameSet",
-                "baseType": "xbrli:collection",
-                "collectionType": {
-                    "dataTypesAllowed":["xs:QName"],
-                    "uniqueValues":true,
-                    "orderedValues":false
-                }
-            },
-            {
-                "name": "xbrli:excludedIntervalsSet",
-                "baseType": "xbrli:collection",
-                "collectionType": {
-                    "dataTypesAllowed":["xs:string"],
-                    "uniqueValues":true,
-                    "orderedValues":false
-                }
-            },
-            {
                 "name": "xbrli:dimensionMemberMap",
                 "baseType": "xbrli:map",
                 "mapType": {
@@ -128,7 +110,7 @@
             {
                 "name" : "xbrli:percent",
                 "baseType" : "xbrli:pureType",
-                "allowedObjects": ["xbrl:conceptObject", "xbrl:unitObject"]
+                "allowedObjects": ["xbrl:conceptObject"]
             },
             {
                 "name" : "xbrli:perShare",
@@ -514,6 +496,11 @@
             {
                 "name": "xbrli:linkToMarkdownFormat",
                 "baseType": "xbrli:realURL"
+            },
+            {
+                "name": "xbrli:languageType",
+                "baseType": "xs:string",
+                "patterns": ["^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$"]
             }
         ],
         "units": [
@@ -524,6 +511,20 @@
             {
                 "dataType": "xbrli:sharesType",
                 "name": "xbrli:shares"
+            }
+        ],
+        "collections": [
+            {
+                "name": "xbrli:QNameSet",
+                "dataTypesAllowed": ["xs:QName"],
+                "uniqueValues": true,
+                "orderedValues": true
+            },
+            {
+                "name": "xbrli:excludedIntervalsSet",
+                "dataTypesAllowed": ["xs:string"],
+                "uniqueValues": true,
+                "orderedValues": false
             }
         ],
         "labels": [
@@ -1164,6 +1165,12 @@
                 "language": "en",
                 "relatedName": "xbrli:realURL",
                 "value": "A URL that references a real link to a resource. If used the URL must be valid."
+            },
+            {
+                "labelType": "xbrl:documentation",
+                "language": "en",
+                "relatedName": "xbrli:languageType",
+                "value": "A string value that represents a BCP 47 language code (e.g. 'en', 'fr', 'zh-Hans'). The value must conform to the pattern: two or three ASCII letters optionally followed by one or more hyphen-separated subtags of two to eight alphanumeric characters."
             }
         ],
         "references": [
@@ -1285,7 +1292,8 @@
                     "xbrli:enumeration",
                     "xbrli:sharesType",
                     "xbrli:pure",
-                    "xbrli:monetary"
+                    "xbrli:monetary",
+                    "xbrli:languageType"
                 ],
                 "referenceType": "xbrl:specStatus",
                 "properties": [{"property":"ref:Status", "value":"REC"}]

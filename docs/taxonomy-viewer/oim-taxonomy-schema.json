@@ -21,13 +21,10 @@
           "documentNamespace": {
             "type": "string"
           },
-          "urlMapping": {
+          "importMapping": {
             "type": "object",
             "additionalProperties": {
-              "type": "array",
-              "items": { "type": "string" },
-              "minItems": 1,
-              "uniqueItems": true
+              "type": "string"
             }
           },
           "sourceMapping": {
@@ -143,7 +140,6 @@
                       "properties": {
                         "name": { "$ref": "#/definitions/QName" },
                         "dataType": { "$ref": "#/definitions/dataTypeQName" },
-                        "enumerationDomain": { "$ref": "#/definitions/domainQName" },
                         "definitional": {
                           "type": "boolean"
                         },
@@ -154,25 +150,12 @@
                         },
                         "allowedAsLinkProperty": {
                           "type": "boolean"
-                        }
+                        },
+                        "enumerationDomain": { "$ref": "#/definitions/domainQName" }
                       },
                       "required": ["name", "dataType"],
-                      "additionalProperties": false,
-                      "allOf": [
-                        {
-                          "if": {
-                            "properties": {
-                              "enumerationDomain": { "type": "string" }
-                            },
-                            "required": ["enumerationDomain"]
-                          },
-                          "then": {
-                            "properties": {
-                              "dataType": { "const": "xs:QName" }
-                            }
-                          }
-                        }
-                      ]
+                      "additionalProperties": false
+                      
                     },
                     "uniqueItems": true
                 },
@@ -229,10 +212,10 @@
                           "type": "string",
                           "enum": ["instant", "duration", "none"]
                         },
-                        "enumerationDomain": { "$ref": "#/definitions/domainQName" },
                         "nillable": {
                           "type": "boolean"
                         },
+                        "enumerationDomain": { "$ref": "#/definitions/domainQName" },
                        "properties": {
                           "type": "array",
                             "items": { "$ref": "#/definitions/propertyObject"},
@@ -241,24 +224,7 @@
                         }
                       },
                       "required": ["name", "dataType", "periodType"],
-                      "additionalProperties": false,
-                      "allOf": [
-                        {
-                          "if": {
-                            "properties": {
-                              "enumerationDomain": { "type": "string" }
-                            },
-                            "required": ["enumerationDomain"]
-                          },
-                          "then": {
-                            "properties": {
-                              "dataType": { 
-                                    "enum": ["xs:QName", "xbrli:enumeration", "xbrli:enumerationSet"] 
-                                }
-                            }
-                          }
-                        }
-                      ]
+                      "additionalProperties": false
                     },
                     "uniqueItems": true
                 },
@@ -552,14 +518,14 @@
                     "properties": {
                       "name": { "$ref": "#/definitions/QName" },
                       "dataType": { "$ref": "#/definitions/dataTypeQName" },
-                      "stringRepresentations": { 
+                      "compositeUnitRepresentation": { 
                         "type": "array",
                         "items": { 
                           "type": "string",
-                           "pattern": ".*(\\*|/).*",
-                          "description": "String representation of the unit."
+                          "pattern": "^([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)(\\*[A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)*$|^([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*|\\([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*(\\*[A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)+\\))/([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*|\\([A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*(\\*[A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*)+\\))$",
+                          "description": "A unit string representation as defined in OIM Common §3.4. Must consist only of QNames (prefix:localname), '*' (multiplication), '/' (division), and '()' (grouping parentheses). No whitespace is permitted. Valid forms: a single QName (e.g. 'iso4217:EUR'), QNames joined by '*' (e.g. 'utr:m*utr:m'), or a numerator group '/' denominator group where each group is either a single QName or a parenthesised '*'-separated list of two or more QNames (e.g. 'utr:kg/(utr:m*utr:m)')."
                          },
-                        "description": "Ordered set of strings representing the string representations of the unit.",
+                        "description": "Ordered set of unit string representations equivalent to the defined unit, as defined in OIM Common §3.4.",
                         "uniqueItems": true
                        }
                     },
@@ -1501,36 +1467,6 @@
                             "items": { "$ref": "#/definitions/QName" },
                             "uniqueItems": true
                           },
-                          "collectionType": {
-                            "type": "object",
-                            "description": "CollectionType object defining constraints for collection-based datatypes.",
-                            "properties": {
-                              "dataTypesAllowed": {
-                                "type": "array",
-                                "description": "Array of QNames specifying the datatypes allowed as members of the collection.",
-                                "items": { "$ref": "#/definitions/dataTypeQName" },
-                                "minItems": 1
-                              },
-                              "uniqueValues": {
-                                "type": "boolean",
-                                "description": "If true, all values in the collection must be unique."
-                              },
-                              "orderedValues": {
-                                "type": "boolean",
-                                "description": "If true, the collection maintains insertion order."
-                              },
-                              "maxItems": {
-                                "type": "integer",
-                                "description": "Maximum number of items allowed in the collection."
-                              },
-                              "minItems": {
-                                "type": "integer",
-                                "description": "Minimum number of items required in the collection."
-                              }
-                            },
-                            "required": ["dataTypesAllowed"],
-                            "additionalProperties": false
-                          },
                           "mapType": {
                             "type": "object",
                             "description": "MapType object defining constraints for map-based (dictionary/associative array) datatypes.",
@@ -1573,6 +1509,50 @@
                         "required": ["name", "baseType"],
                         "additionalProperties": false
                       },
+                    "uniqueItems": true
+                },
+                "collections": {
+                    "type": "array",
+                    "description": "Array of collection objects. Collections define ordered or unordered sets of typed values and are identified by QName.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "$ref": "#/definitions/QName",
+                          "description": "QName that uniquely identifies the collection object."
+                        },
+                        "dataTypesAllowed": {
+                          "type": "array",
+                          "description": "Array of QNames specifying the datatypes allowed as members of the collection.",
+                          "items": { "$ref": "#/definitions/dataTypeQName" },
+                          "minItems": 1
+                        },
+                        "uniqueValues": {
+                          "type": "boolean",
+                          "description": "If true, all values in the collection must be unique. Defaults to true."
+                        },
+                        "orderedValues": {
+                          "type": "boolean",
+                          "description": "If true, the collection maintains insertion order. Defaults to false."
+                        },
+                        "maxItems": {
+                          "type": "integer",
+                          "description": "Maximum number of items allowed in the collection."
+                        },
+                        "minItems": {
+                          "type": "integer",
+                          "description": "Minimum number of items required in the collection."
+                        },
+                        "properties": {
+                          "type": "array",
+                          "items": { "$ref": "#/definitions/propertyObject" },
+                          "description": "Additional properties associated with the collection object.",
+                          "uniqueItems": true
+                        }
+                      },
+                      "required": ["name", "dataTypesAllowed"],
+                      "additionalProperties": false
+                    },
                     "uniqueItems": true
                 },
                 "transforms": {
@@ -2068,7 +2048,7 @@
       },
       "dataTypeQName": {
           "$ref": "#/definitions/QName",
-          "description": "QName that references a dataType object. Must reference either a built-in XML Schema datatype (xs:*) or a custom dataType defined in the xbrlModel."
+          "description": "QName that references a dataType object or collection object. Must reference either a built-in XML Schema datatype (xs:*), a custom dataType defined in the xbrlModel, or a collection object defined in the xbrlModel."
       },
       "conceptQName": {
           "$ref": "#/definitions/QName",

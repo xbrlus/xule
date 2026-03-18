@@ -4,30 +4,26 @@
         "documentType": "https://xbrl.org/2026/model",
         "documentNamespace": "exp_ext",
         "namespaces": {
-            "exp":  "http://example.com/taxonomy",
+            "exp": "http://example.com/taxonomy",
             "xbrl": "https://xbrl.org/2025",
             "iso4217": "http://www.xbrl.org/2003/iso4217",
             "utr": "https://xbrl.org/2025/utr",
-            "xbrli":"https://xbrl.org/2025/instance",
+            "xbrli": "https://xbrl.org/2025/instance",
             "xs": "http://www.w3.org/2001/XMLSchema",
-            "mini5": "http://example.com/mini5",
-            "exp_extF2": "http://example.com/ext-final-taxonomy2"
-            
-            },
-        "urlMapping": {
-            "mini5":  ["../examples/copilot-mini5.json"]
-            }
+            "mini2": "http://example.com/mini2",
+            "exp_ext": "http://example.com/ext-final-taxonomy2"
+        },
+        "importMapping": {
+            "mini2:MiniTaxonomy2": "../examples/copilot-mini2.json"
+        },
+        "description": "ERROR: oimce:invalidURIForReservedAlias reserved prefix XBRL used to define object in imported taxonomy."
     },
     "xbrlModel": {
-        "name": "exp_extF2:ExtensionTaxonomy",
+        "name": "exp_ext:ExtensionTaxonomy",
         "importedTaxonomies": [
             {
-                "xbrlModelName": "mini5:Mini5Taxonomy"
+                "xbrlModelName": "mini2:MiniTaxonomy2"
             }
-        ],
-        "finalTaxonomy": {
-            "name": "exp_extF2:ExtensionTaxonomyFinal",
-            "finalTaxonomyFlag": true
-        }
+        ]
     }
 }

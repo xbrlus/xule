@@ -1,0 +1,34 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:invalidTaxonomyGroupTarget: The groupTree relationship target 'exp:IncomeStatementPresentation' references a network object rather than a group object."
+    },
+    "xbrlModel": {
+        "name": "exp:InvalidGroupTargetModel",
+        "version": "2025",
+        "groups": [
+            { "name": "exp:IncomeStatementGroup" }
+        ],
+        "networks": [
+            { "name": "exp:IncomeStatementPresentation",
+              "relationshipTypeName": "xbrl:parent-child" }
+        ],
+        "groupTree": {
+            "name": "exp:InvalidGroupTargetModel_GroupTree",
+            "relationships": [
+                {
+                    "source": "exp:InvalidGroupTargetModel",
+                    "target": "exp:IncomeStatementPresentation"
+                }
+            ]
+        }
+    }
+}

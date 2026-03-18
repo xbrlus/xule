@@ -9,11 +9,9 @@
             "xs": "http://www.w3.org/2001/XMLSchema",
             "xbrltt": "https://xbrl.org/2025/transform"
         },
-        "urlMapping": {
-                    "xbrltt": [
-                            "../spec-taxonomies/transform-types.json"
-                    ]
-                    }
+        "importMapping": {
+            "xbrltt:TransformsTaxonomyModule": "../spec-taxonomies/transform-types.json"
+        }
     },
     "xbrlModel": {
         "name": "req:OIMRequirementsTaxonomy",
@@ -21,9 +19,9 @@
         "modelForm": "module",
         "importedTaxonomies": [
             {
-            "xbrlModelName": "xbrltt:TransformsTaxonomyModule"
+                "xbrlModelName": "xbrltt:TransformsTaxonomyModule"
             }
-        ],  
+        ],
         "abstracts": [
             {
                 "name": "req:GeneralRequirements"

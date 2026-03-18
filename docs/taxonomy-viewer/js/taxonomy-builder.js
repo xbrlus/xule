@@ -166,7 +166,7 @@ export function buildTree() {
                     taxonomyData.documentInfo || null,
                     getRawTaxonomyData()
                 );
-                // Preserve import-time errors (e.g. oimte:duplicateNamespaceURI) that were collected
+                // Preserve import-time errors (e.g. oimce:multipleAliasesForURI) that were collected
                 // before buildTree ran — the re-validation above would otherwise discard them.
                 const persistentErrors = window._persistentValidationErrors || [];
                 window.qnameValidationErrors = validationErrors.concat(persistentErrors);
@@ -683,7 +683,6 @@ function buildErrorPanel(taxonomy) {
         errors.invalidDomainObject.length === 0 &&
         errors.missingDomainClassSource.length === 0 &&
         errors.multipleDomainClasses.length === 0 &&
-        errors.invalidCubeType.length === 0 &&
         errors.duplicateDimension.length === 0 &&
         errors.invalidCoreDimension.length === 0 &&
         errors.invalidDataTypeExpansion.length === 0 &&
@@ -696,7 +695,6 @@ function buildErrorPanel(taxonomy) {
         errors.invalidRelationshipExpansion.length === 0 &&
         errors.invalidDataTypeForDomainClass.length === 0 &&
         errors.invalidDomainClassReference.length === 0 &&
-        errors.invalidQNameReferences.length === 0 &&
         errors.referenceTypeRedefined.length === 0 &&
         errors.referenceLanguageRedefined.length === 0 &&
         qnameErrors.length === 0 &&
@@ -976,30 +974,6 @@ function buildErrorPanel(taxonomy) {
             contextHtml += `<span class="error-detail-indent"><strong>Declared Root:</strong> <code class="error-highlight-code">${err.declaredRoot}</code></span><br>`;
             contextHtml += `<span class="error-detail-indent"><strong>Actual Roots Found:</strong> <code class="error-highlight-code">${err.actualRoots.join(', ')}</code></span><br>`;
             contextHtml += `<span class="error-detail-indent"><strong>Root Count:</strong> ${err.rootCount}</span><br>`;
-            contextHtml += `<span class="error-detail-indent error-message-text">${err.message}</span>`;
-            
-            li.innerHTML = contextHtml;
-            list.appendChild(li);
-        });
-
-        section.appendChild(list);
-        errorsDiv.appendChild(section);
-    }
-
-    // Invalid Cube Type Section
-    if (errors.invalidCubeType.length > 0) {
-        const section = createErrorSection();
-        const errorLabel = getErrorLabel('oimte:invalidCubeType');
-        const title = createErrorTitle(errorLabel, errors.invalidCubeType.length);
-        section.appendChild(title);
-
-        const list = createErrorList();
-        errors.invalidCubeType.forEach(err => {
-            const li = createErrorListItem();
-            
-            let contextHtml = `<strong class="error-code">[${err.code}]</strong> `;
-            contextHtml += `<strong>Dimension:</strong> <code class="error-highlight-code">${err.dimensionName}</code><br>`;
-            contextHtml += `<span class="error-detail-indent"><strong>Invalid Reference:</strong> <code class="error-highlight-code">${err.cubeTypeName}</code></span><br>`;
             contextHtml += `<span class="error-detail-indent error-message-text">${err.message}</span>`;
             
             li.innerHTML = contextHtml;
@@ -1391,7 +1365,7 @@ function buildErrorPanel(taxonomy) {
     // Dimension Name Not Dimension Object Section
     if (errors.dimensionNameNotDimensionObject.length > 0) {
         const section = createErrorSection();
-        const errorLabel = getErrorLabel('oimte:dimensionNameNotDimensionObject');
+        const errorLabel = getErrorLabel('oimte:invalidQNameType');
         const title = createErrorTitle(errorLabel, errors.dimensionNameNotDimensionObject.length);
         section.appendChild(title);
 
@@ -1411,34 +1385,6 @@ function buildErrorPanel(taxonomy) {
             }
             
             contextHtml += `<span class="error-detail-indent error-message-text">${err.message}</span>`;
-            
-            li.innerHTML = contextHtml;
-            list.appendChild(li);
-        });
-
-        section.appendChild(list);
-        errorsDiv.appendChild(section);
-    }
-
-    // Invalid QName References by Type Section
-    if (errors.invalidQNameReferences.length > 0) {
-        const section = createErrorSection();
-        const errorLabel = getErrorLabel('oimte:invalidQNameReference');
-        const title = createErrorTitle(errorLabel, errors.invalidQNameReferences.length);
-        section.appendChild(title);
-
-        const list = createErrorList();
-        errors.invalidQNameReferences.forEach(err => {
-            const li = createErrorListItem();
-            
-            let contextHtml = `<strong class="error-code">[oimte:invalidQNameReference]</strong> `;
-            contextHtml += `<strong>Type:</strong> <code style="background: #e7f5ff; padding: 2px 4px; border-radius: 3px;">${err.type}</code> `;
-            contextHtml += `<strong>Invalid Reference:</strong> <code class="error-highlight-code">${err.reference}</code><br>`;
-            contextHtml += `<span class="error-detail-indent">In: <strong>${err.context}</strong> <em>${err.name}</em>, field: <code>${err.field}</code></span><br>`;
-            
-            // Use custom message if provided, otherwise use default message
-            const errorMessage = err.message || `The referenced ${err.type.replace('QName', '')} does not exist in the taxonomy.`;
-            contextHtml += `<span class="error-detail-indent error-message-text">${errorMessage}</span>`;
             
             li.innerHTML = contextHtml;
             list.appendChild(li);
@@ -1668,9 +1614,7 @@ function validateTaxonomy(taxonomy) {
         invalidDomainObject: [],
         missingDomainClassSource: [],
         multipleDomainClasses: [],
-        invalidCubeType: [],
         invalidDataTypeForDomainClass: [],
-        invalidQNameReferences: [],
         referenceTypeRedefined: [],
         referenceLanguageRedefined: [],
         duplicateDimension: [],
@@ -1803,8 +1747,7 @@ function validateTaxonomy(taxonomy) {
     // Validate that domainName is not used on period dimension
     validateDomainUsedOnPeriodDimension(taxonomy, errors);
 
-    // Validate that cubeTypes array only references cubeType objects
-    validateCubeTypeReferences(taxonomy, errors);
+    // Note: cubeTypes array type checking (oimte:invalidQNameType) is handled by qname-validator.js
 
     // Validate that cubeTypes don't have duplicate dimensions in constraints
     validateCubeTypeDuplicateDimensions(taxonomy, errors);
@@ -1845,8 +1788,7 @@ function validateTaxonomy(taxonomy) {
     // Validate reference extension properties (referenceType and language)
     validateReferenceExtensionProperties(taxonomy, errors);
 
-    // Validate QName references by type throughout taxonomy
-    validateQNameReferencesByType(taxonomy, errors);
+    // Note: QName reference validation by type is now fully handled by qname-validator.js
 
     return errors;
 }
@@ -1972,7 +1914,7 @@ function validateEntityDomainSources(taxonomy, errors) {
 
                 if (!isEntityObject && !isEntityDomainClass) {
                     errors.domainDefinitionErrors.push({
-                        code: 'oimte:invalidEntityDomainSource',
+                        code: 'oimte:invalidDomainObject',
                         domain: domain.name,
                         domainClass: domain.root,
                         source: rel.source,
@@ -2023,7 +1965,7 @@ function validateEntityDomainTargets(taxonomy, errors) {
 
                 if (!isEntityObject) {
                     errors.domainDefinitionErrors.push({
-                        code: 'oimte:invalidEntityDomainTarget',
+                        code: 'oimte:invalidDomainObject',
                         domain: domain.name,
                         domainClass: domain.root,
                         source: rel.source,
@@ -2075,7 +2017,7 @@ function validateUnitDomainSources(taxonomy, errors) {
 
                 if (!isUnitObject && !isUnitDomainClass) {
                     errors.domainDefinitionErrors.push({
-                        code: 'oimte:invalidUnitDomainSource',
+                        code: 'oimte:invalidDomainObject',
                         domain: domain.name,
                         domainClass: domain.root,
                         source: rel.source,
@@ -2126,7 +2068,7 @@ function validateUnitDomainTargets(taxonomy, errors) {
 
                 if (!isUnitObject) {
                     errors.domainDefinitionErrors.push({
-                        code: 'oimte:invalidUnitDomainTarget',
+                        code: 'oimte:invalidDomainObject',
                         domain: domain.name,
                         domainClass: domain.root,
                         source: rel.source,
@@ -3815,7 +3757,7 @@ function validateDimensionNameReferences(taxonomy, errors, definedNames) {
             cube.cubeDimensions.forEach(cubeDim => {
                 if (cubeDim.dimensionName && !dimensionNames.has(cubeDim.dimensionName)) {
                     errors.dimensionNameNotDimensionObject.push({
-                        code: 'oimte:dimensionNameNotDimensionObject',
+                        code: 'oimte:invalidQNameType',
                         context: 'cube',
                         cubeName: cube.name,
                         dimensionName: cubeDim.dimensionName,
@@ -3836,7 +3778,7 @@ function validateDimensionNameReferences(taxonomy, errors, definedNames) {
             cubeType.allowedCubeDimensions.forEach(allowedDim => {
                 if (allowedDim.dimensionName && !dimensionNames.has(allowedDim.dimensionName)) {
                     errors.dimensionNameNotDimensionObject.push({
-                        code: 'oimte:dimensionNameNotDimensionObject',
+                        code: 'oimte:invalidQNameType',
                         context: 'cubeType',
                         cubeTypeName: cubeType.name,
                         dimensionName: allowedDim.dimensionName,
@@ -3866,7 +3808,7 @@ function validateDimensionNameReferences(taxonomy, errors, definedNames) {
                 axis.forEach(axisItem => {
                     if (axisItem.dimensionName && !dimensionNames.has(axisItem.dimensionName)) {
                         errors.dimensionNameNotDimensionObject.push({
-                            code: 'oimte:dimensionNameNotDimensionObject',
+                            code: 'oimte:invalidQNameType',
                             context: 'dataTable',
                             dataTableName: dataTable.name || 'unnamed',
                             axisType: type,
@@ -3990,8 +3932,9 @@ function validateQNameReferencesByType(taxonomy, errors) {
     const taxonomies = new Set();
     const units = new Set();
     
-    // Populate dataTypes set
+    // Populate dataTypes set (includes both dataTypes and collections, as both are valid dataType references)
     populateSet(dataTypes, taxonomy.dataTypes);
+    populateSet(dataTypes, taxonomy.collections);
     
     // Populate concepts set
     populateSet(concepts, taxonomy.concepts);

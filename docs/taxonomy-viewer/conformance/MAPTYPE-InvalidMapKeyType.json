@@ -1,0 +1,47 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:invalidMapKeyType: Map property value contains the key 'notAnInteger' which is not a valid value of the keyType xs:integer."
+    },
+    "xbrlModel": {
+        "name": "exp:InvalidMapKeyTypeModel",
+        "version": "2025",
+        "dataTypes": [
+            {
+                "name": "exp:IntegerKeyedMap",
+                "baseType": "xbrli:map",
+                "mapType": {
+                    "keyType": "xs:integer",
+                    "valueType": "xs:string"
+                }
+            }
+        ],
+        "propertyTypes": [
+            {
+                "name": "exp:IndexedProperty",
+                "dataType": "exp:IntegerKeyedMap"
+            }
+        ],
+        "concepts": [
+            {
+                "name": "exp:Revenue",
+                "dataType": "xbrli:monetary",
+                "periodType": "duration",
+                "properties": [
+                    {
+                        "property": "exp:IndexedProperty",
+                        "value": { "notAnInteger": "someValue" }
+                    }
+                ]
+            }
+        ]
+    }
+}

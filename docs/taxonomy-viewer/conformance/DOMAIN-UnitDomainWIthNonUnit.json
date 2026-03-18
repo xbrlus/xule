@@ -10,7 +10,7 @@
       "iso4217": "http://www.xbrl.org/2003/iso4217"
     },
     "documentNamespace": "exp",
-    "description": "ERROR: oimte:invalidUnitDomainTarget - Concept object defined in unit domain"
+    "description": "ERROR: oimte:invalidDomainObject - Concept object defined in unit domain"
   },
   "xbrlModel": {
     "name": "exp:ConceptObjectInUnitdDomain",

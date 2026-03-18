@@ -1,0 +1,63 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:tooManySampleMembers: A factSourceDimensionSummary sampleMembers array contains more than 100 entries."
+    },
+    "xbrlModel": {
+        "name": "exp:TooManySampleMembersModel",
+        "version": "2025",
+        "factMaps": [
+            { "name": "exp:SalesFactMap" }
+        ],
+        "factSources": [
+            {
+                "name": "exp:SalesFactSource",
+                "factMapName": "exp:SalesFactMap",
+                "hash": "a3f5b6d2e1c4abc123",
+                "metadata": {
+                    "factCount": 200,
+                    "validationTimestamp": "2026-03-11T10:00:00",
+                    "concepts": ["exp:Revenue"],
+                    "dimensions": [
+                        {
+                            "dimensionName": "xbrl:concept",
+                            "memberCount": 101,
+                            "isTyped": false,
+                            "sampleMembers": [
+                                "exp:C001","exp:C002","exp:C003","exp:C004","exp:C005",
+                                "exp:C006","exp:C007","exp:C008","exp:C009","exp:C010",
+                                "exp:C011","exp:C012","exp:C013","exp:C014","exp:C015",
+                                "exp:C016","exp:C017","exp:C018","exp:C019","exp:C020",
+                                "exp:C021","exp:C022","exp:C023","exp:C024","exp:C025",
+                                "exp:C026","exp:C027","exp:C028","exp:C029","exp:C030",
+                                "exp:C031","exp:C032","exp:C033","exp:C034","exp:C035",
+                                "exp:C036","exp:C037","exp:C038","exp:C039","exp:C040",
+                                "exp:C041","exp:C042","exp:C043","exp:C044","exp:C045",
+                                "exp:C046","exp:C047","exp:C048","exp:C049","exp:C050",
+                                "exp:C051","exp:C052","exp:C053","exp:C054","exp:C055",
+                                "exp:C056","exp:C057","exp:C058","exp:C059","exp:C060",
+                                "exp:C061","exp:C062","exp:C063","exp:C064","exp:C065",
+                                "exp:C066","exp:C067","exp:C068","exp:C069","exp:C070",
+                                "exp:C071","exp:C072","exp:C073","exp:C074","exp:C075",
+                                "exp:C076","exp:C077","exp:C078","exp:C079","exp:C080",
+                                "exp:C081","exp:C082","exp:C083","exp:C084","exp:C085",
+                                "exp:C086","exp:C087","exp:C088","exp:C089","exp:C090",
+                                "exp:C091","exp:C092","exp:C093","exp:C094","exp:C095",
+                                "exp:C096","exp:C097","exp:C098","exp:C099","exp:C100",
+                                "exp:C101"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

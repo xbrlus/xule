@@ -10,8 +10,8 @@
 		},
 		"documentType": "https://xbrl.org/2026/model",
 		"documentNamespace": "dei",
-		"urlMapping": {
-            "xbrla": ["../spec-taxonomies/xbrla.json"]
+		"importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
             }
 	},
 	"xbrlModel": {

@@ -1,53 +1,55 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": { 
-        "exp": "http://example.com/taxonomy", 
-        "xbrl": "https://xbrl.org/2025", 
-        "xbrli": "https://xbrl.org/2025/instance", 
-        "xs": "http://www.w3.org/2001/XMLSchema",
-        "xbrla": "http://xbrl.org/accounting"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "xbrla": "http://xbrl.org/accounting"
         },
-    "documentNamespace": "exp",
-    "urlMapping":{
-			      "xbrla": ["../spec-taxonomies/xbrla.json"]
+        "documentNamespace": "exp",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
         }
-  },
-  "xbrlModel": {
-    "name": "exp:TimeSeriesExcludedIntervals",
-    "version": "2025",
-     "importedTaxonomies": [
+    },
+    "xbrlModel": {
+        "name": "exp:TimeSeriesExcludedIntervals",
+        "version": "2025",
+        "importedTaxonomies": [
             {
                 "xbrlModelName": "xbrla:AccountingModel"
             }
-          ],
-    "dimensions": [
-      {
-        "name": "exp:MarketTradesTime",
-        "domainClass": "exp:TimeSeriesPeakDemandRoot",
-        "cubeTypes": ["xbrla:timeSeriesCube"]
-      }
-    ],
-    "cubes": [
-      {
-        "name": "exp:MarketTradeSeriesCube",
-        "cubeType": "xbrla:timeSeriesCube",
-        "cubeDimensions": [ 
-            { 
-              "dimensionName": "exp:MarketTradesTime" ,
-              "domainDataType": "xs:dateTime",
-              "allowDomainFacts": false
-            },
-          {
-            "dimensionName": "xbrl:concept",
-            "domainName": "exp:PrimaryTimeSeriesDomain"
-          }
-         ]
-      }
-    ],
-     "domains": [
-        {
+        ],
+        "dimensions": [
+            {
+                "name": "exp:MarketTradesTime",
+                "domainClass": "exp:TimeSeriesPeakDemandRoot",
+                "cubeTypes": [
+                    "xbrla:timeSeriesCube"
+                ]
+            }
+        ],
+        "cubes": [
+            {
+                "name": "exp:MarketTradeSeriesCube",
+                "cubeType": "xbrla:timeSeriesCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "exp:MarketTradesTime",
+                        "domainDataType": "xs:dateTime",
+                        "allowDomainFacts": false
+                    },
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:PrimaryTimeSeriesDomain"
+                    }
+                ]
+            }
+        ],
+        "domains": [
+            {
                 "name": "exp:PrimaryTimeSeriesDomain",
                 "root": "xbrl:conceptDomain",
                 "relationships": [
@@ -57,27 +59,47 @@
                     }
                 ]
             }
-    ],
-    "concepts": [
-      {
-        "name": "exp:PeakGridElectricityDemand",
-        "dataType": "xbrli:power",
-        "periodType": "none",
-        "nillable": true
-      }
-    ],
-    "domainClasses": [
+        ],
+        "concepts": [
+            {
+                "name": "exp:PeakGridElectricityDemand",
+                "dataType": "xbrli:power",
+                "periodType": "none",
+                "nillable": true
+            }
+        ],
+        "domainClasses": [
             {
                 "name": "exp:TimeSeriesPeakDemandRoot",
-                "allowedDomainItems" : ["xs:dateTime"],
+                "allowedDomainItems": [
+                    "xs:dateTime"
+                ],
                 "properties": [
-                        { "property": "xbrl:intervalOfMeasurement", "value": "PT30M" },
-                        { "property": "xbrl:timeSeriesType", "value": "Raw" },
-                        { "property": "xbrl:intervalConvention", "value": "StartTime" },
-                        { "property": "xbrl:completeTimeSeries", "value": true },
-                        { "property": "xbrl:excludedIntervals", "value": ["RRULE:FREQ=WEEKLY;BYDAY=SA,SU", "EXDATE;VALUE=DATE:20241225,20251225,20261225"] }
-                      ]
-              }
-          ]
-  }
+                    {
+                        "property": "xbrl:intervalOfMeasurement",
+                        "value": "PT30M"
+                    },
+                    {
+                        "property": "xbrl:timeSeriesType",
+                        "value": "Raw"
+                    },
+                    {
+                        "property": "xbrl:intervalConvention",
+                        "value": "StartTime"
+                    },
+                    {
+                        "property": "xbrl:completeTimeSeries",
+                        "value": true
+                    },
+                    {
+                        "property": "xbrl:excludedIntervals",
+                        "value": [
+                            "RRULE:FREQ=WEEKLY;BYDAY=SA,SU",
+                            "EXDATE;VALUE=DATE:20241225,20251225,20261225"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }

@@ -1,0 +1,25 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: oimte:invalidLanguage: Footnote has an invalid BCP 47 language code."
+    },
+    "xbrlModel": {
+        "name": "exp:InvalidLanguageCodeModel",
+        "version": "2025",
+        "footnotes": [
+            {
+                "name": "exp:Footnote1",
+                "content": "This footnote has an invalid language code.",
+                "language": "invalid"
+            }
+        ]
+    }
+}

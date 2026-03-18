@@ -231,6 +231,165 @@ export async function generateAllFacts(factSource, xbrlModel) {
  * @param {Object|null} xbrlModel - The XBRL model (needed for domain membership checks)
  * @returns {Array} - Filtered facts
  */
+// ─── Period constraint helpers (mirrors fact-grid.js; kept here to avoid circular imports) ──────
+
+function _parsePeriodString(periodString) {
+    if (!periodString) return null;
+    if (periodString.includes('/')) {
+        const [start, end] = periodString.split('/');
+        return { periodType: 'duration', startDate: new Date(start), endDate: new Date(end) };
+    }
+    const date = new Date(periodString);
+    return { periodType: 'instant', startDate: date, endDate: date };
+}
+
+function _parseDuration(durationStr) {
+    if (!durationStr || !durationStr.startsWith('P')) return 0;
+    const yearMatch  = durationStr.match(/(\d+)Y/);
+    const monthMatch = durationStr.match(/(\d+)M/);
+    const dayMatch   = durationStr.match(/(\d+)D/);
+    let ms = 0;
+    if (yearMatch)  ms += parseInt(yearMatch[1])  * 365.25 * 24 * 60 * 60 * 1000;
+    if (monthMatch) ms += parseInt(monthMatch[1]) * 30.44  * 24 * 60 * 60 * 1000;
+    if (dayMatch)   ms += parseInt(dayMatch[1])   * 24     * 60 * 60 * 1000;
+    return ms;
+}
+
+function _matchDatePattern(date, pattern) {
+    const tIdx = pattern.indexOf('T');
+    const datePart = tIdx >= 0 ? pattern.substring(0, tIdx) : pattern;
+    const timePart = tIdx >= 0 ? pattern.substring(tIdx + 1) : null;
+    const tokens = datePart.split('-');
+    const year = date.getUTCFullYear(), month = date.getUTCMonth() + 1, day = date.getUTCDate();
+    const hours = date.getUTCHours(), mins = date.getUTCMinutes(), secs = date.getUTCSeconds();
+    const w = {};
+    if (tokens[0] === 'YYYY')             { w.YYYY = year;  }
+    else if (parseInt(tokens[0]) !== year) { return null; }
+    if (tokens.length > 1) {
+        if (tokens[1] === 'MM')               { w.MM = month;  }
+        else if (parseInt(tokens[1]) !== month) { return null; }
+    }
+    if (tokens.length > 2) {
+        const dt = tokens[2];
+        if (dt === 'DD')                      { w.DD = day; }
+        else if (dt.toLowerCase() === 'eom')  { const last = new Date(Date.UTC(year, month, 0)).getUTCDate(); if (day !== last) return null; w.eom = day; }
+        else if (parseInt(dt) !== day)        { return null; }
+    }
+    if (timePart !== null) {
+        const tt = timePart.split(':');
+        if (tt[0] === 'hh')                   { w.hh = hours; }
+        else if (parseInt(tt[0]) !== hours)   { return null; }
+        if (tt.length > 1) {
+            if (tt[1] === 'mm')               { w.mm = mins; }
+            else if (parseInt(tt[1]) !== mins){ return null; }
+        }
+        if (tt.length > 2) {
+            if (tt[2] === 'ss')               { w.ss = secs; }
+            else if (parseInt(tt[2]) !== secs){ return null; }
+        }
+    }
+    return w;
+}
+
+function _matchesPeriodPattern(factPeriodInfo, pattern) {
+    if (pattern.includes('/')) {
+        if (factPeriodInfo.periodType !== 'duration') return false;
+        const [sp, ep] = pattern.split('/');
+        const sw = _matchDatePattern(factPeriodInfo.startDate, sp);
+        if (sw === null) return false;
+        const ew = _matchDatePattern(factPeriodInfo.endDate, ep);
+        if (ew === null) return false;
+        for (const k of ['YYYY', 'MM', 'DD']) {
+            if (k in sw && k in ew && sw[k] !== ew[k]) return false;
+        }
+        return true;
+    } else {
+        if (factPeriodInfo.periodType !== 'instant') return false;
+        return _matchDatePattern(factPeriodInfo.endDate, pattern) !== null;
+    }
+}
+
+function _resolveDateValue(dateConstraint) {
+    // Resolves only literal `value` entries; conceptName/context resolved in fact-grid.js
+    if (!dateConstraint || !dateConstraint.value) return null;
+    let dates = [new Date(dateConstraint.value)];
+    if (dateConstraint.timeShift) {
+        const shiftMs = _parseDuration(dateConstraint.timeShift);
+        const neg = dateConstraint.timeShift.startsWith('-');
+        dates = dates.map(d => new Date(neg ? d.getTime() - shiftMs : d.getTime() + shiftMs));
+    }
+    return dates.length === 1 ? dates[0] : dates;
+}
+
+function _matchesSinglePeriodConstraint(factPeriodInfo, constraint) {
+    if (constraint.periodType && constraint.periodType !== factPeriodInfo.periodType) return false;
+
+    if (constraint.timeSpan && factPeriodInfo.periodType === 'duration') {
+        const expected = _parseDuration(constraint.timeSpan);
+        const actual   = Math.abs(factPeriodInfo.endDate.getTime() - factPeriodInfo.startDate.getTime());
+        if (Math.abs(expected - actual) > 24 * 60 * 60 * 1000) return false;
+    }
+
+    if (constraint.endDate) {
+        const resolved = _resolveDateValue(constraint.endDate);
+        if (resolved) {
+            const fe = factPeriodInfo.endDate;
+            const feUTC = Date.UTC(fe.getUTCFullYear(), fe.getUTCMonth(), fe.getUTCDate());
+            const list = Array.isArray(resolved) ? resolved : [resolved];
+            const ok = list.some(cd => {
+                const cdUTC = Date.UTC(cd.getUTCFullYear(), cd.getUTCMonth(), cd.getUTCDate());
+                if (feUTC === cdUTC) return true;
+                if (factPeriodInfo.periodType === 'instant' && fe.getUTCHours() === 0 && fe.getUTCMinutes() === 0 && fe.getUTCSeconds() === 0) {
+                    if (feUTC === cdUTC + 24 * 60 * 60 * 1000) return true;
+                }
+                return false;
+            });
+            if (!ok) return false;
+        }
+    }
+
+    if (constraint.startDate && factPeriodInfo.periodType === 'duration') {
+        const resolved = _resolveDateValue(constraint.startDate);
+        if (resolved) {
+            const fs = factPeriodInfo.startDate;
+            const fsUTC = Date.UTC(fs.getUTCFullYear(), fs.getUTCMonth(), fs.getUTCDate());
+            const list = Array.isArray(resolved) ? resolved : [resolved];
+            if (!list.some(cd => Date.UTC(cd.getUTCFullYear(), cd.getUTCMonth(), cd.getUTCDate()) === fsUTC)) return false;
+        }
+    }
+
+    if (constraint.periodPattern) {
+        if (!_matchesPeriodPattern(factPeriodInfo, constraint.periodPattern)) return false;
+    }
+
+    if (constraint.onOrAfter) {
+        const resolved = _resolveDateValue(constraint.onOrAfter);
+        if (resolved) {
+            const list = Array.isArray(resolved) ? resolved : [resolved];
+            if (!list.some(cd => factPeriodInfo.endDate >= cd)) return false;
+        }
+    }
+
+    if (constraint.onOrBefore) {
+        const resolved = _resolveDateValue(constraint.onOrBefore);
+        if (resolved) {
+            const list = Array.isArray(resolved) ? resolved : [resolved];
+            if (!list.some(cd => factPeriodInfo.endDate <= cd)) return false;
+        }
+    }
+
+    return true;
+}
+
+function _matchesPeriodConstraints(factPeriod, periodConstraints) {
+    if (!factPeriod || !periodConstraints || periodConstraints.length === 0) return true;
+    const info = _parsePeriodString(factPeriod);
+    if (!info) return false;
+    return periodConstraints.some(c => _matchesSinglePeriodConstraint(info, c));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function filterFactsToCube(facts, cube, xbrlModel = null) {
     if (!cube || !cube.cubeDimensions) {
         return facts;
@@ -288,6 +447,15 @@ export function filterFactsToCube(facts, cube, xbrlModel = null) {
             });
             
             if (!domainValueIsValid) return false;
+        }
+
+        // 4. Check period constraints on the xbrl:period dimension
+        const periodDim = cube.cubeDimensions.find(cd => cd.dimensionName === 'xbrl:period');
+        if (periodDim && periodDim.periodConstraints && periodDim.periodConstraints.length > 0) {
+            const factPeriod = fact.factDimensions['xbrl:period'];
+            if (factPeriod && !_matchesPeriodConstraints(factPeriod, periodDim.periodConstraints)) {
+                return false;
+            }
         }
         
         return true;

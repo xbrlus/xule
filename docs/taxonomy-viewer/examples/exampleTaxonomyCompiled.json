@@ -775,7 +775,7 @@
       {
         "name": "exp:flagez",
         "dataType": "xbrli:flow",
-        "stringRepresentations": [
+        "compositeUnitRepresentation": [
           "utr:l/utr:S"
         ]
       },
@@ -2614,8 +2614,8 @@
         ]
       },
       {
-        "name": "exp:MyDefaultCube",
-        "cubeType": "xbrl:defaultCube",
+        "name": "exp:MyOpenCube",
+        "cubeType": "xbrl:openCube",
         "cubeDimensions": [
           {
             "dimensionName": "xbrl:concept"
@@ -10789,7 +10789,7 @@
       {
         "labelType": "xbrl:documentation",
         "language": "en",
-        "relatedName": "xbrl:defaultCube",
+        "relatedName": "xbrl:openCube",
         "value": "Default generic cube type used when no other cube type is appropriate."
       },
       {
@@ -15723,7 +15723,7 @@
         }
       },
       {
-        "name": "xbrl:defaultCube"
+        "name": "xbrl:openCube"
       },
       {
         "name": "xbrl:negativeCube",

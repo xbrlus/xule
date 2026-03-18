@@ -1,0 +1,44 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/base",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp",
+    "description": "Base taxonomy for NETWORK-ExtendCausesDuplicateRelationship test. Defines a presentation network with a single parent-child relationship."
+  },
+  "xbrlModel": {
+    "name": "exp:PresentationBase",
+    "version": "2025",
+    "abstracts": [
+      {
+        "name": "exp:StatementOfIncome"
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp:Revenue",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ],
+    "networks": [
+      {
+        "name": "exp:PresentationNetwork",
+        "relationshipTypeName": "xbrl:parent-child",
+        "roots": ["exp:StatementOfIncome"],
+        "relationships": [
+          {
+            "source": "exp:StatementOfIncome",
+            "target": "exp:Revenue",
+            "order": 1
+          }
+        ]
+      }
+    ]
+  }
+}

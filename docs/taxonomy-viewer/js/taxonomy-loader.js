@@ -10,6 +10,7 @@ import { setRawTaxonomyData, getRawTaxonomyData } from './json-view.js';
 import { resetTaxonomyDetailsCache } from './tab-manager.js';
 import { 
     BUILTIN_OBJECT_TYPES_MAP as BUILTIN_OBJECT_TYPES,
+    OBJECT_TYPE_DEFINITIONS,
     OBJECT_TYPE_TO_ARRAY_MAP,
     getArrayNameForType
 } from './object-types.js';
@@ -25,48 +26,58 @@ function isAbsoluteURL(url) {
 }
 
 /**
+ * Resolve a prefixed QName ("prefix:local") to a namespace-URI-qualified form ("{uri}:local").
+ * Returns null if the prefix cannot be resolved from the supplied namespace map.
+ * Defined at module scope so it can be reused without closure re-allocation on every call.
+ * @param {string} qname - Prefixed QName to resolve
+ * @param {Object} namespaces - Map of prefix → namespace URI
+ * @returns {string|null}
+ */
+function resolveQName(qname, namespaces) {
+    const ci = qname.indexOf(':');
+    if (ci === -1) return null;
+    const pfx = qname.substring(0, ci);
+    const local = qname.substring(ci + 1);
+    const uri = namespaces?.[pfx];
+    return uri ? `${uri}:${local}` : null;
+}
+
+/**
+ * Pre-computed list of array property names derived from OBJECT_TYPE_DEFINITIONS,
+ * excluding singleton/non-enumerable properties (finalTaxonomy, groupTree, xbrlModels).
+ * Kept in sync automatically whenever OBJECT_TYPE_DEFINITIONS is updated.
+ */
+const _OBJECT_ARRAY_NAMES = OBJECT_TYPE_DEFINITIONS
+    .map(def => def.arrayName)
+    .filter(name => name && !['finalTaxonomy', 'groupTree', 'xbrlModels'].includes(name));
+
+/**
  * Check if an object with the given name exists in the taxonomy
- * @param {Object} taxonomy - The taxonomy object to search
+ * @param {Object} xbrlModel - The taxonomy xbrlModel object to search
  * @param {string} objectName - The QName of the object to find
  * @returns {boolean} True if the object exists in the taxonomy
  */
 function objectExistsInTaxonomy(xbrlModel, objectName) {
     if (!xbrlModel || !objectName) return false;
-    
+
     // Check if it's the xbrlModel itself
     if (xbrlModel.name === objectName) return true;
-    
-    // List of array properties to check
-    const arrayProperties = [
-        'concepts', 'abstracts', 'members', 'dimensions', 'domains', 'domainClasses',
-        'cubes', 'networks', 'propertyTypes', 'modelTypes', 'labelTypes', 'references', 'referenceTypes',
-        'relationshipTypes', 'cubeTypes', 'dataTypes', 'units', 'entities', 'groups',
-        'facts', 'transforms', 'factMaps', 'factSources', 'tableTemplates'
-    ];
-    
-    // Search through all arrays
-    for (const arrayName of arrayProperties) {
-        if (Array.isArray(xbrlModel[arrayName])) {
-            const found = xbrlModel[arrayName].some(item => item.name === objectName);
-            if (found) return true;
-        }
+
+    // Search through all standard object arrays (derived from OBJECT_TYPE_DEFINITIONS)
+    for (const arrayName of _OBJECT_ARRAY_NAMES) {
+        if (xbrlModel[arrayName]?.some(item => item.name === objectName)) return true;
     }
-    
-    // Check facts.factValues (these define QNames)
+
+    // Check facts.factValues (factValue QNames are not top-level model objects)
     if (Array.isArray(xbrlModel.facts)) {
         for (const fact of xbrlModel.facts) {
-            if (Array.isArray(fact.factValues)) {
-                const found = fact.factValues.some(fv => fv.name === objectName);
-                if (found) return true;
-            }
+            if (fact.factValues?.some(fv => fv.name === objectName)) return true;
         }
     }
-    
-    // Check groupTree
-    if (xbrlModel.groupTree && xbrlModel.groupTree.name === objectName) {
-        return true;
-    }
-    
+
+    // Check groupTree (singleton, not in any array)
+    if (xbrlModel.groupTree?.name === objectName) return true;
+
     return false;
 }
 
@@ -108,7 +119,7 @@ async function _processTaxonomyData(taxonomyData, path) {
     console.log('[Taxonomy Loader] Base path set to:', basePath);
 
     // Store raw taxonomy data for Module View (before any merging) - deep copy to prevent mutations
-    setRawTaxonomyData(JSON.parse(JSON.stringify(taxonomyData)));
+    setRawTaxonomyData(structuredClone(taxonomyData));
     console.log('[Taxonomy Loader] Raw taxonomy data stored for Module View');
 
     // Reset pre-validation errors for this load cycle to avoid stale data from previous loads
@@ -133,7 +144,8 @@ async function _processTaxonomyData(taxonomyData, path) {
     await mergeSpecTaxonomies();
     console.timeEnd('[Taxonomy Loader] Merge Spec Taxonomies');
 
-    // Validate QName references BEFORE building the tree so errors can be displayed
+    // Validate QName references BEFORE processing extensions so that errors on extendTargetName
+    // objects (e.g. wrong object type) are captured while those entries are still present.
     const updatedTaxonomyData = getTaxonomyData();
     const updatedXbrlModel = getXbrlModel(updatedTaxonomyData);
     if (updatedXbrlModel) {
@@ -175,6 +187,11 @@ async function _processTaxonomyData(taxonomyData, path) {
                     if (relevantErrors.length > 0) {
                         console.log(`[Taxonomy Loader]   - Propagating ${relevantErrors.length} relevant errors from ${taxonomyName}`);
                         window.qnameValidationErrors = window.qnameValidationErrors.concat(relevantErrors);
+                        // Also persist these errors so the processFactSources re-validation callback
+                        // in taxonomy-builder.js preserves them when it overwrites qnameValidationErrors.
+                        if (!window._persistentValidationErrors) window._persistentValidationErrors = [];
+                        window._persistentValidationErrors = window._persistentValidationErrors.concat(relevantErrors);
+                        console.log(`[Taxonomy Loader]   - Persisted ${relevantErrors.length} imported-taxonomy error(s) to _persistentValidationErrors`);
                     } else {
                         console.log(`[Taxonomy Loader]   - No relevant errors to propagate from ${taxonomyName}`);
                     }
@@ -196,6 +213,24 @@ async function _processTaxonomyData(taxonomyData, path) {
             // Clear the pre-errors after merging
             window._preQNameValidationErrors = [];
         }
+    }
+
+    // Process extensions (domains/networks/etc. with extendTargetName).
+    // Runs after validation so errors are already recorded, and after all merges
+    // so extensions targeting imported objects are resolved. Invalid/unresolved
+    // extension entries are removed from the model before the tree is rendered.
+    await processExtensions();
+
+    // Merge any validation errors generated *during* extension processing
+    // (e.g. oimte:duplicateRelationships detected in processNetworkExtensions).
+    // These are written to _preQNameValidationErrors inside processExtensions, but
+    // the earlier merge block runs before processExtensions so we need a second pass.
+    if (window._preQNameValidationErrors && Array.isArray(window._preQNameValidationErrors) && window._preQNameValidationErrors.length > 0) {
+        console.log(`[Taxonomy Loader] Merging ${window._preQNameValidationErrors.length} extension-processing validation error(s)`);
+        window.qnameValidationErrors = window.qnameValidationErrors.concat(window._preQNameValidationErrors);
+        if (!window._persistentValidationErrors) window._persistentValidationErrors = [];
+        window._persistentValidationErrors = window._persistentValidationErrors.concat(window._preQNameValidationErrors);
+        window._preQNameValidationErrors = [];
     }
 
     // Build the tree UI (this will display the validation errors)
@@ -228,28 +263,29 @@ async function _processTaxonomyData(taxonomyData, path) {
     return taxonomyData;
 }
 
+/**
+ * Shared session initialisation: clear all caches/error arrays from a previous load
+ * and show the loading spinner. Returns the loading element so the caller can hide it
+ * in a finally block.
+ * @returns {HTMLElement|null}
+ */
+function _initLoadSession() {
+    taxonomyCache.clear();
+    console.log('[Taxonomy Loader] Cleared taxonomy cache');
+    window.qnameValidationErrors = [];
+    window._persistentValidationErrors = [];
+    window.factSourceValidationErrors = [];
+    window._importedTaxonomyErrors = new Map();
+    const loading = document.getElementById('loading');
+    if (loading) loading.style.display = 'block';
+    return loading;
+}
+
 export async function loadTaxonomy(path) {
     console.log('[Taxonomy Loader] Loading taxonomy from:', path);
     console.time('[Taxonomy Loader] Total Load Time');
-    
-    // Clear the taxonomy cache when loading a new top-level taxonomy
-    taxonomyCache.clear();
-    console.log('[Taxonomy Loader] Cleared taxonomy cache');
-    
-    // Clear previous QName validation errors
-    window.qnameValidationErrors = [];
-    
-    // Clear persistent validation errors (import-time errors that survive fact-source re-validation)
-    window._persistentValidationErrors = [];
+    const loading = _initLoadSession();
 
-    // Clear previous factSource validation errors (not stored in model, reported separately)
-    window.factSourceValidationErrors = [];
-    
-    const loading = document.getElementById('loading');
-    if (loading) {
-        loading.style.display = 'block';
-    }
-    
     try {
         console.time('[Taxonomy Loader] Initial Fetch');
         const response = await fetch(path);
@@ -286,24 +322,7 @@ export async function loadTaxonomy(path) {
 export async function loadTaxonomyFromContent(taxonomyData, fileName) {
     console.log('[Taxonomy Loader] Loading taxonomy from content:', fileName || '(unnamed)');
     console.time('[Taxonomy Loader] Total Load Time');
-
-    // Clear the taxonomy cache when loading a new top-level taxonomy
-    taxonomyCache.clear();
-    console.log('[Taxonomy Loader] Cleared taxonomy cache');
-
-    // Clear previous QName validation errors
-    window.qnameValidationErrors = [];
-
-    // Clear persistent validation errors (import-time errors that survive fact-source re-validation)
-    window._persistentValidationErrors = [];
-
-    // Clear previous factSource validation errors (not stored in model, reported separately)
-    window.factSourceValidationErrors = [];
-
-    const loading = document.getElementById('loading');
-    if (loading) {
-        loading.style.display = 'block';
-    }
+    const loading = _initLoadSession();
 
     try {
         // Pass an empty path so imports are attempted (they may fail gracefully if relative)
@@ -413,7 +432,7 @@ async function mergeImportedTaxonomies(currentTaxonomyPath) {
             }
             
             // Check for namespace prefix conflicts and apply any prefixRemap declared on
-            // this importTaxonomy object. Raises oimte:duplicateNamespaceURI for any
+            // this importTaxonomy object. Raises oimce:multipleAliasesForURI for any
             // unresolved collision (no prefixRemap entry covering the conflicting prefix).
             // Returns a prefixTranslationMap used to re-prefix QNames in the imported model.
             if (!taxonomyData.documentInfo.namespaces) taxonomyData.documentInfo.namespaces = {};
@@ -476,8 +495,6 @@ async function mergeImportedTaxonomies(currentTaxonomyPath) {
     
     console.log('[Taxonomy Loader] Imported taxonomies merge complete.');
     
-    // After importing taxonomies, process extensions (domains/networks with extendTargetName)
-    await processExtensions();
 }
 
 /**
@@ -485,7 +502,7 @@ async function mergeImportedTaxonomies(currentTaxonomyPath) {
  * Returns a fully merged taxonomy object with all nested imports resolved
  * @param {string} taxonomyName - The QName of the taxonomy to load
  * @param {string} basePath - Base path for resolving relative file paths
- * @param {Object} documentInfo - Document info containing urlMapping
+ * @param {Object} documentInfo - Document info containing importMapping
  * @param {Array<string>} importHierarchy - Array tracking the import hierarchy to detect circular imports
  * @returns {Promise<Object|null>} The fully loaded taxonomy object, or null if loading failed
  */
@@ -523,47 +540,46 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
         
         // Return a deep copy so each import can be processed independently
         // Don't mark as merged here - let the caller mark it after successful merge
-        return JSON.parse(JSON.stringify(cachedTaxonomy));
+        return structuredClone(cachedTaxonomy);
     }
     
-    // Extract the prefix from the taxonomyName
-    const colonIndex = taxonomyName.indexOf(':');
-    if (colonIndex === -1) {
-        console.warn(`[Taxonomy Loader] Invalid taxonomyName format: ${taxonomyName} (expected prefix:name)`);
-        return null;
-    }
-    
-    const prefix = taxonomyName.substring(0, colonIndex);
-    
-    // Look up the files for this prefix in documentInfo.urlMapping
-    if (!documentInfo || !documentInfo.urlMapping) {
-        console.warn('[Taxonomy Loader] No urlMapping found in documentInfo');
-        return null;
-    }
-    
-    const files = documentInfo.urlMapping[prefix];
-    if (!files || !Array.isArray(files) || files.length === 0) {
-        console.warn(`[Taxonomy Loader] No files found in urlMapping for prefix: ${prefix}`);
+    // Look up the URL for this taxonomy QName directly in documentInfo.importMapping
+    if (!documentInfo || !documentInfo.importMapping) {
+        console.warn('[Taxonomy Loader] No importMapping found in documentInfo');
         
-        // ERROR SCENARIO 1: Namespace prefix in urlMapping does not match prefix in taxonomyName
-        // Add oimte:taxonomyNotFound error
         if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
         window._preQNameValidationErrors.push({
-            message: `Taxonomy '${taxonomyName}' not found: no URL mapping for prefix '${prefix}' (oimte:taxonomyNotFound)`,
+            message: `Taxonomy '${taxonomyName}' not found: no importMapping defined in documentInfo (oimte:taxonomyNotFound)`,
             errorCode: 'oimte:taxonomyNotFound',
             location: `importedTaxonomies[taxonomyName='${taxonomyName}']`,
             context: {
                 taxonomyName: taxonomyName,
-                prefix: prefix,
-                reason: 'No URL mapping found for prefix'
+                reason: 'No importMapping defined in documentInfo'
+            }
+        });
+        return null;
+    }
+    
+    const file = documentInfo.importMapping[taxonomyName];
+    if (!file || typeof file !== 'string') {
+        console.warn(`[Taxonomy Loader] No importMapping entry found for taxonomy QName: ${taxonomyName}`);
+        
+        // ERROR SCENARIO 1: No importMapping entry for this taxonomy QName
+        // Add oimte:taxonomyNotFound error
+        if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
+        window._preQNameValidationErrors.push({
+            message: `Taxonomy '${taxonomyName}' not found: no importMapping entry for QName '${taxonomyName}' (oimte:taxonomyNotFound)`,
+            errorCode: 'oimte:taxonomyNotFound',
+            location: `importedTaxonomies[taxonomyName='${taxonomyName}']`,
+            context: {
+                taxonomyName: taxonomyName,
+                reason: 'No importMapping entry found for this taxonomy QName'
             }
         });
         
         return null;
     }
     
-    // Load the first file (assuming one taxonomy per prefix for now)
-    const file = files[0];
     // Only prepend basePath if file is not already an absolute URL
     const filePath = isAbsoluteURL(file) ? file : basePath + file;
     
@@ -573,7 +589,7 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
     if (!response.ok) {
         console.warn(`[Taxonomy Loader] Could not load ${filePath}`);
         
-        // ERROR SCENARIO 2: URL defined in array is not found and cannot be loaded
+        // ERROR SCENARIO 2: URL in importMapping is not found or cannot be loaded
         // Add oimte:taxonomyNotFound error
         if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
         window._preQNameValidationErrors.push({
@@ -605,16 +621,6 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
     // We therefore resolve both prefixes to their namespace URIs and compare
     // {resolvedURI}:{localName} instead of the raw QName strings.
     if (xbrlModel.name !== taxonomyName) {
-        // Helper: split "prefix:local" and resolve prefix to URI from a namespace map
-        function resolveQName(qname, namespaces) {
-            const ci = qname.indexOf(':');
-            if (ci === -1) return null;
-            const pfx = qname.substring(0, ci);
-            const local = qname.substring(ci + 1);
-            const uri = namespaces && namespaces[pfx];
-            return uri ? `${uri}:${local}` : null;
-        }
-
         const parentNamespaces = documentInfo && documentInfo.namespaces ? documentInfo.namespaces : {};
         const importedNamespaces = taxonomyData.documentInfo && taxonomyData.documentInfo.namespaces
             ? taxonomyData.documentInfo.namespaces : {};
@@ -687,11 +693,11 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
     
     // Cache this xbrlModel immediately after loading (before processing nested imports)
     // This allows nested imports to find it if they reference the same taxonomy
-    taxonomyCache.set(xbrlModel.name, JSON.parse(JSON.stringify(xbrlModel)));
+    taxonomyCache.set(xbrlModel.name, structuredClone(xbrlModel));
     console.log(`[Taxonomy Loader] Cached ${xbrlModel.name}`);
     // Also cache under the alias so lookups by the requesting prefix find it.
     if (taxonomyName !== xbrlModel.name) {
-        taxonomyCache.set(taxonomyName, JSON.parse(JSON.stringify(xbrlModel)));
+        taxonomyCache.set(taxonomyName, structuredClone(xbrlModel));
         console.log(`[Taxonomy Loader] Cached alias ${taxonomyName} -> ${xbrlModel.name}`);
     }
     
@@ -732,7 +738,7 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
         console.log(`[Taxonomy Loader] Nested imports will use basePath: ${nestedBasePath}`);
         
         // Use this xbrlModel's documentInfo for resolving nested imports (not the parent's)
-        // This allows each taxonomy to have its own urlMapping
+        // This allows each taxonomy to have its own importMapping
         const nestedDocumentInfo = taxonomyData.documentInfo || documentInfo;
         
         // Load each nested import recursively and merge into this xbrlModel
@@ -782,7 +788,7 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
             }
             
             // Check for namespace prefix conflicts and apply any prefixRemap declared on
-            // this nested importTaxonomy object. Raises oimte:duplicateNamespaceURI for any
+            // this nested importTaxonomy object. Raises oimce:multipleAliasesForURI for any
             // unresolved collision.
             if (!xbrlModel._namespaces) xbrlModel._namespaces = {};
             const nestedPrefixTranslationMap = applyPrefixRemapAndMergeNamespaces(nestedXbrlModel, xbrlModel._namespaces, nestedImportSpec.prefixRemap || null, nestedXbrlModelName);
@@ -825,7 +831,7 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
     
     // Update the cache with the final merged xbrlModel (including nested imports)
     // This overwrites the earlier cache entry that was created before processing nested imports
-    taxonomyCache.set(xbrlModel.name, JSON.parse(JSON.stringify(xbrlModel)));
+    taxonomyCache.set(xbrlModel.name, structuredClone(xbrlModel));
     console.log(`[Taxonomy Loader] Updated cache for ${xbrlModel.name} with nested imports merged`);
     
     // The merge status was already set to 'partial' when we first loaded this taxonomy
@@ -837,7 +843,7 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
 
 /**
  * Validate a prefixRemap declaration and check the source model's namespaces for
- * collisions against the target namespace map. Raises oimte:duplicateNamespaceURI
+ * collisions against the target namespace map. Raises oimce:multipleAliasesForURI
  * for any collision not covered by an explicit prefixRemap entry.
  *
  * semantics of prefixRemap (per spec §Import taxonomy properties):
@@ -849,7 +855,7 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
  * Conflict handling:
  *   - Same prefix + same URI  → compatible, no action.
  *   - Same prefix + diff URI  → must be covered by a prefixRemap entry, otherwise
- *                               raises oimte:duplicateNamespaceURI.
+ *                               raises oimce:multipleAliasesForURI.
  *   - Diff prefix + same URI  → compatible (different alias, same namespace).
  *
  * After validation, merges uncolliding source namespace entries into the target map
@@ -868,7 +874,7 @@ async function loadTaxonomyRecursively(taxonomyName, basePath, documentInfo, imp
  *  2. Implicit resolution: if the imported prefix maps to a URI that already exists in
  *     the target namespace map under a different prefix, the parent's own namespace map
  *     is acting as the remap — resolve silently and record the translation.
- *  3. Truly unresolved collision (URI unknown to the importing model) → oimte:duplicateNamespaceURI.
+ *  3. Truly unresolved collision (URI unknown to the importing model) → oimce:multipleAliasesForURI.
  *
  * @returns {Map<string,string>} prefixTranslationMap — maps each source prefix that needs
  *   renaming to its target prefix. Pass this to reprefixModelNode before merging objects.
@@ -932,8 +938,8 @@ function applyPrefixRemapAndMergeNamespaces(sourceModel, targetNamespaces, prefi
                 console.warn(`[Namespace Resolution] Ambiguous prefix collision in '${sourceName}': '${prefix}' maps to '${uri}' which has multiple aliases in the importing model (${implicitAliases.join(', ')}). Add an explicit prefixRemap entry to resolve.`);
                 if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
                 window._preQNameValidationErrors.push({
-                    message: `Namespace prefix collision: '${prefix}' in '${sourceName}' maps to '${uri}' which is declared under multiple aliases (${implicitAliases.join(', ')}) in the importing model — resolution is ambiguous. Add an explicit prefixRemap entry to the importTaxonomy object (oimte:duplicateNamespaceURI).`,
-                    errorCode: 'oimte:duplicateNamespaceURI',
+                    message: `Namespace prefix collision: '${prefix}' in '${sourceName}' maps to '${uri}' which is declared under multiple aliases (${implicitAliases.join(', ')}) in the importing model — resolution is ambiguous. Add an explicit prefixRemap entry to the importTaxonomy object (oimce:multipleAliasesForURI).`,
+                    errorCode: 'oimce:multipleAliasesForURI',
                     location: `importedTaxonomies[xbrlModelName='${sourceName}']`,
                     context: { sourceName, prefix, sourceUri: uri, ambiguousAliases: implicitAliases }
                 });
@@ -942,8 +948,8 @@ function applyPrefixRemapAndMergeNamespaces(sourceModel, targetNamespaces, prefi
                 console.warn(`[Namespace Resolution] Prefix collision in '${sourceName}': '${prefix}' maps to '${uri}' (imported) vs '${targetNamespaces[prefix]}' (importing). Add prefixRemap to resolve.`);
                 if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
                 window._preQNameValidationErrors.push({
-                    message: `Namespace prefix collision: '${prefix}' in '${sourceName}' maps to '${uri}' but the importing model maps it to '${targetNamespaces[prefix]}'. Add a prefixRemap entry to the importTaxonomy object to resolve this conflict (oimte:duplicateNamespaceURI).`,
-                    errorCode: 'oimte:duplicateNamespaceURI',
+                    message: `Namespace prefix collision: '${prefix}' in '${sourceName}' maps to '${uri}' but the importing model maps it to '${targetNamespaces[prefix]}'. Add a prefixRemap entry to the importTaxonomy object to resolve this conflict (oimce:multipleAliasesForURI).`,
+                    errorCode: 'oimce:multipleAliasesForURI',
                     location: `importedTaxonomies[xbrlModelName='${sourceName}']`,
                     context: { sourceName, prefix, sourceUri: uri, targetUri: targetNamespaces[prefix] }
                 });
@@ -1015,7 +1021,7 @@ function reprefixModelNode(node, prefixTranslationMap) {
  */
 function mergeArrayProperties(targetTaxonomy, sourceTaxonomy, sourceName) {
     const arrayProperties = [
-        'dataTypes', 'units', 'propertyTypes', 'modelTypes', 'concepts', 'members',
+        'dataTypes', 'collections', 'units', 'propertyTypes', 'modelTypes', 'concepts', 'members',
         'dimensions', 'entities', 'groups', 'groupContents', 
         'relationshipTypes', 'cubes', 'networks', 'domains', 
         'domainClasses', 'labels', 'references', 'facts', 'footnotes',
@@ -1213,7 +1219,9 @@ function processDomainExtensions(taxonomyData) {
                 // Mark this extension for removal
                 extensionsToRemove.push(index);
             } else {
-                console.warn(`[Taxonomy Loader]   - Target domain ${targetName} not found, extension will be kept`);
+                // Target not found (or wrong object type) — drop extension from model
+                console.warn(`[Taxonomy Loader]   - Target domain ${targetName} not found or wrong type; dropping extension from model`);
+                extensionsToRemove.push(index);
             }
         }
     });
@@ -1263,9 +1271,42 @@ function processNetworkExtensions(taxonomyData) {
                         targetNetwork.relationships = [];
                     }
                     
-                    // Add extension relationships to target
-                    targetNetwork.relationships.push(...network.relationships);
-                    console.log(`[Taxonomy Loader]   - Added ${network.relationships.length} relationships to network ${targetName}`);
+                    // Add extension relationships to target, checking for duplicates
+                    const _makeNetRelKey = (rel) => {
+                        const normProps = Array.isArray(rel.properties)
+                            ? [...rel.properties]
+                                  .map(p => ({ property: p.property ?? null, value: p.value ?? null }))
+                                  .sort((a, b) => String(a.property).localeCompare(String(b.property)))
+                            : [];
+                        return JSON.stringify({
+                            source: rel.source ?? null,
+                            target: rel.target ?? null,
+                            order:  rel.order  ?? 0,
+                            properties: normProps
+                        });
+                    };
+                    const _existingNetRelKeys = new Set(targetNetwork.relationships.map(_makeNetRelKey));
+                    let _addedCount = 0;
+                    network.relationships.forEach((rel) => {
+                        const _key = _makeNetRelKey(rel);
+                        if (_existingNetRelKeys.has(_key)) {
+                            if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
+                            window._preQNameValidationErrors.push({
+                                message: `Duplicate relationship in network '${targetName}': source='${rel.source}', target='${rel.target}', order=${rel.order ?? 0}`,
+                                errorCode: 'oimte:duplicateRelationships',
+                                network: targetName,
+                                property: 'relationships',
+                                source: rel.source,
+                                target: rel.target,
+                                order:  rel.order ?? 0
+                            });
+                        } else {
+                            _existingNetRelKeys.add(_key);
+                            targetNetwork.relationships.push(rel);
+                            _addedCount++;
+                        }
+                    });
+                    console.log(`[Taxonomy Loader]   - Added ${_addedCount} relationships to network ${targetName} (${network.relationships.length - _addedCount} duplicate(s) detected)`);
                 }
                 
                 // Merge other extensible properties if they exist
@@ -1273,8 +1314,27 @@ function processNetworkExtensions(taxonomyData) {
                     if (!targetNetwork.roots) {
                         targetNetwork.roots = [];
                     }
-                    targetNetwork.roots.push(...network.roots);
-                    console.log(`[Taxonomy Loader]   - Added ${network.roots.length} roots to network ${targetName}`);
+
+                    // Add extension roots to target, checking for duplicates
+                    const _existingRoots = new Set(targetNetwork.roots);
+                    let _addedRootsCount = 0;
+                    network.roots.forEach((root) => {
+                        if (_existingRoots.has(root)) {
+                            if (!window._preQNameValidationErrors) window._preQNameValidationErrors = [];
+                            window._preQNameValidationErrors.push({
+                                message: `Duplicate root '${root}' in network '${targetName}': this root is already declared in the target network`,
+                                errorCode: 'oimte:duplicateRoots',
+                                network: targetName,
+                                property: 'roots',
+                                root: root
+                            });
+                        } else {
+                            _existingRoots.add(root);
+                            targetNetwork.roots.push(root);
+                            _addedRootsCount++;
+                        }
+                    });
+                    console.log(`[Taxonomy Loader]   - Added ${_addedRootsCount} roots to network ${targetName} (${network.roots.length - _addedRootsCount} duplicate(s) detected)`);
                 }
                 
                 // Merge properties from extension into target network
@@ -1289,7 +1349,9 @@ function processNetworkExtensions(taxonomyData) {
                 // Mark this extension for removal
                 extensionsToRemove.push(index);
             } else {
-                console.warn(`[Taxonomy Loader]   - Target network ${targetName} not found, extension will be kept`);
+                // Target not found (or wrong object type) — drop extension from model
+                console.warn(`[Taxonomy Loader]   - Target network ${targetName} not found or wrong type; dropping extension from model`);
+                extensionsToRemove.push(index);
             }
         }
     });
@@ -1347,7 +1409,9 @@ function processReferenceExtensions(taxonomyData) {
                 // Mark this extension for removal
                 extensionsToRemove.push(index);
             } else {
-                console.warn(`[Taxonomy Loader]   - Target reference ${targetName} not found, extension will be kept`);
+                // Target not found (or wrong object type) — drop extension from model
+                console.warn(`[Taxonomy Loader]   - Target reference ${targetName} not found or wrong type; dropping extension from model`);
+                extensionsToRemove.push(index);
             }
         }
     });
@@ -1413,6 +1477,17 @@ function processCubeExtensions(taxonomyData) {
                     console.log(`[Taxonomy Loader]   - Added ${cube.excludeCubes.length} excludeCubes to cube ${targetName}`);
                 }
                 
+                // Merge requiredCubes from extension into target cube
+                if (cube.requiredCubes && Array.isArray(cube.requiredCubes)) {
+                    if (!targetCube.requiredCubes) {
+                        targetCube.requiredCubes = [];
+                    }
+                    
+                    // Add extension requiredCubes to target
+                    targetCube.requiredCubes.push(...cube.requiredCubes);
+                    console.log(`[Taxonomy Loader]   - Added ${cube.requiredCubes.length} requiredCubes to cube ${targetName}`);
+                }
+                
                 // Set cubeComplete if not already set on target
                 if (cube.cubeComplete !== undefined && targetCube.cubeComplete === undefined) {
                     targetCube.cubeComplete = cube.cubeComplete;
@@ -1433,7 +1508,9 @@ function processCubeExtensions(taxonomyData) {
                 // Mark this extension for removal
                 extensionsToRemove.push(index);
             } else {
-                console.warn(`[Taxonomy Loader]   - Target cube ${targetName} not found, extension will be kept`);
+                // Target not found (or wrong object type) — drop extension from model
+                console.warn(`[Taxonomy Loader]   - Target cube ${targetName} not found or wrong type; dropping extension from model`);
+                extensionsToRemove.push(index);
             }
         }
     });
@@ -1502,7 +1579,9 @@ function processFactExtensions(taxonomyData) {
                 // Mark this extension for removal
                 extensionsToRemove.push(index);
             } else {
-                console.warn(`[Taxonomy Loader]   - Target fact ${targetName} not found, extension will be kept`);
+                // Target not found (or wrong object type) — drop extension from model
+                console.warn(`[Taxonomy Loader]   - Target fact ${targetName} not found or wrong type; dropping extension from model`);
+                extensionsToRemove.push(index);
             }
         }
     });
@@ -1676,6 +1755,7 @@ function mergeSelectedObjects(targetTaxonomy, sourceTaxonomy, importObjects, exc
         'entities': 'entities',
         'units': 'units',
         'dataTypes': 'dataTypes',
+        'collections': 'collections',
         'propertyTypes': 'propertyTypes',
         'modelTypes': 'modelTypes',
         'groups': 'groups',

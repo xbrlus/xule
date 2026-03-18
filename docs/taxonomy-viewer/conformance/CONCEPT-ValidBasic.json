@@ -1,42 +1,40 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrla": "http://xbrl.org/accounting",
-      "xbrli": "https://xbrl.org/2025/instance",
-      "xs": "http://www.w3.org/2001/XMLSchema"
-    },
-    "documentNamespace": "exp",
-    "urlMapping": {
-                "xbrla": [
-                          "../spec-taxonomies/xbrla.json"
-                        ]
-              },
-    "description": "Valid concept object with required properties."
-  },
-  "xbrlModel": {
-    "name": "exp:ValidBasicConceptTaxonomy",
-    "version": "2025",
-    "importedTaxonomies": [
-    {
-      "xbrlModelName": "xbrla:AccountingModel"
-    }
-    ],
-    "concepts": [
-      {
-        "name": "exp:Cash",
-        "dataType": "xbrli:monetary",
-        "periodType": "instant",
-          "properties": [
-            {
-              "property": "xbrla:balance",
-              "value": "debit"
-            }
-          ]
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrla": "http://xbrl.org/accounting",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "Valid concept object with required properties.",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
         }
-  ]
-  }
+    },
+    "xbrlModel": {
+        "name": "exp:ValidBasicConceptTaxonomy",
+        "version": "2025",
+        "importedTaxonomies": [
+            {
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+        ],
+        "concepts": [
+            {
+                "name": "exp:Cash",
+                "dataType": "xbrli:monetary",
+                "periodType": "instant",
+                "properties": [
+                    {
+                        "property": "xbrla:balance",
+                        "value": "debit"
+                    }
+                ]
+            }
+        ]
+    }
 }

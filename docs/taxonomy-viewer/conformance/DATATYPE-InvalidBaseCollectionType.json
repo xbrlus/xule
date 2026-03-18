@@ -9,7 +9,7 @@
       "xs": "http://www.w3.org/2001/XMLSchema"
     },
     "documentNamespace": "exp",
-    "description": "ERROR: oimte:collectionTypeWithoutCollectionBaseType Defines collection type without the collection base type. The collectionType object MUST only be defined when the baseType property is defined as an xbrli:collection."
+    "description": "ERROR: oimte:collectionTypeWithoutCollectionBaseType Collections MUST be defined using the top-level collections array. The collectionType object MUST NOT appear as a property of a dataType object."
   },
   "xbrlModel": {
     "name": "exp:DefinedCollectionTypeWithoutCollectionBaseType",

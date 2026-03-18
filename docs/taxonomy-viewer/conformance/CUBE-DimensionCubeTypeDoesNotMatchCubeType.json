@@ -8,7 +8,7 @@
         "xbrli": "https://xbrl.org/2025/instance",
         "xs": "http://www.w3.org/2001/XMLSchema" },
     "documentNamespace": "exp",
-    "description": "ERROR: oimte:invalidCubeType - Dimension Cube type does not match Cube type."
+    "description": "ERROR: oimte:invalidQNameType - Dimension Cube type does not match Cube type."
   },
   "xbrlModel": {
     "name": "exp:DimensionCubeTypeUsedOnInvalidCubeType",

@@ -1,30 +1,30 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrla": "http://xbrl.org/accounting",
-      "xbrli":"https://xbrl.org/2025/instance",
-      "xs": "http://www.w3.org/2001/XMLSchema"
-    },
-    "documentNamespace": "exp",
-     "urlMapping":{
-			"xbrla": ["../spec-taxonomies/xbrla.json"]
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrla": "http://xbrl.org/accounting",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
         },
-    "description": "ERROR: Example cube with fact missing from complete cube for product identifier concept"
-  },
-  "xbrlModel": {
-    "name": "exp:FactMissingFromCompleteCube",
-    "version": "2025.1.3",
-     "importedTaxonomies": [
+        "documentNamespace": "exp",
+        "description": "ERROR: Example cube with fact missing from complete cube for product identifier concept",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
+        }
+    },
+    "xbrlModel": {
+        "name": "exp:FactMissingFromCompleteCube",
+        "version": "2025.1.3",
+        "importedTaxonomies": [
             {
                 "xbrlModelName": "xbrla:AccountingModel"
             }
         ],
-     "concepts": [
-           {
+        "concepts": [
+            {
                 "name": "exp:EventDescription",
                 "dataType": "xs:string",
                 "periodType": "none",
@@ -49,23 +49,25 @@
                 "nillable": true
             }
         ],
-    "dimensions": [
-      {
+        "dimensions": [
+            {
                 "name": "exp:SaleEventDimension",
                 "domainClass": "exp:SaleEventRoot",
                 "cubeTypes": [
                     "xbrla:eventCube"
                 ]
             }
-    ],
-    "domainClasses": [
-    {
-            "name": "exp:SaleEventRoot",
-            "allowedDomainItems" : ["xs:token"]
-        }
-    ],
-    "cubes": [
-       {
+        ],
+        "domainClasses": [
+            {
+                "name": "exp:SaleEventRoot",
+                "allowedDomainItems": [
+                    "xs:token"
+                ]
+            }
+        ],
+        "cubes": [
+            {
                 "name": "exp:SaleEventCube",
                 "cubeType": "xbrla:eventCube",
                 "cubeDimensions": [
@@ -79,12 +81,27 @@
                         "domainName": "exp:PrimaryEventDomain"
                     }
                 ],
-                "cubeComplete": true
+                "requiredCubes": ["exp:SaleEventCubeComplete"]
+            },
+            {
+                "name": "exp:SaleEventCubeComplete",
+                "cubeType": "xbrla:eventCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "exp:SaleEventDimension",
+                        "domainDataType": "xs:token",
+                        "allowDomainFacts": false
+                    },
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:PrimaryEventDomain"
+                    }
+                ]
             }
-    ],
-    "domains": [
-        {
-            "name": "exp:PrimaryEventDomain",
+        ],
+        "domains": [
+            {
+                "name": "exp:PrimaryEventDomain",
                 "root": "xbrl:conceptDomain",
                 "relationships": [
                     {
@@ -108,49 +125,49 @@
                         "order": 8
                     }
                 ]
-          }
-    ],
-    "facts" : [
+            }
+        ],
+        "facts": [
             {
                 "name": "exp:f12345",
-                "factValues" : [
+                "factValues": [
                     {
                         "name": "exp:fV1",
                         "value": "100000",
-                        "decimals":2
+                        "decimals": 2
                     }
                 ],
-                "factDimensions":{
+                "factDimensions": {
                     "xbrl:concept": "exp:ReportingAmount",
                     "exp:SaleEventDimension": "1"
                 }
             },
             {
                 "name": "exp:f12346",
-                "factValues" : [
+                "factValues": [
                     {
                         "name": "exp:fV2",
                         "value": "Made up Sale"
                     }
                 ],
-                "factDimensions":{
+                "factDimensions": {
                     "xbrl:concept": "exp:EventDescription",
                     "exp:SaleEventDimension": "1"
                 }
             },
             {
                 "name": "exp:f12347",
-                "factValues" : [
+                "factValues": [
                     {
                         "name": "exp:fV3",
                         "value": "2026-11-23T10:15:30"
                     }
                 ],
-                "factDimensions":{
+                "factDimensions": {
                     "xbrl:concept": "exp:EventDate",
                     "exp:SaleEventDimension": "1"
                 }
             }
         ]
-  }
+    }
 }

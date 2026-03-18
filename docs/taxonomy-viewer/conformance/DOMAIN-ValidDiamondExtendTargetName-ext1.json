@@ -1,0 +1,45 @@
+{
+  "$schema": "../oim-taxonomy-schema.json",
+  "documentInfo": {
+    "documentType": "https://xbrl.org/2026/model",
+    "namespaces": {
+      "exp": "http://example.com/taxonomy/base",
+      "exp2": "http://example.com/taxonomy/ext1",
+      "xbrl": "https://xbrl.org/2025",
+      "xbrli": "https://xbrl.org/2025/instance",
+      "xs": "http://www.w3.org/2001/XMLSchema"
+    },
+    "documentNamespace": "exp2",
+    "description": "VALID: Extension taxonomy B importing A and extending exp:ProductDomain with exp2:ProductB. In B's resolved model the domain contains exp:ProductA and exp2:ProductB.",
+    "importMapping": {
+      "exp:DiamondBase": "./DOMAIN-ValidDiamondExtendTargetName-base.json"
+    }
+  },
+  "xbrlModel": {
+    "name": "exp2:DiamondExt1",
+    "version": "2025",
+    "importedTaxonomies": [
+      {
+        "xbrlModelName": "exp:DiamondBase"
+      }
+    ],
+    "concepts": [
+      {
+        "name": "exp2:ProductB",
+        "dataType": "xbrli:monetary",
+        "periodType": "duration"
+      }
+    ],
+    "domains": [
+      {
+        "extendTargetName": "exp:ProductDomain",
+        "relationships": [
+          {
+            "source": "xbrl:conceptDomain",
+            "target": "exp2:ProductB"
+          }
+        ]
+      }
+    ]
+  }
+}

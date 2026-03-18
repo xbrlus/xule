@@ -1,64 +1,64 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrli":"https://xbrl.org/2025/instance",
-      "xs": "http://www.w3.org/2001/XMLSchema",
-      "xbrla": "http://xbrl.org/accounting"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema",
+            "xbrla": "http://xbrl.org/accounting"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: Cube contains duplicate dimensions for TimeSeriesDimension",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
+        }
     },
-    "documentNamespace": "exp",
-    "urlMapping": {
-            "xbrla": ["../spec-taxonomies/xbrla.json"]
-            },
-    "description": "ERROR: Cube contains duplicate dimensions for TimeSeriesDimension"
-  },
-  "xbrlModel": {
-    "name": "exp:DuplicateDimensionTaxonomy",
-    "version": "2025",
-     "importedTaxonomies": [
+    "xbrlModel": {
+        "name": "exp:DuplicateDimensionTaxonomy",
+        "version": "2025",
+        "importedTaxonomies": [
             {
                 "xbrlModelName": "xbrla:AccountingModel"
             }
         ],
-    "concepts": [
-      {
-        "name": "exp:PeakGridElectricityDemand",
-        "dataType": "xbrli:power",
-        "periodType": "none",
-        "nillable": true
-      }
-    ],
-    "dimensions": [
-      {
-        "name": "exp:TimeSeriesDimension",
-        "domainClass": "exp:MyDomainClass"
-      }
-    ],
-    "cubes": [
-      {
-        "name": "exp:CubeDuplicateDimension",
-        "cubeType": "xbrla:timeSeriesCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "exp:TimeSeriesDimension",
-            "domainName": "exp:SecondaryTimeSeriesDomain"
-          },
-          {
-            "dimensionName": "exp:TimeSeriesDimension",
-            "domainName": "exp:ThirdTimeSeriesDomain"
-          },
-          {
-            "dimensionName": "xbrl:concept",
-            "domainName": "exp:PrimaryTimeSeriesDomain"
-          }
-        ]
-      }
-    ],
-     "domains": [
-        {
+        "concepts": [
+            {
+                "name": "exp:PeakGridElectricityDemand",
+                "dataType": "xbrli:power",
+                "periodType": "none",
+                "nillable": true
+            }
+        ],
+        "dimensions": [
+            {
+                "name": "exp:TimeSeriesDimension",
+                "domainClass": "exp:MyDomainClass"
+            }
+        ],
+        "cubes": [
+            {
+                "name": "exp:CubeDuplicateDimension",
+                "cubeType": "xbrla:timeSeriesCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "exp:TimeSeriesDimension",
+                        "domainName": "exp:SecondaryTimeSeriesDomain"
+                    },
+                    {
+                        "dimensionName": "exp:TimeSeriesDimension",
+                        "domainName": "exp:ThirdTimeSeriesDomain"
+                    },
+                    {
+                        "dimensionName": "xbrl:concept",
+                        "domainName": "exp:PrimaryTimeSeriesDomain"
+                    }
+                ]
+            }
+        ],
+        "domains": [
+            {
                 "name": "exp:PrimaryTimeSeriesDomain",
                 "root": "xbrl:conceptDomain",
                 "relationships": [
@@ -67,8 +67,8 @@
                         "target": "exp:PeakGridElectricityDemand"
                     }
                 ]
-        },
-        {
+            },
+            {
                 "name": "exp:SecondaryTimeSeriesDomain",
                 "root": "exp:MyDomainClass",
                 "relationships": [
@@ -77,8 +77,8 @@
                         "target": "exp:USA"
                     }
                 ]
-        },
-        {
+            },
+            {
                 "name": "exp:ThirdTimeSeriesDomain",
                 "root": "exp:MyDomainClass",
                 "relationships": [
@@ -87,17 +87,17 @@
                         "target": "exp:USA"
                     }
                 ]
-        }
-    ],
-    "domainClasses": [
-      {
-        "name" : "exp:MyDomainClass"
-      }
-    ],
-    "members": [
-      {
-        "name": "exp:USA"
-      }
-    ]
-  }
+            }
+        ],
+        "domainClasses": [
+            {
+                "name": "exp:MyDomainClass"
+            }
+        ],
+        "members": [
+            {
+                "name": "exp:USA"
+            }
+        ]
+    }
 }

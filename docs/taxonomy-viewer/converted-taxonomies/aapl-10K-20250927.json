@@ -20,12 +20,12 @@
 		},
 		"documentType": "https://xbrl.org/2026/model",
         "documentNamespace": "aapl",
-        "urlMapping":{
-            "us-gaap": ["us-gaap-elts-2025.json"],
-            "cyd": ["cyd-elts-2025.json"],
-            "ecd": ["ecd-elts-2025.json"],
-            "dei": ["dei-elts-2025.json"],
-			"xbrla": ["../spec-taxonomies/xbrla.json"]
+        "importMapping":{
+            "us-gaap:GAAP-elts-Taxonomy": "us-gaap-elts-2025.json",
+            "cyd:CybersecurityTaxonomy": "cyd-elts-2025.json",
+            "ecd:ExecutiveCompensationDisclosureTaxonomy": "ecd-elts-2025.json",
+            "dei:DocumentEntityInformationTaxonomy": "dei-elts-2025.json",
+			"xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
         }
 
 	},
@@ -10774,7 +10774,7 @@
 		"cubes": [
 			{
                 "name": "aapl:MyDefaultCube",
-                "cubeType": "xbrl:defaultCube",
+                "cubeType": "xbrl:openCube",
                 "cubeDimensions": [
                     {
                         "dimensionName": "xbrl:concept"

@@ -1,0 +1,35 @@
+{
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "Valid footnote objects defined in multiple languages."
+    },
+    "xbrlModel": {
+        "name": "exp:ValidMultiLanguageFootnotes",
+        "version": "2025",
+        "footnotes": [
+            {
+                "name": "exp:FootnoteEnglish",
+                "content": "This is an English footnote.",
+                "language": "en"
+            },
+            {
+                "name": "exp:FootnoteFrench",
+                "content": "Voici une note de bas de page en français.",
+                "language": "fr"
+            },
+            {
+                "name": "exp:FootnoteGerman",
+                "content": "Dies ist eine deutsche Fußnote.",
+                "language": "de"
+            }
+        ]
+    }
+}

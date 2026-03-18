@@ -15,12 +15,12 @@
 		},
 		"documentType": "https://xbrl.org/2026/model",
 		"documentNamespace": "us-gaap",
-		"urlMapping": {
-			"srt": ["srt-elts-2025.json"],
-			"stpr": ["stpr-elts-2025.json"],
-			"country": ["country-elts-2025.json"],
-			"us-types": ["us-types-2025.json"],
-			"xbrla": ["../spec-taxonomies/xbrla.json"]
+		"importMapping": {
+			"srt:StandardizedReportingTaxonomy": "srt-elts-2025.json",
+			"stpr:StateProvinceTaxonomy": "stpr-elts-2025.json",
+			"country:CountryTaxonomy": "country-elts-2025.json",
+			"us-types:USGaapTaxonomyTypes": "us-types-2025.json",
+			"xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
 		}
 	},
 	"xbrlModel": {

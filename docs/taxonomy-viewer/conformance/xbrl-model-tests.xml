@@ -100,7 +100,7 @@
       <instance readMeFirst="true">CUBE-DimensionCubeTypeDoesNotMatchCubeType.json</instance>
     </data>
     <result>
-      <error>oimte:invalidCubeType</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-DimensionNotDimensionObject">
@@ -109,7 +109,7 @@
       <instance readMeFirst="true">CUBE-DimensionNotDimensionObject.json</instance>
     </data>
     <result>
-      <error>oimte:dimensionNameNotDimensionObject</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-DomainDataTypeOnPeriodDimension">
@@ -159,6 +159,15 @@
       <error>oimte:excludeCubeCannotBeRequiredCube</error>
     </result>
   </variation>
+  <variation id="CUBE-NegativeCubeWithExcludeCubes">
+    <description>File CUBE-NegativeCubeWithExcludeCubes.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-NegativeCubeWithExcludeCubes.json</instance>
+    </data>
+    <result>
+      <error>oimte:excludeCubesOnNegativeCube</error>
+    </result>
+  </variation>
   <variation id="CUBE-ExcludeCubeDoesNotExist">
     <description>File CUBE-ExcludeCubeDoesNotExist.json</description>
     <data>
@@ -201,7 +210,7 @@
       <instance readMeFirst="true">CUBE-InappropriateCubeTypeReference.json</instance>
     </data>
     <result>
-      <error>oimte:invalidQNameReference</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-InappropriateDimensionReference">
@@ -211,7 +220,7 @@
     </data>
     <result>
       <error>oimte:cubeMissingConceptDimension</error>
-      <error>oimte:dimensionNameNotDimensionObject</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-InappropriateDomainReference">
@@ -238,7 +247,7 @@
       <instance readMeFirst="true">CUBE-InappropriateNetworkReference.json</instance>
     </data>
     <result>
-      <error>oimte:invalidQNameReference</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-InvalidCubeProperty">
@@ -259,6 +268,15 @@
       <error>oimte:invalidQNameReference</error>
     </result>
   </variation>
+  <variation id="CUBE-InvalidEntityDomainDataType">
+    <description>File CUBE-InvalidEntityDomainDataType.json</description>
+    <data>
+      <instance readMeFirst="true">CUBE-InvalidEntityDomainDataType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidEntityConstraintDimension</error>
+    </result>
+  </variation>
   <variation id="CUBE-MissingConceptDimension">
     <description>File CUBE-MissingConceptDimension.json</description>
     <data>
@@ -274,7 +292,7 @@
       <instance readMeFirst="true">CUBE-PeriodConstraintConceptNotConcept.json</instance>
     </data>
     <result>
-      <error>oimte:invalidQNameReference</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-PeriodConstraintContextNotConcept">
@@ -283,7 +301,7 @@
       <instance readMeFirst="true">CUBE-PeriodConstraintContextNotConcept.json</instance>
     </data>
     <result>
-      <error>oimte:invalidQNameReference</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-PeriodConstraintOnNonPeriodDimension">
@@ -327,7 +345,7 @@
       <instance readMeFirst="true">CUBETYPE-BaseCubeTypeIsDimension.json</instance>
     </data>
     <result>
-      <error>oimte:invalidQNameReference</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBETYPE-coreDimensionsExpansion">
@@ -552,7 +570,7 @@
       <instance readMeFirst="true">DIMENSION-InvalidCubeTypeReference.json</instance>
     </data>
     <result>
-      <error>oimte:invalidCubeType</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="DIMENSION-InvalidDomainDataTypeReference">
@@ -617,7 +635,6 @@
       <instance readMeFirst="true">DOMAIN-InvalidEntityDomainTarget.json</instance>
     </data>
     <result>
-      <error>oimte:invalidEntityDomainTarget</error>
       <error>oimte:invalidDomainObject</error>
     </result>
   </variation>
@@ -637,7 +654,15 @@
     </data>
     <result>
       <error>oimte:missingDomainClassSource</error>
-      <error>oimte:invalidUnitDomainSource</error>
+      <error>oimte:invalidDomainObject</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-InvalidConceptDomainSource">
+    <description>File DOMAIN-InvalidConceptDomainSource.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-InvalidConceptDomainSource.json</instance>
+    </data>
+    <result>
       <error>oimte:invalidDomainObject</error>
     </result>
   </variation>
@@ -656,7 +681,6 @@
       <instance readMeFirst="true">DOMAIN-UnitDomainWIthNonUnit.json</instance>
     </data>
     <result>
-      <error>oimte:invalidUnitDomainTarget</error>
       <error>oimte:invalidDomainObject</error>
     </result>
   </variation>
@@ -818,7 +842,7 @@
       <instance readMeFirst="true">IMPORTTAXONOMY-PassThroughPrefixError.json</instance>
     </data>
     <result>
-      <error>oimte:invalidObjectNamespacePrefix</error>
+      <error>oimce:invalidURIForReservedAlias</error>
     </result>
   </variation>
   <variation id="IMPORTTAXONOMY-TaxonomyNotFound">
@@ -929,7 +953,7 @@
       <instance readMeFirst="true">NAMESPACE-RestrictedPrefix.json</instance>
     </data>
     <result>
-      <error>oimte:invalidObjectNamespacePrefix</error>
+      <error>oimce:invalidURIForReservedAlias</error>
     </result>
   </variation>
   <variation id="NAMESPACE-DuplicatePrefixCollision">
@@ -954,7 +978,7 @@
       <instance readMeFirst="true">NAMESPACE-PrefixRemapRequired-Error.json</instance>
     </data>
     <result>
-      <error>oimte:duplicateNamespaceURI</error>
+      <error>oimce:multipleAliasesForURI</error>
     </result>
   </variation>
   <variation id="NAMESPACE-PrefixRemapRequired-Valid">
@@ -971,7 +995,7 @@
       <instance readMeFirst="true">NAMESPACE-PrefixRemapAmbiguous-Invalid.json</instance>
     </data>
     <result>
-      <error>oimte:duplicateNamespaceURI</error>
+      <error>oimce:multipleAliasesForURI</error>
     </result>
   </variation>
   <variation id="NAMESPACE-PrefixRemapAmbiguousExplicit-Valid">
@@ -1136,7 +1160,7 @@
       <instance readMeFirst="true">CUBE-NetworkReferencesDomain.json</instance>
     </data>
     <result>
-      <error>tbd006</error>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="CUBE-TimeSeriesCubeInvalidPeriodDImension">
@@ -1368,7 +1392,7 @@
       <instance readMeFirst="true">DOMAIN-InvalidEntityDomainSource2.json</instance>
     </data>
     <result>
-      <error>tbd030</error>
+      <error>oimte:invalidDomainObject</error>
     </result>
   </variation>
   <variation id="DOMAIN-InvalidExtendTargetNameReference">
@@ -1377,7 +1401,16 @@
       <instance readMeFirst="true">DOMAIN-InvalidExtendTargetNameReference.json</instance>
     </data>
     <result>
-      <error>tbd031</error>
+      <error>oimte:invalidQNameReference</error>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ExtendTargetNameWrongObjectType">
+    <description>File DOMAIN-ExtendTargetNameWrongObjectType.json</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ExtendTargetNameWrongObjectType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidQNameType</error>
     </result>
   </variation>
   <variation id="DOMAIN-MemberInConceptDimensionDomain">
@@ -1420,6 +1453,62 @@
     <description>File DOMAIN-ValidRelationshipsClosed.json</description>
     <data>
       <instance readMeFirst="true">DOMAIN-ValidRelationshipsClosed.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidImportExtensionScope-base">
+    <description>File DOMAIN-ValidImportExtensionScope-base.json — Base taxonomy (A) defining ProductDomain with two open concept members.</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidImportExtensionScope-base.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidImportExtensionScope-derived">
+    <description>File DOMAIN-ValidImportExtensionScope-derived.json — Middle taxonomy (B) importing A without extending the domain.</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidImportExtensionScope-derived.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidImportExtensionScope">
+    <description>File DOMAIN-ValidImportExtensionScope.json — Extension taxonomy (C) using diamond import (B+A) and extending exp:ProductDomain with a third member. Demonstrates that domain extension scope is local to the importing taxonomy's resolved model.</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidImportExtensionScope.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidDiamondExtendTargetName-base">
+    <description>File DOMAIN-ValidDiamondExtendTargetName-base.json — Base taxonomy (A) defining exp:ProductDomain with one concept member. Extended independently by B and C in the diamond extendTargetName test.</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidDiamondExtendTargetName-base.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidDiamondExtendTargetName-ext1">
+    <description>File DOMAIN-ValidDiamondExtendTargetName-ext1.json — Extension taxonomy B importing A and independently extending exp:ProductDomain with exp2:ProductB.</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidDiamondExtendTargetName-ext1.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidDiamondExtendTargetName-ext2">
+    <description>File DOMAIN-ValidDiamondExtendTargetName-ext2.json — Extension taxonomy C independently importing A and extending exp:ProductDomain with exp3:ProductC, unaware of taxonomy B.</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidDiamondExtendTargetName-ext2.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="DOMAIN-ValidDiamondExtendTargetName">
+    <description>File DOMAIN-ValidDiamondExtendTargetName.json — Combined taxonomy D importing both B and C. A is processed once via the DAG duplicate-import rule. Resolved exp:ProductDomain contains exp:ProductA, exp2:ProductB, and exp3:ProductC in import order.</description>
+    <data>
+      <instance readMeFirst="true">DOMAIN-ValidDiamondExtendTargetName.json</instance>
     </data>
     <result>
     </result>
@@ -1768,13 +1857,40 @@
       <error>tbd067</error>
     </result>
   </variation>
+  <variation id="NETWORK-ExtendCausesDuplicateRelationship">
+    <description>File NETWORK-ExtendCausesDuplicateRelationship.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-ExtendCausesDuplicateRelationship.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateRelationships</error>
+    </result>
+  </variation>
   <variation id="NETWORK-NetworkObjectWithDuplicateRoots">
     <description>File NETWORK-NetworkObjectWithDuplicateRoots.json</description>
     <data>
       <instance readMeFirst="true">NETWORK-NetworkObjectWithDuplicateRoots.json</instance>
     </data>
     <result>
-      <error>tbd068</error>
+      <error>oimte:duplicateRoots</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-ExtendCausesDuplicateRoots">
+    <description>File NETWORK-ExtendCausesDuplicateRoots.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-ExtendCausesDuplicateRoots.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateRoots</error>
+    </result>
+  </variation>
+  <variation id="NETWORK-ImportCausesDuplicateRoots">
+    <description>File NETWORK-ImportCausesDuplicateRoots.json</description>
+    <data>
+      <instance readMeFirst="true">NETWORK-ImportCausesDuplicateRoots.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateRoots</error>
     </result>
   </variation>
   <variation id="NETWORK-NetworkObjectWithInvalidRootsReference">
@@ -2058,7 +2174,7 @@
       <instance readMeFirst="true">UNIT-UnitWithDuplicateStringRepresentations.json</instance>
     </data>
     <result>
-      <error>tbd096</error>
+      <error>oimte:unitDataTypeUsedInDefinition</error>
     </result>
   </variation>
   <variation id="UNIT-UnitWithInvalidStringRepresentation">
@@ -2067,16 +2183,34 @@
       <instance readMeFirst="true">UNIT-UnitWithInvalidStringRepresentation.json</instance>
     </data>
     <result>
-      <error>tbd097</error>
+      <error>oimce:invalidUnitStringRepresentation</error>
     </result>
   </variation>
-  <variation id="UNIT-UnitWithStringRepresentationSameDataType">
-    <description>File UNIT-UnitWithStringRepresentationSameDataType.json</description>
+  <variation id="UNIT-UnitWithStringRepresentationSameUnitType">
+    <description>File UNIT-UnitWithStringRepresentationSameUnitType.json</description>
     <data>
-      <instance readMeFirst="true">UNIT-UnitWithStringRepresentationSameDataType.json</instance>
+      <instance readMeFirst="true">UNIT-UnitWithStringRepresentationSameUnitType.json</instance>
     </data>
     <result>
-      <error>tbd098</error>
+      <error>oimte:unitDataTypeUsedInDefinition</error>
+    </result>
+  </variation>
+  <variation id="UNIT-InvalidUnitStringRepresentationBadChars">
+    <description>File UNIT-InvalidUnitStringRepresentationBadChars.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-InvalidUnitStringRepresentationBadChars.json</instance>
+    </data>
+    <result>
+      <error>oimce:invalidUnitStringRepresentation</error>
+    </result>
+  </variation>
+  <variation id="UNIT-InvalidUnitStringRepresentationUnknownUnit">
+    <description>File UNIT-InvalidUnitStringRepresentationUnknownUnit.json</description>
+    <data>
+      <instance readMeFirst="true">UNIT-InvalidUnitStringRepresentationUnknownUnit.json</instance>
+    </data>
+    <result>
+      <error>oimce:invalidUnitStringRepresentation</error>
     </result>
   </variation>
   <variation id="CALCULATION-InvalidSummationItemWeight">
@@ -2113,6 +2247,252 @@
     </data>
     <result>
       <pass/>
+    </result>
+  </variation>
+  <variation id="FOOTNOTE-ValidBasic">
+    <description>File FOOTNOTE-ValidBasic.json</description>
+    <data>
+      <instance readMeFirst="true">FOOTNOTE-ValidBasic.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FOOTNOTE-ValidMultipleLanguages">
+    <description>File FOOTNOTE-ValidMultipleLanguages.json</description>
+    <data>
+      <instance readMeFirst="true">FOOTNOTE-ValidMultipleLanguages.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="FOOTNOTE-InvalidLanguageCode">
+    <description>File FOOTNOTE-InvalidLanguageCode.json</description>
+    <data>
+      <instance readMeFirst="true">FOOTNOTE-InvalidLanguageCode.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidLanguage</error>
+    </result>
+  </variation>
+  <variation id="FOOTNOTE-DuplicateFootnoteName">
+    <description>File FOOTNOTE-DuplicateFootnoteName.json</description>
+    <data>
+      <instance readMeFirst="true">FOOTNOTE-DuplicateFootnoteName.json</instance>
+    </data>
+    <result>
+      <error>oimte:duplicateObjects</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-ValidBasic">
+    <description>File MAPTYPE-ValidBasic.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-ValidBasic.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-MapTypeWithoutMapBaseType">
+    <description>File MAPTYPE-MapTypeWithoutMapBaseType.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-MapTypeWithoutMapBaseType.json</instance>
+    </data>
+    <result>
+      <error>oimte:mapTypeWithoutMapBaseType</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-MissingMapTypeObject">
+    <description>File MAPTYPE-MissingMapTypeObject.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-MissingMapTypeObject.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingMapTypeObject</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-RequiredKeyNotInAllowedKeys">
+    <description>File MAPTYPE-RequiredKeyNotInAllowedKeys.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-RequiredKeyNotInAllowedKeys.json</instance>
+    </data>
+    <result>
+      <error>oimte:requiredKeyNotInAllowedKeys</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-InvalidMapItemBounds">
+    <description>File MAPTYPE-InvalidMapItemBounds.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-InvalidMapItemBounds.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidMapItemBounds</error>
+    </result>
+  </variation>
+  <variation id="COLLECTIONTYPE-ValidBasic">
+    <description>File COLLECTIONTYPE-ValidBasic.json</description>
+    <data>
+      <instance readMeFirst="true">COLLECTIONTYPE-ValidBasic.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="COLLECTIONTYPE-MissingCollectionTypeObject">
+    <description>File COLLECTIONTYPE-MissingCollectionTypeObject.json</description>
+    <data>
+      <instance readMeFirst="true">COLLECTIONTYPE-MissingCollectionTypeObject.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingCollectionTypeObject</error>
+    </result>
+  </variation>
+  <variation id="COLLECTIONTYPE-CollectionTypeWithoutCollectionBaseType">
+    <description>File COLLECTIONTYPE-CollectionTypeWithoutCollectionBaseType.json</description>
+    <data>
+      <instance readMeFirst="true">COLLECTIONTYPE-CollectionTypeWithoutCollectionBaseType.json</instance>
+    </data>
+    <result>
+      <error>oimte:collectionTypeWithoutCollectionBaseType</error>
+    </result>
+  </variation>
+  <variation id="COLLECTIONTYPE-ConflictingTypeDefinitions">
+    <description>File COLLECTIONTYPE-ConflictingTypeDefinitions.json</description>
+    <data>
+      <instance readMeFirst="true">COLLECTIONTYPE-ConflictingTypeDefinitions.json</instance>
+    </data>
+    <result>
+      <error>oimte:conflictingTypeDefinitions</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-ValidWithRequiredAndAllowedKeys">
+    <description>File MAPTYPE-ValidWithRequiredAndAllowedKeys.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-ValidWithRequiredAndAllowedKeys.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-MissingRequiredMapKey">
+    <description>File MAPTYPE-MissingRequiredMapKey.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-MissingRequiredMapKey.json</instance>
+    </data>
+    <result>
+      <error>oimte:missingRequiredMapKey</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-DisallowedMapKey">
+    <description>File MAPTYPE-DisallowedMapKey.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-DisallowedMapKey.json</instance>
+    </data>
+    <result>
+      <error>oimte:disallowedMapKey</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-InvalidMapValueType">
+    <description>File MAPTYPE-InvalidMapValueType.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-InvalidMapValueType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidMapValueType</error>
+    </result>
+  </variation>
+  <variation id="MAPTYPE-InvalidMapKeyType">
+    <description>File MAPTYPE-InvalidMapKeyType.json</description>
+    <data>
+      <instance readMeFirst="true">MAPTYPE-InvalidMapKeyType.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidMapKeyType</error>
+    </result>
+  </variation>
+  <variation id="GROUP-ValidBasic">
+    <description>File GROUP-ValidBasic.json</description>
+    <data>
+      <instance readMeFirst="true">GROUP-ValidBasic.json</instance>
+    </data>
+    <result>
+    </result>
+  </variation>
+  <variation id="GROUP-InvalidGroupContent">
+    <description>File GROUP-InvalidGroupContent.json</description>
+    <data>
+      <instance readMeFirst="true">GROUP-InvalidGroupContent.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidGroupObject</error>
+    </result>
+  </variation>
+  <variation id="GROUP-InvalidTaxonomyGroupSource">
+    <description>File GROUP-InvalidTaxonomyGroupSource.json</description>
+    <data>
+      <instance readMeFirst="true">GROUP-InvalidTaxonomyGroupSource.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidTaxonomyGroupSource</error>
+    </result>
+  </variation>
+  <variation id="GROUP-InvalidTaxonomyGroupTarget">
+    <description>File GROUP-InvalidTaxonomyGroupTarget.json</description>
+    <data>
+      <instance readMeFirst="true">GROUP-InvalidTaxonomyGroupTarget.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidTaxonomyGroupTarget</error>
+    </result>
+  </variation>
+  <variation id="FACTSOURCE-MetadataWithoutHash">
+    <description>File FACTSOURCE-MetadataWithoutHash.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSOURCE-MetadataWithoutHash.json</instance>
+    </data>
+    <result>
+      <error>oimte:metadataWithoutHash</error>
+    </result>
+  </variation>
+  <variation id="FACTSOURCEMETA-InvalidFactCount">
+    <description>File FACTSOURCEMETA-InvalidFactCount.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSOURCEMETA-InvalidFactCount.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidFactCount</error>
+    </result>
+  </variation>
+  <variation id="FACTSOURCEMETA-EmptyConceptSet">
+    <description>File FACTSOURCEMETA-EmptyConceptSet.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSOURCEMETA-EmptyConceptSet.json</instance>
+    </data>
+    <result>
+      <error>oimte:emptyConceptSet</error>
+    </result>
+  </variation>
+  <variation id="FACTSOURCEMETA-InvalidMemberCount">
+    <description>File FACTSOURCEMETA-InvalidMemberCount.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSOURCEMETA-InvalidMemberCount.json</instance>
+    </data>
+    <result>
+      <error>oimte:invalidMemberCount</error>
+    </result>
+  </variation>
+  <variation id="FACTSOURCEMETA-TooManySampleMembers">
+    <description>File FACTSOURCEMETA-TooManySampleMembers.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSOURCEMETA-TooManySampleMembers.json</instance>
+    </data>
+    <result>
+      <error>oimte:tooManySampleMembers</error>
+    </result>
+  </variation>
+  <variation id="FACTSOURCEMETA-MemberRangeOnExplicitDimension">
+    <description>File FACTSOURCEMETA-MemberRangeOnExplicitDimension.json</description>
+    <data>
+      <instance readMeFirst="true">FACTSOURCEMETA-MemberRangeOnExplicitDimension.json</instance>
+    </data>
+    <result>
+      <error>oimte:memberRangeOnExplicitDimension</error>
     </result>
   </variation>
 </testcase>

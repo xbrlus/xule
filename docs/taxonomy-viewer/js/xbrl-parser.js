@@ -112,6 +112,50 @@ export async function parseXBRLInstance(xmlContent, taxonomy) {
 }
 
 /**
+ * Normalise a date string that represents the END of a day (instant date or
+ * duration end-date) per xbrl:XBRL21XML fact-map rules:
+ *
+ *   "The end date of a duration fact represents the end of the day. Any fact
+ *    where the end date does not define the time is considered to have an end
+ *    datetime of the start of the next day."
+ *
+ *   "The end date of an instant fact represents the end of the day. Any fact
+ *    where the instant date does not define the time is considered to have a
+ *    datetime of the start of the next day."
+ *
+ * If the value already contains a time component (contains 'T') it is returned
+ * unchanged.  Otherwise the calendar date is advanced by one day and
+ * 'T00:00:00' is appended.
+ *
+ * @param {string} dateStr - Raw date string from the XML (e.g. "2024-12-31" or "2024-12-31T15:00:00")
+ * @returns {string} Normalised ISO 8601 date-time string
+ */
+function normalizeXBRLEndDate(dateStr) {
+    const s = dateStr.trim();
+    if (s.includes('T')) return s;          // already has explicit time – use as-is
+    // Date-only: the value means "end of that day" = start of the next calendar day
+    const d = new Date(s + 'T00:00:00Z');   // parse as midnight UTC to avoid DST issues
+    d.setUTCDate(d.getUTCDate() + 1);
+    const yyyy = d.getUTCFullYear();
+    const mm   = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const dd   = String(d.getUTCDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}T00:00:00`;
+}
+
+/**
+ * Normalise a date string that represents the START of a duration period.
+ * If no time component is present, 'T00:00:00' is appended.  If a time
+ * component is already present the value is returned unchanged.
+ *
+ * @param {string} dateStr - Raw date string from the XML
+ * @returns {string} Normalised ISO 8601 date-time string
+ */
+function normalizeXBRLStartDate(dateStr) {
+    const s = dateStr.trim();
+    return s.includes('T') ? s : s + 'T00:00:00';
+}
+
+/**
  * Extract all contexts from the XBRL instance
  * @param {Document} xmlDoc - Parsed XML document
  * @returns {Object} Map of context ID to context object
@@ -183,16 +227,18 @@ function extractContexts(xmlDoc) {
             const foreverEl = periodEl.querySelector('forever');
             
             if (instantEl) {
-                context.period = instantEl.textContent.trim() + 'T00:00:00';
+                // Instant date: end of that day = start of the next day
+                context.period = normalizeXBRLEndDate(instantEl.textContent.trim());
             } else if (startDateEl && endDateEl) {
-                // For duration periods, store as a start/end interval so that
-                // Q3-only (2025-07-01/2025-09-30) and YTD (2025-01-01/2025-09-30)
-                // periods are distinguishable during calculation alignment checks.
+                // Duration: start date is beginning of that day; end date is
+                // end of that day (= start of the next day).
                 const startDate = startDateEl.textContent.trim();
                 const endDate   = endDateEl.textContent.trim();
-                context.period      = startDate + 'T00:00:00/' + endDate + 'T00:00:00';
-                context.periodStart = startDate;
-                context.periodEnd   = endDate;
+                const normStart = normalizeXBRLStartDate(startDate);
+                const normEnd   = normalizeXBRLEndDate(endDate);
+                context.period      = normStart + '/' + normEnd;
+                context.periodStart = normStart;
+                context.periodEnd   = normEnd;
             } else if (foreverEl) {
                 context.period = 'forever';
             }
@@ -313,13 +359,13 @@ function extractFacts(xmlDoc, contexts, units, prefix = '') {
         }
         
         // Create fact object
-        // Per spec: fact name should be factValue name with "fp-" prefix
-        // If fact has @id attribute, use it for factValue and prepend "fp-" for fact
-        // If no @id, generate position-based ID (e.g., "e.1.5") and use "fp-e.1.5"
+        // Per spec: fact name should be factValue name with "fp_" prefix
+        // If fact has @id attribute, use it for factValue and prepend "fp_" for fact
+        // If no @id, generate position-based ID (e.g., "e.1.5") and use "fp_e.1.5"
         // All names should include the namespace prefix from documentNamespace
         const baseFactValueName = factId || generatePositionBasedId(el);
         const factValueName = prefix + baseFactValueName;
-        const factName = prefix + 'fp-' + baseFactValueName;
+        const factName = prefix + 'fp_' + baseFactValueName;
         
         // Build the factValue object. Nil facts have no value property.
         const factValueObj = { name: factValueName };
@@ -449,9 +495,9 @@ function extractFootnotes(xmlDoc, prefix = '') {
             console.log('[XBRL Parser] Created footnote:', footnoteName);
             
             // Create fact-footnote relationship
-            // Source is the fact (with fp- prefix and namespace prefix)
+            // Source is the fact (with fp_ prefix and namespace prefix)
             // Target is the footnote
-            const sourceFact = prefix + 'fp-' + factId;
+            const sourceFact = prefix + 'fp_' + factId;
             
             const relationship = {
                 source: sourceFact,

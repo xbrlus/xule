@@ -4,23 +4,22 @@
         "documentType": "https://xbrl.org/2026/model",
         "documentNamespace": "ext_on_final",
         "namespaces": {
-            "exp":  "http://example.com/taxonomy",
+            "exp": "http://example.com/taxonomy",
             "mini": "http://example.com/mini",
             "exp_ext": "http://example.com/ext-taxonomy",
             "xbrl": "https://xbrl.org/2025",
             "iso4217": "http://www.xbrl.org/2003/iso4217",
             "utr": "https://xbrl.org/2025/utr",
-            "xbrli":"https://xbrl.org/2025/instance",
+            "xbrli": "https://xbrl.org/2025/instance",
             "xs": "http://www.w3.org/2001/XMLSchema",
             "exp_extF": "http://example.com/ext-final-taxonomy",
             "exp_extF2": "http://example.com/ext-final-taxonomy2",
             "ext_on_final": "http://example.com/ext-on-final-taxonomy"
-            
-            },
-        "urlMapping": {
-            "exp_extF":  ["extensionFinal.json"],
-            "exp_extF2":  ["extensionFinal2.json"]
-            }
+        },
+        "importMapping": {
+            "exp_extF:ExtensionTaxonomyFinal": "extensionFinal.json",
+            "exp_extF2:ExtensionTaxonomyFinal": "extensionFinal2.json"
+        }
     },
     "xbrlModel": {
         "name": "ext_on_final:ExtendONTaxonomyFinal",

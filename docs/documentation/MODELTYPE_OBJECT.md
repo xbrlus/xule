@@ -197,7 +197,7 @@ Represents an instance report - a specific submission containing facts, dimensio
     ],
     "facts": [
       {
-        "name": "bank:fp-f1",
+        "name": "bank:fp_f1",
         "factValues": [{"name": "bank:f1", "value": 1500000000}],
         "factDimensions": {
           "xbrl:concept": "cb:TotalLiquidAssets",
@@ -278,7 +278,7 @@ Represents an instance report - a specific submission containing facts, dimensio
     ],
     "facts": [
       {
-        "name": "company:fp-ghg1",
+        "name": "company:fp_ghg1",
         "factValues": [
           {
             "name": "company:ghg1", 

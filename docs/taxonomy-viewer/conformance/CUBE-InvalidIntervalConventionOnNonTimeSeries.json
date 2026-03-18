@@ -6,18 +6,28 @@
         "exp": "http://example.com/taxonomy",
         "xbrl": "https://xbrl.org/2025", 
         "xbrli": "https://xbrl.org/2025/instance",
-        "xs": "http://www.w3.org/2001/XMLSchema" },
+        "xs": "http://www.w3.org/2001/XMLSchema",
+        "xbrla": "http://xbrl.org/accounting"
+  },
     "documentNamespace": "exp",
-    "description": "ERROR: intervalConvention used on a reference cube."
+    "description": "ERROR: intervalConvention used on a reference cube.",
+    "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
+        }
   },
   "xbrlModel": {
     "name": "exp:InvalidConvention",
     "version": "2025",
+    "importedTaxonomies": [
+            {
+                "xbrlModelName": "xbrla:AccountingModel"
+            }
+        ],
     "dimensions": [
       {
         "name": "exp:ProductCodeDimension",
         "domainClass": "exp:ProductCodeDimensionDomainClass",
-        "cubeTypes": ["xbrl:referenceCube"]
+        "cubeTypes": ["xbrla:referenceCube"]
       }
     ],
     "domainClasses": [

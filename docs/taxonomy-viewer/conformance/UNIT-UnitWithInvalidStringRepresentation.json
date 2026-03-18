@@ -10,16 +10,16 @@
       "iso4217": "http://www.xbrl.org/2003/iso4217"
     },
     "documentNamespace": "exp",
-    "description": "ERROR: Unit With Invalid String Representation."
+    "description": "ERROR: Unit compositeUnitRepresentation contains non existent QNames. Raises oimce:invalidUnitStringRepresentation."
   },
   "xbrlModel": {
     "name": "exp:UnitWithInvalidStringRepresentation",
     "version": "2025",
      "units": [
       {
-        "name": "iso4217:USD",
+        "name": "exp:USD",
         "dataType": "xbrli:monetary",
-        "stringRepresentations": ["iso4217:NONEXISTENT * iso4217:EUR"]
+        "compositeUnitRepresentation": ["exp:NONEXISTENT*exp:EUR"]
       }
     ]
 }

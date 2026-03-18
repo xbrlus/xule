@@ -72,6 +72,7 @@
                 <option value="./conformance/CONCEPT-ValidNillable.json">CONCEPT-ValidNillable.json</option>
                 <option value="./conformance/CONCEPT-ValidProperties.json">CONCEPT-ValidProperties.json</option>
                 <option value="./conformance/CUBE-ValidExcludedIntervals.json">CUBE-ValidExcludedIntervals.json</option>
+                <option value="./conformance/CUBE-ValidExtendCube.json">CUBE-ValidExtendCube.json</option>
                 <option value="./conformance/CUBE-ValidTimeSeriesComplete.json">CUBE-ValidTimeSeriesComplete.json</option>
                 <option value="./conformance/DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json">DOMAINCLASS-TaxonomyDefinedDimensionUseEntityRoot.json</option>
                 <option value="./conformance/DOMAINCLASS-ValidMemberinDomain.json">DOMAINCLASS-ValidMemberinDomain.json</option>
@@ -91,6 +92,7 @@
                 <option value="./conformance/NAMESPACE-financials-module.json">NAMESPACE-financials-module.json</option>
                 <option value="./conformance/NAMESPACE-geography-module.json">NAMESPACE-geography-module.json</option>
                 <option value="./conformance/NAMESPACE-ValidPrefixRemapResolvesCollision.json">NAMESPACE-ValidPrefixRemapResolvesCollision.json</option>
+                <option value="./conformance/NAMESPACE-PrefixRemapNotRequired-Valid.json">NAMESPACE-PrefixRemapNotRequired-Valid.json</option>
                 <option value="./conformance/NAMESPACE-PrefixRemapRequired-Valid.json">NAMESPACE-PrefixRemapRequired-Valid.json</option>
                 <option value="./conformance/NAMESPACE-PrefixRemapAmbiguousExplicit-Valid.json">NAMESPACE-PrefixRemapAmbiguousExplicit-Valid.json</option>
                 <option value="./conformance/NETWORK-ValidBasic.json">NETWORK-ValidBasic.json</option>
@@ -98,6 +100,12 @@
                 <option value="./conformance/NETWORK-ValidMixedPropertyTypes.json">NETWORK-ValidMixedPropertyTypes.json</option>
                 <option value="./conformance/NETWORK-ValidPropertiesWithRoots.json">NETWORK-ValidPropertiesWithRoots.json</option>
                 <option value="./conformance/SELECTION-ValidConceptsByBalance.json">SELECTION-ValidConceptsByBalance.json</option>
+                <option value="./conformance/FOOTNOTE-ValidBasic.json">FOOTNOTE-ValidBasic.json</option>
+                <option value="./conformance/FOOTNOTE-ValidMultipleLanguages.json">FOOTNOTE-ValidMultipleLanguages.json</option>
+                <option value="./conformance/COLLECTIONTYPE-ValidBasic.json">COLLECTIONTYPE-ValidBasic.json</option>
+                <option value="./conformance/MAPTYPE-ValidBasic.json">MAPTYPE-ValidBasic.json</option>
+                <option value="./conformance/MAPTYPE-ValidWithRequiredAndAllowedKeys.json">MAPTYPE-ValidWithRequiredAndAllowedKeys.json</option>
+                <option value="./conformance/GROUP-ValidBasic.json">GROUP-ValidBasic.json</option>
             </optgroup>
             <optgroup label="Invalid Conformance Tests">
                 <option value="./conformance/CALCULATION-InvalidConceptsWithDifferentPeriodTypes.json">CALCULATION-InvalidConceptsWithDifferentPeriodTypes.json</option>
@@ -136,7 +144,9 @@
                 <option value="./conformance/CUBE-InappropriateDomainReference.json">CUBE-InappropriateExcludeCubeReference.json</option>
                 <option value="./conformance/CUBE-InappropriateNetworkReference.json">CUBE-InappropriateNetworkReference.json</option>
                 <option value="./conformance/CUBE-InvalidCubeProperty.json">CUBE-InvalidCubeProperty.json</option>
-                <option value="./conformance/CUBE-InvalidCubeType.json">CUBE-InvalidCubeType.json</option>   
+                <option value="./conformance/CUBE-InvalidCubeType.json">CUBE-InvalidCubeType.json</option> 
+                <option value="./conformance/CUBE-InvalidEntityDomainDataType.json">CUBE-InvalidEntityDomainDataType.json</option>
+                <option value="./conformance/CUBE-InvalidExtendCubeWrongType.json">CUBE-InvalidExtendCubeWrongType.json</option>
                 <option value="./conformance/CUBE-InvalidIntervalConventionOnNonTimeSeries.json">CUBE-InvalidIntervalConventionOnNonTimeSeries.json</option> 
                 <option value="./conformance/CUBE-MissingConceptDimension.json">CUBE-MissingConceptDimension.json</option>
                 <option value="./conformance/CUBE-NetworkReferencesDomain.json">CUBE-NetworkReferencesDomain.json</option>
@@ -147,6 +157,28 @@
                 <option value="./conformance/CUBE-PeriodConstraintContextNotConcept.json">CUBE-PeriodConstraintContextNotConcept.json</option>
                 <option value="./conformance/CUBE-PeriodConstraintOnNonPeriodDimension.json">CUBE-PeriodConstraintOnNonPeriodDimension.json</option>
                 <option value="./conformance/CUBE-PeriodConstraintRedundantTimeSpan.json">CUBE-PeriodConstraintRedundantTimeSpan.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintInstant-Valid.json">CUBE-PeriodConstraintInstant-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintInstant-Invalid.json">CUBE-PeriodConstraintInstant-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintDuration-Valid.json">CUBE-PeriodConstraintDuration-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintDuration-Invalid.json">CUBE-PeriodConstraintDuration-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintTimeSpan-Valid.json">CUBE-PeriodConstraintTimeSpan-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintTimeSpan-Invalid.json">CUBE-PeriodConstraintTimeSpan-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternInstant-Valid.json">CUBE-PeriodConstraintPatternInstant-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternInstant-Invalid.json">CUBE-PeriodConstraintPatternInstant-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternDuration-Valid.json">CUBE-PeriodConstraintPatternDuration-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternDuration-Invalid.json">CUBE-PeriodConstraintPatternDuration-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintEndDate-Valid.json">CUBE-PeriodConstraintEndDate-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintEndDate-Invalid.json">CUBE-PeriodConstraintEndDate-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintStartDate-Valid.json">CUBE-PeriodConstraintStartDate-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintStartDate-Invalid.json">CUBE-PeriodConstraintStartDate-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintOnOrAfter-Valid.json">CUBE-PeriodConstraintOnOrAfter-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintOnOrAfter-Invalid.json">CUBE-PeriodConstraintOnOrAfter-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintOnOrBefore-Valid.json">CUBE-PeriodConstraintOnOrBefore-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintOnOrBefore-Invalid.json">CUBE-PeriodConstraintOnOrBefore-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternEOM-Valid.json">CUBE-PeriodConstraintPatternEOM-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternEOM-Invalid.json">CUBE-PeriodConstraintPatternEOM-Invalid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternDateTime-Valid.json">CUBE-PeriodConstraintPatternDateTime-Valid.json</option>
+                <option value="./conformance/CUBE-PeriodConstraintPatternDateTime-Invalid.json">CUBE-PeriodConstraintPatternDateTime-Invalid.json</option>
                 <option value="./conformance/CUBE-RequiredCubeFactMissing.json">CUBE-RequiredCubeFactMissing.json</option>
                 <option value="./conformance/CUBETYPE-AllowedCubeDimensionExplicitString.json">CUBETYPE-AllowedCubeDimensionExplicitString.json</option>
                 <option value="./conformance/CUBETYPE-BaseCubeTypeDoesNotExist.json">CUBETYPE-BaseCubeTypeDoesNotExist.json</option>
@@ -160,6 +192,7 @@
                 <option value="./conformance/CUBETYPE-invalidDimensionAddition.json">CUBETYPE-invalidDimensionAddition.json</option>
                 <option value="./conformance/CUBETYPE-invalidDimensionClosedExpansion.json">CUBETYPE-invalidDimensionClosedExpansion.json</option>
                 <option value="./conformance/CUBETYPE-invalidDimensionDataTypeProperty.json">CUBETYPE-invalidDimensionDataTypeProperty.json</option>
+                <option value="./conformance/CUBETYPE-InvalidDimensionReferenceType.json">CUBETYPE-InvalidDimensionReferenceType.json</option>
                 <option value="./conformance/CUBETYPE-invalidDimensionReference.json">CUBETYPE-invalidDimensionReference.json</option>
                 <option value="./conformance/CUBETYPE-invalidDimensionRequirementRelaxation.json">CUBETYPE-invalidDimensionRequirementRelaxation.json</option>
                 <option value="./conformance/CUBETYPE-invalidPropertyExpansion.json">CUBETYPE-invalidPropertyExpansion.json</option>
@@ -192,10 +225,12 @@
                 <option value="./conformance/DOMAIN-InvalidRootReference.json">DOMAIN-InvalidRootReference.json</option>
                 <option value="./conformance/DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget.json">DOMAIN-RelationshipsReferenceNonexistentSourceOrTarget.json</option>
                 <option value="./conformance/DOMAIN-ExtendClosedDomain.json">DOMAIN-ExtendClosedDomain.json</option>
+                <option value="./conformance/DOMAIN-ExtendTargetNameWrongObjectType.json">DOMAIN-ExtendTargetNameWrongObjectType.json</option>
                 <option value="./conformance/DOMAIN-DomainTargetNonAllowedObjectType.json">DOMAIN-DomainTargetNonAllowedObjectType.json</option>
                 <option value="./conformance/DOMAIN-InvalidEntityDomainSource.json">DOMAIN-InvalidEntityDomainSource.json</option>
                 <option value="./conformance/DOMAIN-InvalidEntityDomainSource2.json">DOMAIN-InvalidEntityDomainSource2.json</option>
                 <option value="./conformance/DOMAIN-InvalidEntityDomainTarget.json">DOMAIN-InvalidEntityDomainTarget.json</option>
+                <option value="./conformance/DOMAIN-InvalidExtendTargetNameReference.json">DOMAIN-InvalidExtendTargetNameReference.json</option>
                 <option value="./conformance/DOMAIN-InvalidUnitDomainSource.json">DOMAIN-InvalidUnitDomainSource.json</option>
                 <option value="./conformance/DOMAIN-StringInDateTaxonomyDefinedDimensionDomain.json">DOMAIN-StringInDateTaxonomyDefinedDimensionDomain.json</option>
                 <option value="./conformance/DOMAIN-MemberInConceptDimensionDomain.json">DOMAIN-MemberInConceptDimensionDomain.json</option>
@@ -251,6 +286,9 @@
                 <option value="./conformance/NETWORK-InvalidRelationshipTypeNameReference.json">NETWORK-InvalidRelationshipTypeNameReference.json</option>
                 <option value="./conformance/NETWORK-InvalidExtendNetworkProperties.json">NETWORK-InvalidExtendNetworkProperties.json</option>
                 <option value="./conformance/NETWORK-NetworkObjectWithDuplicateRelationships.json">NETWORK-NetworkObjectWithDuplicateRelationships.json</option>
+                <option value="./conformance/NETWORK-ExtendCausesDuplicateRelationship.json">NETWORK-ExtendCausesDuplicateRelationship.json</option>
+                <option value="./conformance/NETWORK-ExtendCausesDuplicateRoots.json">NETWORK-ExtendCausesDuplicateRoots.json</option>
+                <option value="./conformance/NETWORK-ImportCausesDuplicateRoots.json">NETWORK-ImportCausesDuplicateRoots.json</option>
                 <option value="./conformance/NETWORK-RelationshipsReferenceNonexistentSource.json">NETWORK-RelationshipsReferenceNonexistentSource.json</option>
                 <option value="./conformance/NETWORK-RootOfNetworkDoesNotMatchActualRoot.json">NETWORK-RootOfNetworkDoesNotMatchActualRoot.json</option>
                 <option value="./conformance/NETWORK-ValidExtendNetworkDuplicateProperties.json">NETWORK-ValidExtendNetworkDuplicateProperties.json</option>
@@ -286,6 +324,34 @@
                 <option value="./conformance/UNIT-InvalidDataType.json">UNIT-InvalidDataType.json</option>
                 <option value="./conformance/UNIT-UnitWithDuplicateStringRepresentations.json">UNIT-UnitWithDuplicateStringRepresentations.json</option>
                 <option value="./conformance/UNIT-UnitWithDataTypeNotMatchingConceptDataType.json">UNIT-UnitWithDataTypeNotMatchingConceptDataType.json</option>
+                <option value="./conformance/UNIT-UnitWithInvalidStringRepresentation.json">UNIT-UnitWithInvalidStringRepresentation.json</option>
+                <option value="./conformance/UNIT-UnitWithStringRepresentationSameUnitType.json">UNIT-UnitWithStringRepresentationSameUnitType.json</option>
+                <option value="./conformance/UNIT-InvalidUnitStringRepresentationBadChars.json">UNIT-InvalidUnitStringRepresentationBadChars.json</option>
+                <option value="./conformance/UNIT-InvalidUnitStringRepresentationUnknownUnit.json">UNIT-InvalidUnitStringRepresentationUnknownUnit.json</option>
+                <option value="./conformance/FOOTNOTE-InvalidLanguageCode.json">FOOTNOTE-InvalidLanguageCode.json</option>
+                <option value="./conformance/FOOTNOTE-DuplicateFootnoteName.json">FOOTNOTE-DuplicateFootnoteName.json</option>
+                <option value="./conformance/FOOTNOTE-MissingContent.json">FOOTNOTE-MissingContent.json</option>
+                <option value="./conformance/COLLECTIONTYPE-MissingCollectionTypeObject.json">COLLECTIONTYPE-MissingCollectionTypeObject.json</option>
+                <option value="./conformance/COLLECTIONTYPE-CollectionTypeWithoutCollectionBaseType.json">COLLECTIONTYPE-CollectionTypeWithoutCollectionBaseType.json</option>
+                <option value="./conformance/COLLECTIONTYPE-ConflictingTypeDefinitions.json">COLLECTIONTYPE-ConflictingTypeDefinitions.json</option>
+                <option value="./conformance/MAPTYPE-MapTypeWithoutMapBaseType.json">MAPTYPE-MapTypeWithoutMapBaseType.json</option>
+                <option value="./conformance/MAPTYPE-MissingMapTypeObject.json">MAPTYPE-MissingMapTypeObject.json</option>
+                <option value="./conformance/MAPTYPE-RequiredKeyNotInAllowedKeys.json">MAPTYPE-RequiredKeyNotInAllowedKeys.json</option>
+                <option value="./conformance/MAPTYPE-InvalidMapItemBounds.json">MAPTYPE-InvalidMapItemBounds.json</option>
+                <option value="./conformance/MAPTYPE-MissingRequiredMapKey.json">MAPTYPE-MissingRequiredMapKey.json</option>
+                <option value="./conformance/MAPTYPE-DisallowedMapKey.json">MAPTYPE-DisallowedMapKey.json</option>
+                <option value="./conformance/MAPTYPE-InvalidMapValueType.json">MAPTYPE-InvalidMapValueType.json</option>
+                <option value="./conformance/MAPTYPE-InvalidMapKeyType.json">MAPTYPE-InvalidMapKeyType.json</option>
+                <option value="./conformance/GROUP-InvalidGroupContent.json">GROUP-InvalidGroupContent.json</option>
+                <option value="./conformance/GROUP-InvalidTaxonomyGroupSource.json">GROUP-InvalidTaxonomyGroupSource.json</option>
+                <option value="./conformance/GROUP-InvalidTaxonomyGroupTarget.json">GROUP-InvalidTaxonomyGroupTarget.json</option>
+                <option value="./conformance/FACTSOURCE-MetadataWithoutHash.json">FACTSOURCE-MetadataWithoutHash.json</option>
+                <option value="./conformance/FACTSOURCE-FactNamesWithHashOrMetadata.json">FACTSOURCE-FactNamesWithHashOrMetadata.json</option>
+                <option value="./conformance/FACTSOURCEMETA-InvalidFactCount.json">FACTSOURCEMETA-InvalidFactCount.json</option>
+                <option value="./conformance/FACTSOURCEMETA-EmptyConceptSet.json">FACTSOURCEMETA-EmptyConceptSet.json</option>
+                <option value="./conformance/FACTSOURCEMETA-InvalidMemberCount.json">FACTSOURCEMETA-InvalidMemberCount.json</option>
+                <option value="./conformance/FACTSOURCEMETA-TooManySampleMembers.json">FACTSOURCEMETA-TooManySampleMembers.json</option>
+                <option value="./conformance/FACTSOURCEMETA-MemberRangeOnExplicitDimension.json">FACTSOURCEMETA-MemberRangeOnExplicitDimension.json</option>
         </select>
             <button id="open-file-btn" title="Open a taxonomy JSON file from your computer">Open File…</button>
             <input type="file" id="taxonomy-file-input" accept=".json" style="display:none">

@@ -122,8 +122,8 @@ For each fact element:
 
 **Fact SQName:**
 - Derive from FactValue SQName
-- Prefix local name with `fp-` (fact position)
-- Example: if FactValue is `ns:f1`, Fact is `ns:fp-f1`
+- Prefix local name with `fp_` (fact position)
+- Example: if FactValue is `ns:f1`, Fact is `ns:fp_f1`
 
 #### Step 5: Extract Fact Value and Precision
 
@@ -176,7 +176,7 @@ For each fact element:
 {
   "facts": [
     {
-      "name": "ns:fp-f1",
+      "name": "ns:fp_f1",
       "factValues": [
         {
           "name": "ns:f1",
@@ -205,7 +205,7 @@ For each fact element:
       "relationshipTypeName": "xbrl:fact-footnote",
       "relationships": [
         {
-          "source": "ns:fp-f1",
+          "source": "ns:fp_f1",
           "target": "ns:fn_f1"
         }
       ]
@@ -351,7 +351,7 @@ Becomes:
 - Namespace from `documentNamespace` in model's documentInfo
 
 **Fact SQName:**
-- Prefix fact ID with `fp-`
+- Prefix fact ID with `fp_`
 - Same namespace as FactValue
 
 #### Step 6: Generate XBRL Model Objects
@@ -360,7 +360,7 @@ Becomes:
 {
   "facts": [
     {
-      "name": "ns:fp-f1",
+      "name": "ns:fp_f1",
       "factValues": [
         {
           "name": "ns:f1",
@@ -557,7 +557,7 @@ Generate:
 {
   "facts": [
     {
-      "name": "ns:fp-f1",
+      "name": "ns:fp_f1",
       "factValues": [
         {
           "name": "ns:f1",

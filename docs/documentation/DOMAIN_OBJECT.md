@@ -491,16 +491,16 @@ Domain objects are subject to numerous validation rules:
 
 ### Type-Specific Constraints
 For `xbrl:conceptDomain`:
-- Sources must be concepts, abstracts, or the domain class (`oimte:invalidConceptDomainSource`)
+- Sources must be concepts, abstracts, or the domain class (`oimte:invalidDomainObject`)
 - Targets must be concepts or abstracts (`oimte:invalidDomainObject`)
 
 For `xbrl:entityDomain`:
-- Sources must be entities or the domain class (`oimte:invalidEntityDomainSource`)
-- Targets must be entities (`oimte:invalidEntityDomainTarget`)
+- Sources must be entities or the domain class (`oimte:invalidDomainObject`)
+- Targets must be entities (`oimte:invalidDomainObject`)
 
 For `xbrl:unitDomain`:
-- Sources must be units or the domain class (`oimte:invalidUnitDomainSource`)
-- Targets must be units (`oimte:invalidUnitDomainTarget`)
+- Sources must be units or the domain class (`oimte:invalidDomainObject`)
+- Targets must be units (`oimte:invalidDomainObject`)
 
 For custom domains (not concept/entity/unit/language):
 - Sources must be members or the domain class (`oimte:invalidDomainSource`)
@@ -508,7 +508,7 @@ For custom domains (not concept/entity/unit/language):
 
 ### Extension Constraints
 - Cannot extend complete domains (`oimte:cannotExtendCompleteDomain`)
-- Model taxonomies cannot use extendTargetName (`oimte:extendedTargetNameDefinedForModelTaxonomy`)
+- Model taxonomies cannot use extendTargetName (`oimte:extendedTargetNameDefinedForCompiledTaxonomy`)
 - Root property must reference a valid domain class object (`oimte:invalidDomainClass`)
 
 ## Common Use Cases

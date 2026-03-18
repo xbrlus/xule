@@ -1,57 +1,57 @@
 {
-  "$schema": "../oim-taxonomy-schema.json",
-  "documentInfo": {
-    "documentType": "https://xbrl.org/2026/model",
-    "namespaces": {
-      "exp": "http://example.com/taxonomy",
-      "xbrl": "https://xbrl.org/2025",
-      "xbrli":"https://xbrl.org/2025/instance",
-      "xbrla": "http://xbrl.org/accounting",
-      "xs": "http://www.w3.org/2001/XMLSchema"
+    "$schema": "../oim-taxonomy-schema.json",
+    "documentInfo": {
+        "documentType": "https://xbrl.org/2026/model",
+        "namespaces": {
+            "exp": "http://example.com/taxonomy",
+            "xbrl": "https://xbrl.org/2025",
+            "xbrli": "https://xbrl.org/2025/instance",
+            "xbrla": "http://xbrl.org/accounting",
+            "xs": "http://www.w3.org/2001/XMLSchema"
+        },
+        "documentNamespace": "exp",
+        "description": "ERROR: Cube missing required xbrl:conceptDimension.",
+        "importMapping": {
+            "xbrla:AccountingModel": "../spec-taxonomies/xbrla.json"
+        }
     },
-    "documentNamespace": "exp",
-     "urlMapping": {
-            "xbrla": ["../spec-taxonomies/xbrla.json"]
-            },
-    "description": "ERROR: Cube missing required xbrl:conceptDimension."
-  },
-  "xbrlModel": {
-    "name": "exp:MissingConceptDimensionTaxonomy",
-    "version": "2025",
-    "importedTaxonomies": [
+    "xbrlModel": {
+        "name": "exp:MissingConceptDimensionTaxonomy",
+        "version": "2025",
+        "importedTaxonomies": [
             {
                 "xbrlModelName": "xbrla:AccountingModel"
             }
         ],
-    "concepts": [
-      {
-        "name": "exp:PeakGridElectricityDemand",
-        "dataType": "xbrli:power",
-        "periodType": "none",
-        "nillable": true
-      }
-    ],
-    "dimensions": [
-      {
-        "name": "exp:TimeSeriesDimension",
-        "domainClass": "exp:TimeSeriesPeakDemandRoot"
-      }
-    ],
-    "cubes": [
-      {
-        "name": "exp:CubeMissingConceptDimension",
-        "cubeType": "xbrla:timeSeriesCube",
-        "cubeDimensions": [
-          {
-            "dimensionName": "exp:TimeSeriesDimension",
-            "domainDataType": "xs:dateTime",
-            "allowDomainFacts": false
-          }
-        ]
-      }
-    ],
-     "domains": [
-        {
+        "concepts": [
+            {
+                "name": "exp:PeakGridElectricityDemand",
+                "dataType": "xbrli:power",
+                "periodType": "none",
+                "nillable": true
+            }
+        ],
+        "dimensions": [
+            {
+                "name": "exp:TimeSeriesDimension",
+                "domainClass": "exp:TimeSeriesPeakDemandRoot"
+            }
+        ],
+        "cubes": [
+            {
+                "name": "exp:CubeMissingConceptDimension",
+                "cubeType": "xbrla:timeSeriesCube",
+                "cubeDimensions": [
+                    {
+                        "dimensionName": "exp:TimeSeriesDimension",
+                        "domainDataType": "xs:dateTime",
+                        "allowDomainFacts": false
+                    }
+                ]
+            }
+        ],
+        "domains": [
+            {
                 "name": "exp:PrimaryTimeSeriesDomain",
                 "root": "xbrl:conceptDomain",
                 "relationships": [
@@ -61,19 +61,36 @@
                     }
                 ]
             }
-    ],
-    "domainClasses": [
-        {
-          "name": "exp:TimeSeriesPeakDemandRoot",
-          "allowedDomainItems" : ["xs:dateTime"],
-          "properties": [
-                      {"property": "xbrl:intervalOfMeasurement","value" : "PT1H"},
-                      {"property": "xbrl:timeSeriesType","value" : "Aggregated"},
-                      {"property": "xbrl:aggregation","value" : "max"},
-                      {"property": "xbrl:intervalConvention","value" : "StartTime"},
-                      {"property": "xbrl:completeTimeSeries","value" : true }
-                  ]
-          }
-    ]
-  }
+        ],
+        "domainClasses": [
+            {
+                "name": "exp:TimeSeriesPeakDemandRoot",
+                "allowedDomainItems": [
+                    "xs:dateTime"
+                ],
+                "properties": [
+                    {
+                        "property": "xbrl:intervalOfMeasurement",
+                        "value": "PT1H"
+                    },
+                    {
+                        "property": "xbrl:timeSeriesType",
+                        "value": "Aggregated"
+                    },
+                    {
+                        "property": "xbrl:aggregation",
+                        "value": "max"
+                    },
+                    {
+                        "property": "xbrl:intervalConvention",
+                        "value": "StartTime"
+                    },
+                    {
+                        "property": "xbrl:completeTimeSeries",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    }
 }
