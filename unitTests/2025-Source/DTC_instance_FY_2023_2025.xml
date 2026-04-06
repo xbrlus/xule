@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:us-gaap="http://fasb.org/us-gaap/2025" xmlns:dei="http://xbrl.sec.gov/dei/2025">
+  <link:schemaRef xlink:href="./DTC_taxonomy_FY_2023_2025.zip/DTC_taxonomy_FY_2023_2025/DTC-20251231.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001870600</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-01-01</xbrli:startDate>
+      <xbrli:endDate>2023-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001870600</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:CommonClassBMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-11</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001870600</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:StatementClassOfStockAxis">us-gaap:CommonClassAMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-11</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001870600</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <dei:EntityEmergingGrowthCompany id="f" contextRef="c">true</dei:EntityEmergingGrowthCompany>
+  <dei:EntityFileNumber id="f1" contextRef="c">001-40979</dei:EntityFileNumber>
+  <dei:EntityCommonStockSharesOutstanding id="f2" decimals="INF" contextRef="c1" unitRef="shares">33069023.0</dei:EntityCommonStockSharesOutstanding>
+  <dei:AmendmentFlag id="f3" contextRef="c">false</dei:AmendmentFlag>
+  <dei:DocumentFiscalYearFocus id="f4" contextRef="c">2023</dei:DocumentFiscalYearFocus>
+  <dei:EntityAddressPostalZipCode id="f5" contextRef="c">76051</dei:EntityAddressPostalZipCode>
+  <dei:EntityTaxIdentificationNumber id="f6" contextRef="c">87-1360865</dei:EntityTaxIdentificationNumber>
+  <dei:DocumentTransitionReport id="f7" contextRef="c">false</dei:DocumentTransitionReport>
+  <dei:DocumentFiscalPeriodFocus id="f8" contextRef="c">FY</dei:DocumentFiscalPeriodFocus>
+  <dei:EntityExTransitionPeriod id="f9" contextRef="c">false</dei:EntityExTransitionPeriod>
+  <dei:EntityCentralIndexKey id="f10" contextRef="c">0001870600</dei:EntityCentralIndexKey>
+  <dei:Security12bTitle id="f11" contextRef="c">Class A Common Stock, $0.001 par value per share</dei:Security12bTitle>
+  <dei:EntityInteractiveDataCurrent id="f12" contextRef="c">Yes</dei:EntityInteractiveDataCurrent>
+  <dei:EntityCommonStockSharesOutstanding id="f13" decimals="INF" contextRef="c2" unitRef="shares">58106957.0</dei:EntityCommonStockSharesOutstanding>
+  <dei:IcfrAuditorAttestationFlag id="f14" contextRef="c">false</dei:IcfrAuditorAttestationFlag>
+  <dei:DocumentPeriodEndDate id="f15" contextRef="c">2023-12-31</dei:DocumentPeriodEndDate>
+  <dei:EntityRegistrantName id="f16" contextRef="c">Solo Brands, Inc.</dei:EntityRegistrantName>
+  <dei:EntityAddressAddressLine1 id="f17" contextRef="c">1001 Mustang Dr.</dei:EntityAddressAddressLine1>
+  <dei:EntityAddressCityOrTown id="f18" contextRef="c">Grapevine</dei:EntityAddressCityOrTown>
+  <dei:EntityCurrentReportingStatus id="f19" contextRef="c">Yes</dei:EntityCurrentReportingStatus>
+  <dei:CurrentFiscalYearEndDate id="f20" contextRef="c">--12-31</dei:CurrentFiscalYearEndDate>
+  <dei:EntityAddressStateOrProvince id="f21" contextRef="c">TX</dei:EntityAddressStateOrProvince>
+  <dei:CityAreaCode id="f22" contextRef="c">817</dei:CityAreaCode>
+  <dei:EntityVoluntaryFilers id="f23" contextRef="c">No</dei:EntityVoluntaryFilers>
+  <dei:TradingSymbol id="f24" contextRef="c">DTC</dei:TradingSymbol>
+  <dei:LocalPhoneNumber id="f25" contextRef="c">900-2664</dei:LocalPhoneNumber>
+  <dei:EntityWellKnownSeasonedIssuer id="f26" contextRef="c">No</dei:EntityWellKnownSeasonedIssuer>
+  <dei:EntityShellCompany id="f27" contextRef="c">false</dei:EntityShellCompany>
+  <dei:DocumentFinStmtErrorCorrectionFlag id="f28" contextRef="c">false</dei:DocumentFinStmtErrorCorrectionFlag>
+  <dei:DocumentAnnualReport id="f29" contextRef="c">true</dei:DocumentAnnualReport>
+  <dei:EntityPublicFloat id="f30" decimals="-5" contextRef="c3" unitRef="usd">158300000.0</dei:EntityPublicFloat>
+  <dei:EntitySmallBusiness id="f31" contextRef="c">false</dei:EntitySmallBusiness>
+</xbrli:xbrl>

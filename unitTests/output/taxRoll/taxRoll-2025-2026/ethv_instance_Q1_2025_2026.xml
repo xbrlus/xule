@@ -1,0 +1,1384 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:www.vaneck.com="http://www.vaneck.com/20260331" xmlns:us-gaap="http://fasb.org/us-gaap/2026" xmlns:srt="http://fasb.org/srt/2026" xmlns:dei="http://xbrl.sec.gov/dei/2026" xmlns:ns="http://www.vaneck.com/20250331">
+  <link:schemaRef xlink:href="./ethv_taxonomy_Q1_2025_2026.zip/ethv_taxonomy_Q1_2025_2026/ethv-20261231.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2025-01-01</xbrli:startDate>
+      <xbrli:endDate>2025-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:FairValueByFairValueHierarchyLevelAxis">us-gaap:FairValueInputsLevel3Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">www.vaneck.com:QuantityOfEtherMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c4">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">us-gaap:PortionAtFairValueFairValueDisclosureMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-05-20</xbrli:startDate>
+      <xbrli:endDate>2024-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c5">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:FairValueByFairValueHierarchyLevelAxis">us-gaap:FairValueInputsLevel2Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c6">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c7">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">us-gaap:PortionAtFairValueFairValueDisclosureMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2025-01-01</xbrli:startDate>
+      <xbrli:endDate>2025-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c8">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:FairValueByFairValueHierarchyLevelAxis">us-gaap:FairValueInputsLevel2Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c9">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">us-gaap:PortionAtFairValueFairValueDisclosureMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c10">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:OwnershipAxis">www.vaneck.com:ETHCustodianMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c11">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-04-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c12">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">www.vaneck.com:QuantityOfEtherMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-05-20</xbrli:startDate>
+      <xbrli:endDate>2024-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c13">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">www.vaneck.com:QuantityOfEtherMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c14">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">www.vaneck.com:QuantityOfEtherMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2025-01-01</xbrli:startDate>
+      <xbrli:endDate>2025-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c15">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-05-20</xbrli:startDate>
+      <xbrli:endDate>2024-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c16">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:OwnershipAxis">www.vaneck.com:SeedCapitalInvestorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c17">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">us-gaap:PortionAtFairValueFairValueDisclosureMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c18">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">us-gaap:PortionAtFairValueFairValueDisclosureMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-05-19</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c19">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:OwnershipAxis">www.vaneck.com:SeedCapitalInvestorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c20">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:OwnershipAxis">www.vaneck.com:ETHCustodianMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c21">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:MeasurementInputTypeAxis">www.vaneck.com:QuantityOfEtherMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-05-19</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c22">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:OwnershipAxis">www.vaneck.com:AdditionalETHCustodianMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c23">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:OwnershipAxis">www.vaneck.com:SeedCapitalInvestorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-06-25</xbrli:startDate>
+      <xbrli:endDate>2024-06-25</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c24">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:FairValueByFairValueHierarchyLevelAxis">us-gaap:FairValueInputsLevel1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c25">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="srt:OwnershipAxis">www.vaneck.com:SeedCapitalInvestorMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-06-25</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c26">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:FairValueByFairValueHierarchyLevelAxis">us-gaap:FairValueInputsLevel1Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c27">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001860788</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:FairValueByFairValueHierarchyLevelAxis">us-gaap:FairValueInputsLevel3Member</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="pure">
+    <xbrli:measure>xbrli:pure</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd1">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <xbrli:unit id="ether">
+    <xbrli:measure>ns:Ether</xbrli:measure>
+  </xbrli:unit>
+  <dei:TradingSymbol id="f" contextRef="c">ETHV</dei:TradingSymbol>
+  <us-gaap:Investments id="f1" xsi:nil="true" contextRef="c1" unitRef="usd"/>
+  <www.vaneck.com:CryptoAssetNumberOfUnitsDecimal id="f2" decimals="2" contextRef="c2" unitRef="pure">43935.83</www.vaneck.com:CryptoAssetNumberOfUnitsDecimal>
+  <us-gaap:Assets id="f3" decimals="0" contextRef="c3" unitRef="usd">146428902.0</us-gaap:Assets>
+  <us-gaap:SponsorFees id="f4" decimals="0" contextRef="c" unitRef="usd">60908.0</us-gaap:SponsorFees>
+  <us-gaap:StockIssuedDuringPeriodSharesNewIssues id="f5" decimals="INF" contextRef="c" unitRef="shares">225000.0</us-gaap:StockIssuedDuringPeriodSharesNewIssues>
+  <www.vaneck.com:NetChangeInUnrealizedAppreciationOnInvestmentInEther id="f6" decimals="0" contextRef="c4" unitRef="usd">10194816.0</www.vaneck.com:NetChangeInUnrealizedAppreciationOnInvestmentInEther>
+  <us-gaap:SubsequentEventDescription id="f7" contextRef="c">The Trust has evaluated subsequent events and transactions for
+potential recognition or disclosure through the date the financial statements were issued and has determined that there are no
+material events that would require disclosure.</us-gaap:SubsequentEventDescription>
+  <us-gaap:Investments id="f8" xsi:nil="true" contextRef="c5" unitRef="usd"/>
+  <us-gaap:CommonStockValueOutstanding id="f9" decimals="0" contextRef="c6" unitRef="usd">145551631.0</us-gaap:CommonStockValueOutstanding>
+  <www.vaneck.com:ETHContributedFairValue id="f10" decimals="0" contextRef="c4" unitRef="usd">154052853.0</www.vaneck.com:ETHContributedFairValue>
+  <dei:CurrentFiscalYearEndDate id="f11" contextRef="c">--12-31</dei:CurrentFiscalYearEndDate>
+  <us-gaap:IncomeTaxPolicyTextBlock id="f12" contextRef="c">&lt;i&gt;Federal Income Taxes&lt;/i&gt;   The Trust is treated as a grantor trust for federal income tax purposes and, therefore, no provision for federal income taxes
+is required. Any interest, expenses, gains and losses are passed through to the holders of Shares of the Trust. The Sponsor has
+reviewed the tax positions for the period presented and has determined that no provision for income tax is required in the Trust’s
+financial statements.</us-gaap:IncomeTaxPolicyTextBlock>
+  <dei:EntityShellCompany id="f13" contextRef="c">false</dei:EntityShellCompany>
+  <us-gaap:CommonStockSharesIssued id="f14" decimals="0" contextRef="c6" unitRef="shares">3150000.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:ScheduleOfStockholdersEquityTableTextBlock id="f15" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;Share and capital activity is as follows:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="border-collapse: collapse; width: 60%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="7" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;&lt;b&gt;Three Months Ended March 31, 2025&lt;sup&gt;(a)&lt;/sup&gt;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Shares&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Amount&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="width: 60%; font-style: normal"&gt;Beginning of period&lt;/td&gt;&lt;td style="width: 3%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 15%; text-align: right"&gt;3,000,000&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 3%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt;$&lt;/td&gt;&lt;td style="width: 15%; text-align: right"&gt;137,801,504&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt;Shares issued&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;225,000&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;9,957,156&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="padding-bottom: 1px"&gt;Shares redeemed&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(75,000&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(2,207,029&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="font-style: normal; padding-bottom: 3px"&gt;End of period&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;3,150,000&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;145,551,631&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table cellpadding="0" style="width: 100%; margin-top: 0pt; margin-bottom: 0pt; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt; &lt;tr style="vertical-align: top"&gt;
+&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt;
+&lt;td style="width: 0"&gt;&lt;/td&gt;&lt;td style="width: 0.25in"&gt;(a)&lt;/td&gt;&lt;td&gt;No comparative share activity have been provided as the Trust did not have any operations as of March 31, 2024.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</us-gaap:ScheduleOfStockholdersEquityTableTextBlock>
+  <www.vaneck.com:NetRealizedLossOnInvestmentInETH id="f16" decimals="0" contextRef="c7" unitRef="usd">-1192767.0</www.vaneck.com:NetRealizedLossOnInvestmentInETH>
+  <www.vaneck.com:NetRealizedLossOnInvestmentInETH id="f17" decimals="0" contextRef="c4" unitRef="usd">-1567418.0</www.vaneck.com:NetRealizedLossOnInvestmentInETH>
+  <dei:EntityInteractiveDataCurrent id="f18" contextRef="c">Yes</dei:EntityInteractiveDataCurrent>
+  <us-gaap:NetAssetValuePerShare id="f19" decimals="2" contextRef="c3" unitRef="usd1">48.81</us-gaap:NetAssetValuePerShare>
+  <us-gaap:FairValueAssetsMeasuredOnRecurringBasisTextBlock id="f20" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0 0pt 36pt"&gt;The following is a summary of the fair value hierarchy as of
+March 31, 2025, and December 31, 2024:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="border-collapse: collapse; width: 100%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px"&gt;March 31, 2025&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 1&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 2&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 3&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Total&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt"&gt;Assets&lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td style="width: 36pt"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 20pt; text-indent: -10pt; padding-bottom: 3px"&gt;Investment in ETH&lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;84,668,819&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-7"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-8"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;84,668,819&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px"&gt;December 31, 2024&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 1&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 2&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 3&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Total&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt"&gt;Assets&lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 20pt; text-indent: -10pt; padding-bottom: 3px"&gt;Investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;146,428,902&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-9"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-10"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;146,428,902&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</us-gaap:FairValueAssetsMeasuredOnRecurringBasisTextBlock>
+  <us-gaap:InvestmentOwnedAtFairValue id="f21" decimals="0" contextRef="c6" unitRef="usd">84668819.0</us-gaap:InvestmentOwnedAtFairValue>
+  <www.vaneck.com:ETHWithdrawnFairValue id="f22" decimals="0" contextRef="c7" unitRef="usd">-2207029.0</www.vaneck.com:ETHWithdrawnFairValue>
+  <us-gaap:CommonStockSharesOutstanding id="f23" decimals="INF" contextRef="c3" unitRef="shares">3000000.0</us-gaap:CommonStockSharesOutstanding>
+  <dei:DocumentFiscalPeriodFocus id="f24" contextRef="c">Q1</dei:DocumentFiscalPeriodFocus>
+  <dei:EntityAddressAddressLine1 id="f25" contextRef="c">666 Third Avenue</dei:EntityAddressAddressLine1>
+  <us-gaap:Investments id="f26" xsi:nil="true" contextRef="c8" unitRef="usd"/>
+  <us-gaap:InvestmentOwnedAtFairValue id="f27" decimals="0" contextRef="c9" unitRef="usd">146428902.0</us-gaap:InvestmentOwnedAtFairValue>
+  <us-gaap:GainLossOnInvestments id="f28" decimals="0" contextRef="c" unitRef="usd">-1192767.0</us-gaap:GainLossOnInvestments>
+  <www.vaneck.com:TrustExpensesAndOtherAgreementsTextBlock id="f29" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 3. Trust Expenses and Other Agreements&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Trust pays the Sponsor a unified fee (the “Sponsor
+Fee”) of 0.20% of net assets that accrues daily and pays monthly. Effective for the period from July 23, 2024 through July
+22, 2025, the Sponsor has agreed to waive the entire Sponsor Fee for the first $1.5 billion of the Trust’s net assets. If
+the Trust’s net assets exceed $1.5 billion prior to July 22, 2025, the Sponsor Fee charged on net assets over $1.5 billion
+will be 0.20% of average daily net assets. All investors will incur the same Sponsor Fee which is the weighted average of those
+fee rates. After July 22, 2025, the Sponsor Fee will be 0.20% of average daily net assets. The Sponsor has agreed to pay all operating
+expenses (except for litigation expenses and other extraordinary expenses) from the Sponsor Fee. The Sponsor from time to time
+will sell ETH, which may be facilitated by one or more liquidity providers and/or the ETH Custodians, in such quantity as is necessary
+to permit payment of the Sponsor Fee and Trust expenses and liabilities not assumed by the Sponsor.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;The Trustee fee is paid by the Sponsor and is not an expense
+of the Trust.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Trust holds its ETH at the ETH Custodian and at the Additional
+ETH Custodian, both of which are regulated third-party custodians that carry insurance (in the case of the Additional ETH Custodian,
+such insurance is carried by its parent, Coinbase Inc., and is intended to cover the loss of client assets held by Coinbase Inc.
+and its subsidiaries, including the Additional ETH Custodian) and are responsible for safekeeping of ETH owned by the Trust and
+holding private keys that provide access to the ETH in the Trust’s ETH account.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;State Street Bank and Trust Company serves as the Trust’s
+administrator, transfer agent and cash custodian.&lt;/p&gt;</www.vaneck.com:TrustExpensesAndOtherAgreementsTextBlock>
+  <us-gaap:StockIssuedDuringPeriodValueNewIssues id="f30" decimals="0" contextRef="c" unitRef="usd">9957156.0</us-gaap:StockIssuedDuringPeriodValueNewIssues>
+  <us-gaap:InvestmentCompanyInvestmentIncomeLossFromOperationsPerShare id="f31" decimals="2" contextRef="c" unitRef="usd1">-21.93</us-gaap:InvestmentCompanyInvestmentIncomeLossFromOperationsPerShare>
+  <us-gaap:MinorityInterestOwnershipPercentageByParent id="f32" decimals="2" contextRef="c10" unitRef="pure">0.01</us-gaap:MinorityInterestOwnershipPercentageByParent>
+  <dei:LocalPhoneNumber id="f33" contextRef="c">293-2000</dei:LocalPhoneNumber>
+  <dei:AmendmentFlag id="f34" contextRef="c">false</dei:AmendmentFlag>
+  <us-gaap:InvestmentCompanyExpenseRatioIncludingIncentiveFee id="f35" decimals="4" contextRef="c" unitRef="pure">0.0</us-gaap:InvestmentCompanyExpenseRatioIncludingIncentiveFee>
+  <us-gaap:InvestmentOwnedAtCost id="f36" decimals="0" contextRef="c6" unitRef="usd">142791446.0</us-gaap:InvestmentOwnedAtCost>
+  <us-gaap:UnrealizedGainLossOnInvestments id="f37" decimals="0" contextRef="c" unitRef="usd">-68317443.0</us-gaap:UnrealizedGainLossOnInvestments>
+  <dei:EntityCommonStockSharesOutstanding id="f38" decimals="INF" contextRef="c11" unitRef="shares">3050000.0</dei:EntityCommonStockSharesOutstanding>
+  <us-gaap:OperatingExpenses id="f39" decimals="0" contextRef="c" unitRef="usd">60908.0</us-gaap:OperatingExpenses>
+  <us-gaap:IncreaseDecreaseInOperatingCapital id="f40" decimals="0" contextRef="c" unitRef="usd">61760083.0</us-gaap:IncreaseDecreaseInOperatingCapital>
+  <us-gaap:InvestmentOwnedAtCost id="f41" decimals="0" contextRef="c3" unitRef="usd">136234086.0</us-gaap:InvestmentOwnedAtCost>
+  <us-gaap:BasisOfAccountingPolicyPolicyTextBlock id="f42" contextRef="c">&lt;i&gt;Basis of Preparation and Use of Estimates&lt;/i&gt;   The preparation of financial statements in conformity with U.S. generally accepted accounting principles (“GAAP”) requires management to make estimates and assumptions that affect the reported amounts and disclosures in the financial statements. Actual results could differ from those estimates.   The Trust qualifies as an investment company solely for accounting purposes and not for any other purpose and follows accounting and reporting requirements of Accounting Standards Codification (“ASC”) Topic 946 Financial Services—Investment Companies&lt;i&gt; &lt;/i&gt;(“ASC Topic 946”)&lt;i&gt;, &lt;/i&gt;but is not registered, and is not required to be registered, as an investment company under the Investment Company Act of 1940, as amended.</us-gaap:BasisOfAccountingPolicyPolicyTextBlock>
+  <us-gaap:RealizedInvestmentGainsLosses id="f43" decimals="0" contextRef="c" unitRef="usd">-1192767.0</us-gaap:RealizedInvestmentGainsLosses>
+  <us-gaap:CommonStockSharesIssued id="f44" decimals="0" contextRef="c3" unitRef="shares">3000000.0</us-gaap:CommonStockSharesIssued>
+  <www.vaneck.com:NetRealizedGainAndChangeInUnrealizedAppreciationdepreciationOnInvestmentsInEther id="f45" decimals="2" contextRef="c" unitRef="usd1">-21.93</www.vaneck.com:NetRealizedGainAndChangeInUnrealizedAppreciationdepreciationOnInvestmentsInEther>
+  <dei:EntityCentralIndexKey id="f46" contextRef="c">0001860788</dei:EntityCentralIndexKey>
+  <www.vaneck.com:InterimFinancialStatementsPolicyPolicyTextBlock id="f47" contextRef="c">&lt;i&gt;Interim financial statements&lt;/i&gt;   The financial statements included herein were prepared without audit according to the rules and regulations of the Securities
+and Exchange Commission. Certain information and footnote disclosures normally included in financial statements prepared in accordance
+with GAAP may be omitted pursuant to such rules and regulations. The financial statements reflect, in the opinion of management,
+all adjustments necessary that were of a normal and recurring nature and adequate disclosures to present fairly the financial
+position and results of operations as of and for the periods indicated. The results of operations for the three months ended March
+31, 2025 and 2024, are not necessarily indicative of the results to be expected for the full year or for any other period.   These financial statements should be read in conjunction with the audited financial statements and the notes thereto included
+in the Form 10-K previously filed with the SEC.</www.vaneck.com:InterimFinancialStatementsPolicyPolicyTextBlock>
+  <us-gaap:AssetsNet id="f48" decimals="0" contextRef="c3" unitRef="usd">146428902.0</us-gaap:AssetsNet>
+  <dei:CityAreaCode id="f49" contextRef="c">212</dei:CityAreaCode>
+  <dei:EntityFileNumber id="f50" contextRef="c">001-42141</dei:EntityFileNumber>
+  <www.vaneck.com:ETHWithdrawn id="f51" decimals="2" contextRef="c12" unitRef="ether">-5858.11</www.vaneck.com:ETHWithdrawn>
+  <www.vaneck.com:SponsorFeeTerms id="f52" contextRef="c">The Trust pays the Sponsor a unified fee (the “Sponsor
+Fee”) of 0.20% of net assets that accrues daily and pays monthly. Effective for the period from July 23, 2024 through July
+22, 2025, the Sponsor has agreed to waive the entire Sponsor Fee for the first $1.5 billion of the Trust’s net assets. If
+the Trust’s net assets exceed $1.5 billion prior to July 22, 2025, the Sponsor Fee charged on net assets over $1.5 billion
+will be 0.20% of average daily net assets. All investors will incur the same Sponsor Fee which is the weighted average of those
+fee rates. After July 22, 2025, the Sponsor Fee will be 0.20% of average daily net assets. The Sponsor has agreed to pay all operating
+expenses (except for litigation expenses and other extraordinary expenses) from the Sponsor Fee. The Sponsor from time to time
+will sell ETH, which may be facilitated by one or more liquidity providers and/or the ETH Custodians, in such quantity as is necessary
+to permit payment of the Sponsor Fee and Trust expenses and liabilities not assumed by the Sponsor.</www.vaneck.com:SponsorFeeTerms>
+  <dei:EntityAddressPostalZipCode id="f53" contextRef="c">10017</dei:EntityAddressPostalZipCode>
+  <www.vaneck.com:CryptoAssetNumberOfUnitsDecimal id="f54" decimals="2" contextRef="c3" unitRef="pure">43935.83</www.vaneck.com:CryptoAssetNumberOfUnitsDecimal>
+  <us-gaap:InvestmentCompanyGainLossOnInvestmentPerShare id="f55" xsi:nil="true" contextRef="c" unitRef="usd1"/>
+  <us-gaap:Investments id="f56" decimals="0" contextRef="c6" unitRef="usd">84668819.0</us-gaap:Investments>
+  <www.vaneck.com:CryptoAssetNumberOfUnitsDecimal id="f57" decimals="2" contextRef="c13" unitRef="pure">46132.62</www.vaneck.com:CryptoAssetNumberOfUnitsDecimal>
+  <us-gaap:CommonStockValueOutstanding id="f58" decimals="0" contextRef="c3" unitRef="usd">137801504.0</us-gaap:CommonStockValueOutstanding>
+  <www.vaneck.com:NetChangeInUnrealizedAppreciationOnInvestmentInEther id="f59" decimals="0" contextRef="c" unitRef="usd">-68317443.0</www.vaneck.com:NetChangeInUnrealizedAppreciationOnInvestmentInEther>
+  <us-gaap:StockRedeemedOrCalledDuringPeriodShares id="f60" decimals="INF" contextRef="c" unitRef="shares">75000.0</us-gaap:StockRedeemedOrCalledDuringPeriodShares>
+  <www.vaneck.com:NetRealizedLossOnInvestmentInETHShares id="f61" xsi:nil="true" contextRef="c12" unitRef="shares"/>
+  <dei:EntityTaxIdentificationNumber id="f62" contextRef="c">86-6752793</dei:EntityTaxIdentificationNumber>
+  <dei:EntityCurrentReportingStatus id="f63" contextRef="c">Yes</dei:EntityCurrentReportingStatus>
+  <us-gaap:ProceedsFromContributedCapital id="f64" decimals="0" contextRef="c" unitRef="usd">-9957156.0</us-gaap:ProceedsFromContributedCapital>
+  <www.vaneck.com:EtherPolicyTextBlock id="f65" contextRef="c">&lt;i&gt;Ether&lt;/i&gt;   ETH transactions are accounted for on trade date. Realized gains and losses on the sale of ETH are determined based on the average cost method. Under ASC Topic 946, the average cost method is an accepted method to determine realized gains and losses on the sale of ETH. Proceeds received by the Trust from the issuance of baskets consist of ETH. Deposits of ETH are held by Gemini Trust Company, LLC (the “ETH Custodian”) and are also held at Coinbase Custody Trust Company, LLC (the “Additional ETH Custodian”, and collectively the “ETH Custodians”), on behalf of the Trust until (i) delivered out in connection with redemptions of baskets or cash or (ii) sold by the Sponsor, which may be facilitated by the ETH Custodians, to pay fees due to the Sponsor and Trust expenses and liabilities not assumed by the Sponsor.</www.vaneck.com:EtherPolicyTextBlock>
+  <us-gaap:NetInvestmentIncome id="f66" xsi:nil="true" contextRef="c" unitRef="usd"/>
+  <www.vaneck.com:ETHContributed id="f67" decimals="2" contextRef="c14" unitRef="ether">3295.19</www.vaneck.com:ETHContributed>
+  <us-gaap:ConcentrationRiskDisclosureTextBlock id="f68" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 7. Concentration Risk&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Substantially all of the Trust’s assets are holdings of
+ETH, which creates a concentration risk associated with fluctuations in the value of ETH due to a number of factors. Accordingly,
+a decline in the value of ETH will have an adverse effect on the value of the Shares of the Trust. Factors that may have the effect
+of causing a decline in the value of ETH include high volatility, which could have a negative impact on the performance of the
+Trust. ETH platforms are relatively new and may be unregulated or may be subject to regulation in a relevant jurisdiction, but
+may not be complying, and therefore, may be more exposed to fraud and security breaches than established, regulated exchanges for
+other financial assets or instruments, which could have a negative impact on the performance of the Trust. The value of the Shares
+depends on the development and acceptance of the ethereum network. The slowing or stopping of the development or acceptance of
+the ethereum network may adversely affect an investment in the Trust. The price of ETH on the ETH market has exhibited periods
+of extreme volatility. Digital assets such as ETH were only introduced within the past decade, and the medium-to-long term value
+of the Shares is subject to a number of factors relating to the capabilities and development of block-chain technologies and to
+the fundamental investment characteristics of digital assets that are uncertain and difficult to evaluate. The Trust is subject
+to risks due to its concentration of investments in a single asset class. Possible illiquid markets may exacerbate losses or increase
+the variability between the Trust’s NAV and its market price. The amount of ETH represented by the Shares may decline over
+time. ETH with a fair value of $146,428,902 and $84,668,819 were held by the ETH Custodians at December 31, 2024 and March 31,
+2025, respectively.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Future and current regulations by a United States or foreign
+government or quasi-governmental agency could have an adverse effect on an investment in the Trust. Shareholders do not have the
+protections associated with ownership of Shares in an investment company registered under the 1940 Act or the protections afforded
+by the Commodity Exchange Act. Future legal or regulatory developments may negatively affect the value of ETH or require the Trust
+or the Sponsor to become registered with the SEC or CFTC, which may cause the Trust to liquidate.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Exchange on which the Shares are listed may halt trading
+in the Trust’s Shares, which would adversely impact a Shareholder’s ability to sell Shares. The market infrastructure
+of the ETH spot market could result in the absence of active authorized participants able to support the trading activity of the
+Trust.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Shareholders that are not authorized participants may only purchase
+or sell their Shares in secondary trading markets, and the conditions associated with trading in secondary markets may adversely
+affect Shareholders’ investment in the Shares.&lt;/p&gt;</us-gaap:ConcentrationRiskDisclosureTextBlock>
+  <us-gaap:InvestmentCompanyInvestmentIncomeLossRatio id="f69" decimals="4" contextRef="c" unitRef="pure">0.0</us-gaap:InvestmentCompanyInvestmentIncomeLossRatio>
+  <dei:DocumentPeriodEndDate id="f70" contextRef="c">2025-03-31</dei:DocumentPeriodEndDate>
+  <us-gaap:IncreaseDecreaseInOperatingAssets id="f71" decimals="0" contextRef="c" unitRef="usd">-69510210.0</us-gaap:IncreaseDecreaseInOperatingAssets>
+  <www.vaneck.com:SponsorFeeWaiver id="f72" decimals="0" contextRef="c" unitRef="usd">60908.0</www.vaneck.com:SponsorFeeWaiver>
+  <dei:DocumentFiscalYearFocus id="f73" contextRef="c">2025</dei:DocumentFiscalYearFocus>
+  <www.vaneck.com:ETHWithdrawnFairValue id="f74" decimals="0" contextRef="c4" unitRef="usd">-16251349.0</www.vaneck.com:ETHWithdrawnFairValue>
+  <us-gaap:InvestmentOwnedPercentOfNetAssets id="f75" decimals="4" contextRef="c6" unitRef="pure">1.0</us-gaap:InvestmentOwnedPercentOfNetAssets>
+  <www.vaneck.com:NetUnrealizedAppreciationOnInvestmentInETHShares id="f76" xsi:nil="true" contextRef="c12" unitRef="shares"/>
+  <us-gaap:CommonStockSharesAuthorizedUnlimited id="f77" contextRef="c15">Unlimited</us-gaap:CommonStockSharesAuthorizedUnlimited>
+  <us-gaap:InvestmentOwnedPercentOfNetAssets id="f78" decimals="2" contextRef="c16" unitRef="pure">0.13</us-gaap:InvestmentOwnedPercentOfNetAssets>
+  <dei:EntityAddressCityOrTown id="f79" contextRef="c">New York</dei:EntityAddressCityOrTown>
+  <us-gaap:Investments id="f80" decimals="0" contextRef="c3" unitRef="usd">146428902.0</us-gaap:Investments>
+  <us-gaap:AssetsNet id="f81" decimals="0" contextRef="c6" unitRef="usd">84668819.0</us-gaap:AssetsNet>
+  <us-gaap:InvestmentOwnedAtFairValue id="f82" decimals="0" contextRef="c17" unitRef="usd">84668819.0</us-gaap:InvestmentOwnedAtFairValue>
+  <us-gaap:CashAndCashEquivalentsPolicyTextBlock id="f83" contextRef="c">&lt;i&gt;Cash&lt;/i&gt;   Cash, if any, represents cash deposits held at a major financial institution and is subject to credit risk to the extent its balance exceeds the federally insured limits. As of December 31, 2024 and March 31, 2025, the Trust did not hold cash.</us-gaap:CashAndCashEquivalentsPolicyTextBlock>
+  <www.vaneck.com:CryptoAssetNumberOfUnitsDecimal id="f84" decimals="2" contextRef="c6" unitRef="pure">46132.62</www.vaneck.com:CryptoAssetNumberOfUnitsDecimal>
+  <us-gaap:CommitmentsAndContingenciesDisclosureTextBlock id="f85" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 6. Commitments and Contingent Liabilities&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;In the normal course of business, the Trust enters into contracts
+that contain a variety of general indemnifications. The Trust’s maximum exposure under these agreements is unknown as this
+would involve future claims that may be made against the Trust that have not yet occurred. However, the Sponsor believes the risk
+of loss under these arrangements to be remote.&lt;/p&gt;</us-gaap:CommitmentsAndContingenciesDisclosureTextBlock>
+  <us-gaap:InvestmentOwnedAtFairValue id="f86" xsi:nil="true" contextRef="c18" unitRef="usd"/>
+  <www.vaneck.com:NetChangeInUnrealizedAppreciationOnInvestmentInEther id="f87" decimals="0" contextRef="c7" unitRef="usd">-68317443.0</www.vaneck.com:NetChangeInUnrealizedAppreciationOnInvestmentInEther>
+  <us-gaap:StockRedeemedOrCalledDuringPeriodValue id="f88" decimals="0" contextRef="c" unitRef="usd">-2207029.0</us-gaap:StockRedeemedOrCalledDuringPeriodValue>
+  <www.vaneck.com:CalculationOfNetAssetValuePolicyTextBlock id="f89" contextRef="c">&lt;i&gt;Calculation of Net Asset Value&lt;/i&gt;   The Trust’s net asset value (“NAV”) is calculated based on the Trust’s net asset holdings as reconciled to the ETH Custodians’ accounts on a market approach, determined on a daily basis in accordance with the MarketVector&lt;sup&gt;TM &lt;/sup&gt;Ethereum Benchmark Rate price at 4:00 pm EST. The Trust’s NAV per Share is calculated by taking the current market value of its total assets, subtracting any liabilities, and then dividing that total by the total number of outstanding Shares. The Trust Agreement gives the Sponsor the exclusive authority to determine the Trust’s NAV and the Trust’s NAV per Share, which it has delegated to the Administrator.</www.vaneck.com:CalculationOfNetAssetValuePolicyTextBlock>
+  <us-gaap:CommonStockSharesAuthorizedUnlimited id="f90" contextRef="c">Unlimited</us-gaap:CommonStockSharesAuthorizedUnlimited>
+  <us-gaap:InvestmentOwnedPercentOfNetAssets id="f91" decimals="2" contextRef="c19" unitRef="pure">0.13</us-gaap:InvestmentOwnedPercentOfNetAssets>
+  <us-gaap:InvestmentCompanyFinancialHighlightsTextBlock id="f92" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 8. Financial Highlights&lt;sup&gt;(a)&lt;/sup&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The financial highlights summarize certain per share operating
+information and financial ratios of net investment income (loss) and expenses, to daily average net assets for the three months
+ended March 31, 2025. An individual investor’s return and ratios may vary based on the timing of capital transactions:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt;&lt;/p&gt;
+
+&lt;table cellpadding="0" style="border-collapse: collapse; width: 100%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td style="text-align: center; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px; white-space: nowrap;"&gt;&lt;b&gt; &lt;/b&gt;&lt;/td&gt;&lt;td style="padding-bottom: 1px; white-space: nowrap;"&gt;&lt;b&gt; &lt;/b&gt;&lt;/td&gt;
+    &lt;td colspan="3" style="border-bottom: Black 1px solid; text-align: center; white-space: nowrap;"&gt;&lt;b&gt;Three Months&lt;br/&gt; Ended&lt;br/&gt; March 31, 2025&lt;/b&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="width: 85%; padding-left: 10pt; text-indent: -10pt"&gt;Net asset value per share, beginning of period&lt;/td&gt;&lt;td style="width: 3%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt;$&lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;48.81&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;From investment operations:&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Net investment loss&lt;sup&gt;(b)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-17"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 30pt; text-indent: -10pt"&gt;Net realized gain (loss) and change
+    in unrealized appreciation/depreciation from investments in ether&lt;sup&gt;(c)&lt;/sup&gt;&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(21.93&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 40pt; text-indent: -10pt"&gt;Net decrease resulting from operations&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(21.93&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Net asset value per share, end of period&lt;sup&gt;(d)&lt;/sup&gt;&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;26.88&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Total return (%)&lt;sup&gt;(e)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(44.93&lt;/td&gt;&lt;td style="text-align: left"&gt;)%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Ratios to average net assets&lt;sup&gt;(f)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Expenses before fee waiver&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;0.20&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Expenses after fee waiver&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;0.00&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Net investment loss&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;0.00&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Portfolio turnover rate&lt;sup&gt;(e)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;1.82&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p style="font: 8pt Times New Roman, Times, Serif; margin-top: 0; text-align: left; margin-bottom: 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="width: 100%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; width: 18pt; text-align: left; vertical-align: top"&gt;(a)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;No prior year comparative financial statements have been provided as the Trust did not have any operations as of March 31,
+2024.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(b)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Net investment income (loss) per share has been calculated based upon an average of daily shares outstanding.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(c)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;The amount shown for a share outstanding throughout the year may not agree with the change in the aggregate gains and losses for the year because of the timing of sales and repurchases of the Trust’s shares in relation to fluctuating market values for the Trust.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(d)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Returns are not annualized and include adjustments required by GAAP. Returns for financial statements purposes may differ
+from net asset values and performance reported elsewhere by the Trust.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(e)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Non-annualized.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(f)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Annualized.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</us-gaap:InvestmentCompanyFinancialHighlightsTextBlock>
+  <us-gaap:TemporaryEquitySharesAuthorized id="f93" decimals="0" contextRef="c6" unitRef="shares">25000.0</us-gaap:TemporaryEquitySharesAuthorized>
+  <www.vaneck.com:ETHContributedFairValue id="f94" decimals="0" contextRef="c7" unitRef="usd">9957156.0</www.vaneck.com:ETHContributedFairValue>
+  <us-gaap:SegmentReportingPolicyPolicyTextBlock id="f95" contextRef="c">&lt;i&gt;Segment Reporting&lt;/i&gt;   The Sponsor acts as the Trust’s chief operating decision maker (“CODM”), assessing performance and making decisions
+about resource allocation. The CODM has determined that the Trust has a single operating segment based on the fact that the Trust’s
+long-term strategic asset allocation is pre-determined in accordance with the terms of its prospectus, with a defined investment
+strategy which is executed by the Sponsor.</us-gaap:SegmentReportingPolicyPolicyTextBlock>
+  <us-gaap:InvestmentOwnedAtFairValue id="f96" decimals="0" contextRef="c20" unitRef="usd">146428902.0</us-gaap:InvestmentOwnedAtFairValue>
+  <us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock id="f97" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 1. Organization:&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The VanEck Ethereum ETF (the “Trust”), a Delaware
+statutory trust, is an exchange-traded fund that issues common shares of beneficial interest in an ownership of the Trust (the
+“Shares”). The Shares are traded on the Cboe BZX Exchange, Inc. (the “Exchange”). The Trust’s investment
+objective is to reflect the performance of the price of ether (“ETH”) less the net operating expenses of the Trust.
+The Trust is managed and controlled by VanEck Digital Assets, LLC (the “Sponsor”), a wholly-owned subsidiary of Van
+Eck Associates Corporation (“VanEck”). The CSC Delaware Trust Company is the “Trustee” of the Trust.&lt;/p&gt;</us-gaap:OrganizationConsolidationAndPresentationOfFinancialStatementsDisclosureTextBlock>
+  <www.vaneck.com:CryptoAssetNumberOfUnitsDecimal id="f98" xsi:nil="true" contextRef="c21" unitRef="pure"/>
+  <us-gaap:InvestmentOwnedAtFairValue id="f99" decimals="0" contextRef="c22" unitRef="usd">84668819.0</us-gaap:InvestmentOwnedAtFairValue>
+  <www.vaneck.com:ETHContributed id="f100" decimals="2" contextRef="c23" unitRef="ether">2929.06</www.vaneck.com:ETHContributed>
+  <us-gaap:StockholdersEquityNoteDisclosureTextBlock id="f101" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 5. Capital Share Transactions&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Investors can buy and sell Shares of the Trust in secondary
+market transactions through brokers. Shares trade on the Exchange under the ticker symbol ETHV. Shares are bought and sold throughout
+the trading day like other publicly traded securities.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Trust continuously offers the Trust Shares in baskets consisting
+of 25,000 Shares to authorized participants. Authorized participants pay a transaction fee for each order they place to create
+or redeem one or more baskets. The Administrator calculates the cost to purchase (or sell in the case of a redemption order) the
+amount of ETH represented by the baskets being created (or redeemed); the amount of ETH represented is equal to the combined NAV
+of the number of Shares included in the baskets being created (or redeemed).&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Trust creates and redeems Shares, but only in one or more
+baskets. Baskets are only made in exchange for delivery to the Trust or the distribution by the Trust of the amount of ETH represented
+by the baskets being created or redeemed, the amount of which is equal to the combined NAV of the number of Shares included in
+the baskets being created or redeemed determined as of 4:00 p.m. EST on the day the order to create or redeem baskets is properly
+received. For an order to create baskets, an authorized participant will deliver cash to the Trust’s account at the cash
+custodian, which the Sponsor will then use to purchase ETH from a liquidity provider chosen by the Sponsor. For an order to redeem
+baskets, the Sponsor will arrange for the ETH represented by the basket to be sold to a liquidity provider chosen by the Sponsor
+and the cash proceeds distributed from the Trust’s account at the cash custodian to the authorized participant in exchange
+for their Shares. Only authorized participants may place orders to create and redeem baskets through the transfer agent. The transfer
+agent will coordinate with the Trust’s ETH Custodians to facilitate settlement of the Shares and ETH.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;Share and capital activity is as follows:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="border-collapse: collapse; width: 60%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="7" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;&lt;b&gt;Three Months Ended March 31, 2025&lt;sup&gt;(a)&lt;/sup&gt;&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Shares&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Amount&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="width: 60%; font-style: normal"&gt;Beginning of period&lt;/td&gt;&lt;td style="width: 3%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 15%; text-align: right"&gt;3,000,000&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 3%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt;$&lt;/td&gt;&lt;td style="width: 15%; text-align: right"&gt;137,801,504&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt;Shares issued&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;225,000&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;9,957,156&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="padding-bottom: 1px"&gt;Shares redeemed&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(75,000&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(2,207,029&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="font-style: normal; padding-bottom: 3px"&gt;End of period&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;3,150,000&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;145,551,631&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table cellpadding="0" style="width: 100%; margin-top: 0pt; margin-bottom: 0pt; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt; &lt;tr style="vertical-align: top"&gt;
+&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt;
+&lt;td style="width: 0"&gt;&lt;/td&gt;&lt;td style="width: 0.25in"&gt;(a)&lt;/td&gt;&lt;td&gt;No comparative share activity have been provided as the Trust did not have any operations as of March 31, 2024.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</us-gaap:StockholdersEquityNoteDisclosureTextBlock>
+  <us-gaap:Liabilities id="f102" xsi:nil="true" contextRef="c3" unitRef="usd"/>
+  <www.vaneck.com:ProceedsFromCapitalWithdrawals id="f103" decimals="0" contextRef="c" unitRef="usd">2207029.0</www.vaneck.com:ProceedsFromCapitalWithdrawals>
+  <dei:EntityRegistrantName id="f104" contextRef="c">VanEck Ethereum ETF</dei:EntityRegistrantName>
+  <us-gaap:InvestmentOwnedAtFairValue id="f105" decimals="0" contextRef="c3" unitRef="usd">146428902.0</us-gaap:InvestmentOwnedAtFairValue>
+  <us-gaap:Investments id="f106" decimals="0" contextRef="c24" unitRef="usd">84668819.0</us-gaap:Investments>
+  <us-gaap:InvestmentOwnedPercentOfNetAssets id="f107" decimals="4" contextRef="c3" unitRef="pure">1.0</us-gaap:InvestmentOwnedPercentOfNetAssets>
+  <us-gaap:RelatedPartyTransactionsDisclosureTextBlock id="f108" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 4. Related Parties&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;The Sponsor is considered to be a related party to the Trust.&lt;/p&gt;&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;MarketVector Indexes GmbH is the index sponsor and index administrator
+for the MarketVector Ethereum Benchmark Rate, which is used by the Trust to determine its NAV. MarketVector Indexes GmbH is an
+indirectly wholly-owned subsidiary of VanEck.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;Van Eck Securities Corporation, a marketing agent to the Trust,
+is a wholly-owned subsidiary of VanEck.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;VanEck was the initial seed investor (“Seed Capital Investor”)
+on May 20, 2024. On June 25, 2024, the 2,000 Shares held by the Seed Capital Investor were redeemed for cash and the Seed Capital
+Investor purchased the “Seed Creation Baskets,” comprising of 200,000 Shares at a per-Share price of $50.00. Total
+proceeds to the Trust from the sale of the Seed Creation Baskets were $10,000,000 which resulted in the Trust receiving 2,929.06
+ETH. As of December 31, 2024 and March 31, 2025, the Seed Capital Investor’s ownership in the Trust represents approximately
+13% of net assets.&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;VanEck is a minority interest holder in the parent company of
+the ETH Custodian, representing less than 1% of its equity.&lt;/p&gt;</us-gaap:RelatedPartyTransactionsDisclosureTextBlock>
+  <us-gaap:Liabilities id="f109" xsi:nil="true" contextRef="c6" unitRef="usd"/>
+  <www.vaneck.com:ChangesInQuantityOfEtherAndTheRespectiveFairValueTableTestBlock id="f110" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0 0pt 36pt"&gt;The following represents the changes in quantity of ETH and
+the respective fair value:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="font: 10pt Times New Roman, Times, Serif; border-collapse: collapse; width: 100%; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;ETH&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Fair Value&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="width: 36pt; background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Beginning balance as of January 1, 2025&lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; border-bottom: Black 1px solid; text-align: right"&gt;43,935.83&lt;/td&gt;&lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt;$&lt;/td&gt;&lt;td style="width: 10%; border-bottom: Black 1px solid; text-align: right"&gt;146,428,902&lt;/td&gt;&lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH contributed&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;3,295.19&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;9,957,156&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH withdrawn&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(1,098.40&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(2,207,029&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Net change in unrealized appreciation (depreciation) from investment in ETH&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-11"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(68,317,443&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Net realized loss on investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-12"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(1,192,767&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Ending balance as of March 31, 2025&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;46,132.62&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;84,668,819&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+&lt;table cellpadding="0" style="font: 10pt Times New Roman, Times, Serif; border-collapse: collapse; width: 100%; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;ETH&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Fair Value&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;&lt;span style="font-style: normal"&gt;&lt;b&gt;Beginning balance as of May 20, 2024&lt;sup&gt;(a)&lt;/sup&gt;&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-13"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-14"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="width: 36pt; "&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH contributed&lt;/td&gt;&lt;td style="width: 2%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;49,793.94&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 2%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;154,052,853&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH withdrawn&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(5,858.11&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(16,251,349&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Net unrealized appreciation (depreciation) from investment in ETH&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-15"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;10,194,816&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Net realized loss on investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-16"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(1,567,418&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Ending balance as of December 31, 2024&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;43,935.83&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;146,428,902&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table cellpadding="0" style="width: 100%; font: 10pt Times New Roman, Times, Serif; margin-top: 0pt; margin-bottom: 0pt; border-spacing: 0px;"&gt; &lt;tr style="vertical-align: top"&gt;
+&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt;
+&lt;td style="width: 36pt"&gt;&lt;/td&gt;&lt;td style="width: 0.25in"&gt;&lt;span style="font-size: 10pt"&gt;(a)&lt;/span&gt;&lt;/td&gt;&lt;td&gt;&lt;span style="font-size: 10pt"&gt;Commencement of Operations, the Trust did not hold any ETH as of May 20, 2024.&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</www.vaneck.com:ChangesInQuantityOfEtherAndTheRespectiveFairValueTableTestBlock>
+  <www.vaneck.com:NetRealizedLossOnInvestmentInETHShares id="f111" xsi:nil="true" contextRef="c14" unitRef="shares"/>
+  <us-gaap:ProceedsFromSaleOfOtherAssets1 id="f112" decimals="0" contextRef="c23" unitRef="usd">10000000.0</us-gaap:ProceedsFromSaleOfOtherAssets1>
+  <us-gaap:InvestmentCompanyPortfolioTurnover id="f113" decimals="4" contextRef="c" unitRef="pure">0.0182</us-gaap:InvestmentCompanyPortfolioTurnover>
+  <www.vaneck.com:PercentOfNetAssets id="f114" decimals="4" contextRef="c6" unitRef="pure">1.0</www.vaneck.com:PercentOfNetAssets>
+  <us-gaap:InvestmentCompanyFinancialHighlightsTableTextBlock id="f115" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The financial highlights summarize certain per share operating
+information and financial ratios of net investment income (loss) and expenses, to daily average net assets for the three months
+ended March 31, 2025. An individual investor’s return and ratios may vary based on the timing of capital transactions:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0"&gt;&lt;/p&gt;
+
+&lt;table cellpadding="0" style="border-collapse: collapse; width: 100%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td style="text-align: center; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px; white-space: nowrap;"&gt;&lt;b&gt; &lt;/b&gt;&lt;/td&gt;&lt;td style="padding-bottom: 1px; white-space: nowrap;"&gt;&lt;b&gt; &lt;/b&gt;&lt;/td&gt;
+    &lt;td colspan="3" style="border-bottom: Black 1px solid; text-align: center; white-space: nowrap;"&gt;&lt;b&gt;Three Months&lt;br/&gt; Ended&lt;br/&gt; March 31, 2025&lt;/b&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="width: 85%; padding-left: 10pt; text-indent: -10pt"&gt;Net asset value per share, beginning of period&lt;/td&gt;&lt;td style="width: 3%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt;$&lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;48.81&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;From investment operations:&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Net investment loss&lt;sup&gt;(b)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-17"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 30pt; text-indent: -10pt"&gt;Net realized gain (loss) and change
+    in unrealized appreciation/depreciation from investments in ether&lt;sup&gt;(c)&lt;/sup&gt;&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(21.93&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 40pt; text-indent: -10pt"&gt;Net decrease resulting from operations&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(21.93&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Net asset value per share, end of period&lt;sup&gt;(d)&lt;/sup&gt;&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;26.88&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Total return (%)&lt;sup&gt;(e)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(44.93&lt;/td&gt;&lt;td style="text-align: left"&gt;)%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Ratios to average net assets&lt;sup&gt;(f)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Expenses before fee waiver&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;0.20&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Expenses after fee waiver&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;0.00&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="text-align: left; padding-left: 30pt; text-indent: -10pt"&gt;Net investment loss&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;0.00&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Portfolio turnover rate&lt;sup&gt;(e)&lt;/sup&gt;&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;1.82&lt;/td&gt;&lt;td style="text-align: left"&gt;%&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p style="font: 8pt Times New Roman, Times, Serif; margin-top: 0; text-align: left; margin-bottom: 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="width: 100%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; width: 18pt; text-align: left; vertical-align: top"&gt;(a)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;No prior year comparative financial statements have been provided as the Trust did not have any operations as of March 31,
+2024.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(b)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Net investment income (loss) per share has been calculated based upon an average of daily shares outstanding.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(c)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;The amount shown for a share outstanding throughout the year may not agree with the change in the aggregate gains and losses for the year because of the timing of sales and repurchases of the Trust’s shares in relation to fluctuating market values for the Trust.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(d)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Returns are not annualized and include adjustments required by GAAP. Returns for financial statements purposes may differ
+from net asset values and performance reported elsewhere by the Trust.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(e)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Non-annualized.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; font: 8pt Times New Roman, Times, Serif"&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif; text-align: left; vertical-align: top"&gt;(f)&lt;/td&gt; &lt;td style="font: 8pt Times New Roman, Times, Serif"&gt;Annualized.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</us-gaap:InvestmentCompanyFinancialHighlightsTableTextBlock>
+  <dei:Security12bTitle id="f116" contextRef="c">Shares</dei:Security12bTitle>
+  <us-gaap:Assets id="f117" decimals="0" contextRef="c6" unitRef="usd">84668819.0</us-gaap:Assets>
+  <www.vaneck.com:EtherSoldForRedemptionOfShares id="f118" decimals="0" contextRef="c" unitRef="usd">1192767.0</www.vaneck.com:EtherSoldForRedemptionOfShares>
+  <us-gaap:StockRedeemedOrCalledDuringPeriodShares id="f119" decimals="0" contextRef="c23" unitRef="shares">2000.0</us-gaap:StockRedeemedOrCalledDuringPeriodShares>
+  <www.vaneck.com:NetUnrealizedAppreciationOnInvestmentInETHShares id="f120" xsi:nil="true" contextRef="c14" unitRef="shares"/>
+  <us-gaap:SharesIssuedPricePerShare id="f121" decimals="2" contextRef="c25" unitRef="usd1">50.0</us-gaap:SharesIssuedPricePerShare>
+  <us-gaap:SubsequentEventsTextBlock id="f122" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 9. Subsequent Event Review&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0; text-align: justify"&gt;The Trust has evaluated subsequent events and transactions for
+potential recognition or disclosure through the date the financial statements were issued and has determined that there are no
+material events that would require disclosure.&lt;/p&gt;</us-gaap:SubsequentEventsTextBlock>
+  <dei:DocumentType id="f123" contextRef="c">10-Q</dei:DocumentType>
+  <us-gaap:CommonStockSharesOutstanding id="f124" decimals="INF" contextRef="c6" unitRef="shares">3150000.0</us-gaap:CommonStockSharesOutstanding>
+  <www.vaneck.com:InvestmentValuationPolicyPolicyTextBlock id="f125" contextRef="c">&lt;i&gt;Investment Valuation&lt;/i&gt;   The Trust values its investment in ETH and other assets and liabilities at fair value. Fair value is the price that would be received to sell an asset or paid to transfer a liability in an orderly transaction between market participants on the measurement date.   The Trust identifies and determines the ETH principal market (or in the absence of a principal market, the most advantageous market) for GAAP financial statement purposes consistent with the application of fair value measurement framework in Financial Accounting Standards Board (“FASB”) ASC 820 at 11:59 p.m. EST. Under ASC 820, a principal market is the market with the greatest volume and activity level for the asset or liability. The Sponsor on behalf of the Trust will determine in its sole discretion the valuation sources and policies used to prepare the Trust’s financial statements in accordance with GAAP.   Various inputs are used in determining the fair value of assets and liabilities. Inputs may be based on independent market data (observable inputs) or they may be internally developed (unobservable inputs). These inputs are categorized into a disclosure hierarchy consisting of three broad levels for financial reporting purposes. The three levels of the fair value hierarchy are as follows:   Level 1 – Unadjusted quoted prices in active markets for identical assets or liabilities;   Level 2 – Inputs other than quoted prices included within Level 1 that are observable for the asset or liability either directly or indirectly, including quoted prices for similar assets or liabilities in active markets, quoted prices for identical or similar assets or liabilities in markets that are not considered to be active, inputs other than quoted prices that are observable for the asset or liability, and inputs that are derived principally from or corroborated by observable market data by correlation or other means; and   Level 3 – Unobservable inputs where there are little or no market activity for the asset or liability, including the Trust’s assumptions used in determining the fair value of investments.&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0 0pt 36pt"&gt;The following is a summary of the fair value hierarchy as of
+March 31, 2025, and December 31, 2024:&lt;/p&gt;&lt;table cellpadding="0" style="border-collapse: collapse; width: 100%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px"&gt;March 31, 2025&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 1&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 2&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 3&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Total&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt"&gt;Assets&lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td style="width: 36pt"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 20pt; text-indent: -10pt; padding-bottom: 3px"&gt;Investment in ETH&lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;84,668,819&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-7"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-8"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;84,668,819&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px"&gt;December 31, 2024&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 1&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 2&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 3&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Total&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt"&gt;Assets&lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 20pt; text-indent: -10pt; padding-bottom: 3px"&gt;Investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;146,428,902&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-9"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-10"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;146,428,902&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0 0pt 36pt"&gt;The following represents the changes in quantity of ETH and
+the respective fair value:&lt;/p&gt;&lt;table cellpadding="0" style="font: 10pt Times New Roman, Times, Serif; border-collapse: collapse; width: 100%; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;ETH&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Fair Value&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="width: 36pt; background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Beginning balance as of January 1, 2025&lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; border-bottom: Black 1px solid; text-align: right"&gt;43,935.83&lt;/td&gt;&lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt;$&lt;/td&gt;&lt;td style="width: 10%; border-bottom: Black 1px solid; text-align: right"&gt;146,428,902&lt;/td&gt;&lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH contributed&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;3,295.19&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;9,957,156&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH withdrawn&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(1,098.40&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(2,207,029&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Net change in unrealized appreciation (depreciation) from investment in ETH&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-11"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(68,317,443&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Net realized loss on investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-12"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(1,192,767&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Ending balance as of March 31, 2025&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;46,132.62&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;84,668,819&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;&lt;table cellpadding="0" style="font: 10pt Times New Roman, Times, Serif; border-collapse: collapse; width: 100%; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;ETH&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Fair Value&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;&lt;span style="font-style: normal"&gt;&lt;b&gt;Beginning balance as of May 20, 2024&lt;sup&gt;(a)&lt;/sup&gt;&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-13"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-14"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="width: 36pt; "&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH contributed&lt;/td&gt;&lt;td style="width: 2%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;49,793.94&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 2%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;154,052,853&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH withdrawn&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(5,858.11&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(16,251,349&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Net unrealized appreciation (depreciation) from investment in ETH&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-15"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;10,194,816&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Net realized loss on investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-16"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(1,567,418&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Ending balance as of December 31, 2024&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;43,935.83&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;146,428,902&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;&lt;table cellpadding="0" style="width: 100%; font: 10pt Times New Roman, Times, Serif; margin-top: 0pt; margin-bottom: 0pt; border-spacing: 0px;"&gt; &lt;tr style="vertical-align: top"&gt;
+&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt;
+&lt;td style="width: 36pt"&gt;&lt;/td&gt;&lt;td style="width: 0.25in"&gt;&lt;span style="font-size: 10pt"&gt;(a)&lt;/span&gt;&lt;/td&gt;&lt;td&gt;&lt;span style="font-size: 10pt"&gt;Commencement of Operations, the Trust did not hold any ETH as of May 20, 2024.&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</www.vaneck.com:InvestmentValuationPolicyPolicyTextBlock>
+  <www.vaneck.com:ETHContributed id="f126" decimals="2" contextRef="c12" unitRef="ether">49793.94</www.vaneck.com:ETHContributed>
+  <www.vaneck.com:PercentOfNetAssets id="f127" decimals="4" contextRef="c3" unitRef="pure">1.0</www.vaneck.com:PercentOfNetAssets>
+  <www.vaneck.com:NetRealizedGainlossAndUnrealizedAppreciationdepreciation id="f128" decimals="0" contextRef="c" unitRef="usd">-69510210.0</www.vaneck.com:NetRealizedGainlossAndUnrealizedAppreciationdepreciation>
+  <us-gaap:Investments id="f129" decimals="0" contextRef="c26" unitRef="usd">146428902.0</us-gaap:Investments>
+  <us-gaap:SharesIssued id="f130" decimals="0" contextRef="c25" unitRef="shares">200000.0</us-gaap:SharesIssued>
+  <us-gaap:Investments id="f131" xsi:nil="true" contextRef="c27" unitRef="usd"/>
+  <dei:EntityAddressAddressLine2 id="f132" contextRef="c">9th Floor</dei:EntityAddressAddressLine2>
+  <us-gaap:NetAssetValuePerShare id="f133" decimals="2" contextRef="c6" unitRef="usd1">26.88</us-gaap:NetAssetValuePerShare>
+  <www.vaneck.com:ETHWithdrawn id="f134" decimals="2" contextRef="c14" unitRef="ether">-1098.4</www.vaneck.com:ETHWithdrawn>
+  <us-gaap:InvestmentCompanyExpenseRatioExcludingIncentiveFee id="f135" decimals="4" contextRef="c" unitRef="pure">0.002</us-gaap:InvestmentCompanyExpenseRatioExcludingIncentiveFee>
+  <www.vaneck.com:TotalCapitalShareTransactions id="f136" decimals="0" contextRef="c" unitRef="usd">-7750127.0</www.vaneck.com:TotalCapitalShareTransactions>
+  <us-gaap:InvestmentCompanyTotalReturn id="f137" decimals="4" contextRef="c" unitRef="pure">-0.4493</us-gaap:InvestmentCompanyTotalReturn>
+  <us-gaap:SignificantAccountingPoliciesTextBlock id="f138" contextRef="c">&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt;&lt;b&gt;Note 2. Significant Accounting Policies:&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="width: 100%; margin-top: 0pt; margin-bottom: 0pt; font: 10pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;&lt;tr style="vertical-align: top"&gt;
+&lt;td style="width: 36pt"&gt;A.&lt;/td&gt;&lt;td style="text-align: justify"&gt;&lt;i&gt;Basis of Preparation and Use of Estimates&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt;
+&lt;td&gt; &lt;/td&gt;&lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The preparation of financial statements in conformity with U.S. generally accepted accounting principles (“GAAP”) requires management to make estimates and assumptions that affect the reported amounts and disclosures in the financial statements. Actual results could differ from those estimates.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The Trust qualifies as an investment company solely for accounting purposes and not for any other purpose and follows accounting and reporting requirements of Accounting Standards Codification (“ASC”) Topic 946 Financial Services—Investment Companies&lt;i&gt; &lt;/i&gt;(“ASC Topic 946”)&lt;i&gt;, &lt;/i&gt;but is not registered, and is not required to be registered, as an investment company under the Investment Company Act of 1940, as amended.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt;B.&lt;/td&gt; &lt;td style="text-align: justify"&gt;&lt;i&gt;Cash&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;Cash, if any, represents cash deposits held at a major financial institution and is subject to credit risk to the extent its balance exceeds the federally insured limits. As of December 31, 2024 and March 31, 2025, the Trust did not hold cash.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt;C.&lt;/td&gt; &lt;td style="text-align: justify"&gt;&lt;i&gt;Investment Valuation&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The Trust values its investment in ETH and other assets and liabilities at fair value. Fair value is the price that would be received to sell an asset or paid to transfer a liability in an orderly transaction between market participants on the measurement date.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The Trust identifies and determines the ETH principal market (or in the absence of a principal market, the most advantageous market) for GAAP financial statement purposes consistent with the application of fair value measurement framework in Financial Accounting Standards Board (“FASB”) ASC 820 at 11:59 p.m. EST. Under ASC 820, a principal market is the market with the greatest volume and activity level for the asset or liability. The Sponsor on behalf of the Trust will determine in its sole discretion the valuation sources and policies used to prepare the Trust’s financial statements in accordance with GAAP.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;Various inputs are used in determining the fair value of assets and liabilities. Inputs may be based on independent market data (observable inputs) or they may be internally developed (unobservable inputs). These inputs are categorized into a disclosure hierarchy consisting of three broad levels for financial reporting purposes. The three levels of the fair value hierarchy are as follows:&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;Level 1 – Unadjusted quoted prices in active markets for identical assets or liabilities;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;Level 2 – Inputs other than quoted prices included within Level 1 that are observable for the asset or liability either directly or indirectly, including quoted prices for similar assets or liabilities in active markets, quoted prices for identical or similar assets or liabilities in markets that are not considered to be active, inputs other than quoted prices that are observable for the asset or liability, and inputs that are derived principally from or corroborated by observable market data by correlation or other means; and&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;Level 3 – Unobservable inputs where there are little or no market activity for the asset or liability, including the Trust’s assumptions used in determining the fair value of investments.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0 0pt 36pt"&gt;The following is a summary of the fair value hierarchy as of
+March 31, 2025, and December 31, 2024:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="border-collapse: collapse; width: 100%; font: 8pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px"&gt;March 31, 2025&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 1&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 2&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 3&lt;/td&gt;&lt;td style="font-weight: bold; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Total&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt"&gt;Assets&lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td style="width: 36pt"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 20pt; text-indent: -10pt; padding-bottom: 3px"&gt;Investment in ETH&lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;84,668,819&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-7"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-8"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="width: 2%; border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="width: 9%; text-align: right; border-bottom: Black 3px double"&gt;84,668,819&lt;/td&gt;&lt;td style="width: 1%; text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt; &lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt; padding-bottom: 1px"&gt;December 31, 2024&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 1&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 2&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Level 3&lt;/td&gt;&lt;td style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Total&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; padding-left: 10pt; text-indent: -10pt"&gt;Assets&lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: right"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 20pt; text-indent: -10pt; padding-bottom: 3px"&gt;Investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;146,428,902&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-9"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-10"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; border-bottom: Black 3px double"&gt;$&lt;/td&gt;&lt;td style="text-align: right; border-bottom: Black 3px double"&gt;146,428,902&lt;/td&gt;&lt;td style="text-align: left; border-bottom: Black 3px double"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0 0pt 36pt"&gt;The following represents the changes in quantity of ETH and
+the respective fair value:&lt;/p&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+
+&lt;table cellpadding="0" style="font: 10pt Times New Roman, Times, Serif; border-collapse: collapse; width: 100%; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;ETH&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Fair Value&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="width: 36pt; background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Beginning balance as of January 1, 2025&lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; border-bottom: Black 1px solid; text-align: right"&gt;43,935.83&lt;/td&gt;&lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 2%; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt;$&lt;/td&gt;&lt;td style="width: 10%; border-bottom: Black 1px solid; text-align: right"&gt;146,428,902&lt;/td&gt;&lt;td style="width: 1%; border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH contributed&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;3,295.19&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;9,957,156&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH withdrawn&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(1,098.40&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(2,207,029&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Net change in unrealized appreciation (depreciation) from investment in ETH&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-11"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(68,317,443&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Net realized loss on investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-12"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(1,192,767&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Ending balance as of March 31, 2025&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;46,132.62&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;84,668,819&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p style="font: 10pt Times New Roman, Times, Serif; margin: 0pt 0"&gt; &lt;/p&gt;
+&lt;table cellpadding="0" style="font: 10pt Times New Roman, Times, Serif; border-collapse: collapse; width: 100%; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: bottom"&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="padding-left: 10pt; text-indent: -10pt"&gt; &lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;ETH&lt;/td&gt;&lt;td style="font-weight: bold; padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td colspan="3" style="font-weight: bold; text-align: center; border-bottom: Black 1px solid"&gt;Fair Value&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;&lt;span style="font-style: normal"&gt;&lt;b&gt;Beginning balance as of May 20, 2024&lt;sup&gt;(a)&lt;/sup&gt;&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-13"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-14"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td style="width: 36pt; "&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH contributed&lt;/td&gt;&lt;td style="width: 2%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;49,793.94&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 2%"&gt; &lt;/td&gt;
+    &lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;td style="width: 10%; text-align: right"&gt;154,052,853&lt;/td&gt;&lt;td style="width: 1%; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;ETH withdrawn&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(5,858.11&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;(16,251,349&lt;/td&gt;&lt;td style="text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-left: 10pt; text-indent: -10pt"&gt;Net unrealized appreciation (depreciation) from investment in ETH&lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-15"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;
+    &lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;td style="text-align: right"&gt;10,194,816&lt;/td&gt;&lt;td style="text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; background-color: rgb(229,255,255)"&gt;
+    &lt;td style="background-color: White"&gt; &lt;/td&gt;
+    &lt;td style="text-align: left; padding-bottom: 1px; padding-left: 10pt; text-indent: -10pt"&gt;Net realized loss on investment in ETH&lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;&lt;div style="-sec-ix-hidden: hidden-fact-16"&gt;—&lt;/div&gt;&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 1px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 1px solid; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: right"&gt;(1,567,418&lt;/td&gt;&lt;td style="border-bottom: Black 1px solid; text-align: left"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: bottom; "&gt;
+    &lt;td&gt; &lt;/td&gt;
+    &lt;td style="font-weight: bold; font-style: normal; padding-bottom: 3px; padding-left: 10pt; text-indent: -10pt"&gt;Ending balance as of December 31, 2024&lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;43,935.83&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;td style="padding-bottom: 3px"&gt; &lt;/td&gt;
+    &lt;td style="border-bottom: Black 3px double; text-align: left"&gt;$&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: right"&gt;146,428,902&lt;/td&gt;&lt;td style="border-bottom: Black 3px double; text-align: left"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table cellpadding="0" style="width: 100%; font: 10pt Times New Roman, Times, Serif; margin-top: 0pt; margin-bottom: 0pt; border-spacing: 0px;"&gt; &lt;tr style="vertical-align: top"&gt;
+&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;td&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt;
+&lt;td style="width: 36pt"&gt;&lt;/td&gt;&lt;td style="width: 0.25in"&gt;&lt;span style="font-size: 10pt"&gt;(a)&lt;/span&gt;&lt;/td&gt;&lt;td&gt;&lt;span style="font-size: 10pt"&gt;Commencement of Operations, the Trust did not hold any ETH as of May 20, 2024.&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p style="margin-top: 0pt; margin-bottom: 0pt; font: 9pt Times New Roman, Times, Serif"&gt; &lt;/p&gt;
+
+&lt;table border="0" cellpadding="0" style="width: 100%; margin-top: 0pt; margin-bottom: 0pt; font: 10pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td style="width: 36pt"&gt;D.&lt;/td&gt; &lt;td style="text-align: justify"&gt;&lt;i&gt;Ether&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;ETH transactions are accounted for on trade date. Realized gains and losses on the sale of ETH are determined based on the average cost method. Under ASC Topic 946, the average cost method is an accepted method to determine realized gains and losses on the sale of ETH. Proceeds received by the Trust from the issuance of baskets consist of ETH. Deposits of ETH are held by Gemini Trust Company, LLC (the “ETH Custodian”) and are also held at Coinbase Custody Trust Company, LLC (the “Additional ETH Custodian”, and collectively the “ETH Custodians”), on behalf of the Trust until (i) delivered out in connection with redemptions of baskets or cash or (ii) sold by the Sponsor, which may be facilitated by the ETH Custodians, to pay fees due to the Sponsor and Trust expenses and liabilities not assumed by the Sponsor.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt;E.&lt;/td&gt; &lt;td style="text-align: justify"&gt;&lt;i&gt;Calculation of Net Asset Value&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The Trust’s net asset value (“NAV”) is calculated based on the Trust’s net asset holdings as reconciled to the ETH Custodians’ accounts on a market approach, determined on a daily basis in accordance with the MarketVector&lt;sup&gt;TM &lt;/sup&gt;Ethereum Benchmark Rate price at 4:00 pm EST. The Trust’s NAV per Share is calculated by taking the current market value of its total assets, subtracting any liabilities, and then dividing that total by the total number of outstanding Shares. The Trust Agreement gives the Sponsor the exclusive authority to determine the Trust’s NAV and the Trust’s NAV per Share, which it has delegated to the Administrator.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;&lt;table border="0" cellpadding="0" style="width: 100%; margin-top: 0pt; margin-bottom: 0pt; font: 10pt Times New Roman, Times, Serif; border-spacing: 0px;"&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td style="width: 36pt"&gt;F.&lt;/td&gt; &lt;td style="text-align: justify"&gt;&lt;i&gt;Federal Income Taxes&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The Trust is treated as a grantor trust for federal income tax purposes and, therefore, no provision for federal income taxes
+is required. Any interest, expenses, gains and losses are passed through to the holders of Shares of the Trust. The Sponsor has
+reviewed the tax positions for the period presented and has determined that no provision for income tax is required in the Trust’s
+financial statements.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt;G.&lt;/td&gt; &lt;td style="text-align: justify"&gt;&lt;i&gt;Segment Reporting&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The Sponsor acts as the Trust’s chief operating decision maker (“CODM”), assessing performance and making decisions
+about resource allocation. The CODM has determined that the Trust has a single operating segment based on the fact that the Trust’s
+long-term strategic asset allocation is pre-determined in accordance with the terms of its prospectus, with a defined investment
+strategy which is executed by the Sponsor.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt;H.&lt;/td&gt; &lt;td style="text-align: justify"&gt;&lt;i&gt;Interim financial statements&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;The financial statements included herein were prepared without audit according to the rules and regulations of the Securities
+and Exchange Commission. Certain information and footnote disclosures normally included in financial statements prepared in accordance
+with GAAP may be omitted pursuant to such rules and regulations. The financial statements reflect, in the opinion of management,
+all adjustments necessary that were of a normal and recurring nature and adequate disclosures to present fairly the financial
+position and results of operations as of and for the periods indicated. The results of operations for the three months ended March
+31, 2025 and 2024, are not necessarily indicative of the results to be expected for the full year or for any other period.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="vertical-align: top"&gt; &lt;td&gt; &lt;/td&gt; &lt;td style="text-align: justify"&gt;These financial statements should be read in conjunction with the audited financial statements and the notes thereto included
+in the Form 10-K previously filed with the SEC.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</us-gaap:SignificantAccountingPoliciesTextBlock>
+</xbrli:xbrl>

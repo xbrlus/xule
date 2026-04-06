@@ -1,0 +1,5 @@
+constant $EXTENSION_NS = taxonomy().entry-point-namespace
+
+constant $EXTENSION_CONCEPTS = filter taxonomy().concepts where $item.name.namespace-uri == $EXTENSION_NS returns $item
+
+constant $TEST_CASE_ID = ''
