@@ -2,7 +2,6 @@
 Reivision number: $Change$
 '''
 from arelle import FileSource
-from arelle import PluginManager
 from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDocument import Type
@@ -27,9 +26,6 @@ import tempfile
 import uuid
 import zipfile
 
-# This will hold the xule plugin module
-_xule_plugin_info = None
-
 # xule namespace used in the template
 _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
                        'xhtml': 'http://www.w3.org/1999/xhtml',
@@ -49,28 +45,21 @@ _ORIGINAL_FACT_ID_ATTRIBUTE = 'original_fact_id'
 class FERCRenderException(Exception):
     pass
 
-def getXulePlugin(cntlr):
-    """Find the Xule plugin
-    
-    This will locate the Xule plugin module.
-    """
-    global _xule_plugin_info
-    if _xule_plugin_info is None:
-        for _plugin_name, plugin_info in PluginManager.modulePluginInfos.items():
-            if plugin_info.get('moduleURL') == 'xule':
-                _xule_plugin_info = plugin_info
-                break
-        else:
-            cntlr.addToLog(_("Xule plugin is not loaded. Xule plugin is required to run DQC rules. This plugin should be automatically loaded."))
-    
-    return _xule_plugin_info
-
-def getXuleMethod(cntlr, method_name):
+def getXuleMethods(cntlr, method_name):
     """Get method from Xule
-    
+
     Get a method/function from the Xule plugin. This is how this validator calls functions in the Xule plugin.
     """
-    return getXulePlugin(cntlr).get(method_name)
+    hooks = list(cntlr.plugins.hooks(method_name))
+    if not hooks:
+        cntlr.addToLog(
+            _("Plugin with '%(name)s' is not loaded. "
+              "Xule plugin is required to run %(rules)s rules. "
+              "This plugin should be automatically loaded."),
+            name=method_name,
+            rules='DQC',
+        )
+    return hooks
 
 
 def process_template(cntlr, template_file_name, options):
@@ -1942,8 +1931,8 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
 
         # xule rule set name
         xule_rule_set_name = os.path.join(temp_dir, 'temp-ruleset.zip')
-        compile_method = getXuleMethod(cntlr, 'Xule.compile')
-        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"))
+        for compile_method in getXuleMethods(cntlr, 'Xule.compile'):
+            compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"))
 
         template_catalog.append({'name': template_name,
                             'template': template_file_name,
@@ -2182,14 +2171,15 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
             cntlr.logger.addHandler(log_capture_handler)
 
             # Call the xule processor to run the rules
-            call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
+            call_xule_methods = getXuleMethods(cntlr, 'Xule.callXuleProcessor')
             run_options = deepcopy(options)
             xule_args = getattr(run_options, 'xule_arg', []) or []
             xule_args += list(xule_date_args)
             setattr(run_options, 'xule_arg', xule_args)
-                # Get xule rule set
-            with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
-                call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
+            # Get xule rule set
+            for call_xule_method in call_xule_methods:
+                with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
+                    call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
             
             # Remove the handler from the logger. This will stop the capture of messages
             cntlr.logger.removeHandler(log_capture_handler)
