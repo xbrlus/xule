@@ -2,6 +2,12 @@ parser grammar XULEParser;
 
 options { tokenVocab=XULELexer; }
 
+@members {
+    public get _input(): antlr.TokenStream {
+        return this.tokenStream;
+    }
+}
+
 xuleFile: (topLevelDeclaration | assertion | output)* EOF;
 
 topLevelDeclaration:
