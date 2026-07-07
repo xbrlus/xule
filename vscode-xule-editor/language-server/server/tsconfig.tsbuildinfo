@@ -1,0 +1,1 @@
+{"root":["./src/builtinnamespaces.ts","./src/enhancedxulelexer.ts","./src/semanticcheckvisitor.ts","./src/server.ts","./src/symbols.ts","./src/utils.ts","./src/parser/xulelexer.ts","./src/parser/xuleparser.ts","./src/parser/xuleparserlistener.ts","./src/parser/xuleparservisitor.ts"],"version":"5.9.3"}
