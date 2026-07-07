@@ -5,7 +5,15 @@
 		"target": "es6",
 		"outDir": "out",
 		"rootDir": "src",
-		"sourceMap": true
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"paths": {
+			"vscode-languageclient/node": ["./node_modules/vscode-languageclient/lib/node/main.d.ts"],
+			"vscode-languageserver-protocol": ["./node_modules/vscode-languageserver-protocol/lib/common/api.d.ts"],
+			"vscode-languageserver-protocol/node": ["./node_modules/vscode-languageserver-protocol/lib/node/main.d.ts"],
+			"vscode-jsonrpc": ["./node_modules/vscode-jsonrpc/lib/common/api.d.ts"],
+			"vscode-jsonrpc/node": ["./node_modules/vscode-jsonrpc/lib/node/main.d.ts"]
+		}
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", ".vscode-test"]
