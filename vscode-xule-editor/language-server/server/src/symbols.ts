@@ -67,8 +67,14 @@ export class Namespace {
 }
 
 export class CompilationUnit extends ParserRuleContext {
-	readonly payload: any;
-	readonly text: string;
+	get payload(): any {
+		return undefined;
+	}
+
+	get text(): string {
+		return undefined;
+	}
+
 	children = [];
 	childUris = [];
 

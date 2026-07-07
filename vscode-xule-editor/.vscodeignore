@@ -16,3 +16,4 @@ contributing.md
 language-server/client/node_modules/**
 language-server/server/node_modules/**
 language-server/scripts/**
+webapp/**

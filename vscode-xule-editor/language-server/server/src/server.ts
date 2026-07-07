@@ -14,7 +14,7 @@ import {
 	TextDocumentSyncKind,
 	WorkspaceFolder,
     MessageType
-} from 'vscode-languageserver';
+} from 'vscode-languageserver/node';
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
@@ -149,7 +149,7 @@ const defaultSettings: XULELanguageSettings = {
 let globalSettings: XULELanguageSettings = defaultSettings;
 
 // Cache the settings of all open documents
-let documentSettings: Map<string, Thenable<XULELanguageSettings>> = new Map();
+let documentSettings: Map<string, Promise<XULELanguageSettings>> = new Map();
 
 connection.onDidChangeConfiguration(change => {
 	if (hasConfigurationCapability) {
@@ -210,7 +210,7 @@ function definitionLocation(info: any, cu: CompilationUnit) {
 	}
 }
 
-function getDocumentSettings(resource: string): Thenable<XULELanguageSettings> {
+function getDocumentSettings(resource: string): Promise<XULELanguageSettings> {
 	if (!hasConfigurationCapability) {
 		return Promise.resolve(globalSettings);
 	}

@@ -13,14 +13,14 @@
 		"node": "*"
 	},
 	"dependencies": {
-		"@types/node": "^13.9.8",
+		"@types/node": "^20.19.0",
 		"antlr4-c3": "^1.1.12",
 		"antlr4ts": "^0.5.0-alpha.3",
 		"file-uri-to-path": "^2.0.0",
 		"file-url": "^3.0.0",
 		"fuzzysort": "^1.1.4",
-		"vscode-languageserver": "^6.1.1",
-		"vscode-languageserver-textdocument": "^1.0.1"
+		"vscode-languageserver": "^10.1.0",
+		"vscode-languageserver-textdocument": "^1.0.12"
 	},
 	"scripts": {
 		"antlr4ts": "antlr4ts -o src/parser -Xexact-output-dir -visitor ../../../grammar/XULEParser.g4 ../../../grammar/XULELexer.g4",
@@ -29,17 +29,17 @@
 	},
 	"devDependencies": {
 		"@types/chai": "^4.2.11",
-		"@types/mocha": "^5.2.7",
+		"@types/mocha": "^10.0.10",
 		"@typescript-eslint/parser": "^2.3.0",
 		"antlr4ts-cli": "^0.5.0-alpha.3",
 		"chai": "^4.2.0",
 		"eslint": "^6.4.0",
 		"merge-options": "^2.0.0",
-		"mocha": "^6.2.2",
+		"mocha": "^11.7.0",
 		"rimraf": "^3.0.0",
 		"ts-loader": "^6.2.2",
-		"ts-node": "^8.8.2",
-		"typescript": "^3.8.3",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.9.0",
 		"webpack": "^4.42.1",
 		"webpack-cli": "^3.3.11"
 	}
