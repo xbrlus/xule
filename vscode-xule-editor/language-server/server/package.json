@@ -14,8 +14,8 @@
 	},
 	"dependencies": {
 		"@types/node": "^20.19.0",
-		"antlr4-c3": "^1.1.12",
-		"antlr4ts": "^0.5.0-alpha.3",
+		"antlr4-c3": "^3.4.4",
+		"antlr4ng": "^3.0.16",
 		"file-uri-to-path": "^2.0.0",
 		"file-url": "^3.0.0",
 		"fuzzysort": "^1.1.4",
@@ -23,15 +23,15 @@
 		"vscode-languageserver-textdocument": "^1.0.12"
 	},
 	"scripts": {
-		"antlr4ts": "antlr4ts -o src/parser -Xexact-output-dir -visitor ../../../grammar/XULEParser.g4 ../../../grammar/XULELexer.g4",
-		"postinstall": "npm run antlr4ts",
+		"antlr4ng": "antlr4ng -Dlanguage=TypeScript -o src/parser -Xexact-output-dir -visitor ../../../grammar/XULEParser.g4 ../../../grammar/XULELexer.g4 && node scripts/patch-generated-parser.js",
+		"postinstall": "npm run antlr4ng",
 		"test": "mocha -r ts-node/register tests/**/*.test.ts"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.2.11",
 		"@types/mocha": "^10.0.10",
 		"@typescript-eslint/parser": "^2.3.0",
-		"antlr4ts-cli": "^0.5.0-alpha.3",
+		"antlr4ng-cli": "^2.0.0",
 		"chai": "^4.2.0",
 		"eslint": "^6.4.0",
 		"merge-options": "^2.0.0",

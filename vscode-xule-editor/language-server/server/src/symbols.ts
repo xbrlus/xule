@@ -1,4 +1,5 @@
-import {AbstractParseTreeVisitor, ParseTree} from 'antlr4ts/tree';
+import {AbstractParseTreeVisitor} from 'antlr4ng';
+import type {ParseTree} from 'antlr4ng';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
 	AspectFilterContext,
@@ -15,7 +16,7 @@ import {
 	TagContext,
 	XuleFileContext
 } from './parser/XULEParser';
-import {ParserRuleContext, RuleContext} from "antlr4ts";
+import {ParserRuleContext} from "antlr4ng";
 
 export type Binding = { name: any, meaning: any };
 export type Lookup = (obj: Binding) => boolean;
@@ -67,16 +68,13 @@ export class Namespace {
 }
 
 export class CompilationUnit extends ParserRuleContext {
-	get payload(): any {
-		return undefined;
-	}
-
-	get text(): string {
-		return undefined;
-	}
-
+	readonly payload: any;
 	children = [];
 	childUris = [];
+
+	constructor() {
+		super(null);
+	}
 
 	accept<T>(visitor: XULEParserVisitor<T>): T {
 		if(visitor["visitCompilationUnit"]) {
@@ -86,12 +84,8 @@ export class CompilationUnit extends ParserRuleContext {
 		}
 	}
 
-	setParent(parent: RuleContext): void {
-		throw "Not supported";
-	}
-
 	add(file: XuleFileContext, uri: string) {
-		file.setParent(this);
+		file.parent = this;
 		this.children.push(file);
 		this.childUris.push(uri);
 	}
@@ -252,7 +246,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 					//We coalesce all imported files into a global context, the compilation unit.
 					//Instead, we give the main file – the last one among the compilation unit's children – a more specific scope,
 					//so that local definitions can shadow imported definitions.
-					if(index < this.context.childCount - 1) {
+					if(index < (this.context as ParserRuleContext).getChildCount() - 1) {
 						this.visitChildren(ctx);
 					} else {
 						//Establish an environment for the file, so that the scope chain will include it even if it's empty initially
@@ -274,10 +268,10 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitNamespaceDeclaration = (ctx: NamespaceDeclarationContext) => {
-		if(ctx.exception) {
+		if((ctx as any).exception) {
 			return this.symbolTable;
 		}
-		let localName = ctx.identifier() ? ctx.identifier().text : "";
+		let localName = ctx.identifier() ? ctx.identifier().getText() : "";
 		if(this.symbolTable.namespaces[localName]) {
 			let message = (localName ? `Namespace '${localName}'` : "The default namespace") + " is defined more than once";
 			this.symbolTable.errors.push({
@@ -291,7 +285,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 			return this.symbolTable;
 		}
 		this.symbolTable.namespaces[localName] = {
-			namespace: this.lookupNamespace(ctx.URL().text),
+			namespace: this.lookupNamespace(ctx.URL().getText()),
 			definedAt: ctx
 		};
 		return this.visitChildren(ctx);
@@ -308,7 +302,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
 		//Constants are always global in scope
 		let context = this.getGlobalContext();
-		let name = ctx.identifier().text;
+		let name = ctx.identifier().getText();
 		if(context) {
 			let info = new VariableInfo(true);
 			info.definedAt = ctx;
@@ -323,7 +317,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.registerVariable(ctx.identifier(), ctx);
 	};
 
-	protected registerVariable(variable: IdentifierContext, scope: ParseTree, variableName = variable.text) {
+	protected registerVariable(variable: IdentifierContext, scope: ParseTree, variableName = variable.getText()) {
 		const binding = this.symbolTable.lookup(variableName, scope);
 		if (bindingInfo(binding, IdentifierType.VARIABLE)) {
 			return this.symbolTable;
@@ -346,7 +340,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitTag = (ctx: TagContext) => {
 		let tag = ctx.identifier();
-		return this.registerVariable(tag, ctx, "$" + tag.text);
+		return this.registerVariable(tag, ctx, "$" + tag.getText());
 	};
 
 	protected getGlobalContext(context: ParseTree = this.context) {
@@ -366,7 +360,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		functionInfo.arity = ctx.functionArgument().length;
 		//Functions are always global in scope
 		let context = this.getGlobalContext();
-		let name = ctx.identifier().text;
+		let name = ctx.identifier().getText();
 		if(context) {
 			this.symbolTable.record(name, [functionInfo], context);
 		} else {
@@ -391,12 +385,12 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	}
 
 	visitFunctionArgument = (ctx: FunctionArgumentContext) => {
-		this.symbolTable.record(ctx.identifier().text, [new VariableInfo()], this.context);
+		this.symbolTable.record(ctx.identifier().getText(), [new VariableInfo()], this.context);
 		return this.visitChildren(ctx);
 	};
 
 	visitOutputAttributeDeclaration = (ctx: OutputAttributeDeclarationContext) => {
-		this.symbolTable.record(ctx.identifier().text, [new OutputAttributeInfo()], this.context);
+		this.symbolTable.record(ctx.identifier().getText(), [new OutputAttributeInfo()], this.context);
 		return this.visitChildren(ctx);
 	};
 

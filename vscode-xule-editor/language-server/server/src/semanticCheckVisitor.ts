@@ -1,4 +1,5 @@
-import {AbstractParseTreeVisitor, ParseTree, TerminalNode} from "antlr4ts/tree";
+import {AbstractParseTreeVisitor, ParserRuleContext, TerminalNode} from "antlr4ng";
+import type {ParseTree} from "antlr4ng";
 import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
 import {
@@ -27,7 +28,6 @@ import {
     XuleFileContext
 } from "./parser/XULEParser";
 import {TextDocument} from "vscode-languageserver-textdocument";
-import {ParserRuleContext} from "antlr4ts";
 import {getRange} from "./utils";
 
 export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
@@ -70,7 +70,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
 
     visitAssertion = (ctx: AssertionContext) => {
         let assertionsWithTheSameName = ctx.parent.children.filter(c =>
-            c instanceof AssertionContext && c.ASSERT_RULE_NAME().text == ctx.ASSERT_RULE_NAME().text);
+            c instanceof AssertionContext && c.ASSERT_RULE_NAME().getText() == ctx.ASSERT_RULE_NAME().getText());
         if(assertionsWithTheSameName.length > 1) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
@@ -83,7 +83,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     };
 
     visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
-        let bindings = this.symbolTable.lookupAll(ctx.identifier().text, ctx);
+        let bindings = this.symbolTable.lookupAll(ctx.identifier().getText(), ctx);
         if(bindings) {
             bindings = bindings.filter(b => bindingInfo(b, IdentifierType.CONSTANT));
         }
@@ -95,7 +95,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 source: 'XULE semantic checker'
             });
         }
-        if(!ctx.identifier().text.startsWith("$")) {
+        if(!ctx.identifier().getText().startsWith("$")) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
                 range: getRange(ctx.identifier()),
@@ -123,7 +123,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         } else {
             let identifier = ctx.variableRead();
             if(identifier) {
-                let name = identifier.text;
+                let name = identifier.getText();
                 if(name.startsWith("$")) {
                     this.checkVariableAccess(name, ctx, identifier);
                 } else {
@@ -138,7 +138,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     visitFactsetBody = (ctx: FactsetBodyContext) => {
         ctx.expression().forEach(e => {
             let vr = e.variableRead();
-            if(vr && !vr.text.startsWith("@")) {
+            if(vr && !vr.getText().startsWith("@")) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: getRange(ctx),
@@ -151,7 +151,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     };
 
     visitAtIdentifier = (ctx: AtIdentifierContext) => {
-        let name = ctx.text;
+        let name = ctx.getText();
         while(name.startsWith("@")) {
             name = name.substring(1);
         }
@@ -172,14 +172,14 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
-                message: `Unknown variable or constant: ${identifier.text}`,
+                message: `Unknown variable or constant: ${identifier.getText()}`,
                 source: 'XULE semantic checker'
             });
         } else if (binding && !bindingInfo(binding, IdentifierType.CONSTANT) && !bindingInfo(binding, IdentifierType.VARIABLE)) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
-                message: `Not a variable or constant: ${identifier.text}`,
+                message: `Not a variable or constant: ${identifier.getText()}`,
                 source: 'XULE semantic checker'
             });
         }
@@ -221,7 +221,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 }
             }
         } else if(namespace) {
-            let startIndex = identifier.start.startIndex + identifier.text.indexOf(namespace);
+            let startIndex = identifier.start?.start + identifier.getText().indexOf(namespace);
             let endIndex = startIndex + namespace.length;
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
@@ -246,7 +246,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
 
     visitOutput = (ctx: OutputContext) => {
         let outputsWithTheSameName = ctx.parent.children.filter(c =>
-            c instanceof OutputContext && c.OUTPUT_RULE_NAME().text == ctx.OUTPUT_RULE_NAME().text);
+            c instanceof OutputContext && c.OUTPUT_RULE_NAME().getText() == ctx.OUTPUT_RULE_NAME().getText());
         if(outputsWithTheSameName.length > 1) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
@@ -288,7 +288,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         let variable = ctx.variableRead();
         if(variable) {
             //The grammar guarantees that the variable has a name that starts with $, otherwise it's a role name
-            this.checkVariableAccess(variable.text, ctx, variable);
+            this.checkVariableAccess(variable.getText(), ctx, variable);
             this.checkPropertyAccess(ctx.propertyAccess());
         } else {
             this.visitChildren(ctx);
@@ -296,17 +296,17 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     }
 
     visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
-        let functionName = ctx.identifier().text;
+        let functionName = ctx.identifier().getText();
         if(functionName.startsWith("$")) {
             const range = getRange(ctx.identifier());
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
                 range: range,
-                message: "Invalid function name: " + ctx.identifier().text,
+                message: "Invalid function name: " + ctx.identifier().getText(),
                 source: 'XULE semantic checker'
             });
         }
-        let bindings = this.symbolTable.lookupAll(ctx.identifier().text, ctx);
+        let bindings = this.symbolTable.lookupAll(ctx.identifier().getText(), ctx);
         if(bindings) {
             bindings = bindings.filter(b => bindingInfo(b, IdentifierType.FUNCTION));
         }
@@ -332,13 +332,13 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         if(!this.checkFunctions) {
             return;
         }
-        let functionName = identifier.text;
+        let functionName = identifier.getText();
         const range = getRange(identifier);
         if (functionName.startsWith("$")) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
                 range: range,
-                message: "Invalid function name: " + identifier.text,
+                message: "Invalid function name: " + identifier.getText(),
                 source: 'XULE semantic checker'
             });
         } else {
@@ -348,14 +348,14 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Warning,
                     range: range,
-                    message: "Unknown function: " + identifier.text,
+                    message: "Unknown function: " + identifier.getText(),
                     source: 'XULE semantic checker'
                 });
             } else if (binding && !wnf && !bindingInfo(binding, IdentifierType.FUNCTION)) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Warning,
                     range: range,
-                    message: "Not a function: " + identifier.text,
+                    message: "Not a function: " + identifier.getText(),
                     source: 'XULE semantic checker'
                 });
             } else {
@@ -377,7 +377,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
 
     private checkSinglePropertyAccess(p: PropertyAccessContext) {
         let identifier = p.propertyRef();
-        let propertyName = identifier.text;
+        let propertyName = identifier.getText();
         let property = wellKnownProperties[propertyName];
         if(!property) {
             let range = getRange(identifier);
@@ -426,7 +426,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                         this.diagnostics.push({
                             severity: DiagnosticSeverity.Error,
                             range: getRange(b),
-                            message: "Not a role: " + b.text,
+                            message: "Not a role: " + b.getText(),
                             source: 'XULE semantic checker'
                         });
                     }
@@ -450,20 +450,20 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 });
             }
         } else if (functionInfo.arity) {
-            let arity = functionInfo.arity as any;
-            if (typeof (arity.min) === 'number' && arity < arity.min) {
+            const arityBounds = functionInfo.arity as any;
+            if (typeof (arityBounds.min) === 'number' && arity < arityBounds.min) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
-                    message: `Expected at least ${arity.min} parameters`,
+                    message: `Expected at least ${arityBounds.min} parameters`,
                     source: 'XULE semantic checker'
                 });
             }
-            if (typeof (arity.max) === 'number' && arity > arity.max) {
+            if (typeof (arityBounds.max) === 'number' && arity > arityBounds.max) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
-                    message: `Expected at most ${arity.max} parameters`,
+                    message: `Expected at most ${arityBounds.max} parameters`,
                     source: 'XULE semantic checker'
                 });
             }

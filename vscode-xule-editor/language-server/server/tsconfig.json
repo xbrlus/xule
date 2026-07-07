@@ -1,12 +1,21 @@
 {
 	"compilerOptions": {
-		"target": "es6",
-		"module": "node16",
-		"moduleResolution": "node16",
+		"target": "es2020",
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"lib": ["es2020"],
 		"sourceMap": true,
 		"outDir": "out",
-		"rootDir": "src"
+		"rootDir": "src",
+		"esModuleInterop": true
 	},
 	"include": ["src"],
-	"exclude": ["node_modules", ".vscode-test"]
+	"exclude": ["node_modules", ".vscode-test"],
+	"ts-node": {
+		"transpileOnly": true,
+		"compilerOptions": {
+			"module": "commonjs",
+			"moduleResolution": "node"
+		}
+	}
 }

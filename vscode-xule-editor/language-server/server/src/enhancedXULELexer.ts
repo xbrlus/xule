@@ -1,11 +1,11 @@
 import {XULELexer} from "./parser/XULELexer";
-import {LexerNoViableAltException, Token} from "antlr4ts";
+import {CommonToken, LexerNoViableAltException, Token} from "antlr4ng";
 
 export class EnhancedXULELexer extends XULELexer {
 
     protected lastToken: Token;
     protected actualNextToken: Token;
-    
+
     nextToken(): Token {
         if(this.actualNextToken) {
             this.lastToken = this.actualNextToken;
@@ -20,9 +20,11 @@ export class EnhancedXULELexer extends XULELexer {
         }
         //Insert virtual whitespace token for better autocompletion
         this.actualNextToken = next;
-        let virtualWSToken = this.tokenFactory.create(
-            { source: this, stream: this.inputStream }, XULELexer.WS, "", defaultChannel + 1000,
-            this.lastToken.startIndex, this.lastToken.stopIndex, this.lastToken.line, this.lastToken.charPositionInLine);
+        const virtualWSToken = CommonToken.fromSource(
+            [this, this.inputStream], XULELexer.WS, defaultChannel + 1000,
+            this.lastToken.start, this.lastToken.stop);
+        virtualWSToken.line = this.lastToken.line;
+        virtualWSToken.column = this.lastToken.column;
         this.lastToken = virtualWSToken;
         return virtualWSToken;
     }
@@ -31,10 +33,10 @@ export class EnhancedXULELexer extends XULELexer {
         try {
             return super.nextToken();
         } catch (e) {
-            if (e.message == 'EmptyStackException') {
+            if (e.message === 'Empty Stack') {
                 let token = this.emit();
                 if (token.text == '}') {
-                    this.notifyListeners(new LexerNoViableAltException(this, this._input, this._tokenStartCharIndex, undefined));
+                    this.notifyListeners(new LexerNoViableAltException(this, this.inputStream, this.tokenStartCharIndex, undefined));
                     return token;
                 }
             }

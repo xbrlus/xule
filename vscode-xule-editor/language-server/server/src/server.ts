@@ -19,14 +19,14 @@ import {
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
 import {
-	ANTLRErrorListener,
-	CharStreams,
+	BaseErrorListener,
+	CharStream,
 	CommonTokenStream,
 	ParserRuleContext,
 	RecognitionException,
-	Recognizer,
 	Token
-} from 'antlr4ts';
+} from 'antlr4ng';
+import type {ParseTree} from 'antlr4ng';
 import {
 	AssertionContext, BlockContext,
 	ExpressionContext,
@@ -35,8 +35,7 @@ import {
 	XuleFileContext,
 	XULEParser
 } from './parser/XULEParser';
-import {ParseTree} from 'antlr4ts/tree/ParseTree';
-import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
+import {TerminalNode, ErrorNode, Interval} from 'antlr4ng';
 import {
 	bindingInfo,
 	CompilationUnit,
@@ -46,8 +45,6 @@ import {
 	SymbolTable,
 	SymbolTableVisitor
 } from './symbols';
-import {Interval} from 'antlr4ts/misc/Interval';
-import {ErrorNode} from "antlr4ts/tree";
 import {
 	SemanticCheckVisitor,
 	wellKnownFunctions,
@@ -60,7 +57,7 @@ import {builtInNamespaces} from "./builtInNamespaces";
 import * as fs from "fs";
 import {getRange, LINES_REGEXP} from "./utils";
 import * as pathFunctions from "path";
-import fileUriToPath = require("file-uri-to-path");
+import fileUriToPath from "file-uri-to-path";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -181,7 +178,7 @@ connection.onDefinition(params => {
 	if(tree instanceof IdentifierContext || (tree instanceof TerminalNode && tree.symbol.type == XULEParser.IDENTIFIER)) {
 		let cu = document[COMPILATION_UNIT] as CompilationUnit;
 		let symbolTable = document[SYMBOL_TABLE] as SymbolTable;
-		let binding = symbolTable.lookup(tree.text, tree);
+		let binding = symbolTable.lookup(tree.getText(), tree);
 		let info = bindingInfo(binding, IdentifierType.CONSTANT);
 		if(info && info.definedAt) {
 			return definitionLocation(info, cu);
@@ -272,18 +269,18 @@ function loadNamespaces(path: string, namespaces: Namespace[]) {
 
 function setupParser(textDocument: TextDocument, diagnostics: Diagnostic[]) {
 	let text = textDocument.getText();
-	let input = CharStreams.fromString(text);
+	let input = CharStream.fromString(text);
 	let lexer = new EnhancedXULELexer(input);
 
-	class ReportingLexerErrorListener implements ANTLRErrorListener<number> {
-		syntaxError? = <T extends number>(recognizer: Recognizer<T, any>, offendingSymbol: T | undefined, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined) => {
-			let range = null;
+	class ReportingLexerErrorListener extends BaseErrorListener {
+		syntaxError<S extends Token>(_recognizer: unknown, _offendingSymbol: S | null, _line: number, _column: number, msg: string, e: RecognitionException | null): void {
+			let range = { start: {line: 0, character: 0}, end: {line: 0, character: 0} };
 			if(e) {
-				let token = e.getOffendingToken();
+				let token = e.offendingToken;
 				if(token) {
 					range = {
-						start: textDocument.positionAt(token.startIndex),
-						end: textDocument.positionAt(token.stopIndex + 1)
+						start: textDocument.positionAt(token.start),
+						end: textDocument.positionAt(token.stop + 1)
 					}
 				}
 			}
@@ -294,25 +291,25 @@ function setupParser(textDocument: TextDocument, diagnostics: Diagnostic[]) {
 				source: 'XULE syntax checker'
 			};
 			diagnostics.push(diagnostic);
-		};
+		}
 	}
 	lexer.addErrorListener(new ReportingLexerErrorListener());
 
-	class ReportingParserErrorListener implements ANTLRErrorListener<Token> {
-		syntaxError? = <T extends Token>(recognizer: Recognizer<T, any>, offendingSymbol: T | undefined, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined) => {
-			let range = null;
+	class ReportingParserErrorListener extends BaseErrorListener {
+		syntaxError<S extends Token>(_recognizer: unknown, offendingSymbol: S | null, _line: number, _column: number, msg: string, e: RecognitionException | null): void {
+			let range = { start: {line: 0, character: 0}, end: {line: 0, character: 0} };
 			if(e) {
-				let token = e.getOffendingToken();
+				let token = e.offendingToken;
 				if(token) {
 					range = {
-						start: textDocument.positionAt(token.startIndex),
-						end: textDocument.positionAt(token.stopIndex + 1)
+						start: textDocument.positionAt(token.start),
+						end: textDocument.positionAt(token.stop + 1)
 					}
 				}
 			} else if(offendingSymbol) {
 				range = {
-					start: textDocument.positionAt(offendingSymbol.startIndex),
-					end: textDocument.positionAt(offendingSymbol.stopIndex + 1)
+					start: textDocument.positionAt(offendingSymbol.start),
+					end: textDocument.positionAt(offendingSymbol.stop + 1)
 				}
 			}
 			let diagnostic: Diagnostic = {
@@ -322,7 +319,7 @@ function setupParser(textDocument: TextDocument, diagnostics: Diagnostic[]) {
 				source: 'XULE syntax checker'
 			};
 			diagnostics.push(diagnostic);
-		};
+		}
 	}
 	let parser = new XULEParser(new CommonTokenStream(lexer));
 	parser.addErrorListener(new ReportingParserErrorListener());
@@ -358,7 +355,7 @@ function importXuleFile(path: string, cu: CompilationUnit) {
 	try {
 		if (fs.existsSync(path)) {
 			let data = fs.readFileSync(path);
-			let input = CharStreams.fromString(data.toString());
+			let input = CharStream.fromString(data.toString());
 			let lexer = new EnhancedXULELexer(input);
 			let parser = new XULEParser(new CommonTokenStream(lexer));
 			const encoded = path.replace(new RegExp(pathFunctions.sep.replace("\\", "\\\\"), "g"), "/").split("/").map(encodeURIComponent).join("/");
@@ -432,7 +429,7 @@ class NodeInfo {
 			return "";
 		} else if(this.node instanceof TerminalNode) {
 			if(this.node.symbol.type == XULEParser.IDENTIFIER) {
-				let text = this.node.text.toLowerCase();
+				let text = (this.node.getText()).toLowerCase();
 				if (this.offset < text.length - 1) {
 					//The caret is inside an identifier or keyword. Let's match the existing string.
 					text = text.substring(0, this.offset);
@@ -442,31 +439,31 @@ class NodeInfo {
 				return ""; //Don't match tokens that are not keywords/identifiers
 			}
 		} else {
-			return this.node.text;
+			return this.node.getText();
 		}
 	}
 }
 
 function reconstructText(parserRule: ParserRuleContext): string {
-	return parserRule.start.inputStream.getText(textInterval(parserRule))
+	return parserRule.start.inputStream.getTextFromInterval(textInterval(parserRule));
 }
 
 function textInterval(parserRule: ParserRuleContext) {
-	return new Interval(parserRule.start.startIndex, parserRule.stop.stopIndex);
+	return new Interval(parserRule.start.start, parserRule.stop?.stop ?? parserRule.start.start);
 }
 
 function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: number) {
 	let token = terminal.symbol;
 	let startLine = token.line;
-	if(token.text.length == 0) {
+	if((token.text ?? '').length == 0) {
 		//Handle zero-length tokens, including the virtual tokens we insert for better code completion
-		if(line == startLine && column == token.charPositionInLine) {
+		if(line == startLine && column == token.column) {
 			return new NodeInfo(terminal, 0, terminal.symbol.tokenIndex);
 		} else {
 			return undefined;
 		}
 	}
-	const lines = token.text.match(LINES_REGEXP);
+	const lines = (token.text ?? '').match(LINES_REGEXP);
 	let endLine = startLine + lines.length - 1;
 	// Does the terminal node actually contain the position? If not we don't need to look further.
 	if (startLine > line || endLine < line) {
@@ -482,21 +479,21 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 		return new NodeInfo(terminal, offset, terminal.symbol.tokenIndex);
 	}
 
-	let tokenStartInLine = line == startLine ? token.charPositionInLine : 0;
+	let tokenStartInLine = line == startLine ? token.column : 0;
 	let tokenStopInLine = 0;
 	if (line == startLine) {
 		if (startLine != endLine) {
 			tokenStopInLine = column;
 		} else {
-			tokenStopInLine = token.charPositionInLine + (token.stopIndex - token.startIndex + 1);
+			tokenStopInLine = token.column + (token.stop - token.start + 1);
 		}
 	} else if (line == endLine) {
 		if(startLine == endLine) {
 			throw "You've found a bug: startLine == endLine. This was not supposed to happen.";
 		}
 		tokenStopInLine =
-			token.stopIndex - token.startIndex -
-			Math.max(token.text.lastIndexOf('\n'), token.text.lastIndexOf('\r'));
+			token.stop - token.start -
+			Math.max((token.text ?? '').lastIndexOf('\n'), (token.text ?? '').lastIndexOf('\r'));
 	} else {
 		tokenStopInLine = column;
 	}
@@ -512,26 +509,26 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 
 function ruleContextAtPosition(context: ParserRuleContext, line: number, column: number) {
 	//Parse tree is entirely before or after the given line
-	if (context.start.line > line || context.stop.line < line) {
+	if (context.start.line > line || (context.stop && context.stop.line < line)) {
 		return undefined;
 	}
 	//Parse tree starts after the given line and column
-	if (line == context.start.line && column < context.start.charPositionInLine) {
+	if (line == context.start.line && column < context.start.column) {
 		return undefined;
 	}
 	if (line == context.stop.line) {
 		const lines = reconstructText(context).match(LINES_REGEXP);
 		let endColumn = lines[lines.length - 1].length;
 		if (line == context.start.line) {
-			endColumn += context.start.charPositionInLine;
+			endColumn += context.start.column;
 		}
 		//Parse tree stops before the given line and column
 		if (column > endColumn) {
 			return undefined;
 		}
 	}
-	if (context.childCount > 0) {
-		for (let i = 0; i < context.childCount; i++) {
+	if (context.getChildCount() > 0) {
+		for (let i = 0; i < context.getChildCount(); i++) {
 			let result = parseTreeAtPosition(context.getChild(i), line, column);
 			if (result) {
 				return result;
@@ -563,14 +560,14 @@ function closestSubtree(context: ParseTree, line, column) {
 			return subtree ? <TerminalNode>subtree.node : null;
 		}
 	}
-	if(context.childCount == 0) {
+	if(context.getChildCount() == 0) {
 		//This can happen in case of error nodes
 		return null;
 	}
 	//Since we invoke this only after not having found a token at the exact position, and we search depth-first,
 	//we can be sure all child nodes are terminals
 	let result = closestTerminal(context.getChild(0));
-	for (let i = 1; i < context.childCount; i++) {
+	for (let i = 1; i < context.getChildCount(); i++) {
 		const candidate = closestTerminal(context.getChild(i));
 		if(candidate && !result) {
 			result = candidate;
@@ -580,15 +577,15 @@ function closestSubtree(context: ParseTree, line, column) {
 			continue;
 		}
 		let startLine = candidate.symbol.line;
-		const lines = candidate.text.match(LINES_REGEXP);
+		const lines = candidate.getText().match(LINES_REGEXP);
 		let endLine = startLine + lines.length - 1;
-		if(endLine <= line && candidate.symbol.stopIndex > result.symbol.stopIndex) {
+		if(endLine <= line && candidate.symbol.stop > result.symbol.stop) {
 			if(endLine < line) {
 				result = candidate;
 			} else {
 				let pos;
 				if(startLine == endLine) {
-					pos = candidate.symbol.charPositionInLine + candidate.text.length;
+					pos = candidate.symbol.column + candidate.getText().length;
 				} else {
 					pos = lines[lines.length - 1].length;
 				}
@@ -598,7 +595,7 @@ function closestSubtree(context: ParseTree, line, column) {
 			}
 		}
 	}
-	return result ? new NodeInfo(result, result.text.length, result.symbol.tokenIndex) : null;
+	return result ? new NodeInfo(result, result.getText().length, result.symbol.tokenIndex) : null;
 }
 
 function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings) {
@@ -685,7 +682,7 @@ function findPropertyAccessContext(node: ParseTree) {
 }
 
 function indexOfNode(parent: ParseTree, node: ParseTree) {
-	for(let i = 0; i < parent.childCount; i++) {
+	for(let i = 0; i < parent.getChildCount(); i++) {
 		if(parent.getChild(i) == node) {
 			return i;
 		}
@@ -876,7 +873,7 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			if(nodeInfo.node instanceof TerminalNode && nodeInfo.node.symbol.type != XULEParser.IDENTIFIER) {
 				if(nodeInfo.offset == 0) {
 					tokenIndex--;
-				} else if(nodeInfo.offset >= nodeInfo.node.text.length) {
+				} else if(nodeInfo.offset >= nodeInfo.node.getText().length) {
 					tokenIndex++;
 				}
 			}
@@ -895,7 +892,7 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			let now = new Date().getTime();
 			if (now - start > 1000) {
 				connection.window.showErrorMessage("Completion timeout exceeded");
-				throw new TimeoutException(core['candidates'] || []);
+				throw new TimeoutException(core['candidates'] || new CandidatesCollection());
 			}
 			return processRuleMethod.call(core, ...args);
 		}

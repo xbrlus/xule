@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import 'mocha';
 import {XULEParser} from "../src/parser/XULEParser";
-import {CharStreams, CommonTokenStream} from "antlr4ts";
+import {CharStream, CommonTokenStream} from "antlr4ng";
 import {XULELexer} from "../src/parser/XULELexer";
 import {SemanticCheckVisitor} from "../src/semanticCheckVisitor";
 import {Namespace, SymbolTable, SymbolTableVisitor} from "../src/symbols";
@@ -10,7 +10,7 @@ describe('Aspect filters', function() {
     it("can declare variables with `as <identifier>`",
         function() {
             const xuleCode = `$results = list({covered @Assets @ConsolidationItemsAxis = * as $myMember where $fact > 0 and $myMember == OperatingSegmentsMember});`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.assignment();
@@ -28,7 +28,7 @@ describe('Aspect filters', function() {
 describe('Assertions', function() {
     it("must have unique names",function() {
         const xuleCode = `assert foo satisfied true assert foo satisfied false`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -47,7 +47,7 @@ describe('Constants', function() {
     it("cannot be redefined",
         function() {
             const xuleCode = `constant $a = 10 constant $a = 15`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -64,7 +64,7 @@ describe('Entity', function() {
     it("is a valid dimension",
         function() {
             const xuleCode = `{covered @Assets @entity.id='0000320193'}`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.factset();
@@ -83,7 +83,7 @@ describe('Factsets', function() {
     it("invalid forms are detected",
         function() {
             const xuleCode = `$sum1 = {ConstructionWorkInProgress};`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.assignment();
@@ -98,7 +98,7 @@ describe('Factsets', function() {
     it("Qnames are validated in valid forms (1)",
         function() {
             const xuleCode = `$sum1 = {@ConstructionWorkInProgress};`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.assignment();
@@ -113,7 +113,7 @@ describe('Factsets', function() {
     it("Qnames are validated in valid forms (2)",
         function() {
             const xuleCode = `$sum1 = {@concept = ConstructionWorkInProgress};`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.assignment();
@@ -128,7 +128,7 @@ describe('Factsets', function() {
     it("Qnames are validated in invalid forms",
         function() {
             const xuleCode = `$sum1 = {@conct = ConstructionWorkInProgress};`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.assignment();
@@ -145,7 +145,7 @@ describe('Factsets', function() {
 describe('Functions', function () {
     it("may not have a name that begins with $: function call", function () {
         const xuleCode = `$foo()`;
-        let input = CharStreams.fromString(xuleCode);
+        let input = CharStream.fromString(xuleCode);
         let lexer = new XULELexer(input);
         let parser = new XULEParser(new CommonTokenStream(lexer));
         let parseTree = parser.expression();
@@ -157,7 +157,7 @@ describe('Functions', function () {
     });
     it("may not have a name that begins with $: function declaration", function () {
         const xuleCode = `function $foo() 42`;
-        let input = CharStreams.fromString(xuleCode);
+        let input = CharStream.fromString(xuleCode);
         let lexer = new XULELexer(input);
         let parser = new XULEParser(new CommonTokenStream(lexer));
         let parseTree = parser.functionDeclaration();
@@ -170,7 +170,7 @@ describe('Functions', function () {
     });
     it("can be invoked with one variable assignment", function () {
         const xuleCode = `output a1 $x = abs($y = (3 + 4) * -1; $y); $x`;
-        let input = CharStreams.fromString(xuleCode);
+        let input = CharStream.fromString(xuleCode);
         let lexer = new XULELexer(input);
         let parser = new XULEParser(new CommonTokenStream(lexer));
         let parseTree = parser.xuleFile();
@@ -183,7 +183,7 @@ describe('Functions', function () {
     });
     it("can be invoked with multiple variable assignments", function () {
         const xuleCode = `list($y = 1; $y, $z = 2; $z)`;
-        let input = CharStreams.fromString(xuleCode);
+        let input = CharStream.fromString(xuleCode);
         let lexer = new XULELexer(input);
         let parser = new XULEParser(new CommonTokenStream(lexer));
         let parseTree = parser.expression();
@@ -200,7 +200,7 @@ describe('Navigation', function() {
     it("introduces the $relationship variable",
         function() {
             const xuleCode = `count(navigate summation-item descendants include start from Assets stop when $relationship.weight == 1 returns (source-name, target-name, weight, navigation-depth)) `;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.expression();
@@ -218,7 +218,7 @@ describe('Navigation', function() {
 describe('Outputs', function() {
     it("must have unique names",function() {
         const xuleCode = `output t1 "hello" output t1 "goodbye"`;
-        let input = CharStreams.fromString(xuleCode);
+        let input = CharStream.fromString(xuleCode);
         let lexer = new XULELexer(input);
         let parser = new XULEParser(new CommonTokenStream(lexer));
         let parseTree = parser.xuleFile();
@@ -237,7 +237,7 @@ describe('Period', function() {
     it("can be compared to 'forever'",
         function() {
             const xuleCode = `{@period = forever}`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.factset();
@@ -256,7 +256,7 @@ describe('Properties', function() {
     it("cube's 2rd parameter is optional",
         function() {
             const xuleCode = `output TP13 taxonomy().cube(StatementTable)`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -271,7 +271,7 @@ describe('Properties', function() {
     it("cube's 2rd parameter is a role",
         function() {
             const xuleCode = `output TP13 taxonomy().cube(StatementTable, foo(wrong))`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -286,7 +286,7 @@ describe('Properties', function() {
     it("cube's 2rd parameter is not checked as a qname",
         function() {
             const xuleCode = `output TP13 taxonomy().cube(StatementTable, BalanceSheet)`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -301,7 +301,7 @@ describe('Properties', function() {
     it("effective-weight-network's 3rd parameter is optional",
         function() {
             const xuleCode = `output TP10 taxonomy().effective-weight-network(Assets, AssetsCurrent)`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -316,7 +316,7 @@ describe('Properties', function() {
     it("effective-weight-network's 3rd parameter is a role",
         function() {
             const xuleCode = `output TP10 taxonomy().effective-weight-network(Assets, AssetsCurrent, foo(wrong))`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -331,7 +331,7 @@ describe('Properties', function() {
     it("effective-weight-network's 3rd parameter is not checked as a qname",
         function() {
             const xuleCode = `output TP10 taxonomy().effective-weight-network(Assets, AssetsCurrent, BalanceSheet)`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -349,7 +349,7 @@ describe('Qnames', function() {
     it("are checked in filters: @concept = qname",
         function() {
             const xuleCode = `{@concept = Assets}`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.factset();
@@ -372,7 +372,7 @@ describe('Qnames', function() {
     it("are checked in filters: @qname",
         function() {
             const xuleCode = `{@test}`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.factset();
@@ -395,7 +395,7 @@ describe('Qnames', function() {
     it("are checked in filters: axis",
         function() {
             const xuleCode = `{@concept = Assets @BalanceSheetLocationAxis=ABCMember}`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.factset();
@@ -414,7 +414,7 @@ describe('Qnames', function() {
             const xuleCode = `
             constant $balance_sheet_items = navigate parent-child descendants from
                 list(Undefined) where $relationship.target.is-monetary == true returns set (target-name)`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.constantDeclaration();
@@ -448,7 +448,7 @@ true
 
 message
 "This has the variable {$hello2} and {$hello}"`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -468,7 +468,7 @@ message
               true#defined
             else true
             message "{$defined} {$undefined}"`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -493,7 +493,7 @@ describe('Variable scoping', function() {
             assert bar satisfied
             false
             message "{$a}"`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -509,7 +509,7 @@ describe('Variable scoping', function() {
     it("is limited to the defining block",
         function() {
             const xuleCode = `if true $a = 5 $a else $a`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.expression();
@@ -525,7 +525,7 @@ describe('Variable scoping', function() {
     it("is determined by the order of declaration (1)",
         function() {
             const xuleCode = `$c = $a + $b $a = 5 $b = 3 $c`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.block();
@@ -541,7 +541,7 @@ describe('Variable scoping', function() {
     it("is determined by the order of declaration (2)",
         function() {
             const xuleCode = `$a = 5 $b = 3 $a = 10 $c = $a + $b $c`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.block();
@@ -562,7 +562,7 @@ describe('Variable scoping', function() {
                 true
             else true
             message "{$defined} {$undefined}"`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();
@@ -577,7 +577,7 @@ describe('Variable scoping', function() {
         });it("spills into output statements of outputs",
         function() {
             const xuleCode = `output M2 $x = [@concept = Assets]; $x > 0 message "The value of Assets is {$x} {$y}"`;
-            let input = CharStreams.fromString(xuleCode);
+            let input = CharStream.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
             let parseTree = parser.xuleFile();

@@ -21,8 +21,12 @@ module.exports = function withDefaults(/**@type WebpackConfig*/extConfig) {
 			__dirname: false // leave the __dirname-behaviour intact
 		},
 		resolve: {
-			mainFields: ['module', 'main'],
-			extensions: ['.ts', '.js'] // support ts-files and js-files
+			mainFields: ['main', 'module'],
+			extensions: ['.ts', '.js'], // support ts-files and js-files
+			extensionAlias: {
+				'.js': ['.ts', '.js'] // allow antlr4ng-generated .ts files that import with .js extension
+			},
+			conditionNames: ['require', 'node', 'default'] // prefer CJS for Node.js target
 		},
 		module: {
 			rules: [{
@@ -33,6 +37,7 @@ module.exports = function withDefaults(/**@type WebpackConfig*/extConfig) {
 					// * enable sources maps for end-to-end source maps
 					loader: 'ts-loader',
 					options: {
+						transpileOnly: true,
 						compilerOptions: {
 							"sourceMap": true,
 						}
@@ -48,7 +53,7 @@ module.exports = function withDefaults(/**@type WebpackConfig*/extConfig) {
 			// packaging depends on that and this must always be like it
 			filename: '[name].js',
 			path: path.join(extConfig.context, 'out'),
-			libraryTarget: "commonjs",
+			libraryTarget: "commonjs2",
 		},
 		// yes, really source maps
 		devtool: 'source-map'
