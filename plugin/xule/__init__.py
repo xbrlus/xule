@@ -58,7 +58,6 @@ except ImportError:
 
 from arelle import FileSource
 from arelle import ModelManager
-from arelle import PluginManager
 import optparse
 import os 
 import datetime
