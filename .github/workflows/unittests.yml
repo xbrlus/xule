@@ -1,0 +1,146 @@
+name: Run XULE Unit Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch or ref to run against. Leave empty for the branch/ref that triggered the run.'
+        required: false
+        default: ''
+        type: string
+      xule_file:
+        description: 'Comma-separated XULE source file name(s) in unitTests/source/base whose rules should be run (e.g. boolean or boolean.xule). Leave empty to run every rule in the compiled ruleset.'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  run-unit-tests:
+    name: Compile and run base unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch || github.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Arelle and dependencies
+        run: |
+          pip install --no-cache-dir \
+            lxml==5.2.2 \
+            isodate==0.6.1 \
+            aniso8601==9.0.1 \
+            holidays==0.52 \
+            regex \
+            tabulate \
+            NumPy==1.26.2 \
+            pyparsing==3.1.2 \
+            Arelle-release
+
+      - name: Install XULE plugin from this checkout
+        run: |
+          set -euo pipefail
+          SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
+          mkdir -p "$SITE_PACKAGES/arelle/plugin"
+          cp -r plugin/xule "$SITE_PACKAGES/arelle/plugin/xule"
+
+      - name: Install validate and transform plugins from Arelle GitHub repository
+        run: |
+          set -euo pipefail
+          SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
+          ARELLE_SRC=$(mktemp -d)
+          git clone --depth 1 https://github.com/Arelle/Arelle.git "$ARELLE_SRC"
+          rm -rf "$SITE_PACKAGES/arelle/plugin/validate" "$SITE_PACKAGES/arelle/plugin/transforms"
+          cp -r "$ARELLE_SRC/arelle/plugin/validate" "$SITE_PACKAGES/arelle/plugin/validate"
+          cp -r "$ARELLE_SRC/arelle/plugin/transforms" "$SITE_PACKAGES/arelle/plugin/transforms"
+          rm -rf "$ARELLE_SRC"
+
+      - name: Compile base unit test ruleset
+        run: |
+          mkdir -p unitTests/compiled
+          python -m arelle.CntlrCmdLine \
+            --xule-compile unitTests/source/base \
+            --plugins "xule" \
+            --xule-rule-set unitTests/compiled/ut-ruleset.zip \
+            --xule-max-recurse-depth=2500
+
+      - name: Determine rules to run
+        id: rules
+        env:
+          XULE_FILE: ${{ inputs.xule_file }}
+        run: |
+          set -euo pipefail
+          if [ -z "$XULE_FILE" ]; then
+            echo "run_only=" >> "$GITHUB_OUTPUT"
+            echo "No file specified, running every rule in the compiled ruleset"
+          else
+            RULES=""
+            IFS=',' read -ra FILES <<< "$XULE_FILE"
+            for f in "${FILES[@]}"; do
+              f="$(echo "$f" | xargs)"
+              [ -z "$f" ] && continue
+              case "$f" in
+                *.xule) SOURCE_FILE="unitTests/source/base/$f" ;;
+                *) SOURCE_FILE="unitTests/source/base/$f.xule" ;;
+              esac
+              if [ ! -f "$SOURCE_FILE" ]; then
+                echo "::error::No such XULE source file: $SOURCE_FILE"
+                exit 1
+              fi
+              FILE_RULES=$(grep -oE '^output [A-Za-z0-9_]+' "$SOURCE_FILE" | awk '{print $2}' | paste -sd, -)
+              if [ -z "$FILE_RULES" ]; then
+                echo "::error::No 'output' rules found in $SOURCE_FILE"
+                exit 1
+              fi
+              if [ -z "$RULES" ]; then
+                RULES="$FILE_RULES"
+              else
+                RULES="$RULES,$FILE_RULES"
+              fi
+            done
+            echo "run_only=$RULES" >> "$GITHUB_OUTPUT"
+            echo "Running only: $RULES"
+          fi
+
+      - name: Run XULE unit tests
+        run: |
+          set -euo pipefail
+          mkdir -p unitTests/output
+          ARGS=(--plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet'
+                --xule-run
+                --noCertificateCheck
+                --xule-rule-set unitTests/compiled/ut-ruleset.zip
+                --logNoRefObjectProperties
+                --logFormat "[%(messageCode)s] %(message)s")
+          RUN_ONLY="${{ steps.rules.outputs.run_only }}"
+          if [ -n "$RUN_ONLY" ]; then
+            ARGS+=(--xule-run-only "$RUN_ONLY")
+          fi
+          python -m arelle.CntlrCmdLine "${ARGS[@]}" > unitTests/output/output.txt
+
+      - name: Clean noise from output
+        run: |
+          grep -E -v "(ix11.11.1.2:invalidTransformation|ix11.10.1.2:invalidTransformation|xmlSchema:syntax|html:syntaxError|Activation of plug|Xule version:|Instance Loaded.|Taxonomy Loaded.)" \
+            unitTests/output/output.txt > unitTests/output/output.tmp.txt \
+            && mv unitTests/output/output.tmp.txt unitTests/output/output.txt
+
+      - name: Print errors
+        if: always()
+        run: grep -i "error" unitTests/output/output.txt || echo "No errors found in unit test output."
+
+      - name: Upload output artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-output
+          path: |
+            unitTests/output/output.txt
+            unitTests/compiled/ut-ruleset.zip
+          retention-days: 30
