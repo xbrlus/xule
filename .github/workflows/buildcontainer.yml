@@ -18,15 +18,11 @@ on:
         required: false
         default: ''
         type: string
-      xule_version:
-        description: 'XULE git tag/branch to embed (from https://github.com/xbrlus/xule). Leave empty to use the latest XULE release.'
+      xule_ref:
+        description: 'Branch or tag to build XULE from, in this repository (or fork). Leave empty to use the default branch.'
         required: false
         default: ''
         type: string
-  push:
-    branches: ['**']
-    paths:
-      - 'Dockerfile'
 
 env:
   REGISTRY: ghcr.io
@@ -38,22 +34,25 @@ permissions:
 
 jobs:
   resolve-versions:
-    name: Resolve latest versions
+    name: Resolve build inputs
     runs-on: ubuntu-latest
     outputs:
       python_version: ${{ steps.resolve.outputs.python_version }}
       arelle_version: ${{ steps.resolve.outputs.arelle_version }}
       edgar_version: ${{ steps.resolve.outputs.edgar_version }}
-      xule_version: ${{ steps.resolve.outputs.xule_version }}
+      xule_repo: ${{ steps.resolve.outputs.xule_repo }}
+      xule_ref: ${{ steps.resolve.outputs.xule_ref }}
     steps:
-      - name: Resolve latest Python, Arelle, EDGAR and XULE versions
+      - name: Resolve Python, Arelle, EDGAR versions and XULE source
         id: resolve
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_PYTHON_VERSION: ${{ inputs.python_version }}
           INPUT_ARELLE_VERSION: ${{ inputs.arelle_version }}
           INPUT_EDGAR_VERSION: ${{ inputs.edgar_version }}
-          INPUT_XULE_VERSION: ${{ inputs.xule_version }}
+          INPUT_XULE_REF: ${{ inputs.xule_ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          XULE_REPO_OWNER: ${{ github.repository_owner }}
         run: |
           set -euo pipefail
 
@@ -83,8 +82,7 @@ jobs:
           if [ -n "$INPUT_EDGAR_VERSION" ]; then
             EDGAR_VERSION="$INPUT_EDGAR_VERSION"
           else
-            EDGAR_VERSION=$(gh api "repos/Arelle/EDGAR/releases/latest" --jq .tag_name 2>/dev/null || true)
-            if [ -z "$EDGAR_VERSION" ]; then
+            if ! EDGAR_VERSION=$(gh api "repos/Arelle/EDGAR/releases/latest" --jq .tag_name 2>/dev/null); then
               echo "No published release found, falling back to master"
               EDGAR_VERSION="master"
             fi
@@ -92,17 +90,10 @@ jobs:
           echo "Using EDGAR version: $EDGAR_VERSION"
           echo "edgar_version=$EDGAR_VERSION" >> "$GITHUB_OUTPUT"
 
-          if [ -n "$INPUT_XULE_VERSION" ]; then
-            XULE_VERSION="$INPUT_XULE_VERSION"
-          else
-            XULE_VERSION=$(gh api "repos/${{ github.repository }}/releases/latest" --jq .tag_name 2>/dev/null || true)
-            if [ -z "$XULE_VERSION" ]; then
-              echo "No published release found, falling back to main"
-              XULE_VERSION="main"
-            fi
-          fi
-          echo "Using XULE version: $XULE_VERSION"
-          echo "xule_version=$XULE_VERSION" >> "$GITHUB_OUTPUT"
+          XULE_REF="${INPUT_XULE_REF:-$DEFAULT_BRANCH}"
+          echo "Using XULE source: ${XULE_REPO_OWNER}/xule@${XULE_REF}"
+          echo "xule_repo=$XULE_REPO_OWNER" >> "$GITHUB_OUTPUT"
+          echo "xule_ref=$XULE_REF" >> "$GITHUB_OUTPUT"
 
   build:
     name: Build and push container
@@ -137,4 +128,5 @@ jobs:
             PYTHON_VERSION=${{ needs.resolve-versions.outputs.python_version }}
             ARELLE_VERSION=${{ needs.resolve-versions.outputs.arelle_version }}
             EDGAR_VERSION=${{ needs.resolve-versions.outputs.edgar_version }}
-            XULE_VERSION=${{ needs.resolve-versions.outputs.xule_version }}
+            XULE_REPO=${{ needs.resolve-versions.outputs.xule_repo }}
+            XULE_VERSION=${{ needs.resolve-versions.outputs.xule_ref }}
