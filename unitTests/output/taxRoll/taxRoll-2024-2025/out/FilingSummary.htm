@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><meta http-equiv="Cache-Control" content="no-cache"></meta><title>View Filing Data</title><script type="text/javascript" src="/include/jquery-1.4.3.min.js"></script><script type="text/javascript" src="/include/accordionMenu.js"></script><script type="text/javascript" src="/include/Show.js"></script><link rel="stylesheet" type="text/css" href="/include/interactive.css"></link><link rel="stylesheet" type="text/css" href="/include/report.css"></link><link rel="stylesheet" type="text/css" href="/include/print.css" media="print"></link><style type="text/css">
+          #menu{
+            font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; /* was Arial, Helvetia, sans-serif */
+            font-size:11px;
+          }
+          
+          ul#menu {
+          list-style-type:none;
+          margin:0;
+          padding:0;
+          width:15em;
+          border:1px solid #333;
+          background-color:#FFFFFF; /* was light gray #F5F5EB; */
+          }
+          
+          ul#menu ul{
+            list-style-type:none;
+            margin:0;
+            padding:0;
+            width:15em;
+            background-color:#FFFFFF; /* was light gray #F5F5EB; */
+          }
+          
+          ul#menu a{
+            display:block;
+            text-decoration:none;
+          }
+          
+          ul#menu li{
+            margin-top:1px;
+          }
+          
+          ul#menu li a{
+            background:#F7F7F7; /* was mustard #F3D673; */
+            color:black;
+            padding:0.5em;
+          }
+          
+          ul#menu li a:hover{
+            background:#aaa;
+          }
+          
+          ul#menu li ul li a{
+            background:#FFFFFF; /* was light gray #F5F5EB; */
+            color: #0071EB; /* was brick red #BF0023; */
+            padding-left:20px;
+          }
+          
+          ul#menu li ul li a:hover{
+            background:#aaa;
+            border-left:5px #000 solid;
+            padding-left:15px;
+            text-decoration: underline;
+          }
+          ul#menu li a.all_reports, ul#menu li a.rendering_logs {
+		  		background-color: #0C213A; color: #FFFFFF;
+		   }
+		   ul#menu li a.all_reports:hover,  ul#menu li a.rendering_logs:hover  {
+		  		background-color: #12659C; color: #0C213A;
+		   }
+          li.octave {border-top: 1px solid black;}
+          ul#menu li.ix > a {background-color: #0C213A; color: #FFFFFF;} /* was wasabi #afd77f} */
+          button {
+		   	color: #212529;
+		    border-radius: 1rem;
+		    background-color: #FFC107;
+		    border-color: #FFC107;
+		    white-space: nowrap;
+		   }
+		   button:hover {
+		   		background-color: #EEA800;
+		    	border-color: #EEA800;
+		   }
+        </style><!--[if lt IE 8]>
+<style type="text/css">li.accordion a {display:inline-block;} li.accordion a {display:block;}</style><![endif]--><script type="text/javascript">var InstanceReportXslt = "/include/InstanceReport.xslt"; var InstanceReportXsltDoc = null; var isRedline = (location.href.indexOf("&redline=true") >= 0 || location.href.indexOf("?redline=true") >= 0);var processXsltInBrowser = "false";var reports = new Array();
+        reports[1]="R1.htm";
+        reports[2]="R2.htm";
+        reports[3]="R3.htm";
+        reports[4]="R4.htm";
+        reports[5]="R5.htm";
+        reports[6]="R6.htm";
+        reports[7]="R7.htm";
+        reports[8]="R8.htm";
+        reports[9]="R9.htm";
+        reports[10]="R10.htm";
+        reports[11]="R11.htm";
+        reports[12]="R12.htm";
+        reports[13]="R13.htm";
+        reports[14]="R14.htm";
+        reports[15]="R15.htm";
+        reports[16]="R16.htm";
+        reports[17]="R17.htm";
+        reports[18]="R18.htm";
+        reports[19]="R19.htm";
+        reports[20]="R20.htm";
+        reports[21]="R21.htm";
+        reports[22]="R22.htm";
+        reports[23]="R23.htm";
+        reports[24]="R24.htm";
+        reports[25]="R25.htm";
+        reports[26]="R26.htm";
+        reports[27]="R27.htm";
+        reports[28]="R28.htm";
+        reports[29]="R29.htm";
+        reports[30]="R30.htm";
+        reports[31]="R31.htm";
+        reports[32]="R32.htm";
+        reports[33]="R33.htm";
+        reports[34]="R34.htm";
+        reports[35]="R35.htm";
+        reports[36]="R36.htm";
+        reports[37]="R37.htm";
+        reports[38]="R38.htm";
+        reports[39]="R39.htm";
+        reports[40]="R40.htm";
+        reports[41]="R41.htm";
+        reports[42]="R42.htm";
+        reports[43]="R43.htm";
+        reports[44]="R44.htm";
+        reports[45]="R45.htm";
+        reports[46]="R46.htm";
+        reports[47]="R47.htm";
+        reports[48]="R48.htm";
+        reports[49]="R49.htm";
+        reports[50]="R50.htm";
+        reports[51]="R51.htm";
+        reports[52]="R52.htm";
+        reports[53]="R53.htm";
+        reports[54]="R54.htm";
+        reports[55]="R55.htm";
+        reports[56]="R56.htm";
+        reports[57]="R57.htm";
+        reports[58]="R58.htm";
+        reports[59]="R59.htm";
+        reports[60]="R60.htm";
+        reports[61]="R61.htm";
+        reports[62]="R62.htm";
+        reports[63]="R63.htm";
+        reports[64]="R64.htm";
+        reports[65]="R65.htm";
+        reports[66]="R66.htm";
+        reports[67]="R67.htm";
+        reports[68]="R68.htm";
+        reports[69]="R69.htm";
+        reports[70]="R70.htm";
+        reports[71]="R71.htm";
+        reports[72]="R72.htm";
+        reports[73]="R73.htm";
+        reports[74]="R74.htm";
+        reports[75]="R75.htm";
+        reports[76]="R76.htm";
+        reports[77]="R77.htm";
+        reports[78]="R78.htm";
+        reports[79]="R79.htm";
+        reports[80]="R80.htm";
+        reports[81]="R81.htm";
+        reports[82]="R82.htm";
+        reports[83]="R83.htm";
+        reports[84]="R84.htm";
+        reports[85]="R85.htm";
+        reports[86]="R86.htm";
+        reports[87]="R87.htm";
+        reports[88]="R88.htm";
+        reports[89]="R89.htm";
+        reports[90]="R90.htm";
+        reports[91]="R91.htm";
+        reports[92]="R92.htm";
+        reports[93]="R93.htm";
+        reports[94]="R94.htm";
+        reports[95]="R95.htm";
+        reports[96]="R96.htm";
+        reports[97]="R97.htm";
+        reports[98]="R98.htm";
+        reports[99]="R99.htm";
+        reports[100]="R100.htm";
+        reports[101]="R101.htm";
+        reports[102]="R102.htm";
+        reports[103]="R103.htm";
+        reports[104]="R104.htm";
+        reports[105]="R105.htm";
+        reports[106]="R106.htm";
+        reports[107]="R107.htm";
+        reports[108]="R108.htm";
+        reports[109]="R109.htm";
+        reports[110]="R110.htm";
+        reports[111]="R111.htm";
+        reports[112]="R112.htm";
+        reports[113]="R113.htm";
+        reports[114]="R114.htm";
+        reports[115]="R115.htm";
+        reports[116]="R116.htm";
+        reports[117]="R117.htm";
+        reports[118]="R118.htm";
+        reports[119]="R119.htm";
+        reports[120]="R120.htm";
+        reports[121]="R121.htm";
+        reports[122]="R122.htm";
+        reports[123]="R123.htm";
+        reports[124]="R124.htm";
+        reports[125]="R125.htm";
+        reports[126]="R126.htm";
+        reports[127]="R127.htm";
+        reports[128]="R128.htm";
+        reports[129]="R129.htm";
+        reports[130]="R130.htm";
+        reports[131]="R131.htm";
+        reports[132]="R132.htm";
+        reports[133]="R133.htm";
+        reports[134]="R134.htm";
+        reports[135]="R135.htm";
+        reports[136]="R136.htm";
+        reports[137]="R137.htm";
+        reports[138]="R138.htm";
+        reports[139]="R9999.htm";
+        reports[140]="all";reports[141]="RenderingLogs.htm";
+          var parentreport = new Array();//
+                    
+        parentreport[1]=-1;
+        parentreport[2]=-1;
+        parentreport[3]=-1;
+        parentreport[4]=-1;
+        parentreport[5]=-1;
+        parentreport[6]=-1;
+        parentreport[7]=-1;
+        parentreport[8]=-1;
+        parentreport[9]=-1;
+        parentreport[10]=-1;
+        parentreport[11]=-1;
+        parentreport[12]=-1;
+        parentreport[13]=-1;
+        parentreport[14]=-1;
+        parentreport[15]=-1;
+        parentreport[16]=-1;
+        parentreport[17]=-1;
+        parentreport[18]=-1;
+        parentreport[19]=-1;
+        parentreport[20]=-1;
+        parentreport[21]=-1;
+        parentreport[22]=-1;
+        parentreport[23]=-1;
+        parentreport[24]=-1;
+        parentreport[25]=-1;
+        parentreport[26]=-1;
+        parentreport[27]=-1;
+        parentreport[28]=-1;
+        parentreport[29]=-1;
+        parentreport[30]=-1;
+        parentreport[31]=-1;
+        parentreport[32]=-1;
+        parentreport[33]=-1;
+        parentreport[34]=8;
+        parentreport[35]=10;
+        parentreport[36]=11;
+        parentreport[37]=12;
+        parentreport[38]=13;
+        parentreport[39]=14;
+        parentreport[40]=15;
+        parentreport[41]=-1;
+        parentreport[42]=-1;
+        parentreport[43]=-1;
+        parentreport[44]=19;
+        parentreport[45]=-1;
+        parentreport[46]=21;
+        parentreport[47]=22;
+        parentreport[48]=23;
+        parentreport[49]=24;
+        parentreport[50]=25;
+        parentreport[51]=26;
+        parentreport[52]=27;
+        parentreport[53]=28;
+        parentreport[54]=29;
+        parentreport[55]=34;
+        parentreport[56]=9;
+        parentreport[57]=-1;
+        parentreport[58]=-1;
+        parentreport[59]=-1;
+        parentreport[60]=-1;
+        parentreport[61]=-1;
+        parentreport[62]=35;
+        parentreport[63]=-1;
+        parentreport[64]=-1;
+        parentreport[65]=-1;
+        parentreport[66]=-1;
+        parentreport[67]=-1;
+        parentreport[68]=-1;
+        parentreport[69]=-1;
+        parentreport[70]=-1;
+        parentreport[71]=-1;
+        parentreport[72]=-1;
+        parentreport[73]=-1;
+        parentreport[74]=-1;
+        parentreport[75]=-1;
+        parentreport[76]=-1;
+        parentreport[77]=37;
+        parentreport[78]=-1;
+        parentreport[79]=-1;
+        parentreport[80]=-1;
+        parentreport[81]=-1;
+        parentreport[82]=-1;
+        parentreport[83]=-1;
+        parentreport[84]=-1;
+        parentreport[85]=39;
+        parentreport[86]=-1;
+        parentreport[87]=-1;
+        parentreport[88]=40;
+        parentreport[89]=-1;
+        parentreport[90]=-1;
+        parentreport[91]=-1;
+        parentreport[92]=-1;
+        parentreport[93]=17;
+        parentreport[94]=-1;
+        parentreport[95]=-1;
+        parentreport[96]=42;
+        parentreport[97]=-1;
+        parentreport[98]=-1;
+        parentreport[99]=-1;
+        parentreport[100]=-1;
+        parentreport[101]=-1;
+        parentreport[102]=-1;
+        parentreport[103]=-1;
+        parentreport[104]=-1;
+        parentreport[105]=-1;
+        parentreport[106]=-1;
+        parentreport[107]=43;
+        parentreport[108]=-1;
+        parentreport[109]=-1;
+        parentreport[110]=44;
+        parentreport[111]=-1;
+        parentreport[112]=-1;
+        parentreport[113]=-1;
+        parentreport[114]=-1;
+        parentreport[115]=-1;
+        parentreport[116]=-1;
+        parentreport[117]=-1;
+        parentreport[118]=-1;
+        parentreport[119]=45;
+        parentreport[120]=46;
+        parentreport[121]=-1;
+        parentreport[122]=-1;
+        parentreport[123]=-1;
+        parentreport[124]=-1;
+        parentreport[125]=-1;
+        parentreport[126]=-1;
+        parentreport[127]=-1;
+        parentreport[128]=-1;
+        parentreport[129]=-1;
+        parentreport[130]=-1;
+        parentreport[131]=-1;
+        parentreport[132]=50;
+        parentreport[133]=51;
+        parentreport[134]=-1;
+        parentreport[135]=52;
+        parentreport[136]=53;
+        parentreport[137]=-1;
+        parentreport[138]=30;
+        parentreport[139]=-1;
+        parentreport[140]=-1;  
+    var url_path = "";
+    var fetch_prefix = "";
+    var fetch_wraps_xml_in_html = "";
+    var url_filing_dir = location.pathname.substring(0,location.pathname.lastIndexOf("/")+1);
+    
+    	
+   function loadXmlDoc(url) {
+      var doc;
+      var jqxhr=$.ajax({type: "GET",
+                        url: url,
+                        async: false});
+      // code for IE
+      if (window.ActiveXObject) {
+         doc = new ActiveXObject("Msxml2.FreeThreadedDOMDocument.3.0");
+         doc.loadXML(jqxhr.responseText);
+      }      
+      // code for other browsers
+      else if (document.implementation && document.implementation.createDocument) {
+         doc=document.implementation.createDocument("","",null);
+         doc.async=true;
+         doc = jqxhr.responseXML.documentElement;
+      }      
+      return doc;
+   }
+   
+   function fixSrcAttr(src) {
+      var uri = src.substr(0,5);
+      // No change is needed if the 'src' attribute contains an embedded image
+      if (uri == 'data:') {
+         return src;
+      }
+      // EDGAR no change if already a server query format (url_path has a fetchPrefix)
+      if (url_path && src.indexOf(fetch_prefix)>0) {
+         return src;
+      }
+      // Absolute URL on EDGAR website is unchanged
+      var idx = src.lastIndexOf('https://www.sec.gov/Archives/edgar/data/')
+      if (idx > -1) {
+        return src;
+      } // For all other URLs use only basename component
+      var idx = src.lastIndexOf('/');
+      if (idx > -1) {
+         src = src.substring(idx+1,src.length);
+      }
+      return url_path + src;
+   }
+   
+   function getReport(url, xsl_url) {
+      var _url = url_path + url;
+      if (xsl_url == null) { xsl_url = InstanceReportXslt; }
+      var ext = url.substring(url.lastIndexOf('.')+1, url.length);
+      if (ext == 'htm') {
+          $.ajax({
+          type: "GET",
+          url: _url,
+          dataType: "text",
+          async:false,
+          success: function (data) { jQuery('#reportDiv').append(data)
+                  .find('img').attr('src', function(i, val) { return fixSrcAttr(val);}).end();
+              }
+          });            
+      } else if (processXsltInBrowser == 'true') {
+          $.ajax({
+          type: "GET",
+          url: _url,
+          dataType: "text",
+          async: false,
+          success: function(data) {
+                  var path;
+                  if (fetch_wraps_xml_in_html) {
+					  // remove EDGAR workstation HTML wrpping of XML
+					  data = data.replace(/<HTML><HEAD><TITLE>.+<PRE><FONT SIZE = 3>/g, ''); // header
+					  data = data.replace(/<\/FONT><\/PRE><\/BODY><\/HTML>/g, ''); // footer
+					  data = data.replace(/<P CLASS=\"page\">&nbsp;<\/P>/g, '\n'); // newlines
+					  data = data.replace(/&gt;/g, '>'); 
+					  data = data.replace(/&lt;/g, '<'); 
+					  data = data.replace(/&amp;/g, '&'); 
+					  // end of EDGAR HTML wrapping removal
+                      path = _url; // EDGAR workstation and ops GW
+                  } else {
+                      data = data.replace(/^\s+|\s+$/g, ''); // leading or trailing whitespace causes problems
+                  	  path = "/" + _url.substring(1, _url.lastIndexOf('/')+1);
+                  }
+                  
+                  // code for IE
+                  if (window.ActiveXObject) {                  
+                     xsl_doc = loadXmlDoc(xsl_url)
+                     var xslt = new ActiveXObject("Msxml2.XSLTemplate.3.0");   
+                     xslt.stylesheet = xsl_doc;
+                     var xslproc = xslt.createProcessor();
+                     var doc = new ActiveXObject("Msxml2.FreeThreadedDOMDocument.3.0");
+                   	 doc.loadXML(data);
+                     xslproc.input = doc;
+                     xslproc.addParameter("source", path );
+                     xslproc.addParameter("asPage", "true" );
+                     xslproc.transform();
+                     // Find all images and prepend the base URL to the src attribute
+                     jQuery('#reportDiv').append(jQuery(xslproc.output)
+                                         .find('img')
+                                         .attr('src', function(i, val) {
+                                                         return fixSrcAttr(val);
+                                                      }).end());
+                  }                  
+                  // code for other browsers
+                  else if (document.implementation && document.implementation.createDocument) {
+                     xsltProcessor=new XSLTProcessor();
+                     xsltProcessor.importStylesheet(loadXmlDoc(xsl_url));                  
+                     xsltProcessor.setParameter(null,"source",path);
+                     xsltProcessor.setParameter(null,"asPage","true");
+                     parser = new DOMParser();
+                     xmlDoc = parser.parseFromString(data, "text/xml");
+                     var rpt = xsltProcessor.transformToFragment(xmlDoc, document);
+                     document.getElementById("reportDiv").appendChild(rpt);
+                     FixNotesForGeckoWebkit( document.getElementById( 'reportDiv' ) );
+                     // Find all images and prepend the base URL to the src attribute
+                     jQuery('#reportDiv').find('img')
+                                         .attr('src', function(i, val) {
+                                                         return fixSrcAttr(val);
+                                                      });
+                  } else {
+                     alert('Your browser cannot handle this script');
+                  }
+                }
+            });
+               }
+   }
+   
+   function clearReportDiv() {
+      // code for IE
+      if (window.ActiveXObject) {
+         document.getElementById("reportDiv").innerHTML='';
+      }
+      
+      // code for Mozilla, Firefox, Opera, etc.
+      else if (document.implementation && document.implementation.createDocument) {
+         x = document.getElementById("reportDiv").childNodes;
+         for (i=x.length-1;i>-1;i--) {
+            node = document.getElementById("reportDiv").childNodes[i];
+            if (node) {
+               document.getElementById("reportDiv").removeChild(node);
+            }
+         }
+      }
+   }
+   
+   function loadReport(idx) {
+      if (window.XMLHttpRequest || window.ActiveXObject) {
+         clearReportDiv();
+         xsl_url = null;
+         if (reports[idx].indexOf('FilingSummary.xml') > -1) {
+            unHighlightAllMenuItems();
+            xsl_url = url_path + "RenderingLogs.xslt";
+         } 
+         if (reports[idx] == 'all') {
+            highlightAllMenuItems();
+            jQuery.ajaxSetup({async:false});
+            for (var i=1; i<reports.length; i++) {
+               if (reports[i] != 'all') {
+                  getReport(reports[i], xsl_url);
+               } else {
+               break;
+               }
+            }
+         }
+         else { 
+            getReport(reports[idx], xsl_url);
+         }
+         window.scrollTo(0,0);
+      }
+      
+      else {
+         alert('Your browser cannot handle this script');
+      }
+   }
+   
+   function highlight(link) {
+      var parent = document.getElementById( 'menu' );
+      var links = parent.getElementsByTagName( 'a' );
+      
+      for (var i = 0; i < links.length; i++){
+         if (links[i].className == 'xbrlviewer') {
+            if (links[i] == link) {
+               link.style.background = "#C1CDCD";
+            } else {
+               links[i].style.background = "#FFFFFF";
+            }
+         }
+      }
+   }
+   
+   //the parameter 'div' represents <div id="reportDiv">
+   function FixNotesForGeckoWebkit( div ){
+      //textContent is only found in "other" browsers
+      //if it exists, search it for our table - there should only be one
+      if( div.textContent ){
+         var tables = div.getElementsByTagName( 'table' );
+         if( tables.length ){
+            //loop through the tables
+           for( var t = 0; t < tables.length; t++ ){
+              var cells = tables[t].getElementsByTagName( 'td' );
+              //loop through the cells, checking for class="text" which indicates some kind of text content - this includes HTML for notes
+              for( var i = 0; i < cells.length; i++ ){
+                 var curCell = cells[ i ];
+                 if( curCell.className == 'text' ){
+                    //<td class="text" found - now check if this HTML had already been rendered - if so, we should not attempt to render it again
+                    var nodes = curCell.getElementsByTagName( '*' );
+                    if( nodes.length <= 1 ){
+                       //no "nodes" found so perform a secondary check that we have text which resembles HTML
+                       nodes = curCell.textContent.match( /<\/?[a-zA-Z]{1}\w*[^>]*>/g );
+                       if( nodes && nodes.length ){
+                          //this text does resemble HTML, use the textContent as HTML and that will convert the text to HTML content.
+                          curCell.innerHTML = curCell.textContent;
+                        }
+                     }        
+                  }
+               }
+            }
+         }
+      }
+   } 
+   
+   function applyRedline( url ) {
+       if (isRedline) {
+           return url + "&redline=true";
+       } else {
+           return url;
+       }
+   }
+  
+   window.onload = function () {
+         if (window.location.href.substring(0,5)=='file:') {
+          ableToOpenReportFiles = 0;
+          try {$.ajax({type: "GET",url: reports[1],dataType: "text",async:false,
+              success: function (data) { if (data != 0) ableToOpenReportFiles = 1; }});
+          } catch (err) {}
+          if (ableToOpenReportFiles == 0) {
+            alert("In this browser environment, opening the url\n"
+            +window.location.href
+            +"\nprevents individual report files such as "
+            +reports[1]+" from opening.");}}
+      loadReport(1);
+   }
+</script></head><body style="margin: 0"><noscript><div style="color:red; font-weight:bold; text-align:center;">This page uses Javascript. Your browser either doesn't support Javascript or you have it turned off. To see this page as it is meant to appear please use a Javascript enabled browser.</div></noscript><div><table><tr><td colspan="2" style="font-weight: 500; font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif"><a class="xbrlviewer" style="color: black;" href="javascript:window.print();">Print Document</a></td></tr><tr><td style="vertical-align: top;"><div style="width: 170px; margin-right: 5px;"><ul id="menu"><li class="accordion octave"><a id="menu_cat0" href="#">Reports</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(1);">Document and Entity Information</a></li></ul></li><li class="accordion"><a id="menu_cat1" href="#">Statements</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(2);">Consolidated Balance Sheets</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(3);">Consolidated Balance Sheets (Parenthetical)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(4);">Consolidated Statements of Income</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(5);">Consolidated Statements of Comprehensive Income</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(6);">Consolidated Statements of Changes in Stockholders' Equity</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(7);">Consolidated Statements of Cash Flows</a></li></ul></li><li class="accordion"><a id="menu_cat2" href="#">Reports</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(8);">Summary of Significant Accounting Policies</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(9);">Acquisition</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(10);">Investment Securities</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(11);">Loans</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(12);">Goodwill and Intangible Assets</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(13);">Premises and Equipment</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(14);">Leases</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(15);">Deposits</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(16);">Short and Long-Term Funding</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(17);">Stockholders' Equity</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(18);">Compensation Related Costs, General</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(19);">Income Taxes</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(20);">Derivative Instruments and Hedging Activities</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(21);">Balance Sheet Offsetting</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(22);">Commitments, Off-Balance Sheet Arrangements, and Contingent Liabilities</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(23);">Parent Company Only Financial Information</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(24);">Fair Value Measurements</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(25);">Regulatory Matters</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(26);">Earnings Per Common Share</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(27);">Segment Reporting</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(28);">Accumulated Other Comprehensive Income (Loss)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(29);">Revenues (Notes)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(30);">Recent Developments Recent Developments Details (Notes)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(31);">Pay vs Performance Disclosure</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(32);">Insider Trading Arrangements</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(33);">Cybersecurity Risk Management and Strategy Disclosure</a></li></ul></li><li class="accordion"><a id="menu_cat3" href="#">Accounting Policies</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(34);">Summary of Significant Accounting Policies (Policies)</a></li></ul></li><li class="accordion"><a id="menu_cat4" href="#">Tables</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(35);">Investment Securities (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(36);">Loans (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(37);">Goodwill and Intangible Assets (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(38);">Premises and Equipment (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(39);">Leases (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(40);">Deposits (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(41);">Short and Long-term Funding (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(42);">Stock-Based Compensation (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(43);">Retirement Plans (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(44);">Income Taxes (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(45);">Derivative and Hedging Activities (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(46);">Balance Sheet Offsetting (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(47);">Commitments, Off-Balance Sheet Arrangements, and Contingent Liabilities (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(48);">Parent Company Only Financial Information (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(49);">Fair Value Measurements (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(50);">Regulatory Matters (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(51);">Earnings Per Common Share (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(52);">Segment Reporting (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(53);">Accumulated Other Comprehensive Income (Loss) (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(54);">Revenues (Tables)</a></li></ul></li><li class="accordion"><a id="menu_cat5" href="#">Details</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(55);">Summary of Significant Accounting Policies Narrative (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(56);">Acquisitions (Details Textuals)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(57);">Investment Securities, AFS and HTM Securities Amortized Costs and Fair Values (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(58);">Investment Securities, AFS and HTM Expected Maturities (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(59);">Investment Securities, HTM Credit Quality Indicators (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(60);">Investment Securities, Gains, Losses, and Proceeds (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(61);">Investment Securities, AFS and HTM Securities Gross Unrealized Losses (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(62);">Investment Securities (Details Textual)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(63);">Loans, Loan Composition (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(64);">Loans, Related Party Loan Rollforward (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(65);">Loans, Credit Quality Indicator by Vintage Year (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(66);">Loans, Loans by Past Due Status (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(67);">Loans, Modifications (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(68);">Loans, Modifications in Last 12 Months, Performance (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(69);">Loans, Modified, Subsequent Default (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(70);">Loans, Loans Modified in a Troubled Debt Restructuring, Summary (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(71);">Loans, Troubled Debt Restructurings Subsequent Default (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(72);">Loans, Changes in the Allowance for Credit Losses by Portfolio Segment (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(73);">Loans Narrative (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(74);">Goodwill and Intangible Assets, Summary of Core Deposit and Other Intangibles (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(75);">Goodwill and Intangible Assets, Mortgage Servicing Rights Roll-Forward (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(76);">Goodwill and Intangible Assets, Estimated Future Amortization Expense (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(77);">Goodwill and Intangible Assets (Details) (Textuals)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(78);">Premises and Equipment, Summary Composition (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(79);">Property, Plant, and Equipment (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(80);">Leases Lease, Cost and Cash Flows (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(81);">Leases Components of Lease Expense (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(82);">Leases Operating Lease Information (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(83);">Leases Amortization of Operating Lease Liabilities (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(84);">Leases, Minimum Annual Rent Under Operating Lease Agreements (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(85);">Leases (Details Textuals)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(86);">Deposits, Composition (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(87);">Deposits, Time Deposit Maturities (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(88);">Deposits (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(89);">Short and Long-term Funding, Composition (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(90);">Short and Long-term Funding Remaining Contractual Maturity of Agreements (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(91);">Short and Long-term Funding Long-term Funding, Maturities (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(92);">Short and Long-term Funding Short and Long-term Funding (Details Textuals)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(93);">Stockholders' Equity (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(94);">Stock-Based Compensation, Stock Option Activity (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(95);">Stock-Based Compensation, Restricted Stock Activity (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(96);">Stock-Based Compensation (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(97);">Retirement Plans, Pension and Postretirement Plans Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(98);">Retirement Plans, Amounts Recognized in Accumulated Other Comprehensive Income Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(99);">Retirement Plans, Other Changes in Plan Assets (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(100);">Retirement Plans, Components of Net Pension Cost for the Retirement Account Plan Tables (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(101);">Retirement Plans Retirement Plans, Components of Net Pension Cost for the Post Retirement Plan Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(102);">Retirement Plans, Weighted Average Assumptions used to Determine Benefit and Net Periodic Benefit Costs (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(103);">Retirement Plans, Asset Allocation for Pension Plan Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(104);">Retirement Plans, Fair Value of Pension Plan Investments Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(105);">Retirement Plans Retirement Plans, Fair Value Reconciliation of Level 3 Retirement Account Plan Investments (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(106);">Retirement Plans, Estimated Future Benefit Payments (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(107);">Retirement Plans (Details Textual)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(108);">Income Taxes, Current and Deferred Amounts of Income Tax Expense Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(109);">Income Taxes, Deferred Tax Assets and Liabilities Resulted in Deferred Taxes Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(110);">Income Taxes (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(111);">Income Taxes, Major Reasons for the Difference in Effective Income Tax Rate from the Federal Tax Rate (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(112);">Income Taxes, Reconciliation of the Beginning and Ending Amount of Unrecognized Tax Benefits Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(113);">Income Taxes, Textuals (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(114);">Derivative and Hedging Activities, Derivative Instruments Not Designated as Hedging Instruments (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(115);">Derivative and Hedging Activities Cumulative Basis Adjustment for Fair Value Hedges (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(116);">Derivative and Hedging Activities Income Impact of Fair Value and Cash Flow Hedge (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(117);">Derivative Instruments and Hedging Activities, Cash Flow Hedge Impact on AOCI (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(118);">Derivative and Hedging Activities, Income Statement Category of the Gains and Losses (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(119);">Derivative and Hedging Activities (Details Textuals)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(120);">Balance Sheet Offsetting (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(121);">Commitments, Off-Balance Sheet Arrangements, and Contingent Liabilities, Summary of Lending Related and Other Commitments (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(122);">Commitments, Changes in the Allowance for Unfunded Commitments (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(123);">Commitments, Off-Balance Sheet Arrangements, Legal Proceedings and Regulatory Matters (Details Textuals)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(124);">Parent Company Only Financial Information, Balance Sheet (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(125);">Parent Company Only Financial Information, Statement of Income (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(126);">Parent Company Only Financial Information, Statement of Cash Flows (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(127);">Fair Value Measurements, Assets and Liabilities Measured at Fair Value on a Recurring Basis (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(128);">Fair Value Measurements, Assets and Liabilities Measured at Fair Value Using Significant Unobservable Inputs (Level 3) (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(129);">Fair Value Measurements Equity Securities Without Readily Determinable Fair Values (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(130);">Fair Value Measurements, Assets and Liabilities Measured at Fair Value on a Nonrecurring Basis (Details)</a></li></ul></li><li class="accordion"><a id="menu_cat6" href="#">Reports</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(131);">Fair Value Measurements, Unobservable Inputs, Readily Quantifiable to Level 3 (details)</a></li></ul></li><li class="accordion"><a id="menu_cat7" href="#">Details</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(132);">Regulatory Matters (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(133);">Earnings Per Common Share (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(134);">Earnings Per Common Share Narrative (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(135);">Segment Reporting (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(136);">Accumulated Other Comprehensive Income (Loss) (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(137);">Revenues Revenue Recognition by Segment (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(138);">Recent Developments (Details)</a></li></ul></li><li class="accordion"><a id="menu_cat8" href="#">Uncategorized</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(139);">Uncategorized Items - ASB_instance_FY_2023_2025.xml</a></li></ul></li><li class="accordion"><a class="all_reports" href="javascript:loadReport(140)"><img src="/images/reports.gif" border="0" height="12" width="9" alt="Reports"></img> All Reports</a></li><li class="accordion"><a class="rendering_logs" href="javascript:loadReport(141)"><img src="/images/reports.gif" border="0" height="12" width="9" alt="Logs"></img> Rendering Log</a></li></ul></div></td><td style="vertical-align: top;"><div id="reportDiv"></div></td></tr></table></div></body></html>

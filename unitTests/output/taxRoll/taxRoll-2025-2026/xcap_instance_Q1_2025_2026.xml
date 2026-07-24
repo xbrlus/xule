@@ -1,0 +1,452 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created by Xince -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:www.x1capital.com="http://www.x1capital.com/20260930" xmlns:us-gaap="http://fasb.org/us-gaap/2026" xmlns:dei="http://xbrl.sec.gov/dei/2026">
+  <link:schemaRef xlink:href="./xcap_taxonomy_Q1_2025_2026.zip/xcap_taxonomy_Q1_2025_2026/xcap-20261231.xsd" xlink:type="simple"/>
+  <xbrli:context id="c">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-09-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c1">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2025-07-01</xbrli:startDate>
+      <xbrli:endDate>2025-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c2">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c3">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2024-10-01</xbrli:startDate>
+      <xbrli:endDate>2024-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c4">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c5">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-09-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c6">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2025-11-10</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="c7">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0001999538</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2025-09-30</xbrli:startDate>
+      <xbrli:endDate>2025-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="usd">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="usd1">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="pure">
+    <xbrli:measure>xbrli:pure</xbrli:measure>
+  </xbrli:unit>
+  <us-gaap:LineOfCredit id="f" decimals="INF" contextRef="c" unitRef="usd">11981000.0</us-gaap:LineOfCredit>
+  <us-gaap:InvestmentCompanyNetAssetValuePerSharePeriodIncreaseDecrease id="f1" decimals="INF" contextRef="c1" unitRef="usd1">9418.04</us-gaap:InvestmentCompanyNetAssetValuePerSharePeriodIncreaseDecrease>
+  <us-gaap:CommonStockSharesOutstanding id="f2" decimals="INF" contextRef="c2" unitRef="shares">240.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f3" decimals="INF" contextRef="c" unitRef="usd1">0.01</us-gaap:CommonStockParOrStatedValuePerShare>
+  <www.x1capital.com:ChangeInInvestments id="f4" decimals="INF" contextRef="c1" unitRef="usd">-38135770.0</www.x1capital.com:ChangeInInvestments>
+  <dei:CityAreaCode id="f5" contextRef="c1">713</dei:CityAreaCode>
+  <dei:EntityTaxIdentificationNumber id="f6" contextRef="c1">93-2414793</dei:EntityTaxIdentificationNumber>
+  <us-gaap:UnrealizedGainLossOnInvestments id="f7" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:UnrealizedGainLossOnInvestments>
+  <us-gaap:EarningsPerShareBasic id="f8" decimals="128" contextRef="c3" unitRef="usd1">0.0</us-gaap:EarningsPerShareBasic>
+  <us-gaap:CommonStockParOrStatedValuePerShare id="f9" decimals="INF" contextRef="c4" unitRef="usd1">0.01</us-gaap:CommonStockParOrStatedValuePerShare>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivities id="f10" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:NetCashProvidedByUsedInOperatingActivities>
+  <us-gaap:IncomeTaxesPaidNet id="f11" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:IncomeTaxesPaidNet>
+  <us-gaap:AccountsPayableCurrent id="f12" decimals="INF" contextRef="c2" unitRef="usd">5.0</us-gaap:AccountsPayableCurrent>
+  <us-gaap:NetIncomeLoss id="f13" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:NetIncomeLoss>
+  <us-gaap:WeightedAverageNumberOfSharesOutstandingBasic id="f14" decimals="INF" contextRef="c3" unitRef="shares">240.0</us-gaap:WeightedAverageNumberOfSharesOutstandingBasic>
+  <us-gaap:CommonStockSharesIssued id="f15" decimals="INF" contextRef="c" unitRef="shares">240.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:ScheduleOfOtherInvestmentsNotReadilyMarketableTextBlock id="f16" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;table style="border-collapse:collapse"&gt;&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;Strategy&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;Number of Investments&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;Fair Value&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;% of Portfolio&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt;Participating Interest Loan – Government Guaranteed&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;15&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;$25,3124,085&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;64.2%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Bridge Loan&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;4&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;7,692,542,&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;19.5%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Traditional Private Loan&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;1&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;6,402,833&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;16.2%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;20&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;&lt;b&gt;$39,409,460&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;100%&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</us-gaap:ScheduleOfOtherInvestmentsNotReadilyMarketableTextBlock>
+  <us-gaap:CommonStockSharesIssued id="f17" decimals="INF" contextRef="c4" unitRef="shares">240.0</us-gaap:CommonStockSharesIssued>
+  <us-gaap:ProfessionalFees id="f18" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:ProfessionalFees>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f19" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest>
+  <us-gaap:EarningsPerSharePolicyTextBlock id="f20" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;Per Share Information&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Basic and diluted earnings (loss) per common share are calculated using the weighted-average number of common shares outstanding for the period presented. There are currently no outstanding warrants, and no shares were issued during this reporting period. There are currently 240 shares outstanding.&lt;/p&gt;
+</us-gaap:EarningsPerSharePolicyTextBlock>
+  <us-gaap:CommonStockSharesOutstanding id="f21" decimals="INF" contextRef="c" unitRef="shares">240.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:ProceedsFromRepaymentsOfLinesOfCredit id="f22" decimals="INF" contextRef="c1" unitRef="usd">11981000.0</us-gaap:ProceedsFromRepaymentsOfLinesOfCredit>
+  <us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax id="f23" decimals="INF" contextRef="c" unitRef="usd">2254329.0</us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax>
+  <us-gaap:CommonStockSharesOutstanding id="f24" decimals="INF" contextRef="c4" unitRef="shares">240.0</us-gaap:CommonStockSharesOutstanding>
+  <us-gaap:InvestmentIncomeNetAmortizationOfDiscountAndPremium id="f25" decimals="INF" contextRef="c1" unitRef="usd">965105.0</us-gaap:InvestmentIncomeNetAmortizationOfDiscountAndPremium>
+  <us-gaap:SubsequentEventsTextBlock id="f26" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;5.&lt;/span&gt;&lt;/kbd&gt;&lt;span style="border-bottom:1px solid #000000"&gt;Subsequent Events&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Management has performed an evaluation of subsequent events through November 1, 2025. Since the end of the fiscal quarter, two loans have been paid off (Ballpark National LLC and That PPC). There have been two loans added (Wander Hotel JT LLC for $2,500,000 and an additional loan to Agricultural Scientific PFD for $1,224,265).&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The federal government shutdown has impacted the Company’s business because the participating interest loans cannot be sold until the US Government re-opens. Additionally, the bridge loans may not be paid off, as the lendees are waiting on permanent financing guaranteed under tUS Government programs.&lt;/p&gt;
+</us-gaap:SubsequentEventsTextBlock>
+  <us-gaap:LaborAndRelatedExpense id="f27" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:LaborAndRelatedExpense>
+  <us-gaap:AssetsCurrent id="f28" decimals="INF" contextRef="c" unitRef="usd">28859.0</us-gaap:AssetsCurrent>
+  <us-gaap:IncreaseDecreaseInOtherReceivables id="f29" decimals="INF" contextRef="c1" unitRef="usd">300414.0</us-gaap:IncreaseDecreaseInOtherReceivables>
+  <us-gaap:LongTermDebtTextBlock id="f30" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;2.&lt;/kbd&gt;&lt;span style="border-bottom:1px solid #000000"&gt;Debt&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The Company and its subsidiary CBT SF LLC have a $15,000,000 debt facility with Woodforest Bank. The weighted average interest rate for the period was 7.3%. As of September 30, 2025, $11,981,000 was outstanding. The debt is pegged to 30-day SOFR + 3% and there is a 0.25% commitment fee. If interest rates were to increase by 1%, it would increase interest expense by 14%. If interest rates were to decrease by 1%, it would reduce interest expense by 14%.&lt;/p&gt;
+</us-gaap:LongTermDebtTextBlock>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f31" decimals="INF" contextRef="c" unitRef="usd">24846.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f32" decimals="INF" contextRef="c" unitRef="usd">6000.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f33" decimals="INF" contextRef="c4" unitRef="usd">6000.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <us-gaap:SubsequentEventDescription id="f34" contextRef="c1">There have been two loans added (Wander Hotel JT LLC for $2,500,000 and an additional loan to Agricultural Scientific PFD for $1,224,265).</us-gaap:SubsequentEventDescription>
+  <dei:EntityAddressStateOrProvince id="f35" contextRef="c1">AL</dei:EntityAddressStateOrProvince>
+  <us-gaap:OtherAssetsNoncurrent id="f36" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:OtherAssetsNoncurrent>
+  <us-gaap:SellingGeneralAndAdministrativeExpensesPolicyTextBlock id="f37" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;Expenses &lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;X1 Capital is an internally managed BDC. On August 21, 2025, 100% of shareholders approved the Company to start directly paying its expenses and approved the Company entering into an Administration Agreement with Growth Lending LLC. The Company has one employee, James Hickey, who serves as CEO, CFO, and CCO.&lt;/p&gt;
+</us-gaap:SellingGeneralAndAdministrativeExpensesPolicyTextBlock>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f38" decimals="INF" contextRef="c2" unitRef="usd">6000.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <us-gaap:RetainedEarningsAppropriated id="f39" decimals="INF" contextRef="c" unitRef="usd">2254329.0</us-gaap:RetainedEarningsAppropriated>
+  <us-gaap:ConsolidationPolicyTextBlock id="f40" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Principles of Consolidation.&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Under ASC 946, the Company is precluded from consolidating portfolio company investments, including those in which it has a controlling interest, unless the portfolio company is another investment company that is substantially wholly owned by it. That being said, the Company will generally consolidate a subsidiary when the design and purpose of the subsidiary is to act as an extension of the Company’s investment operations and to facilitate the execution of the Company’s investment strategy. The Company holds some of its investments at a subsidiary level (CBT SF LLC) and has elected to consolidate the subsidiary and treat it as an investment company. The Company has received participation capital from an investor at the CBT SF LLC level and has treated this investment as equity.&lt;/p&gt;
+</us-gaap:ConsolidationPolicyTextBlock>
+  <dei:DocumentPeriodEndDate id="f41" contextRef="c1">2025-09-30</dei:DocumentPeriodEndDate>
+  <dei:EntityCurrentReportingStatus id="f42" contextRef="c1">Yes</dei:EntityCurrentReportingStatus>
+  <us-gaap:CommonStockValue id="f43" decimals="INF" contextRef="c" unitRef="usd">2.0</us-gaap:CommonStockValue>
+  <us-gaap:RetainedEarningsAppropriated id="f44" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:RetainedEarningsAppropriated>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f45" decimals="INF" contextRef="c4" unitRef="usd">6000.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:AdditionalPaidInCapital id="f46" decimals="INF" contextRef="c2" unitRef="usd">5998.0</us-gaap:AdditionalPaidInCapital>
+  <dei:EntityAddressCityOrTown id="f47" contextRef="c1">Fairhope</dei:EntityAddressCityOrTown>
+  <us-gaap:EarningsPerShareBasicDistributed id="f48" decimals="INF" contextRef="c1" unitRef="usd1">9393.0</us-gaap:EarningsPerShareBasicDistributed>
+  <us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax id="f49" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax>
+  <us-gaap:LegalFees id="f50" decimals="INF" contextRef="c1" unitRef="usd">59570.0</us-gaap:LegalFees>
+  <us-gaap:InterestPaid id="f51" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:InterestPaid>
+  <us-gaap:DebtInstrumentDescription id="f52" contextRef="c1">The Company and its subsidiary CBT SF LLC have a $15,000,000 debt facility with Woodforest Bank</us-gaap:DebtInstrumentDescription>
+  <us-gaap:Liabilities id="f53" decimals="INF" contextRef="c" unitRef="usd">12306589.0</us-gaap:Liabilities>
+  <us-gaap:OtherCostAndExpenseOperating id="f54" decimals="INF" contextRef="c1" unitRef="usd">1168.0</us-gaap:OtherCostAndExpenseOperating>
+  <us-gaap:DebtInstrumentFaceAmount id="f55" decimals="INF" contextRef="c" unitRef="usd">15000000.0</us-gaap:DebtInstrumentFaceAmount>
+  <us-gaap:AssetsCurrent id="f56" decimals="INF" contextRef="c2" unitRef="usd">6005.0</us-gaap:AssetsCurrent>
+  <us-gaap:InvestmentIncomeNetAmortizationOfDiscountAndPremium id="f57" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:InvestmentIncomeNetAmortizationOfDiscountAndPremium>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f58" decimals="INF" contextRef="c2" unitRef="usd">6000.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:DebtInstrumentInterestRateStatedPercentage id="f59" decimals="INF" contextRef="c" unitRef="pure">0.073</us-gaap:DebtInstrumentInterestRateStatedPercentage>
+  <us-gaap:InterestExpense id="f60" decimals="INF" contextRef="c1" unitRef="usd">92324.0</us-gaap:InterestExpense>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f61" decimals="INF" contextRef="c5" unitRef="usd">6000.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <dei:EntityInteractiveDataCurrent id="f62" contextRef="c1">Yes</dei:EntityInteractiveDataCurrent>
+  <us-gaap:LongTermDebt id="f63" decimals="INF" contextRef="c" unitRef="usd">11981000.0</us-gaap:LongTermDebt>
+  <us-gaap:UseOfEstimates id="f64" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;Use of Estimates&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The preparation of the financial statements in conformity with US GAAP requires the Company to make estimates and assumptions that affect the reported amounts of assets and liabilities and disclosure of contingent assets and liabilities at the date of the financial statements and the reported amounts of increases and decreases in net assets from operations during the reporting period. Actual results could differ from those estimates, and such differences could be material.&lt;/p&gt;
+</us-gaap:UseOfEstimates>
+  <dei:LocalPhoneNumber id="f65" contextRef="c1">614-7755</dei:LocalPhoneNumber>
+  <us-gaap:InterestPaid id="f66" decimals="INF" contextRef="c1" unitRef="usd">88812.0</us-gaap:InterestPaid>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue id="f67" decimals="INF" contextRef="c2" unitRef="usd">6005.0</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:Assets id="f68" decimals="INF" contextRef="c" unitRef="usd">39554385.0</us-gaap:Assets>
+  <us-gaap:LineOfCredit id="f69" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:LineOfCredit>
+  <us-gaap:MarketableSecuritiesNoncurrent id="f70" decimals="INF" contextRef="c" unitRef="usd">39409460.0</us-gaap:MarketableSecuritiesNoncurrent>
+  <us-gaap:RelatedPartyTransactionsDisclosureTextBlock id="f71" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;3.&lt;/span&gt;&lt;/kbd&gt;&lt;span style="border-bottom:1px solid #000000"&gt;Affiliate Transactions&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The Company has signed an Administration Agreement with Growth Lending LLC. Growth Lending LLC currently owns 100% of the outstanding shares. James Hickey, CEO, CFO, and CCO of the Company, is compensated through a consulting agreement between Alternative Risk Strategies LLC and the Company.&lt;/p&gt;
+</us-gaap:RelatedPartyTransactionsDisclosureTextBlock>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f72" decimals="INF" contextRef="c" unitRef="usd">39554385.0</us-gaap:LiabilitiesAndStockholdersEquity>
+  <us-gaap:NonoperatingIncomeExpense id="f73" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:NonoperatingIncomeExpense>
+  <us-gaap:OtherCostAndExpenseOperating id="f74" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:OtherCostAndExpenseOperating>
+  <dei:PhoneFaxNumberDescription id="f75" contextRef="c1">Registrant’s telephone number, including area code</dei:PhoneFaxNumberDescription>
+  <us-gaap:RetainedEarningsAccumulatedDeficit id="f76" decimals="INF" contextRef="c5" unitRef="usd">6000.0</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <dei:EntityCommonStockSharesOutstanding id="f77" decimals="INF" contextRef="c6" unitRef="shares">240.0</dei:EntityCommonStockSharesOutstanding>
+  <us-gaap:AssetsNet id="f78" decimals="INF" contextRef="c" unitRef="usd">2260329.0</us-gaap:AssetsNet>
+  <us-gaap:ProceedsFromOtherDebt id="f79" decimals="INF" contextRef="c1" unitRef="usd">24987467.0</us-gaap:ProceedsFromOtherDebt>
+  <us-gaap:CommonStockValue id="f80" decimals="INF" contextRef="c2" unitRef="usd">2.0</us-gaap:CommonStockValue>
+  <us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock id="f81" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;New Accounting Standards&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Management does not believe any recently issued, but not yet effective, accounting standards, if currently adopted, would have a material effect on the accompanying financial statements.&lt;/p&gt;
+</us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock>
+  <us-gaap:AssetsNet id="f82" decimals="INF" contextRef="c2" unitRef="usd">6000.0</us-gaap:AssetsNet>
+  <dei:EntityListingParValuePerShare id="f83" decimals="INF" contextRef="c7" unitRef="usd1">0.01</dei:EntityListingParValuePerShare>
+  <us-gaap:LegalFees id="f84" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:LegalFees>
+  <us-gaap:Liabilities id="f85" decimals="INF" contextRef="c2" unitRef="usd">5.0</us-gaap:Liabilities>
+  <us-gaap:EarningsPerShareBasicDistributed id="f86" decimals="128" contextRef="c3" unitRef="usd1">0.0</us-gaap:EarningsPerShareBasicDistributed>
+  <us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities id="f87" decimals="INF" contextRef="c1" unitRef="usd">25170.0</us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities>
+  <us-gaap:StockholdersEquity id="f88" decimals="INF" contextRef="c" unitRef="usd">27247796.0</us-gaap:StockholdersEquity>
+  <us-gaap:CashAndCashEquivalentsPolicyTextBlock id="f89" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Cash and Cash Equivalents&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Cash consists solely of funds deposited with financial institutions, while cash equivalents consist of short-term liquid investments in money market funds. Cash and cash equivalents are carried at cost, which approximates fair value.&lt;/p&gt;
+</us-gaap:CashAndCashEquivalentsPolicyTextBlock>
+  <dei:EntityFileNumber id="f90" contextRef="c1">814-01672</dei:EntityFileNumber>
+  <us-gaap:InterestExpense id="f91" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:InterestExpense>
+  <us-gaap:OtherNonoperatingIncome id="f92" decimals="INF" contextRef="c1" unitRef="usd">965105.0</us-gaap:OtherNonoperatingIncome>
+  <us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests id="f93" decimals="INF" contextRef="c" unitRef="usd">24987467.0</us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests>
+  <us-gaap:ProfitLoss id="f94" decimals="INF" contextRef="c1" unitRef="usd">2254329.0</us-gaap:ProfitLoss>
+  <us-gaap:SignificantAccountingPoliciesTextBlock id="f95" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;2.&lt;/kbd&gt;&lt;span style="border-bottom:1px solid #000000"&gt;Significant Accounting Policies&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Basis of Presentation&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The consolidated financial statements have been prepared in accordance with accounting principles generally accepted in the United States ("U.S. GAAP"). In the opinion of management, all adjustments considered necessary for the fair presentation of the consolidated financial statements have been included.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company is an investment company for the purposes of accounting and financial reporting in accordance with Financial Accounting Standards Board ("FASB") Accounting Standards Codification ("ASC") Topic 946, Financial Services— Investment Companies ("ASC 946").&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Interim financial statements are prepared in accordance with U.S. GAAP for interim financial information and pursuant to the requirements for reporting on Form 10-Q and Articles 6 or 10 of Regulation S-X. In the opinion of management, all adjustments, consisting solely of normal recurring accruals considered necessary for the fair presentation of financial statements for the interim period presented, have been included. The current period's results of operations will not necessarily be indicative of results that ultimately may be achieved for the fiscal year. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company shareholders elected to adopt 150% asset coverage on November 3, 2025. The Company is treating the participation capital as equity.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Principles of Consolidation.&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Under ASC 946, the Company is precluded from consolidating portfolio company investments, including those in which it has a controlling interest, unless the portfolio company is another investment company that is substantially wholly owned by it. That being said, the Company will generally consolidate a subsidiary when the design and purpose of the subsidiary is to act as an extension of the Company’s investment operations and to facilitate the execution of the Company’s investment strategy. The Company holds some of its investments at a subsidiary level (CBT SF LLC) and has elected to consolidate the subsidiary and treat it as an investment company. The Company has received participation capital from an investor at the CBT SF LLC level and has treated this investment as equity.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;Use of Estimates&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The preparation of the financial statements in conformity with US GAAP requires the Company to make estimates and assumptions that affect the reported amounts of assets and liabilities and disclosure of contingent assets and liabilities at the date of the financial statements and the reported amounts of increases and decreases in net assets from operations during the reporting period. Actual results could differ from those estimates, and such differences could be material.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Cash and Cash Equivalents&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Cash consists solely of funds deposited with financial institutions, while cash equivalents consist of short-term liquid investments in money market funds. Cash and cash equivalents are carried at cost, which approximates fair value.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Investment Transactions and Related Investment Income&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company’s investment portfolio generates interest, loan fees, and dividend income. The Company records these on an accrual basis, recognizing income as earned in accordance with the contractual terms of the loan agreement, to the extent that such amounts are expected to be collected. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Realized gains or losses from the repayment or sale of investments are calculated using the trade date. The Company reports changes in fair value of investments from the prior period as a component of "Net change in unrealized gain (loss) on investments" on the Consolidated Statements of Operations.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Fee Sharing&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;These are profit-sharing payments to the Participation Capital investor.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Professional Fees&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;These include payments to Growth Lending LLC under the Administration Agreement, payments to James Hickey, and third parties, including accountants and lawyers.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Other Assets&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:0pt;margin-bottom:12pt;color:#000000;text-align:justify"&gt;The legal expenses related to the Bank Facility are classified as Other Assets and amortized over the life of the facility. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Other Current Payables&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:0pt;margin-bottom:12pt;color:#000000;text-align:justify"&gt;This is amounts owed under Fee Sharing.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Valuation of Portfolio Investments&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company shall value the investments owned by the Company, subject at all times to the oversight of the Company's Board of Directors (the “Board”). The Company shall follow its own written valuation policies and procedures as approved by the Board when determining valuations. A short summary of the valuation policies is below.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Investments for which market quotations are readily available are typically valued at such market quotations. Pursuant to Rule 2a-5 under the 1940 Act, the Board designated James Hickey as Valuation Designee to perform fair value determinations for the Company for investments that do not have readily available market quotations. Market quotations are obtained from an independent pricing service, where available. If a price cannot be obtained from an independent pricing service or if the independent pricing service is not deemed to be current with the market, certain investments held by the Company will be valued on the basis of prices provided by principal market makers. Generally, investments marked in this manner will be marked at the mean of the bid and ask of the independent broker quotes obtained. To validate market quotations, the Company utilizes a number of factors to determine if the quotations are representative of fair value, including the source and number of quotations. Debt and equity securities that are not publicly traded or whose market prices are not readily available will be valued at a price that reflects such securities’ fair value. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;With respect to unquoted portfolio investments, the Company will value each investment considering, among other measures, discounted cash flow models, comparable company multiple models, comparisons of financial ratios of peer companies that are public, and other factors. When an external event, such as a purchase transaction, public offering, or subsequent equity sale occurs, the Company will use the pricing indicated by the external event to corroborate and/or assist us in its valuation. Due to the inherent uncertainty of determining the fair value of investments that do not have a readily available market value, the fair value of our investments may differ significantly from the values that would have been used had a readily available market value existed for such investments, and the differences could be material. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company applies ASC Topic 820, Fair Value Measurement (“ASC 820”), which establishes a framework for measuring fair value in accordance with US GAAP and required disclosures of fair value measurements. The fair value of a financial instrument is the amount that would be received in an orderly transaction between market participants at the measurement date. The Company determines the fair value of investments consistent with its valuation policy. The Company discloses the fair value of its investments in a hierarchy that prioritizes and ranks the level of market observability used in the determination of fair value. In accordance with ASC 820, these levels are summarized below:&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Symbol;margin-left:-18pt"&gt;&lt;b&gt;·&lt;/b&gt;&lt;/kbd&gt;Level 1 — Valuations based on quoted prices (unadjusted) in active markets for identical assets or liabilities at the measurement date. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Symbol;margin-left:-18pt"&gt;·&lt;/kbd&gt;Level 2 — Valuations based on quoted prices in markets that are not active or for which all significant inputs are observable, either directly or indirectly. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:0pt;margin-bottom:8pt;margin-left:36pt"&gt;&lt;kbd style="position:absolute;font:10pt Symbol;margin-left:-18pt"&gt;·&lt;/kbd&gt;Level 3 — Valuations based on inputs that are unobservable and significant to the fair value measurement. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;As a generalization, for debt, investments purchased at par will be valued par plus any accrued interest, fees, and dividend unless there is reason to believe the portfolio company is impaired or at risk of being impaired and unable to pay the contractually required payments. In cases where the Company has a preset sale price and the sale is anticipated in the near future, the investment is valued at the preset sale price.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The fair value assigned to these investments is based upon available information and may fluctuate from period to period. In addition, it does not necessarily represent the amount that might ultimately be realized upon sale. Due to inherent uncertainty of valuation, the estimated fair value of investments may differ from the value that would have been used had a ready market for the security existed, and the difference could be material.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;Expenses &lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;X1 Capital is an internally managed BDC. On August 21, 2025, 100% of shareholders approved the Company to start directly paying its expenses and approved the Company entering into an Administration Agreement with Growth Lending LLC. The Company has one employee, James Hickey, who serves as CEO, CFO, and CCO.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-indent:36pt;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;Income Taxes&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The Company has elected to be regulated as a BDC under the Investment Company Act of 1940, as amended. The Company intends to elect to be treated as a RIC under Subchapter M of the Internal Revenue Code of 1986, as amended. As a RIC, the Company generally will not have to pay corporate-level U.S. federal income taxes on any ordinary income or capital gains that is distributed timely to our shareholders as dividends. Therefore, no provision for federal income taxes is recorded in the financial statements. To the extent the Company is temporarily not in compliance with applicable regulations, there is a risk that the Company could be required to recognize income taxes.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;Per Share Information&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Basic and diluted earnings (loss) per common share are calculated using the weighted-average number of common shares outstanding for the period presented. There are currently no outstanding warrants, and no shares were issued during this reporting period. There are currently 240 shares outstanding.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;New Accounting Standards&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Management does not believe any recently issued, but not yet effective, accounting standards, if currently adopted, would have a material effect on the accompanying financial statements.&lt;/p&gt;
+</us-gaap:SignificantAccountingPoliciesTextBlock>
+  <us-gaap:MarketableSecuritiesNoncurrent id="f96" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:MarketableSecuritiesNoncurrent>
+  <dei:EntityCentralIndexKey id="f97" contextRef="c1">0001999538</dei:EntityCentralIndexKey>
+  <dei:CurrentFiscalYearEndDate id="f98" contextRef="c1">--06-30</dei:CurrentFiscalYearEndDate>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivities id="f99" decimals="INF" contextRef="c1" unitRef="usd">36968467.0</us-gaap:NetCashProvidedByUsedInFinancingActivities>
+  <us-gaap:AccountsReceivableNetCurrent id="f100" decimals="INF" contextRef="c" unitRef="usd">4013.0</us-gaap:AccountsReceivableNetCurrent>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect id="f101" decimals="INF" contextRef="c1" unitRef="usd">18841.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect>
+  <dei:AmendmentFlag id="f102" contextRef="c1">false</dei:AmendmentFlag>
+  <dei:EntityRegistrantName id="f103" contextRef="c1">X1 CAPITAL INC.</dei:EntityRegistrantName>
+  <us-gaap:CommitmentsAndContingenciesDisclosureTextBlock id="f104" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;&lt;span style="border-bottom:1px solid #000000"&gt;4.&lt;/span&gt;&lt;/kbd&gt;&lt;span style="border-bottom:1px solid #000000"&gt;Commitments and Contingencies&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;In the normal course of business, the Company may enter into certain contracts that provide a variety of indemnities. The Company's maximum exposure under these indemnities is unknown, as it would involve future claims that may be made against the Company. Currently, the Company is not aware of any such claims, and no such claims are expected to occur. As such, the Company does not consider it necessary to record a liability in this regard.&lt;/p&gt;
+</us-gaap:CommitmentsAndContingenciesDisclosureTextBlock>
+  <dei:DocumentFiscalYearFocus id="f105" contextRef="c1">2026</dei:DocumentFiscalYearFocus>
+  <us-gaap:GainLossOnInvestmentsTextBlock id="f106" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;1.&lt;/kbd&gt;&lt;span style="border-bottom:1px solid #000000"&gt;Investments&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company primarily invests in private US companies. The Company focuses on three strategies. First, the Company provides bridge loans to private companies that have been conditionally approved for government-guaranteed loans by an approved lender under Agency programs, but are waiting for formal approval from the government agency. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Second, the Company focuses on acquiring BDC-qualified loans to warehouse for resale. This is done by both acquiring loans directly and by investing in firms that acquire and hold loans for resale. The primary loan-type focus are government-guaranteed loans or participating interests in government-guaranteed loans.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Finally, the Company may provide debt or equity to private companies to fund growth or acquisitions.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;table style="border-collapse:collapse"&gt;&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;Strategy&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;Number of Investments&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;Fair Value&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;% of Portfolio&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0"&gt;Participating Interest Loan – Government Guaranteed&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;15&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;$25,3124,085&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;64.2%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Bridge Loan&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;4&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;7,692,542,&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;19.5%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Traditional Private Loan&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;1&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;6,402,833&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;16.2%&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="width:197.75pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;20&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.9pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:right"&gt;&lt;b&gt;$39,409,460&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;td style="width:89.95pt" valign="top"&gt;&lt;p style="font:10pt Times New Roman;margin:0;text-align:center"&gt;&lt;b&gt;100%&lt;/b&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;All the participating interest loans are 100% guaranteed by the US Government. As such, these participating interest loans are typically priced and traded similarly to US Government Agency paper. We anticipate that participating &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;interest loans will be sold once the US Government reopens at a pre-agreed price. All these loans are held by the subsidiary CBT SF LLC.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;All four of the bridge loans are bridge loans where we expect to be refinanced out of the position once the US Government approves the permanent loan application submitted by third party, unrelated banks.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Finally, we have made one traditional private loan to fund a recapitalization.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Currently, all investments are to US domiciled companies.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company anticipates most of its debt investments will not be rated, and that, if rated, most investments (except for loans guaranteed by the US Government) would be classified as “junk bonds / high yield bonds” as compared to “investment grade.” The Company believes its investments that are guaranteed 100% by the US Government should be treated as government securities.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Investment-grade bonds are bonds rated at a level that signifies a relatively low risk of default. Credit rating agencies like Moody's, Standard &amp;amp; Poor's, and Fitch assign ratings to these bonds. Bonds rated at or above 'BBB-' (or its equivalent, depending on the rating agency) are considered investment grade. Junk bonds (high-yield bonds) are bonds rated below 'BBB-' These ratings indicate a higher risk of default or financial instability of the issuing entity. The term "junk" does not denote the quality of the bond per se but rather signifies a higher risk and, consequently, a higher potential return. The higher yield serves as compensation for investors willing to take on greater risk. Junk bonds are often utilized by companies with less established credit histories or those undergoing financial restructuring, providing them with necessary capital at the cost of higher interest rates.&lt;/p&gt;
+</us-gaap:GainLossOnInvestmentsTextBlock>
+  <us-gaap:IncreaseDecreaseInOtherAccruedLiabilities id="f107" decimals="INF" contextRef="c1" unitRef="usd">-1393769.0</us-gaap:IncreaseDecreaseInOtherAccruedLiabilities>
+  <us-gaap:NatureOfOperations id="f108" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Times New Roman;margin-left:-18pt"&gt;1.&lt;/kbd&gt;&lt;span style="border-bottom:1px solid #000000"&gt;Organization&lt;/span&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;X1 Capital Inc. (“X1” or “X1 Capital” or the “Company”) formed on July 25, 2023 as a corporation under the laws of the State of Maryland. The Company is structured as a closed-end management investment company. The Company has elected to be regulated as a business development company (“BDC”) under the Investment Company Act of 1940, as amended (the “1940 Act”). For tax purposes, the Company has elected to be treated as a regulated investment company (“RIC”) under Subchapter M of the Internal Revenue Code of 1986, as amended (the “Code”). The Company is internally managed.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;We are an “emerging growth company,” as defined in the Jumpstart Our Business Startups Act of 2012 (the “JOBS Act”). We will remain an emerging growth company until the last day of our fiscal year following the fifth anniversary of a future IPO, or until the earliest of (i) the last day of the first fiscal year in which we have total annual gross revenue of $1.235 billion or more, (ii) December 31 of the fiscal year in which we become a “large accelerated filer” as defined in Rule 12b-2 under the Securities Exchange Act of 1934, as amended (together with the rules and regulations promulgated thereunder, the “Exchange Act”), (which would occur if the market value of our common stock held by non-affiliates exceeds $700.0 million, measured as of the last business day of our most recently completed second fiscal quarter, and we have been publicly reporting for at least 12 months), or (iii) the date on which we have issued more than $1.0 billion in non-convertible debt during the preceding three-year period. For so long as we remain an emerging growth company under the JOBS Act, we will be subject to reduced public company reporting requirements.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company primarily invests in private US companies. The Company focuses on three strategies. First, the Company provides bridge loans to private companies that have been conditionally approved for government-guaranteed loans by an approved lender under Agency programs but are waiting for funding and final sign off from the federal agency. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Second, the Company focuses on acquiring BDC-qualified loans to warehouse for resale. This is done by both acquiring loans directly and by investing in firms that acquire and hold loans for resale. The primary loan-type focus are government-guaranteed loans or participating interests in government-guaranteed loans.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Finally, the Company may provide debt or equity to private companies to fund growth or acquisitions.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company anticipates most of its debt investments will not be rated, and that, if rated, most investments (except for loans guaranteed by the US Government) would be classified as “junk bonds / high yield bonds” as compared to “investment grade.” The Company believes its investments that are guaranteed 100% by the US Government should be treated as government securities.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Investment-grade bonds are bonds rated at a level that signifies a relatively low risk of default. Credit rating agencies like Moody's, Standard &amp;amp; Poor's, and Fitch assign ratings to these bonds. Bonds rated at or above 'BBB-' (or its equivalent, depending on the rating agency) are considered investment grade. Junk bonds (high-yield bonds) are bonds rated below 'BBB-' These ratings indicate a higher risk of default or financial instability of the issuing entity. The term "junk" does not denote the quality of the bond per se but rather signifies a higher risk and, consequently, a higher potential return. The higher yield serves as compensation for investors willing to take on greater risk. Junk bonds are often utilized by companies with less established credit histories or those undergoing financial restructuring, providing them with necessary capital at the cost of higher interest rates.&lt;/p&gt;
+</us-gaap:NatureOfOperations>
+  <dei:DocumentFiscalPeriodFocus id="f109" contextRef="c1">Q1</dei:DocumentFiscalPeriodFocus>
+  <us-gaap:OtherLiabilitiesCurrent id="f110" decimals="INF" contextRef="c" unitRef="usd">300419.0</us-gaap:OtherLiabilitiesCurrent>
+  <us-gaap:LiabilitiesAndStockholdersEquity id="f111" decimals="INF" contextRef="c2" unitRef="usd">6005.0</us-gaap:LiabilitiesAndStockholdersEquity>
+  <us-gaap:Assets id="f112" decimals="INF" contextRef="c2" unitRef="usd">6005.0</us-gaap:Assets>
+  <us-gaap:FairValueMeasurementPolicyPolicyTextBlock id="f113" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Investment Transactions and Related Investment Income&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company’s investment portfolio generates interest, loan fees, and dividend income. The Company records these on an accrual basis, recognizing income as earned in accordance with the contractual terms of the loan agreement, to the extent that such amounts are expected to be collected. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;Realized gains or losses from the repayment or sale of investments are calculated using the trade date. The Company reports changes in fair value of investments from the prior period as a component of "Net change in unrealized gain (loss) on investments" on the Consolidated Statements of Operations.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Fee Sharing&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;These are profit-sharing payments to the Participation Capital investor.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Professional Fees&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;These include payments to Growth Lending LLC under the Administration Agreement, payments to James Hickey, and third parties, including accountants and lawyers.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Other Assets&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:0pt;margin-bottom:12pt;color:#000000;text-align:justify"&gt;The legal expenses related to the Bank Facility are classified as Other Assets and amortized over the life of the facility. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Other Current Payables&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:0pt;margin-bottom:12pt;color:#000000;text-align:justify"&gt;This is amounts owed under Fee Sharing.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Valuation of Portfolio Investments&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company shall value the investments owned by the Company, subject at all times to the oversight of the Company's Board of Directors (the “Board”). The Company shall follow its own written valuation policies and procedures as approved by the Board when determining valuations. A short summary of the valuation policies is below.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Investments for which market quotations are readily available are typically valued at such market quotations. Pursuant to Rule 2a-5 under the 1940 Act, the Board designated James Hickey as Valuation Designee to perform fair value determinations for the Company for investments that do not have readily available market quotations. Market quotations are obtained from an independent pricing service, where available. If a price cannot be obtained from an independent pricing service or if the independent pricing service is not deemed to be current with the market, certain investments held by the Company will be valued on the basis of prices provided by principal market makers. Generally, investments marked in this manner will be marked at the mean of the bid and ask of the independent broker quotes obtained. To validate market quotations, the Company utilizes a number of factors to determine if the quotations are representative of fair value, including the source and number of quotations. Debt and equity securities that are not publicly traded or whose market prices are not readily available will be valued at a price that reflects such securities’ fair value. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;With respect to unquoted portfolio investments, the Company will value each investment considering, among other measures, discounted cash flow models, comparable company multiple models, comparisons of financial ratios of peer companies that are public, and other factors. When an external event, such as a purchase transaction, public offering, or subsequent equity sale occurs, the Company will use the pricing indicated by the external event to corroborate and/or assist us in its valuation. Due to the inherent uncertainty of determining the fair value of investments that do not have a readily available market value, the fair value of our investments may differ significantly from the values that would have been used had a readily available market value existed for such investments, and the differences could be material. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company applies ASC Topic 820, Fair Value Measurement (“ASC 820”), which establishes a framework for measuring fair value in accordance with US GAAP and required disclosures of fair value measurements. The fair value of a financial instrument is the amount that would be received in an orderly transaction between market participants at the measurement date. The Company determines the fair value of investments consistent with its valuation policy. The Company discloses the fair value of its investments in a hierarchy that prioritizes and ranks the level of market observability used in the determination of fair value. In accordance with ASC 820, these levels are summarized below:&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;color:#000000;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Symbol;margin-left:-18pt"&gt;&lt;b&gt;·&lt;/b&gt;&lt;/kbd&gt;Level 1 — Valuations based on quoted prices (unadjusted) in active markets for identical assets or liabilities at the measurement date. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;margin-left:36pt;text-align:justify"&gt;&lt;kbd style="position:absolute;font:10pt Symbol;margin-left:-18pt"&gt;·&lt;/kbd&gt;Level 2 — Valuations based on quoted prices in markets that are not active or for which all significant inputs are observable, either directly or indirectly. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin-top:0pt;margin-bottom:8pt;margin-left:36pt"&gt;&lt;kbd style="position:absolute;font:10pt Symbol;margin-left:-18pt"&gt;·&lt;/kbd&gt;Level 3 — Valuations based on inputs that are unobservable and significant to the fair value measurement. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;As a generalization, for debt, investments purchased at par will be valued par plus any accrued interest, fees, and dividend unless there is reason to believe the portfolio company is impaired or at risk of being impaired and unable to pay the contractually required payments. In cases where the Company has a preset sale price and the sale is anticipated in the near future, the investment is valued at the preset sale price.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The fair value assigned to these investments is based upon available information and may fluctuate from period to period. In addition, it does not necessarily represent the amount that might ultimately be realized upon sale. Due to inherent uncertainty of valuation, the estimated fair value of investments may differ from the value that would have been used had a ready market for the security existed, and the difference could be material.&lt;/p&gt;
+</us-gaap:FairValueMeasurementPolicyPolicyTextBlock>
+  <dei:EntityAddressPostalZipCode id="f114" contextRef="c1">36532</dei:EntityAddressPostalZipCode>
+  <dei:EntityAddressAddressLine1 id="f115" contextRef="c1">6637 S Winding Brook Dr.</dei:EntityAddressAddressLine1>
+  <us-gaap:EarningsPerShareBasic id="f116" decimals="INF" contextRef="c1" unitRef="usd1">-758.0</us-gaap:EarningsPerShareBasic>
+  <us-gaap:AccountsPayableCurrent id="f117" decimals="INF" contextRef="c" unitRef="usd">25169.0</us-gaap:AccountsPayableCurrent>
+  <us-gaap:AdditionalPaidInCapital id="f118" decimals="INF" contextRef="c" unitRef="usd">5998.0</us-gaap:AdditionalPaidInCapital>
+  <dei:EntityAddressAddressDescription id="f119" contextRef="c1">Address of principal executive office</dei:EntityAddressAddressDescription>
+  <us-gaap:StockholdersEquity id="f120" decimals="INF" contextRef="c2" unitRef="usd">6000.0</us-gaap:StockholdersEquity>
+  <us-gaap:NetAssetValuePerShare id="f121" decimals="INF" contextRef="c" unitRef="usd1">9418.0</us-gaap:NetAssetValuePerShare>
+  <us-gaap:NetIncomeLoss id="f122" decimals="INF" contextRef="c1" unitRef="usd">2254329.0</us-gaap:NetIncomeLoss>
+  <us-gaap:LiabilitiesCurrent id="f123" decimals="INF" contextRef="c" unitRef="usd">325588.0</us-gaap:LiabilitiesCurrent>
+  <us-gaap:NetCashProvidedByUsedInOperatingActivities id="f124" decimals="INF" contextRef="c1" unitRef="usd">-36949626.0</us-gaap:NetCashProvidedByUsedInOperatingActivities>
+  <us-gaap:UnrealizedGainLossOnInvestments id="f125" decimals="INF" contextRef="c1" unitRef="usd">2436298.0</us-gaap:UnrealizedGainLossOnInvestments>
+  <us-gaap:BasisOfAccountingPolicyPolicyTextBlock id="f126" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin-top:2pt;margin-bottom:0pt"&gt;&lt;b&gt;Basis of Presentation&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The consolidated financial statements have been prepared in accordance with accounting principles generally accepted in the United States ("U.S. GAAP"). In the opinion of management, all adjustments considered necessary for the fair presentation of the consolidated financial statements have been included.&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company is an investment company for the purposes of accounting and financial reporting in accordance with Financial Accounting Standards Board ("FASB") Accounting Standards Codification ("ASC") Topic 946, Financial Services— Investment Companies ("ASC 946").&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;Interim financial statements are prepared in accordance with U.S. GAAP for interim financial information and pursuant to the requirements for reporting on Form 10-Q and Articles 6 or 10 of Regulation S-X. In the opinion of management, all adjustments, consisting solely of normal recurring accruals considered necessary for the fair presentation of financial statements for the interim period presented, have been included. The current period's results of operations will not necessarily be indicative of results that ultimately may be achieved for the fiscal year. &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt; &lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;text-align:justify"&gt;The Company shareholders elected to adopt 150% asset coverage on November 3, 2025. The Company is treating the participation capital as equity.&lt;/p&gt;
+</us-gaap:BasisOfAccountingPolicyPolicyTextBlock>
+  <us-gaap:WeightedAverageNumberOfSharesOutstandingBasic id="f127" decimals="INF" contextRef="c1" unitRef="shares">240.0</us-gaap:WeightedAverageNumberOfSharesOutstandingBasic>
+  <us-gaap:NonoperatingIncomeExpense id="f128" decimals="INF" contextRef="c1" unitRef="usd">1147074.0</us-gaap:NonoperatingIncomeExpense>
+  <us-gaap:OtherNonoperatingIncome id="f129" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:OtherNonoperatingIncome>
+  <us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests id="f130" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:TemporaryEquityCarryingAmountIncludingPortionAttributableToNoncontrollingInterests>
+  <dei:DocumentType id="f131" contextRef="c1">10-Q</dei:DocumentType>
+  <us-gaap:ProfessionalFees id="f132" decimals="INF" contextRef="c1" unitRef="usd">267192.0</us-gaap:ProfessionalFees>
+  <us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest id="f133" decimals="INF" contextRef="c1" unitRef="usd">-181969.0</us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest>
+  <us-gaap:OtherLiabilitiesCurrent id="f134" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:OtherLiabilitiesCurrent>
+  <us-gaap:LiabilitiesCurrent id="f135" decimals="INF" contextRef="c2" unitRef="usd">5.0</us-gaap:LiabilitiesCurrent>
+  <us-gaap:IncomeTaxPolicyTextBlock id="f136" contextRef="c1">&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;&lt;b&gt;Income Taxes&lt;/b&gt;&lt;/p&gt;
+&lt;p style="font:10pt Times New Roman;margin:0;color:#000000;text-align:justify"&gt;The Company has elected to be regulated as a BDC under the Investment Company Act of 1940, as amended. The Company intends to elect to be treated as a RIC under Subchapter M of the Internal Revenue Code of 1986, as amended. As a RIC, the Company generally will not have to pay corporate-level U.S. federal income taxes on any ordinary income or capital gains that is distributed timely to our shareholders as dividends. Therefore, no provision for federal income taxes is recorded in the financial statements. To the extent the Company is temporarily not in compliance with applicable regulations, there is a risk that the Company could be required to recognize income taxes.&lt;/p&gt;
+</us-gaap:IncomeTaxPolicyTextBlock>
+  <us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents id="f137" decimals="INF" contextRef="c" unitRef="usd">24846.0</us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents>
+  <us-gaap:AccountsReceivableNetCurrent id="f138" decimals="128" contextRef="c2" unitRef="usd">0.0</us-gaap:AccountsReceivableNetCurrent>
+  <us-gaap:ProfitLoss id="f139" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:ProfitLoss>
+  <us-gaap:NetAssetValuePerShare id="f140" decimals="INF" contextRef="c2" unitRef="usd1">25.0</us-gaap:NetAssetValuePerShare>
+  <us-gaap:LaborAndRelatedExpense id="f141" decimals="INF" contextRef="c1" unitRef="usd">720570.0</us-gaap:LaborAndRelatedExpense>
+  <us-gaap:IncomeTaxesPaidNet id="f142" decimals="128" contextRef="c1" unitRef="usd">0.0</us-gaap:IncomeTaxesPaidNet>
+  <us-gaap:NetCashProvidedByUsedInFinancingActivities id="f143" decimals="128" contextRef="c3" unitRef="usd">0.0</us-gaap:NetCashProvidedByUsedInFinancingActivities>
+  <dei:EntityIncorporationDateOfIncorporation id="f144" contextRef="c1">2023-07-25</dei:EntityIncorporationDateOfIncorporation>
+  <us-gaap:InvestmentCompanyNetAssetValuePerSharePeriodIncreaseDecrease id="f145" decimals="INF" contextRef="c3" unitRef="usd1">25.0</us-gaap:InvestmentCompanyNetAssetValuePerSharePeriodIncreaseDecrease>
+  <us-gaap:OtherAssetsNoncurrent id="f146" decimals="INF" contextRef="c" unitRef="usd">116066.0</us-gaap:OtherAssetsNoncurrent>
+</xbrli:xbrl>

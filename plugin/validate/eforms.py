@@ -36,7 +36,7 @@ _license = 'Apache-2'
 _author = 'XBRL US Inc.'
 _copyright = '(c) 2017-present'
 _rule_set_map_name = 'fercRulesetMap.json'
-_latest_map_name = 'https://github.com/xbrlus/xule/raw/main/plugin/xule/fercRulesetMap.json' 
+_latest_map_name = 'https://github.com/xbrlus/ferc-validation-rulesets/raw/main/fercRulesetMap.json' 
 
 """Do not change anything below this line."""
 _xule_plugin_info = None

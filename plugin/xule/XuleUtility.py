@@ -146,6 +146,7 @@ def add_dictionaries(xule_context, left, right):
     return XuleValue.XuleValue(xule_context, frozenset(left_dict.items()), 'dictionary')
 
 def subtract_dictionaries(xule_context, left, right):
+    _imports()
     left_dict = {k.value:(k, v) for k, v in left.value}
 
     for k, v in right.value:
@@ -157,6 +158,7 @@ def subtract_dictionaries(xule_context, left, right):
     return XuleValue.XuleValue(xule_context, frozenset(left_dict.values()), 'dictionary')
 
 def subtract_keys_from_dictionary(xule_context, left, right):
+    _imports()
     left_dict = {k.value:(k, v) for k, v in left.value}
 
     for k in right.value:

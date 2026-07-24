@@ -1,0 +1,477 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><meta http-equiv="Cache-Control" content="no-cache"></meta><title>View Filing Data</title><script type="text/javascript" src="/include/jquery-1.4.3.min.js"></script><script type="text/javascript" src="/include/accordionMenu.js"></script><script type="text/javascript" src="/include/Show.js"></script><link rel="stylesheet" type="text/css" href="/include/interactive.css"></link><link rel="stylesheet" type="text/css" href="/include/report.css"></link><link rel="stylesheet" type="text/css" href="/include/print.css" media="print"></link><style type="text/css">
+          #menu{
+            font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; /* was Arial, Helvetia, sans-serif */
+            font-size:11px;
+          }
+          
+          ul#menu {
+          list-style-type:none;
+          margin:0;
+          padding:0;
+          width:15em;
+          border:1px solid #333;
+          background-color:#FFFFFF; /* was light gray #F5F5EB; */
+          }
+          
+          ul#menu ul{
+            list-style-type:none;
+            margin:0;
+            padding:0;
+            width:15em;
+            background-color:#FFFFFF; /* was light gray #F5F5EB; */
+          }
+          
+          ul#menu a{
+            display:block;
+            text-decoration:none;
+          }
+          
+          ul#menu li{
+            margin-top:1px;
+          }
+          
+          ul#menu li a{
+            background:#F7F7F7; /* was mustard #F3D673; */
+            color:black;
+            padding:0.5em;
+          }
+          
+          ul#menu li a:hover{
+            background:#aaa;
+          }
+          
+          ul#menu li ul li a{
+            background:#FFFFFF; /* was light gray #F5F5EB; */
+            color: #0071EB; /* was brick red #BF0023; */
+            padding-left:20px;
+          }
+          
+          ul#menu li ul li a:hover{
+            background:#aaa;
+            border-left:5px #000 solid;
+            padding-left:15px;
+            text-decoration: underline;
+          }
+          ul#menu li a.all_reports, ul#menu li a.rendering_logs {
+		  		background-color: #0C213A; color: #FFFFFF;
+		   }
+		   ul#menu li a.all_reports:hover,  ul#menu li a.rendering_logs:hover  {
+		  		background-color: #12659C; color: #0C213A;
+		   }
+          li.octave {border-top: 1px solid black;}
+          ul#menu li.ix > a {background-color: #0C213A; color: #FFFFFF;} /* was wasabi #afd77f} */
+          button {
+		   	color: #212529;
+		    border-radius: 1rem;
+		    background-color: #FFC107;
+		    border-color: #FFC107;
+		    white-space: nowrap;
+		   }
+		   button:hover {
+		   		background-color: #EEA800;
+		    	border-color: #EEA800;
+		   }
+        </style><!--[if lt IE 8]>
+<style type="text/css">li.accordion a {display:inline-block;} li.accordion a {display:block;}</style><![endif]--><script type="text/javascript">var InstanceReportXslt = "/include/InstanceReport.xslt"; var InstanceReportXsltDoc = null; var isRedline = (location.href.indexOf("&redline=true") >= 0 || location.href.indexOf("?redline=true") >= 0);var processXsltInBrowser = "false";var reports = new Array();
+        reports[1]="R1.htm";
+        reports[2]="R2.htm";
+        reports[3]="R3.htm";
+        reports[4]="R4.htm";
+        reports[5]="R5.htm";
+        reports[6]="R6.htm";
+        reports[7]="R7.htm";
+        reports[8]="R8.htm";
+        reports[9]="R9.htm";
+        reports[10]="R10.htm";
+        reports[11]="R11.htm";
+        reports[12]="R12.htm";
+        reports[13]="R13.htm";
+        reports[14]="R14.htm";
+        reports[15]="R15.htm";
+        reports[16]="R16.htm";
+        reports[17]="R17.htm";
+        reports[18]="R18.htm";
+        reports[19]="R19.htm";
+        reports[20]="R20.htm";
+        reports[21]="R21.htm";
+        reports[22]="R22.htm";
+        reports[23]="R23.htm";
+        reports[24]="R24.htm";
+        reports[25]="R25.htm";
+        reports[26]="R26.htm";
+        reports[27]="R27.htm";
+        reports[28]="R28.htm";
+        reports[29]="R29.htm";
+        reports[30]="R30.htm";
+        reports[31]="R31.htm";
+        reports[32]="R32.htm";
+        reports[33]="R33.htm";
+        reports[34]="R34.htm";
+        reports[35]="R35.htm";
+        reports[36]="R36.htm";
+        reports[37]="R37.htm";
+        reports[38]="R38.htm";
+        reports[39]="R39.htm";
+        reports[40]="R40.htm";
+        reports[41]="R41.htm";
+        reports[42]="R42.htm";
+        reports[43]="R43.htm";
+        reports[44]="R44.htm";
+        reports[45]="R45.htm";
+        reports[46]="R46.htm";
+        reports[47]="R47.htm";
+        reports[48]="R48.htm";
+        reports[49]="R49.htm";
+        reports[50]="R50.htm";
+        reports[51]="R51.htm";
+        reports[52]="R52.htm";
+        reports[53]="R53.htm";
+        reports[54]="R54.htm";
+        reports[55]="R55.htm";
+        reports[56]="R56.htm";
+        reports[57]="R57.htm";
+        reports[58]="R58.htm";
+        reports[59]="R59.htm";
+        reports[60]="R60.htm";
+        reports[61]="R61.htm";
+        reports[62]="R62.htm";
+        reports[63]="R63.htm";
+        reports[64]="R64.htm";
+        reports[65]="R65.htm";
+        reports[66]="R66.htm";
+        reports[67]="R67.htm";
+        reports[68]="R68.htm";
+        reports[69]="R69.htm";
+        reports[70]="R70.htm";
+        reports[71]="R71.htm";
+        reports[72]="R72.htm";
+        reports[73]="R73.htm";
+        reports[74]="R74.htm";
+        reports[75]="R75.htm";
+        reports[76]="R76.htm";
+        reports[77]="R77.htm";
+        reports[78]="all";reports[79]="RenderingLogs.htm";
+          var parentreport = new Array();//
+                    
+        parentreport[1]=-1;
+        parentreport[2]=-1;
+        parentreport[3]=-1;
+        parentreport[4]=-1;
+        parentreport[5]=-1;
+        parentreport[6]=-1;
+        parentreport[7]=-1;
+        parentreport[8]=-1;
+        parentreport[9]=-1;
+        parentreport[10]=-1;
+        parentreport[11]=-1;
+        parentreport[12]=-1;
+        parentreport[13]=-1;
+        parentreport[14]=-1;
+        parentreport[15]=-1;
+        parentreport[16]=-1;
+        parentreport[17]=-1;
+        parentreport[18]=-1;
+        parentreport[19]=-1;
+        parentreport[20]=-1;
+        parentreport[21]=-1;
+        parentreport[22]=-1;
+        parentreport[23]=-1;
+        parentreport[24]=-1;
+        parentreport[25]=-1;
+        parentreport[26]=-1;
+        parentreport[27]=-1;
+        parentreport[28]=10;
+        parentreport[29]=11;
+        parentreport[30]=12;
+        parentreport[31]=13;
+        parentreport[32]=14;
+        parentreport[33]=15;
+        parentreport[34]=16;
+        parentreport[35]=17;
+        parentreport[36]=18;
+        parentreport[37]=19;
+        parentreport[38]=21;
+        parentreport[39]=22;
+        parentreport[40]=23;
+        parentreport[41]=24;
+        parentreport[42]=27;
+        parentreport[43]=9;
+        parentreport[44]=28;
+        parentreport[45]=29;
+        parentreport[46]=-1;
+        parentreport[47]=30;
+        parentreport[48]=-1;
+        parentreport[49]=-1;
+        parentreport[50]=-1;
+        parentreport[51]=-1;
+        parentreport[52]=-1;
+        parentreport[53]=-1;
+        parentreport[54]=-1;
+        parentreport[55]=-1;
+        parentreport[56]=32;
+        parentreport[57]=33;
+        parentreport[58]=-1;
+        parentreport[59]=-1;
+        parentreport[60]=-1;
+        parentreport[61]=-1;
+        parentreport[62]=-1;
+        parentreport[63]=-1;
+        parentreport[64]=-1;
+        parentreport[65]=-1;
+        parentreport[66]=-1;
+        parentreport[67]=-1;
+        parentreport[68]=-1;
+        parentreport[69]=-1;
+        parentreport[70]=-1;
+        parentreport[71]=-1;
+        parentreport[72]=20;
+        parentreport[73]=38;
+        parentreport[74]=-1;
+        parentreport[75]=-1;
+        parentreport[76]=-1;
+        parentreport[77]=41;
+        parentreport[78]=-1;  
+    var url_path = "";
+    var fetch_prefix = "";
+    var fetch_wraps_xml_in_html = "";
+    var url_filing_dir = location.pathname.substring(0,location.pathname.lastIndexOf("/")+1);
+    
+    	
+   function loadXmlDoc(url) {
+      var doc;
+      var jqxhr=$.ajax({type: "GET",
+                        url: url,
+                        async: false});
+      // code for IE
+      if (window.ActiveXObject) {
+         doc = new ActiveXObject("Msxml2.FreeThreadedDOMDocument.3.0");
+         doc.loadXML(jqxhr.responseText);
+      }      
+      // code for other browsers
+      else if (document.implementation && document.implementation.createDocument) {
+         doc=document.implementation.createDocument("","",null);
+         doc.async=true;
+         doc = jqxhr.responseXML.documentElement;
+      }      
+      return doc;
+   }
+   
+   function fixSrcAttr(src) {
+      var uri = src.substr(0,5);
+      // No change is needed if the 'src' attribute contains an embedded image
+      if (uri == 'data:') {
+         return src;
+      }
+      // EDGAR no change if already a server query format (url_path has a fetchPrefix)
+      if (url_path && src.indexOf(fetch_prefix)>0) {
+         return src;
+      }
+      // Absolute URL on EDGAR website is unchanged
+      var idx = src.lastIndexOf('https://www.sec.gov/Archives/edgar/data/')
+      if (idx > -1) {
+        return src;
+      } // For all other URLs use only basename component
+      var idx = src.lastIndexOf('/');
+      if (idx > -1) {
+         src = src.substring(idx+1,src.length);
+      }
+      return url_path + src;
+   }
+   
+   function getReport(url, xsl_url) {
+      var _url = url_path + url;
+      if (xsl_url == null) { xsl_url = InstanceReportXslt; }
+      var ext = url.substring(url.lastIndexOf('.')+1, url.length);
+      if (ext == 'htm') {
+          $.ajax({
+          type: "GET",
+          url: _url,
+          dataType: "text",
+          async:false,
+          success: function (data) { jQuery('#reportDiv').append(data)
+                  .find('img').attr('src', function(i, val) { return fixSrcAttr(val);}).end();
+              }
+          });            
+      } else if (processXsltInBrowser == 'true') {
+          $.ajax({
+          type: "GET",
+          url: _url,
+          dataType: "text",
+          async: false,
+          success: function(data) {
+                  var path;
+                  if (fetch_wraps_xml_in_html) {
+					  // remove EDGAR workstation HTML wrpping of XML
+					  data = data.replace(/<HTML><HEAD><TITLE>.+<PRE><FONT SIZE = 3>/g, ''); // header
+					  data = data.replace(/<\/FONT><\/PRE><\/BODY><\/HTML>/g, ''); // footer
+					  data = data.replace(/<P CLASS=\"page\">&nbsp;<\/P>/g, '\n'); // newlines
+					  data = data.replace(/&gt;/g, '>'); 
+					  data = data.replace(/&lt;/g, '<'); 
+					  data = data.replace(/&amp;/g, '&'); 
+					  // end of EDGAR HTML wrapping removal
+                      path = _url; // EDGAR workstation and ops GW
+                  } else {
+                      data = data.replace(/^\s+|\s+$/g, ''); // leading or trailing whitespace causes problems
+                  	  path = "/" + _url.substring(1, _url.lastIndexOf('/')+1);
+                  }
+                  
+                  // code for IE
+                  if (window.ActiveXObject) {                  
+                     xsl_doc = loadXmlDoc(xsl_url)
+                     var xslt = new ActiveXObject("Msxml2.XSLTemplate.3.0");   
+                     xslt.stylesheet = xsl_doc;
+                     var xslproc = xslt.createProcessor();
+                     var doc = new ActiveXObject("Msxml2.FreeThreadedDOMDocument.3.0");
+                   	 doc.loadXML(data);
+                     xslproc.input = doc;
+                     xslproc.addParameter("source", path );
+                     xslproc.addParameter("asPage", "true" );
+                     xslproc.transform();
+                     // Find all images and prepend the base URL to the src attribute
+                     jQuery('#reportDiv').append(jQuery(xslproc.output)
+                                         .find('img')
+                                         .attr('src', function(i, val) {
+                                                         return fixSrcAttr(val);
+                                                      }).end());
+                  }                  
+                  // code for other browsers
+                  else if (document.implementation && document.implementation.createDocument) {
+                     xsltProcessor=new XSLTProcessor();
+                     xsltProcessor.importStylesheet(loadXmlDoc(xsl_url));                  
+                     xsltProcessor.setParameter(null,"source",path);
+                     xsltProcessor.setParameter(null,"asPage","true");
+                     parser = new DOMParser();
+                     xmlDoc = parser.parseFromString(data, "text/xml");
+                     var rpt = xsltProcessor.transformToFragment(xmlDoc, document);
+                     document.getElementById("reportDiv").appendChild(rpt);
+                     FixNotesForGeckoWebkit( document.getElementById( 'reportDiv' ) );
+                     // Find all images and prepend the base URL to the src attribute
+                     jQuery('#reportDiv').find('img')
+                                         .attr('src', function(i, val) {
+                                                         return fixSrcAttr(val);
+                                                      });
+                  } else {
+                     alert('Your browser cannot handle this script');
+                  }
+                }
+            });
+               }
+   }
+   
+   function clearReportDiv() {
+      // code for IE
+      if (window.ActiveXObject) {
+         document.getElementById("reportDiv").innerHTML='';
+      }
+      
+      // code for Mozilla, Firefox, Opera, etc.
+      else if (document.implementation && document.implementation.createDocument) {
+         x = document.getElementById("reportDiv").childNodes;
+         for (i=x.length-1;i>-1;i--) {
+            node = document.getElementById("reportDiv").childNodes[i];
+            if (node) {
+               document.getElementById("reportDiv").removeChild(node);
+            }
+         }
+      }
+   }
+   
+   function loadReport(idx) {
+      if (window.XMLHttpRequest || window.ActiveXObject) {
+         clearReportDiv();
+         xsl_url = null;
+         if (reports[idx].indexOf('FilingSummary.xml') > -1) {
+            unHighlightAllMenuItems();
+            xsl_url = url_path + "RenderingLogs.xslt";
+         } 
+         if (reports[idx] == 'all') {
+            highlightAllMenuItems();
+            jQuery.ajaxSetup({async:false});
+            for (var i=1; i<reports.length; i++) {
+               if (reports[i] != 'all') {
+                  getReport(reports[i], xsl_url);
+               } else {
+               break;
+               }
+            }
+         }
+         else { 
+            getReport(reports[idx], xsl_url);
+         }
+         window.scrollTo(0,0);
+      }
+      
+      else {
+         alert('Your browser cannot handle this script');
+      }
+   }
+   
+   function highlight(link) {
+      var parent = document.getElementById( 'menu' );
+      var links = parent.getElementsByTagName( 'a' );
+      
+      for (var i = 0; i < links.length; i++){
+         if (links[i].className == 'xbrlviewer') {
+            if (links[i] == link) {
+               link.style.background = "#C1CDCD";
+            } else {
+               links[i].style.background = "#FFFFFF";
+            }
+         }
+      }
+   }
+   
+   //the parameter 'div' represents <div id="reportDiv">
+   function FixNotesForGeckoWebkit( div ){
+      //textContent is only found in "other" browsers
+      //if it exists, search it for our table - there should only be one
+      if( div.textContent ){
+         var tables = div.getElementsByTagName( 'table' );
+         if( tables.length ){
+            //loop through the tables
+           for( var t = 0; t < tables.length; t++ ){
+              var cells = tables[t].getElementsByTagName( 'td' );
+              //loop through the cells, checking for class="text" which indicates some kind of text content - this includes HTML for notes
+              for( var i = 0; i < cells.length; i++ ){
+                 var curCell = cells[ i ];
+                 if( curCell.className == 'text' ){
+                    //<td class="text" found - now check if this HTML had already been rendered - if so, we should not attempt to render it again
+                    var nodes = curCell.getElementsByTagName( '*' );
+                    if( nodes.length <= 1 ){
+                       //no "nodes" found so perform a secondary check that we have text which resembles HTML
+                       nodes = curCell.textContent.match( /<\/?[a-zA-Z]{1}\w*[^>]*>/g );
+                       if( nodes && nodes.length ){
+                          //this text does resemble HTML, use the textContent as HTML and that will convert the text to HTML content.
+                          curCell.innerHTML = curCell.textContent;
+                        }
+                     }        
+                  }
+               }
+            }
+         }
+      }
+   } 
+   
+   function applyRedline( url ) {
+       if (isRedline) {
+           return url + "&redline=true";
+       } else {
+           return url;
+       }
+   }
+  
+   window.onload = function () {
+         if (window.location.href.substring(0,5)=='file:') {
+          ableToOpenReportFiles = 0;
+          try {$.ajax({type: "GET",url: reports[1],dataType: "text",async:false,
+              success: function (data) { if (data != 0) ableToOpenReportFiles = 1; }});
+          } catch (err) {}
+          if (ableToOpenReportFiles == 0) {
+            alert("In this browser environment, opening the url\n"
+            +window.location.href
+            +"\nprevents individual report files such as "
+            +reports[1]+" from opening.");}}
+      loadReport(1);
+   }
+</script></head><body style="margin: 0"><noscript><div style="color:red; font-weight:bold; text-align:center;">This page uses Javascript. Your browser either doesn't support Javascript or you have it turned off. To see this page as it is meant to appear please use a Javascript enabled browser.</div></noscript><div><table><tr><td colspan="2" style="font-weight: 500; font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif"><a class="xbrlviewer" style="color: black;" href="javascript:window.print();">Print Document</a></td></tr><tr><td style="vertical-align: top;"><div style="width: 170px; margin-right: 5px;"><ul id="menu"><li class="accordion octave"><a id="menu_cat0" href="#">Reports</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(1);">Document and Entity Information</a></li></ul></li><li class="accordion"><a id="menu_cat1" href="#">Statements</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(2);">Consolidated Statements of Operations</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(3);">Consolidated Balance Sheets</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(4);">Consolidated Balance Sheets Parentheticals</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(5);">Consolidated Statements of Stockholders' Equity</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(6);">Consolidated Statements of Cash Flows</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(7);">Consolidated Statements of Cash Flows - Balances per Consolidated Balance Sheets</a></li></ul></li><li class="accordion"><a id="menu_cat2" href="#">Reports</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(8);">Nature of Operations and Basis of Presentation</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(9);">Restricted Cash and Cash Equivalents</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(10);">Trade and Other Receivables, Net of Current Expected Credit Losses</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(11);">Inventory</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(12);">Property, Plant and Equipment, Net of Accumulated Depreciation</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(13);">Derivative Instruments</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(14);">Non-Controlling Interest and Variable Interest Entity</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(15);">Accrued Liabilities</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(16);">Debt</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(17);">Leases</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(18);">Revenues</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(19);">Related Party Transactions</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(20);">Income Taxes</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(21);">Net Income Per Share Attributable to Common Stockholders</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(22);">Share Repurchase Programs</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(23);">Customer Concentration</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(24);">Supplemental Cash Flow Information</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(25);">Pay vs Performance Disclosure</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(26);">Insider Trading Arrangements</a></li></ul></li><li class="accordion"><a id="menu_cat3" href="#">Accounting Policies</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(27);">Nature of Operations and Basis of Presentation (Policies)</a></li></ul></li><li class="accordion"><a id="menu_cat4" href="#">Tables</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(28);">Trade and Other Receivables, Net of Current Expected Credit Losses (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(29);">Inventory (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(30);">Property, Plant and Equipment, Net of Accumulated Depreciation (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(31);">Derivative Instruments (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(32);">Non-Controlling Interest and Variable Interest Entity (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(33);">Accrued Liabilities (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(34);">Debt (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(35);">Leases (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(36);">Revenues (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(37);">Related Party Transactions (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(38);">Net Income Per Share Attributable to Common Stockholders (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(39);">Share Repurchase Programs (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(40);">Customer Concentration (Tables)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(41);">Supplemental Cash Flow Information (Tables)</a></li></ul></li><li class="accordion"><a id="menu_cat5" href="#">Details</a><ul><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(42);">Nature of Operations and Basis of Presentation (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(43);">Restricted Cash and Cash Equivalents (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(44);">Trade and Other Receivables, Net of Current Expected Credit Losses (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(45);">Inventory (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(46);">Property, Plant and Equipment, Net of Accumulated Depreciation - Schedule of Property, Plant and Equipment, Net of Accumulated Depreciation (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(47);">Property, Plant and Equipment, Net of Accumulated Depreciation - Depreciation (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(48);">Derivative Instruments - Narrative (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(49);">Derivative Instruments - Fair Value of Derivative Assets and Liabilities (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(50);">Derivative Instruments - Fair Value Inputs - Quantitative Information (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(51);">Derivative Instruments - Schedule of Level 3 Derivatives Activity (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(52);">Derivative Instruments - Schedule of Notional Amounts of Outstanding Derivative Positions (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(53);">Derivative Instruments - Derivative Instruments, Gain (Loss) (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(54);">Derivative Instruments - Fair Value of Derivative Instruments by Balance Sheet Location (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(55);">Derivative Instruments - Derivative Net Presentation on Consolidated Balance Sheets (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(56);">Non-Controlling Interest and Variable Interest Entity (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(57);">Accrued Liabilities (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(58);">Debt - Schedule of Debt Instruments (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(59);">Debt - Credit Facilities Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(60);">Debt - Interest Expense (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(61);">Debt - Schedule of Carrying Values and Estimated Fair Values of Debt Instruments (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(62);">Leases - Balance Sheet Location Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(63);">Leases - Income Statement Location Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(64);">Leases - Future Minimum Payments Table (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(65);">Leases - Other Quantitative Information (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(66);">Leases - Subleases (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(67);">Revenues - Schedule of Disaggregation of Revenue (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(68);">Revenues - Contract Assets and Liabilities (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(69);">Revenues - Schedule of Transaction Price Allocated to Future Performance Obligations (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(70);">Revenues - Remaining Performance Obligation, Variable Consideration (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(71);">Related Party Transactions - Schedule of Related Party Transactions (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(72);">Income Taxes (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(73);">Net Income Per Share Attributable to Common Stockholders (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(74);">Share Repurchase Programs - Narrative (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(75);">Share Repurchase Programs - Schedule of Share Repurchases (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(76);">Customer Concentration - Schedule of Customer Concentration (Details)</a></li><li class="accordion" style="margin-left:0em"><a class="xbrlviewer" onClick="javascript:highlight(this);" href="javascript:loadReport(77);">Supplemental Cash Flow Information (Details)</a></li></ul></li><li class="accordion"><a class="all_reports" href="javascript:loadReport(78)"><img src="/images/reports.gif" border="0" height="12" width="9" alt="Reports"></img> All Reports</a></li><li class="accordion"><a class="rendering_logs" href="javascript:loadReport(79)"><img src="/images/reports.gif" border="0" height="12" width="9" alt="Logs"></img> Rendering Log</a></li></ul></div></td><td style="vertical-align: top;"><div id="reportDiv"></div></td></tr></table></div></body></html>

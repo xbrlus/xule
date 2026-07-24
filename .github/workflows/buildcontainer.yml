@@ -1,0 +1,140 @@
+name: Build XULE Container
+
+on:
+  workflow_dispatch:
+    inputs:
+      python_version:
+        description: 'Python version for the base image (e.g. 3.14). Leave empty to use the latest release.'
+        required: false
+        default: ''
+        type: string
+      arelle_version:
+        description: 'Arelle-release package version to install. Leave empty to use the latest release.'
+        required: false
+        default: ''
+        type: string
+      edgar_version:
+        description: 'Arelle/EDGAR plugin version to install. Leave empty to use the latest release.'
+        required: false
+        default: ''
+        type: string
+      xule_version:
+        description: 'XULE git tag/branch to embed (from https://github.com/xbrlus/xule). Leave empty to use the latest XULE release.'
+        required: false
+        default: ''
+        type: string
+  push:
+    branches: ['**']
+    paths:
+      - 'Dockerfile'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  resolve-versions:
+    name: Resolve latest versions
+    runs-on: ubuntu-latest
+    outputs:
+      python_version: ${{ steps.resolve.outputs.python_version }}
+      arelle_version: ${{ steps.resolve.outputs.arelle_version }}
+      edgar_version: ${{ steps.resolve.outputs.edgar_version }}
+      xule_version: ${{ steps.resolve.outputs.xule_version }}
+    steps:
+      - name: Resolve latest Python, Arelle, EDGAR and XULE versions
+        id: resolve
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_PYTHON_VERSION: ${{ inputs.python_version }}
+          INPUT_ARELLE_VERSION: ${{ inputs.arelle_version }}
+          INPUT_EDGAR_VERSION: ${{ inputs.edgar_version }}
+          INPUT_XULE_VERSION: ${{ inputs.xule_version }}
+        run: |
+          set -euo pipefail
+
+          if [ -n "$INPUT_PYTHON_VERSION" ]; then
+            PYTHON_VERSION="$INPUT_PYTHON_VERSION"
+          else
+            PYTHON_VERSION=$(curl -fsSL https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json | python3 -c "
+          import json, sys
+          versions = json.load(sys.stdin)
+          stable = [v['version'] for v in versions if v.get('stable')]
+          key = lambda v: tuple(int(p) for p in v.split('.'))
+          latest = max(stable, key=key)
+          print('.'.join(latest.split('.')[:2]))
+          ")
+          fi
+          echo "Using Python version: $PYTHON_VERSION"
+          echo "python_version=$PYTHON_VERSION" >> "$GITHUB_OUTPUT"
+
+          if [ -n "$INPUT_ARELLE_VERSION" ]; then
+            ARELLE_VERSION="$INPUT_ARELLE_VERSION"
+          else
+            ARELLE_VERSION=$(curl -fsSL https://pypi.org/pypi/arelle-release/json | python3 -c "import json, sys; print(json.load(sys.stdin)['info']['version'])")
+          fi
+          echo "Using Arelle version: $ARELLE_VERSION"
+          echo "arelle_version=$ARELLE_VERSION" >> "$GITHUB_OUTPUT"
+
+          if [ -n "$INPUT_EDGAR_VERSION" ]; then
+            EDGAR_VERSION="$INPUT_EDGAR_VERSION"
+          else
+            EDGAR_VERSION=$(gh api "repos/Arelle/EDGAR/releases/latest" --jq .tag_name 2>/dev/null || true)
+            if [ -z "$EDGAR_VERSION" ]; then
+              echo "No published release found, falling back to master"
+              EDGAR_VERSION="master"
+            fi
+          fi
+          echo "Using EDGAR version: $EDGAR_VERSION"
+          echo "edgar_version=$EDGAR_VERSION" >> "$GITHUB_OUTPUT"
+
+          if [ -n "$INPUT_XULE_VERSION" ]; then
+            XULE_VERSION="$INPUT_XULE_VERSION"
+          else
+            XULE_VERSION=$(gh api "repos/${{ github.repository }}/releases/latest" --jq .tag_name 2>/dev/null || true)
+            if [ -z "$XULE_VERSION" ]; then
+              echo "No published release found, falling back to main"
+              XULE_VERSION="main"
+            fi
+          fi
+          echo "Using XULE version: $XULE_VERSION"
+          echo "xule_version=$XULE_VERSION" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build and push container
+    needs: resolve-versions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            PYTHON_VERSION=${{ needs.resolve-versions.outputs.python_version }}
+            ARELLE_VERSION=${{ needs.resolve-versions.outputs.arelle_version }}
+            EDGAR_VERSION=${{ needs.resolve-versions.outputs.edgar_version }}
+            XULE_VERSION=${{ needs.resolve-versions.outputs.xule_version }}
