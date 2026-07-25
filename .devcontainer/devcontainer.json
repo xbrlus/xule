@@ -1,0 +1,14 @@
+{
+  "name": "XULE Development",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "XBRLUS.xule",
+        "ms-python.python"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}

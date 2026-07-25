@@ -7,6 +7,12 @@ Interactive Example - Running XULE in Arelle
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/xbrlus/xule/blob/jupyter/sample-colab.ipynb)  
 [Learn about using XULE and XBRL](https://xbrl.us/online-learning)
 
+## GitHub Codespaces
+
+Opening this repository in a [Codespace](https://github.com/codespaces) uses the [devcontainer config](.devcontainer/devcontainer.json) to set up a ready-to-use development environment: Python, Arelle, the EDGAR transform/validate plugins, and the XULE plugin (linked live from this checkout, so edits under `plugin/xule` take effect immediately). The [XULE Editor](https://marketplace.visualstudio.com/items?itemName=XBRLUS.xule) VS Code extension is installed automatically for `.xule` syntax highlighting.
+
+It also pulls in content from the latest [DataQualityCommittee/dqc_us_rules](https://github.com/DataQualityCommittee/dqc_us_rules) release into a `dqc_us_rules` folder at the repo root: `resources/Effective_Dates`, `resources/rule-form-lookup`, `source/lib`, and the latest `source/us/<year>` and `taxonomy/us/<year>` folders. Inside `source/us/<year>`, the `.vscode` config is overwritten with [xbrlus/xule-editor](https://github.com/xbrlus/xule-editor)'s copy for that year — open `dqc_us_rules/source/us/<year>` directly in VS Code/Codespaces to pick it up.
+
 ## Docker
 
 A [Dockerfile](Dockerfile) is provided that builds a ready-to-run environment with Python, Arelle, and the XULE and EDGAR plugins installed. The [Build XULE Container](.github/workflows/buildcontainer.yml) GitHub Action builds this image and pushes it to `ghcr.io/xbrlus/xule`.
