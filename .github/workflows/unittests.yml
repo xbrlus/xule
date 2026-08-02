@@ -38,6 +38,7 @@ jobs:
             isodate==0.6.1 \
             aniso8601==9.0.1 \
             holidays==0.52 \
+            pytz \
             regex \
             tabulate \
             NumPy==1.26.2 \
@@ -55,12 +56,12 @@ jobs:
         run: |
           set -euo pipefail
           SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
-          ARELLE_SRC=$(mktemp -d)
-          git clone --depth 1 https://github.com/Arelle/Arelle.git "$ARELLE_SRC"
-          rm -rf "$SITE_PACKAGES/arelle/plugin/validate" "$SITE_PACKAGES/arelle/plugin/transforms"
-          cp -r "$ARELLE_SRC/arelle/plugin/validate" "$SITE_PACKAGES/arelle/plugin/validate"
-          cp -r "$ARELLE_SRC/arelle/plugin/transforms" "$SITE_PACKAGES/arelle/plugin/transforms"
-          rm -rf "$ARELLE_SRC"
+          EDGAR_SRC=$(mktemp -d)
+          git clone --depth 1 https://github.com/Arelle/EDGAR.git "$EDGAR_SRC"
+          rm -rf "$SITE_PACKAGES/arelle/plugin/EDGAR"
+          cp -r "$EDGAR_SRC" "$SITE_PACKAGES/arelle/plugin/EDGAR"
+          rm -rf "$SITE_PACKAGES/arelle/plugin/EDGAR/.git"
+          rm -rf "$EDGAR_SRC"
 
       - name: Compile base unit test ruleset
         run: |
@@ -113,7 +114,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p unitTests/output
-          ARGS=(--plugins 'xule|transforms/SEC|validate/EFM|inlineXbrlDocumentSet'
+          ARGS=(--plugins 'xule|EDGAR/transform|validate/EFM|inlineXbrlDocumentSet'
                 --xule-run
                 --noCertificateCheck
                 --xule-rule-set unitTests/compiled/ut-ruleset.zip
