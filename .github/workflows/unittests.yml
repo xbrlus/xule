@@ -19,6 +19,8 @@ jobs:
     name: Compile and run base unit tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      RUN_ID: ${{ github.run_id }}
 
     steps:
       - name: Checkout repository
@@ -63,13 +65,22 @@ jobs:
           rm -rf "$SITE_PACKAGES/arelle/plugin/EDGAR/.git"
           rm -rf "$EDGAR_SRC"
 
+      - name: Build expected results from XULE source
+        run: |
+          set -euo pipefail
+          mkdir -p unitTests/output
+          python3 unitTests/commands/xule_test_report.py extract \
+            --source-dir unitTests/source/base \
+            --exclude base-taxonomy-2020.xule constants.xule \
+            --out "unitTests/output/expected-${RUN_ID}.csv"
+
       - name: Compile base unit test ruleset
         run: |
           mkdir -p unitTests/compiled
           python -m arelle.CntlrCmdLine \
             --xule-compile unitTests/source/base \
             --plugins "xule" \
-            --xule-rule-set unitTests/compiled/ut-ruleset.zip \
+            --xule-rule-set "unitTests/compiled/ut-ruleset-${RUN_ID}.zip" \
             --xule-max-recurse-depth=2500
 
       - name: Determine rules to run
@@ -117,24 +128,28 @@ jobs:
           ARGS=(--plugins 'xule|EDGAR/transform|validate/EFM|inlineXbrlDocumentSet'
                 --xule-run
                 --noCertificateCheck
-                --xule-rule-set unitTests/compiled/ut-ruleset.zip
+                --xule-rule-set "unitTests/compiled/ut-ruleset-${RUN_ID}.zip"
                 --logNoRefObjectProperties
                 --logFormat "[%(messageCode)s] %(message)s")
           RUN_ONLY="${{ steps.rules.outputs.run_only }}"
           if [ -n "$RUN_ONLY" ]; then
             ARGS+=(--xule-run-only "$RUN_ONLY")
           fi
-          python -m arelle.CntlrCmdLine "${ARGS[@]}" > unitTests/output/output.txt
+          python -m arelle.CntlrCmdLine "${ARGS[@]}" > "unitTests/output/output-${RUN_ID}.txt"
 
       - name: Clean noise from output
         run: |
           grep -E -v "(ix11.11.1.2:invalidTransformation|ix11.10.1.2:invalidTransformation|xmlSchema:syntax|html:syntaxError|Activation of plug|Xule version:|Instance Loaded.|Taxonomy Loaded.)" \
-            unitTests/output/output.txt > unitTests/output/output.tmp.txt \
-            && mv unitTests/output/output.tmp.txt unitTests/output/output.txt
+            "unitTests/output/output-${RUN_ID}.txt" > unitTests/output/output.tmp.txt \
+            && mv unitTests/output/output.tmp.txt "unitTests/output/output-${RUN_ID}.txt"
 
-      - name: Print errors
+      - name: Compare results against expected values
         if: always()
-        run: grep -i "error" unitTests/output/output.txt || echo "No errors found in unit test output."
+        run: |
+          python3 unitTests/commands/xule_test_report.py compare \
+            --expected "unitTests/output/expected-${RUN_ID}.csv" \
+            --output "unitTests/output/output-${RUN_ID}.txt" \
+            --csv "unitTests/output/mismatches-${RUN_ID}.csv"
 
       - name: Upload output artifact
         if: always()
@@ -142,6 +157,8 @@ jobs:
         with:
           name: unit-test-output
           path: |
-            unitTests/output/output.txt
-            unitTests/compiled/ut-ruleset.zip
+            unitTests/output/output-${{ github.run_id }}.txt
+            unitTests/output/expected-${{ github.run_id }}.csv
+            unitTests/output/mismatches-${{ github.run_id }}.csv
+            unitTests/compiled/ut-ruleset-${{ github.run_id }}.zip
           retention-days: 30
