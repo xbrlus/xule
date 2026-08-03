@@ -53,6 +53,7 @@ jobs:
           SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
           mkdir -p "$SITE_PACKAGES/arelle/plugin"
           cp -r plugin/xule "$SITE_PACKAGES/arelle/plugin/xule"
+          cp plugin/semanticHash.py "$SITE_PACKAGES/arelle/plugin/semanticHash.py"
 
       - name: Install validate and transform plugins from Arelle GitHub repository
         run: |
@@ -65,43 +66,49 @@ jobs:
           rm -rf "$SITE_PACKAGES/arelle/plugin/EDGAR/.git"
           rm -rf "$EDGAR_SRC"
 
-      - name: Build expected results from XULE source
-        run: |
-          set -euo pipefail
-          mkdir -p unitTests/output
-          python3 unitTests/commands/xule_test_report.py extract \
-            --source-dir unitTests/source/base \
-            --exclude base-taxonomy-2020.xule constants.xule \
-            --out "unitTests/output/expected-${RUN_ID}.csv"
-
-      - name: Compile base unit test ruleset
-        run: |
-          mkdir -p unitTests/compiled
-          python -m arelle.CntlrCmdLine \
-            --xule-compile unitTests/source/base \
-            --plugins "xule" \
-            --xule-rule-set "unitTests/compiled/ut-ruleset-${RUN_ID}.zip" \
-            --xule-max-recurse-depth=2500
-
-      - name: Determine rules to run
+      - name: Determine files and rules to run
         id: rules
         env:
           XULE_FILE: ${{ inputs.xule_file }}
         run: |
           set -euo pipefail
+          # constants.xule is required too: resources.xule (one of the files
+          # below) references constants (e.g. NON_NEG_ITEMS) defined there,
+          # so compiling resources.xule without it fails.
+          ALWAYS_INCLUDE=(base-taxonomy-2020.xule constants.xule functions.xule namespace.xule resources.xule)
           if [ -z "$XULE_FILE" ]; then
             echo "run_only=" >> "$GITHUB_OUTPUT"
+            echo "compile_target=unitTests/source/base" >> "$GITHUB_OUTPUT"
+            echo "expected_files=" >> "$GITHUB_OUTPUT"
             echo "No file specified, running every rule in the compiled ruleset"
           else
+            declare -A SEEN_COMPILE_FILES=()
             RULES=""
+            EXPECTED_FILES=""
+            COMPILE_FILES=""
+
+            add_compile_file() {
+              local fname="$1"
+              if [ -n "${SEEN_COMPILE_FILES[$fname]:-}" ]; then
+                return
+              fi
+              SEEN_COMPILE_FILES[$fname]=1
+              if [ -z "$COMPILE_FILES" ]; then
+                COMPILE_FILES="unitTests/source/base/$fname"
+              else
+                COMPILE_FILES="$COMPILE_FILES|unitTests/source/base/$fname"
+              fi
+            }
+
             IFS=',' read -ra FILES <<< "$XULE_FILE"
             for f in "${FILES[@]}"; do
               f="$(echo "$f" | xargs)"
               [ -z "$f" ] && continue
               case "$f" in
-                *.xule) SOURCE_FILE="unitTests/source/base/$f" ;;
-                *) SOURCE_FILE="unitTests/source/base/$f.xule" ;;
+                *.xule) FNAME="$f" ;;
+                *) FNAME="$f.xule" ;;
               esac
+              SOURCE_FILE="unitTests/source/base/$FNAME"
               if [ ! -f "$SOURCE_FILE" ]; then
                 echo "::error::No such XULE source file: $SOURCE_FILE"
                 exit 1
@@ -116,10 +123,46 @@ jobs:
               else
                 RULES="$RULES,$FILE_RULES"
               fi
+              if [ -z "$EXPECTED_FILES" ]; then
+                EXPECTED_FILES="$FNAME"
+              else
+                EXPECTED_FILES="$EXPECTED_FILES,$FNAME"
+              fi
+              add_compile_file "$FNAME"
             done
+
+            for a in "${ALWAYS_INCLUDE[@]}"; do
+              add_compile_file "$a"
+            done
+
             echo "run_only=$RULES" >> "$GITHUB_OUTPUT"
+            echo "compile_target=$COMPILE_FILES" >> "$GITHUB_OUTPUT"
+            echo "expected_files=$EXPECTED_FILES" >> "$GITHUB_OUTPUT"
             echo "Running only: $RULES"
+            echo "Compiling: $COMPILE_FILES"
           fi
+
+      - name: Build expected results from XULE source
+        run: |
+          set -euo pipefail
+          mkdir -p unitTests/output
+          EXPECTED_FILES="${{ steps.rules.outputs.expected_files }}"
+          ARGS=(--source-dir unitTests/source/base
+                --out "unitTests/output/expected-${RUN_ID}.csv")
+          if [ -n "$EXPECTED_FILES" ]; then
+            IFS=',' read -ra FILE_ARGS <<< "$EXPECTED_FILES"
+            ARGS+=(--files "${FILE_ARGS[@]}")
+          fi
+          python3 unitTests/commands/xule_test_report.py extract "${ARGS[@]}"
+
+      - name: Compile base unit test ruleset
+        run: |
+          mkdir -p unitTests/compiled
+          python -m arelle.CntlrCmdLine \
+            --xule-compile "${{ steps.rules.outputs.compile_target }}" \
+            --plugins "xule" \
+            --xule-rule-set "unitTests/compiled/ut-ruleset-${RUN_ID}.zip" \
+            --xule-max-recurse-depth=2500
 
       - name: Run XULE unit tests
         run: |
@@ -128,6 +171,7 @@ jobs:
           ARGS=(--plugins 'xule|EDGAR/transform|validate/EFM|inlineXbrlDocumentSet'
                 --xule-run
                 --noCertificateCheck
+                --httpUserAgent "XBRL US XULE Unit Tests dqc@xbrl.us"
                 --xule-rule-set "unitTests/compiled/ut-ruleset-${RUN_ID}.zip"
                 --logNoRefObjectProperties
                 --logFormat "[%(messageCode)s] %(message)s")

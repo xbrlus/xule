@@ -29,9 +29,15 @@ ERROR_RE = re.compile(r'^\[xule:error\]\s+rule\s+([A-Za-z0-9_]+):\s?(.*)$')
 CONTAINER_RE = re.compile(r'^([A-Za-z_][A-Za-z0-9_-]*)\s*\((.*)\)$', re.DOTALL)
 
 
-def build_expected(source_dir, exclude):
-    """Returns an ordered list of (rule, expected) from the alphabetized .xule files."""
-    files = sorted(f for f in os.listdir(source_dir) if f.endswith('.xule') and f not in exclude)
+def build_expected(source_dir, exclude, only_files=None):
+    """Returns an ordered list of (rule, expected) from the alphabetized .xule files.
+
+    If only_files is given, restricts to just those filenames (still
+    alphabetized, still subject to exclude) instead of scanning source_dir."""
+    if only_files is not None:
+        files = sorted(f for f in only_files if f not in exclude)
+    else:
+        files = sorted(f for f in os.listdir(source_dir) if f.endswith('.xule') and f not in exclude)
     rows = []
     seen = set()
     for fname in files:
@@ -46,7 +52,7 @@ def build_expected(source_dir, exclude):
 
 
 def cmd_extract(args):
-    rows = build_expected(args.source_dir, set(args.exclude))
+    rows = build_expected(args.source_dir, set(args.exclude), args.files)
     with open(args.out, 'w', newline='', encoding='utf-8') as fh:
         writer = csv.writer(fh)
         writer.writerow(['rule', 'expected'])
@@ -324,6 +330,13 @@ def cmd_compare(args):
             else:
                 writer.writerows(rows)
 
+    problem_count = counts['MISMATCH'] + counts['REQUIRES_INSTANCE_OR_TAXONOMY']
+    print(f"{len(expected_rows)} rules checked: {counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, {counts['MISMATCH']} mismatch, \n"
+          f"{counts['MATCH_NORMALIZED']} match after normalizing a cosmetic difference as noted, {counts['MATCH']} match.")
+
+    if problem_count == 0:
+        print("No errors found in unit test output.")
+
     for status in GROUP_ORDER:
         rows = grouped[status]
         print(f"\n \n=== {GROUP_HEADINGS[status]} ({len(rows)}) ===")
@@ -339,15 +352,6 @@ def cmd_compare(args):
             for name, row_status, expected_text, actual_repr, reason in rows:
                 print_row(row_status, name, expected_text, actual_repr, reason)
 
-    problem_count = counts['MISMATCH'] + counts['REQUIRES_INSTANCE_OR_TAXONOMY']
-    print(f"\nSummary: {counts['MATCH']} match, {counts['MATCH_NORMALIZED']} match after normalizing a "
-          f"cosmetic difference (commas/trailing period/JSON formatting), {counts['MISMATCH']} mismatch, "
-          f"{counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, "
-          f"{len(expected_rows)} total rules checked.")
-
-    if problem_count == 0:
-        print("No errors found in unit test output.")
-
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
@@ -356,6 +360,9 @@ def main():
     p_extract = sub.add_parser('extract', help='Build the expected-results CSV from XULE source comments.')
     p_extract.add_argument('--source-dir', required=True)
     p_extract.add_argument('--exclude', nargs='*', default=[])
+    p_extract.add_argument('--files', nargs='*', default=None,
+                            help='Restrict to just these filenames (relative to --source-dir) instead of '
+                                 'scanning the whole directory.')
     p_extract.add_argument('--out', required=True)
     p_extract.set_defaults(func=cmd_extract)
 
