@@ -219,6 +219,10 @@ def looks_like_taxonomy_error(vals):
     return any(marker in v.lower() for v in vals for marker in TAXONOMY_ERROR_MARKERS)
 
 
+def is_xule_error(expected_text, actual_repr):
+    return expected_text.startswith('[xule:error]') or actual_repr.startswith('[xule:error]')
+
+
 def candidate_representations(vals, raw_lines):
     cands = {'\n'.join(vals), '\n'.join(raw_lines),
               '{' + ','.join('{' + v + '}' for v in vals) + '}'}
@@ -267,6 +271,28 @@ GROUP_HEADINGS = {
 }
 
 
+def partition_xule_error(rows):
+    """Splits a group's rows into (xule_error_rows, other_rows), preserving
+    each subset's existing relative order. A row is xule_error if its
+    expected or actual text begins with "[xule:error]"."""
+    xule_error_rows = [r for r in rows if is_xule_error(r[2], r[3])]
+    other_rows = [r for r in rows if not is_xule_error(r[2], r[3])]
+    return xule_error_rows, other_rows
+
+
+def print_row(status, name, expected_text, actual_repr, reason):
+    if status == 'MATCH_NORMALIZED':
+        print(f"[MATCH_NORMALIZED] {name}: {reason}")
+        print(f"expected={expected_text!r}")
+        print(f"actual={actual_repr!r}\n ")
+    elif status == 'MISMATCH':
+        print(f"[MISMATCH] {name}:")
+        print(f"expected={expected_text!r}")
+        print(f"actual={actual_repr!r}\n ")
+    else:
+        print(f"[{status}] {name}: expected={expected_text!r} actual={actual_repr!r}")
+
+
 def cmd_compare(args):
     expected_rows = []
     with open(args.expected, encoding='utf-8') as fh:
@@ -289,22 +315,29 @@ def cmd_compare(args):
         for status in GROUP_ORDER:
             rows = grouped[status]
             writer.writerow([f"=== {GROUP_HEADINGS[status]} ({len(rows)}) ==="])
-            writer.writerows(rows)
+            xule_error_rows, other_rows = partition_xule_error(rows)
+            if xule_error_rows and other_rows:
+                writer.writerow([f"--- xule_error ({len(xule_error_rows)}) ---"])
+                writer.writerows(xule_error_rows)
+                writer.writerow([f"--- other ({len(other_rows)}) ---"])
+                writer.writerows(other_rows)
+            else:
+                writer.writerows(rows)
 
     for status in GROUP_ORDER:
         rows = grouped[status]
         print(f"\n \n=== {GROUP_HEADINGS[status]} ({len(rows)}) ===")
-        for name, _, expected_text, actual_repr, reason in rows:
-            if status == 'MATCH_NORMALIZED':
-                print(f"[MATCH_NORMALIZED] {name}: {reason}")
-                print(f"expected={expected_text!r}")
-                print(f"actual={actual_repr!r}\n ")
-            elif status == 'MISMATCH':
-                print(f"[MISMATCH] {name}:")
-                print(f"expected={expected_text!r}")
-                print(f"actual={actual_repr!r}\n ")
-            else:
-                print(f"[{status}] {name}: expected={expected_text!r} actual={actual_repr!r}")
+        xule_error_rows, other_rows = partition_xule_error(rows)
+        if xule_error_rows and other_rows:
+            print(f"--- xule_error ({len(xule_error_rows)}) ---")
+            for name, row_status, expected_text, actual_repr, reason in xule_error_rows:
+                print_row(row_status, name, expected_text, actual_repr, reason)
+            print(f"--- other ({len(other_rows)}) ---")
+            for name, row_status, expected_text, actual_repr, reason in other_rows:
+                print_row(row_status, name, expected_text, actual_repr, reason)
+        else:
+            for name, row_status, expected_text, actual_repr, reason in rows:
+                print_row(row_status, name, expected_text, actual_repr, reason)
 
     problem_count = counts['MISMATCH'] + counts['REQUIRES_INSTANCE_OR_TAXONOMY']
     print(f"\nSummary: {counts['MATCH']} match, {counts['MATCH_NORMALIZED']} match after normalizing a "
