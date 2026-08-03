@@ -956,7 +956,7 @@ output MAX104
   max(set(0.25, 1.45, 5.5))
 
 output MAX105
-/* rule MAX105: '>' not supported between instances of 'XuleString' and 'float' */
+/* rule MAX105: '>' not supported between instances of 'float' and 'XuleString' */
 
   max(set(0.25, 'cat', 1.45, 5.5))
 

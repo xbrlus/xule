@@ -450,7 +450,7 @@ output DST102
   2734.56789.string
 
 output DST103
-/* 46388 */
+/* 2027-01-01 */
 
   date('2027-01-01').string
 
@@ -545,12 +545,12 @@ output SUBS106
   'Hello Mr. Stains'.substring(none, none)
 
 output INTRSF001
-/* 44075 */
+/* 2020-09-01 */
 
   inline-transform('01-septembre-2020',ixt:date-day-monthname-year-fr, 'date')
 
 output INTRSF002
-/* 44075 */
+/* 2020-09-01 */
 
   '01-septembre-2020'.inline-transform(ixt:date-day-monthname-year-fr, 'date')
 
@@ -575,7 +575,7 @@ output INTRSF006
   ''.inline-transform(ixt:date-day-monthname-year-fr)
 
 output INTRSF007
-/* 44075 */
+/* 2020-09-01 */
 
   inline-transform('01-septembre-2020',ixt:date-day-monthname-year-fr)
 
@@ -650,7 +650,7 @@ output SUMSTRING101
   sum('hello')
 
 output COUNTSTRING101
-/* rule COUNTSTRING101: Rule: COUNTSTRING101 - The first argument of function 'count' must be set, list, found 'string'. */
+/* rule COUNTSTRING101: Rule: COUNTSTRING101 - The first argument of function 'count' must be set, list, dictionary, found 'string'. */
 
   count('hello')
 
@@ -675,7 +675,7 @@ output STRIN001
   'abcdef'.last
 
 output STRIN002
-/* rule STRIN002: Rule: STRIN002 - The 'index' property or index expression '[ */
+/* rule STRIN002: Rule: STRIN002 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'string' */
 
   'abcdef'[3]
 

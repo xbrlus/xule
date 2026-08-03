@@ -50,12 +50,12 @@ output FDATE110
   list([covered @instance = $INSTANCE1 where $fact.period.days == 0]).count
 
 output FDATE111
-/* 43921 */
+/* 2020-03-31 */
 
   duration('2020-01-01', '2020-03-31').end
 
 output FDATE112
-/* 43831 */
+/* 2020-01-01 */
 
   date('2020-01-01').end
 
@@ -110,12 +110,12 @@ output FDATE122
   '2022-02-99'.month
 
 output FDATE123
-/* 43831 */
+/* 2020-01-01 */
 
   duration('2020-01-01', '2020-03-31').start
 
 output FDATE124
-/* 43831 */
+/* 2020-01-01 */
 
   date('2020-01-01').start
 
@@ -165,27 +165,27 @@ output FDATE133
   duration('2022-02-02', '2022-02-20').year
 
 output DAT001
-/* 44562 */
+/* 2022-01-01 */
 
   date('2022-01-01')
 
 output DAT002
-/* 44562.5208333333 */
+/* 2022-01-01 */
 
   date('2022-01-01T12:30:00')
 
 output DAT003
-/* 44620 */
+/* 2022-02-28 */
 
   date('2022-02-28')
 
 output DAT004
-/* 45351 */
+/* 2024-02-29 */
 
   date('2024-02-29')
 
 output DAT005
-/* 45351 */
+/* 2024-02-29 */
 
   '2024-02-29'.date
 
@@ -215,7 +215,7 @@ output DAT094
   date('2022-02-29')
 
 output DAT095
-/* 43832 */
+/* 2020-01-02 */
 
   date('2020-01' + '-02')
 
@@ -235,7 +235,7 @@ output DAT098
   date('2020-01-03') < date('2020-01-07')
 
 output DAT099
-/* rule DAT099: Rule: DAT099 - The first argument of function 'date' must be string, instant, found 'none' */
+/* rule DAT099: Rule: DAT099 - The first argument of function 'date' must be string, instant, found 'none'. */
 
   date(none)
 
@@ -280,7 +280,7 @@ output DUR092
   duration('2022-01-aa', '2022-03-31')
 
 output DUR093
-/* No iteration as is a non existent duration */
+/*  */
 
   duration('2022-03-31', '2022-01-01')
 
@@ -335,7 +335,7 @@ output DUR103
   '2022-01-01'.duration('2022-06-30')
 
 output DUR104
-/* 0 */
+/* 0:00:00 */
 
   duration('2022-03-31', '2022-03-31').time-span
 
@@ -345,17 +345,17 @@ output DUR105
   duration('2022-03-31', '2022-04-01').time-span
 
 output DUR106
-/* 0 */
+/* 0:00:00 */
 
   duration('2022-03-31', '2022-03-31T24:00:00').time-span
 
 output DUR107
-/* 0 */
+/* 0:00:00 */
 
   (duration('2022-03-31', '2022-03-31T24:00:00').time-span + time-span('P0D'))
 
 output DUR108
-/* 44651 */
+/* 2022-03-31 */
 
   date('2022-03-31T24:00:00') + time-span('P0D')
 
@@ -375,12 +375,12 @@ output FVR001
   forever()
 
 output FVR002
-/* 2958465 */
+/* 9999-12-31 */
 
   forever().end
 
 output FVR003
-/* 0001-01-01' */
+/* 1-01-01 */
 
   forever().start
 
@@ -455,7 +455,7 @@ output TSP106
   time-span('P4W2D')
 
 output TSP107
-/* 0.5 */
+/* 12:00:00 */
 
   time-span('PT12H')
 

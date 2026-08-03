@@ -1,11 +1,11 @@
 /* Dates */
 output DO100
-/* 43835 */
+/* 2020-01-05 */
 
   date('2020-01-01') + time-span('P4D')
 
 output DO101
-/* 44595 */
+/* 2022-02-03 */
 
   date('2022-02-02T12:00:00') + time-span('PT12H')
 
@@ -15,7 +15,7 @@ output DO102
   time-span('P4D') + date('2020-01-01')
 
 output DO103
-/* 43827 */
+/* 2019-12-28 */
 
   date('2020-01-01') - time-span('P4D')
 
@@ -131,24 +131,24 @@ output DO123
 if $string == '-01' skip else date($string) + time-span('P1M')
 
 output DO124
-/* 42704 */
+/* 2016-11-30 */
 
   $date = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
 $date + time-span('P1M')
 
 output DO125
-/* 42674 */
+/* 2016-10-31 */
 
   $date = {nonils @instance = $INSTANCE_SHORT_DATE @concept.local-name = 'SubmissionDateOfFinalReportToEPA'}
 date($date )
 
 output DO126
-/* 2958465 */
+/* 9999-12-31 */
 
   forever.end
 
 output DO127
-/* 0001-01-01 */
+/* 1-01-01 */
 
   forever.start
 

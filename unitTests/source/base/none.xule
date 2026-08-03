@@ -185,7 +185,7 @@ output PMN137
   set(1,2,3) - none
 
 output PMN138
-/* rule PMN136: Rule: PMN136 - Intersection can only operatate on sets. The left side is a 'unbound'. */
+/* rule PMN138: Rule: PMN138 - Intersection can only operatate on sets. The left side is a 'unbound'. */
 
   none intersect (set(1,2,3))
 

@@ -220,7 +220,7 @@ output MOD112
   mod(9.0, 4.0)
 
 output MOD119
-/* rule MOD109: Rule: MOD109 - Divide by zero error in property/function mod() */
+/* rule MOD119: Rule: MOD119 - Divide by zero error in property/function mod() */
 
   mod(9.0, 0.0)
 
@@ -465,7 +465,7 @@ output TRUN104
   trunc(none,2)
 
 output TRUN105
-/* rule TRUN105: [<class 'decimal.ConversionSyntax'> */
+/* rule TRUN105: [<class 'decimal.ConversionSyntax'>] */
 
   trunc('cat',2)
 
