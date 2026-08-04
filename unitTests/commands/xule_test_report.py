@@ -331,7 +331,7 @@ def cmd_compare(args):
                 writer.writerows(rows)
 
     problem_count = counts['MISMATCH'] + counts['REQUIRES_INSTANCE_OR_TAXONOMY']
-    print(f"{len(expected_rows)} rules checked: {counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, {counts['MISMATCH']} mismatch, \n"
+    print(f"\n \n{len(expected_rows)} rules checked: {counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, {counts['MISMATCH']} mismatch, \n"
           f"{counts['MATCH_NORMALIZED']} match after normalizing a cosmetic difference as noted, {counts['MATCH']} match.")
 
     if problem_count == 0:
@@ -339,13 +339,13 @@ def cmd_compare(args):
 
     for status in GROUP_ORDER:
         rows = grouped[status]
-        print(f"\n \n=== {GROUP_HEADINGS[status]} ({len(rows)}) ===")
+        print(f"=== {GROUP_HEADINGS[status]} ({len(rows)}) ===")
         xule_error_rows, other_rows = partition_xule_error(rows)
         if xule_error_rows and other_rows:
-            print(f"--- xule_error ({len(xule_error_rows)}) ---")
+            print(f" \n--- xule_error ({len(xule_error_rows)}) ---")
             for name, row_status, expected_text, actual_repr, reason in xule_error_rows:
                 print_row(row_status, name, expected_text, actual_repr, reason)
-            print(f"--- other ({len(other_rows)}) ---")
+            print(f" \n--- other ({len(other_rows)}) ---")
             for name, row_status, expected_text, actual_repr, reason in other_rows:
                 print_row(row_status, name, expected_text, actual_repr, reason)
         else:
