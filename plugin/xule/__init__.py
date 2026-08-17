@@ -335,7 +335,7 @@ def addValidateMenuTools(cntlr, validateMenu, name, map_name):
         setattr(cntlr.modelManager, attr_name, validate_var.get())
         cntlr.config[attr_name] = getattr(cntlr.modelManager, attr_name)
         
-    validate_var.trace("w", setValidateXuleOption)
+    validate_var.trace_add("write", setValidateXuleOption)
     validateMenu.add_checkbutton(label=_("{} Rules".format(name)), 
                                  underline=0, 
                                  variable=validate_var, onvalue=True, offvalue=False)
