@@ -25,7 +25,7 @@ DOCSKIP
 
 from aniso8601 import parse_duration
 from arelle.ModelValue import qname, QName
-from arelle import FileSource, PackageManager, FunctionIxt
+from arelle import FileSource, FunctionIxt
 import collections
 from collections.abc import Iterable
 from contextlib import contextmanager
@@ -692,7 +692,7 @@ def func_csv_data(xule_context, *args):
     result = list()
     result_shadow = list()
     
-    mapped_file_url = PackageManager.mappedUrl(file_url.value)
+    mapped_file_url = xule_context.global_context.cntlr.packages.map(file_url.value)
 
     # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
     file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
@@ -859,7 +859,7 @@ def func_json_data(xule_context, *args):
     if file_url.type not in ('string', 'uri'):
         raise XuleProcessingError(_("The file url argument of the json-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
 
-    mapped_file_url = PackageManager.mappedUrl(file_url.value)
+    mapped_file_url = xule_context.global_context.cntlr.packages.map(file_url.value)
 
     # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
     file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
