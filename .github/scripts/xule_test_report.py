@@ -299,6 +299,47 @@ def print_row(status, name, expected_text, actual_repr, reason):
         print(f"[{status}] {name}: expected={expected_text!r} actual={actual_repr!r}")
 
 
+def escape_md_cell(s):
+    """Makes a value safe to embed in a GitHub-flavored Markdown table cell."""
+    s = '' if s is None else str(s)
+    s = s.replace('\\', '\\\\').replace('|', '\\|')
+    s = s.replace('\r\n', '\n').replace('\r', '\n').replace('\n', '<br>')
+    return s
+
+
+# Categories worth surfacing as tables on the job summary page -- MATCH and
+# MATCH_NORMALIZED are expected/routine, so only the problem categories get
+# a table (MATCH_NORMALIZED is still counted in the summary line).
+SUMMARY_TABLE_STATUSES = ['REQUIRES_INSTANCE_OR_TAXONOMY', 'MISMATCH']
+
+
+def write_markdown_summary(path, expected_rows, counts, grouped):
+    lines = [
+        f"**{len(expected_rows)} rules checked:** "
+        f"{counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, "
+        f"{counts['MISMATCH']} mismatch, "
+        f"{counts['MATCH_NORMALIZED']} match after normalizing a cosmetic difference (see log), "
+        f"{counts['MATCH']} match.",
+        '',
+    ]
+    for status in SUMMARY_TABLE_STATUSES:
+        rows = grouped[status]
+        heading = GROUP_HEADINGS[status]
+        lines.append(f"### {heading} ({len(rows)})")
+        lines.append('')
+        if not rows:
+            lines.append('_None._')
+            lines.append('')
+            continue
+        lines.append(f"| ROW NUMBER | [{heading}] CODE | EXPECTED | ACTUAL |")
+        lines.append('|---|---|---|---|')
+        for i, (name, row_status, expected_text, actual_repr, reason) in enumerate(rows, start=1):
+            lines.append(f"| {i} | {escape_md_cell(name)} | {escape_md_cell(expected_text)} | {escape_md_cell(actual_repr)} |")
+        lines.append('')
+    with open(path, 'w', encoding='utf-8') as fh:
+        fh.write('\n'.join(lines) + '\n')
+
+
 def cmd_compare(args):
     expected_rows = []
     with open(args.expected, encoding='utf-8') as fh:
@@ -329,6 +370,9 @@ def cmd_compare(args):
                 writer.writerows(other_rows)
             else:
                 writer.writerows(rows)
+
+    if args.markdown_summary:
+        write_markdown_summary(args.markdown_summary, expected_rows, counts, grouped)
 
     problem_count = counts['MISMATCH'] + counts['REQUIRES_INSTANCE_OR_TAXONOMY']
     print(f"\n \n{len(expected_rows)} rules checked: {counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, {counts['MISMATCH']} mismatch, \n"
@@ -370,6 +414,10 @@ def main():
     p_compare.add_argument('--expected', required=True)
     p_compare.add_argument('--output', required=True)
     p_compare.add_argument('--csv', required=True)
+    p_compare.add_argument('--markdown-summary', default=None,
+                            help='Optional path to write a Markdown report (summary line plus tables for the '
+                                 'REQUIRES INSTANCE/TAXONOMY and MISMATCH categories), suitable for '
+                                 '$GITHUB_STEP_SUMMARY.')
     p_compare.set_defaults(func=cmd_compare)
 
     args = ap.parse_args()

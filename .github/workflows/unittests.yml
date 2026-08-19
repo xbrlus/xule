@@ -27,6 +27,10 @@ jobs:
     env:
       RUN_ID: ${{ github.run_id }}
       ARELLE_VERSION: ${{ inputs.arelle_version }}
+      # Pin the hash seed so Python's set()/dict iteration order (and therefore the
+      # order of set-based rule outputs like DO120 or MAX105's error message) is
+      # reproducible across runs instead of flipping randomly per-process.
+      PYTHONHASHSEED: '0'
 
     steps:
       - name: Checkout repository
@@ -151,7 +155,7 @@ jobs:
             IFS=',' read -ra FILE_ARGS <<< "$EXPECTED_FILES"
             ARGS+=(--files "${FILE_ARGS[@]}")
           fi
-          python3 unitTests/commands/xule_test_report.py extract "${ARGS[@]}"
+          python3 .github/scripts/xule_test_report.py extract "${ARGS[@]}"
 
       - name: Compile base unit test ruleset
         run: |
@@ -188,10 +192,12 @@ jobs:
       - name: Compare results against expected values
         if: always()
         run: |
-          python3 unitTests/commands/xule_test_report.py compare \
+          python3 .github/scripts/xule_test_report.py compare \
             --expected "unitTests/output/expected-${RUN_ID}.csv" \
             --output "unitTests/output/output-${RUN_ID}.txt" \
-            --csv "unitTests/output/mismatches-${RUN_ID}.csv"
+            --csv "unitTests/output/mismatches-${RUN_ID}.csv" \
+            --markdown-summary "unitTests/output/summary-${RUN_ID}.md"
+          cat "unitTests/output/summary-${RUN_ID}.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload output artifact
         if: always()
@@ -202,5 +208,6 @@ jobs:
             unitTests/output/output-${{ github.run_id }}.txt
             unitTests/output/expected-${{ github.run_id }}.csv
             unitTests/output/mismatches-${{ github.run_id }}.csv
+            unitTests/output/summary-${{ github.run_id }}.md
             unitTests/compiled/ut-ruleset-${{ github.run_id }}.zip
           retention-days: 30
