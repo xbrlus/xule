@@ -13,6 +13,11 @@ on:
         required: false
         default: ''
         type: string
+      arelle_version:
+        description: 'Version of the Arelle-release PyPI package to install (e.g. 2.44.0).'
+        required: false
+        default: '2.44.0'
+        type: string
 
 jobs:
   run-unit-tests:
@@ -21,6 +26,7 @@ jobs:
     timeout-minutes: 30
     env:
       RUN_ID: ${{ github.run_id }}
+      ARELLE_VERSION: ${{ inputs.arelle_version }}
 
     steps:
       - name: Checkout repository
@@ -37,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsSL https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/refs/heads/master/requirements.txt -o /tmp/dqc-requirements.txt
-          pip install --no-cache-dir -r /tmp/dqc-requirements.txt pytz Arelle-release
+          pip install --no-cache-dir -r /tmp/dqc-requirements.txt pytz "Arelle-release==${ARELLE_VERSION}"
 
       - name: Install XULE plugin from this checkout
         run: |
