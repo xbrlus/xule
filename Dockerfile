@@ -1,10 +1,10 @@
 ARG PYTHON_VERSION=3.14
 FROM python:${PYTHON_VERSION}-slim
 
-ARG ARELLE_VERSION=2.41.6
-ARG XULE_VERSION=30052
+ARG ARELLE_VERSION=2.44.0
+ARG XULE_VERSION=30052.1
 ARG XULE_REPO=xbrlus
-ARG EDGAR_VERSION=26.1
+ARG EDGAR_VERSION=26.1.3
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -16,15 +16,10 @@ RUN apt-get update && \
       libxslt1-dev && \
     rm -rf /var/lib/apt/lists/*
 
+ADD https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/refs/heads/master/requirements.txt /tmp/dqc-requirements.txt
+
 RUN pip install --no-cache-dir \
-      lxml==5.2.2 \
-      isodate==0.6.1 \
-      aniso8601==9.0.1 \
-      holidays==0.52 \
-      regex \
-      tabulate \
-      NumPy==1.26.2 \
-      pyparsing==3.1.2 \
+      -r /tmp/dqc-requirements.txt \
       Arelle-release==${ARELLE_VERSION}
 
 RUN SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])") && \

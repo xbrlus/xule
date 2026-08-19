@@ -35,17 +35,9 @@ jobs:
 
       - name: Install Arelle and dependencies
         run: |
-          pip install --no-cache-dir \
-            lxml==5.2.2 \
-            isodate==0.6.1 \
-            aniso8601==9.0.1 \
-            holidays==0.52 \
-            pytz \
-            regex \
-            tabulate \
-            NumPy==1.26.2 \
-            pyparsing==3.1.2 \
-            Arelle-release
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/refs/heads/master/requirements.txt -o /tmp/dqc-requirements.txt
+          pip install --no-cache-dir -r /tmp/dqc-requirements.txt pytz Arelle-release
 
       - name: Install XULE plugin from this checkout
         run: |
