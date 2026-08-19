@@ -177,9 +177,9 @@ class XuleRuleSet(object):
         """
         package_info = self._cntlr.packages.add(file_name)
         if package_info:
-#                     print("Activation of package {0} successful.".format(package_info.get("name")))    
-            self._cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.get("name")), 
-                          messageCode="info", file=package_info.get("URL"))
+#                     print("Activation of package {0} successful.".format(package_info.name))
+            self._cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.name),
+                          messageCode="info", file=package_info.url)
         else:
 #                     print("Unable to load package \"{}\". ".format(file_name))                
             self._cntlr.addToLog(_("Unable to load package \"%(name)s\". "),
