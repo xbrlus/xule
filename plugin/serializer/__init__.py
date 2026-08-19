@@ -8,11 +8,10 @@ import zipfile
 
 from lxml import etree
 
-from arelle import FileSource, PackageManager, PluginManager
+from arelle import FileSource
 
 _CNTLR = None
 _OPTIONS = None
-_PLUGINS = {}
 _SXM = None
 _PACKAGE_FOLDER = None
 
@@ -90,6 +89,14 @@ _RESOURCE_LINKBASES = {'Label': {'extended_link': '{http://www.xbrl.org/2003/lin
                                      'arc': '{http://www.xbrl.org/2003/linkbase}referenceArc',  
                                      'resource': '{http://www.xbrl.org/2003/linkbase}reference',
                                      'arcrole': 'http://www.xbrl.org/2003/arcrole/concept-reference'}}
+
+_SXM_PLUGIN_NAME = 'SimpleXBRLModel'
+
+def getSxmModule(cntlr):
+    if _SXM_PLUGIN_NAME not in cntlr.plugins.get_plugins():
+        cntlr.addToLog(_("'{plugin_name}'' plugin is not loaded. '{plugin_name}' plugin is required. "
+                         "This plugin should be automatically loaded.".format(plugin_name=_SXM_PLUGIN_NAME)))
+    return next(cntlr.plugins.hooks('SXM.getModule'))()
 
 class SerializerException(Exception):
     pass
@@ -221,41 +228,6 @@ _GENERIC_NAMESPACES = {'http://xbrl.org/2008/generic': {'prefix': 'gen', 'locati
                        'http://xbrl.org/2008/reference': {'prefix': 'ref', 'location': 'http://www.xbrl.org/2008/generic-reference.xsd'}
 }
 
-# Utility to find another plugin
-def getSerizlierPlugins(cntlr):
-    '''Serializer plugins have a 'serializer.serialize' entry in the _PLUGIN dictionary.'''
-    serializer_plugins = []
-    for _x, plugin_info in PluginManager.modulePluginInfos.items():
-        if 'serializer.serialize' in plugin_info:
-            serializer_plugins.append(plugin_info)
-    
-    return serializer_plugins
-
-def getPlugin(cntlr, plugin_name):
-    """Find the  plugin
-    
-    This will locate the plugin module.
-    """
-    global _PLUGINS
-    if plugin_name not in _PLUGINS:
-        for _x, plugin_info in PluginManager.modulePluginInfos.items():
-            if plugin_info.get('moduleURL') == plugin_name:
-                _PLUGINS[plugin_name] = plugin_info
-                break
-        else:
-            cntlr.addToLog(_("'{plugin_name}'' plugin is not loaded. '{plugin_name}' plugin is required. "
-                             "This plugin should be automatically loaded.".format(plugin_name=plugin_name)))
-    
-    return _PLUGINS[plugin_name]
-
-def getPluginObject(cntlr, plugin_name, object_name):
-    """Get method from a plugin
-    
-    Get a method/function from a plugin.
-    """
-    return getPlugin(cntlr, plugin_name).get(object_name)
-
-
 def error(msg, code='Serializer'):
     _CNTLR.addToLog(msg, code, level=logging.ERROR)
     if not getattr(_OPTIONS, 'serializer_package_allow_errors', False):
@@ -359,7 +331,7 @@ def  cmdUtilityRun(cntlr, options, **kwargs):
 
     # Get the Simple XBRL Model Module.
     global _SXM
-    _SXM = getPluginObject(cntlr, 'SimpleXBRLModel', 'SXM.getModule')()
+    _SXM = getSxmModule(cntlr)
 
     parser = optparse.OptionParser()
 
@@ -415,8 +387,8 @@ def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
         return
     _PACKAGE_FOLDER = posixpath.splitext(posixpath.basename(options.serializer_package_name))[0]
 
-    for serializer in getSerizlierPlugins(cntlr):
-        dts = serializer['serializer.serialize'](model_xbrl, options, _SXM)
+    for hook in cntlr.plugins.hooks('serializer.serialize'):
+        dts = hook(model_xbrl, options, _SXM)
         package_name = None
         if dts.package_base_file_name is None:
             # Check if a name is supplied.
@@ -435,7 +407,7 @@ def init_SXM(cntlr):
 
     # Get the Simple XBRL Model Module.
     global _SXM
-    _SXM = getPluginObject(cntlr, 'SimpleXBRLModel', 'SXM.getModule')()
+    _SXM = getSxmModule(cntlr)
 
 def write(dts, package_name, cntlr):
 

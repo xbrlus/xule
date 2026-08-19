@@ -24,7 +24,6 @@ limitations under the License.
 $Change: $
 DOCSKIP
 """
-from arelle import PluginManager
 from .xodel import process_xodel
 
 import optparse
