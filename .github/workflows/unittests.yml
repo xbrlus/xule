@@ -27,6 +27,10 @@ jobs:
     env:
       RUN_ID: ${{ github.run_id }}
       ARELLE_VERSION: ${{ inputs.arelle_version }}
+      # Pin the hash seed so Python's set()/dict iteration order (and therefore the
+      # order of set-based rule outputs like DO120 or MAX105's error message) is
+      # reproducible across runs instead of flipping randomly per-process.
+      PYTHONHASHSEED: '0'
 
     steps:
       - name: Checkout repository
@@ -39,24 +43,22 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Arelle and dependencies
+      - name: Install Arelle, dependencies, and plugins
         run: |
           set -euo pipefail
+
+          # Arelle and dependencies
           curl -fsSL https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/refs/heads/master/requirements.txt -o /tmp/dqc-requirements.txt
           pip install --no-cache-dir -r /tmp/dqc-requirements.txt pytz "Arelle-release==${ARELLE_VERSION}"
 
-      - name: Install XULE plugin from this checkout
-        run: |
-          set -euo pipefail
           SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
+
+          # XULE plugin from this checkout
           mkdir -p "$SITE_PACKAGES/arelle/plugin"
           cp -r plugin/xule "$SITE_PACKAGES/arelle/plugin/xule"
           cp plugin/semanticHash.py "$SITE_PACKAGES/arelle/plugin/semanticHash.py"
 
-      - name: Install validate and transform plugins from Arelle GitHub repository
-        run: |
-          set -euo pipefail
-          SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
+          # validate and transform plugins from Arelle GitHub repository
           EDGAR_SRC=$(mktemp -d)
           git clone --depth 1 https://github.com/Arelle/EDGAR.git "$EDGAR_SRC"
           rm -rf "$SITE_PACKAGES/arelle/plugin/EDGAR"
@@ -151,7 +153,7 @@ jobs:
             IFS=',' read -ra FILE_ARGS <<< "$EXPECTED_FILES"
             ARGS+=(--files "${FILE_ARGS[@]}")
           fi
-          python3 unitTests/commands/xule_test_report.py extract "${ARGS[@]}"
+          python3 .github/scripts/xule_test_report.py extract "${ARGS[@]}"
 
       - name: Compile base unit test ruleset
         run: |
@@ -188,10 +190,12 @@ jobs:
       - name: Compare results against expected values
         if: always()
         run: |
-          python3 unitTests/commands/xule_test_report.py compare \
+          python3 .github/scripts/xule_test_report.py compare \
             --expected "unitTests/output/expected-${RUN_ID}.csv" \
             --output "unitTests/output/output-${RUN_ID}.txt" \
-            --csv "unitTests/output/mismatches-${RUN_ID}.csv"
+            --csv "unitTests/output/mismatches-${RUN_ID}.csv" \
+            --markdown-summary "unitTests/output/summary-${RUN_ID}.md"
+          cat "unitTests/output/summary-${RUN_ID}.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload output artifact
         if: always()
@@ -202,5 +206,6 @@ jobs:
             unitTests/output/output-${{ github.run_id }}.txt
             unitTests/output/expected-${{ github.run_id }}.csv
             unitTests/output/mismatches-${{ github.run_id }}.csv
+            unitTests/output/summary-${{ github.run_id }}.md
             unitTests/compiled/ut-ruleset-${{ github.run_id }}.zip
           retention-days: 30

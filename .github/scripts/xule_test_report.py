@@ -299,6 +299,83 @@ def print_row(status, name, expected_text, actual_repr, reason):
         print(f"[{status}] {name}: expected={expected_text!r} actual={actual_repr!r}")
 
 
+def escape_md_cell(s):
+    """Makes a value safe to embed in a GitHub-flavored Markdown table cell."""
+    s = '' if s is None else str(s)
+    s = s.replace('\\', '\\\\').replace('|', '\\|')
+    s = s.replace('\r\n', '\n').replace('\r', '\n').replace('\n', '<br>')
+    return s
+
+
+ZERO_WIDTH_SPACE = '​'
+WRAP_CHUNK_SIZE = 20
+
+
+def add_wrap_opportunities(s, chunk=WRAP_CHUNK_SIZE):
+    """Long unbroken runs (JSON blobs, dictionary/list dumps, hashes, ...)
+    have no whitespace for a browser to wrap on, so a wide value forces the
+    whole table into horizontal scroll. Splicing in zero-width spaces every
+    `chunk` characters gives the renderer places to wrap without changing
+    the visible text."""
+    def break_long(word):
+        if len(word) <= chunk:
+            return word
+        return ZERO_WIDTH_SPACE.join(word[i:i + chunk] for i in range(0, len(word), chunk))
+    return ' '.join(break_long(w) for w in s.split(' '))
+
+
+def escape_md_wrapped_cell(s):
+    """Like escape_md_cell, but also forces line-wrapping of long unbroken
+    runs so wide EXPECTED/ACTUAL values don't force the table to scroll."""
+    s = '' if s is None else str(s)
+    s = add_wrap_opportunities(s)
+    return escape_md_cell(s)
+
+
+LEADING_CODE_TAG_RE = re.compile(r'^\[[^\]]*\]\s?', re.MULTILINE)
+
+
+def strip_leading_code_tag(s):
+    """actual_repr is built from raw output lines like "[Rule1] 7", each
+    still carrying its "[CODE]" tag. In the summary table that's redundant
+    with the CODE column, so strip it from the start of every line."""
+    return LEADING_CODE_TAG_RE.sub('', s)
+
+
+# Categories worth surfacing as tables on the job summary page -- MATCH and
+# MATCH_NORMALIZED are expected/routine, so only the problem categories get
+# a table (MATCH_NORMALIZED is still counted in the summary line).
+SUMMARY_TABLE_STATUSES = ['REQUIRES_INSTANCE_OR_TAXONOMY', 'MISMATCH']
+
+
+def write_markdown_summary(path, expected_rows, counts, grouped):
+    lines = [
+        f"**{len(expected_rows)} rules checked:** "
+        f"{counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, "
+        f"{counts['MISMATCH']} mismatch, "
+        f"{counts['MATCH_NORMALIZED']} match after normalizing a cosmetic difference (see log), "
+        f"{counts['MATCH']} match.",
+        '',
+    ]
+    for status in SUMMARY_TABLE_STATUSES:
+        rows = grouped[status]
+        heading = GROUP_HEADINGS[status]
+        lines.append(f"### {heading} ({len(rows)})")
+        lines.append('')
+        if not rows:
+            lines.append('_None._')
+            lines.append('')
+            continue
+        lines.append(f"| ROW NUMBER | [{heading}] CODE | EXPECTED | ACTUAL |")
+        lines.append('|---|---|---|---|')
+        for i, (name, row_status, expected_text, actual_repr, reason) in enumerate(rows, start=1):
+            actual_display = strip_leading_code_tag(actual_repr)
+            lines.append(f"| {i} | {escape_md_cell(name)} | {escape_md_wrapped_cell(expected_text)} | {escape_md_wrapped_cell(actual_display)} |")
+        lines.append('')
+    with open(path, 'w', encoding='utf-8') as fh:
+        fh.write('\n'.join(lines) + '\n')
+
+
 def cmd_compare(args):
     expected_rows = []
     with open(args.expected, encoding='utf-8') as fh:
@@ -329,6 +406,9 @@ def cmd_compare(args):
                 writer.writerows(other_rows)
             else:
                 writer.writerows(rows)
+
+    if args.markdown_summary:
+        write_markdown_summary(args.markdown_summary, expected_rows, counts, grouped)
 
     problem_count = counts['MISMATCH'] + counts['REQUIRES_INSTANCE_OR_TAXONOMY']
     print(f"\n \n{len(expected_rows)} rules checked: {counts['REQUIRES_INSTANCE_OR_TAXONOMY']} require instance/taxonomy, {counts['MISMATCH']} mismatch, \n"
@@ -370,6 +450,10 @@ def main():
     p_compare.add_argument('--expected', required=True)
     p_compare.add_argument('--output', required=True)
     p_compare.add_argument('--csv', required=True)
+    p_compare.add_argument('--markdown-summary', default=None,
+                            help='Optional path to write a Markdown report (summary line plus tables for the '
+                                 'REQUIRES INSTANCE/TAXONOMY and MISMATCH categories), suitable for '
+                                 '$GITHUB_STEP_SUMMARY.')
     p_compare.set_defaults(func=cmd_compare)
 
     args = ap.parse_args()

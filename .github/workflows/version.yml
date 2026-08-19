@@ -15,11 +15,12 @@ jobs:
         contents: write
       steps:
         - name: Calc version number
+          id: calc-version
           # This complicated expression calcs the new version number and stores it in an environment variable named VERSION
-          run: echo "VERSION=$(( ${{ github.run_number}} + 30000))" >> $GITHUB_ENV
+          run: echo "version=$(( ${{ github.run_number}} + 30000))" >> "$GITHUB_OUTPUT"
 
         - name: Print version number
-          run: echo "Version=${{ env.VERSION }}" >> $GITHUB_STEP_SUMMARY
+          run: echo "Version=${{ steps.calc-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
 
         - name: Check out files
           uses: actions/checkout@v4
@@ -29,7 +30,7 @@ jobs:
           with:
               file: plugin/xule/version.json
               field: version
-              value: ${{ env.VERSION }}
+              value: ${{ steps.calc-version.outputs.version }}
 
         - name: Get changed files
           id: changed-files
@@ -52,7 +53,7 @@ jobs:
           with:
               file: plugin/xule/version.json
               field: ruleset_version
-              value: ${{ env.VERSION }}
+              value: ${{ steps.calc-version.outputs.version }}
 
         - name: Commit version files
           uses: stefanzweifel/git-auto-commit-action@v5
