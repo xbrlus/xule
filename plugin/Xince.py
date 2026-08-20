@@ -4,7 +4,6 @@ Reivision number: $Change: 23365 $
 
 from arelle import FileSource
 from arelle import ModelManager
-from arelle import PluginManager
 
 import base64
 import collections
@@ -21,9 +20,6 @@ import os
 import re
 import tempfile
 
-
-# This will hold the xule plugin module
-_xule_plugin_info = None
 
 _XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
 _LINK_NAMESPACE = 'http://www.xbrl.org/2003/linkbase'
@@ -375,28 +371,21 @@ class IDGenerator:
 
         return cls._generators[(inst_name, prefix)]
 
-def getXulePlugin(cntlr):
-    """Find the Xule plugin
-    
-    This will locate the Xule plugin module.
-    """
-    global _xule_plugin_info
-    if _xule_plugin_info is None:
-        for _plugin_name, plugin_info in PluginManager.modulePluginInfos.items():
-            if plugin_info.get('moduleURL') == 'xule':
-                _xule_plugin_info = plugin_info
-                break
-        else:
-            cntlr.addToLog(_("Xule plugin is not loaded. Xule plugin is required to run DQC rules. This plugin should be automatically loaded."), "XinceError", level=logging.ERROR)
-    
-    return _xule_plugin_info
-
-def getXuleMethod(cntlr, method_name):
+def getXuleMethods(cntlr, method_name):
     """Get method from Xule
-    
+
     Get a method/function from the Xule plugin. This is how this validator calls functions in the Xule plugin.
     """
-    return getXulePlugin(cntlr).get(method_name)
+    hooks = list(cntlr.plugins.hooks(method_name))
+    if not hooks:
+        cntlr.addToLog(
+            _("Plugin with '%(name)s' is not loaded. "
+              "Xule plugin is required to run %(rules)s rules. "
+              "This plugin should be automatically loaded."),
+            name=method_name,
+            rules='DQC',
+        )
+    return hooks
 
 def cmdLineOptionExtender(parser, *args, **kwargs):
     
@@ -1628,7 +1617,7 @@ def run_xule(cntlr, options, modelXbrl):
     cntlr.logger.addHandler(log_capture_handler)
 
     # Call the xule processor to run the rules
-    call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
+    call_xule_methods = getXuleMethods(cntlr, 'Xule.callXuleProcessor')
     run_options = copy.deepcopy(options)
             
     #xule_args = getattr(run_options, 'xule_arg', []) or []
@@ -1637,7 +1626,8 @@ def run_xule(cntlr, options, modelXbrl):
         # Get xule rule set
     # with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
     setattr(run_options, 'logRefObjectProperties', False)
-    call_xule_method(cntlr, modelXbrl, options.xule_rule_set, run_options)
+    for call_xule_method in call_xule_methods:
+        call_xule_method(cntlr, modelXbrl, options.xule_rule_set, run_options)
     
     # Remove the handler from the logger. This will stop the capture of messages
     cntlr.logger.removeHandler(log_capture_handler)

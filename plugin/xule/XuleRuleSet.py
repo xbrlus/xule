@@ -33,7 +33,6 @@ import os
 import pickle
 import tempfile
 import zipfile
-from arelle import PackageManager
 from pickle import UnpicklingError
 from . import XuleConstants as xc
 from . import XuleUtility as xu
@@ -176,11 +175,17 @@ class XuleRuleSet(object):
         :type file_name: str
         :return: The package information. This is the return from Arelle when activating the package
         """
-        package_info = PackageManager.addPackage(self._cntlr, file_name)
+        package_info = self._cntlr.packages.add(file_name)
         if package_info:
-#                     print("Activation of package {0} successful.".format(package_info.get("name")))    
-            self._cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.get("name")), 
-                          messageCode="info", file=package_info.get("URL"))
+            # cntlr.packages.add() registers the package but does not update the
+            # active URL remapping table (unlike the old PackageManager.addPackage()
+            # call sites in Arelle, which were always followed by a rebuild before
+            # any DTS resolution happened). Without this, the taxonomy entry points
+            # this package remaps never resolve, silently leaving concepts undefined.
+            self._cntlr.packages.rebuild()
+#                     print("Activation of package {0} successful.".format(package_info.name))
+            self._cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.name),
+                          messageCode="info", file=package_info.url)
         else:
 #                     print("Unable to load package \"{}\". ".format(file_name))                
             self._cntlr.addToLog(_("Unable to load package \"%(name)s\". "),
@@ -203,7 +208,9 @@ class XuleRuleSet(object):
                 for package_file_name in zf.namelist():
                     if package_file_name.startswith('packages/'):
                         package_file = zf.extract(package_file_name, temp_dir.name)
-                        package_info = PackageManager.addPackage(self._cntlr, package_file)
+                        package_info = self._cntlr.packages.add(package_file)
+                        if package_info:
+                            self._cntlr.packages.rebuild()
                         results.append(package_info)
         finally:
             file_object.close()
@@ -549,4 +556,3 @@ class XuleRuleSet(object):
                 self.catalog.get('xule_compiled_version'), xu.version(), xu.get_rule_set_compatibility_version())
             )
 
-                
