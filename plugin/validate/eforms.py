@@ -24,7 +24,6 @@ $Change: 22782 $
 DOCSKIP
 """
 import optparse
-from arelle import PluginManager
 
 """ Xule validator specific variables."""
 _short_name = 'eForms'
@@ -39,8 +38,6 @@ _rule_set_map_name = 'fercRulesetMap.json'
 _latest_map_name = 'https://github.com/xbrlus/ferc-validation-rulesets/raw/main/fercRulesetMap.json' 
 
 """Do not change anything below this line."""
-_xule_plugin_info = None
-
 def cmdOptions(parser):
     """Extend command line options for xule validator
     
@@ -100,8 +97,8 @@ def cntrlrCmdLineUtilityRun(cntlr, options, **kwargs):
     This is invoked by the Arelle controler after Arelle is fully up but before a filing is loaded.
     """
     # Save options in xule
-    save_options_method = getXuleMethod(cntlr, 'Xule.CntrlCmdLine.Utility.Run.Init')
-    save_options_method(cntlr, options, **kwargs)
+    for save_options_method in getXuleMethods(cntlr, 'Xule.CntrlCmdLine.Utility.Run.Init'):
+        save_options_method(cntlr, options, **kwargs)
 
     parser = optparse.OptionParser()
     
@@ -122,80 +119,72 @@ def cntrlrCmdLineUtilityRun(cntlr, options, **kwargs):
     
     # Show validator version
     if getattr(options, '{}_version'.format(_short_name), False):
-        version_method = getXuleMethod(cntlr, 'Xule.ValidatorVersion')
-        version_method(cntlr, _short_name, _rule_set_map_name, _version_prefix, __file__)
+        for version_method in getXuleMethods(cntlr, 'Xule.ValidatorVersion'):
+            version_method(cntlr, _short_name, _rule_set_map_name, _version_prefix, __file__)
 
         #cntlr.addToLog("{} validator version: {}".format(_short_name,  _version_prefix + version_method(__file__)), _short_name)
         #cntlr.close()
     
     # Update the rule set map
     if getattr(options, "{}_update_rule_set_map".format(_short_name), False):
-        update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Update')
-        update_method(cntlr, getattr(options,"{}_update_rule_set_map".format(_short_name)), _rule_set_map_name)
+        for update_method in getXuleMethods(cntlr, 'Xule.RulesetMap.Update'):
+            update_method(cntlr, getattr(options,"{}_update_rule_set_map".format(_short_name)), _rule_set_map_name)
     
     # Replace the rule set map
     if getattr(options, "{}_replace_rule_set_map".format(_short_name), False):
-        update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Replace')
-        update_method(cntlr, getattr(options,"{}_replace_rule_set_map".format(_short_name)), _rule_set_map_name)
+        for update_method in getXuleMethods(cntlr, 'Xule.RulesetMap.Replace'):
+            update_method(cntlr, getattr(options,"{}_replace_rule_set_map".format(_short_name)), _rule_set_map_name)
     
     # Display the rule set map
     if getattr(options, "{}_display_rule_set_map".format(_short_name), False):
-        update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Display')
-        update_method(cntlr, _short_name, _rule_set_map_name)
+        for update_method in getXuleMethods(cntlr, 'Xule.RulesetMap.Display'):
+            update_method(cntlr, _short_name, _rule_set_map_name)
 
     # Update the rule set map with the latest
     if getattr(options, "{}_update_rule_set_map_latest".format(_short_name), False):
-        update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Update')
-        update_method(cntlr, _latest_map_name, _rule_set_map_name)
+        for update_method in getXuleMethods(cntlr, 'Xule.RulesetMap.Update'):
+            update_method(cntlr, _latest_map_name, _rule_set_map_name)
 
     # Replace the rule set map with the latest
     if getattr(options, "{}_replace_rule_set_map_latest".format(_short_name), False):
-        update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Replace')
-        update_method(cntlr, _latest_map_name, _rule_set_map_name)
+        for update_method in getXuleMethods(cntlr, 'Xule.RulesetMap.Replace'):
+            update_method(cntlr, _latest_map_name, _rule_set_map_name)
 
     # Register the xule validator
-    registerMethod = getXuleMethod(cntlr, 'Xule.RegisterValidator')
-    registerMethod(_short_name, _rule_set_map_name)
-    
-def getXulePlugin(cntlr):
-    """Find the Xule plugin
-    
-    This will locate the Xule plugin module.
-    """
-    global _xule_plugin_info
-    if _xule_plugin_info is None:
-        for plugin_name, plugin_info in PluginManager.modulePluginInfos.items():
-            if plugin_info.get('moduleURL') == 'xule':
-                _xule_plugin_info = plugin_info
-                break
-        else:
-            cntlr.addToLog(_("Xule plugin is not loaded. Xule plugin is required to run FERC rules. This plugin should be automatically loaded."))
-    
-    return _xule_plugin_info
+    for registerMethod in getXuleMethods(cntlr, 'Xule.RegisterValidator'):
+        registerMethod(_short_name, _rule_set_map_name)
 
-def getXuleMethod(cntlr, class_name):
+def getXuleMethods(cntlr, class_name):
     """Get method from Xule
-    
+
     Get a method/function from the Xule plugin. This is how this validator calls functions in the Xule plugin.
     """
-    return getXulePlugin(cntlr).get(class_name)
+    hooks = list(cntlr.plugins.hooks(class_name))
+    if not hooks:
+        cntlr.addToLog(
+            _("Plugin with '%(name)s' is not loaded. "
+              "Xule plugin is required to run %(rules)s rules. "
+              "This plugin should be automatically loaded."),
+            name=class_name,
+            rules='FERC',
+        )
+    return hooks
 
 def menuTools(cntlr, menu):
     """Add validator menu the Tools menu in the Arelle GUI
     
     This is invoked by the Arelle controller
     """
-    menu_method = getXuleMethod(cntlr, 'Xule.AddMenuTools')
-    version_method = getXuleMethod(cntlr, 'Xule.ValidatorVersion')
-    menu_method(cntlr, menu, _short_name, _version_prefix, __file__, _rule_set_map_name, _latest_map_name)
+    for menu_method in getXuleMethods(cntlr, 'Xule.AddMenuTools'):
+        menu_method(cntlr, menu, _short_name, _version_prefix, __file__, _rule_set_map_name, _latest_map_name)
 
 def validateMenuTools(cntlr, validateMenu, *args, **kwargs):
     """Add validator checkbutton to the Arelle Validate menu (under Tools).
     
     This is invoked by the Arelle controller.
     """
-    menu_method = getXuleMethod(cntlr, 'Xule.AddValidationMenuTools')
-    menu_method(cntlr, validateMenu, _short_name, _rule_set_map_name)
+    for menu_method in getXuleMethods(cntlr, 'Xule.AddValidationMenuTools'):
+        menu_method(cntlr, validateMenu, _short_name, _rule_set_map_name)
     
 __pluginInfo__ = {
     'name': _name,
