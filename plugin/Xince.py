@@ -383,7 +383,7 @@ def getXuleMethods(cntlr, method_name):
               "Xule plugin is required to run %(rules)s rules. "
               "This plugin should be automatically loaded."),
             name=method_name,
-            rules='DQC',
+            rules='Xule to Instance',
         )
     return hooks
 
