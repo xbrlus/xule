@@ -94,7 +94,7 @@ _SXM_PLUGIN_NAME = 'SimpleXBRLModel'
 
 def getSxmModule(cntlr):
     if _SXM_PLUGIN_NAME not in cntlr.plugins.get_plugins():
-        cntlr.addToLog(_("'{plugin_name}'' plugin is not loaded. '{plugin_name}' plugin is required. "
+        cntlr.addToLog(_("'{plugin_name}' plugin is not loaded. '{plugin_name}' plugin is required. "
                          "This plugin should be automatically loaded.".format(plugin_name=_SXM_PLUGIN_NAME)))
     return next(cntlr.plugins.hooks('SXM.getModule'))()
 
