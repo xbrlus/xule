@@ -4012,6 +4012,13 @@ def nav_finish_return_items(nav_expr, return_items, add_result_order, xule_conte
 
     final_results = list()
     final_shadow = list()
+    # Membership index for final_shadow. When the return type is a set, duplicates are dropped by
+    # checking the shadow value. Scanning final_shadow as a list makes that check O(n) per item
+    # (and each comparison is a full QName/tuple __eq__), so a large navigation degrades to O(n**2).
+    # The shadow values are already required to be hashable - the set return below builds a
+    # frozenset from them - so a companion set gives the same answer in O(1). final_shadow itself is
+    # still built as a list to preserve result ordering.
+    final_shadow_seen = set()
 
     def handle_return_item(return_item, cur_order):
 
@@ -4086,7 +4093,8 @@ def nav_finish_return_items(nav_expr, return_items, add_result_order, xule_conte
             final_results.append(item_result)
             final_shadow.append(item_shadow)
         else:  # Set
-            if item_shadow not in final_shadow:
+            if item_shadow not in final_shadow_seen:
+                final_shadow_seen.add(item_shadow)
                 final_results.append(item_result)
                 final_shadow.append(item_shadow)
 
