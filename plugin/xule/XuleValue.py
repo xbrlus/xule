@@ -215,7 +215,13 @@ class XuleValue:
         self.aligned_result_only = False
         self.used_expressions = None
         self.shadow_collection = shadow_collection
-        self.tag = tag if tag is not None else self
+        # A value is its own tag unless an explicit tag was supplied. That default used to be stored
+        # as "self.tag = self", which put a reference cycle in every XuleValue: CPython can reclaim
+        # acyclic garbage the moment the refcount drops, but a self-reference can only be broken by
+        # the cyclic collector. With millions of XuleValues per filing that made the collector,
+        # rather than refcounting, responsible for nearly all of them. Storing None to mean "myself"
+        # and resolving it in the tag property keeps the behaviour and drops the cycle.
+        self._tag = tag
         self._hashable_system_value = None
         
         if self.type in ('list', 'set') and self.shadow_collection is None:
@@ -229,6 +235,15 @@ class XuleValue:
             self.shadow_collection = frozenset(shadow.items())
         elif self.type == 'string': # make all strings XuleStrings
             self.value = XuleString(self.value)
+    @property
+    def tag(self):
+        # None means "this value is its own tag" - see the note in __init__.
+        return self if self._tag is None else self._tag
+
+    @tag.setter
+    def tag(self, value):
+        self._tag = value
+
     @property
     def shadow_dictionary(self):
         if self.type == 'dictionary':
