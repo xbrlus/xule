@@ -410,11 +410,18 @@ def update_rule_set_map(cntlr, new_map_name, map_name, overwrite=False):
 def open_json_file(cntlr, file_name):
     # Open the new map
     from arelle import FileSource
+    from arelle.UrlUtil import isHttpUrl
+    if isHttpUrl(file_name):
+        # Force a fresh download. Arelle's web cache can otherwise serve back an aged copy of the map file
+        # (e.g. when checking for/updating to the "latest" map), which defeats the purpose of the update.
+        file_name = cntlr.webCache.getfilename(file_name, reload=True, normalize=True)
+        if file_name is None:
+            raise XuleProcessingError(_("Unable to download map file."))
     file_source = FileSource.openFileSource(file_name, cntlr)
     # FileSource does not handle reading JSPON files. If the file is not binary, FileSource assumes it is XML
     # Read the file as binary and then decode.
-    file_object = file_source.file(file_name, binary=True)[0] 
-    
+    file_object = file_source.file(file_name, binary=True)[0]
+
     file_content = file_object.read().decode()
     try:
         return json.loads(file_content, object_pairs_hook=collections.OrderedDict)

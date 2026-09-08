@@ -57,7 +57,7 @@ def getXuleMethods(cntlr, method_name):
               "Xule plugin is required to run %(rules)s rules. "
               "This plugin should be automatically loaded."),
             name=method_name,
-            rules='DQC',
+            rules='FERC renderer',
         )
     return hooks
 
