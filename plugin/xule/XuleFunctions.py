@@ -355,12 +355,18 @@ def agg_list(xule_context, values):
 def agg_set(xule_context, values):
     set_values = []
     shadow = []
+    # Membership index for shadow. Checking "not in shadow" against the list is O(n) per value, so
+    # aggregating a large set degrades to O(n**2) full __eq__ comparisons. The shadow values are
+    # already required to be hashable - the frozenset(shadow) below depends on it - so a companion
+    # set answers the same question in O(1). shadow stays a list to preserve insertion order.
+    shadow_seen = set()
     tags = {}
     facts = collections.OrderedDict()
-    
+
     for current_value in values:
         if current_value.type in ('set', 'list', 'dictionary'):
-            if current_value.shadow_collection not in shadow:
+            if current_value.shadow_collection not in shadow_seen:
+                shadow_seen.add(current_value.shadow_collection)
                 set_values.append(current_value)
                 shadow.append(current_value.shadow_collection)
                 if current_value.tags is not None:
@@ -368,7 +374,8 @@ def agg_set(xule_context, values):
                 if current_value.facts is not None:
                     facts.update(current_value.facts)
         else:
-            if current_value.value not in shadow:
+            if current_value.value not in shadow_seen:
+                shadow_seen.add(current_value.value)
                 set_values.append(current_value)
                 shadow.append(current_value.value)
                 if current_value.tags is not None:
