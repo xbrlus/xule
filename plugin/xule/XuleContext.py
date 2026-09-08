@@ -1222,7 +1222,12 @@ class XuleIterationSubTable:
         #dependent_alignment_switch identifies the master column for a dependent column when alignment was switched.
         self._dependent_alignment_switch = None
         
-        self._ordered_columns = []
+        # Dict used as an insertion-ordered set: keys are the column ids, values are unused.
+        # A plain dict (Python 3.7+ preserves insertion order) gives O(1) removal via `del` instead of
+        # list.remove()'s O(n) scan-and-shift, which matters here since remove_dependent_columns() runs
+        # on every iteration step. reversed()/enumerate()/`for x in ...` all behave the same over a dict's
+        # keys as they did over the old list.
+        self._ordered_columns = {}
         self._column_dependencies = collections.defaultdict(set)
 
         self._current_iteration = dict()
@@ -1390,7 +1395,7 @@ class XuleIterationSubTable:
                 if dependent_col_id in self._columns:
                     deleted_cols.add(dependent_col_id)
                     del self._columns[dependent_col_id]
-                    self._ordered_columns.remove(dependent_col_id)
+                    del self._ordered_columns[dependent_col_id]
                     del self._column_data[dependent_col_id]
                     '''The deletion of self._current_iteration isn't really necessary because self._columns determines if a column is in a table or not. So the extra
                        data in self._current_iteration doesn't cause a problem. Removing it would is nice just to keep all the column information tidy'''
@@ -1452,7 +1457,7 @@ class XuleIterationSubTable:
 
         #add columns
         self._columns[processing_id] = ast_node
-        self._ordered_columns.append(processing_id)
+        self._ordered_columns[processing_id] = None
         self._column_data[processing_id] = value_set
 
         #update master columns for dependencies
