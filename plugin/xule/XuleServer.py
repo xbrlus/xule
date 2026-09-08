@@ -30,7 +30,6 @@ directory = os.getcwd().split(sep)
 sys.path.append(sep.join(directory[:(len(directory)-3)]))
  
 from arelle import CntlrCmdLine
-from multiprocessing import Manager
 
 def set_exit_handler(func):
     signal.signal(signal.SIGTERM, func)
@@ -44,9 +43,7 @@ if __name__ == '__main__':
     options = None
     # grab options, setup
     envArgs = os.getenv("ARELLE_ARGS")
-    manager = Manager()
-    output = manager.dict()
-    
+
     if envArgs:
         args = shlex.split(envArgs)
     else:
@@ -82,7 +79,7 @@ if __name__ == '__main__':
 
         print("starting webserver")
         from arelle import CntlrWebMain
-        app = CntlrWebMain.startWebserver(cntlr, options, output=output)
+        app = CntlrWebMain.startWebserver(cntlr, options)
         print("ending webserver")
     else:
         print("Error! Options don't exist!")

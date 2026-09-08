@@ -975,7 +975,20 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
 
         unused_constants = set(self.catalog['constants'].keys()) - used_constants
         for const_name in unused_constants:
-            self.catalog['constants'][const_name]['unused'] = True          
+            self.catalog['constants'][const_name]['unused'] = True
+
+        # Count how many rules (and functions) transitively depend on each constant.
+        # Stored as 'rule_count' in each constant's catalog entry so the server startup
+        # log can show which constants are most widely used.
+        from collections import Counter
+        rule_usage = Counter()
+        for rule_info in self.catalog['rules'].values():
+            rule_usage.update(rule_info['dependencies']['constants'])
+        for func_info in self.catalog['functions'].values():
+            rule_usage.update(func_info['dependencies']['constants'])
+        for const_name, count in rule_usage.items():
+            if const_name in self.catalog['constants']:
+                self.catalog['constants'][const_name]['rule_count'] = count
 
         #determine number (single, multi) for each expression
         for const_name, const_info in self.catalog['constants'].items():

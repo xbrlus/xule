@@ -23,14 +23,28 @@ $Change$
 DOCSKIP
 """
 import datetime
+from math import floor
 from .XuleContext import XuleGlobalContext, XuleRuleContext
 from .XuleRunTime import XuleProcessingError
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError
 from time import sleep
-from multiprocessing import Queue, Process, Lock
+from multiprocessing import Queue, Process
 from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 from queue import Empty
 from os import getpid
+
+# Minimum number of rules that must transitively depend on an 'frc' or 'rfrc'
+# constant for it to be pre-computed before rules start.  Constants at or below
+# this threshold are computed lazily the first time a rule needs them.
+# Change this value to tune the pre-computation trade-off:
+#   0  = pre-compute all frc/rfrc constants (old behaviour)
+#   50 = only pre-compute those used by more than 50 rules
+#
+# Backward compatibility: if a constant has no 'rule_count' in the catalog
+# (compiled before this feature was added), it is always pre-computed,
+# exactly as it was before this threshold existed.
+_PRECALC_MIN_RULE_COUNT = 50
 
 
 
@@ -116,7 +130,6 @@ def master_process(global_context, rule_set):
     # Setting attributes needed for this run only
     setattr(global_context, "shutdown_queue", Queue())
     setattr(global_context, "constants_done", False)
-    setattr(global_context, "stopped_constants", False)
 #    setattr(global_context, "stop_watch", 0)
 
 
@@ -303,62 +316,216 @@ def rules_process(name, global_context, cq):
         
 
 def watch_processes(global_context):
-    ''' watch constant and rules queues and load them with new groups 
+    ''' watch constant and rules queues and load them with new groups
             when appropriate
         watch running processes, shut them down gracefully if they've ended
-            and restart them if there's more processing to do 
+            and restart them if there's more processing to do
     '''
-    #global_context.message_queue.logging("%s: Starting Watch Process; pid: %d" % (datetime.datetime.now(), getpid()))
-    # Initializing variables
     sub_processes = {}
     constants_running = False
-    # If constants need/are being run there is one less processor available to run rules
-    processor_adjustment = 0
-    
+
+    # Convenience: prefix every debug line with timestamp and pid so concurrent
+    # filings can be told apart in the log.
+    def _dbg(msg):
+        global_context.message_queue.logging(
+            "[pid:%-6d %s] %s" % (
+                getpid(),
+                datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3],
+                msg))
+
+    if getattr(global_context.options, "xule_debug", False):
+        _dbg("watch_processes STARTING  num_processors=%d  total_cpus=%d  "
+             "cpu_allocation=%d  running_filings=%s  pool_available=%s" % (
+                 global_context.num_processors,
+                 global_context.total_cpus,
+                 global_context._cpu_state.get('allocation', global_context.num_processors),
+                 global_context.shared_running_filings.value
+                     if global_context.shared_running_filings else 'n/a',
+                 global_context.shared_available_cpus.value
+                     if global_context.shared_available_cpus else 'n/a'))
+
     while True:
+
+        # ── TOP-OF-LOOP SNAPSHOT ──────────────────────────────────────────────
         if getattr(global_context.options, "xule_debug", False):
-            global_context.message_queue.logging("**************")
-            global_context.message_queue.logging("All Rules size: %d; Rules Queue: %d; Sub_processes: %d; Message Queue: %d" % 
-                  (len(global_context.all_rules), global_context.rules_queue.qsize(), len(sub_processes), global_context.message_queue.size))
-            global_context.message_queue.logging("Rule Groups: %s" % (str([group for group in global_context.all_rules])))
-            global_context.message_queue.logging("All Constants size: %d; Constant Queue: %s" % 
-                  (len(global_context.all_constants), global_context.calc_constants_queue.qsize()))
-            global_context.message_queue.logging("Constant Groups: %s" % (str([group for group in global_context.all_constants])))
-            global_context.message_queue.logging("Num Processors: %d; Num Processes - %d" % (global_context.num_processors, len(sub_processes)))
-            global_context.message_queue.logging("**************")
-            sleep(5)
+            alloc      = global_context._cpu_state.get('allocation', global_context.num_processors)
+            pool_avail = (global_context.shared_available_cpus.value
+                          if global_context.shared_available_cpus else 'n/a')
+            run_fil    = (global_context.shared_running_filings.value
+                          if global_context.shared_running_filings else 'n/a')
+            act        = sum(1 for w in sub_processes.values() if not w['stopping'])
+            stp        = sum(1 for w in sub_processes.values() if w['stopping'])
+            _dbg("=" * 56)
+            _dbg("LOOP TOP")
+            _eff = 1 if (constants_running and not global_context.constants_done) else alloc
+            _dbg("  Budget   num_processors=%-3d  cpu_allocation=%-3d  effective_rule_target=%d" % (
+                     global_context.num_processors, alloc, _eff))
+            _dbg("  Pool     available=%-3s  running_filings=%-3s  total=%d" % (
+                     pool_avail, run_fil, global_context.total_cpus))
+            _dbg("  Workers  active=%-2d  stopping=%-2d  total_sub_processes=%d" % (
+                     act, stp, len(sub_processes)))
+            _dbg("  Queues   rules_remaining=%-4d  rules_q=%-4d  consts_remaining=%-4d  "
+                 "consts_q=%-4s" % (
+                     len(global_context.all_rules),
+                     global_context.rules_queue.qsize(),
+                     len(global_context.all_constants),
+                     global_context.calc_constants_queue.qsize()))
+            _dbg("  Flags    constants_running=%-5s  constants_done=%-5s" % (
+                     constants_running, global_context.constants_done))
+            _dbg("=" * 56)
 
+        # ── REBALANCE ─────────────────────────────────────────────────────────
+        # Recompute this filing's fair share of the CPU budget every loop
+        # iteration, woken by Condition.notify_all() or the 0.1 s timeout.
+        if global_context.shared_cpu_condition is not None:
+            with global_context.shared_cpu_condition:
+                running = global_context.shared_running_filings.value
+                if running > 0:
+                    new_target = max(
+                        global_context.min_cpus_per_filing,
+                        floor(global_context.total_cpus / running))
+                else:
+                    new_target = global_context.num_processors
 
+                current_alloc = global_context._cpu_state.get(
+                    'allocation', global_context.num_processors)
 
-        ''' rule start process here'''
-        # if process is dead join process and remove from tracking queue
+                if getattr(global_context.options, "xule_debug", False):
+                    formula_val = (floor(global_context.total_cpus / running)
+                                   if running > 0 else 'n/a')
+                    if new_target == current_alloc:
+                        verdict = "NO CHANGE"
+                    elif new_target < current_alloc:
+                        verdict = "SHRINK %d → %d (by %d)" % (
+                            current_alloc, new_target, current_alloc - new_target)
+                    else:
+                        verdict = "GROW %d → %d (by %d)" % (
+                            current_alloc, new_target, new_target - current_alloc)
+                    _dbg("REBALANCE  running_filings=%-2d  "
+                         "floor(%d/%d)=%s  min_cpus=%d  "
+                         "new_target=%d  current_alloc=%d  → %s" % (
+                             running,
+                             global_context.total_cpus, running, formula_val,
+                             global_context.min_cpus_per_filing,
+                             new_target, current_alloc, verdict))
+
+                if new_target < current_alloc:
+                    shrink_count = current_alloc - new_target
+                    candidates   = [n for n, w in sub_processes.items()
+                                    if not w['stopping']]
+                    to_stop      = candidates[:shrink_count]
+                    for n in to_stop:
+                        sub_processes[n]['cq'].put("STOP")
+                        sub_processes[n]['stopping'] = True
+                    global_context.num_processors = new_target
+                    if getattr(global_context.options, "xule_debug", False):
+                        _dbg("  SHRINK: queued STOP for worker slots %s  "
+                             "num_processors: %d → %d  "
+                             "allocation stays at %d until workers exit" % (
+                                 to_stop, current_alloc, new_target, current_alloc))
+
+                elif new_target > current_alloc:
+                    wanted      = new_target - current_alloc
+                    before_pool = global_context.shared_available_cpus.value
+                    claimable   = min(wanted, before_pool)
+                    if claimable > 0:
+                        before_alloc = global_context._cpu_state['allocation']
+                        global_context.shared_available_cpus.value -= claimable
+                        global_context._cpu_state['allocation']    += claimable
+                        global_context.num_processors = global_context._cpu_state['allocation']
+                        if getattr(global_context.options, "xule_debug", False):
+                            _dbg("  GROW: claimed %d slots  "
+                                 "pool: %d → %d  alloc: %d → %d  "
+                                 "num_processors: %d → %d" % (
+                                     claimable,
+                                     before_pool,
+                                     global_context.shared_available_cpus.value,
+                                     before_alloc,
+                                     global_context._cpu_state['allocation'],
+                                     before_alloc,
+                                     global_context.num_processors))
+                    elif getattr(global_context.options, "xule_debug", False):
+                        _dbg("  GROW wanted %d slots but pool empty "
+                             "(available=%d); will retry next iteration" % (
+                                 wanted, before_pool))
+
+        # ── REAP DEAD WORKERS ─────────────────────────────────────────────────
         del_process = []
         for num in sub_processes:
             if not sub_processes[num]['p'].is_alive():
                 del_process.append(num)
         for num in del_process:
+            was_stopping = sub_processes[num]['stopping']
+            worker_pid   = sub_processes[num]['p'].pid
+            if was_stopping and global_context.shared_cpu_condition is not None:
+                with global_context.shared_cpu_condition:
+                    before_pool  = global_context.shared_available_cpus.value
+                    before_alloc = global_context._cpu_state['allocation']
+                    global_context.shared_available_cpus.value += 1
+                    global_context._cpu_state['allocation']    -= 1
+                    global_context.shared_cpu_condition.notify_all()
+                if getattr(global_context.options, "xule_debug", False):
+                    _dbg("WORKER EXIT [slot %-2d pid %-6s] STOP (shrink)  "
+                         "pool: %d → %d  alloc: %d → %d  (notified waiters)" % (
+                             num, worker_pid,
+                             before_pool,
+                             global_context.shared_available_cpus.value,
+                             before_alloc,
+                             global_context._cpu_state['allocation']))
+            elif getattr(global_context.options, "xule_debug", False):
+                _dbg("WORKER EXIT [slot %-2d pid %-6s] natural (queue empty)  "
+                     "slot returns to filing_available  "
+                     "alloc unchanged (%s)" % (
+                         num, worker_pid,
+                         global_context._cpu_state.get('allocation', '?')))
             del sub_processes[num]
 
+        # ── START NEW WORKERS ─────────────────────────────────────────────────
+        # active_count excludes workers already marked for stopping so their
+        # vacated slots are not immediately refilled.  filing_available is the
+        # number of pre-claimed CPU slots not occupied by an active worker;
+        # new workers draw from this reserve without re-claiming from the pool.
+        #
+        # During constants computation, only 1 rule worker slot is allowed so
+        # the rest of the CPU budget is reserved for the constants processes.
+        # After constants finish, the full allocation is restored.
+        active_count = sum(1 for w in sub_processes.values() if not w['stopping'])
 
-        # If number of tracked rules processes is less than the number of processors and there's
-        #   work to be done, start a rules process
-        if len(sub_processes) < (global_context.num_processors + processor_adjustment) and \
-            not global_context.rules_queue.empty():
+        if constants_running and not global_context.constants_done:
+            effective_target = 1
+        elif global_context.shared_cpu_condition is not None:
+            effective_target = global_context._cpu_state.get(
+                'allocation', global_context.num_processors)
+        else:
+            effective_target = global_context.num_processors
+
+        if global_context.shared_cpu_condition is not None:
+            filing_available = global_context._cpu_state.get(
+                'allocation', global_context.num_processors) - active_count
+        else:
+            filing_available = effective_target - active_count
+
+        if active_count < effective_target and \
+                filing_available > 0 and not global_context.rules_queue.empty():
+
+            to_start = min(effective_target - active_count, filing_available)
 
             if getattr(global_context.options, "xule_debug", False):
-                global_context.message_queue.logging("******Adding rule processors********")
-                global_context.message_queue.logging("Num Processors: %d; Sub Processes: %d" % (global_context.num_processors, len(sub_processes)))
-                sleep(5)
-            
-            for num in range(0, global_context.num_processors - len(sub_processes) + processor_adjustment):
-                # make sure there's no index collision
+                _dbg("START WORKERS: active=%-2d  effective_target=%-2d  "
+                     "filing_available=%-2d  to_start=%d  "
+                     "(constants_phase=%s)" % (
+                         active_count, effective_target,
+                         filing_available, to_start,
+                         constants_running and not global_context.constants_done))
+
+            for num in range(0, to_start):
                 thisnum = num
                 while thisnum in sub_processes.keys():
-                    thisnum = thisnum + 1
- 
-                process_name = "Sub-Process %d" % (thisnum)
+                    thisnum += 1
+
+                process_name = "Sub-Process %d" % thisnum
                 cq = Queue()
-                p = Process(target=rules_process, args=(process_name, global_context, cq))
+                p  = Process(target=rules_process, args=(process_name, global_context, cq))
                 p.name = process_name
 
                 c = 0
@@ -366,155 +533,277 @@ def watch_processes(global_context):
                     try:
                         c += 1
                         if c > 3:
-                            global_context.message_queue.logging("ERROR: Tried running filing 3 times: %s" % (process_name))
-                            break 
+                            global_context.message_queue.logging(
+                                "ERROR: Tried running filing 3 times: %s" % process_name)
+                            break
                         p.start()
                         break
-                    except Exception as ex:
-                        global_context.message_queue.logging("ERROR: Problem while starting rules_process thread: %s" % (process_name))
-                        
-                sub_processes[thisnum] = { 'cq': cq,
-                                           'p' : p
-                                         }
-                #global_context.stop_watch = global_context.stop_watch + 1
+                    except Exception:
+                        global_context.message_queue.logging(
+                            "ERROR: Problem while starting rules_process thread: %s" % process_name)
+
+                sub_processes[thisnum] = {'cq': cq, 'p': p, 'stopping': False}
+
                 if getattr(global_context.options, "xule_debug", False):
-                   # global_context.message_queue.logging("adding stop_watch: %d" % (global_context.stop_watch))
-                    global_context.message_queue.logging("All Rules size: %d; Rules Queue: %d; Sub_processes: %d; Message Queue: %d" % 
-                          (len(global_context.all_rules), global_context.rules_queue.qsize(), len(sub_processes), global_context.message_queue.size))
-                    global_context.message_queue.logging("rule groups: %s" % (str([group for group in global_context.all_rules])))
-                    global_context.message_queue.logging("All Constants size: %d; Constant Queue: %d" % 
-                          (len(global_context.all_constants), global_context.calc_constants_queue.qsize()))
-                    global_context.message_queue.logging("constant groups: %s" % (str([group for group in global_context.all_constants])))       
+                    new_active = sum(1 for w in sub_processes.values() if not w['stopping'])
+                    new_fa     = global_context._cpu_state.get(
+                        'allocation', global_context.num_processors) - new_active
+                    _dbg("  STARTED %s (worker-pid=%s)  "
+                         "active now=%-2d  filing_available now=%-2d" % (
+                             process_name, p.pid, new_active, new_fa))
 
+        # ── CONSTANT MANAGEMENT ───────────────────────────────────────────────
+        # Phase A – first time all_constants is non-empty: flatten all groups
+        # into a list (dependency order: c → frc → rtc → rfrc), clear
+        # all_constants, and start ONE background Thread that runs a
+        # ThreadPoolExecutor with (num_processors−1) worker threads.
+        #
+        # Using Threads (not Processes) means each worker writes computed
+        # var_info objects directly into global_context._constants — no
+        # pickling required, so lxml-based model references are preserved.
+        # CPython's GIL makes concurrent dict writes to distinct node_id
+        # keys safe without an explicit lock.
+        #
+        # Phase B – executor running: nothing to do here; watch_processes
+        # continues its normal loop (starting 'r' rule workers in the 1-slot
+        # window) while constants are computed in the background.
+        #
+        # Phase C – executor finished (constants_done=True): stop current rule
+        # workers so they will restart next iteration and fork with the
+        # now-complete _constants dict.
+        if len(global_context.all_constants) > 0 and not constants_running:
+            # Phase A – flatten constant groups into an ordered list.
+            #
+            # 'c' and 'rtc' constants have no filing dependency and are always
+            # pre-computed.
+            #
+            # 'frc' and 'rfrc' constants need filing data; pre-computing all of
+            # them in a standalone context is unsafe for many constants.
+            #
+            # Xule is set-oriented: expressions iterate and can produce multiple
+            # values.  What constrains a result to a single value is the rule's
+            # active iteration table.  When a constant is pre-computed here
+            # (outside any running rule) that context is absent, so the
+            # expression can return all possible values — a Xule list — where
+            # downstream code (e.g. a dimension filter) expects a single qname.
+            #
+            # Pre-computation is only safe for constants where rule_count IS
+            # known (new ruleset with counts compiled in) AND the count exceeds
+            # _PRECALC_MIN_RULE_COUNT (i.e., enough rules depend on it that the
+            # warm-up cost is worth paying).  In practice, constants selected for
+            # pre-computation by this criterion are the "heavy" aggregations over
+            # large fact sets that genuinely benefit from being computed once.
+            #
+            # Old rulesets (rule_count absent) and low-count constants both fall
+            # through to lazy evaluation — computed the first time a rule needs
+            # them, inside the rule's live iteration context.
+            constants_list  = []
+            skipped_lazy    = []
+            has_rule_counts = None   # None = not yet determined
 
-        if len(global_context.all_constants) > 0: #and \
-            #global_context.calc_constants_queue.empty():
-            if 'c' in global_context.all_constants:
-                load_constant_queue(global_context, 'c')
-            if 'frc' in global_context.all_constants:
-                load_constant_queue(global_context, 'frc')
-            if 'rtc' in global_context.all_constants:
-                load_constant_queue(global_context, 'rtc')
-            #if 'rtc' in global_context.all_constants and \
-            #    getattr(global_context.cntlr, "base_taxonomy", None) is not None:
-            #    load_constant_queue(global_context, 'rtc')
-            if 'rfrc' in global_context.all_constants:
-                load_constant_queue(global_context, 'rtc', 'rfrc')
-            #if 'rfrc' in global_context.all_constants and \
-            #    getattr(global_context.cntlr, "base_taxonomy", None) is not None:
-            #    load_constant_queue(global_context, 'rtc', 'rfrc')
- 
-            # Launch thread to calculate constants
-            if not constants_running:
-                calc_constants = Thread(target=process_constants, args=(global_context,))
-                calc_constants.name = "Constant Calculator"
-                calc_constants.start()
-                constants_running = True
+            for const_type in ('c', 'frc', 'rtc', 'rfrc'):
+                if const_type not in global_context.all_constants:
+                    continue
+                for const_name in global_context.all_constants[const_type]:
+                    if const_type in ('frc', 'rfrc'):
+                        rule_count = (global_context.catalog['constants']
+                                      .get(const_name, {})
+                                      .get('rule_count', None))
+                        # First constant tells us whether counts exist at all.
+                        if has_rule_counts is None:
+                            has_rule_counts = rule_count is not None
+                        # Skip if: count unknown (old ruleset) OR count is low.
+                        # Only pre-compute when count is known AND above threshold.
+                        if rule_count is None or rule_count <= _PRECALC_MIN_RULE_COUNT:
+                            skipped_lazy.append((const_type, const_name, rule_count))
+                            continue   # compute lazily when a rule needs it
+                    constants_list.append((const_type, const_name))
+
+            global_context.all_constants = {}          # consumed; prevents re-entry
+
+            if getattr(global_context.options, "xule_debug", False):
+                _dbg("CONSTANTS Phase A: pre-compute=%d  lazy=%d  "
+                     "rule_counts_available=%s  threshold=%d" % (
+                         len(constants_list), len(skipped_lazy),
+                         has_rule_counts, _PRECALC_MIN_RULE_COUNT))
+                for (ct, cn, rc) in skipped_lazy:
+                    _dbg("  LAZY [%s] %s  rule_count=%s" % (ct, cn, rc))
+
+            if constants_list:
+                # Set constants_done=False BEFORE starting the thread to
+                # avoid a race where an instant-finishing executor writes True
+                # and the main thread then overwrites it with False.
                 global_context.constants_done = False
-                processor_adjustment = -1
+                num_const_workers = max(1, global_context.num_processors - 1)
+                t = Thread(target=_constants_executor_thread,
+                           args=(global_context, constants_list, num_const_workers))
+                t.name = "Constants-Executor"
+                t.daemon = True
+                t.start()
+                constants_running = True
+                if getattr(global_context.options, "xule_debug", False):
+                    _dbg("CONSTANTS: executor Thread started  "
+                         "workers=%d  constants=%d  rule_slots=1" % (
+                             num_const_workers, len(constants_list)))
             else:
-                processor_adjustment = 0
-        
-        else:
-            if constants_running:
-                if not global_context.stopped_constants:
-                    global_context.stopped_constants = True
-                    global_context.calc_constants_queue.put(("STOP", "STOP"))
-                if global_context.constants_done:
-                    # Send kill commands to any running threads
-                    for num in sub_processes:
-                        sub_processes[num]['cq'].put("STOP")
-                        
-                    constants_running = False
-                    processor_adjustment = 0
-            else:
+                # Nothing to pre-compute — skip Phase B and the executor entirely.
+                # Leave constants_running=False so rules start at full CPU
+                # allocation immediately.  Set constants_done=True so the
+                # LOAD RULE QUEUES section below loads all rule types (including
+                # 'fcr') without waiting for a Phase C that will never come.
                 global_context.constants_done = True
-             
-        # Load Rules
+                if getattr(global_context.options, "xule_debug", False):
+                    _dbg("CONSTANTS: nothing to pre-compute — "
+                         "skipping Phase B; all rule types load this iteration")
+
+        elif constants_running and global_context.constants_done:
+            # Phase C
+            if getattr(global_context.options, "xule_debug", False):
+                _dbg("CONSTANTS: executor done; _constants=%d entries; "
+                     "stopping %d rule workers for full-CPU rule phase" % (
+                         len(global_context._constants), len(sub_processes)))
+            for num in sub_processes:
+                sub_processes[num]['cq'].put("STOP")
+            constants_running = False
+
+        elif not constants_running and not global_context.constants_done:
+            # No constants to compute
+            global_context.constants_done = True
+
+        # ── LOAD RULE QUEUES ──────────────────────────────────────────────────
         if len(global_context.all_rules) > 0:
             load_rules_queue(global_context, 'r')
-            #if getattr(global_context.cntlr, "base_taxonomy", None) is not None:
-            #    load_rules_queue(global_context, 'rtr', 'rtfcr')
-
             if global_context.constants_done:
-                #load_rules_queue(global_context, 'fcr')
                 load_rules_queue(global_context, 'fcr', 'rtr', 'rtfcr', 'rtcr', 'alldepr')
-            #if global_context.constants_done and \
-            #    getattr(global_context.cntlr, "base_taxonomy", None) is not None:
-            #    load_rules_queue(global_context, 'rtcr', 'alldepr')
-            # provides delay to allow rules to show up in queue
-            #sleep(1)
 
-        if not constants_running and len(global_context.all_rules) <=0 \
-            and len(sub_processes) <= 0 and global_context.rules_queue.qsize() <= 0:
+        # ── EXIT CHECK ────────────────────────────────────────────────────────
+        if not constants_running and len(global_context.all_rules) <= 0 \
+                and len(sub_processes) <= 0 \
+                and global_context.rules_queue.qsize() <= 0:
             if getattr(global_context.options, "xule_debug", False):
-                global_context.message_queue.logging("stopping watch_process")
-            break       
-                    
-    if getattr(global_context, "xule_debug", False):
-        global_context.message_queue.logging("%s: Stopping Watch Process; pid: %d" % (datetime.datetime.now(), getpid()))
+                _dbg("EXIT: all work complete  "
+                     "constants_running=%s  rules_remaining=%d  "
+                     "sub_processes=%d  rules_queue=%d" % (
+                         constants_running, len(global_context.all_rules),
+                         len(sub_processes), global_context.rules_queue.qsize()))
+            break
 
-def process_constants(global_context):
-    ''' send stop to kill thread '''
-    c_name = "None"
-    
+        # ── SLEEP ─────────────────────────────────────────────────────────────
+        # Wait on the Condition so we wake immediately when another filing
+        # releases CPUs (notify_all) rather than burning a CPU hot-polling.
+        if global_context.shared_cpu_condition is not None:
+            if getattr(global_context.options, "xule_debug", False):
+                _dbg("SLEEP: waiting on condition (timeout=0.1s)")
+            with global_context.shared_cpu_condition:
+                global_context.shared_cpu_condition.wait(timeout=0.1)
+
     if getattr(global_context.options, "xule_debug", False):
-        global_context.message_queue.logging("%s: Starting Constant Process; pid: %d" % (datetime.datetime.now(), getpid()))
-        sleep(5)
+        _dbg("watch_processes FINISHED  "
+             "final num_processors=%d  cpu_allocation=%d" % (
+                 global_context.num_processors,
+                 global_context._cpu_state.get('allocation', 0)))
 
-    while True:
+def _constants_executor_thread(global_context, constants_list, num_workers):
+    """Background Thread: compute all constants using a ThreadPoolExecutor.
+
+    Each worker thread inside the executor calls `calc_constant()` and writes
+    the resulting var_info dict directly into `global_context._constants`.
+    Because threads share the parent process's address space, no pickling is
+    required — lxml model objects, XBRL facts, and any other non-serialisable
+    value are stored as-is.  CPython's GIL makes individual dict key
+    assignments (`d[k] = v`) atomic, so concurrent writes to distinct
+    node_ids are safe without an explicit lock.
+
+    If two threads happen to compute the same constant (e.g., one constant
+    depends on another that is being concurrently computed), the last write
+    wins, but both produce identical values so correctness is preserved.
+
+    When all futures complete, `global_context.constants_done` is set to
+    True so the `watch_processes` loop can advance to Phase C.
+    """
+    def _compute_one(args):
+        _, constant_name = args
+        c_name = constant_name
         try:
-            const_type, constant_name = global_context.calc_constants_queue.get()
-            c_name = constant_name
-
-            if constant_name == "STOP":
-                break;
-
             if getattr(global_context.options, "xule_debug", False):
-                global_context.message_queue.logging("Starting constant: %s" % (constant_name)) 
-                sleep(1)
+                global_context.message_queue.logging(
+                    "[pid:%-6d] Computing constant: %s" % (getpid(), constant_name))
 
             if getattr(global_context.options, "xule_time", None) is not None:
-               const_start = datetime.datetime.today() 
-               
-            cat_const = global_context.catalog['constants'].get(constant_name)
-            ast_const = global_context.rule_set.getItem(cat_const)
-            node_id = ast_const['node_id']
-            file_num = global_context.catalog['constants'][constant_name]['file']
-            xule_context = XuleRuleContext(global_context,
-                                           constant_name,
-                                           file_num)    
+                const_start = datetime.datetime.today()
+
+            cat_const    = global_context.catalog['constants'].get(constant_name)
+            ast_const    = global_context.rule_set.getItem(cat_const)
+            node_id      = ast_const['node_id']
+            file_num     = global_context.catalog['constants'][constant_name]['file']
+            xule_context = XuleRuleContext(global_context, constant_name, file_num)
+
             if constant_name not in xule_context._BUILTIN_CONSTANTS:
-                var_info = {"name": constant_name,
-                            "tagged": 'tagged' in ast_const,
-                            "type": xule_context._VAR_TYPE_CONSTANT,
-                            "expr": ast_const,
-                            "calculated": False,
-                            }
+                var_info = {
+                    "name":       constant_name,
+                    "tagged":     'tagged' in ast_const,
+                    "type":       xule_context._VAR_TYPE_CONSTANT,
+                    "expr":       ast_const,
+                    "calculated": False,
+                }
                 from .XuleProcessor import calc_constant
-                const_values = calc_constant(var_info, xule_context)
+                calc_constant(var_info, xule_context)
+                # GIL makes this assignment atomic; concurrent threads writing
+                # to different node_ids is safe in CPython.
                 global_context._constants[node_id] = var_info
 
             if getattr(global_context.options, "xule_time", None) is not None:
                 const_end = datetime.datetime.today()
-                global_context.times.append(('constant', constant_name, const_end - const_start))
-        except:
-            global_context.message_queue.logging("error while processing constant %s" % (c_name))
+                global_context.times.append(
+                    ('constant', constant_name, const_end - const_start))
+
+        except Exception:
+            import traceback as _tb
+            global_context.message_queue.logging(
+                "[pid:%-6d] Error while computing constant: %s\n%s" % (
+                    getpid(), c_name, _tb.format_exc()))
+
+    if getattr(global_context.options, "xule_debug", False):
+        global_context.message_queue.logging(
+            "[pid:%-6d %s] Constants executor started: %d constants / %d threads" % (
+                getpid(),
+                datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3],
+                len(constants_list), num_workers))
+
+    # Run constants in phase order so that inter-phase dependencies are
+    # satisfied before the next phase begins.  The original sequential code
+    # computed groups in this exact order: c → frc → rtc → rfrc.  An frc
+    # constant may depend on a c constant already being in _constants; running
+    # all groups concurrently in one pool breaks that guarantee and causes
+    # "found 'list'" errors when a filter value comes from an unresolved ref.
+    # Parallelism is preserved *within* each phase.
+    _PHASE_ORDER = ('c', 'frc', 'rtc', 'rfrc')
+    _phases = {t: [] for t in _PHASE_ORDER}
+    for item in constants_list:
+        const_type = item[0]
+        if const_type in _phases:
+            _phases[const_type].append(item)
+
+    for _phase in _PHASE_ORDER:
+        if not _phases[_phase]:
+            continue
+        if getattr(global_context.options, "xule_debug", False):
+            global_context.message_queue.logging(
+                "[pid:%-6d %s] Constants executor: phase '%s'  %d constants" % (
+                    getpid(),
+                    datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3],
+                    _phase, len(_phases[_phase])))
+        with ThreadPoolExecutor(max_workers=num_workers) as executor:
+            list(executor.map(_compute_one, _phases[_phase]))
 
     global_context.constants_done = True
 
-    '''
-    # Send kill commands to any running threads
-    for num in sub_processes:
-        sub_processes[num]['cq'].put("STOP")
-        
-    # Increases the amount of processes running rules
-    global_context.num_processors = global_context.num_processors + 1
-    '''
-    
     if getattr(global_context.options, "xule_debug", False):
-        global_context.message_queue.logging("***** Stopping Constant Thread ******")
-        #sleep(5)
+        global_context.message_queue.logging(
+            "[pid:%-6d %s] Constants executor done: %d entries in _constants" % (
+                getpid(),
+                datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3],
+                len(global_context._constants)))
 
 
 # Helper Functions

@@ -58,10 +58,13 @@ except ImportError:
 
 from arelle import FileSource
 from arelle import ModelManager
+from arelle import PluginManager
 import optparse
 import os 
 import datetime
 import json
+
+_MIN_CPUS_PER_FILING = 2  # minimum rule-worker slots required to start processing a filing
 
 # Global variables are set for the Xule package. However, Arelle may import the package multiple times, which causes
 # these variables to reset each time. This try block checks if the package global variables are already defined, if
@@ -79,6 +82,366 @@ except NameError:
     _latest_map_name = None
     _xule_validators = []
     _xule_rule_set_map_name = 'xuleRulesetMap.json'
+    _server_mode = False
+    _shared_cntlr = None
+
+def _xule_request_worker(child_conn, options, sourceZipStream, media):
+    """Runs in a per-request forked process.  _shared_cntlr is inherited via fork (not pickled).
+    The process exits after one request so no state bleeds between requests.  Results are sent
+    back to the parent through a one-way Pipe connection, avoiding the Manager dict overhead and
+    the inherited-connection issues that a multiprocessing.Pool would introduce.
+
+    CPU budget protocol (server mode only):
+      Step 1 – Claim a filing slot immediately (bounded by max_concurrent_filings).
+               Incrementing shared_running_filings HERE, before waiting for CPU slots,
+               causes watch_processes in every already-running filing to wake up
+               (via notify_all) and rebalance their allocations downward.  This is
+               what allows a newly-arrived filing to actually obtain CPUs instead of
+               sitting blocked while filing-1 holds everything.
+      Step 2 – Wait until _MIN_CPUS_PER_FILING slots are free, then claim them.
+               The rebalance triggered by Step 1 will have released slots into the
+               pool by the time this wait resolves.
+      Step 3 – Greedily claim up to this filing's fair share of the total budget.
+      Finally – Return all still-held slots and decrement shared_running_filings.
+    """
+    from math import floor
+    cond = getattr(_shared_cntlr, 'shared_cpu_condition', None)
+
+    if cond is not None:
+        # ── Step 1: claim a filing slot ───────────────────────────────────────
+        # Increment shared_running_filings BEFORE waiting for CPU slots so the
+        # rebalance formula (floor(total/running)) in every already-running
+        # filing's watch_processes immediately sees the new demand and sheds CPUs
+        # into the shared pool for us to claim in Step 2.
+        # The cap (max_concurrent_filings = total / MIN_CPUS) prevents the
+        # denominator from growing so large that each share falls below MIN_CPUS.
+        # Requests beyond the cap wait here until a slot frees at filing exit.
+        max_concurrent = getattr(_shared_cntlr, 'max_concurrent_filings', 4)
+        with cond:
+            cond.wait_for(
+                lambda: _shared_cntlr.shared_running_filings.value < max_concurrent
+            )
+            _shared_cntlr.shared_running_filings.value += 1
+            cond.notify_all()   # wake watch_processes in all running filings
+
+        # ── Step 2: wait for minimum CPU slots then claim them ────────────────
+        # The notify_all above causes running filings to rebalance (shed CPUs),
+        # so this wait should resolve quickly once they shed their surplus.
+        with cond:
+            cond.wait_for(
+                lambda: _shared_cntlr.shared_available_cpus.value >= _MIN_CPUS_PER_FILING
+            )
+            _shared_cntlr.shared_available_cpus.value -= _MIN_CPUS_PER_FILING
+            running = _shared_cntlr.shared_running_filings.value
+
+        # ── Step 3: claim additional slots up to this filing's fair share ──────
+        initial_target = max(_MIN_CPUS_PER_FILING,
+                             floor(_shared_cntlr.total_cpus / running))
+        additional = initial_target - _MIN_CPUS_PER_FILING
+        if additional > 0:
+            with cond:
+                additional = min(additional, _shared_cntlr.shared_available_cpus.value)
+                _shared_cntlr.shared_available_cpus.value -= additional
+        allocation = _MIN_CPUS_PER_FILING + additional
+
+        # _cpu_state is a mutable dict shared between this thread and watch_processes so that
+        # watch_processes can adjust the allocation during processing and the finally block
+        # can return exactly the right number of slots to the pool.
+        _shared_cntlr._cpu_state = {'allocation': allocation}
+        setattr(options, 'xule_cpu', allocation)
+
+    try:
+        _shared_cntlr.logHandler.clearLogBuffer()
+        success = _shared_cntlr.run(options, sourceZipStream)
+        if media == "xml":
+            result = _shared_cntlr.logHandler.getXml()
+        elif media == "json":
+            result = _shared_cntlr.logHandler.getJson()
+        elif media == "text":
+            result = _shared_cntlr.logHandler.getText()
+        else:
+            result = list(_shared_cntlr.logHandler.getLines())
+        child_conn.send((success, result))
+    except Exception as e:
+        child_conn.send((False, [str(e)]))
+    finally:
+        if cond is not None:
+            # Return all pre-claimed slots still held by this filing.  Slots consumed by
+            # 'stopping' (shrink) workers are returned to the pool as those workers die
+            # inside watch_processes; slots that cycled through natural worker deaths remain
+            # in cpu_allocation and are returned here.
+            remaining = _shared_cntlr._cpu_state.get('allocation', 0)
+            with cond:
+                if remaining > 0:
+                    _shared_cntlr.shared_available_cpus.value += remaining
+                _shared_cntlr.shared_running_filings.value -= 1
+                cond.notify_all()
+        child_conn.close()
+
+
+def _warm_up_taxonomy_cache(cntlr, rule_set_path, message_queue=None):
+    """Load the sample filing that matches the active rule set's taxonomy type and year.
+
+    Inspects *rule_set_path* (e.g. "dqc-us-2025-V31", "dqc-ifrs-2025-V31") to
+    determine both the taxonomy family and the target year, then looks for a
+    matching file in /code/filings.
+
+    Taxonomy type detection (first match wins, case-insensitive):
+      dqc-us   → usgaap   (e.g. usgaap-2025.zip)
+      dqc-ifrs → ifrs     (e.g. ifrs-2025.zip)
+      dqc-esef → esef     (e.g. esef-2025.zip)
+
+    Files are tried in extension order: .zip, .htm, .xml.  Only the one file
+    matching the detected taxonomy+year is loaded; if no match is found the
+    warm-up is skipped silently.
+
+    The loaded ModelXbrl is intentionally kept open so the parent web-server process
+    retains the parsed schema objects in memory.  Forked request workers inherit
+    those objects via copy-on-write, cutting cold-start filing load time from
+    10–15 seconds to under a second.
+
+    Sample filings should be placed in /code/filings inside the container, named
+    as {taxonomy}-{year}.{ext}, e.g. usgaap-2025.zip, ifrs-2025.zip, esef-2025.zip.
+    See support_files/filings/README.md for details.
+    """
+    import os
+    import re
+
+    warmup_dir = '/code/filings'
+
+    # Ordered list of (substring-in-rule-set-path, warm-up-file-prefix).
+    # Checked case-insensitively against the rule set basename; first match wins.
+    _TAXONOMY_PREFIXES = [
+        ('dqc-us',   'usgaap'),
+        ('dqc-ifrs', 'ifrs'),
+        ('dqc-esef', 'esef'),
+    ]
+
+    def _log(msg):
+        if message_queue is not None:
+            message_queue.logging(msg)
+        else:
+            cntlr.addToLog(msg, 'xule')
+
+    base = os.path.basename(rule_set_path or '').lower()
+
+    # Detect taxonomy family.
+    taxonomy_prefix = None
+    for key, prefix in _TAXONOMY_PREFIXES:
+        if key in base:
+            taxonomy_prefix = prefix
+            break
+
+    if taxonomy_prefix is None:
+        _log("Taxonomy warm-up: unrecognised taxonomy in rule set path '%s' — skipping"
+             % rule_set_path)
+        return
+
+    # Extract the first four-digit year-like number (20xx) from the rule set path.
+    match = re.search(r'20\d{2}', base)
+    if not match:
+        _log("Taxonomy warm-up: no year found in rule set path '%s' — skipping"
+             % rule_set_path)
+        return
+
+    year = match.group(0)
+    stem = '%s-%s' % (taxonomy_prefix, year)   # e.g. "usgaap-2025"
+
+    if not os.path.isdir(warmup_dir):
+        _log("Taxonomy warm-up: directory %s not found — skipping" % warmup_dir)
+        return
+
+    # Try each supported extension in preference order.
+    filing_path = None
+    for ext in ('.zip', '.htm', '.xml'):
+        candidate = os.path.join(warmup_dir, stem + ext)
+        if os.path.isfile(candidate):
+            filing_path = candidate
+            break
+
+    if filing_path is None:
+        _log("Taxonomy warm-up: no filing found for '%s' in %s — skipping"
+             % (stem, warmup_dir))
+        return
+
+    from arelle import FileSource
+
+    name = os.path.basename(filing_path)
+    _log("Taxonomy warm-up: loading %s (taxonomy %s, year %s)" % (name, taxonomy_prefix, year))
+    try:
+        # Arelle expects the entry-point document, not the ZIP container itself.
+        # For a ZIP file, append the main HTM/XML filename so Arelle receives a
+        # path of the form  /code/filings/2025.zip/report.htm  rather than
+        # /code/filings/2025.zip  (which it would try to read as plain text and
+        # fail with a UTF-8 decode error).
+        load_url = filing_path
+        if filing_path.endswith('.zip'):
+            entry = _find_zip_entry(filing_path)
+            if entry is None:
+                _log("Taxonomy warm-up: no HTM/XML entry point found inside %s — skipping"
+                     % name)
+                return
+            load_url = filing_path + '/' + entry
+            _log("Taxonomy warm-up: entry point is %s" % entry)
+
+        file_source = FileSource.openFileSource(load_url, cntlr)
+        cntlr.modelManager.load(file_source, "Taxonomy warm-up: %s" % name)
+        # Intentionally NOT calling modelXbrl.close() — keeping the model open
+        # retains the parsed DTS in the parent's memory so forked request workers
+        # inherit it via copy-on-write rather than re-parsing from disk.
+        _log("Taxonomy warm-up complete: %s" % name)
+    except Exception as e:
+        _log("Taxonomy warm-up failed (%s): %s — continuing" % (name, str(e)))
+
+
+def _find_zip_entry(zip_path):
+    """Return the filename of the main iXBRL document inside an EDGAR filing ZIP.
+
+    Strategy 1 — filing-summary.xml (EDGAR standard):
+        EDGAR submission ZIPs include a filing-summary.xml whose <InputFiles>
+        section lists the primary instance document first.  We parse it and return
+        the first .htm/.html file found there.
+
+    Strategy 2 — largest non-exhibit HTM:
+        If no filing-summary.xml exists (older or non-EDGAR ZIPs), we pick the
+        top-level HTM file with the largest uncompressed size, excluding files
+        that look like exhibit attachments or EDGAR viewer report pages:
+          - exhibit pattern:  ex<digits>, _ex<digits>, exhibit (case-insensitive)
+          - viewer pages:     R<digits>.htm  (EDGAR interactive viewer)
+          - linkbase XML:     files with label/calc/def/pre/ref suffixes
+
+    Returns None if no suitable document is found.
+    """
+    import re
+    import zipfile
+    import xml.etree.ElementTree as ET
+
+    def _is_exhibit(filename):
+        """True if the filename looks like an EDGAR exhibit or viewer page."""
+        base = filename.lower().rsplit('.', 1)[0]
+        # Viewer report pages: R1.htm, R2.htm, …
+        if re.match(r'^r\d+$', base):
+            return True
+        # Exhibit files: ex31.htm, bstx_ex31z1.htm, exhibit32.htm, …
+        if re.search(r'(?:^|[_\-])ex\d', base):
+            return True
+        if 'exhibit' in base:
+            return True
+        return False
+
+    try:
+        with zipfile.ZipFile(zip_path, 'r') as zf:
+            names = zf.namelist()
+            # Top-level files only (no sub-directory paths)
+            top_level = [n for n in names if '/' not in n and '\\' not in n]
+
+            # ── Strategy 1: filing-summary.xml ──────────────────────────────
+            if 'filing-summary.xml' in top_level:
+                try:
+                    with zf.open('filing-summary.xml') as f:
+                        root = ET.parse(f).getroot()
+                    # <InputFiles><File>primary.htm</File>...</InputFiles>
+                    for elem in root.iter('File'):
+                        fname = (elem.text or '').strip()
+                        if fname.lower().endswith(('.htm', '.html')) and fname in top_level:
+                            return fname
+                except Exception:
+                    pass  # fall through to strategy 2
+
+            # ── Strategy 2: largest non-exhibit HTM ──────────────────────────
+            candidates = []
+            for n in top_level:
+                if not n.lower().endswith(('.htm', '.html')):
+                    continue
+                if _is_exhibit(n):
+                    continue
+                try:
+                    size = zf.getinfo(n).file_size
+                except Exception:
+                    size = 0
+                candidates.append((size, n))
+
+            if candidates:
+                # The main iXBRL filing is almost always the largest HTM in the ZIP
+                candidates.sort(reverse=True)
+                return candidates[0][1]
+
+            # ── Strategy 3: any top-level XML that isn't a linkbase/summary ──
+            linkbase_suffixes = ('_lab.xml', '_cal.xml', '_def.xml',
+                                 '_pre.xml', '_ref.xml', 'summary.xml')
+            for n in top_level:
+                if n.lower().endswith('.xml') and not any(
+                        n.lower().endswith(s) for s in linkbase_suffixes):
+                    return n
+
+    except Exception:
+        pass
+
+    return None
+
+
+def xuleCntlrWebMainStartWebServer(app, cntlr, host, port, server):
+    """CntlrWebMain.StartWebServer hook: records the fully-initialised cntlr for worker forks
+    and creates the shared multiprocessing primitives for cross-filing CPU budget tracking.
+
+    This fires after cntlr.startLogging() has run (so logHandler is ready) but before the
+    HTTP server accepts its first request.  Storing cntlr here means each per-request fork
+    inherits a complete cntlr — constants loaded, logHandler configured — via copy-on-write.
+    The shared Value/Condition objects are also inherited by every fork and are backed by
+    OS shared memory, so all concurrent filing processes see the same pool state.
+    Returns None so arelle still registers all default routes and starts the server normally.
+    """
+    from multiprocessing import Value, Lock, Condition
+    from os import cpu_count as _cpu_count
+    global _server_mode, _shared_cntlr
+
+    total = _cpu_count() or 1
+    cpu_lock = Lock()
+    cpu_condition = Condition(cpu_lock)
+
+    cntlr.total_cpus = total
+    cntlr.min_cpus_per_filing = _MIN_CPUS_PER_FILING
+    # Maximum number of filings counted toward the rebalance formula at once.
+    # Derived from the CPU budget: floor(total / MIN_CPUS) gives the most filings
+    # that can each receive at least MIN_CPUS_PER_FILING slots simultaneously.
+    # Step 1 of _xule_request_worker waits until running_filings < this cap before
+    # joining the active pool, so excess requests queue naturally.
+    cntlr.max_concurrent_filings = max(1, total // _MIN_CPUS_PER_FILING)
+    cntlr.shared_available_cpus = Value('i', total)
+    cntlr.shared_running_filings = Value('i', 0)
+    cntlr.shared_cpu_condition = cpu_condition
+
+    _server_mode = True
+    _shared_cntlr = cntlr
+    return None
+
+
+def xuleCntlrWebMainRunOptions(cntlr, options, sourceZipStream, responseZipStream, media, viewFile):
+    """CntlrWebMain.RunOptions hook: isolates each HTTP request in its own forked process.
+
+    Uses Process + Pipe rather than a Pool so there are no pool-management threads in the
+    parent that could deadlock a forked child, and no shared Pool connections that xule's
+    own rule-worker subprocesses would inherit and corrupt.
+    Falls back to None (default arelle path) for zip / view requests that depend on
+    in-process file objects.
+    """
+    if not _server_mode or responseZipStream is not None or viewFile is not None:
+        return None
+
+    from multiprocessing import Process, Pipe
+
+    parent_conn, child_conn = Pipe(duplex=False)
+    p = Process(target=_xule_request_worker,
+                args=(child_conn, options, sourceZipStream, media))
+    p.start()
+    child_conn.close()
+    try:
+        result_tuple = parent_conn.recv()
+    finally:
+        parent_conn.close()
+    p.join()
+    return result_tuple
+
 
 class EmptyOptions:
     pass
@@ -612,8 +975,8 @@ def xuleCmdOptions(parser):
     parserGroup.add_option("--xule-run-only",
                         action="store",
                         dest="xule_run_only",
-                        help=_("List of rules to run"))    
-    
+                        help=_("List of rules to run"))
+
     parserGroup.add_option("--xule-run-only-pattern",
                         action="store",
                         dest="xule_run_only_pattern",
@@ -633,7 +996,7 @@ def xuleCmdOptions(parser):
                            action="store",
                            dest="xule_output_constants",
                            help=_("Comma separated list of constant names to output."))
-    
+
     parserGroup.add_option("--xule-output-constants-file",
                            action="store",
                            dest="xule_output_constants_file",
@@ -822,7 +1185,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     
     if getattr(options, "xule_server", None):
         from threading import Thread
-        
+
         try:
             rule_set = xr.XuleRuleSet(cntlr)
             rule_set.open(options.xule_rule_set, False)
@@ -847,11 +1210,50 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             global_context.all_rules = rule_set.get_grouped_rules()        
 
             
+            # Category labels for the log.
+            _CONST_CATEGORY_LABELS = {
+                'c':    'c    (no dependencies)',
+                'rtc':  'rtc  (rules taxonomy only)',
+                'frc':  'frc  (filing instance only)',
+                'rfrc': 'rfrc (filing instance + rules taxonomy)',
+            }
+
             for g in global_context.all_constants:
-                global_context.message_queue.logging("Constants: %s - %d" % (g, len(global_context.all_constants[g])))
+                global_context.message_queue.logging(
+                    "Constants: %s - %d" % (g, len(global_context.all_constants[g])))
 
             for g in global_context.all_rules:
-                global_context.message_queue.logging("Rules: %s - %d" % (g, len(global_context.all_rules[g])))
+                global_context.message_queue.logging(
+                    "Rules: %s - %d" % (g, len(global_context.all_rules[g])))
+
+            # In debug mode, emit a detailed breakdown: each category's constants
+            # sorted by rule_count descending so the most-used constants are visible
+            # at a glance.  rule_count is stored in the compiled catalog by
+            # XuleRuleSetBuilder.post_parse(); constants compiled before this change
+            # will show 0.
+            if getattr(options, 'xule_debug', False):
+                global_context.message_queue.logging(
+                    "--- Constants by category (sorted by rule usage) ---")
+                for g in ('c', 'rtc', 'frc', 'rfrc'):
+                    if g not in global_context.all_constants:
+                        continue
+                    label = _CONST_CATEGORY_LABELS.get(g, g)
+                    const_names = global_context.all_constants[g]
+                    # Sort by rule_count descending; constants without a count
+                    # (compiled before this feature) fall to the bottom.
+                    sorted_consts = sorted(
+                        const_names,
+                        key=lambda n: rule_set.catalog['constants'][n].get('rule_count', 0),
+                        reverse=True,
+                    )
+                    global_context.message_queue.logging(
+                        "  [%s] — %d constants" % (label, len(sorted_consts)))
+                    for const_name in sorted_consts:
+                        count = rule_set.catalog['constants'][const_name].get('rule_count', 0)
+                        global_context.message_queue.logging(
+                            "    %-50s  %d rules" % (const_name, count))
+                global_context.message_queue.logging(
+                    "--- End constants breakdown ---")
 
             # evaluate valid constants (no dependency, rules taxonomy)
             global_context.message_queue.logging("Calculating and Storing Constants")
@@ -860,11 +1262,17 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                     
             # Add precalculated information to the cntlr to pass to XuleServer
             setattr(cntlr, "xule_options", options)
-            setattr(cntlr, "rule_set", global_context.rule_set)        
+            setattr(cntlr, "rule_set", global_context.rule_set)
             setattr(cntlr, "constant_list", global_context._constants)
             setattr(cntlr, "all_constants", global_context.all_constants)
-            setattr(cntlr, "all_rules", global_context.all_rules)        
+            setattr(cntlr, "all_rules", global_context.all_rules)
 
+            # Pre-load the sample filing for this rule set's taxonomy year to warm
+            # the parent process's taxonomy cache.  Forked request workers inherit
+            # the parsed DTS objects via copy-on-write, avoiding 10-15 second
+            # taxonomy parse time on every cold request.
+            _warm_up_taxonomy_cache(cntlr, options.xule_rule_set,
+                                    global_context.message_queue)
 
             global_context.message_queue.logging("Finished Server Initialization")
             
@@ -1157,5 +1565,7 @@ __pluginInfo__ = {
     'Xule.RulesetMap.Display': displayValidatorRulesetMap,
     'Xule.CntrlCmdLine.Utility.Run.Init': saveOptions,
     'Xule.compile': xuleCompile,
-    'Xule.callXuleProcessor': callXuleProcessor
+    'Xule.callXuleProcessor': callXuleProcessor,
+    'CntlrWebMain.StartWebServer': xuleCntlrWebMainStartWebServer,
+    'CntlrWebMain.RunOptions': xuleCntlrWebMainRunOptions,
     }
