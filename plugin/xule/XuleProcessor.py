@@ -1686,7 +1686,7 @@ def evaluate_for(for_expr, xule_context):
         raise XuleProcessingError(_("For loop requires a set or list, found '{}'.".format(for_loop_collection.type)),
                                   xule_context)
 
-    for for_loop_var in for_loop_collection.value:
+    for for_loop_var in for_loop_collection.ordered_value:
         if for_loop_var.used_expressions is None:
             for_loop_var.used_expressions = used_expressions
         else:
@@ -2721,14 +2721,40 @@ def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filter
     return xule_context.fact_alignments[factset['node_id']][fact][0 if frozen else 1]
 
 
+def ordered_iteration(items, xule_context, key=None):
+    """Return items in a reproducible order when --xule-ordered-iterations is in effect.
+
+    Several collections in the processor are python sets whose members - ModelFacts, XuleValues,
+    ModelConcepts - are hashed by identity. Set iteration therefore follows memory addresses, which
+    differ between runs, so the order in which facts are bound and messages are produced is not
+    reproducible. PYTHONHASHSEED does not help, because identity hashes are not affected by it.
+
+    When the option is off this returns the collection untouched, so the default behaviour and cost
+    are unchanged.
+    """
+    if getattr(xule_context.global_context.options, 'xule_ordered_iterations', False):
+        try:
+            return sorted(items, key=key) if key is not None else sorted(items)
+        except TypeError:
+            # Not orderable - leave the collection alone rather than fail.
+            return items
+    return items
+
+
+def _fact_order_key(model_fact):
+    """Document load order. objectIndex is assigned as the model is built, so it is stable for a
+    given input document and cheap to sort on."""
+    return getattr(model_fact, 'objectIndex', 0)
+
+
 def process_filtered_facts(factset, pre_matched_facts, non_align_aspects, align_aspects,
-                           nested_filters, aspect_vars, pre_matched_used_expressions_ids, 
+                           nested_filters, aspect_vars, pre_matched_used_expressions_ids,
                            dimensions_special_value, dimensios_special_covered, xule_context):
     """Apply the where portion of the factset"""
     results = XuleValueSet()
     default_used_expressions = set()
 
-    for model_fact in pre_matched_facts:
+    for model_fact in ordered_iteration(pre_matched_facts, xule_context, _fact_order_key):
         # assume the fact will matach the where clause.
         matched = True
 
@@ -3112,7 +3138,7 @@ def evaluate_filter(filter_expr, xule_context):
         results = list()
         results_shadow = list()
 
-    for item_number, item_value in enumerate(collection_value.value):
+    for item_number, item_value in enumerate(collection_value.ordered_value):
         xule_context.add_arg('item',
                              filter_expr['expr']['node_id'],
                              None,
@@ -5316,7 +5342,7 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
         elif message_value.type in ('list','set'):
             # The rule focus is a list/set of concepts or facts. The list/set cannot be nested
             message = []
-            for rule_focus_item in message_value.value:
+            for rule_focus_item in message_value.ordered_value:
                 if rule_focus_item.type == 'concept':
                     message.append(rule_focus_item.value)
                 elif rule_focus_item.is_fact:
