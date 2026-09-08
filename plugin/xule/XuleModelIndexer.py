@@ -147,11 +147,10 @@ def index_properties(model_fact):
     :returns: A list of properties to add to the fact index. The items of the list are 2 item tuples of property identifier and property value.
     :rtype: list
     """
-    prop_list = list()
     for property_key, property_function in FACT_INDEX_PROPERTIES.items():
         property_value = property_function(model_fact)
         if property_value is not None:
-            prop_list.append((property_key, property_value))
+            yield (property_key, property_value)
 
     for attribute in model_fact.concept.elementAttributesTuple:
         # Create an aspect property for the concept aspect for any additional xml attributes that are on the concept.
@@ -159,9 +158,7 @@ def index_properties(model_fact):
         # attribute[1] is the attribute value
         if attribute[0] not in ('id', 'name', 'substitutionGroup', 'type', '{http://www.xbrl.org/2003/instance}balance',
                                 '{http://www.xbrl.org/2003/instance}periodType'):
-            prop_list.append((('property', 'concept', 'attribute', qname(attribute[0])), attribute[1]))
-
-    return prop_list
+            yield (('property', 'concept', 'attribute', qname(attribute[0])), attribute[1])
 
 
 def index_property_start(model_fact):

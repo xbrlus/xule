@@ -34,7 +34,7 @@ from arelle.XmlValidate import XsdPattern
 from lxml import etree
 import datetime
 import decimal
-from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
+from aniso8601 import parse_duration, parse_datetime, parse_date
 import collections
 import copy
 from fractions import Fraction
@@ -85,6 +85,10 @@ class SortedValuesList(list):
                     try:
                         super().sort(key=lambda x: str(x.value), reverse=reverse)
                     except TypeError:
+                        # Values are genuinely incomparable even as strings. Leave the list in
+                        # whatever order it's currently in. is_sorted is still set True below so
+                        # we don't retry (and re-raise/catch the same two TypeErrors) on every
+                        # subsequent access - this is "as sorted as it's going to get".
                         pass
         self.is_sorted = True
         
@@ -180,7 +184,7 @@ class XuleValueSet:
         if isinstance(value, XuleValue):
             self.values[value.alignment].append(value)
         else:
-            raise XuleProcessingError(_("Internal error: XuleValueSet can only append a XuleValue, found '%s'" % type(value)))
+            raise XuleProcessingError(_(f"Internal error: XuleValueSet can only append a XuleValue, found '{type(value)}'"))
         
     
     def clone(self):
@@ -197,6 +201,14 @@ class XuleValueSet:
     
         
 class XuleValue:
+    __slots__ = (
+        'value', 'type', 'fact', 'from_model', 'alignment', 'facts', 'tags',
+        'aligned_result_only', 'used_expressions', 'shadow_collection',
+        '_tag', '_hashable_system_value',
+        '_shadow_dictionary', '_shadow_keys', '_value_dictionary',
+        '_key_search_dictionary', '_sort_value',
+    )
+
     def __init__(self, xule_context, orig_value, orig_type, alignment=None, from_model=False, shadow_collection=None, tag=None, orig_fact=None):
         #convert all python strings to XuleString.
         if isinstance(orig_value, str):
@@ -362,7 +374,7 @@ class XuleValue:
                 # "qname" xule type.
                 # The orig_value should be a list or set of qname values
                 if not (isinstance(orig_value.xValue, list) or isinstance(orig_value.xValue, set)):
-                    raise XuleProcessingError(_("Encountered a extensible enumeration. Expected the fact value to be a set or list, but found '{}'.".format(type(orig_value.xValue).__name__)))
+                    raise XuleProcessingError(_(f"Encountered a extensible enumeration. Expected the fact value to be a set or list, but found '{type(orig_value.xValue).__name__}'."))
                 enum_set = set()
                 for enum in orig_value.xValue:
                     enum_value_type, enum_compute_value = model_to_xule_type(xule_context, enum)
@@ -374,7 +386,7 @@ class XuleValue:
                     if len(orig_value.xValue) == 1:
                         xule_type, compute_value = model_to_xule_type(xule_context, orig_value.xValue[0]) 
                     else:
-                        raise XuleProcessingError(_("Encountered an enumerationItemType that contains more than one value. This type of fact can only have one fact. Concept is '{}' with value of '{}'".format(orig_value.concept.qname.clarkNotation, orig_value.text)))
+                        raise XuleProcessingError(_(f"Encountered an enumerationItemType that contains more than one value. This type of fact can only have one fact. Concept is '{orig_value.concept.qname.clarkNotation}' with value of '{orig_value.text}'"))
                 else:
                     xule_type, compute_value = model_to_xule_type(xule_context, orig_value.xValue)
                 return xule_type, compute_value, orig_value
@@ -474,11 +486,9 @@ class XuleValue:
                 else:
                     decimals = int(round_to_decimals)
             
-            format_string = f"{{0:,.{decimals}f}}"
-
-            format_rounded = format_string.format(self.value)
+            format_rounded = f"{self.value:,.{decimals}f}"
             reduced_round = self._reduce_number(format_rounded)
-            format_orig = "{0:,}".format(self.value)
+            format_orig = f"{self.value:,}"
             reduced_orig = self._reduce_number(format_orig)
             
             if reduced_round != reduced_orig:
@@ -491,7 +501,7 @@ class XuleValue:
                 if type(self.fact.xValue) == gYear:
                     return str(self.value)
                 
-            return "{0:,}".format(self.value)
+            return f"{self.value:,}"
         
         elif self.type == 'unit':
             
@@ -504,7 +514,7 @@ class XuleValue:
 #                                                  " * ".join([x.localName for x in self.value[1]]))
 #             return unit_string
         elif self.type == 'entity':
-            return '{}={}'.format(self.value[0], self.value[1])
+            return f'{self.value[0]}={self.value[1]}'
         elif self.type == 'duration':
             if self.value[0] == datetime.datetime.min and self.value[1] == datetime.datetime.max:
                 return "forever"
@@ -513,13 +523,13 @@ class XuleValue:
                     end_date = self.value[1] - datetime.timedelta(days=1)
                 else:
                     end_date = self.value[1]
-                return"%s to %s" % (self.value[0].strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
-            
+                return f"{self.value[0].strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}"
+
         elif self.type == 'instant':
             if self.from_model == True:
-                return "%s" % (self.value - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+                return f"{(self.value - datetime.timedelta(days=1)).strftime('%Y-%m-%d')}"
             else:
-                return "%s" % self.value.strftime("%Y-%m-%d")
+                return f"{self.value.strftime('%Y-%m-%d')}"
         
         elif self.type == 'list':
             #list_value = ", ".join([sub_value.format_value() for sub_value in self.value])
@@ -602,7 +612,7 @@ class XuleValue:
             else:
                 footnote_resource = self.value[FOOTNOTE_CONTENT]
                 footnote_text = footnote_resource.text or ''
-                for child in footnote_resource.getchildren():
+                for child in footnote_resource:
                     footnote_text += etree.tostring(child).decode()    
                 footnote_string += footnote_text
             return footnote_string
@@ -611,24 +621,11 @@ class XuleValue:
 
     def _reduce_number(self, num):
         if '.' in num:
-            j = 0
-            #for i in range(1,4):
-            i = 1
-            while True:
-                if num[-i] == '.':
-                    break
-                elif num[-i] == '0':
-                    j = i
-                else:
-                    break
-                i += 1
-            if j != 0:
-                num = num[:-j]
-            if num[-1] == '.':
-                num = num[:-1]
-            return num
-        else:
-            return num
+            # Strip trailing fractional zeros, then a bare trailing '.'. rstrip('0') can't eat into
+            # the integer part because it stops at the first non-'0' character from the right, and
+            # '.' isn't '0' (e.g. "1,200.00" -> "1,200." -> "1,200").
+            num = num.rstrip('0').rstrip('.')
+        return num
 
     # reloadable value is a string or int or json array with type first and then value(s)
     # types set, list and dict have entries following type.  Dict has [key, value]
@@ -1034,7 +1031,7 @@ class XuleUnit:
                     if x.type == 'qname':
                         nums.append(x.value)
                     else:
-                        raise XuleProcessingError(_("Unit must be created from qnames, found '{}'".format(x.type)), None)
+                        raise XuleProcessingError(_(f"Unit must be created from qnames, found '{x.type}'"), None)
                 self._numerator = tuple(sorted(nums))
                 self._denominator = tuple()
                 self._unit_xml_id = None
@@ -1043,7 +1040,7 @@ class XuleUnit:
                 self._denominator = args[0].value.denominator
                 self._unit_xml_id = args[0].value.xml_id
             else:
-                raise XuleProcessingError(_("Cannot create a XuleUnit from a '{}'.".format(type(args[0]))), None)
+                raise XuleProcessingError(_(f"Cannot create a XuleUnit from a '{type(args[0])}'."), None)
         elif len(args) == 2:
             #In this case the first argument is a collection of numerators or a single numerator and the second is a collection of denominators or a single denominator
             nums = []
@@ -1070,7 +1067,7 @@ class XuleUnit:
                         
             self._unit_cancel()
         else:
-            raise XuleProcessingError(_("Cannot create a XuleUnit. Expecting 1 or 2 arguments but found {}".format(len(args))), None)
+            raise XuleProcessingError(_(f"Cannot create a XuleUnit. Expecting 1 or 2 arguments but found {len(args)}"), None)
     
     def _unit_extract_parts(self, part):
         if part.type == 'unit':
@@ -1078,7 +1075,7 @@ class XuleUnit:
         elif part.type == 'qname':
             return (part.value,), tuple()
         else:
-            raise XuleProcessingError(_("Cannot create a unit from '{}'.".format(part.type)), None)
+            raise XuleProcessingError(_(f"Cannot create a unit from '{part.type}'."), None)
     
         
         
@@ -1108,21 +1105,23 @@ class XuleUnit:
     def xml_id(self):
         return self._unit_xml_id
     
-    def __repr__(self):   
+    def __repr__(self):
         if len(self._denominator) == 0:
             #no denominator
-            return "%s" % " * ".join([x.clarkNotation for x in self._numerator])
+            return " * ".join(x.clarkNotation for x in self._numerator)
         else:
-            return "%s/%s" % (" * ".join([x.clarkNotation for x in self._numerator]), 
-                                                  " * ".join([x.clarkNotation for x in self._denominator]))
-    
+            numerator = " * ".join(x.clarkNotation for x in self._numerator)
+            denominator = " * ".join(x.clarkNotation for x in self._denominator)
+            return f"{numerator}/{denominator}"
+
     def __str__(self):
         if len(self._denominator) == 0:
             #no denominator
-            return "%s" % " * ".join([x.localName for x in self._numerator])
+            return " * ".join(x.localName for x in self._numerator)
         else:
-            return "%s/%s" % (" * ".join([x.localName for x in self._numerator]), 
-                                                  " * ".join([x.localName for x in self._denominator]))       
+            numerator = " * ".join(x.localName for x in self._numerator)
+            denominator = " * ".join(x.localName for x in self._denominator)
+            return f"{numerator}/{denominator}"
 
     def __eq__(self, other):
         if self is None or other is None:
@@ -1651,11 +1650,11 @@ class XuleDimensionDimension:
         return output
 
     def __str__(self):
-        dim_string = 'Dimension: {dim_name}\n' \
-                     'Cube: {cube_name}\n' \
-                     'DRS Role: {drs_role}'.format(dim_name=self.dimension_concept.qname,
-                                                   cube_name=self.cube.hypercube.qname,
-                                                   drs_role=self.cube.drs_role.roleURI)
+        dim_string = (
+            f'Dimension: {self.dimension_concept.qname}\n'
+            f'Cube: {self.cube.hypercube.qname}\n'
+            f'DRS Role: {self.cube.drs_role.roleURI}'
+        )
         dim_string += '\nMembers:\n'
         dim_string += textwrap.indent(self.member_str, '\t')
         return dim_string
@@ -1681,7 +1680,7 @@ def model_to_xule_model_g_year(model_g_year, xule_context):
     return model_g_year.year
 
 def model_to_xule_model_g_month_day(model_g_month_day, xule_context):
-    return "--%s-%s" % (str(model_g_month_day.month).zfill(2),str(model_g_month_day.day).zfill(2))
+    return f"--{str(model_g_month_day.month).zfill(2)}-{str(model_g_month_day.day).zfill(2)}"
 
 def model_to_xule_model_g_year_month(model_g_year_month, xule_context):
     return str(model_g_year_month)
@@ -1709,9 +1708,9 @@ def iso_to_date(xule_context, date_string):
                 return parse_datetime(date_string)
                 #return datetime.datetime.strptime(date_string,'%Y-%m-%dT%H:%M:%S')
         except NameError:
-            raise XuleProcessingError(_("'%s' could not be converted to a date." % date_string), xule_context)
+            raise XuleProcessingError(_(f"'{date_string}' could not be converted to a date."), xule_context)
         except Exception:
-            raise XuleProcessingError(_("Error converting date: '%s'" % date_string), xule_context)    
+            raise XuleProcessingError(_(f"Error converting date: '{date_string}'"), xule_context)
 
 def date_to_datetime(date_value):
     if isinstance(date_value, datetime.datetime):
@@ -1852,7 +1851,7 @@ def model_to_xule_type(xule_context, model_value):
 #                     xule_type = 'int'
 #                     compute_value = int(compute_value)
     else:
-        raise XuleProcessingError(_("Do not have map to convert system type '%s' to xule type." % type(model_value).__name__), xule_context)
+        raise XuleProcessingError(_(f"Do not have map to convert system type '{type(model_value).__name__}' to xule type."), xule_context)
 
     return xule_type, compute_value
 
@@ -1883,7 +1882,7 @@ def xule_cast(from_value, to_type, xule_context):
     
     type_map = TYPE_MAP.get((frozenset([from_value.type, to_type])))
     if type_map is None:
-        raise XuleProcessingError(_("Type '%s' is not castable to '%s'" % (from_value.type, to_type)), xule_context)
+        raise XuleProcessingError(_(f"Type '{from_value.type}' is not castable to '{to_type}'"), xule_context)
     else:
         if type_map[0][0] == to_type:
             return type_map[0][1](from_value.value)
@@ -1892,9 +1891,9 @@ def xule_cast(from_value, to_type, xule_context):
                 if type_map[1][0] == to_type:
                     return type_map[1][1](from_value.value)
                 else:
-                    raise XuleProcessingError(_("Type '%s' is not castable to '%s'" % (from_value.type, to_type)), xule_context)
+                    raise XuleProcessingError(_(f"Type '{from_value.type}' is not castable to '{to_type}'"), xule_context)
             else:
-                raise XuleProcessingError(_("Type '%s' is not castable to '%s'" % (from_value.type, to_type)), xule_context)
+                raise XuleProcessingError(_(f"Type '{from_value.type}' is not castable to '{to_type}'"), xule_context)
 
 def combine_xule_types(left, right, xule_context):
     #left and right are XuleValues   
@@ -1933,7 +1932,7 @@ def combine_xule_types(left, right, xule_context):
 
 def combine_period_values(left, right, xule_context):    
     if left.type != right.type or left.type not in ('instant', 'duration') or right.type not in ('instant', 'duration'):
-        raise XuleProcessingError(_("Internal error, combine_period_values did not get matching or appropiate date types. Recieved '%s' and '%s'" % (left.type, right.type)), xule_context)
+        raise XuleProcessingError(_(f"Internal error, combine_period_values did not get matching or appropiate date types. Recieved '{left.type}' and '{right.type}'"), xule_context)
     
     if left.from_model == right.from_model:
         return (left.value, right.value)
@@ -1970,7 +1969,7 @@ def system_collection_to_xule(col, xule_context):
     elif isinstance(col, list):
         return system_list_to_xule(col, xule_context)
     else:
-        raise XuleProcessingError(_("Cannot convert native type {} into a XuleValue collection.".format(type(col))), xule_context )
+        raise XuleProcessingError(_(f"Cannot convert native type {type(col)} into a XuleValue collection."), xule_context)
 
 def system_dict_to_xule(col, xule_context):
     result = dict()
