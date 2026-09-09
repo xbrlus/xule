@@ -1299,7 +1299,7 @@ def property_content(xule_context, object_value, *args):
     else: # footnote
         footnote_resource = object_value.value[xv.FOOTNOTE_CONTENT]
         footnote_text = footnote_resource.text or ''
-        for child in footnote_resource:
+        for child in footnote_resource.getchildren():
             footnote_text += etree.tostring(child).decode()
         return xv.XuleValue(xule_context, footnote_text, 'string')
 
@@ -2911,7 +2911,7 @@ def _traverse_for_inline_descendants_facts(xule_context, fact, max_depth=None, d
 
     result = []
     add_to_depth = 0
-    for child in fact:
+    for child in fact.getchildren():
         if child.elementQname.namespaceURI == _INLINE_NAMESPACE and child.elementQname.localName == 'continuation':                
             continuations_down = _traverse_continuations_down(xule_context, child)
             
