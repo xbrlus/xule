@@ -201,6 +201,14 @@ class XuleValueSet:
     
         
 class XuleValue:
+    # Sentinel for the lazily-computed cache slots below. __slots__ classes have no per-instance
+    # __dict__, so "have we computed this yet?" can't be answered with hasattr()/AttributeError the
+    # way it can on a dict-based object: probing an unset slot goes through CPython's slot-descriptor
+    # error path, which is markedly more expensive than a dict miss. Pre-seeding each cache slot with
+    # this unique object in __init__ and checking identity against it keeps the same "compute once,
+    # then reuse" behaviour without ever touching that path.
+    _UNSET = object()
+
     __slots__ = (
         'value', 'type', 'fact', 'from_model', 'alignment', 'facts', 'tags',
         'aligned_result_only', 'used_expressions', 'shadow_collection',
@@ -235,7 +243,12 @@ class XuleValue:
         # and resolving it in the tag property keeps the behaviour and drops the cycle.
         self._tag = tag
         self._hashable_system_value = None
-        
+        self._shadow_dictionary = self._UNSET
+        self._shadow_keys = self._UNSET
+        self._value_dictionary = self._UNSET
+        self._key_search_dictionary = self._UNSET
+        self._sort_value = self._UNSET
+
         if self.type in ('list', 'set') and self.shadow_collection is None:
             shadow = [x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value for x in self.value]
             if self.type == 'list':
@@ -259,7 +272,7 @@ class XuleValue:
     @property
     def shadow_dictionary(self):
         if self.type == 'dictionary':
-            if not hasattr(self, '_shadow_dictionary'):
+            if self._shadow_dictionary is self._UNSET:
                 self._shadow_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v.shadow_collection if v.type in ('set', 'list', 'dictionary') else v.value for k, v in self.value}
             return self._shadow_dictionary
         else:
@@ -268,7 +281,7 @@ class XuleValue:
     def shadow_keys(self):
         if self.type == 'dictionary':
             # return a diction of the underlying value for the key and the corresponding XuleValue
-            if not hasattr(self, '_shadow_keys'):
+            if self._shadow_keys is self._UNSET:
                 self._shadow_keys = {k.shadow_collection if k.type in ('set', 'list') else k.value: k for k, _v in self.value}
             return self._shadow_keys
         else:
@@ -276,25 +289,25 @@ class XuleValue:
     @property
     def value_dictionary(self):
         if self.type == 'dictionary':
-            if not hasattr(self, '_value_dictionary'):
+            if self._value_dictionary is self._UNSET:
                 self._value_dictionary = {k: v for k, v in self.value}
             return self._value_dictionary
         else:
             return None
-        
+
     @property
     def key_search_dictionary(self):
         if self.type == 'dictionary':
-            if not hasattr(self, '_key_search_dictionary'):
+            if self._key_search_dictionary is self._UNSET:
                 self._key_search_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v for k, v in self.value}
             return self._key_search_dictionary
         else:
-            return None      
-        
-        
+            return None
+
+
     @property
     def sort_value(self):
-        if not hasattr(self, '_sort_value'):
+        if self._sort_value is self._UNSET:
             if self.type == 'list':
                 self._sort_value = [x.sort_value for x in self.value]
             elif self.type == 'set':
@@ -357,11 +370,15 @@ class XuleValue:
         new_value.shadow_collection = self.shadow_collection
         new_value.tag = self.tag
         new_value._hashable_system_value = self._hashable_system_value
-        if hasattr(self, '_sort_value'):
-            new_value._sort_value = self._sort_value
-        if hasattr(self, '_shadow_dictionary'):
-            new_value._shadow_dictionary = self._shadow_dictionary
-            
+        # Copy the cache slots as-is (each is either _UNSET or an already-computed value) rather than
+        # recomputing lazily on the clone. This also propagates shadow_keys/value_dictionary/
+        # key_search_dictionary, which the old hasattr()-guarded version didn't carry over.
+        new_value._sort_value = self._sort_value
+        new_value._shadow_dictionary = self._shadow_dictionary
+        new_value._shadow_keys = self._shadow_keys
+        new_value._value_dictionary = self._value_dictionary
+        new_value._key_search_dictionary = self._key_search_dictionary
+
         return new_value
 
     def _get_type_and_value(self, xule_context, orig_value, orig_type):
