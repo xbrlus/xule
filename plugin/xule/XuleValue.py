@@ -139,18 +139,52 @@ class SortedValuesList(list):
         super().clear()
         self.is_sorted = False
 
+def xule_canonical_text(value):
+    """A canonical string for a value projected by sort_value.
+
+    sort_value returns comparable python data, but for a set it returns a python set and for a list
+    a python list, so str() of it is not stable - a nested set prints in its own hash order. Sorting
+    the members of any nested set makes the text depend only on content, giving a total order that
+    is the same in every run.
+    """
+    if isinstance(value, (set, frozenset)):
+        return '{' + ','.join(sorted(xule_canonical_text(item) for item in value)) + '}'
+    if isinstance(value, (list, tuple)):
+        return '[' + ','.join(xule_canonical_text(item) for item in value) + ']'
+    return str(value)
+
+
+def xule_value_order_key(xule_value):
+    """A total order over XuleValues, for reproducible iteration of a set."""
+    try:
+        return xule_canonical_text(xule_value.sort_value)
+    except Exception:
+        return xule_canonical_text(getattr(xule_value, 'value', ''))
+
+
+def _total_order_key(key):
+    """A canonical, totally ordered sort key.
+
+    The keys of a XuleValueSet are alignments: either None, or a frozenset of (aspect, member)
+    pairs. Sorting those with "key=lambda x: x" does not order them - comparison on a frozenset is
+    subset containment, which is only a *partial* order, so incomparable keys keep whatever order
+    they arrived in. Because that comparison also never raises, the str() fallback that used to
+    follow was unreachable. The incoming order comes from identity-hashed sets, so it varies from
+    run to run, which is why sorting here previously had no effect on reproducibility.
+
+    Building a canonical string gives a total order, so equal content always sorts the same way.
+    """
+    if key is None:
+        return ''  # the "no alignment" key sorts first
+    if isinstance(key, (frozenset, set)):
+        return '\x00'.join(sorted(str(item) for item in key))
+    return str(key)
+
+
 class SortedDefaultDict(collections.defaultdict):
     def __iter__(self):
-        try:
-            for k in sorted(super().keys(), key=lambda x: x):
-                yield k
-        except TypeError:
-            try:
-                for k in sorted(super().keys(), key=lambda x: str(x)):
-                    yield k
-            except TypeError:
-                for k in super().keys():
-                    yield k
+        for k in sorted(super().keys(), key=_total_order_key):
+            yield k
 
 class XuleValueSet:
     def __init__(self, values=None):
@@ -304,6 +338,34 @@ class XuleValue:
         else:
             return None
 
+
+    @property
+    def ordered_value(self):
+        """The members of this value in a reproducible order.
+
+        Only sets are reordered. A xule set is stored as a frozenset of XuleValues, which are hashed
+        by identity, so its iteration order follows memory addresses and differs between runs. Lists
+        carry a meaningful order and every other type is returned untouched.
+
+        Ordering is applied only under --xule-ordered-iterations, so by default this costs one type
+        test. The sorted order is computed once and cached on the value.
+
+        Use this wherever the members of a collection are iterated to build output - a message, a
+        joined string, a serialized document. Set arithmetic must keep using .value, which stays a
+        frozenset so union/intersection/difference remain C speed.
+        """
+        if self.type != 'set':
+            return self.value
+        if not hasattr(self, '_ordered_value'):
+            options = XuleUtility.XuleVars.get(_CNTLR, 'options')
+            if options is not None and getattr(options, 'xule_ordered_iterations', False):
+                try:
+                    self._ordered_value = tuple(sorted(self.value, key=xule_value_order_key))
+                except TypeError:
+                    self._ordered_value = self.value
+            else:
+                self._ordered_value = self.value
+        return self._ordered_value
 
     @property
     def sort_value(self):
