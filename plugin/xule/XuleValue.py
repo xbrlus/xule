@@ -34,7 +34,7 @@ from arelle.XmlValidate import XsdPattern
 from lxml import etree
 import datetime
 import decimal
-from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
+from aniso8601 import parse_duration, parse_datetime, parse_date
 import collections
 import copy
 from fractions import Fraction
@@ -85,6 +85,10 @@ class SortedValuesList(list):
                     try:
                         super().sort(key=lambda x: str(x.value), reverse=reverse)
                     except TypeError:
+                        # Values are genuinely incomparable even as strings. Leave the list in
+                        # whatever order it's currently in. is_sorted is still set True below so
+                        # we don't retry (and re-raise/catch the same two TypeErrors) on every
+                        # subsequent access - this is "as sorted as it's going to get".
                         pass
         self.is_sorted = True
         
@@ -197,6 +201,22 @@ class XuleValueSet:
     
         
 class XuleValue:
+    # Sentinel for the lazily-computed cache slots below. __slots__ classes have no per-instance
+    # __dict__, so "have we computed this yet?" can't be answered with hasattr()/AttributeError the
+    # way it can on a dict-based object: probing an unset slot goes through CPython's slot-descriptor
+    # error path, which is markedly more expensive than a dict miss. Pre-seeding each cache slot with
+    # this unique object in __init__ and checking identity against it keeps the same "compute once,
+    # then reuse" behaviour without ever touching that path.
+    _UNSET = object()
+
+    __slots__ = (
+        'value', 'type', 'fact', 'from_model', 'alignment', 'facts', 'tags',
+        'aligned_result_only', 'used_expressions', 'shadow_collection',
+        '_tag', '_hashable_system_value',
+        '_shadow_dictionary', '_shadow_keys', '_value_dictionary',
+        '_key_search_dictionary', '_sort_value',
+    )
+
     def __init__(self, xule_context, orig_value, orig_type, alignment=None, from_model=False, shadow_collection=None, tag=None, orig_fact=None):
         #convert all python strings to XuleString.
         if isinstance(orig_value, str):
@@ -223,7 +243,12 @@ class XuleValue:
         # and resolving it in the tag property keeps the behaviour and drops the cycle.
         self._tag = tag
         self._hashable_system_value = None
-        
+        self._shadow_dictionary = self._UNSET
+        self._shadow_keys = self._UNSET
+        self._value_dictionary = self._UNSET
+        self._key_search_dictionary = self._UNSET
+        self._sort_value = self._UNSET
+
         if self.type in ('list', 'set') and self.shadow_collection is None:
             shadow = [x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value for x in self.value]
             if self.type == 'list':
@@ -247,7 +272,7 @@ class XuleValue:
     @property
     def shadow_dictionary(self):
         if self.type == 'dictionary':
-            if not hasattr(self, '_shadow_dictionary'):
+            if self._shadow_dictionary is self._UNSET:
                 self._shadow_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v.shadow_collection if v.type in ('set', 'list', 'dictionary') else v.value for k, v in self.value}
             return self._shadow_dictionary
         else:
@@ -256,7 +281,7 @@ class XuleValue:
     def shadow_keys(self):
         if self.type == 'dictionary':
             # return a diction of the underlying value for the key and the corresponding XuleValue
-            if not hasattr(self, '_shadow_keys'):
+            if self._shadow_keys is self._UNSET:
                 self._shadow_keys = {k.shadow_collection if k.type in ('set', 'list') else k.value: k for k, _v in self.value}
             return self._shadow_keys
         else:
@@ -264,25 +289,25 @@ class XuleValue:
     @property
     def value_dictionary(self):
         if self.type == 'dictionary':
-            if not hasattr(self, '_value_dictionary'):
+            if self._value_dictionary is self._UNSET:
                 self._value_dictionary = {k: v for k, v in self.value}
             return self._value_dictionary
         else:
             return None
-        
+
     @property
     def key_search_dictionary(self):
         if self.type == 'dictionary':
-            if not hasattr(self, '_key_search_dictionary'):
+            if self._key_search_dictionary is self._UNSET:
                 self._key_search_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v for k, v in self.value}
             return self._key_search_dictionary
         else:
-            return None      
-        
-        
+            return None
+
+
     @property
     def sort_value(self):
-        if not hasattr(self, '_sort_value'):
+        if self._sort_value is self._UNSET:
             if self.type == 'list':
                 self._sort_value = [x.sort_value for x in self.value]
             elif self.type == 'set':
@@ -345,11 +370,15 @@ class XuleValue:
         new_value.shadow_collection = self.shadow_collection
         new_value.tag = self.tag
         new_value._hashable_system_value = self._hashable_system_value
-        if hasattr(self, '_sort_value'):
-            new_value._sort_value = self._sort_value
-        if hasattr(self, '_shadow_dictionary'):
-            new_value._shadow_dictionary = self._shadow_dictionary
-            
+        # Copy the cache slots as-is (each is either _UNSET or an already-computed value) rather than
+        # recomputing lazily on the clone. This also propagates shadow_keys/value_dictionary/
+        # key_search_dictionary, which the old hasattr()-guarded version didn't carry over.
+        new_value._sort_value = self._sort_value
+        new_value._shadow_dictionary = self._shadow_dictionary
+        new_value._shadow_keys = self._shadow_keys
+        new_value._value_dictionary = self._value_dictionary
+        new_value._key_search_dictionary = self._key_search_dictionary
+
         return new_value
 
     def _get_type_and_value(self, xule_context, orig_value, orig_type):
@@ -474,9 +503,7 @@ class XuleValue:
                 else:
                     decimals = int(round_to_decimals)
             
-            format_string = f"{{0:,.{decimals}f}}"
-
-            format_rounded = format_string.format(self.value)
+            format_rounded = f"{self.value:,.{decimals}f}"
             reduced_round = self._reduce_number(format_rounded)
             format_orig = f"{self.value:,}"
             reduced_orig = self._reduce_number(format_orig)
@@ -513,13 +540,13 @@ class XuleValue:
                     end_date = self.value[1] - datetime.timedelta(days=1)
                 else:
                     end_date = self.value[1]
-                return"%s to %s" % (self.value[0].strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
-            
+                return f"{self.value[0].strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}"
+
         elif self.type == 'instant':
             if self.from_model == True:
-                return "%s" % (self.value - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+                return f"{(self.value - datetime.timedelta(days=1)).strftime('%Y-%m-%d')}"
             else:
-                return "%s" % self.value.strftime("%Y-%m-%d")
+                return f"{self.value.strftime('%Y-%m-%d')}"
         
         elif self.type == 'list':
             #list_value = ", ".join([sub_value.format_value() for sub_value in self.value])
@@ -602,7 +629,7 @@ class XuleValue:
             else:
                 footnote_resource = self.value[FOOTNOTE_CONTENT]
                 footnote_text = footnote_resource.text or ''
-                for child in footnote_resource.getchildren():
+                for child in footnote_resource:
                     footnote_text += etree.tostring(child).decode()    
                 footnote_string += footnote_text
             return footnote_string
@@ -610,10 +637,12 @@ class XuleValue:
             return str(self.value)
 
     def _reduce_number(self, num):
-        """Strip insignificant trailing zeros (and a dangling decimal point) from a formatted number string."""
-        if '.' not in num:
-            return num
-        return num.rstrip('0').rstrip('.')
+        if '.' in num:
+            # Strip trailing fractional zeros, then a bare trailing '.'. rstrip('0') can't eat into
+            # the integer part because it stops at the first non-'0' character from the right, and
+            # '.' isn't '0' (e.g. "1,200.00" -> "1,200." -> "1,200").
+            num = num.rstrip('0').rstrip('.')
+        return num
 
     # reloadable value is a string or int or json array with type first and then value(s)
     # types set, list and dict have entries following type.  Dict has [key, value]
@@ -1093,7 +1122,7 @@ class XuleUnit:
     def xml_id(self):
         return self._unit_xml_id
     
-    def __repr__(self):   
+    def __repr__(self):
         if len(self._denominator) == 0:
             #no denominator
             return f"{' * '.join([x.clarkNotation for x in self._numerator])}"
@@ -1634,7 +1663,11 @@ class XuleDimensionDimension:
         return output
 
     def __str__(self):
-        dim_string = f'Dimension: {self.dimension_concept.qname}\nCube: {self.cube.hypercube.qname}\nDRS Role: {self.cube.drs_role.roleURI}'
+        dim_string = (
+            f'Dimension: {self.dimension_concept.qname}\n'
+            f'Cube: {self.cube.hypercube.qname}\n'
+            f'DRS Role: {self.cube.drs_role.roleURI}'
+        )
         dim_string += '\nMembers:\n'
         dim_string += textwrap.indent(self.member_str, '\t')
         return dim_string
