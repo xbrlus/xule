@@ -85,7 +85,7 @@ def property_contains(xule_context, object_value, *args):
         else: 
             raise XuleProcessingError(_(f"The search item for property 'contains' or 'in' must be a string, uri or none, but found '{search_item.type}"), xule_context)
     else:
-        raise XuleProcessingError(_("Property 'contains' or 'in' expression cannot operate on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
+        raise XuleProcessingError(_(f"Property 'contains' or 'in' expression cannot operate on a '{object_value.type}' and '{search_item.type}'"), xule_context)
 
 def property_length(xule_context, object_value, *args):
     if object_value.type in ('string', 'uri'):
@@ -93,7 +93,7 @@ def property_length(xule_context, object_value, *args):
         if xv.xule_castable(object_value, 'string', xule_context):
             return xv.XuleValue(xule_context, len(cast_value), 'int')
         else:
-            raise XuleProcessingError(_("Cannot cast '%s' to 'string' for property length" % object_value.type), xule_context)
+            raise XuleProcessingError(_(f"Cannot cast '{object_value.type}' to 'string' for property length"), xule_context)
     else: #set, list or dictionary
         return xv.XuleValue(xule_context, len(object_value.value), 'int')
 
@@ -133,17 +133,17 @@ def property_index(xule_context, object_value, *args):
                 index_number = int(index_value.value)
             else:
                 raise XuleProcessingError(
-                    _("Index of a list must be a whole number, found %s" % str(index_value.value)),
+                    _(f"Index of a list must be a whole number, found {index_value.value!s}"),
                     xule_context)
         elif index_value.type == 'decimal':
             if index_value.value == int(index_value.value):
                 index_number = int(index_value.value)
             else:
                 raise XuleProcessingError(
-                    _("Index of a list must be a whole number, found %s" % str(index_value.value)),
+                    _(f"Index of a list must be a whole number, found {index_value.value!s}"),
                     xule_context)
         else:
-            raise XuleProcessingError(_("Index of a list must be a number, found %s" % index_value.type),
+            raise XuleProcessingError(_(f"Index of a list must be a number, found {index_value.type}"),
                                       xule_context)
 
         # Check if the index number is the value range for the list
@@ -162,7 +162,7 @@ def property_index(xule_context, object_value, *args):
         return_value = object_value.key_search_dictionary.get(key_value, xv.XuleValue(xule_context, None, 'none'))
 
     else:
-        raise XuleProcessingError(_("The 'index' property or index expression '[]' can only operate on a list or dictionary, found '%s'" % object_value.type),
+        raise XuleProcessingError(_(f"The 'index' property or index expression '[]' can only operate on a list or dictionary, found '{object_value.type}'"),
                                   xule_context)
 
     return return_value
@@ -171,7 +171,7 @@ def property_is_subset(xule_context, object_value, *args):
     super_values = args[0]
 
     if super_values.type != 'set':
-        raise XuleProcessingError(_("The subset value must be a 'set',, found '{}'".format(super_values.type)), xule_context)
+        raise XuleProcessingError(_(f"The subset value must be a 'set',, found '{super_values.type}'"), xule_context)
 
     return xv.XuleValue(xule_context, object_value.shadow_collection <= super_values.shadow_collection, 'bool')
 
@@ -179,7 +179,7 @@ def property_is_superset(xule_context, object_value, *args):
     sub_values = args[0]
 
     if sub_values.type != 'set':
-        raise XuleProcessingError(_("The subset value must be a 'set', found '{}'".format(sub_values.type)), xule_context)
+        raise XuleProcessingError(_(f"The subset value must be a 'set', found '{sub_values.type}'"), xule_context)
 
     return xv.XuleValue(xule_context, object_value.shadow_collection >= sub_values.shadow_collection, 'bool')
 
@@ -349,10 +349,10 @@ def _prep_for_xince_json(xule_context, xule_value):
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
         if len(args) != 1:
-            raise XuleProcessingError(_("For lists and sets, the join property must have one argument, found {}".format(len(args))), xule_context)
+            raise XuleProcessingError(_(f"For lists and sets, the join property must have one argument, found {len(args)}"), xule_context)
         sep = args[0]
         if sep.type != 'string':
-            raise XuleProcessingError(_("The argument of the join property must be a string, found '{}'".format(sep.type)), xule_context)
+            raise XuleProcessingError(_(f"The argument of the join property must be a string, found '{sep.type}'"), xule_context)
         
         result_string = ''   
         next_sep = '' 
@@ -362,13 +362,13 @@ def property_join(xule_context, object_value, *args):
         
     else: # dictionary
         if len(args) != 2:
-            raise XuleProcessingError(_("For dictionaries, the join property must have 2 arguments, found {}".format(len(args))), xule_context)
+            raise XuleProcessingError(_(f"For dictionaries, the join property must have 2 arguments, found {len(args)}"), xule_context)
         main_sep = args[0]
         pair_sep = args[1]
         if main_sep.type != 'string':
-            raise XuleProcessingError(_("The argument of the join property must be a string, found '{}'".format(main_sep.type)), xule_context)
+            raise XuleProcessingError(_(f"The argument of the join property must be a string, found '{main_sep.type}'"), xule_context)
         if pair_sep.type != 'string':
-            raise XuleProcessingError(_("The argument of the join property must be a string, found '{}'.".format(pair_sep.type)), xule_context)
+            raise XuleProcessingError(_(f"The argument of the join property must be a string, found '{pair_sep.type}'."), xule_context)
         
         result_string = ''
         next_sep = ''
@@ -395,9 +395,9 @@ def property_sort(xule_context, object_value, *args):
             elif args[0].value.lower() == 'desc':
                 reverse = True
             else:
-                raise XuleProcessingError(_("The argument of the sort property must be either 'asc' or 'desc'. Found: '{}'.".format(args[0].value)), xule_context)
+                raise XuleProcessingError(_(f"The argument of the sort property must be either 'asc' or 'desc'. Found: '{args[0].value}'."), xule_context)
         else:
-            raise XuleProcessingError(_("The argument of the sort property must be a string with either 'asc' or 'desc'. Found type: '{}'.".format(args[0].type)), xule_context)
+            raise XuleProcessingError(_(f"The argument of the sort property must be a string with either 'asc' or 'desc'. Found type: '{args[0].type}'."), xule_context)
 
     try:
         sorted_list = sorted(object_value.value, key=lambda x: x.sort_value, reverse=reverse)
@@ -411,7 +411,7 @@ def property_sort(xule_context, object_value, *args):
 
 def property_keys(xule_context, object_value, *args):
     if object_value.type != 'dictionary':
-        raise XuleProcessingError(_("The .keys() property can only be used on a dictionary, found '{}'".format(object_value.type)), xule_context)
+        raise XuleProcessingError(_(f"The .keys() property can only be used on a dictionary, found '{object_value.type}'"), xule_context)
     if len(args) == 1:
         val = args[0]
         keys = set()
@@ -469,7 +469,7 @@ def property_networks(xule_context, object_value, *args):
         elif arcrole_value.type == 'none':
             arcrole = None
         else:
-            raise XuleProcessingError(_("The first argument (arc role) of the networks property must be a uri, found '{}'.".format(arcrole_value.type)), xule_context)
+            raise XuleProcessingError(_(f"The first argument (arc role) of the networks property must be a uri, found '{arcrole_value.type}'."), xule_context)
     else:
         arcrole = None
     
@@ -492,7 +492,7 @@ def property_networks(xule_context, object_value, *args):
             # else:
             #     role = roles[0]
         else:
-            raise XuleProcessingError(_("The second argument (role) of the networks property must be a uri, found '{}'.".format(role_value.type)), xule_context)
+            raise XuleProcessingError(_(f"The second argument (role) of the networks property must be a uri, found '{role_value.type}'."), xule_context)
     else:
         role = None
         
@@ -596,13 +596,13 @@ def property_concept(xule_context, object_value, *args):
     '''
     if object_value.is_fact:
         if len(args) != 0:
-            raise XuleProcessingError(_("Property 'concept' when used on a fact does not have any arguments, found %i" % len(args)), xule_context)
+            raise XuleProcessingError(_(f"Property 'concept' when used on a fact does not have any arguments, found {len(args)}"), xule_context)
  
         return xv.XuleValue(xule_context, object_value.fact.concept, 'concept')
      
     elif object_value.type == 'taxonomy':
         if len(args) != 1:
-            raise XuleProcessingError(_("Property 'concept' when used on a taxonomy requires 1 argument, found %i" % len(args)), xule_context)
+            raise XuleProcessingError(_(f"Property 'concept' when used on a taxonomy requires 1 argument, found {len(args)}"), xule_context)
          
         concept_qname_value = args[0]
          
@@ -610,7 +610,7 @@ def property_concept(xule_context, object_value, *args):
             concept_value = None
         else:
             if concept_qname_value.type != 'qname':
-                raise XuleProcessingError(_("The 'concept' property of a taxonomy requires a qname argument, found '%s'" % concept_qname_value.type), xule_context)
+                raise XuleProcessingError(_(f"The 'concept' property of a taxonomy requires a qname argument, found '{concept_qname_value.type}'"), xule_context)
              
             concept_value = get_concept(object_value.value, concept_qname_value.value)
          
@@ -620,7 +620,7 @@ def property_concept(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, None, 'none')
     elif object_value.type == 'dimension':
         if len(args) > 0:
-            raise XuleProcessingError(_("Property 'concept' on a dimension cannot have any arguments, found {}.".format(str(len(args)))), xule_context)
+            raise XuleProcessingError(_(f"Property 'concept' on a dimension cannot have any arguments, found {len(args)!s}."), xule_context)
         return xv.XuleValue(xule_context, object_value.value.dimension_concept, 'concept')
     else: # None value
         return object_value
@@ -731,7 +731,7 @@ def property_dimension(xule_context, object_value, *args):
     elif dim_name.type == 'concept':
         dim_qname = dim_name.value.qname
     else:
-        raise XuleProcessingError(_("The argument for property 'dimension' must be a qname, found '%s'." % dim_name.type),xule_context)
+        raise XuleProcessingError(_(f"The argument for property 'dimension' must be a qname, found '{dim_name.type}'."),xule_context)
 
     if object_value.is_fact:
         if not object_value.is_fact:
@@ -988,7 +988,7 @@ def property_denominator(xule_context, object_value, *args):
 def property_attribute(xule_context, object_value, *args):
     attribute_name_value = args[0]
     if attribute_name_value.type != 'qname':
-        raise XuleProcessingError(_("The argument for the 'attribute' property must be a qname, found '{}'".format(attribute_name_value.type)), xule_context)
+        raise XuleProcessingError(_(f"The argument for the 'attribute' property must be a qname, found '{attribute_name_value.type}'"), xule_context)
     
     attribute_value = object_value.value.get(attribute_name_value.value.clarkNotation)
     if attribute_value is None:
@@ -1115,7 +1115,7 @@ def property_type_facet(xule_context, object_value, facet_name, *args):
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
     if type_name.type != 'qname':
-        raise XuleProcessingError(_("The argument for the 'is-type' property must ba a qname, found '{}'.".format(type_name.type)), xule_context)
+        raise XuleProcessingError(_(f"The argument for the 'is-type' property must ba a qname, found '{type_name.type}'."), xule_context)
     
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.instanceOfType(type_name.value), 'bool')
@@ -1178,7 +1178,7 @@ def property_label(xule_context, object_value, *args):
         elif xv.xule_castable(label_type, 'string', xule_context):
             base_label_type = xv.xule_cast(label_type, 'string', xule_context)
         else:
-            raise XuleProcessingError(_("The first argument for property 'label' must be a string, found '%s'" % label_type.type), xule_context)
+            raise XuleProcessingError(_(f"The first argument for property 'label' must be a string, found '{label_type.type}'"), xule_context)
     if len(args) > 1: #there are 2 args
         lang = args[1]
         if lang.type == 'none':
@@ -1186,7 +1186,7 @@ def property_label(xule_context, object_value, *args):
         elif xv.xule_castable(lang, 'string', xule_context):
             base_lang = xv.xule_cast(lang, 'string', xule_context)
         else:
-            raise XuleProcessingError(_("The second argument for property 'label' must be a string, found '%s'" % lang.type), xule_context)        
+            raise XuleProcessingError(_(f"The second argument for property 'label' must be a string, found '{lang.type}'"), xule_context)        
      
     label = get_label(xule_context, concept, base_label_type, base_lang)
      
@@ -1213,7 +1213,7 @@ def property_all_labels(xule_context, object_value, *args):
         elif xv.xule_castable(label_type, 'string', xule_context):
             base_label_type = xv.xule_cast(label_type, 'string', xule_context)
         else:
-            raise XuleProcessingError(_("The first argument for property 'all-labels' must be a string, found '%s'" % label_type.type), xule_context)
+            raise XuleProcessingError(_(f"The first argument for property 'all-labels' must be a string, found '{label_type.type}'"), xule_context)
     if len(args) > 1: #there are 2 args
         lang = args[1]
         if lang.type == 'none':
@@ -1221,7 +1221,7 @@ def property_all_labels(xule_context, object_value, *args):
         elif xv.xule_castable(lang, 'string', xule_context):
             base_lang = xv.xule_cast(lang, 'string', xule_context)
         else:
-            raise XuleProcessingError(_("The second argument for property 'all-labels' must be a string, found '%s'" % lang.type), xule_context)        
+            raise XuleProcessingError(_(f"The second argument for property 'all-labels' must be a string, found '{lang.type}'"), xule_context)        
      
     labels_by_type = get_all_labels(concept, base_label_type, base_lang)
     
@@ -1394,7 +1394,7 @@ def property_references(xule_context, object_value, *args):
         elif xv.xule_castable(reference_type, 'string', xule_context):
             base_reference_type = xv.xule_cast(reference_type, 'string', xule_context)
         else:
-            raise XuleProcessingError(_("The first argument for property 'reference' must be a string, found '%s'" % reference_type.type), xule_context)
+            raise XuleProcessingError(_(f"The first argument for property 'reference' must be a string, found '{reference_type.type}'"), xule_context)
     else:
         base_reference_type = None    
  
@@ -1476,7 +1476,7 @@ def property_part_by_name(xule_context, object_value, *args):
     part_name = args[0]
      
     if part_name.type != 'qname':
-        raise XuleProcessingError(_("The argument for property 'part_by_name' must be a qname, found '%s'." % part_name.type), xule_context)
+        raise XuleProcessingError(_(f"The argument for property 'part_by_name' must be a qname, found '{part_name.type}'."), xule_context)
      
     for part in object_value.value:
         if part.qname == part_name.value:
@@ -1509,7 +1509,7 @@ def property_concepts(xule_context, object_value, *args):
     elif object_value.type == 'network':
         concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
-        raise XuleProcessingError(_("'concepts' is not a property of '%s'" % object_value.type), xule_context)
+        raise XuleProcessingError(_(f"'concepts' is not a property of '{object_value.type}'"), xule_context)
  
     return xv.XuleValue(xule_context, frozenset(concepts), 'set')
 
@@ -1520,7 +1520,7 @@ def property_concept_names(xule_context, object_value, *args):
     elif object_value.type == 'network':
         concepts = set(xv.XuleValue(xule_context, x.qname, 'qname') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
-        raise XuleProcessingError(_("'concept-names' is not a property of '%s'" % object_value.type), xule_context)
+        raise XuleProcessingError(_(f"'concept-names' is not a property of '{object_value.type}'"), xule_context)
  
     return xv.XuleValue(xule_context, frozenset(concepts), 'set')
 
@@ -1549,14 +1549,14 @@ def property_cube(xule_context, object_value, *args):
         if object_value.type == 'dimension':
             cube = object_value.value.cube
         else:
-            raise XuleProcessingError(_("The .cube property without arguments must be for a 'dimension', found '{}'".format(object_value.type)), xule_context)
+            raise XuleProcessingError(_(f"The .cube property without arguments must be for a 'dimension', found '{object_value.type}'"), xule_context)
     elif len(args) == 2:
         if args[0].type == 'qname':
             cube_concept = get_concept(object_value.value, args[0].value)
         elif args[0].type == 'concept':
             cube_concept = args[0].value
         else:
-            raise XuleProcessingError(_("The first argument of property 'cube' must be a qname or a concept, found '{}'.".format(args[0].type)), xule_context)
+            raise XuleProcessingError(_(f"The first argument of property 'cube' must be a qname or a concept, found '{args[0].type}'."), xule_context)
 
         if args[1].type in ('string', 'uri'):
             drs_role = args[1].value
@@ -1566,15 +1566,15 @@ def property_cube(xule_context, object_value, *args):
             if len(drs_role) == 1:
                 drs_role = drs_role[0]
             elif len(drs_role) == 0:
-                raise XuleProcessingError(_("No role is found for the property 'cube'. Searching for a role that ends with '{}'".format(args[1].value.localName)), xule_context)
+                raise XuleProcessingError(_(f"No role is found for the property 'cube'. Searching for a role that ends with '{args[1].value.localName}'"), xule_context)
             else:
-                raise XuleProcessingError(_("More than role is found for roles ending with '{}'. The property 'cube' can only take 1 role.".format(args[1].value.localName)), xule_context)
+                raise XuleProcessingError(_(f"More than role is found for roles ending with '{args[1].value.localName}'. The property 'cube' can only take 1 role."), xule_context)
         else:
-            raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
+            raise XuleProcessingError(_(f"The second argument of property 'cube' must be a role uri or a short role, found '{args[1].type}'."), xule_context)
 
         cube = xv.XuleDimensionCube(object_value.value, drs_role, cube_concept)
     else:
-        raise XuleProcessingError(_("The .cube property must have 2 arguments unless it is for a 'dimension'. Found '{}'".format(object_value.type)), xule_context)
+        raise XuleProcessingError(_(f"The .cube property must have 2 arguments unless it is for a 'dimension'. Found '{object_value.type}'"), xule_context)
     
     if cube is None:
         return xv.XuleValue(xule_context, None, 'none')
@@ -1703,7 +1703,7 @@ def property_power(xule_context, object_value, *args):
     arg = args[0]
      
     if arg.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("The 'power' property requires a numeric argument, found '%s'" % arg.type), xule_context)
+        raise XuleProcessingError(_(f"The 'power' property requires a numeric argument, found '{arg.type}'"), xule_context)
      
     combine_types = xv.combine_xule_types(object_value, arg, xule_context)
      
@@ -1721,7 +1721,7 @@ def property_abs(xule_context, object_value, *args):
     try:
         return xv.XuleValue(xule_context, abs(object_value.value), object_value.type)
     except Exception as e:       
-        raise XuleProcessingError(_("Error calculating absolute value: %s" % str(e)), xule_context)
+        raise XuleProcessingError(_(f"Error calculating absolute value: {e!s}"), xule_context)
  
 def property_signum(xule_context, object_value, *args):
     if object_value.value == 0:
@@ -1748,9 +1748,9 @@ def property_trunc(xule_context, object_value, *args):
                 else: #decimal
                     power = args[0].value.to_integral_value()
             else:
-                raise XuleProcessingError(_("For the trunc() property, the places argument must be an integer value, found {}".format(args[0].value)), xule_context)
+                raise XuleProcessingError(_(f"For the trunc() property, the places argument must be an integer value, found {args[0].value}"), xule_context)
         else:
-            raise XuleProcessingError(_("For the trunc() property, the places argument must be an integer value, found {}".format(args[0].type)), xule_context)
+            raise XuleProcessingError(_(f"For the trunc() property, the places argument must be an integer value, found {args[0].type}"), xule_context)
 
     #working in decimals because we cannot combine a decimal and a float in arithmetic operations (like power and multiply).
     working_value = decimal.Decimal(object_value.value)
@@ -1768,21 +1768,21 @@ def property_round(xule_context, object_value, *args):
         if args[0].value.is_integer():
             round_to = int(args[0].value)
         else:
-            raise XuleProcessingError(_("The argument to the 'round' property must be an integer value, found {}.".format(args[0].value)), xule_context)
+            raise XuleProcessingError(_(f"The argument to the 'round' property must be an integer value, found {args[0].value}."), xule_context)
     elif args[0].type == 'decimal':
         if args[0].value.to_integral_value() == args[0].value:
             round_to = int(args[0].value)
         else:
-            raise XuleProcessingError(_("The argument to the 'round' property must be an integer value, found {}.".format(args[0].value)), xule_context)            
+            raise XuleProcessingError(_(f"The argument to the 'round' property must be an integer value, found {args[0].value}."), xule_context)            
     else:
-        raise XuleProcessingError(_("The argument to the 'round' property must be a number, found {}.".format(args[0].type)), xule_context)
+        raise XuleProcessingError(_(f"The argument to the 'round' property must be a number, found {args[0].type}."), xule_context)
     
     return xv.XuleValue(xule_context, round(object_value.value, round_to), object_value.type)
 
 def property_mod(xule_context, object_value, *args):
 
     if args[0].type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("The argument for the 'mod' property must be numeric, found '%s'" % args[0].type), xule_context)
+        raise XuleProcessingError(_(f"The argument for the 'mod' property must be numeric, found '{args[0].type}'"), xule_context)
     
     # Catch potention div by 0 error
     if args[0].value == 0:
@@ -1807,7 +1807,7 @@ def property_substring(xule_context, object_value, *args):
     if xv.xule_castable(args[0], 'int', xule_context):
         start_value = xv.xule_cast(args[0], 'int', xule_context) - 1
     else:
-        raise XuleProcessingError(_("The first argument of property 'substring' is not castable to a 'int', found '%s'" % args[0].type), xule_context)
+        raise XuleProcessingError(_(f"The first argument of property 'substring' is not castable to a 'int', found '{args[0].type}'"), xule_context)
     
     if len(args) == 1:
         return xv.XuleValue(xule_context, cast_value[start_value:], 'string')
@@ -1815,7 +1815,7 @@ def property_substring(xule_context, object_value, *args):
         if xv.xule_castable(args[1], 'int', xule_context):
             end_value = xv.xule_cast(args[1], 'int', xule_context)
         else:
-            raise XuleProcessingError(_("The second argument of property 'substring' is not castable to a 'int', found '%s'" % args[1].type), xule_context)
+            raise XuleProcessingError(_(f"The second argument of property 'substring' is not castable to a 'int', found '{args[1].type}'"), xule_context)
  
         return xv.XuleValue(xule_context, cast_value[start_value:end_value], 'string')
      
@@ -1828,7 +1828,7 @@ def property_index_of(xule_context, object_value, *args):
     if xv.xule_castable(arg_result, 'string', xule_context):
         index_string = xv.xule_cast(arg_result, 'string', xule_context)
     else:
-        raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
+        raise XuleProcessingError(_(f"The argument for property 'index-of' must be castable to a 'string', found '{arg_result.type}'"), xule_context)
     
     if index_string == '':
         return xv.XuleValue(xule_context, 0, 'int')
@@ -1844,7 +1844,7 @@ def property_last_index_of(xule_context, object_value, *args):
     if xv.xule_castable(arg_result, 'string', xule_context):
         index_string = xv.xule_cast(arg_result, 'string', xule_context)
     else:
-        raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
+        raise XuleProcessingError(_(f"The argument for property 'last-index-of' must be castable to a 'string', found '{arg_result.type}'"), xule_context)
     
     if index_string == '':
         return xv.XuleValue(xule_context, 0, 'int')
@@ -1859,7 +1859,7 @@ def property_upper_case(xule_context, object_value, *args):
 
 def property_split(xule_context, object_value, *args):
     if args[0].type != 'string':
-        raise XuleProcessingError(_("The separator argument for property 'string' must be a 'string', found '%s'" % args[0].type), xule_context)
+        raise XuleProcessingError(_(f"The separator argument for property 'string' must be a 'string', found '{args[0].type}'"), xule_context)
 
     if args[0].value == '':
         # just return the entire string in a list. This is different from python which will raise an error
@@ -1874,11 +1874,11 @@ def property_trim(xule_context, object_value, *args):
         side = 'both'
     else:
         if args[0].type != 'string':
-            raise XuleProcessingError(_("The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type '%s'" % args[0].type), xule_context)
+            raise XuleProcessingError(_(f"The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type '{args[0].type}'"), xule_context)
         if args[0].value.lower() in ('left', 'right', 'both'):
             side = args[0].value.lower()
         else:
-            raise XuleProcessingError(_("The argument for property 'trim' must be one of 'left', 'right' or 'both', found '%s'" % args[0]), xule_context)
+            raise XuleProcessingError(_(f"The argument for property 'trim' must be one of 'left', 'right' or 'both', found '{args[0]}'"), xule_context)
 
     if side == 'both':
         new_value = object_value.value.strip()
@@ -1902,8 +1902,7 @@ def property_to_qname(xule_context, object_value, *args):
         # namespace map is supplied
         if args[0].type != 'dictionary':
             raise XuleProcessingError(
-                _("When a namespace map is supplied as the argument to the .to-qname(nsmap) property, it must be a dictionary,"
-                  " found '{}'".format(args[0].type)), xule_context)
+                _(f"When a namespace map is supplied as the argument to the .to-qname(nsmap) property, it must be a dictionary, found '{args[0].type}'"), xule_context)
 
         namespace_map = args[0].shadow_dictionary
     else:
@@ -1911,8 +1910,7 @@ def property_to_qname(xule_context, object_value, *args):
 
     if object_value.value.count(':') > 1:
         raise XuleProcessingError(
-            _("The local part of the 'to-qname' property can contain only 1 ':' to designate the namespace prefix. "
-              "Found {} colons in {}".format(object_value.value.count(':'), object_value.value)), xule_context)
+            _(f"The local part of the 'to-qname' property can contain only 1 ':' to designate the namespace prefix. Found {object_value.value.count(':')} colons in {object_value.value}"), xule_context)
     elif ':' in object_value.value:
         # the name contains a colon
         prefix, local_name = object_value.value.split(':')
@@ -1923,8 +1921,7 @@ def property_to_qname(xule_context, object_value, *args):
     #namespace_uri = xule_context.global_context.catalog['namespaces'].get(prefix if prefix is not None else '*', dict()).get('uri')
     namespace_uri = namespace_map.get(prefix)
     if namespace_uri is None:
-        raise XuleProcessingError(_("In the 'to-qname' property, could not resolve the namespace prefix '{}' "
-                                    "to a namespace uri in '{}'".format(prefix, object_value.value)), xule_context)
+        raise XuleProcessingError(_(f"In the 'to-qname' property, could not resolve the namespace prefix '{prefix}' to a namespace uri in '{object_value.value}'"), xule_context)
 
     return xv.XuleValue(xule_context, QName(prefix, namespace_uri, local_name), 'qname')
 
@@ -1939,7 +1936,7 @@ def property_inline_transform(xule_context, object_value, *args):
         raise XuleProcessingError(_("The inline-transform property requires at least 1 argument indicating the transform qname"), xule_context)
 
     if args[0].type != 'qname':
-        raise XuleProcessingError(_("The transform name of the inline-transform property must be a qname. found '{}'".format(args[0].type)), xule_context)
+        raise XuleProcessingError(_(f"The transform name of the inline-transform property must be a qname. found '{args[0].type}'"), xule_context)
     
     if len(args) == 2:
         # there is an option output type
@@ -2247,7 +2244,7 @@ def property_any(xule_context, object_value, *args):
     any_value = False
     for next_value in list(object_value.value):
         if next_value.type != 'bool':
-            raise XuleProcessingError(_("Property any can only operator on booleans, but found '%s'." % next_value.type), xule_context)
+            raise XuleProcessingError(_(f"Property any can only operator on booleans, but found '{next_value.type}'."), xule_context)
         
         any_value = any_value or next_value.value
     
@@ -2260,7 +2257,7 @@ def property_all(xule_context, object_value, *args):
     all_value = True
     for next_value in list(object_value.value):
         if next_value.type != 'bool':
-            raise XuleProcessingError(_("Property all can only operator on booleans, but found '%s'." % next_value.type), xule_context)
+            raise XuleProcessingError(_(f"Property all can only operator on booleans, but found '{next_value.type}'."), xule_context)
         
         all_value = all_value and next_value.value
     
@@ -2273,7 +2270,7 @@ def property_stats(xule_context, object_value, stat_function, *args):
     values = list()
     for next_value in object_value.value:
         if next_value.type not in ('int', 'float', 'decimal'):
-            raise XuleProcessingError(_("Statistic properties expect numeric inputs, found '{}'.".format(next_value.type)), xule_context)
+            raise XuleProcessingError(_(f"Statistic properties expect numeric inputs, found '{next_value.type}'."), xule_context)
         values.append(next_value.value)
     stat_calc_value = stat_function(values)
     if math.isnan(stat_calc_value):
@@ -2396,16 +2393,16 @@ def property_number(xule_context, object_value, *args):
             else:
                 return xv.XuleValue(xule_context, int(object_value.value), 'int')
         except Exception:
-            raise XuleProcessingError(_("Cannot convert '%s' to a number" % object_value.value), xule_context)
+            raise XuleProcessingError(_(f"Cannot convert '{object_value.value}' to a number"), xule_context)
     else:
-        raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % object_value.type), xule_context)
+        raise XuleProcessingError(_(f"Property 'number' requires a string or numeric argument, found '{object_value.type}'"), xule_context)
 
 def property_int(xule_context, object_value, *args):
 
     try:
         new_int = int(object_value.value)
     except ValueError:
-        raise XuleProcessingError(_("Cannot convert '%s' to an int" % object_value.value), xule_context)
+        raise XuleProcessingError(_(f"Cannot convert '{object_value.value}' to an int"), xule_context)
     return xv.XuleValue(xule_context, new_int, 'int')
 
 def property_decimal(xule_context, object_value, *args):
@@ -2413,7 +2410,7 @@ def property_decimal(xule_context, object_value, *args):
     try:
         new_decimal = decimal.Decimal(object_value.value)
     except decimal.InvalidOperation:
-        raise XuleProcessingError(_("Cannot convert '%s' to a decimal" % object_value.value), xule_context)
+        raise XuleProcessingError(_(f"Cannot convert '{object_value.value}' to a decimal"), xule_context)
     return xv.XuleValue(xule_context, new_decimal, 'decimal')
 
 def property_is_fact(xule_context, object_value, *args):
@@ -2456,7 +2453,7 @@ def property_list_properties(xule_context, object_value, *args):
         s += "\n" + prop_name + "," + str(prop_info[PROP_ARG_NUM])
         prop_objects = prop_info[PROP_OPERAND_TYPES]
         if not isinstance(prop_objects, tuple):
-            XuleProcessingError(_("Property object types are not a tuple %s" % prop_name), xule_context)
+            XuleProcessingError(_(f"Property object types are not a tuple {prop_name}"), xule_context)
              
         if len(prop_objects) == 0:
             object_prop['unbound'].append((prop_name, str(prop_info[PROP_ARG_NUM])))
@@ -2481,14 +2478,14 @@ def property_effective_weight(xule_context, object_value, *args):
     elif args[0].type == 'qname':
         top = get_concept(dts, args[0].value)
     else:
-        raise XuleProcessingError(_("The start concept argument for the 'effective-weight' property must be a 'concept' or 'qname', found '{}'.".format(args[0].type)), xule_context)
+        raise XuleProcessingError(_(f"The start concept argument for the 'effective-weight' property must be a 'concept' or 'qname', found '{args[0].type}'."), xule_context)
     
     if args[1].type == 'concept':
         bottom = args[1].value
     elif args[1].type == 'qname':
         bottom = get_concept(dts, args[1].value)
     else:
-        raise XuleProcessingError(_("The end concept argument for the 'effective-weight' property must be a 'concept' or 'qname', found '{}'.".format(args[0].type)), xule_context)
+        raise XuleProcessingError(_(f"The end concept argument for the 'effective-weight' property must be a 'concept' or 'qname', found '{args[0].type}'."), xule_context)
     
     if top is None or bottom is None:
         # The top or bottom is not in the taxonomy
@@ -2516,14 +2513,14 @@ def property_effective_weight_network(xule_context, object_value, *args):
     elif args[0].type == 'qname':
         top = get_concept(dts, args[0].value)
     else:
-        raise XuleProcessingError(_("The start concept argument for the 'effective-weight-network' property must be a 'concept' or 'qname', found '{}'.".format(args[0].type)), xule_context)
+        raise XuleProcessingError(_(f"The start concept argument for the 'effective-weight-network' property must be a 'concept' or 'qname', found '{args[0].type}'."), xule_context)
     
     if args[1].type == 'concept':
         bottom = args[1].value
     elif args[1].type == 'qname':
         bottom = get_concept(dts, args[1].value)
     else:
-        raise XuleProcessingError(_("The end concept argument for the 'effective-weight-network' property must be a 'concept' or 'qname', found '{}'.".format(args[0].type)), xule_context)
+        raise XuleProcessingError(_(f"The end concept argument for the 'effective-weight-network' property must be a 'concept' or 'qname', found '{args[0].type}'."), xule_context)
     
     # Optional network argument
     if len(args) > 2:
@@ -2542,17 +2539,17 @@ def property_effective_weight_network(xule_context, object_value, *args):
             if len(role) == 1:
                 role = role[0]
             elif len(role) == 0:
-                raise XuleProcessingError(_("The role '{}' provided for the property 'effective-weight-network' resolves to more than 1 role. This property can only take 1 roles".format(args[2].value.localName)), xule_context)
+                raise XuleProcessingError(_(f"The role '{args[2].value.localName}' provided for the property 'effective-weight-network' resolves to more than 1 role. This property can only take 1 roles"), xule_context)
             else:
-                raise XuleProcessingError(_("The role '{}' provided for the property 'effective-weight-network' does not resolve to any role".format(args[2].value.localName)), xule_context)
+                raise XuleProcessingError(_(f"The role '{args[2].value.localName}' provided for the property 'effective-weight-network' does not resolve to any role"), xule_context)
             networks = get_networks(xule_context, object_value, CORE_ARCROLES['summation-item'], role)
             networks |= get_networks(xule_context, object_value, CORE_ARCROLES['summation-item2'], role)
         elif args[2].type in ('set', 'list'):
             networks = args[2].value
         else:
-            raise XuleProcessingError(_("The optional network argument for the 'effective-weight-network' property must be one of 'network, role, uri, role uri string, short role name or set/list of networks', found '{}'".format(args[2].type)), xule_context)
+            raise XuleProcessingError(_(f"The optional network argument for the 'effective-weight-network' property must be one of 'network, role, uri, role uri string, short role name or set/list of networks', found '{args[2].type}'"), xule_context)
         
-        bad_networks = tuple("\tArc role: {}, Role: {}".format(x.value[NETWORK_INFO][NETWORK_ARCROLE], x.value[NETWORK_INFO][NETWORK_ROLE]) 
+        bad_networks = tuple(f"\tArc role: {x.value[NETWORK_INFO][NETWORK_ARCROLE]}, Role: {x.value[NETWORK_INFO][NETWORK_ROLE]}" 
                              for x in networks if x.value[NETWORK_INFO][NETWORK_ARCROLE] not in (CORE_ARCROLES['summation-item'], CORE_ARCROLES['summation-item2']))
         
         if len(bad_networks) > 0:
@@ -2643,7 +2640,7 @@ def property_time_span(xule_context, object_value, *args):
         try:
             return xv.XuleValue(xule_context, parse_duration(object_value.value.upper()), 'time-period')
         except:
-            raise XuleProcessingError(_("Could not convert '%s' into a time-period." % object_value.value), xule_context)
+            raise XuleProcessingError(_(f"Could not convert '{object_value.value}' into a time-period."), xule_context)
     else: # duration
         return xv.XuleValue(xule_context, object_value.value[1] - object_value.value[0], 'time-period')
 
@@ -2654,17 +2651,17 @@ def property_date(xule_context, object_value, *args):
     elif object_value.type == 'string':
         return xv.XuleValue(xule_context, xv.iso_to_date(xule_context, object_value.value), 'instant')
     else:
-        raise XuleProcessingError(_("Property 'date' requires a string or an instant argument, found '%s'" % object_value.type), xule_context)
+        raise XuleProcessingError(_(f"Property 'date' requires a string or an instant argument, found '{object_value.type}'"), xule_context)
 
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
-        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
+        raise XuleProcessingError(_(f"Property regex match requires a string for the regex pattern, found '{pattern.type}'"))
 
     return regex_match_object(xule_context, object_value.value, pattern)
 
 def property_regex_match_all(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
-        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
+        raise XuleProcessingError(_(f"Property regex match requires a string for the regex pattern, found '{pattern.type}'"))
 
     search_start = 0
     xule_matches = []
@@ -2686,7 +2683,7 @@ def regex_match_object(xule_context, search_string, pattern, start=0):
     try:
         re_result = re.search(pattern.value, search_string)
     except Exception as e:
-        raise XuleProcessingError(_("Error evaluaing regular exparession. Message: {}".format(e)))
+        raise XuleProcessingError(_(f"Error evaluaing regular exparession. Message: {e}"))
 
     if re_result is None:
         # There were no matches
@@ -2723,7 +2720,7 @@ def property_regex_match_string(xule_context, object_value, *args):
         raise XuleProcessingError(_("Property regex-match-stirng requires a match pattern"))
 
     if args[0].type != 'string':
-        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(args[0].type)))
+        raise XuleProcessingError(_(f"Property regex match requires a string for the regex pattern, found '{args[0].type}'"))
     else:
         pattern = args[0]
     
@@ -2731,7 +2728,7 @@ def property_regex_match_string(xule_context, object_value, *args):
         try:
             group_num = int(args[1].value)
         except (ValueError, TypeError):
-            raise XuleProcessingError(_("Second argument of regex-match-string cannot be converted to an integer, found value '{}'".format(args[1].value)))
+            raise XuleProcessingError(_(f"Second argument of regex-match-string cannot be converted to an integer, found value '{args[1].value}'"))
     else:
         group_num = None
 
@@ -2742,7 +2739,7 @@ def property_regex_match_string_all(xule_context, object_value, *args):
         raise XuleProcessingError(_("Property regex-match-stirng requires a match pattern"))
 
     if args[0].type != 'string':
-        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(args[0].type)))
+        raise XuleProcessingError(_(f"Property regex match requires a string for the regex pattern, found '{args[0].type}'"))
     else:
         pattern = args[0]
     
@@ -2750,7 +2747,7 @@ def property_regex_match_string_all(xule_context, object_value, *args):
         try:
             group_num = int(args[1].value)
         except (ValueError, TypeError):
-            raise XuleProcessingError(_("Second argument of regex-match-string cannot be converted to an integer, found value '{}'".format(args[1].value)))
+            raise XuleProcessingError(_(f"Second argument of regex-match-string cannot be converted to an integer, found value '{args[1].value}'"))
     else:
         group_num = None
 
@@ -2774,7 +2771,7 @@ def regex_match_string(xule_context, search_string, pattern, group_num=None):
     try:
         re_result = re.search(pattern.value, search_string)
     except Exception as e:
-        raise XuleProcessingError(_("Error evaluaing regular exparession. Message: {}".format(e)))
+        raise XuleProcessingError(_(f"Error evaluaing regular exparession. Message: {e}"))
 
     if re_result is None:
         return xv.XuleValue(xule_context, None, 'none'), 0
@@ -2782,7 +2779,7 @@ def regex_match_string(xule_context, search_string, pattern, group_num=None):
         try:
             return xv.XuleValue(xule_context, re_result.group(group_num or 0), 'string'), re_result.end()
         except IndexError:
-            raise XuleProcessingError(_("Group does not exist for group number {} for regex-match-string".format(group_num)))
+            raise XuleProcessingError(_(f"Group does not exist for group number {group_num} for regex-match-string"))
 
 def property_inline_parents(xule_context, object_value, *args):
     result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in _traverse_for_inline_ancestor_facts(xule_context, object_value.fact, 1) if isinstance(x, ModelInlineFact))
@@ -3375,10 +3372,10 @@ ORDERED_REFERENCE_ROLE = ['http://www.xbrl.org/2003/role/reference',
 
 def add_property(property_name, property_function, num_of_args, objects, allow_unbound=False):
     if property_name in PROPERTIES:
-        raise XuleProcessingError(_("Cannot add property .{} to xule, it already exists".format(property_name)))
+        raise XuleProcessingError(_(f"Cannot add property .{property_name} to xule, it already exists"))
     else:
         if not isinstance(objects, (list, set, tuple)):
-            raise XuleProcessingError(_('The list of objects supplied to add_property() function must be a list, set or tuple. Found {}'.format(type(objects).__name__)))
+            raise XuleProcessingError(_(f'The list of objects supplied to add_property() function must be a list, set or tuple. Found {type(objects).__name__}'))
         if any(tuple(type(x) != str for x in objects)):
             raise XuleProcessingError(_('The items in the list of objects for the add_property() function must be strings. Found something that is not a string'))
         PROPERTIES[property_name] = (property_function, num_of_args, objects, allow_unbound)

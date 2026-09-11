@@ -78,7 +78,7 @@ def func_forever(xule_context, *args):
 def func_unit(xule_context, *args):
     
     if len(args) == 0 or len(args) > 2:
-        raise XuleProcessingError(_("The unit() function takes 1 or 2 arguments, found {}".format(len(args))), xule_context)
+        raise XuleProcessingError(_(f"The unit() function takes 1 or 2 arguments, found {len(args)}"), xule_context)
     
     return xv.XuleValue(xule_context, xv.XuleUnit(*args), 'unit')
 
@@ -87,7 +87,7 @@ def func_entity(xule_context, *args):
     identifier = args[1]
     
     if scheme.type != 'string' or identifier.type != 'string':
-        raise XuleProcessingError(_("The entity scheme and identifier must be strings. Found '%s' and '%s'" % (scheme.type, identifier.type)), xule_context)
+        raise XuleProcessingError(_(f"The entity scheme and identifier must be strings. Found '{scheme.type}' and '{identifier.type}'"), xule_context)
     
     return xv.XuleValue(xule_context, (scheme.value, identifier.value), 'entity')
 
@@ -96,9 +96,9 @@ def func_qname(xule_context, *args):
     local_name_arg = args[1]
     
     if namespace_uri_arg.type not in ('string', 'uri', 'unbound', 'none'):
-        raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '%s'" % namespace_uri_arg.type), xule_context)
+        raise XuleProcessingError(_(f"Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '{namespace_uri_arg.type}'"), xule_context)
     if local_name_arg.type != 'string':
-        raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name_arg.type), xule_context)
+        raise XuleProcessingError(_(f"Function 'qname' requires the local_part argument to be a string, found '{local_name_arg.type}'"), xule_context)
 
     if namespace_uri_arg.type == 'unbound':
         return xv.XuleValue(xule_context, qname(local_name_arg.value, noPrefixIsNoNamespace=True), 'qname')
@@ -124,7 +124,7 @@ def func_uri(xule_context, *args):
     elif arg.type == 'uri':
         return arg
     else:
-        raise XuleProcessingError(_("The 'uri' function requires a string argument, found '%s'." % arg.type), xule_context) 
+        raise XuleProcessingError(_(f"The 'uri' function requires a string argument, found '{arg.type}'."), xule_context) 
 
 # def func_time_span(xule_context, *args):
 #     arg = args[0]
@@ -146,7 +146,7 @@ def func_schema_type(xule_context, *args):
         else:
             return xv.XuleValue(xule_context, None, 'none')
     else:
-        raise XuleProcessingError(_("Function 'schema' expects a qname argument, found '%s'" % arg.type), xule_context)
+        raise XuleProcessingError(_(f"Function 'schema' expects a qname argument, found '{arg.type}'"), xule_context)
 
 def func_num_to_string(xule_context, *args):
     arg = args[0]
@@ -154,16 +154,16 @@ def func_num_to_string(xule_context, *args):
     if arg.type in ('int', 'float', 'decimal'):
         return xv.XuleValue(xule_context, format(arg.value, ","), 'string')
     else:
-        raise XuleProcessingError(_("function 'num_to_string' requires a numeric argument, found '%s'" % arg.type), xule_context)
+        raise XuleProcessingError(_(f"function 'num_to_string' requires a numeric argument, found '{arg.type}'"), xule_context)
         
 def func_mod(xule_context, *args):
     numerator = args[0]
     denominator = args[1]
     
     if numerator.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("The numerator for the 'mod' function must be numeric, found '%s'" % numerator.type), xule_context) 
+        raise XuleProcessingError(_(f"The numerator for the 'mod' function must be numeric, found '{numerator.type}'"), xule_context) 
     if denominator.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("The denominator for the 'mod' function must be numeric, found '%s'" % denominator.type), xule_context)
+        raise XuleProcessingError(_(f"The denominator for the 'mod' function must be numeric, found '{denominator.type}'"), xule_context)
     
     combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(numerator, denominator, xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)
@@ -174,23 +174,23 @@ def func_random(xule_context, *args):
     
     if len(args) >= 1:
         if args[0].type not in ('int', 'decimal', 'float', 'none'):
-            raise XuleProcessingError(_("First argument of the random() function must be numeric, found '{}'".format(args[0].type)), xule_context)
+            raise XuleProcessingError(_(f"First argument of the random() function must be numeric, found '{args[0].type}'"), xule_context)
         start = args[0].value or 0.0
     else:
         start = 0.0
     
     if len(args) >= 2:
         if args[1].type not in ('int', 'decimal', 'float', 'none'):
-            raise XuleProcessingError(_("Second argument of the random() function must be numeric, found '{}'".format(args[1].type)), xule_context)
+            raise XuleProcessingError(_(f"Second argument of the random() function must be numeric, found '{args[1].type}'"), xule_context)
         end = args[1].value or 1.0
     else:
         end = 1.0
 
     if len(args) == 3:
         if args[2].type != 'string':
-            raise XuleProcessingError(_("Third argument of the random() function must be a string of 'int' or 'decimal', found non string of type '{}'".format(args[2].type)), xule_context)
+            raise XuleProcessingError(_(f"Third argument of the random() function must be a string of 'int' or 'decimal', found non string of type '{args[2].type}'"), xule_context)
         if args[2].value not in ('int', 'decimal'):
-            raise XuleProcessingError(_("Third argument of the random() function must be a string of 'int' or 'decimal', found '{}''".format(args[2].value)), xule_context)
+            raise XuleProcessingError(_(f"Third argument of the random() function must be a string of 'int' or 'decimal', found '{args[2].value}''"), xule_context)
         result_type = args[2].value
     else:
         result_type = 'decimal'
@@ -260,7 +260,7 @@ def agg_all(xule_context, values):
     
     for current_value in values:
         if current_value.type != 'bool':
-            raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % current_value.type), xule_context)
+            raise XuleProcessingError(_(f"Function all can only operator on booleans, but found '{current_value.type}'."), xule_context)
         if current_value.value and current_value.tags is not None:
             tags.update(current_value.tags)
         if current_value.value and current_value.facts is not None:
@@ -284,7 +284,7 @@ def agg_any(xule_context, values):
     
     for current_value in values:
         if current_value.type != 'bool':
-            raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % current_value.type), xule_context)
+            raise XuleProcessingError(_(f"Function all can only operator on booleans, but found '{current_value.type}'."), xule_context)
         if current_value.value and current_value.tags is not None:
             tags.update(current_value.tags)
         if current_value.value and current_value.facts is not None:
@@ -400,7 +400,7 @@ def agg_dict(xule_context, values):
     
     for current_value in values:
         if current_value.type != 'list':
-            raise XuleProcessingError(_("Arguments for the dict() function must be lists of key/value pairs, found %s" % current_value.type),
+            raise XuleProcessingError(_(f"Arguments for the dict() function must be lists of key/value pairs, found {current_value.type}"),
                                       xule_context)
         if len(current_value.value) != 2:
             continue
@@ -452,13 +452,13 @@ def func_taxonomy(xule_context, *args):
     elif len(args) == 1:
         taxonomy_url = args[0]
         if taxonomy_url.type not in ('string', 'uri'):
-            raise XuleProcessingError(_("The taxonomy() function takes a string or uri, found {}.".format(taxonomy_url.type)), xule_context)
+            raise XuleProcessingError(_(f"The taxonomy() function takes a string or uri, found {taxonomy_url.type}."), xule_context)
         
         other_taxonomy = xule_context.get_other_taxonomies(taxonomy_url.value)
         setattr(other_taxonomy, 'taxonomy_name', taxonomy_url.value)
         return xv.XuleValue(xule_context, other_taxonomy , 'taxonomy')
     else:
-        raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
+        raise XuleProcessingError(_(f"The taxonomy() function takes at most 1 argument, found {len(args)}"))
 
 def func_excel_data(xule_context, *args):
     """Read an excel file/url
@@ -473,26 +473,26 @@ def func_excel_data(xule_context, *args):
     """
     # Validate the arguments
     if len(args) < 1:
-        raise XuleProcessingError(_("The excel-datat() function requires at least 1 argument (file url, found {} arguments".format(len(args))), xule_context)
+        raise XuleProcessingError(_(f"The excel-datat() function requires at least 1 argument (file url, found {len(args)} arguments"), xule_context)
     if len(args) > 5:
-        raise XuleProcessingError(_("The excel-data() function takes no more than 5 arguments (file url, range, has_headers, columne types, as dictionary), found {}".format(len(args))), xule_context)
+        raise XuleProcessingError(_(f"The excel-data() function takes no more than 5 arguments (file url, range, has_headers, columne types, as dictionary), found {len(args)}"), xule_context)
 
     file_url = args[0]
     if file_url.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("The file url argument (1st) of the excel-data() function must be a string or uri, found {}".format(file_url.type)), xule_context)
+        raise XuleProcessingError(_(f"The file url argument (1st) of the excel-data() function must be a string or uri, found {file_url.type}"), xule_context)
 
     if len(args) > 1:
         range_descriptor = args[1]
         if range_descriptor.type == 'none':
             range_descriptor = None
         elif range_descriptor.type != 'string':
-            raise XuleProcessingError(_("The cell range argument (2nd) of the excel-data() function must be a string, found {}".format(range_descriptor.type)), xule_context)
+            raise XuleProcessingError(_(f"The cell range argument (2nd) of the excel-data() function must be a string, found {range_descriptor.type}"), xule_context)
     else:
         range_descriptor = None
 
     if len(args) > 2:
         if args[2].type not in ('bool', 'none'):
-            raise XuleProcessingError(_("The has headers argument (3rd) of the excel-data() function muset be a boolean, found '{}'.".format(args[2].type)), xule_context)
+            raise XuleProcessingError(_(f"The has headers argument (3rd) of the excel-data() function muset be a boolean, found '{args[2].type}'."), xule_context)
         has_headers = args[2].value
     else: # default is false
         has_headers = False
@@ -506,7 +506,7 @@ def func_excel_data(xule_context, *args):
         if args[4].type == 'none':
             return_row_type = 'list'
         elif args[4].type != 'bool':
-            raise XuleProcessingError(_("The as dictionary argument (5th) of the excel-data() function must be a boolean, found '{}'.".format(args[4].type)), xule_context)
+            raise XuleProcessingError(_(f"The as dictionary argument (5th) of the excel-data() function must be a boolean, found '{args[4].type}'."), xule_context)
         if args[2].value:
             return_row_type = 'dictionary'
         else:
@@ -559,7 +559,7 @@ def func_excel_data(xule_context, *args):
             try:
                 ws = wb[range_sheet]
             except KeyError:
-                raise XuleProcessingError(_("Sheet '{}' does not exist in workbook '{}'".format(range_sheet, file_url.value)), xule_context)
+                raise XuleProcessingError(_(f"Sheet '{range_sheet}' does not exist in workbook '{file_url.value}'"), xule_context)
             if range_cells_text is None:
                 # it will be the whole sheet
                 rows = ws.rows
@@ -567,7 +567,7 @@ def func_excel_data(xule_context, *args):
                 try:
                     rows = ws[range_cells_text]
                 except ValueError:
-                    raise XuleProcessingError(_("Cell range '{}' is not a valid cell range for worksheet '{}' in workbook '{}'".format(range_cells_text, range_sheet, file_url.value)), xule_context)
+                    raise XuleProcessingError(_(f"Cell range '{range_cells_text}' is not a valid cell range for worksheet '{range_sheet}' in workbook '{file_url.value}'"), xule_context)
 
             if not isinstance(rows, Iterable):
                 # This is a single cell refernce. Row will be the cell
@@ -581,7 +581,7 @@ def func_excel_data(xule_context, *args):
                         # Need to get the names from the first row
                         column_names = [x.value for x in row]
                         if len(column_names) != len(set(column_names)):
-                            raise XuleProcessingError(_("There are duplicate column names in the excel file. This is not allowed when return rows as dictionaries. File: {}".format(file_url.value)), xule_context)
+                            raise XuleProcessingError(_(f"There are duplicate column names in the excel file. This is not allowed when return rows as dictionaries. File: {file_url.value}"), xule_context)
                     continue # now skip to the next line
                 if return_row_type == 'list':
                     result_line = list()
@@ -592,7 +592,7 @@ def func_excel_data(xule_context, *args):
                 
                 for col_num, item in enumerate(row):
                     if ordered_cols is not None and col_num >= len(ordered_cols):
-                        raise XuleProcessingError(_("The nubmer of columns on row {} is greater than the number of column types provided in the 4th argument of the excel-data() function. File: {}".format(row_num, file_url.value)), xule_context)
+                        raise XuleProcessingError(_(f"The nubmer of columns on row {row_num} is greater than the number of column types provided in the 4th argument of the excel-data() function. File: {file_url.value}"), xule_context)
                     
                     if type(item.value) == datetime.datetime:
                         v = item.value.isoformat()
@@ -608,8 +608,7 @@ def func_excel_data(xule_context, *args):
                         result_line_shadow.append(item_value.value)
                     else: #dictonary
                         if col_num >= len(column_names):
-                            raise xule_context(_("The number of columns on row {} is greater than the number of headers in the csv file. File: {}".format(row_num, 
-                                                                                                                                                        mappedUrl if mapped_file_url == file_url.value else file_url.value + ' --> ' + mapped_file_url)), xule_context)
+                            raise XuleProcessingError(_(f"The number of columns on row {row_num} is greater than the number of headers in the excel file. File: {file_url.value}"), xule_context)
 
                         result_line[xv.XuleValue(xule_context, column_names[col_num], 'string')] = item_value
                         result_line_shadow[column_names[col_num]] = item_value.value
@@ -663,17 +662,17 @@ def func_csv_data(xule_context, *args):
     if len(args) == 0:
         raise XuleProcessingError(_("The csv-data() function requires at least 1 argument (file url), found no arguments."), xule_context)
     if len(args) > 4:
-        raise XuleProcessingError(_("The csv-data() function takes no more than 4 arguments (file url, has headers, column types, as dictionary), found {} arguments.".format(len(args))), xule_context)
+        raise XuleProcessingError(_(f"The csv-data() function takes no more than 4 arguments (file url, has headers, column types, as dictionary), found {len(args)} arguments."), xule_context)
 
     file_url = args[0]
     
 
     if file_url.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("The file url argument (1st argument) of the csv-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
+        raise XuleProcessingError(_(f"The file url argument (1st argument) of the csv-dta() function must be a string or uri, found '{file_url.value}'."), xule_context)
     
     if len(args) > 1:
         if args[1].type != 'bool':
-            raise XuleProcessingError(_("The has headers argument (2nd argument) of the csv-data() function muset be a boolean, found '{}'.".format(args[1].type)), xule_context)
+            raise XuleProcessingError(_(f"The has headers argument (2nd argument) of the csv-data() function muset be a boolean, found '{args[1].type}'."), xule_context)
         has_headers = args[1].value
     else: # default is false
         has_headers = False
@@ -685,7 +684,7 @@ def func_csv_data(xule_context, *args):
     
     if len(args) == 4:
         if args[3].type != 'bool':
-            raise XuleProcessingError(_("The as dictionary argument (4th argument) of the csv-data() function must be a boolean, found '{}'.".format(args[3].type)), xule_context)
+            raise XuleProcessingError(_(f"The as dictionary argument (4th argument) of the csv-data() function must be a boolean, found '{args[3].type}'."), xule_context)
         if args[3].value:
             return_row_type = 'dictionary'
         else:
@@ -721,7 +720,7 @@ def func_csv_data(xule_context, *args):
                 # Need to get the names from the first row
                 column_names = [x for x in line]
                 if len(column_names) != len(set(column_names)):
-                    raise XuleProcessingError(_("There are duplicate column names in the csv file. This is not allowed when return rows as dictionaries. File: {}".format(file_url.value)), xule_context)
+                    raise XuleProcessingError(_(f"There are duplicate column names in the csv file. This is not allowed when return rows as dictionaries. File: {file_url.value}"), xule_context)
                 
             continue
         
@@ -734,7 +733,7 @@ def func_csv_data(xule_context, *args):
             
         for col_num, item in enumerate(line):
             if ordered_cols is not None and col_num >= len(ordered_cols):
-                raise XuleProcessingError(_("The nubmer of columns on row {} is greater than the number of column types provided in the third argument of the csv-data() function. File: {}".format(row_num, file_url.value)), xule_context)
+                raise XuleProcessingError(_(f"The nubmer of columns on row {row_num} is greater than the number of column types provided in the third argument of the csv-data() function. File: {file_url.value}"), xule_context)
             
             item_value = convert_file_data_item(item, ordered_cols[col_num] if ordered_cols is not None else None, xule_context)
 
@@ -743,8 +742,7 @@ def func_csv_data(xule_context, *args):
                 result_line_shadow.append(item_value.value)
             else: #dictonary
                 if col_num >= len(column_names):
-                    raise xule_context(_("The number of columns on row {} is greater than the number of headers in the csv file. File: {}".format(row_num, 
-                                                                                                                                                  mappedUrl if mapped_file_url == file_url.value else file_url.value + ' --> ' + mapped_file_url)), xule_context)
+                    raise XuleProcessingError(_(f"The number of columns on row {row_num} is greater than the number of headers in the csv file. File: {mapped_file_url if mapped_file_url == file_url.value else file_url.value + ' --> ' + mapped_file_url}"), xule_context)
 
                 result_line[xv.XuleValue(xule_context, column_names[col_num], 'string')] = item_value
                 result_line_shadow[column_names[col_num]] = item_value.value
@@ -766,10 +764,10 @@ def validate_data_field_types(column_types, func_name, xule_context):
         ordered_cols = list()
         for col in column_types.value:
             if col.type not in  ('string', 'qname', 'list'): # qnames are used for transforms
-                raise XuleProcessingError(_("The type list argument (3rd argument) of the {}() function must be a list of strings or qnames (for transforms) or a 2 item list of the transform and output type, found '{}'.".format(func_name, col.type)), xule_context)
+                raise XuleProcessingError(_(f"The type list argument (3rd argument) of the {func_name}() function must be a list of strings or qnames (for transforms) or a 2 item list of the transform and output type, found '{col.type}'."), xule_context)
             ordered_cols.append(col)
     else:
-        raise XuleProcessingError(_("The type list argument (3rd argument) of the {}() fucntion must be list, found '{}'.".format(func_name, column_types.type)), xule_context)
+        raise XuleProcessingError(_(f"The type list argument (3rd argument) of the {func_name}() fucntion must be list, found '{column_types.type}'."), xule_context)
 
     return ordered_cols
 
@@ -788,24 +786,24 @@ def convert_file_data_item(val, value_type, xule_context):
             if len(value_type.value) != 2:
                 raise XuleProcessingError(_("When the type value is a list, it must have 2 items, the first is the transform name and the second is output type"), xule_context)
             if value_type.value[0].type != 'qname':
-                raise XuleProcessingError(_("The fist item in a type list must be a qname for a transform. Found '{}'".format(value_type.value[0].type)), xule_context)
+                raise XuleProcessingError(_(f"The fist item in a type list must be a qname for a transform. Found '{value_type.value[0].type}'"), xule_context)
             f = value_type.value[0].value
             if value_type.value[1].type != 'string':
-                raise XuleProcessingError(_("The second item in a type list must be sting indicating the output type. Found '{}'".format(value_type.value[1].type)), xule_context)
+                raise XuleProcessingError(_(f"The second item in a type list must be sting indicating the output type. Found '{value_type.value[1].type}'"), xule_context)
             output_type = value_type.value[1].value
 
         if f.namespaceURI in FunctionIxt.ixtNamespaceFunctions:
             try:
                 v = FunctionIxt.ixtNamespaceFunctions[f.namespaceURI][f.localName](val)
             except Exception as err:
-                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, f.clarkNotation)))
+                raise XuleProcessingError(_(f"Unable to convert '{val}' using transform '{f.clarkNotation}'."))
         else:
             try:
                 v = xule_context.model.modelManager.customTransforms[f](val)
             except KeyError as err:
-                raise XuleProcessingError(_("Transform '{}' is unknown".format(f.clarkNotation)))
+                raise XuleProcessingError(_(f"Transform '{f.clarkNotation}' is unknown"))
             except Exception as err:
-                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, f.clarkNotation)))
+                raise XuleProcessingError(_(f"Unable to convert '{val}' using transform '{f.clarkNotation}'."))
     else: #This is a string indicating the output type
         output_type = value_type.value
         v = val
@@ -817,7 +815,7 @@ def convert_file_data_item(val, value_type, xule_context):
         elif v.count(':') == 1:
             prefix, local_name = v.split(':')
         else:
-            raise XuleProcessingError(_("While processing a data file, QName in a file can only have one ':', found {} ':'s".format(val.count(':'))), xule_context)
+            raise XuleProcessingError(_(f"While processing a data file, QName in a file can only have one ':', found {val.count(':')} ':'s"), xule_context)
         
         namespace = xule_context.rule_set.getNamespaceUri(prefix)
         
@@ -826,17 +824,17 @@ def convert_file_data_item(val, value_type, xule_context):
         try:
             return xv.XuleValue(xule_context, int(v), 'int')
         except ValueError:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(val, value_type.value)), xule_context)
+            raise XuleProcessingError(_(f"While processing a data file, cannot convert '{val}' to an {value_type.value}."), xule_context)
     elif output_type == 'float':
         try:
             return xv.XuleValue(xule_context, float(v), 'float')
         except ValueError:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, value_type.value)), xule_context)
+            raise XuleProcessingError(_(f"While processing a data file, cannot convert '{val}' to a {value_type.value}."), xule_context)
     elif output_type == 'decimal':
         try:
             return xv.XuleValue(xule_context, decimal.Decimal(v), 'decimal')
         except decimal.InvalidOperation:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, value_type.value)), xule_context)
+            raise XuleProcessingError(_(f"While processing a data file, cannot convert '{val}' to a {value_type.value}."), xule_context)
     elif output_type == 'string':
         return xv.XuleValue(xule_context, v, 'string')  
     elif output_type == 'date':
@@ -849,7 +847,7 @@ def convert_file_data_item(val, value_type, xule_context):
         except Exception as e:
             raise XuleProcessingError(_(f"Trying to process a field as XML, but it is not valid XML. Value is \n{v}"), xule_context)
     else:
-        raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(output_type)), xule_context)
+        raise XuleProcessingError(_(f"While processing a data file, {output_type} is not implemented."), xule_context)
 
 
 def func_json_data(xule_context, *args):
@@ -864,7 +862,7 @@ def func_json_data(xule_context, *args):
     file_url = args[0]
 
     if file_url.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("The file url argument of the json-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
+        raise XuleProcessingError(_(f"The file url argument of the json-dta() function must be a string or uri, found '{file_url.value}'."), xule_context)
 
     mapped_file_url = xule_context.global_context.cntlr.packages.map(file_url.value)
 
@@ -878,7 +876,7 @@ def func_json_data(xule_context, *args):
         json_source = json.loads(''.join(data_source))
     #except JSONDecodeError:
     except ValueError:
-        raise XuleProcessingError(_("The file '{}' is not a valid JSON file.".format(file_url.value)), xule_context)
+        raise XuleProcessingError(_(f"The file '{file_url.value}' is not a valid JSON file."), xule_context)
     
     x = xv.system_collection_to_xule(json_source, xule_context)
     return xv.system_collection_to_xule(json_source, xule_context)
@@ -904,7 +902,7 @@ def func_xml_data_flat(xule_context, *args):
     fields = args[2]
 
     if file_url.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("The file url argument of the xml-data-flat() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
+        raise XuleProcessingError(_(f"The file url argument of the xml-data-flat() function must be a string or uri, found '{file_url.value}'."), xule_context)
 
     if locator_xpath.type != 'string':
         raise XuleProcessingError(_("The xpath locator for function xml-data-flat() is not a string"), xule_context)
@@ -963,7 +961,7 @@ def func_xml_data_flat(xule_context, *args):
                     else:
                         field_val = field_result[0]
                     if ordered_cols is not None and field_count >= len(ordered_cols):
-                        raise XuleProcessingError(_("The number of columns on row {} is greater than the number of column types provided in the third argument of the csv-data() function. File: {}".format(row_num, file_url.value)), xule_context)
+                        raise XuleProcessingError(_(f"The number of columns on row {row_num} is greater than the number of column types provided in the third argument of the csv-data() function. File: {file_url.value}"), xule_context)
             
                     field_val = convert_file_data_item(field_val, ordered_cols[field_count] if ordered_cols is not None else None, xule_context)
             except:
@@ -1029,11 +1027,11 @@ def func_range(xule_context, *args):
         if arg.type not in ('int', 'float', 'decimal'):
             ordinal = "%d%s" % (position,"tsnrhtdd"[(position/10%10!=1)*(position%10<4)*position%10::4])
             raise XuleProcessingError(
-                _("The {} argument of the 'range' function must be a number, found '{}'".format(ordinal, arg.type)), xule_context)
+                _(f"The {ordinal} argument of the 'range' function must be a number, found '{arg.type}'"), xule_context)
         if not xv.xule_castable(arg, 'int', xule_context):
             ordinal = "%d%s" % (position, "tsnrhtdd"[(position / 10 % 10 != 1) * (position % 10 < 4) * position % 10::4])
             raise XuleProcessingError(
-                _("The {} argument of the 'range' function must be an integer, found '{}'".format(ordinal, arg.value)),
+                _(f"The {ordinal} argument of the 'range' function must be an integer, found '{arg.value}'"),
                 xule_context)
 
 
@@ -1062,11 +1060,11 @@ def func_difference(xule_context, *args):
 
     if args[0].type != 'set':
         raise XuleProcessingError(
-            _("The first argument to the difference() fucntion must be a set, found '{}'".format(args[0].type)),
+            _(f"The first argument to the difference() fucntion must be a set, found '{args[0].type}'"),
             xule_context)
     if args[1].type != 'set':
         raise XuleProcessingError(
-            _("The second argument to the difference() fucntion must be a set, found '{}'".format(args[1].type)),
+            _(f"The second argument to the difference() fucntion must be a set, found '{args[1].type}'"),
             xule_context)
 
     return xu.subtract_sets(xule_context, args[0], args[1])
@@ -1076,11 +1074,11 @@ def func_symmetric_difference(xule_context, *args):
 
     if args[0].type != 'set':
         raise XuleProcessingError(
-            _("The first argument to the symmetric_difference() fucntion must be a set, found '{}'".format(args[0].type)),
+            _(f"The first argument to the symmetric_difference() fucntion must be a set, found '{args[0].type}'"),
             xule_context)
     if args[1].type != 'set':
         raise XuleProcessingError(
-            _("The second argument to the symmetric_difference() fucntion must be a set, found '{}'".format(args[1].type)),
+            _(f"The second argument to the symmetric_difference() fucntion must be a set, found '{args[1].type}'"),
             xule_context)
 
     return xu.symetric_difference(xule_context, args[0], args[1])
@@ -1265,6 +1263,6 @@ BUILTIN_FUNCTIONS = built_in_functions()
 
 def add_normal_function(function_name, function, num_of_args, allow_unbound=False, result_number='single'):
     if function_name in BUILTIN_FUNCTIONS:
-        raise XuleProcessingError(_("Cannot add function {}() to xule, it already exists".format(function_name)))
+        raise XuleProcessingError(_(f"Cannot add function {function_name}() to xule, it already exists"))
     else:
         BUILTIN_FUNCTIONS[function_name] = ('regular', function, num_of_args, allow_unbound, result_number)
