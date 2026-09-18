@@ -378,6 +378,10 @@ class XuleRuleContext(object):
         
         self.iteration_table = XuleIterationTable(self)
         self.vars = collections.defaultdict(list)
+        # node_ids whose variable stack currently has a 'for' variable on top. Maintained
+        # incrementally by add_var/add_arg/del_arg so find_for_vars() does not have to scan every
+        # variable on every call - it is called once per cache key, millions of times per filing.
+        self._for_var_nodes = set()
         self.id_prefix = []  
         self.column_prefix = []   
         self.no_alignment = False
@@ -524,6 +528,7 @@ class XuleRuleContext(object):
     def reset_iteration(self):
         """Reset the rule context for the next iteration of a rule"""
         self.vars = collections.defaultdict(list)
+        self._for_var_nodes = set()
         self.id_prefix = []
         self.column_prefix = []
         self.aligned_result_only = False
@@ -585,7 +590,8 @@ class XuleRuleContext(object):
                     }
 
         self.vars[node_id].append(var_info)
-                  
+        self._for_var_nodes.discard(node_id)
+
         return var_info
         
     def add_arg(self, name, node_id, tag, value, number, is_for=False):
@@ -614,18 +620,31 @@ class XuleRuleContext(object):
             var_info['is_for'] = True
 
         self.vars[node_id].append(var_info)
+        if is_for:
+            self._for_var_nodes.add(node_id)
+        else:
+            self._for_var_nodes.discard(node_id)
         if tag is not None:
             self.tags[tag] = value
     
     def del_arg(self, name, node_id):
         """Removes an argument from the variable stack"""
-        self.vars[node_id].pop()
-        if len(self.vars[node_id]) == 0:
+        var_stack = self.vars[node_id]
+        var_stack.pop()
+        if len(var_stack) == 0:
             del self.vars[node_id]
+            self._for_var_nodes.discard(node_id)
+        elif var_stack[-1].get('is_for', False):
+            self._for_var_nodes.add(node_id)
+        else:
+            self._for_var_nodes.discard(node_id)
 
     def find_for_vars(self):
-        # the [-1] is to get the last value for the variable on the stack.
-        return tuple(x[-1] for x in self.vars.values() if x[-1].get('is_for', False) == True)
+        # the [-1] is to get the last value for the variable on the stack. The caller collects these
+        # into a set, so the order is not significant.
+        if not self._for_var_nodes:
+            return ()
+        return tuple(self.vars[node_id][-1] for node_id in self._for_var_nodes)
 
     def find_var(self, var_name, node_id, constant_only=False):
         """Finds a variable in the variable stack
