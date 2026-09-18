@@ -337,7 +337,7 @@ def property_to_xince(xule_context, object_value, *args, _intermediate=False):
 def _prep_for_xince_json(xule_context, xule_value):
     if xule_value.type in ('set', 'list'):
         children_string = []
-        for item in xule_value.value:
+        for item in xule_value.ordered_value:
             children_string.append(property_to_xince(xule_context, item, _intermediate=True).value)
         return children_string
     if xule_value.type == 'dictionary':
@@ -356,7 +356,7 @@ def property_join(xule_context, object_value, *args):
         
         result_string = ''   
         next_sep = '' 
-        for item in object_value.value:
+        for item in object_value.ordered_value:
             result_string += next_sep + item.format_value()
             next_sep = sep.value
         
@@ -2375,7 +2375,7 @@ def property_denone(xule_context, object_value, *args):
     if object_value.type == 'set':
         new_value_content =frozenset({x for x in object_value.value if x.type != 'none'})
     else: # list
-        new_value_content = tuple(x for x in object_value.value if x.type != 'none')
+        new_value_content = tuple(x for x in object_value.ordered_value if x.type != 'none')
     
     new_value = xv.XuleValue(xule_context, new_value_content, object_value.type)
 
