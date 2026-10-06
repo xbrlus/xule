@@ -242,9 +242,16 @@ def evaluate_rule_set(global_context):
                     rule_start = datetime.datetime.today()
 
                 # Establish the rule context. A new context is created for each rule.
+                # Pass the configured expression cache size through: without it every rule silently
+                # took XuleRuleContext's 1GB default, so --xule-cache-size-bytes had no effect on
+                # rule evaluation and a rule producing a very large number of intermediate values
+                # could grow its cache until the process ran out of memory.
                 xule_context = XuleRuleContext(global_context,
                                                rule_name,
-                                               file_num)
+                                               file_num,
+                                               cache_size_bytes=getattr(global_context.options,
+                                                                        'xule_cache_size_bytes',
+                                                                        1_000_000_000))
                 # add the main table
                 xule_context.iteration_table.add_table(rule['node_id'], xule_context.get_processing_id(rule['node_id']))
 
