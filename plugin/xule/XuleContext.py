@@ -516,7 +516,7 @@ class XuleRuleContext(object):
         new_context.iteration_table = XuleIterationTable(self)
         new_context.iteration_table.add_table(table_id, processing_id)
         new_context.iteration_table.current_table.current_alignment= self.iteration_table.current_table.current_alignment
-        new_context.facts = self.facts.copy()
+        new_context.facts = self.facts  # shared: the facts dict is replaced, never changed in place
         new_context.tags = self.tags.copy()
 
         # Convert tagged 'unbound' values to 'none' values. This can happen if there is a factset that does not bind
@@ -949,7 +949,9 @@ class XuleIterationTable:
             return self.current_table.facts
     @facts.setter
     def facts(self, value):
-        self.current_table.facts = value    
+        # With no current table the getter hands out a throwaway dict, so there is nothing to keep.
+        if not self.is_empty:
+            self.current_table.facts = value
 
     @property
     def aligned_result_only(self):
