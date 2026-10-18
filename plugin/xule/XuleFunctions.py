@@ -233,7 +233,8 @@ def agg_count(xule_context, values):
 def agg_sum(xule_context, values):
     agg_value = values[0].clone()
     tags = {} if agg_value.tags is None else agg_value.tags
-    facts = collections.OrderedDict() if agg_value.facts is None else agg_value.facts
+    # A copy: agg_value is a clone and shares its facts dict with values[0].
+    facts = collections.OrderedDict() if agg_value.facts is None else collections.OrderedDict(agg_value.facts)
     
     for current_value in values[1:]:
         combined_types = xv.combine_xule_types(agg_value, current_value, xule_context)
