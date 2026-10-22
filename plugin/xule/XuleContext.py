@@ -236,7 +236,7 @@ class XuleGlobalContext(object):
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cntlr)
-        self.calc_constants_queue = Queue()
+        self.calc_constants_queue = Queue()  # threading queue; only used by single-thread fallback path
         self.rules_queue = M_Queue()    
 
         self.all_constants = None
@@ -260,6 +260,17 @@ class XuleGlobalContext(object):
                 self.num_processors = 1
         else:
             self.num_processors = int(cpunum)
+
+        # Cross-filing CPU budget coordination.  These attributes are populated by
+        # xuleCntlrWebMainStartWebServer (stored on cntlr before any fork) so that
+        # watch_processes can read and update the shared pool state.  Defaults make
+        # the budget logic a no-op when not running in xule-server mode.
+        self._cpu_state = getattr(cntlr, '_cpu_state', {'allocation': self.num_processors})
+        self.min_cpus_per_filing = getattr(cntlr, 'min_cpus_per_filing', 2)
+        self.total_cpus = getattr(cntlr, 'total_cpus', 0)
+        self.shared_available_cpus = getattr(cntlr, 'shared_available_cpus', None)
+        self.shared_running_filings = getattr(cntlr, 'shared_running_filings', None)
+        self.shared_cpu_condition = getattr(cntlr, 'shared_cpu_condition', None)
 
         '''
         # determine number of processors to use. The number of cpus should be one 
@@ -304,11 +315,11 @@ class XuleGlobalContext(object):
 
             if getattr(self.rules_model, "log", None) is not None:
                 self.rules_model.log("INFO",
-                                   "other-taxonomy", 
+                                   "other-taxonomy",
                                    "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             elif getattr(self.model, "log", None) is not None:
                 self.model.log("DEBUG",
-                               "xule.otherTaxonomyLoadTime", 
+                               "xule.otherTaxonomyLoadTime",
                                "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             else:
                 print("Taxonomy Loaded. Load time %s from '%s' " % (end - start, taxonomy_url))            
@@ -455,6 +466,7 @@ class XuleRuleContext(object):
                         val = XuleValue(self, None, 'none')
                     overrides[name] = val
             self._constant_overridess = overrides
+
         return self._constant_overridess
 
     def reload_value(self, obj, elt_type=None):
@@ -508,7 +520,7 @@ class XuleRuleContext(object):
         new_context.iteration_table = XuleIterationTable(self)
         new_context.iteration_table.add_table(table_id, processing_id)
         new_context.iteration_table.current_table.current_alignment= self.iteration_table.current_table.current_alignment
-        new_context.facts = self.facts.copy()
+        new_context.facts = self.facts  # shared: the facts dict is replaced, never changed in place
         new_context.tags = self.tags.copy()
 
         # Convert tagged 'unbound' values to 'none' values. This can happen if there is a factset that does not bind
@@ -956,7 +968,9 @@ class XuleIterationTable:
             return self.current_table.facts
     @facts.setter
     def facts(self, value):
-        self.current_table.facts = value    
+        # With no current table the getter hands out a throwaway dict, so there is nothing to keep.
+        if not self.is_empty:
+            self.current_table.facts = value
 
     @property
     def aligned_result_only(self):

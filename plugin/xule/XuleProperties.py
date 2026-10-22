@@ -2351,7 +2351,8 @@ def property_agg_to_dict(xule_context, object_value, *args):
             if key_map[key_shadow].facts is None:
                 key_map[key_shadow].facts = key_facts
             else:
-                key_map[key_shadow].facts.update(key_facts)
+                # Not update(): the key's facts dict may be shared with other values.
+                key_map[key_shadow].facts = {**key_map[key_shadow].facts, **key_facts}
 
         new_row = row.clone()
         dict_value[key_map[key_shadow]].append(new_row)
