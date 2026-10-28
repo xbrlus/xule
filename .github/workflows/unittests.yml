@@ -1,4 +1,5 @@
 name: Run XULE Unit Tests
+run-name: Run XULE Unit Tests (Arelle ${{ inputs.arelle_version }}; ref ${{ inputs.branch || github.ref_name }}; tests ${{ inputs.xule_file || 'all' }})
 
 on:
   workflow_dispatch:
@@ -189,12 +190,29 @@ jobs:
 
       - name: Compare results against expected values
         if: always()
+        env:
+          XULE_REF: ${{ inputs.branch || github.ref_name }}
+          XULE_FILE: ${{ inputs.xule_file }}
         run: |
           python3 .github/scripts/xule_test_report.py compare \
             --expected "unitTests/output/expected-${RUN_ID}.csv" \
             --output "unitTests/output/output-${RUN_ID}.txt" \
             --csv "unitTests/output/mismatches-${RUN_ID}.csv" \
             --markdown-summary "unitTests/output/summary-${RUN_ID}.md"
+          {
+            echo "## Build info"
+            echo
+            echo "| Detail | Value |"
+            echo "| --- | --- |"
+            echo "| Arelle version | \`${ARELLE_VERSION}\` |"
+            echo "| XULE branch/ref | \`${XULE_REF}\` |"
+            if [ -n "$XULE_FILE" ]; then
+              echo "| Tests | \`${XULE_FILE}\` |"
+            else
+              echo "| Tests | All |"
+            fi
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
           cat "unitTests/output/summary-${RUN_ID}.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload output artifact
