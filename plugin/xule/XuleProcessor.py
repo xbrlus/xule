@@ -242,9 +242,16 @@ def evaluate_rule_set(global_context):
                     rule_start = datetime.datetime.today()
 
                 # Establish the rule context. A new context is created for each rule.
+                # Pass the configured expression cache size through: without it every rule silently
+                # took XuleRuleContext's 1GB default, so --xule-cache-size-bytes had no effect on
+                # rule evaluation and a rule producing a very large number of intermediate values
+                # could grow its cache until the process ran out of memory.
                 xule_context = XuleRuleContext(global_context,
                                                rule_name,
-                                               file_num)
+                                               file_num,
+                                               cache_size_bytes=getattr(global_context.options,
+                                                                        'xule_cache_size_bytes',
+                                                                        1000000000))
                 # add the main table
                 xule_context.iteration_table.add_table(rule['node_id'], xule_context.get_processing_id(rule['node_id']))
 
@@ -664,7 +671,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                             # Copy the value and copy the exisiting tags
                             cache_value = value.clone()
                             cache_value.tags = copy.copy(xule_context.tags)
-                            cache_value.facts = copy.copy(xule_context.facts)
+                            cache_value.facts = xule_context.facts  # shared, see post_evaluate_value
                             #cache_value.aligned_result_only = xule_context.aligned_result_only
                             #cache_value.used_expressions = copy.copy(xule_context.used_expressions)
                             xule_context.local_cache[local_cache_key] = cache_value
@@ -726,14 +733,19 @@ def post_evaluate_value(rule_part, value, xule_context):
         raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
         # value = XuleValue(xule_context, None, 'unbound')
 
-    if value.fact is not None:
-        # xule_context.facts.append(value.fact)
-        xule_context.facts[value.fact] = None
-    if value.facts is not None:
-        #         print("before", len(xule_context.facts), len(set(xule_context.facts)))
-        #         xule_context.facts.extend(value.facts)
-        #         print("after", len(xule_context.facts), len(set(xule_context.facts)))
-        xule_context.facts.update(value.facts)
+    # The facts of the current iteration are never changed in place. When a value brings in a fact
+    # that is not already there, the context gets a new dict. This lets values snapshot the context
+    # facts by sharing the dict instead of copying it: inside a filter or user function over a
+    # collection derived from many facts, every evaluated sub-expression used to take its own copy
+    # of a dict holding all of those facts.
+    if value.fact is not None and value.fact not in xule_context.facts:
+        new_facts = dict(xule_context.facts)
+        new_facts[value.fact] = None
+        xule_context.facts = new_facts
+    if value.facts is not None and value.facts and not value.facts.keys() <= xule_context.facts.keys():
+        new_facts = dict(xule_context.facts)
+        new_facts.update(value.facts)
+        xule_context.facts = new_facts
     if value.tags is not None:
         #         # Need to make sure that the current version of the tags stay and the update only adds new tags from the value.
         #         new_tags = value.tags.copy()
@@ -1504,7 +1516,7 @@ def calc_constant(const_info, const_context):
         except XuleIterationStop as xis:
             const_value = xis.stop_value  # XuleValue(const_context, None, 'unbound')
 
-        const_value.facts = const_context.facts.copy()
+        const_value.facts = const_context.facts
         const_value.tags = const_context.tags.copy()
         const_value.aligned_result_only = const_context.aligned_result_only
         # const_value.used_expressions = const_context.used_expressions
@@ -1767,7 +1779,7 @@ def evaluate_for_body_detail(body_expr, table_id, for_loop_var, for_loop_tag, xu
             aligned_result_only = aligned_result_only or xule_context.aligned_result_only
             body_value.alignment = for_body_table.current_alignment  # xule_context.iteration_table.dependent_alignment or xule_context.iteration_table.current_table.current_alignment
             body_value.aligned_result_only = aligned_result_only
-            body_value.facts = xule_context.iteration_table.facts.copy()
+            body_value.facts = xule_context.iteration_table.facts
             body_value.tags = xule_context.iteration_table.tags.copy()
             # print("for", body_expr['exprName'], body_expr['node_id'], len(xule_context.used_expressions), len(body_value.used_expressions))
             body_value.used_expressions = xule_context.used_expressions
@@ -2316,7 +2328,7 @@ def evaluate_nesting_factset(factset, xule_context):
                                                   remove_aspects, xule_context)
             nested_value.alignment = new_alignment
 
-            nested_value.facts = xule_context.facts.copy()
+            nested_value.facts = xule_context.facts
             nested_value.tags = xule_context.tags.copy()
 
             nested_values.append(nested_value)
@@ -3035,7 +3047,7 @@ def process_filtered_facts(factset, pre_matched_facts, non_align_aspects, align_
                         elif where_value.type == 'bool':
                             if where_value.value:
                                 new_fact_value = copy.copy(fact_value)
-                                new_fact_value.facts = xule_context.iteration_table.facts.copy()
+                                new_fact_value.facts = xule_context.iteration_table.facts
                                 new_fact_value.tags = xule_context.iteration_table.tags.copy()
                                 # new_fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids + xule_context.used_vars)
                                 new_fact_value.used_expressions = pre_matched_used_expressions_ids | xule_context.used_expressions
@@ -4354,7 +4366,7 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
             except XuleIterationStop as xis:
                 return_value = xis.stop_value  # XuleValue(xule_context, None, 'unbound')
 
-            return_value.facts = xule_context.facts.copy()
+            return_value.facts = xule_context.facts
             return_value.tags = xule_context.tags.copy()
             return_value.aligned_result_only = xule_context.aligned_result_only
             return_value.used_expressions = xule_context.used_expressions

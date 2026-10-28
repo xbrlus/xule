@@ -260,6 +260,13 @@ def get_decimalized_value(fact_a, fact_b, xule_context):
     min_decimals = min(fact_a_decimals, fact_b_decimals)
 
     def _safe_round_fact_value(fact, min_decimals):
+        if fact.xValue is None:
+            # A nil or empty numeric fact has no value to round. Arelle still reports these as
+            # xValid, so fact_is_complete() admits them and they reach here when a duplicate of the
+            # same aspects carries a real value. Returning None lets the caller's equality test do
+            # the right thing: two valueless facts compare equal and are treated as duplicates,
+            # while a valueless fact and a valued one do not.
+            return None
         if min_decimals == float('inf'):
             return fact.xValue
         if isinstance(fact.xValue, decimal.Decimal):

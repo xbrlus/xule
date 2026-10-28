@@ -236,7 +236,7 @@ class XuleGlobalContext(object):
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cntlr)
-        self.calc_constants_queue = Queue()
+        self.calc_constants_queue = Queue()  # threading queue; only used by single-thread fallback path
         self.rules_queue = M_Queue()    
 
         self.all_constants = None
@@ -260,6 +260,17 @@ class XuleGlobalContext(object):
                 self.num_processors = 1
         else:
             self.num_processors = int(cpunum)
+
+        # Cross-filing CPU budget coordination.  These attributes are populated by
+        # xuleCntlrWebMainStartWebServer (stored on cntlr before any fork) so that
+        # watch_processes can read and update the shared pool state.  Defaults make
+        # the budget logic a no-op when not running in xule-server mode.
+        self._cpu_state = getattr(cntlr, '_cpu_state', {'allocation': self.num_processors})
+        self.min_cpus_per_filing = getattr(cntlr, 'min_cpus_per_filing', 2)
+        self.total_cpus = getattr(cntlr, 'total_cpus', 0)
+        self.shared_available_cpus = getattr(cntlr, 'shared_available_cpus', None)
+        self.shared_running_filings = getattr(cntlr, 'shared_running_filings', None)
+        self.shared_cpu_condition = getattr(cntlr, 'shared_cpu_condition', None)
 
         '''
         # determine number of processors to use. The number of cpus should be one 
@@ -304,11 +315,11 @@ class XuleGlobalContext(object):
 
             if getattr(self.rules_model, "log", None) is not None:
                 self.rules_model.log("INFO",
-                                   "other-taxonomy", 
+                                   "other-taxonomy",
                                    "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             elif getattr(self.model, "log", None) is not None:
                 self.model.log("DEBUG",
-                               "xule.otherTaxonomyLoadTime", 
+                               "xule.otherTaxonomyLoadTime",
                                "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             else:
                 print("Taxonomy Loaded. Load time %s from '%s' " % (end - start, taxonomy_url))            
@@ -378,10 +389,6 @@ class XuleRuleContext(object):
         
         self.iteration_table = XuleIterationTable(self)
         self.vars = collections.defaultdict(list)
-        # node_ids whose variable stack currently has a 'for' variable on top. Maintained
-        # incrementally by add_var/add_arg/del_arg so find_for_vars() does not have to scan every
-        # variable on every call - it is called once per cache key, millions of times per filing.
-        self._for_var_nodes = set()
         self.id_prefix = []  
         self.column_prefix = []   
         self.no_alignment = False
@@ -455,6 +462,7 @@ class XuleRuleContext(object):
                         val = XuleValue(self, None, 'none')
                     overrides[name] = val
             self._constant_overridess = overrides
+
         return self._constant_overridess
 
     def reload_value(self, obj, elt_type=None):
@@ -508,7 +516,7 @@ class XuleRuleContext(object):
         new_context.iteration_table = XuleIterationTable(self)
         new_context.iteration_table.add_table(table_id, processing_id)
         new_context.iteration_table.current_table.current_alignment= self.iteration_table.current_table.current_alignment
-        new_context.facts = self.facts.copy()
+        new_context.facts = self.facts  # shared: the facts dict is replaced, never changed in place
         new_context.tags = self.tags.copy()
 
         # Convert tagged 'unbound' values to 'none' values. This can happen if there is a factset that does not bind
@@ -528,7 +536,6 @@ class XuleRuleContext(object):
     def reset_iteration(self):
         """Reset the rule context for the next iteration of a rule"""
         self.vars = collections.defaultdict(list)
-        self._for_var_nodes = set()
         self.id_prefix = []
         self.column_prefix = []
         self.aligned_result_only = False
@@ -590,8 +597,7 @@ class XuleRuleContext(object):
                     }
 
         self.vars[node_id].append(var_info)
-        self._for_var_nodes.discard(node_id)
-
+                  
         return var_info
         
     def add_arg(self, name, node_id, tag, value, number, is_for=False):
@@ -620,31 +626,18 @@ class XuleRuleContext(object):
             var_info['is_for'] = True
 
         self.vars[node_id].append(var_info)
-        if is_for:
-            self._for_var_nodes.add(node_id)
-        else:
-            self._for_var_nodes.discard(node_id)
         if tag is not None:
             self.tags[tag] = value
     
     def del_arg(self, name, node_id):
         """Removes an argument from the variable stack"""
-        var_stack = self.vars[node_id]
-        var_stack.pop()
-        if len(var_stack) == 0:
+        self.vars[node_id].pop()
+        if len(self.vars[node_id]) == 0:
             del self.vars[node_id]
-            self._for_var_nodes.discard(node_id)
-        elif var_stack[-1].get('is_for', False):
-            self._for_var_nodes.add(node_id)
-        else:
-            self._for_var_nodes.discard(node_id)
 
     def find_for_vars(self):
-        # the [-1] is to get the last value for the variable on the stack. The caller collects these
-        # into a set, so the order is not significant.
-        if not self._for_var_nodes:
-            return ()
-        return tuple(self.vars[node_id][-1] for node_id in self._for_var_nodes)
+        # the [-1] is to get the last value for the variable on the stack.
+        return tuple(x[-1] for x in self.vars.values() if x[-1].get('is_for', False) == True)
 
     def find_var(self, var_name, node_id, constant_only=False):
         """Finds a variable in the variable stack
@@ -956,7 +949,9 @@ class XuleIterationTable:
             return self.current_table.facts
     @facts.setter
     def facts(self, value):
-        self.current_table.facts = value    
+        # With no current table the getter hands out a throwaway dict, so there is nothing to keep.
+        if not self.is_empty:
+            self.current_table.facts = value
 
     @property
     def aligned_result_only(self):
